@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8B46577B-52DE-4B96-A525-57F7BECE8D96}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WordPress.Model</RootNamespace>
+    <AssemblyName>WordPress.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="Blog.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="Comment.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="CustomField.cs" />
+    <Compile Include="DataStore.cs" />
+    <Compile Include="DelegateMethods.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="MD5.cs" />
+    <Compile Include="Page.cs" />
+    <Compile Include="PageListItem.cs" />
+    <Compile Include="Post.cs" />
+    <Compile Include="PostListItem.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLRPCTable.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>XMLRPCTable.resx</DependentUpon>
+    </Compile>
+    <Compile Include="XMLRPC\DeleteCommentRPC.cs" />
+    <Compile Include="XMLRPC\DeletePageRPC.cs" />
+    <Compile Include="XMLRPC\DeletePostRPC.cs" />
+    <Compile Include="XMLRPC\EditCommentRPC.cs" />
+    <Compile Include="XMLRPC\EditPostRPC.cs" />
+    <Compile Include="XMLRPC\GetAllCommentsRPC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="XMLRPC\GetCategoriesRPC.cs" />
+    <Compile Include="XMLRPC\GetCommentsRPC.cs" />
+    <Compile Include="XMLRPC\GetPageListRPC.cs" />
+    <Compile Include="XMLRPC\GetPostRPC.cs" />
+    <Compile Include="XMLRPC\GetRecentPostsRPC.cs" />
+    <Compile Include="XMLRPC\GetUsersBlogsRPC.cs" />
+    <Compile Include="XMLRPC\NewCategoryRPC.cs" />
+    <Compile Include="XMLRPC\NewCommentRPC.cs" />
+    <Compile Include="XMLRPC\NewPostRPC.cs" />
+    <Compile Include="XMLRPC\XmlRemoteProcedureCall.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XMLRPC\blogger_deletePost.xml" />
+    <Content Include="XMLRPC\blogger_getRecentPosts.xml" />
+    <Content Include="XMLRPC\metaWeblog_editPost.xml" />
+    <Content Include="XMLRPC\metaWeblog_getPost.xml" />
+    <Content Include="XMLRPC\metaWeblog_newPost.xml" />
+    <Content Include="XMLRPC\test.xml" />
+    <Content Include="XMLRPC\wp_deleteComment.xml" />
+    <Content Include="XMLRPC\wp_deletePage.xml" />
+    <Content Include="XMLRPC\wp_editComment.xml" />
+    <Content Include="XMLRPC\wp_getCategories.xml" />
+    <Content Include="XMLRPC\wp_getCommentCount.xml" />
+    <Content Include="XMLRPC\wp_getComments.xml" />
+    <Content Include="XMLRPC\wp_getPageList.xml" />
+    <Content Include="XMLRPC\wp_getUsersBlogs.xml" />
+    <Content Include="XMLRPC\wp_newCategory.xml" />
+    <Content Include="XMLRPC\wp_newComment.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="XMLRPCTable.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>XMLRPCTable.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

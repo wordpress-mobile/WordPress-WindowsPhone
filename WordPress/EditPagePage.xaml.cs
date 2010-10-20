@@ -1,0 +1,213 @@
+﻿using System;
+using System.Windows;
+using Microsoft.Phone.Controls;
+
+using WordPress.Model;
+
+namespace WordPress
+{
+    public partial class EditPagePage : PhoneApplicationPage
+    {
+        //DEV NOTE: as far as the WP data model goes, there isn't a real difference
+        //between a post and a page, so we use the "post" rpcs
+        #region member variables
+
+        private const string POSTKEY_VALUE = "post";
+        private const string PUBLISHKEY_VALUE = "publish";
+
+        #endregion
+
+
+        #region constructors
+
+        public EditPagePage()
+        {
+            InitializeComponent();            
+        }
+
+        #endregion
+
+        #region methods
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
+            //look for transient data stored in the State dictionary
+            if (State.ContainsKey(POSTKEY_VALUE))
+            {
+                Post post = State[POSTKEY_VALUE] as Post;
+                DataContext = post;
+
+                if (State.ContainsKey(PUBLISHKEY_VALUE))
+                {
+                    publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
+                }
+            }
+            else
+            {
+
+                Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+                if (null != App.MasterViewModel.CurrentPage)
+                {
+                    string pageId = App.MasterViewModel.CurrentPage.PageId.ToString();
+
+                    GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
+                    rpc.Completed += OnGetPostRPCCompleted;
+                    rpc.ExecuteAsync();
+
+                    App.WaitIndicationService.ShowIndicator("Retrieving page...");
+                }
+                else
+                {
+                    DataContext = new Post();
+                }
+            }
+        }
+
+        private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        {
+            GetPostRPC rpc = sender as GetPostRPC;
+            rpc.Completed -= OnGetPostRPCCompleted;
+
+            if (null == args.Error)
+            {
+                Post post = args.Items[0];
+                DataContext = post;
+            }
+            else
+            {
+                HandleError(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: ask the user to confirm
+            NavigationService.GoBack();
+        }
+
+        private void uploadChangesButton_Click(object sender, RoutedEventArgs e)
+        {
+            Post post = DataContext as Post;
+
+            if (post.IsNew)
+            {
+                NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
+                rpc.Publish = publishToggleButton.IsChecked.Value;
+                rpc.PostType = ePostType.page;
+                rpc.Completed += OnNewPostRPCCompleted;
+
+                rpc.ExecuteAsync();
+            }
+            else
+            {
+                EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
+                rpc.Publish = publishToggleButton.IsChecked.Value;
+                rpc.Completed += OnEditPostRPCCompleted;
+
+                rpc.ExecuteAsync();
+            }
+
+            App.WaitIndicationService.ShowIndicator("Uploading changes...");
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Post post = DataContext as Post;
+
+            if (post.IsNew)
+            {
+                NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
+                rpc.Publish = publishToggleButton.IsChecked.Value;
+                rpc.PostType = ePostType.page;
+                rpc.Completed += OnNewPostRPCCompleted;
+
+                rpc.ExecuteAsync();
+            }
+            else
+            {
+                EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
+                rpc.Publish = publishToggleButton.IsChecked.Value;
+                rpc.Completed += OnEditPostRPCCompleted;
+
+                rpc.ExecuteAsync();
+            }
+            App.WaitIndicationService.ShowIndicator("Uploading changes...");
+        }
+
+        private void OnEditPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        {
+            EditPostRPC rpc = sender as EditPostRPC;
+            rpc.Completed -= OnEditPostRPCCompleted;
+
+            if (null == args.Error)
+            {
+                DataStore.Instance.FetchCurrentBlogPagesAsync();
+                NavigationService.GoBack();
+            }
+            else
+            {
+                HandleError(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
+        }
+
+        private void OnNewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        {
+            NewPostRPC rpc = sender as NewPostRPC;
+            rpc.Completed -= OnNewPostRPCCompleted;
+
+            if (null == args.Error)
+            {
+                DataStore.Instance.FetchCurrentBlogPagesAsync();
+                NavigationService.GoBack();
+            }
+            else
+            {
+                HandleError(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
+        }
+
+        private void HandleError(Exception exception)
+        {
+            //TODO: clean this up...
+            MessageBox.Show(exception.Message);
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            //store transient data in the State dictionary
+            if (State.ContainsKey(POSTKEY_VALUE))
+            {
+                State.Remove(POSTKEY_VALUE);
+            }
+            
+            Post post = DataContext as Post;
+
+            //make sure that the post contains the latest title and content
+            post.Title = titleTextBox.Text;
+            post.Description = contentTextBox.Text;
+            
+            State.Add(POSTKEY_VALUE, post);
+
+            if (State.ContainsKey(PUBLISHKEY_VALUE))
+            {
+                State.Remove(PUBLISHKEY_VALUE);
+            }
+            State.Add(PUBLISHKEY_VALUE, publishToggleButton.IsChecked);
+        }
+
+        #endregion
+    }
+}

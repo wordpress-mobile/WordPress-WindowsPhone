@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<methodCall>
+  <methodName>blogger.getRecentPosts</methodName>
+  <params>
+    <param>
+      <value>
+        <string>{0}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <int>{1}</int>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{2}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{3}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <int>{4}</int>
+      </value>
+    </param>
+  </params>
+</methodCall>

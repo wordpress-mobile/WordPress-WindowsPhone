@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<methodCall>
+  <methodName>wp.getUsersBlogs</methodName>
+  <params>
+    <param>
+      <value>
+        <string>{0}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{1}</string>
+      </value>
+    </param>
+  </params>
+</methodCall>

@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="WordPress.Spinner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    Height="90" Width="90">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Canvas x:Name="spinner" Width="86.9225" Height="86.6365" Canvas.Left="13.9696" Canvas.Top="12.1066">
+            <Path x:Name="Path" Width="14.4766" Height="27.1499" Canvas.Left="25.5638" Canvas.Top="1.93372" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 25.5638,3.77289L 30.3849,1.93372L 40.0404,27.2445L 35.2193,29.0836L 25.5638,3.77289 Z " Opacity="0.295"/>
+            <Path x:Name="Path_0" Width="5.3165" Height="27.1193" Canvas.Left="40.9642" Canvas.Top="0" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 41.1208,0L 46.2807,0.0298462L 46.1241,27.1193L 40.9642,27.0895L 41.1208,0 Z " Opacity="0.295"/>
+            <Path x:Name="Path_1" Width="14.7549" Height="27.0905" Canvas.Left="47.039" Canvas.Top="2.09094" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 56.995,2.09094L 61.7939,3.9873L 51.8379,29.1814L 47.039,27.285L 56.995,2.09094 Z " Opacity="0.295"/>
+            <Path x:Name="Path_2" Width="22.1832" Height="23.3905" Canvas.Left="52.6296" Canvas.Top="9.79993" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 71.0249,9.79993L 74.8128,13.3038L 56.4176,33.1904L 52.6296,29.6865L 71.0249,9.79993 Z " Opacity="0.295"/>
+            <Path x:Name="Path_3" Width="26.6005" Height="16.5431" Canvas.Left="56.9937" Canvas.Top="22.0484" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 81.326,22.0484L 83.5942,26.6831L 59.262,38.5915L 56.9937,33.9567L 81.326,22.0484 Z " Opacity="0.295"/>
+            <Path x:Name="Path_4" Width="27.4249" Height="7.39185" Canvas.Left="59.4976" Canvas.Top="37.2097" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 86.494,37.2097L 86.9225,42.3519L 59.9261,44.6016L 59.4976,39.4594L 86.494,37.2097 Z " Opacity="0.295"/>
+            <Path x:Name="Path_5" Width="27.4467" Height="12.5801" Canvas.Left="58.3872" Canvas.Top="45.5689" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 85.8339,53.1978L 84.3807,58.149L 58.3872,50.5201L 59.8403,45.5689L 85.8339,53.1978 Z " Opacity="0.295"/>
+            <Path x:Name="Path_6" Width="24.6049" Height="20.6266" Canvas.Left="54.8164" Canvas.Top="51.3322" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 79.4213,67.8723L 76.2708,71.9588L 54.8164,55.4187L 57.9669,51.3322L 79.4213,67.8723 Z " Opacity="0.295"/>
+            <Path x:Name="Path_7" Width="18.4665" Height="25.8356" Canvas.Left="49.6815" Canvas.Top="56.0688" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 68.1479,79.2272L 63.7368,81.9044L 49.6815,58.746L 54.0926,56.0688L 68.1479,79.2272 Z " Opacity="0.295"/>
+            <Path x:Name="Path_8" Width="9.75238" Height="27.5739" Canvas.Left="43.7627" Canvas.Top="59.0626" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 53.5151,85.747L 48.4323,86.6365L 43.7627,59.9521L 48.8455,59.0626L 53.5151,85.747 Z " Opacity="0.295"/>
+            <Path x:Name="Path_9" Width="10.3033" Height="27.5764" Canvas.Left="32.4734" Canvas.Top="58.9448" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 37.5359,86.5212L 32.4734,85.5229L 37.7142,58.9448L 42.7767,59.943L 37.5359,86.5212 Z " Opacity="0.295"/>
+            <Path x:Name="Path_10" Width="18.8995" Height="25.6238" Canvas.Left="17.9841" Canvas.Top="55.8379" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 22.337,81.4618L 17.9841,78.691L 32.5306,55.8379L 36.8835,58.6087L 22.337,81.4618 Z " Opacity="0.295"/>
+            <Path x:Name="Path_11" Width="24.8642" Height="20.2327" Canvas.Left="6.95483" Canvas.Top="51.0193" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 10.0177,71.252L 6.95483,67.0993L 28.7562,51.0193L 31.8191,55.172L 10.0177,71.252 Z " Opacity="0.295"/>
+            <Path x:Name="Path_12" Width="27.4979" Height="12.049" Canvas.Left="0.858124" Canvas.Top="45.2218" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 2.20435,57.2708L 0.858124,52.2895L 27.0098,45.2218L 28.356,50.2031L 2.20435,57.2708 Z " Opacity="0.295"/>
+            <Path x:Name="Path_13" Width="27.4802" Height="7.95493" Canvas.Left="-3.05176e-005" Canvas.Top="36.2923" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M -3.05176e-005,41.4242L 0.537689,36.2923L 27.4802,39.1153L 26.9424,44.2472L -3.05176e-005,41.4242 Z " Opacity="0.295"/>
+            <Path x:Name="Path_14" Width="26.4385" Height="17.0121" Canvas.Left="3.66333" Canvas.Top="21.2445" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 3.66333,25.8295L 6.0304,21.2445L 30.1018,33.6716L 27.7347,38.2567L 3.66333,25.8295 Z " Opacity="0.295"/>
+            <Path x:Name="Path_15" Width="21.8304" Height="23.6953" Canvas.Left="12.7275" Canvas.Top="9.21863" Stretch="Fill" Fill="#FFA4A4A4" Data="F1 M 12.7275,12.6413L 16.5889,9.21863L 34.5579,29.4913L 30.6964,32.9139L 12.7275,12.6413 Z " Opacity="0.295"/>
+        </Canvas>
+    </Grid>
+</UserControl>

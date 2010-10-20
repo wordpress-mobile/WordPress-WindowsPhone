@@ -1,0 +1,31 @@
+﻿<?xml version='1.0' ?>
+<methodCall>
+  <methodName>blogger.getRecentPosts</methodName>
+  <params>
+    <param>
+      <value>
+        <string>spacer</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <i4>15979233</i4>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>isstestwp</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>pass@word1</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <i4>30</i4>
+      </value>
+    </param>
+  </params>
+</methodCall>
