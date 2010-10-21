@@ -127,12 +127,12 @@
                 	</CheckBox.Foreground>
                 </CheckBox>
                 <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" Content="cancel" Margin="0,0,0,31" d:LayoutOverrides="Height" FontSize="24">
+                    <Button x:Name="cancelButton" Content="cancel" Margin="0,0,0,31" d:LayoutOverrides="Height" FontSize="24" Style="{StaticResource BasicButtonStyle}">
                 		<Button.Foreground>
                 			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 		</Button.Foreground>
                 	</Button>
-                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Margin="0,0,0,31" FontSize="24" d:LayoutOverrides="Height">
+                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Margin="0,0,0,31" FontSize="24" d:LayoutOverrides="Height" Style="{StaticResource BasicButtonStyle}">
                 		<Button.Foreground>
                 			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 		</Button.Foreground>

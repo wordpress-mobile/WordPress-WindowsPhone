@@ -10,13 +10,13 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
-    shell:SystemTray.IsVisible="True" Background="{StaticResource PageBackgroundGradientBrush}" Foreground="#FF21759B">
+    shell:SystemTray.IsVisible="True" Foreground="#FF21759B">
 	<phone:PhoneApplicationPage.Resources>		
 	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"  Style="{StaticResource LayoutRootStyle}">
-        <Grid.RowDefinitions>
+    	<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -65,14 +65,7 @@
                     </Button>
                 </StackPanel>
                 <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="0,220,0,0"/>
-                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}">
-                	<Button.BorderBrush>
-                		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                	</Button.BorderBrush>
-                	<Button.Foreground>
-                		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                	</Button.Foreground>
-                </Button>
+                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}"/>
                 <Image Height="801" Source="/SplashScreenImage.jpg" Stretch="Fill" Width="480"/>
             </StackPanel>
             

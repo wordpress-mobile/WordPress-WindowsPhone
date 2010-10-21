@@ -76,6 +76,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Background" Value="#BFFFFFFF"/>
         </Style>
 
         <Style x:Key="BasicToggleButtonStyle" TargetType="ToggleButton">
@@ -90,16 +91,14 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="FontSize" Value="21.333"/>
+            <Setter Property="Background" Value="#BFFFFFFF"/>
         </Style>
 
         <Style x:Key="LayoutRootStyle" TargetType="Grid">
             <Setter Property="Background">
                 <Setter.Value>
-                    <LinearGradientBrush  EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect">
-                        <GradientStop Color="#FF464646" Offset="0"/>
-                        <GradientStop Color="#FFFFFFFF" Offset="0.03"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
+            		<ImageBrush Stretch="Fill" ImageSource="Images/background.jpg"/>
+            	</Setter.Value>
             </Setter>
         </Style>
     	<ControlTemplate x:Key="PhoneDisabledTextBoxTemplate" TargetType="TextBox">

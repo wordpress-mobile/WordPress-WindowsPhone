@@ -8,10 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
+	<phone:PhoneApplicationPage.Foreground>
+		<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+	</phone:PhoneApplicationPage.Foreground>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"  Style="{StaticResource LayoutRootStyle}">
@@ -58,8 +60,8 @@
                     <Button x:Name="cancelButton" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="cancelButton_Click"/>
                     <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="saveButton_Click"/>
                 </StackPanel>
-                <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}"/>
+                <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="12,125,12,0"/>
+                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Background="#BDFFFFFF"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
