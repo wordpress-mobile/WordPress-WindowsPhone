@@ -70,26 +70,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="deleteButton" Grid.Row="0" Grid.Column="0" Content="{Binding Path=ControlsText.Delete, Source={StaticResource StringTable}}" BorderThickness="0" Style="{StaticResource BasicButtonStyle}" Click="deleteButton_Click"/>
+            <!--<Button x:Name="deleteButton" Grid.Row="0" Grid.Column="0" Content="{Binding Path=ControlsText.Delete, Source={StaticResource StringTable}}" BorderThickness="0" Style="{StaticResource BasicButtonStyle}" Click="deleteButton_Click"/>
             <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
                 <Button x:Name="replyButton" Content="{Binding Path=ControlsText.Reply, Source={StaticResource StringTable}}" BorderThickness="0" Click="replyButton_Click" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button x:Name="spamButton" Content="{Binding Path=ControlsText.Spam, Source={StaticResource StringTable}}" BorderThickness="0" Click="spamButton_Click" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <Button x:Name="unapproveButton" Content="{Binding Path=ControlsText.Unapprove, Source={StaticResource StringTable}}" BorderThickness="0" Click="unapproveButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource BasicButtonStyle}"/>
                 <Button x:Name="approveButton" Content="{Binding Path=ControlsText.Approve, Source={StaticResource StringTable}}" BorderThickness="0" Visibility="Collapsed" Click="approveButton_Click" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
-    </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </Grid> 
 
 </phone:PhoneApplicationPage>

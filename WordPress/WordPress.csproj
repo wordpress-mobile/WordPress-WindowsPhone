@@ -206,6 +206,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\background.jpg" />
+    <Content Include="Images\icon_add.png" />
+    <Content Include="Images\icon_delete.png" />
+    <Content Include="Images\icon_edit.png" />
+    <Content Include="Images\icon_refresh.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

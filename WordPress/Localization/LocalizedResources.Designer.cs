@@ -520,6 +520,42 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to approving comment....
+        /// </summary>
+        internal static string Messages_ApprovingComment {
+            get {
+                return ResourceManager.GetString("Messages_ApprovingComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to deleting comment....
+        /// </summary>
+        internal static string Messages_DeletingComment {
+            get {
+                return ResourceManager.GetString("Messages_DeletingComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to marking comment as spam....
+        /// </summary>
+        internal static string Messages_MarkingAsSpam {
+            get {
+                return ResourceManager.GetString("Messages_MarkingAsSpam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unapproving comment....
+        /// </summary>
+        internal static string Messages_UnapprovingComment {
+            get {
+                return ResourceManager.GetString("Messages_UnapprovingComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to actions.
         /// </summary>
         internal static string Title_Actions {

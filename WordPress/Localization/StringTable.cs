@@ -13,6 +13,7 @@ namespace WordPress.Localization
         {
             this.PageTitles = new Titles();
             this.ControlsText = new ControlText();
+            this.Messages = new UserMessages();
         }
 
         #endregion
@@ -24,7 +25,8 @@ namespace WordPress.Localization
         public Titles PageTitles { get; private set; }
 
         public ControlText ControlsText { get; private set; }
-        
+
+        public UserMessages Messages { get; private set; }
 
         #endregion
 
@@ -105,6 +107,20 @@ namespace WordPress.Localization
             public string AddTaglineToNewPosts { get { return LocalizedResources.ControlText_AddTaglineToNewPosts; } }
             public string DefaultTagline { get { return LocalizedResources.ControlText_DefaultTagLine; } }
             public string StartBloggingInSeconds { get { return LocalizedResources.ControlText_StartBloggingInSeconds; } }
+        }
+
+        #endregion
+
+        #region Messages class definition
+
+        public class UserMessages
+        {
+            public UserMessages() { }
+
+            public string MarkingAsSpam { get { return LocalizedResources.Messages_MarkingAsSpam; } }
+            public string ApprovingComment { get { return LocalizedResources.Messages_ApprovingComment; } }
+            public string UnapprovingComment { get { return LocalizedResources.Messages_UnapprovingComment; } }
+            public string DeletingComment { get { return LocalizedResources.Messages_DeletingComment; } }
         }
 
         #endregion

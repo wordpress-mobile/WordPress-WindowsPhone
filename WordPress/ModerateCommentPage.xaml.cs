@@ -10,8 +10,10 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 using WordPress.Model;
+using WordPress.Localization;
 
 namespace WordPress
 {
@@ -21,6 +23,13 @@ namespace WordPress
 
         private string COMMENTKEY_VALUE = "comment";
 
+        private ApplicationBarIconButton _deleteIconButton;
+        private ApplicationBarIconButton _replyIconButton;
+        private ApplicationBarIconButton _spamIconButton;
+        private ApplicationBarIconButton _approveIconButton;
+        private ApplicationBarIconButton _unapproveIconButton;
+        private StringTable _localizedStrings;
+
         #endregion
 
         #region constructor
@@ -28,18 +37,46 @@ namespace WordPress
         public ModerateCommentPage()
         {
             InitializeComponent();
-        }
 
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.IsVisible = true;
+
+            _deleteIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _deleteIconButton.Text = _localizedStrings.ControlsText.Delete;
+            _deleteIconButton.Click += deleteIconButton_Click;
+
+            _replyIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_edit.png", UriKind.Relative));
+            _replyIconButton.Text = _localizedStrings.ControlsText.Reply;
+            _replyIconButton.Click += replyIconButton_Click;
+
+            //TODO: need to acquire images for spam, approve, and unapprove
+            //NOTE: not providing an image uri seems to cause an exception when the buttons
+            //are added to the ApplicationBar
+            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _spamIconButton.Text = _localizedStrings.ControlsText.Spam;
+            _spamIconButton.Click += spamIconButton_Click;
+
+            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _approveIconButton.Text = _localizedStrings.ControlsText.Approve;
+            _approveIconButton.Click += approveIconButton_Click;
+
+            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
+            _unapproveIconButton.Click += unapproveIconButton_Click;
+        }
+        
         #endregion
 
         #region methods
 
-        private void replyButton_Click(object sender, RoutedEventArgs e)
+        private void replyIconButton_Click(object sender, EventArgs e)
         {
             
         }
 
-        private void spamButton_Click(object sender, RoutedEventArgs e)
+        private void spamIconButton_Click(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.spam;
@@ -48,10 +85,10 @@ namespace WordPress
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator("Marking comment as spam...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingAsSpam);
         }
 
-        private void unapproveButton_Click(object sender, RoutedEventArgs e)
+        private void unapproveIconButton_Click(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.hold;
@@ -60,10 +97,10 @@ namespace WordPress
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator("Unapproving comment...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComment);
         }
 
-        private void approveButton_Click(object sender, RoutedEventArgs e)
+        private void approveIconButton_Click(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.approve;
@@ -72,7 +109,7 @@ namespace WordPress
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator("Approving comment...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComment);
         }
 
 
@@ -89,7 +126,9 @@ namespace WordPress
             {
                 HandleError(args.Error);
             }
+
             App.WaitIndicationService.HideIndicator();
+            ChangeApplicationBarAppearance();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -123,29 +162,36 @@ namespace WordPress
                 DataContext = App.MasterViewModel.CurrentComment;
             }
 
+            ChangeApplicationBarAppearance();
+        }
+
+        private void ChangeApplicationBarAppearance()
+        {
             //change the available options based on the status of the comment
-            comment = DataContext as Comment;
+            Comment comment = DataContext as Comment;
+
+            ApplicationBar.Buttons.Clear();
+
+            ApplicationBar.Buttons.Add(_deleteIconButton);
+            ApplicationBar.Buttons.Add(_replyIconButton);
+
             switch (comment.CommentStatus)
             {
                 case eCommentStatus.approve:
-                    approveButton.Visibility = Visibility.Collapsed;
-                    unapproveButton.Visibility = Visibility.Visible;
-                    spamButton.Visibility = Visibility.Visible;
+                    ApplicationBar.Buttons.Add(_spamIconButton);
+                    ApplicationBar.Buttons.Add(_unapproveIconButton);
                     break;
                 case eCommentStatus.hold:
-                    unapproveButton.Visibility = Visibility.Collapsed;
-                    approveButton.Visibility = Visibility.Visible;
-                    spamButton.Visibility = Visibility.Visible;
+                    ApplicationBar.Buttons.Add(_spamIconButton);                    
+                    ApplicationBar.Buttons.Add(_approveIconButton);
                     break;
                 case eCommentStatus.spam:
-                    unapproveButton.Visibility = Visibility.Collapsed;
-                    spamButton.Visibility = Visibility.Collapsed;
-                    approveButton.Visibility = Visibility.Visible;
+                    ApplicationBar.Buttons.Add(_approveIconButton);
                     break;
             }
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        private void deleteIconButton_Click(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             
@@ -153,7 +199,7 @@ namespace WordPress
             rpc.Completed += OnDeleteCommentRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator("Deleting comment...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComment);
         }
 
         private void OnDeleteCommentRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
@@ -163,6 +209,9 @@ namespace WordPress
 
             if (null == args.Error)
             {
+                //remove the comment from the store--saves us a web call
+                App.MasterViewModel.Comments.Remove(args.Items[0]);
+
                 NavigationService.GoBack();
             }
             else
