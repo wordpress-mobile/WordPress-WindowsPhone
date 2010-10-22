@@ -22,6 +22,8 @@ namespace WordPress
         #region member variables
 
         private string COMMENTKEY_VALUE = "comment";
+        private string REPLYPANELVISIBLE_VALUE = "replyPanelVisible";
+        private string REPLYTEXTBOXTEXT_VALUE = "replyTextBoxText";
 
         private ApplicationBarIconButton _deleteIconButton;
         private ApplicationBarIconButton _replyIconButton;
@@ -39,6 +41,8 @@ namespace WordPress
             InitializeComponent();
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            replyPanel.Visibility = Visibility.Collapsed;
 
             ApplicationBar = new ApplicationBar();
             ApplicationBar.IsVisible = true;
@@ -71,9 +75,81 @@ namespace WordPress
 
         #region methods
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (Visibility.Visible == replyPanel.Visibility)
+            {
+                HideReplyPanel();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
+
         private void replyIconButton_Click(object sender, EventArgs e)
         {
-            
+            ShowReplyPanel();
+        }
+
+        private void ShowReplyPanel()
+        {
+            replyPanel.Visibility = Visibility.Visible;
+            ApplicationBar.IsVisible = false;
+
+            Storyboard fadeInStoryboard = CreateEaseInAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.0, 0.97, TimeSpan.FromMilliseconds(250));
+            fadeInStoryboard.Begin();
+        }
+
+        private Storyboard CreateEaseInAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
+        {
+            Storyboard animationStoryboard = new Storyboard();
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                Duration = duration,
+                From = from,
+                To = to,
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
+            };
+            animationStoryboard.Children.Add(animation);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
+            Storyboard.SetTarget(animation, target);
+            return animationStoryboard;
+        }
+
+        private Storyboard CreateEaseOutAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
+        {
+            Storyboard animationStoryboard = new Storyboard();
+            DoubleAnimation animation = new DoubleAnimation
+            {
+                Duration = duration,
+                From = from,
+                To = to,
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            };
+            animationStoryboard.Children.Add(animation);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
+            Storyboard.SetTarget(animation, target);
+            return animationStoryboard;
+        }
+
+        private void HideReplyPanel()
+        {
+            Storyboard fadeOutStoryboard = CreateEaseOutAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.97, 0, TimeSpan.FromMilliseconds(250));
+            fadeOutStoryboard.BeginTime = TimeSpan.FromMilliseconds(250);
+            fadeOutStoryboard.Completed += OnFadeOutStoryboardCompleted;
+            fadeOutStoryboard.Begin();
+        }
+
+        void OnFadeOutStoryboardCompleted(object sender, EventArgs e)
+        {
+            ApplicationBar.IsVisible = true;
+            replyPanel.Visibility = Visibility.Collapsed;
+            replyTextBox.Text = string.Empty;
+
+            Storyboard storyboard = sender as Storyboard;
+            storyboard.Completed -= OnFadeOutStoryboardCompleted;
         }
 
         private void spamIconButton_Click(object sender, EventArgs e)
@@ -142,6 +218,13 @@ namespace WordPress
             }
             Comment comment = DataContext as Comment;
             State.Add(COMMENTKEY_VALUE, comment);
+
+            //save reply data if it is active
+            if (Visibility.Visible == replyPanel.Visibility)
+            {
+                State.Add(REPLYPANELVISIBLE_VALUE, Visibility.Visible);
+                State.Add(REPLYTEXTBOXTEXT_VALUE, replyTextBox.Text);
+            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -163,6 +246,17 @@ namespace WordPress
             }
 
             ChangeApplicationBarAppearance();
+
+            //now that the application bar is in the right visual state, check for any
+            //stored data for a reply
+            if (State.ContainsKey(REPLYPANELVISIBLE_VALUE))
+            {
+                if (State.ContainsKey(REPLYTEXTBOXTEXT_VALUE))
+                {
+                    replyTextBox.Text = State[REPLYTEXTBOXTEXT_VALUE] as string;
+                }
+                ShowReplyPanel();
+            }
         }
 
         private void ChangeApplicationBarAppearance()
