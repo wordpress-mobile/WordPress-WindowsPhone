@@ -61,7 +61,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WORDPRESS.
+        ///   Looks up a localized string similar to WordPress.
         /// </summary>
         internal static string ApplicationTitle {
             get {
@@ -88,7 +88,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to +.
+        ///   Looks up a localized string similar to add new.
         /// </summary>
         internal static string ControlText_Add {
             get {
@@ -97,7 +97,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add existing WordPress.com site.
+        ///   Looks up a localized string similar to Add self-hosted WordPress blog.
         /// </summary>
         internal static string ControlText_AddExistingSite {
             get {
@@ -106,11 +106,20 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to add existing WordPress.com blog.
+        ///   Looks up a localized string similar to Add blog hosted at WordPress.com.
         /// </summary>
         internal static string ControlText_AddExistingWPBlog {
             get {
                 return ResourceManager.GetString("ControlText_AddExistingWPBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add.
+        /// </summary>
+        internal static string ControlText_AddMedia {
+            get {
+                return ResourceManager.GetString("ControlText_AddMedia", resourceCulture);
             }
         }
         
@@ -241,7 +250,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to get a free blog at WordPress.com.
+        ///   Looks up a localized string similar to Get a free blog at WordPress.com.
         /// </summary>
         internal static string ControlText_GetBlog {
             get {
@@ -412,7 +421,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to start blogging from Windows Phone 7 in seconds.
+        ///   Looks up a localized string similar to Start blogging from Windows Phone 7 in seconds.
         /// </summary>
         internal static string ControlText_StartBloggingInSeconds {
             get {
@@ -421,7 +430,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to start a new blog at WordPress.com.
+        ///   Looks up a localized string similar to Start a new blog at WordPress.com.
         /// </summary>
         internal static string ControlText_StartNewBlog {
             get {

@@ -24,9 +24,14 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="668">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="53*" />
+                <RowDefinition Height="690*" />
+                <RowDefinition Height="25*" />
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="668" Margin="0,50,0,25" Grid.RowSpan="2">
                 <Image Height="300" Margin="0" Source="Images/blue-xl.png" Width="300"/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.StartBloggingInSeconds, Source={StaticResource StringTable}}" Width="361" FontSize="32" TextAlignment="Center" Margin="0,10,0,20">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.StartBloggingInSeconds, Source={StaticResource StringTable}}" Width="361" FontSize="32" TextAlignment="Center" Margin="0,10,0,20" FontFamily="Georgia" >
                 	<TextBlock.Foreground>
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</TextBlock.Foreground>

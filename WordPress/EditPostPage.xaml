@@ -60,7 +60,7 @@
                     <ToggleButton x:Name="blockQuoteButton" Content="{Binding Path=ControlsText.BlockQuote, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}"/>
                 </StackPanel>
                 <TextBlock Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <Button Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
+                <Button Content="{Binding Path=ControlsText.AddMedia, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
                 <TextBlock Text="{Binding Path=ControlsText.TagsAndCategories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox x:Name="tagsTextBox" IsReadOnly="True" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
                 <Button x:Name="selectCategoriesButton" Content="{Binding Path=ControlsText.SelectCategories, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>WORDPRESS</value>
+    <value>WordPress</value>
     <comment>the application title</comment>
   </data>
   <data name="ControlText_AboveText" xml:space="preserve">
@@ -128,13 +128,16 @@
     <value>account details</value>
   </data>
   <data name="ControlText_Add" xml:space="preserve">
-    <value>+</value>
+    <value>add new</value>
   </data>
   <data name="ControlText_AddExistingSite" xml:space="preserve">
-    <value>add existing WordPress.com site</value>
+    <value>Add self-hosted WordPress blog</value>
   </data>
   <data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-    <value>add existing WordPress.com blog</value>
+    <value>Add blog hosted at WordPress.com</value>
+  </data>
+  <data name="ControlText_AddMedia" xml:space="preserve">
+    <value>add</value>
   </data>
   <data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
     <value>add a tag line to new posts</value>
@@ -180,7 +183,7 @@
     <value>geotag posts</value>
   </data>
   <data name="ControlText_GetBlog" xml:space="preserve">
-    <value>get a free blog at WordPress.com</value>
+    <value>Get a free blog at WordPress.com</value>
   </data>
   <data name="ControlText_Italic" xml:space="preserve">
     <value>I</value>
@@ -238,10 +241,10 @@
     <value>spam</value>
   </data>
   <data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-    <value>start blogging from Windows Phone 7 in seconds</value>
+    <value>Start blogging from Windows Phone 7 in seconds</value>
   </data>
   <data name="ControlText_StartNewBlog" xml:space="preserve">
-    <value>start a new blog at WordPress.com</value>
+    <value>Start a new blog at WordPress.com</value>
   </data>
   <data name="ControlText_Status" xml:space="preserve">
     <value>status</value>

@@ -40,7 +40,7 @@ namespace WordPress.Model
         {
             string result = string.Format(_content,
                 Credentials.UserName,
-                Credentials.Password);
+                Credentials.Password);  
             return result;
         }
 

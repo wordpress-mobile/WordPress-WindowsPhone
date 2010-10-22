@@ -68,6 +68,7 @@ namespace WordPress.Localization
             public string Refresh { get { return LocalizedResources.ControlText_Refresh; } }
             public string Edit { get { return LocalizedResources.ControlText_Edit; } }
             public string Add { get { return LocalizedResources.ControlText_Add; } }
+            public string AddMedia { get { return LocalizedResources.ControlText_AddMedia; } }
             public string AccountDetails { get { return LocalizedResources.ControlText_AccountDetails; } }
             public string Media { get { return LocalizedResources.ControlText_Media; } }
             public string PlaceImage { get { return LocalizedResources.ControlText_PlaceImage; } }

@@ -64,7 +64,7 @@
                     <ToggleButton x:Name="blockQuoteButton" Content="{Binding Path=ControlsText.BlockQuote, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}"/>
                 </StackPanel>
                 <TextBlock Text="media" Style="{StaticResource LabelTextBlockStyle}"/>
-                <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
+                <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.AddMedia, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
                 <TextBlock Text="status" Style="{StaticResource LabelTextBlockStyle}"/>
                 <ToggleButton x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
