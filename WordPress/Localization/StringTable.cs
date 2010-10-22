@@ -122,6 +122,9 @@ namespace WordPress.Localization
             public string ApprovingComment { get { return LocalizedResources.Messages_ApprovingComment; } }
             public string UnapprovingComment { get { return LocalizedResources.Messages_UnapprovingComment; } }
             public string DeletingComment { get { return LocalizedResources.Messages_DeletingComment; } }
+            public string MissingReply { get { return LocalizedResources.Messages_MissingReply; } }
+            public string ReplyingToComment { get { return LocalizedResources.Messages_ReplyingToComment; } }
+
         }
 
         #endregion

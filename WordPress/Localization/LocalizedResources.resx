@@ -285,6 +285,12 @@
   <data name="Messages_MarkingAsSpam" xml:space="preserve">
     <value>marking comment as spam...</value>
   </data>
+  <data name="Messages_MissingReply" xml:space="preserve">
+    <value>Please enter a reply.</value>
+  </data>
+  <data name="Messages_ReplyingToComment" xml:space="preserve">
+    <value>replying to comment...</value>
+  </data>
   <data name="Messages_UnapprovingComment" xml:space="preserve">
     <value>unapproving comment...</value>
   </data>

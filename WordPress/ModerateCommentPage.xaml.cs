@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-using WordPress.Model;
 using WordPress.Localization;
+using WordPress.Model;
 
 namespace WordPress
 {
@@ -322,7 +315,59 @@ namespace WordPress
             MessageBox.Show(exception.Message);
         }
 
+        private void replyButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReplyToComment();
+        }
+
+        private void ReplyToComment()
+        {
+            if (string.IsNullOrEmpty(replyTextBox.Text))
+            {
+                MessageBox.Show(_localizedStrings.Messages.MissingReply);
+                replyTextBox.Focus();
+                return;
+            }
+
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            Comment comment = DataContext as Comment;
+
+            Comment reply = new Comment()
+            {
+                Author = currentBlog.Username,
+                Parent = comment.CommentId,                
+                Content = replyTextBox.Text
+            };
+
+            NewCommentRPC rpc = new NewCommentRPC(currentBlog, comment, reply);
+            rpc.Completed += new XMLRPCCompletedEventHandler<Comment>(OnNewCommentRPCCompleted);
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ReplyingToComment);
+        }
+
+        private void OnNewCommentRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
+        {
+            NewCommentRPC rpc = sender as NewCommentRPC;
+            rpc.Completed -= OnNewCommentRPCCompleted;
+
+            if (null == args.Error)
+            {
+                //fire off a request for the latest comment so we can get our comment updated
+                //with the latest from the server.
+                DataStore.Instance.FetchCurrentBlogCommentsAsync();
+
+                NavigationService.GoBack();
+            }
+            else
+            {
+                HandleError(args.Error);
+            }
+        }
+
         #endregion
+
 
     }
 }

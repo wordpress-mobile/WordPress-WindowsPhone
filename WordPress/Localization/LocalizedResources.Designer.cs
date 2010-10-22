@@ -556,6 +556,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a reply..
+        /// </summary>
+        internal static string Messages_MissingReply {
+            get {
+                return ResourceManager.GetString("Messages_MissingReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to replying to comment....
+        /// </summary>
+        internal static string Messages_ReplyingToComment {
+            get {
+                return ResourceManager.GetString("Messages_ReplyingToComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to unapproving comment....
         /// </summary>
         internal static string Messages_UnapprovingComment {
