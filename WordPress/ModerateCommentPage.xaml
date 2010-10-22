@@ -47,37 +47,28 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel>
-                <TextBlock Text="{Binding Author}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBlock Text="{Binding DateCreatedGMT}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBlock Text="{Binding CommentStatus}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <Line Height="2">
-                	<Line.Fill>
-                		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                	</Line.Fill>
-                </Line>
-                <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource LabelTextBlockStyle}"/>
-            </StackPanel>            
+        	<Grid.RowDefinitions>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition Height="Auto"/>
+        		<RowDefinition/>
+        	</Grid.RowDefinitions>
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="Auto"/>
+        		<ColumnDefinition/>
+        	</Grid.ColumnDefinitions>
+        	<Image x:Name="gravatarImage" Source="{Binding GravatarUrl}" Width="100" Height="100" Margin="12,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        	<StackPanel Margin="12, 0" Orientation="Vertical" VerticalAlignment="Top" Grid.Column="1">
+        		<TextBlock x:Name="authorTextBlock" Text="{Binding Author}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="32" TextWrapping="Wrap"/>
+        		<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="Wrap"/>
+        		<TextBlock x:Name="dateCreatedTextBlock" Text="{Binding DateCreatedGMT}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="Wrap"/>
+        	</StackPanel>
+        	<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource LabelTextBlockStyle}" Margin="12,0" VerticalAlignment="Top" Grid.Row="1" Grid.ColumnSpan="2" FontSize="32">
+        		<TextBlock.Foreground>
+        			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+        		</TextBlock.Foreground>
+        	</TextBlock>
         </Grid>
         
-        <!-- Button panel can dynamically change depending on the state of the comment -->
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <!--<Button x:Name="deleteButton" Grid.Row="0" Grid.Column="0" Content="{Binding Path=ControlsText.Delete, Source={StaticResource StringTable}}" BorderThickness="0" Style="{StaticResource BasicButtonStyle}" Click="deleteButton_Click"/>
-            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
-                <Button x:Name="replyButton" Content="{Binding Path=ControlsText.Reply, Source={StaticResource StringTable}}" BorderThickness="0" Click="replyButton_Click" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="spamButton" Content="{Binding Path=ControlsText.Spam, Source={StaticResource StringTable}}" BorderThickness="0" Click="spamButton_Click" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button x:Name="unapproveButton" Content="{Binding Path=ControlsText.Unapprove, Source={StaticResource StringTable}}" BorderThickness="0" Click="unapproveButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource BasicButtonStyle}"/>
-                <Button x:Name="approveButton" Content="{Binding Path=ControlsText.Approve, Source={StaticResource StringTable}}" BorderThickness="0" Visibility="Collapsed" Click="approveButton_Click" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </StackPanel>-->
-        </Grid>
     </Grid> 
 
 </phone:PhoneApplicationPage>
