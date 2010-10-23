@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:WordPress"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -110,6 +111,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <local:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"></local:CommentStatusToBrushConverter>
+        
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -167,18 +171,16 @@
                             					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             				</TextBlock.Foreground>
                             			</TextBlock>
-                            			<TextBlock x:Name="statusTextBlock" Margin="0" FontSize="21.333" Text="{Binding CommentStatus}" >
-                            				<TextBlock.Foreground>
-                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            				</TextBlock.Foreground>
-                            			</TextBlock>
-                            		</StackPanel>
+                                    </StackPanel>
                             		<StackPanel Grid.ColumnSpan="2" Margin="0" Orientation="Vertical" Grid.Row="1" d:LayoutOverrides="Width">
-                            			<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26.667" >
+                            			<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26.667" MaxHeight="40" >
                             				<TextBlock.Foreground>
                             					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             				</TextBlock.Foreground>
                             			</TextBlock>
+                            			<TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}" 
+                            				Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
+                                                   />
                             		</StackPanel>
                             	</Grid>
                             </DataTemplate>

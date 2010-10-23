@@ -139,6 +139,7 @@ namespace WordPress.Model
                 {
                     _status = value;
                     NotifyPropertyChanged("Status");
+                    NotifyPropertyChanged("CommentStatus");
                 }
             }
         }
