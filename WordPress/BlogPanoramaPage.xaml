@@ -141,7 +141,7 @@
                              >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid>
+                                <Grid MaxHeight="200" Margin="0,0,0,15">
                             		<Grid.ColumnDefinitions>
                             			<ColumnDefinition Width="Auto"/>
                             			<ColumnDefinition Width="*"/>
@@ -157,24 +157,24 @@
                             					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             				</TextBlock.Foreground>
                             			</TextBlock>
-                            			<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="16" >
+                            			<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="21.333" >
                             				<TextBlock.Foreground>
                             					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             				</TextBlock.Foreground>
                             			</TextBlock>
-                            			<TextBlock x:Name="postTextBlock" Margin="0,0,0,10" FontSize="16" Text="{Binding PostTitle}">
+                            			<TextBlock x:Name="postTextBlock" Margin="0" FontSize="21.333" Text="{Binding PostTitle}">
+                            				<TextBlock.Foreground>
+                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                            				</TextBlock.Foreground>
+                            			</TextBlock>
+                            			<TextBlock x:Name="statusTextBlock" Margin="0" FontSize="21.333" Text="{Binding CommentStatus}" >
                             				<TextBlock.Foreground>
                             					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             				</TextBlock.Foreground>
                             			</TextBlock>
                             		</StackPanel>
-                            		<StackPanel Grid.ColumnSpan="2" Margin="0,0,-125,-37" Orientation="Vertical" Grid.Row="1" d:LayoutOverrides="Width">
-                            			<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" Margin="0,0,0,37" FontSize="24" >
-                            				<TextBlock.Foreground>
-                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            				</TextBlock.Foreground>
-                            			</TextBlock>
-                            			<TextBlock x:Name="statusTextBlock" Margin="0" FontSize="13.333" Text="{Binding CommentStatus}" >
+                            		<StackPanel Grid.ColumnSpan="2" Margin="0" Orientation="Vertical" Grid.Row="1" d:LayoutOverrides="Width">
+                            			<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26.667" >
                             				<TextBlock.Foreground>
                             					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             				</TextBlock.Foreground>
