@@ -46,13 +46,17 @@ namespace WordPress.Model
 
         protected override List<Blog> ParseResponseContent(XDocument xDoc)
         {
-            XElement structElement = xDoc.Descendants(XmlRPCResponseConstants.STRUCT).First();
-            Blog blog = new Blog(structElement);
-            blog.Username = Credentials.UserName;
-            blog.Password = Credentials.Password;
-
             List<Blog> result = new List<Blog>();
-            result.Add(blog);
+
+            foreach (XElement structElement in xDoc.Descendants(XmlRPCResponseConstants.STRUCT))
+            {
+                Blog blog = new Blog(structElement);
+                blog.Username = Credentials.UserName;
+                blog.Password = Credentials.Password;
+
+                result.Add(blog);
+            }
+
             return result;
         }
         #endregion

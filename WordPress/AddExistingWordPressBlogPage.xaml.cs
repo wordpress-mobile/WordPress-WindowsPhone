@@ -110,9 +110,13 @@ namespace WordPress
             rpc.Completed -= OnGetUsersBlogsCompleted;
 
             if (null == args.Error)
-            {
-                Blog blog = args.Items[0];
-                DataStore.Instance.Blogs.Add(blog);
+            {                
+                //TODO: if multiple blogs are returned, ask the user to select which blogs 
+                //to add to the data store
+                foreach (Blog blog in args.Items)
+                {                    
+                    DataStore.Instance.Blogs.Add(blog);
+                }
                 NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
             }
             else

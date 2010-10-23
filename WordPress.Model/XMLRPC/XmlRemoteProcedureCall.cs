@@ -309,7 +309,17 @@ namespace WordPress.Model
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(80, state.Operation.UserSuppliedState));
 
             //search for fault code/fault string
-            XDocument xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+            XDocument xDoc = null;
+            try
+            {
+                xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+            }
+            catch (Exception ex)
+            {
+                CompletionMethod(null, ex, false, state.Operation);
+                return;
+            }
+
             var fault = xDoc.Descendants().Where(element => XmlRPCResponseConstants.NAME == element.Name && XmlRPCResponseConstants.FAULTCODE_VALUE == element.Value);
             if (null != fault && 0 < fault.Count())
             {
