@@ -65,12 +65,12 @@ namespace WordPress.Model
         {
             string result = string.Format(_content,
                 BlogId,
-                Credentials.UserName,
-                Credentials.Password,
-                Category.Description,
-                Slug,
+                Credentials.UserName.HtmlEncode(),
+                Credentials.Password.HtmlEncode(),
+                Category.Description.HtmlEncode(),
+                Slug.HtmlEncode(),
                 Category.ParentId,
-                Category.CategoryName);
+                Category.CategoryName.HtmlEncode());
             return result;
         }
 

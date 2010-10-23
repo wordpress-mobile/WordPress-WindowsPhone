@@ -57,7 +57,7 @@ namespace WordPress.Model
 
             foreach (string category in Post.Categories)
             {
-                data = string.Format(dataFormatString, category);
+                data = string.Format(dataFormatString, category.HtmlEncode());
                 categoryBuilder.Append(data);
             }
 
@@ -78,12 +78,12 @@ namespace WordPress.Model
         {
             string result = string.Format(_content,
                 Post.PostId,
-                Credentials.UserName,
-                Credentials.Password,
-                Post.MtKeyWords,
+                Credentials.UserName.HtmlEncode(),
+                Credentials.Password.HtmlEncode(),
+                Post.MtKeyWords.HtmlEncode(),
                 FormatCategories(),
-                HttpUtility.HtmlEncode(Post.Title),
-                HttpUtility.HtmlEncode(Post.Description),
+                Post.Title.HtmlEncode(),
+                Post.Description.HtmlEncode(),
                 Publish);
 
             return result;

@@ -45,7 +45,14 @@ namespace WordPress.Model
 
         protected override string BuildPostContentString()
         {
-            string result = string.Format(_content, BlogId, Credentials.UserName, Credentials.Password, string.Empty, CommentStatus.ToString(), Offset, Number);
+            string result = string.Format(_content, 
+                BlogId,
+                Credentials.UserName.HtmlEncode(),
+                Credentials.Password.HtmlEncode(), 
+                string.Empty, 
+                CommentStatus.ToString(), 
+                Offset, 
+                Number);
             return result;
         }
 

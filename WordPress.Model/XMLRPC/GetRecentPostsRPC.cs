@@ -57,9 +57,9 @@ namespace WordPress.Model
         {
             string result = string.Format(_content, 
                 string.Empty, 
-                BlogId, 
-                Credentials.UserName, 
-                Credentials.Password, 
+                BlogId,
+                Credentials.UserName.HtmlEncode(),
+                Credentials.Password.HtmlEncode(), 
                 NumberOfPosts);
             return result;
         }

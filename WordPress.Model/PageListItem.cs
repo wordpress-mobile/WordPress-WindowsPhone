@@ -145,7 +145,7 @@ namespace WordPress.Model
                 else if (PAGETITLE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _pageTitle = value;
+                    _pageTitle = value.HtmlDecode();
                 }
                 else if (PAGEPARENTID_VALUE.Equals(memberName))
                 {

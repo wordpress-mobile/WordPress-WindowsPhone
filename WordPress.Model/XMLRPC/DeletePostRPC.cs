@@ -59,8 +59,8 @@ namespace WordPress.Model
             string result = string.Format(_content,
                     AppKey,
                     Post.PostId,
-                    Credentials.UserName,
-                    Credentials.Password);
+                    Credentials.UserName.HtmlEncode(),
+                    Credentials.Password.HtmlEncode());
             return result;
         }
 

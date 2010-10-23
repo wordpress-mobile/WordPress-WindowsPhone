@@ -400,7 +400,7 @@ namespace WordPress.Model
                 else if (USERID_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _userId = value;
+                    _userId = value.HtmlDecode();
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {
@@ -414,12 +414,12 @@ namespace WordPress.Model
                 else if (DESCRIPTION_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _description = HttpUtility.HtmlDecode(value);
+                    _description = value.HtmlDecode();
                 }
                 else if (TITLE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _title = HttpUtility.HtmlDecode(value);
+                    _title = value.HtmlDecode();
                 }
                 else if (LINK_VALUE.Equals(memberName))
                 {
@@ -435,18 +435,18 @@ namespace WordPress.Model
                 {
                     foreach (XElement dataElement in member.Descendants(XmlRPCResponseConstants.STRING))
                     {
-                        _categories.Add(dataElement.Value);
+                        _categories.Add(dataElement.Value.HtmlDecode());
                     }
                 }
                 else if (MTEXCERPT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _mtExcerpt = value;
+                    _mtExcerpt = value.HtmlDecode();
                 }
                 else if (MTTEXTMORE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _mtTextMore = value;
+                    _mtTextMore = value.HtmlDecode();
                 }
                 else if (MTALLOWCOMMENTS_VALUE.Equals(memberName))
                 {
@@ -475,17 +475,17 @@ namespace WordPress.Model
                 else if (MTKEYWORDS_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _mtKeyWords = value;
+                    _mtKeyWords = value.HtmlDecode();
                 }
                 else if (WPSLUG_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _wpSlug = value;
+                    _wpSlug = value.HtmlDecode();
                 }
                 else if (WPPASSWORD_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _wpPassword = value;
+                    _wpPassword = value.HtmlDecode();
                 }
                 else if (WPAUTHORID_VALUE.Equals(memberName))
                 {
@@ -495,7 +495,7 @@ namespace WordPress.Model
                 else if (WPAUTHORDISPLAYNAME_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _wpAuthorDisplayName = value;
+                    _wpAuthorDisplayName = value.HtmlDecode();
                 }
                 else if (DATECREATEDGMT_VALUE.Equals(memberName))
                 {

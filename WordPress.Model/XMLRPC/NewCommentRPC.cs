@@ -75,10 +75,10 @@ namespace WordPress.Model
         {
             string result = string.Format(_content,
                 BlogId,
-                Credentials.UserName,
-                Credentials.Password,
+                Credentials.UserName.HtmlEncode(),
+                Credentials.Password.HtmlEncode(),
                 ParentComment.PostId,
-                Comment.Content,
+                Comment.Content.HtmlEncode(),
                 ParentComment.CommentId);
             return result;
         }

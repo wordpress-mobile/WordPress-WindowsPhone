@@ -54,9 +54,9 @@ namespace WordPress.Model
         protected override string BuildPostContentString()
         {
             string result = string.Format(_content, 
-                PostId, 
-                Credentials.UserName, 
-                Credentials.Password);
+                PostId,
+                Credentials.UserName.HtmlEncode(),
+                Credentials.Password.HtmlEncode());
             return result;
         }
 

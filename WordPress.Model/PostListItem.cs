@@ -161,7 +161,7 @@ namespace WordPress.Model
                 else if (CONTENT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _content = value;
+                    _content = value.HtmlDecode();
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {

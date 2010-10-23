@@ -180,7 +180,7 @@ namespace WordPress.Model
                 else if (BLOGNAME_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _blogName = HttpUtility.HtmlDecode(value);
+                    _blogName = value.HtmlDecode();
                 }
                 else if (XMLRPC_VALUE.Equals(memberName))
                 {

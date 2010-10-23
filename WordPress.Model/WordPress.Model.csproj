@@ -59,6 +59,7 @@
     <Compile Include="DataStore.cs" />
     <Compile Include="DelegateMethods.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="PageListItem.cs" />

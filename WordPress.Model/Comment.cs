@@ -364,7 +364,7 @@ namespace WordPress.Model
                 else if (CONTENT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _content = value;
+                    _content = value.HtmlDecode();
                 }
                 else if (LINK_VALUE.Equals(memberName))
                 {
@@ -382,12 +382,12 @@ namespace WordPress.Model
                 else if (POSTTITLE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _postTitle = HttpUtility.HtmlDecode(value);
+                    _postTitle = value.HtmlDecode();
                 }
                 else if (AUTHOR_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _author = value;
+                    _author = value.HtmlDecode();
                 }
                 else if (AUTHORURL_VALUE.Equals(memberName))
                 {

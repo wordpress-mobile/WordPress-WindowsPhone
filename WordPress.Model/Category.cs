@@ -176,17 +176,17 @@ namespace WordPress.Model
                 else if (DESCRIPTION_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _description = value;
+                    _description = value.HtmlDecode();
                 }
                 else if (CATEGORYDESCRIPTION_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _categoryDescription = value;
+                    _categoryDescription = value.HtmlDecode();
                 }
                 else if (CATEGORYNAME_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _categoryName = value;
+                    _categoryName = value.HtmlDecode();
                 }
                 else if (HTMLURL_VALUE.Equals(memberName))
                 {

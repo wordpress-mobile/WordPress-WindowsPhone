@@ -117,12 +117,12 @@ namespace WordPress.Model
                 else if (KEY_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _key = value;
+                    _key = value.HtmlDecode();
                 }
                 else if (VALUE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _value = value;
+                    _value = value.HtmlDecode();
                 }
             }        
         }
