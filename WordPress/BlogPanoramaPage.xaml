@@ -28,12 +28,14 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <Image HorizontalAlignment="Right" Height="120" Source="Images/panoramaActions.png" Stretch="Fill" VerticalAlignment="Top" Width="167"/>
-                            <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-                                <ContentControl.RenderTransform>
-                                    <TranslateTransform x:Name="headerTransform"/>
-                                </ContentControl.RenderTransform>
-                            </ContentControl>
+                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
+                            		<ContentControl.RenderTransform>
+                            			<TranslateTransform x:Name="headerTransform"/>
+                            		</ContentControl.RenderTransform>
+                            	</ContentControl>
+                            	<Image Source="Images/panoramaActions.png" Stretch="None" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -52,12 +54,14 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-							<Image HorizontalAlignment="Right" Height="120" Source="Images/panoramaComments.png" Stretch="Fill" VerticalAlignment="Top" Width="167"/>
-							<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-								<ContentControl.RenderTransform>
-									<TranslateTransform x:Name="headerTransform"/>
-								</ContentControl.RenderTransform>
-							</ContentControl>
+							<StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+								<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
+									<ContentControl.RenderTransform>
+										<TranslateTransform x:Name="headerTransform"/>
+									</ContentControl.RenderTransform>
+								</ContentControl>
+								<Image Source="Images/panoramaComments.png" Stretch="None" VerticalAlignment="Center"/>
+							</StackPanel>
 						</Grid>
 					</ControlTemplate>
 				</Setter.Value>
@@ -76,12 +80,14 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <Image HorizontalAlignment="Right" Height="120" Source="Images/panoramaPosts.png" Stretch="Fill" VerticalAlignment="Top" Width="167"/>
-                            <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-                                <ContentControl.RenderTransform>
-                                    <TranslateTransform x:Name="headerTransform"/>
-                                </ContentControl.RenderTransform>
-                            </ContentControl>
+                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
+                            		<ContentControl.RenderTransform>
+                            			<TranslateTransform x:Name="headerTransform"/>
+                            		</ContentControl.RenderTransform>
+                            	</ContentControl>
+                            	<Image Source="Images/panoramaPosts.png" Stretch="None" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -100,12 +106,14 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <Image HorizontalAlignment="Right" Height="120" Source="Images/panoramaPages.png" Stretch="Fill" VerticalAlignment="Top" Width="167"/>
-                            <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-                                <ContentControl.RenderTransform>
-                                    <TranslateTransform x:Name="headerTransform"/>
-                                </ContentControl.RenderTransform>
-                            </ContentControl>
+                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
+                            		<ContentControl.RenderTransform>
+                            			<TranslateTransform x:Name="headerTransform"/>
+                            		</ContentControl.RenderTransform>
+                            	</ContentControl>
+                            	<Image Source="Images/panoramaPages.png" Stretch="None" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -124,12 +132,14 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <Image HorizontalAlignment="Right" Height="120" Source="Images/panoramaStats.png" Stretch="Fill" VerticalAlignment="Top" Width="167"/>
-                            <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-                                <ContentControl.RenderTransform>
-                                    <TranslateTransform x:Name="headerTransform"/>
-                                </ContentControl.RenderTransform>
-                            </ContentControl>
+                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
+                            		<ContentControl.RenderTransform>
+                            			<TranslateTransform x:Name="headerTransform"/>
+                            		</ContentControl.RenderTransform>
+                            	</ContentControl>
+                            	<Image Source="Images/panoramaStats.png" Stretch="None" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
