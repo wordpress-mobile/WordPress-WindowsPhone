@@ -130,6 +130,9 @@
   <data name="ControlText_Add" xml:space="preserve">
     <value>add new</value>
   </data>
+  <data name="ControlText_AddAPage" xml:space="preserve">
+    <value>add a page</value>
+  </data>
   <data name="ControlText_AddExistingSite" xml:space="preserve">
     <value>Add self-hosted WordPress blog</value>
   </data>
@@ -156,6 +159,9 @@
   </data>
   <data name="ControlText_BlockQuote" xml:space="preserve">
     <value>b-quote</value>
+  </data>
+  <data name="ControlText_BlogSettings" xml:space="preserve">
+    <value>blog settings</value>
   </data>
   <data name="ControlText_BlogUrl" xml:space="preserve">
     <value>blog url</value>
@@ -199,6 +205,9 @@
   </data>
   <data name="ControlText_Media" xml:space="preserve">
     <value>media</value>
+  </data>
+  <data name="ControlText_ModerateComments" xml:space="preserve">
+    <value>moderate comments</value>
   </data>
   <data name="ControlText_NeedBlog" xml:space="preserve">
     <value>don't yet have a blog?</value>
@@ -275,6 +284,9 @@
   </data>
   <data name="ControlText_Vibrate" xml:space="preserve">
     <value>vibrate</value>
+  </data>
+  <data name="ControlText_Write" xml:space="preserve">
+    <value>write</value>
   </data>
   <data name="Messages_ApprovingComment" xml:space="preserve">
     <value>approving comment...</value>

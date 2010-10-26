@@ -97,6 +97,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add a page.
+        /// </summary>
+        internal static string ControlText_AddAPage {
+            get {
+                return ResourceManager.GetString("ControlText_AddAPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add self-hosted WordPress blog.
         /// </summary>
         internal static string ControlText_AddExistingSite {
@@ -174,6 +183,15 @@ namespace WordPress.Localization {
         internal static string ControlText_BlockQuote {
             get {
                 return ResourceManager.GetString("ControlText_BlockQuote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to blog settings.
+        /// </summary>
+        internal static string ControlText_BlogSettings {
+            get {
+                return ResourceManager.GetString("ControlText_BlogSettings", resourceCulture);
             }
         }
         
@@ -300,6 +318,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Media {
             get {
                 return ResourceManager.GetString("ControlText_Media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to moderate comments.
+        /// </summary>
+        internal static string ControlText_ModerateComments {
+            get {
+                return ResourceManager.GetString("ControlText_ModerateComments", resourceCulture);
             }
         }
         
@@ -525,6 +552,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Vibrate {
             get {
                 return ResourceManager.GetString("ControlText_Vibrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to write.
+        /// </summary>
+        internal static string ControlText_Write {
+            get {
+                return ResourceManager.GetString("ControlText_Write", resourceCulture);
             }
         }
         

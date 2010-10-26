@@ -207,10 +207,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\background.jpg" />
+    <Resource Include="Images\actionsEdit.png" />
+    <Resource Include="Images\actionsModerate.png" />
+    <Resource Include="Images\actionsRefresh.png" />
+    <Resource Include="Images\actionsSettings.png" />
+    <Resource Include="Images\actionsAddPg.png" />
     <Content Include="Images\icon_add.png" />
     <Content Include="Images\icon_delete.png" />
     <Content Include="Images\icon_edit.png" />
     <Content Include="Images\icon_refresh.png" />
+    <Resource Include="Images\panoramaActions.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

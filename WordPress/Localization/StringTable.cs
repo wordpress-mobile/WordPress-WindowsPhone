@@ -108,6 +108,10 @@ namespace WordPress.Localization
             public string AddTaglineToNewPosts { get { return LocalizedResources.ControlText_AddTaglineToNewPosts; } }
             public string DefaultTagline { get { return LocalizedResources.ControlText_DefaultTagLine; } }
             public string StartBloggingInSeconds { get { return LocalizedResources.ControlText_StartBloggingInSeconds; } }
+            public string ModerateComments { get { return LocalizedResources.ControlText_ModerateComments; } }
+            public string Write { get { return LocalizedResources.ControlText_Write; } }
+            public string AddAPage { get { return LocalizedResources.ControlText_AddAPage; } }
+            public string BlogSettings { get { return LocalizedResources.ControlText_BlogSettings; } }
         }
 
         #endregion
