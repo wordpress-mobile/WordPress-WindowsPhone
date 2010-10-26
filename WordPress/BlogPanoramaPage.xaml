@@ -211,7 +211,7 @@
         		<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
         	</controls:Panorama.Foreground>
 
-            <!--comments Panorama item -->
+            <!--actions Panorama item -->
             <controls:PanoramaItem Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource actionsPanoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
@@ -230,7 +230,8 @@
                     <Button x:Name="refreshButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200">
+                            Style="{StaticResource TileButtonTemplate}" Width="200"
+                            Click="refreshButton_Click">
                 		<Button.Background>
                 			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                 		</Button.Background>
@@ -242,10 +243,11 @@
                     	</StackPanel>
                 	</Button>
 
-                    <Button x:Name="moderateButton" Height="200" Margin="0" 
+                    <Button x:Name="moderateCommentsButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200">
+                            Style="{StaticResource TileButtonTemplate}" Width="200" 
+                            Click="moderateCommentsButton_Click">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -260,7 +262,8 @@
                     <Button x:Name="createPostButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200">
+                            Style="{StaticResource TileButtonTemplate}" Width="200" 
+                            Click="createPostButton_Click">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -275,7 +278,8 @@
                     <Button x:Name="createPageButton"  Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200">
+                            Style="{StaticResource TileButtonTemplate}" Width="200"
+                            Click="createPageButton_Click">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -290,7 +294,8 @@
                     <Button x:Name="settingsButton" HorizontalAlignment="Left" 
                             Height="80" Margin="0" VerticalAlignment="Top" Width="400" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                            Style="{StaticResource TileButtonTemplate}">
+                            Style="{StaticResource TileButtonTemplate}"
+                            Click="settingsButton_Click">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -318,17 +323,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-
-                    <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" Height="435"
+                    <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" 
                              SelectionChanged="commentsListBox_SelectionChanged"
                              >
                         <ListBox.ItemTemplate>
@@ -374,9 +369,6 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
-                    <Button x:Name="editCommentsButton" Grid.Row="1" Grid.Column="0" Content="{Binding ControlsText.Edit, Source={StaticResource StringTable}}" BorderThickness="0" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="refreshCommentsButton" Grid.Row="1" Grid.Column="2" Content="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" BorderThickness="0" Click="refreshCommentsButton_Click" Style="{StaticResource BasicButtonStyle}"/>
                 </Grid>
             </controls:PanoramaItem>
 
@@ -386,17 +378,8 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
                     
-                    <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}" Height="435"
+                    <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}"
                              SelectionChanged="postsListBox_SelectionChanged"
                              >
                         <ListBox.ItemTemplate>
@@ -416,9 +399,6 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
-                    <Button x:Name="newPostButton" Grid.Row="1" Grid.Column="0" Content="{Binding ControlsText.Add, Source={StaticResource StringTable}}" BorderThickness="0" Click="newPostButton_Click" Style="{StaticResource BasicButtonStyle}" />
-                    <Button x:Name="refreshPostsButton" Grid.Row="1" Grid.Column="2" Content="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" BorderThickness="0" Click="refreshPostsButton_Click" Style="{StaticResource BasicButtonStyle}"/>
                 </Grid>
             </controls:PanoramaItem>
 
@@ -428,15 +408,6 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
 
                     <ListBox x:Name="pagesListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Pages}" Height="435"
                              SelectionChanged="pagesListBox_SelectionChanged"
@@ -459,8 +430,6 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <Button x:Name="newPageButton" Grid.Row="1" Grid.Column="0" Content="{Binding ControlsText.Add, Source={StaticResource StringTable}}" BorderThickness="0" Click="newPageButton_Click" Style="{StaticResource BasicButtonStyle}" />
-                    <Button x:Name="refreshPagesButton" Grid.Row="1" Grid.Column="2" Content="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" BorderThickness="0" Click="refreshPagesButton_Click" Style="{StaticResource BasicButtonStyle}"/>
                 </Grid>
             </controls:PanoramaItem>
 

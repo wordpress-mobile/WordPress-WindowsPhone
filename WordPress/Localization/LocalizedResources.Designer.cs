@@ -610,11 +610,92 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to retrieving comments....
+        /// </summary>
+        internal static string Messages_RetrievingComments {
+            get {
+                return ResourceManager.GetString("Messages_RetrievingComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to retrieving everything....
+        /// </summary>
+        internal static string Messages_RetrievingEverything {
+            get {
+                return ResourceManager.GetString("Messages_RetrievingEverything", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to retrieving pages....
+        /// </summary>
+        internal static string Messages_RetrievingPages {
+            get {
+                return ResourceManager.GetString("Messages_RetrievingPages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to retrieving posts....
+        /// </summary>
+        internal static string Messages_RetrievingPosts {
+            get {
+                return ResourceManager.GetString("Messages_RetrievingPosts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to unapproving comment....
         /// </summary>
         internal static string Messages_UnapprovingComment {
             get {
                 return ResourceManager.GetString("Messages_UnapprovingComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to comments.
+        /// </summary>
+        internal static string Options_RefreshEntity_Comments {
+            get {
+                return ResourceManager.GetString("Options_RefreshEntity_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to everything.
+        /// </summary>
+        internal static string Options_RefreshEntity_Everything {
+            get {
+                return ResourceManager.GetString("Options_RefreshEntity_Everything", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pages.
+        /// </summary>
+        internal static string Options_RefreshEntity_Pages {
+            get {
+                return ResourceManager.GetString("Options_RefreshEntity_Pages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to posts.
+        /// </summary>
+        internal static string Options_RefreshEntity_Posts {
+            get {
+                return ResourceManager.GetString("Options_RefreshEntity_Posts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What would you like to refresh?.
+        /// </summary>
+        internal static string Prompts_RefreshEntity {
+            get {
+                return ResourceManager.GetString("Prompts_RefreshEntity", resourceCulture);
             }
         }
         

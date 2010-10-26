@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 
+using WordPress.Localization;
 using WordPress.Model;
-using System.Collections.ObjectModel;
 
 namespace WordPress
 {
     public partial class BlogPanoramaPage : PhoneApplicationPage
     {
         #region member variables
+
+        private List<string> _refreshListOptions;
+        private int _multiFetchTaskCount;
+        private StringTable _localizedStrings;
 
         #endregion
 
@@ -32,7 +29,16 @@ namespace WordPress
         {
             InitializeComponent();
 
-            DataContext = App.MasterViewModel;        
+            DataContext = App.MasterViewModel;
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            _refreshListOptions = new List<string>();
+            _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Comments);
+            _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Posts);
+            _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Pages);
+            _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Everything);
+
         }
 
         #endregion
@@ -87,34 +93,13 @@ namespace WordPress
             MessageBox.Show("Feature coming soon!");
         }
 
-        private void refreshCommentsButton_Click(object sender, RoutedEventArgs e)
-        {            
-            DataStore.Instance.FetchCurrentBlogCommentsAsync();
-
-            App.WaitIndicationService.ShowIndicator("Retrieving comments...");
-        }
-
-        private void refreshPostsButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataStore.Instance.FetchCurrentBlogPostsAsync();
-
-            App.WaitIndicationService.ShowIndicator("Retrieving posts...");
-        }
-        
-        private void refreshPagesButton_Click(object sender, RoutedEventArgs e)
-        {
-            DataStore.Instance.FetchCurrentBlogPagesAsync();
-
-            App.WaitIndicationService.ShowIndicator("Retrieving pages...");
-        }
-
-        private void newPostButton_Click(object sender, RoutedEventArgs e)
+        private void createPostButton_Click(object sender, RoutedEventArgs e)
         {
             App.MasterViewModel.CurrentPost = null;
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }
 
-        private void newPageButton_Click(object sender, RoutedEventArgs e)
+        private void createPageButton_Click(object sender, RoutedEventArgs e)
         {
             App.MasterViewModel.CurrentPage = null;
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
@@ -124,9 +109,6 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
 
-            DataStore.Instance.FetchComplete += DataStore_FetchComplete;
-            DataStore.Instance.ExceptionOccurred += DataStore_ExceptionOccurred;
-
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
         }
 
@@ -134,18 +116,115 @@ namespace WordPress
         {
             base.OnNavigatingFrom(e);
 
-            DataStore.Instance.FetchComplete -= DataStore_FetchComplete;
-            DataStore.Instance.ExceptionOccurred -= DataStore_ExceptionOccurred;
+            DataStore.Instance.FetchComplete -= OnSingleFetchComplete;
+            DataStore.Instance.FetchComplete -= OnMultiFetchComplete;
+            DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
         }
 
-        private void DataStore_FetchComplete(object sender, EventArgs e)
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
+            if (App.PopupSelectionService.IsPopupOpen)
+            {
+                App.PopupSelectionService.HidePopup();
+                App.PopupSelectionService.SelectionChanged -= OnPopupServiceSelectionChanged;
+
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
+
+        private void refreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.PopupSelectionService.Title = _localizedStrings.Prompts.RefreshEntity;
+            App.PopupSelectionService.ItemsSource = _refreshListOptions;
+            App.PopupSelectionService.SelectionChanged += OnPopupServiceSelectionChanged;
+            App.PopupSelectionService.ShowPopup();
+        }
+
+        private void OnPopupServiceSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App.PopupSelectionService.SelectionChanged -= OnPopupServiceSelectionChanged;
+            if (1 > e.AddedItems.Count) return;
+
+            string selection = (string)e.AddedItems[0];
+            int index = _refreshListOptions.IndexOf(selection);
+
+            if (index > _refreshListOptions.Count || 0 > index) return;
+
+            DataStore.Instance.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
+
+            switch (index)
+            {
+                case 0:     //comments
+                    DataStore.Instance.FetchComplete += OnSingleFetchComplete;
+                    DataStore.Instance.FetchCurrentBlogCommentsAsync();
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingComments);
+                    break;
+                case 1:     //posts
+                    DataStore.Instance.FetchComplete += OnSingleFetchComplete;
+                    DataStore.Instance.FetchCurrentBlogPostsAsync();
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPosts);
+                    break;
+                case 2:     //pages
+                    DataStore.Instance.FetchComplete += OnSingleFetchComplete;
+                    DataStore.Instance.FetchCurrentBlogPagesAsync();
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPages);
+                    break;
+                case 3:     //everything
+                    _multiFetchTaskCount = 3;
+                    DataStore.Instance.FetchComplete += OnMultiFetchComplete;
+                    DataStore.Instance.FetchCurrentBlogCommentsAsync();
+                    DataStore.Instance.FetchCurrentBlogPostsAsync();
+                    DataStore.Instance.FetchCurrentBlogPagesAsync();
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingEverything);
+                    break;
+            }
+        }
+
+        private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
+        {
+            App.WaitIndicationService.HideIndicator();
+            DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+            DataStore.Instance.FetchComplete -= OnSingleFetchComplete;
+            DataStore.Instance.FetchComplete -= OnMultiFetchComplete;
+
+            HandleError(args.Exception);
+        }
+
+        private void HandleError(Exception exception)
+        {
+            //TODO: clean this up...
+            MessageBox.Show(exception.Message);
+        }
+
+        private void OnSingleFetchComplete(object sender, EventArgs e)
+        {
+            DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
             App.WaitIndicationService.HideIndicator();
         }
 
-        private void DataStore_ExceptionOccurred(object sender, ExceptionEventArgs args)
+        private void OnMultiFetchComplete(object sender, EventArgs e)
+        {            
+            _multiFetchTaskCount--;
+            
+            if (0 == _multiFetchTaskCount)
+            {
+                DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+                App.WaitIndicationService.HideIndicator();
+            }
+        }
+
+        private void moderateCommentsButton_Click(object sender, RoutedEventArgs e)
         {
-            App.WaitIndicationService.HideIndicator();
+            MessageBox.Show("Feature coming soon!");
+        }
+
+        private void settingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
         }
 
         #endregion

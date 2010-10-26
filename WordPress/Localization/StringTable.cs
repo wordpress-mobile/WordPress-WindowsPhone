@@ -14,6 +14,8 @@ namespace WordPress.Localization
             this.PageTitles = new Titles();
             this.ControlsText = new ControlText();
             this.Messages = new UserMessages();
+            this.Options = new UserOptions();
+            this.Prompts = new UserPrompts();
         }
 
         #endregion
@@ -27,6 +29,10 @@ namespace WordPress.Localization
         public ControlText ControlsText { get; private set; }
 
         public UserMessages Messages { get; private set; }
+
+        public UserOptions Options { get; private set; }
+
+        public UserPrompts Prompts { get; private set; }
 
         #endregion
 
@@ -128,7 +134,37 @@ namespace WordPress.Localization
             public string DeletingComment { get { return LocalizedResources.Messages_DeletingComment; } }
             public string MissingReply { get { return LocalizedResources.Messages_MissingReply; } }
             public string ReplyingToComment { get { return LocalizedResources.Messages_ReplyingToComment; } }
+            public string RetrievingComments { get { return LocalizedResources.Messages_RetrievingComments; } }
+            public string RetrievingPosts { get { return LocalizedResources.Messages_RetrievingPosts; } }
+            public string RetrievingPages { get { return LocalizedResources.Messages_RetrievingPages; } }
+            public string RetrievingEverything { get { return LocalizedResources.Messages_RetrievingEverything; } }
 
+        }
+
+        #endregion
+
+        #region UserOptions class definition
+
+        public class UserOptions
+        {
+            public UserOptions() { }
+
+            public string RefreshEntity_Comments { get { return LocalizedResources.Options_RefreshEntity_Comments; } }
+            public string RefreshEntity_Posts { get { return LocalizedResources.Options_RefreshEntity_Posts; } }
+            public string RefreshEntity_Pages { get { return LocalizedResources.Options_RefreshEntity_Pages; } }
+            public string RefreshEntity_Everything { get { return LocalizedResources.Options_RefreshEntity_Everything; } }
+
+        }
+
+        #endregion
+
+        #region UserPrompts class definition
+
+        public class UserPrompts
+        {
+            public UserPrompts(){}
+
+            public string RefreshEntity { get { return LocalizedResources.Prompts_RefreshEntity; } }
         }
 
         #endregion
