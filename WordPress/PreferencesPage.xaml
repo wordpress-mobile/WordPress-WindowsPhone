@@ -60,7 +60,9 @@
         		</CheckBox>
         		<TextBox x:Name="taglineTextBox" Text="{Binding Tagline, Mode=TwoWay}" 
                          Style="{StaticResource TextBoxStyle}" 
-                         Template="{StaticResource FocusedTextBoxTemplate}"/>
+                         Template="{StaticResource FocusedTextBoxTemplate}"
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button x:Name="cancelButton" Style="{StaticResource BasicButtonStyle}"
                             Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}"  

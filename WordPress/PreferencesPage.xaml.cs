@@ -1,9 +1,8 @@
-﻿using System.IO.IsolatedStorage;
+﻿
 using System.Windows;
 using Microsoft.Phone.Controls;
 
-using WordPress.Localization;
-using WordPress.Model;
+using WordPress.Settings;
 
 namespace WordPress
 {
@@ -13,9 +12,7 @@ namespace WordPress
 
         private const string USETAGLINEFORNEWPOSTS_VALUE = "useTaglineForNewPosts";
         private const string TAGLINE_VALUE = "tagline";
-
-        private StringTable _localizedStrings;
-
+        
         #endregion
 
         #region constructors
@@ -25,8 +22,6 @@ namespace WordPress
             InitializeComponent();
 
             DataContext = new UserSettings();
-
-            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
         }
 
         #endregion
@@ -77,11 +72,6 @@ namespace WordPress
             if (State.ContainsKey(TAGLINE_VALUE))
             {
                 string tagline = (string)State[TAGLINE_VALUE];
-                if (string.IsNullOrEmpty(tagline))
-                {
-                    tagline = _localizedStrings.ControlsText.DefaultTagline;
-                    settings.UseTaglineForNewPosts = false;
-                }
                 settings.Tagline = tagline;
             }
 
@@ -112,12 +102,6 @@ namespace WordPress
         private void SaveSettings()
         {
             UserSettings settings = DataContext as UserSettings;
-
-            if (string.IsNullOrEmpty(settings.Tagline))
-            {
-                settings.Tagline = _localizedStrings.ControlsText.DefaultTagline;
-                settings.UseTaglineForNewPosts = false;
-            }
 
             settings.Save();
         }

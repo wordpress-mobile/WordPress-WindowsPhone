@@ -1,7 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO.IsolatedStorage;
 
-namespace WordPress.Model
+using WordPress.Localization;
+
+namespace WordPress.Settings
 {
     /// <summary>
     /// Provides access to strongly-typed user settings.  This class is a wrapper
@@ -14,6 +17,8 @@ namespace WordPress.Model
                 
         private const string USETAGLINEFORNEWPOSTS_VALUE = "useTaglineForNewPosts";
         private const string TAGLINE_VALUE = "tagline";
+
+        private StringTable _localizedStrings;
 
         #endregion
 
@@ -28,6 +33,8 @@ namespace WordPress.Model
         public UserSettings()
         {
             Settings = IsolatedStorageSettings.ApplicationSettings;
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
         }
 
         #endregion
@@ -70,6 +77,10 @@ namespace WordPress.Model
                 {
                     result = (string)Settings[TAGLINE_VALUE];
                 }
+                else
+                {
+                    result = _localizedStrings.ControlsText.DefaultTagline;
+                }
 
                 return result;
             }
@@ -79,7 +90,14 @@ namespace WordPress.Model
                 string oldValue = Tagline;
                 if (oldValue != value)
                 {
-                    Settings[TAGLINE_VALUE] = value;
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        Settings[TAGLINE_VALUE] = value;
+                    }
+                    else
+                    {
+                        Settings[TAGLINE_VALUE] = _localizedStrings.ControlsText.DefaultTagline;
+                    }
                     NotifyPropertyChanged("Tagline");
                 }
             }
