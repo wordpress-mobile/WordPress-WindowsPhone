@@ -63,13 +63,27 @@ namespace WordPress.Model
         public string Username
         {
             get { return _username; }
-            set { _username = value; }
+            set 
+            {
+                if (value != _username)
+                {
+                    _username = value;
+                    NotifyPropertyChanged("Username");
+                }
+            }
         }
 
         public string Password
         {
             get { return _password; }
-            set { _password = value; }
+            set 
+            {
+                if (value != _password)
+                {
+                    _password = value;
+                    NotifyPropertyChanged("Password");
+                }
+            }
         }
 
         public bool IsAdmin
