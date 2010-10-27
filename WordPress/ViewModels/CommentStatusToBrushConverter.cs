@@ -47,17 +47,13 @@ namespace WordPress
             switch (status)
             {
                 case eCommentStatus.approve:
-                    return ApproveBrush;
-                    break;
+                    return ApproveBrush;                    
                 case eCommentStatus.hold:
-                    return UnapproveBrush;
-                    break;
+                    return UnapproveBrush;                    
                 case eCommentStatus.spam:
-                    return SpamBrush;
-                    break;
+                    return SpamBrush;                    
                 default:
-                    return ApproveBrush;
-                    break;
+                    return ApproveBrush;             
             }
         }
 
