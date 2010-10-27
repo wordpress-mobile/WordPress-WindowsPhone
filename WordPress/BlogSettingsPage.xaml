@@ -1,19 +1,21 @@
-﻿<phone:PhoneApplicationPage 
-    x:Class="WordPress.BlogSettingsPage"
+﻿<phone:PhoneApplicationPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    x:Class="WordPress.BlogSettingsPage"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
     
 	<phone:PhoneApplicationPage.Resources>
+        <local:BooleanInversionConverter xmlns:local="clr-namespace:WordPress.Converters" x:Key="BooleanInversionConverter"/>
+		<System:Double x:Key="SectionHeaderFontSize">28</System:Double>
+		<System:Double x:Key="ControlFontSize">24</System:Double>
+		<SolidColorBrush x:Key="SectionHeaderBackgroundBrush" Color="#FFD4D4D4"/>
 	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -34,13 +36,13 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="Images/blue-s.png" Stretch="None" Width="50" Margin="0" HorizontalAlignment="Left" RenderTransformOrigin="0.52,-0.18" d:LayoutOverrides="Height"/>
-                <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=ApplicationTitle, Source={StaticResource StringTable}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                <TextBlock x:Name="ApplicationTitle" Text="{Binding ApplicationTitle, Source={StaticResource StringTable}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
             		<TextBlock.Foreground>
             			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
             		</TextBlock.Foreground>
                 </TextBlock>
             </Grid>
-            <TextBlock x:Name="PageTitle" Text="{Binding Path=PageTitles.Settings, Source={StaticResource StringTable}}" Margin="9,-7,8,0" Style="{StaticResource PhoneTextTitle1Style}">
+            <TextBlock x:Name="PageTitle" Text="{Binding PageTitles.Settings, Source={StaticResource StringTable}}" Margin="9,-7,8,0" Style="{StaticResource PhoneTextTitle1Style}">
                 <TextBlock.Foreground>
             		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             	</TextBlock.Foreground>
@@ -48,36 +50,52 @@
         </StackPanel>
         <ScrollViewer x:Name="ContentPanel" Margin="12,0" Grid.Row="1" >
         	<StackPanel Orientation="Vertical" Width="456">
-        		<Border Background="#FFD4d4d4">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.AccountDetails, Source={StaticResource StringTable}}" FontSize="24">
+        		<Border Background="{StaticResource SectionHeaderBackgroundBrush}">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ControlsText.AccountDetails, Source={StaticResource StringTable}}" FontSize="{StaticResource SectionHeaderFontSize}">
         				<TextBlock.Foreground>
         					<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
         				</TextBlock.Foreground>
         			</TextBlock>
         		</Border>
-                <TextBlock TextWrapping="Wrap" FontSize="24" Text="{Binding Path=ControlsText.Username, Source={StaticResource StringTable}}">
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" Text="{Binding ControlsText.Username, Source={StaticResource StringTable}}">
         			<TextBlock.Foreground>
         				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         			</TextBlock.Foreground></TextBlock>
-        		<TextBox x:Name="usernameTextBox" TextWrapping="Wrap" Text="TextBox" FontSize="24" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"/>
-                <TextBlock TextWrapping="Wrap" FontSize="24" Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}">
+        		<TextBox x:Name="usernameTextBox" 
+                         Style="{StaticResource TextBoxStyle}" 
+                         Template="{StaticResource FocusedTextBoxTemplate}"
+                         TextWrapping="Wrap" 
+                         Text="{Binding Username, Mode=TwoWay}" 
+                         FontSize="{StaticResource ControlFontSize}"                          
+                         />
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" Text="{Binding ControlsText.Password, Source={StaticResource StringTable}}">
         			<TextBlock.Foreground>
         				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         			</TextBlock.Foreground></TextBlock>
-        		<TextBox x:Name="passwordTextBox" TextWrapping="Wrap" Text="TextBox" FontSize="24" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"/>
-        		<Border Background="#FFD4d4d4">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" FontSize="24">
+        		<PasswordBox x:Name="passwordTextBox" 
+                             FontSize="{StaticResource ControlFontSize}" 
+                             Style="{StaticResource PasswordBoxStyle}" 
+                             Template="{StaticResource FocusedPasswordBoxTemplate}"
+                             Password="{Binding Password, Mode=TwoWay}"
+                             />
+                <Border Background="{StaticResource SectionHeaderBackgroundBrush}">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" FontSize="{StaticResource SectionHeaderFontSize}">
         				<TextBlock.Foreground>
         					<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
         				</TextBlock.Foreground>
         			</TextBlock>
         		</Border>
-                <TextBlock TextWrapping="Wrap" FontSize="24" Text="{Binding Path=ControlsText.PlaceImage, Source={StaticResource StringTable}}">
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" Text="{Binding ControlsText.PlaceImage, Source={StaticResource StringTable}}">
         			<TextBlock.Foreground>
         				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         			</TextBlock.Foreground></TextBlock>
         		<StackPanel Height="100" Orientation="Horizontal">
-                    <RadioButton x:Name="aboveTextRadioButton" Content="{Binding Path=ControlsText.AboveText, Source={StaticResource StringTable}}" IsChecked="True" GroupName="imagePlacement" Margin="0,0,0,15">
+                    <RadioButton x:Name="aboveTextRadioButton" 
+                                 Content="{Binding ControlsText.AboveText, Source={StaticResource StringTable}}" 
+                                 IsChecked="{Binding PlaceImageAboveText, Mode=TwoWay}" 
+                                 GroupName="imagePlacement" 
+                                 Margin="0,0,0,15" 
+                                 FontSize="{StaticResource ControlFontSize}">
         				<RadioButton.Foreground>
         					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         				</RadioButton.Foreground>
@@ -85,7 +103,13 @@
         					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         				</RadioButton.Background>
         			</RadioButton>
-                    <RadioButton x:Name="belowTextRadioButton" Content="{Binding Path=ControlsText.BelowText, Source={StaticResource StringTable}}" GroupName="imagePlacement" Margin="0,0,0,15">
+                    <RadioButton x:Name="belowTextRadioButton" 
+                                 Content="{Binding ControlsText.BelowText, Source={StaticResource StringTable}}" 
+                                 GroupName="imagePlacement" 
+                                 Margin="0,0,0,15" 
+                                 FontSize="{StaticResource ControlFontSize}"
+                                 IsChecked="{Binding PlaceImageAboveText, Mode=TwoWay, Converter={StaticResource BooleanInversionConverter}}"
+                                 >
         				<RadioButton.Foreground>
         					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         				</RadioButton.Foreground>
@@ -94,45 +118,73 @@
         				</RadioButton.Background>
         			</RadioButton>
         		</StackPanel>
-                <TextBlock TextWrapping="Wrap" FontSize="24" Text="{Binding Path=ControlsText.MaximumThumbnailPixelWidth, Source={StaticResource StringTable}}">
-        			<TextBlock.Foreground>
-        				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-        			</TextBlock.Foreground>
-                </TextBlock>
-                <ComboBox x:Name="thumbnailWidthComboBox" FontSize="24" >
-                	<ComboBox.Foreground>
-                		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                	</ComboBox.Foreground>
-                </ComboBox>
-                <CheckBox x:Name="alignThumbnailCheckBox" Content="{Binding Path=ControlsText.AlignThumbnailToCenter, Source={StaticResource StringTable}}">
+        		<StackPanel Orientation="Horizontal">
+        			<TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" Text="{Binding ControlsText.MaximumThumbnailPixelWidth, Source={StaticResource StringTable}}" VerticalAlignment="Center">
+        				<TextBlock.Foreground>
+        					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+        				</TextBlock.Foreground>
+        			</TextBlock>
+        			<Button x:Name="thumbnailPixelWidthButton"
+        				    FontSize="{StaticResource ControlFontSize}"
+        				    Content="{Binding ThumbnailPixelWidth}"
+                            Style="{StaticResource BasicButtonStyle}"
+        				    Click="OnThumbnailPixelWidthButtonClick" 
+                            />
+        		</StackPanel>
+                <CheckBox x:Name="alignThumbnailCheckBox" 
+                          Content="{Binding ControlsText.AlignThumbnailToCenter, Source={StaticResource StringTable}}" 
+                          FontSize="{StaticResource ControlFontSize}"
+                          IsChecked="{Binding AlignThumbnailToCenter, Mode=TwoWay}"
+                          >
                 	<CheckBox.Foreground>
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</CheckBox.Foreground>
                 </CheckBox>
-                <CheckBox x:Name="uploadCheckBox" Content="{Binding Path=ControlsText.UploadAndLinkToFullImage, Source={StaticResource StringTable}}">
+                <CheckBox x:Name="uploadCheckBox" 
+                          Content="{Binding ControlsText.UploadAndLinkToFullImage, Source={StaticResource StringTable}}" 
+                          FontSize="{StaticResource ControlFontSize}"
+                          IsChecked="{Binding UploadAndLinkToFullImage, Mode=TwoWay}"
+                          >
                 	<CheckBox.Foreground>
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</CheckBox.Foreground>
                 </CheckBox>
-                <Border Background="#FFD4d4d4">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.Location, Source={StaticResource StringTable}}" FontSize="24">
+                <Border Background="{StaticResource SectionHeaderBackgroundBrush}">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding ControlsText.Location, Source={StaticResource StringTable}}" FontSize="{StaticResource SectionHeaderFontSize}">
                 		<TextBlock.Foreground>
                 			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                 		</TextBlock.Foreground>
                 	</TextBlock>
                 </Border>
-                <CheckBox x:Name="geotagCheckBox" Content="{Binding Path=ControlsText.GeoTagPosts, Source={StaticResource StringTable}}">
+                <CheckBox x:Name="geotagCheckBox" 
+                          Content="{Binding ControlsText.GeoTagPosts, Source={StaticResource StringTable}}" 
+                          FontSize="{StaticResource ControlFontSize}"
+                          IsChecked="{Binding GeotagPosts, Mode=TwoWay}"
+                          >
                 	<CheckBox.Foreground>
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</CheckBox.Foreground>
                 </CheckBox>
                 <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" Content="cancel" Margin="0,0,0,31" d:LayoutOverrides="Height" FontSize="24" Style="{StaticResource BasicButtonStyle}">
+                    <Button x:Name="cancelButton" 
+                            Content="{Binding ControlsText.Cancel, Source={StaticResource StringTable}}" 
+                            Margin="0,0,0,31" 
+                            d:LayoutOverrides="Height"                             
+                            Style="{StaticResource BasicButtonStyle}"
+                            Click="OnCancelButtonClick"
+                            >
                 		<Button.Foreground>
                 			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 		</Button.Foreground>
                 	</Button>
-                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Margin="0,0,0,31" FontSize="24" d:LayoutOverrides="Height" Style="{StaticResource BasicButtonStyle}">
+                    <Button x:Name="saveButton" 
+                            Content="{Binding ControlsText.Save, Source={StaticResource StringTable}}" 
+                            Margin="0,0,0,31" 
+                            FontSize="24" 
+                            d:LayoutOverrides="Height" 
+                            Style="{StaticResource BasicButtonStyle}"
+                            Click="OnSaveButtonClick"
+                            >
                 		<Button.Foreground>
                 			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 		</Button.Foreground>
@@ -140,20 +192,5 @@
                 </StackPanel>
         	</StackPanel>
         </ScrollViewer>
-
-        <!--ContentPanel - place additional content here-->
     </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
 </phone:PhoneApplicationPage>

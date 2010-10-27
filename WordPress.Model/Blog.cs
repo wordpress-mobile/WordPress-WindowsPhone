@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace WordPress.Model
 {
-    public class Blog: INotifyPropertyChanged
+    public class Blog: INotifyPropertyChanged, IEditableObject
     {
         #region member variables
 
@@ -18,6 +18,12 @@ namespace WordPress.Model
         private int _blogId;
         private string _blogName;
         private string _xmlrpc;
+
+        private bool _placeImageAboveText;
+        private int _thumbnailPixelWidth;
+        private bool _alignThumbnailToCenter;
+        private bool _uploadAndLinkToFullImage;
+        private bool _geotagPosts;
 
         private const string ISADMIN_VALUE = "isAdmin";
         private const string URL_VALUE = "url";
@@ -37,6 +43,8 @@ namespace WordPress.Model
 
         public Blog() 
         {
+            _thumbnailPixelWidth = 100;
+
             Comments = new ObservableCollection<Comment>();
             PostListItems = new ObservableCollection<PostListItem>();
             PageListItems = new ObservableCollection<PageListItem>();
@@ -135,6 +143,81 @@ namespace WordPress.Model
 
         public ObservableCollection<PageListItem> PageListItems { get; private set; }
 
+        public bool PlaceImageAboveText 
+        {
+            get { return _placeImageAboveText; }
+            set
+            {
+                if (value != _placeImageAboveText)
+                {
+                    _placeImageAboveText = value;
+                    NotifyPropertyChanged("PlaceImageAboveText");
+                }
+            }
+        }
+
+        public int ThumbnailPixelWidth
+        {
+            get { return _thumbnailPixelWidth; }
+            set 
+            {
+                if (value != _thumbnailPixelWidth)
+                {
+                    _thumbnailPixelWidth = value;
+                    NotifyPropertyChanged("ThumbnailPixelWidth");
+                }
+            }
+        }
+
+        public bool AlignThumbnailToCenter 
+        {
+            get { return _alignThumbnailToCenter; }
+            set
+            {
+                if (value != _alignThumbnailToCenter)
+                {
+                    _alignThumbnailToCenter = value;
+                    NotifyPropertyChanged("AlignThumbnailToCenter");
+                }
+            }
+        }
+
+        public bool UploadAndLinkToFullImage 
+        {
+            get { return _uploadAndLinkToFullImage; }
+            set
+            {
+                if (value != _uploadAndLinkToFullImage)
+                {
+                    _uploadAndLinkToFullImage = value;
+                    NotifyPropertyChanged("UploadAndLinkToFullImage");
+                }
+            }
+        }
+
+        public bool GeotagPosts 
+        {
+            get { return _geotagPosts; }
+            set
+            {
+                if (value != _geotagPosts)
+                {
+                    _geotagPosts = value;
+                    NotifyPropertyChanged("GeotagPosts");
+                }
+            }
+        }
+
+        private Momento<Blog> Snapshot { get; set; }
+
+        /// <summary>
+        /// Indicates that the BeginEdit method was called and a snapshot of the blog exists.
+        /// </summary>
+        public bool IsEditing
+        {
+            get { return null != Snapshot; }
+        }
+
         #endregion
 
         #region methods
@@ -190,6 +273,34 @@ namespace WordPress.Model
             }            
         }
 
+        public void BeginEdit()
+        {
+            if (null == Snapshot)
+            {
+                Snapshot = new Momento<Blog>(this);
+            }
+        }
+
+        public void CancelEdit()
+        {
+            if (null == Snapshot)
+            {
+                throw new InvalidOperationException("CancelEdit cannot successfully complete; BeginEdit was not invoked.");
+            }
+            Snapshot.RestoreState(this);
+            Snapshot = null;
+        }
+
+        public void EndEdit()
+        {
+            if (null == Snapshot)
+            {
+                throw new InvalidOperationException("EndEdit cannot successfully complete; BeginEdit was not invoked.");
+            }
+            Snapshot = null;
+        }
+
         #endregion
+
     }
 }
