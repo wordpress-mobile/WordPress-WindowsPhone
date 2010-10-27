@@ -13,9 +13,9 @@ using Microsoft.Phone.Controls;
 
 namespace WordPress
 {
-    public partial class AddBlogHomePage : PhoneApplicationPage
+    public partial class LocateBlogPage : PhoneApplicationPage
     {
-        public AddBlogHomePage()
+        public LocateBlogPage()
         {
             InitializeComponent();
         }

@@ -637,6 +637,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to retrieving post....
+        /// </summary>
+        internal static string Messages_RetrievingPost {
+            get {
+                return ResourceManager.GetString("Messages_RetrievingPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to retrieving posts....
         /// </summary>
         internal static string Messages_RetrievingPosts {

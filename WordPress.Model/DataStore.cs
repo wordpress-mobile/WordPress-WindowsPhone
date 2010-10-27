@@ -332,7 +332,7 @@ namespace WordPress.Model
 
         #endregion
 
-        #region StoreData
+        #region StoreData class definition
 
         public class StoreData
         {
@@ -345,5 +345,6 @@ namespace WordPress.Model
         }
 
         #endregion
+
     }
 }

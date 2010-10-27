@@ -1,7 +1,10 @@
 ﻿using System;
+using System.IO.IsolatedStorage;
 using System.Text;
 using System.Windows;
 using Microsoft.Phone.Controls;
+
+using WordPress.Localization;
 using WordPress.Model;
 
 namespace WordPress
@@ -13,14 +16,17 @@ namespace WordPress
         private const string POSTKEY_VALUE = "post";
         private const string PUBLISHKEY_VALUE = "publish";
 
-        #endregion
+        private StringTable _localizedStrings;
 
+        #endregion
 
         #region constructors
 
         public EditPostPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
         }
 
         #endregion
@@ -34,34 +40,53 @@ namespace WordPress
             //check for transient data stored in State dictionary
             if (State.ContainsKey(POSTKEY_VALUE))
             {
-                Post post = State[POSTKEY_VALUE] as Post;
-                DataContext = post;
-
-                if (State.ContainsKey(PUBLISHKEY_VALUE))
-                {
-                    publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
-                }
+                RestorePageState();
             }
             else
             {
-                Blog currentBlog = App.MasterViewModel.CurrentBlog;
+                LoadBlog();
+            }
+        }
 
-                App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        /// <summary>
+        /// Retrieves transient data from the page's State dictionary
+        /// </summary>
+        private void RestorePageState()
+        {
+            if (State.ContainsKey(POSTKEY_VALUE))
+            {
+                Post post = State[POSTKEY_VALUE] as Post;
+                DataContext = post;
+            }
 
-                if (null != App.MasterViewModel.CurrentPost)
-                {
-                    string postId = App.MasterViewModel.CurrentPost.PostId.ToString();
+            if (State.ContainsKey(PUBLISHKEY_VALUE))
+            {
+                publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
+            }
+        }
 
-                    GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
-                    rpc.Completed += OnGetPostRPCCompleted;
-                    rpc.ExecuteAsync();
+        /// <summary>
+        /// Locates a Post object and specifies the result as the page's DataContext
+        /// </summary>
+        private void LoadBlog()
+        {
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
-                    App.WaitIndicationService.ShowIndicator("Retrieving post...");
-                }
-                else
-                {
-                    DataContext = new Post();
-                }
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
+            if (null != App.MasterViewModel.CurrentPost)
+            {
+                string postId = App.MasterViewModel.CurrentPost.PostId.ToString();
+
+                GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
+                rpc.Completed += OnGetPostRPCCompleted;
+                rpc.ExecuteAsync();
+
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
+            }
+            else
+            {
+                DataContext = new Post();
             }
         }
 
@@ -213,6 +238,14 @@ namespace WordPress
             base.OnNavigatedFrom(e);
 
             //store transient data in the State dictionary
+            SavePageState();
+        }
+
+        /// <summary>
+        /// Stores transient data in the page's State dictionary
+        /// </summary>
+        private void SavePageState()
+        {
             if (State.ContainsKey(POSTKEY_VALUE))
             {
                 State.Remove(POSTKEY_VALUE);
@@ -232,6 +265,7 @@ namespace WordPress
             }
             State.Add(PUBLISHKEY_VALUE, publishToggleButton.IsChecked);
         }
+
         #endregion
 
     }

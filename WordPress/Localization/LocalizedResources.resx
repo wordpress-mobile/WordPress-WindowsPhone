@@ -312,6 +312,9 @@
   <data name="Messages_RetrievingPages" xml:space="preserve">
     <value>retrieving pages...</value>
   </data>
+  <data name="Messages_RetrievingPost" xml:space="preserve">
+    <value>retrieving post...</value>
+  </data>
   <data name="Messages_RetrievingPosts" xml:space="preserve">
     <value>retrieving posts...</value>
   </data>

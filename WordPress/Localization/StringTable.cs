@@ -138,7 +138,7 @@ namespace WordPress.Localization
             public string RetrievingPosts { get { return LocalizedResources.Messages_RetrievingPosts; } }
             public string RetrievingPages { get { return LocalizedResources.Messages_RetrievingPages; } }
             public string RetrievingEverything { get { return LocalizedResources.Messages_RetrievingEverything; } }
-
+            public string RetrievingPost { get { return LocalizedResources.Messages_RetrievingPost; } }
         }
 
         #endregion

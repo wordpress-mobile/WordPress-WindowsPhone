@@ -46,73 +46,32 @@
         <ScrollViewer x:Name="ContentPanel" Margin="12,0,12,0" Grid.Row="1" >
         	<StackPanel>
         		<Border Background="#FFD4d4d4">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.CommentNotifications, Source={StaticResource StringTable}}" FontSize="24">
-        				<TextBlock.Foreground>
-        					<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-        				</TextBlock.Foreground>
-        			</TextBlock>
-        		</Border>
-                <StackPanel x:Name="blogStackPanel">
-        		    <CheckBox Content="Test Blog" IsChecked="True">
-        			    <CheckBox.Foreground>
-        				    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-        			    </CheckBox.Foreground>
-        		    </CheckBox>
-                </StackPanel>
-                <TextBlock Text="{Binding Path=ControlsText.UpdateInterval, Source={StaticResource StringTable}}">
-        			<TextBlock.Foreground>
-        				<SolidColorBrush Color="{StaticResource WordPressGrey}" />
-					</TextBlock.Foreground>
-				</TextBlock>
-				<ComboBox FontSize="24">
-					<ComboBox.Foreground>
-						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-					</ComboBox.Foreground>
-				</ComboBox>
-				<CheckBox Content="{Binding Path=ControlsText.PlayNotificationSound, Source={StaticResource StringTable}}" IsChecked="True">
-        			<CheckBox.Foreground>
-        				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-        			</CheckBox.Foreground>
-        		</CheckBox>
-        		<CheckBox Content="{Binding Path=ControlsText.Vibrate, Source={StaticResource StringTable}}" IsChecked="True">
-        			<CheckBox.Foreground>
-        				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-        			</CheckBox.Foreground>
-        		</CheckBox>
-        		<CheckBox Content="{Binding Path=ControlsText.BlinkNotificationLight, Source={StaticResource StringTable}}" IsChecked="True">
-        			<CheckBox.Foreground>
-        				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-        			</CheckBox.Foreground>
-        		</CheckBox>
-        		<Border Background="#FFD4d4d4">
         			<TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.PostSignature, Source={StaticResource StringTable}}" FontSize="24">
         				<TextBlock.Foreground>
         					<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
         				</TextBlock.Foreground>
         			</TextBlock>
         		</Border>
-				<CheckBox Content="{Binding Path=ControlsText.AddTaglineToNewPosts, Source={StaticResource StringTable}}" IsChecked="True">
+				<CheckBox x:Name="useTaglineCheckbox" Content="{Binding Path=ControlsText.AddTaglineToNewPosts, Source={StaticResource StringTable}}" 
+                          IsChecked="{Binding UseTaglineForNewPosts, Mode=TwoWay}">
         			<CheckBox.Foreground>
         				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
         			</CheckBox.Foreground>
         		</CheckBox>
-        		<TextBox x:Name="taglineTextBox" Text="{Binding Path=ControlsText.DefaultTagline, Source={StaticResource StringTable}}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"/>
-        	</StackPanel>
+        		<TextBox x:Name="taglineTextBox" Text="{Binding Tagline, Mode=TwoWay}" 
+                         Style="{StaticResource TextBoxStyle}" 
+                         Template="{StaticResource FocusedTextBoxTemplate}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button x:Name="cancelButton" Style="{StaticResource BasicButtonStyle}"
+                            Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}"  
+                            Click="cancelButton_Click"
+                            />
+                    <Button x:Name="saveButton" Style="{StaticResource BasicButtonStyle}"
+                            Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" 
+                            Click="saveButton_Click"
+                            />
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
-
-        <!--ContentPanel - place additional content here-->
     </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
 </phone:PhoneApplicationPage>
