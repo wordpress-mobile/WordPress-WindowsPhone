@@ -1,70 +1,186 @@
-﻿<phone:PhoneApplicationPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:WordPress" xmlns:converters="clr-namespace:WordPress.Converters" xmlns:controlsPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls" 
+﻿<phone:PhoneApplicationPage 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" 
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" 
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:WordPress" 
+    xmlns:converters="clr-namespace:WordPress.Converters" 
+    xmlns:controlsPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls" 
     x:Class="WordPress.ModerateCommentsPage"
     SupportedOrientations="Portrait" mc:Ignorable="d" Orientation="Portrait"
     d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
-	<phone:PhoneApplicationPage.Resources>
-		
-		<local:MasterViewModel x:Key="MasterViewModelDataSource" d:IsDataSource="True"/>
-		
+    <phone:PhoneApplicationPage.Resources>
+
+        <local:MasterViewModel x:Key="MasterViewModelDataSource" d:IsDataSource="True"/>
+
         <local:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"/>
 
         <converters:CommentStatusGroupingConverter x:Key="ApprovedCommentConverter" Status="approve"/>
         <converters:CommentStatusGroupingConverter x:Key="UnapprovedCommentConverter" Status="hold"/>
         <converters:CommentStatusGroupingConverter x:Key="SpamCommentConverter" Status="spam"/>
-        
+
         <DataTemplate x:Key="CommentListItemTemplate">
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition/>
-				</Grid.ColumnDefinitions>
-				<Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
-				<StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
-					<TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
+                    <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24">
 						<TextBlock.Foreground>
 							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
 						</TextBlock.Foreground>
-					</TextBlock>
+                    </TextBlock>
                     <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
 						<TextBlock.Foreground>
 							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
 						</TextBlock.Foreground>
-					</TextBlock>
+                    </TextBlock>
                     <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
 						<TextBlock.Foreground>
 							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
 						</TextBlock.Foreground>
-					</TextBlock>
-				</StackPanel>
-				<StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
-					<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
+                    <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
 						<TextBlock.Foreground>
 							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
 						</TextBlock.Foreground>
-					</TextBlock>
-					<TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
+                    </TextBlock>
+                    <TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
 								Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
 								/>
-				</StackPanel>
-			</Grid>
-		</DataTemplate>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        
+        <Style x:Key="CommentListItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TransparentBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimation Duration="0" To=".5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentContainer"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
+                                                            Duration="0:0:0.15"
+                                                            From="{StaticResource WordPressBlue}" To="Transparent" />
+                                            <ColorAnimation Storyboard.TargetName="authorTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" 
+                                                            From="White" To="{StaticResource WordPressGrey}"/>
+                                            <ColorAnimation Storyboard.TargetName="authorEmailTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" 
+                                                            From="White" To="{StaticResource WordPressGrey}"/>
+                                            <ColorAnimation Storyboard.TargetName="postTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" 
+                                                            From="White" To="{StaticResource WordPressGrey}"/>
+                                            <ColorAnimation Storyboard.TargetName="contentTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" 
+                                                            From="White" To="{StaticResource WordPressGrey}"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>                                            
+                                            <ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
+                                                            Duration="0:0:0.15"
+                                                            From="Transparent" To="{StaticResource WordPressBlue}" />
+                                            <ColorAnimation Storyboard.TargetName="authorTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+                                            <ColorAnimation Storyboard.TargetName="authorEmailTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+                                            <ColorAnimation Storyboard.TargetName="postTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+                                            <ColorAnimation Storyboard.TargetName="contentTextBrush" Storyboard.TargetProperty="Color"
+                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentControl x:Name="ContentContainer" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
+                                        <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24" >
+                                            <TextBlock.Foreground>
+							                    <SolidColorBrush x:Name="authorTextBrush" Color="{StaticResource WordPressGrey}"/>
+						                    </TextBlock.Foreground>
+                                        </TextBlock>
+                                        <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
+						                    <TextBlock.Foreground>
+							                    <SolidColorBrush x:Name="authorEmailTextBrush" Color="{StaticResource WordPressGrey}"/>
+						                    </TextBlock.Foreground>
+                                        </TextBlock>
+                                        <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
+						                    <TextBlock.Foreground>
+							                    <SolidColorBrush x:Name="postTextBrush" Color="{StaticResource WordPressGrey}"/>
+						                    </TextBlock.Foreground>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
+                                        <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
+						                    <TextBlock.Foreground>
+							                    <SolidColorBrush x:Name="contentTextBrush" Color="{StaticResource WordPressGrey}"/>
+						                    </TextBlock.Foreground>
+                                        </TextBlock>
+                                        <TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
+								                    Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"/>                                            								                    
+                                    </StackPanel>
+                                </Grid>
+                            </ContentControl>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-	</phone:PhoneApplicationPage.Resources>
+    </phone:PhoneApplicationPage.Resources>
 
-	<phone:PhoneApplicationPage.FontFamily>
-		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
-	</phone:PhoneApplicationPage.FontFamily>
-	<phone:PhoneApplicationPage.FontSize>
-		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
-	</phone:PhoneApplicationPage.FontSize>
-	<phone:PhoneApplicationPage.Foreground>
-		<StaticResource ResourceKey="PhoneForegroundBrush"/>
-	</phone:PhoneApplicationPage.Foreground>
+    <phone:PhoneApplicationPage.FontFamily>
+        <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+    </phone:PhoneApplicationPage.FontFamily>
+    <phone:PhoneApplicationPage.FontSize>
+        <StaticResource ResourceKey="PhoneFontSizeNormal"/>
+    </phone:PhoneApplicationPage.FontSize>
+    <phone:PhoneApplicationPage.Foreground>
+        <StaticResource ResourceKey="PhoneForegroundBrush"/>
+    </phone:PhoneApplicationPage.Foreground>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}" DataContext="{Binding Source={StaticResource MasterViewModelDataSource}}">
@@ -99,24 +215,28 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-        	<controls:Pivot x:Name="commentsPivot" SelectionChanged="OnCommentsPivotSelectionChanged" >
+            <controls:Pivot x:Name="commentsPivot" SelectionChanged="OnCommentsPivotSelectionChanged" >
                 <controls:Pivot.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                 </controls:Pivot.Foreground>
-        		<controls:PivotItem Header="{Binding PageTitles.All, Source={StaticResource StringTable}}">
-                    <ListBox x:Name="allCommentsListBox" ItemTemplate="{StaticResource CommentListItemTemplate}" ItemsSource="{Binding CurrentBlog.Comments}" SelectionMode="Multiple"/>
-        		</controls:PivotItem>
+                <controls:PivotItem Header="{Binding PageTitles.All, Source={StaticResource StringTable}}">
+                    <ListBox x:Name="allCommentsListBox" ItemsSource="{Binding CurrentBlog.Comments}" SelectionMode="Multiple" 
+                             ItemContainerStyle="{StaticResource CommentListItemStyle}"/>
+                </controls:PivotItem>
                 <controls:PivotItem Header="{Binding PageTitles.Approve, Source={StaticResource StringTable}}">
-                    <ListBox x:Name="approvedCommentsListBox" ItemTemplate="{StaticResource CommentListItemTemplate}" ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource ApprovedCommentConverter}}" SelectionMode="Multiple"/>
-        		</controls:PivotItem>
+                    <ListBox x:Name="approvedCommentsListBox" ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource ApprovedCommentConverter}}" 
+                             SelectionMode="Multiple" ItemContainerStyle="{StaticResource CommentListItemStyle}"/>
+                </controls:PivotItem>
                 <controls:PivotItem Header="{Binding PageTitles.Unapprove, Source={StaticResource StringTable}}">
-                    <ListBox x:Name="unapprovedCommentsListBox" ItemTemplate="{StaticResource CommentListItemTemplate}" ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource UnapprovedCommentConverter}}" SelectionMode="Multiple"/>
+                    <ListBox x:Name="unapprovedCommentsListBox" ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource UnapprovedCommentConverter}}" 
+                             SelectionMode="Multiple" ItemContainerStyle="{StaticResource CommentListItemStyle}"/>
                 </controls:PivotItem>
                 <controls:PivotItem Header="{Binding PageTitles.Spam, Source={StaticResource StringTable}}">
-                    <ListBox x:Name="spamCommentsListBox" ItemTemplate="{StaticResource CommentListItemTemplate}" ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource SpamCommentConverter}}" SelectionMode="Multiple"/>
+                    <ListBox x:Name="spamCommentsListBox" ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource SpamCommentConverter}}" 
+                             SelectionMode="Multiple" ItemContainerStyle="{StaticResource CommentListItemStyle}"/>
                 </controls:PivotItem>
             </controls:Pivot>
-		</Grid>
+        </Grid>
     </Grid>
 
 

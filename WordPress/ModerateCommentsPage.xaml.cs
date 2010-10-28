@@ -156,8 +156,7 @@ namespace WordPress
 
         private void BatchSpamComments(IList comments)
         {
-            if (null == comments || 0 == comments.Count) return;
-
+            if (null == comments || 0 == comments.Count) return;            
         }
 
         #endregion
