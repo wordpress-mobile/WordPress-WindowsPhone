@@ -27,7 +27,7 @@ namespace WordPress.Model
 
         public int BlogId { get; set; }
 
-        public eCommentStatus CommentStatus { get; set; }
+        public eCommentStatus? CommentStatus { get; set; }
 
         public int Offset { get; set; }
 
@@ -50,7 +50,7 @@ namespace WordPress.Model
                 Credentials.UserName.HtmlEncode(),
                 Credentials.Password.HtmlEncode(), 
                 string.Empty, 
-                CommentStatus.ToString(), 
+                CommentStatus.HasValue ? CommentStatus.Value.ToString() : string.Empty,
                 Offset, 
                 Number);
             return result;
