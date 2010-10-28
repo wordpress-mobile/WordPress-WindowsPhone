@@ -206,13 +206,13 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
         
-        <controls:Panorama Title="{Binding CurrentBlog.BlogName}">
+        <controls:Panorama x:Name="blogPanorama" Title="{Binding CurrentBlog.BlogName}" SelectionChanged="OnPanoramaSelectionChanged">
         	<controls:Panorama.Foreground>
         		<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
         	</controls:Panorama.Foreground>
 
             <!--actions Panorama item -->
-            <controls:PanoramaItem Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource actionsPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="actionsPanoramaItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource actionsPanoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
@@ -318,7 +318,7 @@
             </controls:PanoramaItem>
 
             <!--comments Panorama item -->
-            <controls:PanoramaItem Header="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" Style="{StaticResource commentsPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="commentsPanoramaItem" Header="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" Style="{StaticResource commentsPanoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
@@ -373,7 +373,7 @@
             </controls:PanoramaItem>
 
             <!--posts Panorama item-->
-            <controls:PanoramaItem Header="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" Style="{StaticResource postsPanoramaItemStyle}" >
+            <controls:PanoramaItem x:Name="postsPanoramaItem" Header="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" Style="{StaticResource postsPanoramaItemStyle}" >
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
@@ -403,7 +403,7 @@
             </controls:PanoramaItem>
 
             <!--pages Panorama item-->
-            <controls:PanoramaItem Header="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" Style="{StaticResource pagesPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="pagesPanoramaItem" Header="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" Style="{StaticResource pagesPanoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>

@@ -159,29 +159,49 @@ namespace WordPress
             switch (index)
             {
                 case 0:     //comments
-                    DataStore.Instance.FetchComplete += OnSingleFetchComplete;
-                    DataStore.Instance.FetchCurrentBlogCommentsAsync();
-                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingComments);
+                    FetchComments();
                     break;
                 case 1:     //posts
-                    DataStore.Instance.FetchComplete += OnSingleFetchComplete;
-                    DataStore.Instance.FetchCurrentBlogPostsAsync();
-                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPosts);
+                    FetchPosts();
                     break;
                 case 2:     //pages
-                    DataStore.Instance.FetchComplete += OnSingleFetchComplete;
-                    DataStore.Instance.FetchCurrentBlogPagesAsync();
-                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPages);
+                    FetchPages();
                     break;
                 case 3:     //everything
-                    _multiFetchTaskCount = 3;
-                    DataStore.Instance.FetchComplete += OnMultiFetchComplete;
-                    DataStore.Instance.FetchCurrentBlogCommentsAsync();
-                    DataStore.Instance.FetchCurrentBlogPostsAsync();
-                    DataStore.Instance.FetchCurrentBlogPagesAsync();
-                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingEverything);
+                    FetchEverything();
                     break;
             }
+        }
+
+        private void FetchEverything()
+        {
+            _multiFetchTaskCount = 3;
+            DataStore.Instance.FetchComplete += OnMultiFetchComplete;
+            DataStore.Instance.FetchCurrentBlogCommentsAsync();
+            DataStore.Instance.FetchCurrentBlogPostsAsync();
+            DataStore.Instance.FetchCurrentBlogPagesAsync();
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingEverything);
+        }
+
+        private void FetchPages()
+        {
+            DataStore.Instance.FetchComplete += OnSingleFetchComplete;
+            DataStore.Instance.FetchCurrentBlogPagesAsync();
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPages);
+        }
+
+        private void FetchPosts()
+        {
+            DataStore.Instance.FetchComplete += OnSingleFetchComplete;
+            DataStore.Instance.FetchCurrentBlogPostsAsync();
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPosts);
+        }
+
+        private void FetchComments()
+        {
+            DataStore.Instance.FetchComplete += OnSingleFetchComplete;
+            DataStore.Instance.FetchCurrentBlogCommentsAsync();
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingComments);
         }
 
         private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
@@ -227,7 +247,42 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
         }
 
+        private void OnPanoramaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FetchInitialDataForBlog();
+        }
+
+        private void FetchInitialDataForBlog()
+        {
+            PanoramaItem selectedItem = blogPanorama.SelectedItem as PanoramaItem;
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            //TODO: determine how to resolve scenarios where a user actually doesn't have any of the following
+            if (selectedItem == commentsPanoramaItem)
+            {
+                if (0 == currentBlog.Comments.Count)
+                {
+                    FetchComments();
+                }
+            }
+            else if (selectedItem == postsPanoramaItem)
+            {
+                if (0 == currentBlog.PostListItems.Count)
+                {
+                    FetchPosts();
+                }
+            }
+            else if (selectedItem == pagesPanoramaItem)
+            {
+                if (0 == currentBlog.PageListItems.Count)
+                {
+                    FetchPages();
+                }
+            }
+        }
+
         #endregion
+
 
 
 
