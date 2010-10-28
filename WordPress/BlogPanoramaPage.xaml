@@ -231,7 +231,7 @@
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200"
-                            Click="refreshButton_Click">
+                            Click="OnRefreshButtonClick">
                 		<Button.Background>
                 			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                 		</Button.Background>
@@ -247,7 +247,7 @@
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200" 
-                            Click="moderateCommentsButton_Click">
+                            Click="OnModerateCommentsButtonClick">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -263,7 +263,7 @@
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200" 
-                            Click="createPostButton_Click">
+                            Click="OnCreatePostButtonClick">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -279,7 +279,7 @@
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200"
-                            Click="createPageButton_Click">
+                            Click="OnCreatePageButtonClick">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -295,7 +295,7 @@
                             Height="80" Margin="0" VerticalAlignment="Top" Width="400" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                             Style="{StaticResource TileButtonTemplate}"
-                            Click="settingsButton_Click">
+                            Click="OnSettingsButtonClick">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
@@ -324,7 +324,7 @@
                 </controls:PanoramaItem.Foreground>
                 <Grid>
                     <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" 
-                             SelectionChanged="commentsListBox_SelectionChanged"
+                             SelectionChanged="OnCommentsListBoxSelectionChanged"
                              >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -380,17 +380,17 @@
                 <Grid>
                     
                     <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}"
-                             SelectionChanged="postsListBox_SelectionChanged"
+                             SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0"
                              >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17" Width="432">
-                                    <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32">
+                                    <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
                                     	<TextBlock.Foreground>
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>
                                     </TextBlock>
-                                    <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}">
+                                    <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
                                     	<TextBlock.Foreground>
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>
@@ -409,8 +409,8 @@
                 </controls:PanoramaItem.Foreground>
                 <Grid>
 
-                    <ListBox x:Name="pagesListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Pages}" Height="435"
-                             SelectionChanged="pagesListBox_SelectionChanged"
+                    <ListBox x:Name="pagesListBox" Grid.Row="0" ItemsSource="{Binding Pages}"
+                             SelectionChanged="OnPagesListBoxSelectionChanged" Margin="0" d:LayoutOverrides="GridBox"
                              >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -420,7 +420,7 @@
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>
                                     </TextBlock>
-                                    <TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18.667">
+                                    <TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="21.333">
                                     	<TextBlock.Foreground>
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>
@@ -458,7 +458,7 @@
                         	<ComboBoxItem Content="Year"/>
                         	<ComboBoxItem Content="All Time"/>                            
                         </ComboBox>
-                        <Button x:Name="statsButton" Content="Go" Click="statsButton_Click" Style="{StaticResource BasicButtonStyle}"/>
+                        <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}"/>
                     </StackPanel>
                     <ListBox x:Name="statsListBox" Grid.Row="1"/>
                 </Grid>

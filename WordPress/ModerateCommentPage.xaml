@@ -86,7 +86,7 @@
                         <TextBox x:Name="replyTextBox" Width="436" Template="{StaticResource FocusedTextBoxTemplate}" Style="{StaticResource TextBoxStyle}" 
                                  AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
                         <Button x:Name="replyButton" Content="send" VerticalAlignment="Top" Style="{StaticResource BasicButtonStyle}" 
-                                HorizontalAlignment="Right" Margin="0,0,17,0" Click="replyButton_Click"/>
+                                HorizontalAlignment="Right" Margin="0,0,17,0" Click="OnReplyButtonClick"/>
                     </StackPanel>
                 </Border>
             </StackPanel>

@@ -15,24 +15,33 @@ namespace WordPress
 {
     public partial class LocateBlogPage : PhoneApplicationPage
     {
+        #region constructors
+
         public LocateBlogPage()
         {
             InitializeComponent();
         }
 
-        private void createNewBlogButton_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region methods
+
+        private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/CreateNewWordPressAccountPage.xaml", UriKind.Relative));
         }
 
-        private void existingWPBlogButton_Click(object sender, RoutedEventArgs e)
+        private void OnExistingWPBlogButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/AddExistingWordPressBlogPage.xaml", UriKind.Relative));
         }
 
-        private void existingWPSiteButton_Click(object sender, RoutedEventArgs e)
+        private void OnExistingWPSiteButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/AddExistingWordPressSitePage.xaml", UriKind.Relative));            
+            NavigationService.Navigate(new Uri("/AddExistingWordPressSitePage.xaml", UriKind.Relative));
         }
+
+        #endregion
+
     }
 }

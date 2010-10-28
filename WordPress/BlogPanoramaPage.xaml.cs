@@ -49,7 +49,7 @@ namespace WordPress
 
         #region methods
 
-        private void commentsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = commentsListBox.SelectedIndex;
             if (-1 == index) return;
@@ -60,7 +60,7 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
         }
 
-        private void postsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnPostsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //NOTE: this should launch a "dialog box" that allows the user to select
             //between viewing the post in a web browser, viewing the comments related to the post, 
@@ -74,7 +74,7 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }
 
-        private void pagesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnPagesListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //NOTE: this should launch a "dialog box" that allows the user to select
             //between viewing the page in a web browser, viewing the comments related to the page, 
@@ -88,18 +88,18 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
         }
 
-        private void statsButton_Click(object sender, RoutedEventArgs e)
+        private void OnStatsButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Feature coming soon!");
         }
 
-        private void createPostButton_Click(object sender, RoutedEventArgs e)
+        private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
         {
             App.MasterViewModel.CurrentPost = null;
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }
 
-        private void createPageButton_Click(object sender, RoutedEventArgs e)
+        private void OnCreatePageButtonClick(object sender, RoutedEventArgs e)
         {
             App.MasterViewModel.CurrentPage = null;
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
@@ -136,7 +136,7 @@ namespace WordPress
             }
         }
 
-        private void refreshButton_Click(object sender, RoutedEventArgs e)
+        private void OnRefreshButtonClick(object sender, RoutedEventArgs e)
         {
             App.PopupSelectionService.Title = _localizedStrings.Prompts.RefreshEntity;
             App.PopupSelectionService.ItemsSource = _refreshListOptions;
@@ -217,12 +217,12 @@ namespace WordPress
             }
         }
 
-        private void moderateCommentsButton_Click(object sender, RoutedEventArgs e)
+        private void OnModerateCommentsButtonClick(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Feature coming soon!");
         }
 
-        private void settingsButton_Click(object sender, RoutedEventArgs e)
+        private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
         }

@@ -49,7 +49,7 @@ namespace WordPress
 
         #region methods
 
-        private void blogsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnBlogsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = blogsListBox.SelectedIndex;
             if (-1 == index) return;

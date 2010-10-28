@@ -57,8 +57,8 @@
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" />
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button x:Name="cancelButton" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="cancelButton_Click"/>
-                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="saveButton_Click"/>
+                    <Button x:Name="cancelButton" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnCancelButtonClick"/>
+                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnSaveButtonClick"/>
                 </StackPanel>
                 <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="12,125,12,0"/>
                 <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Background="#BDFFFFFF"/>

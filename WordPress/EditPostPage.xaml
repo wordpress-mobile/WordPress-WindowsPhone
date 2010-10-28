@@ -52,7 +52,7 @@
                 <TextBox x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"/>
                 <TextBox x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MaxHeight="400" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"/>
                 <StackPanel Orientation="Horizontal">
-                    <ToggleButton x:Name="boldToggleButton" Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" ClickMode="Press" Click="boldToggleButton_Click" Style="{StaticResource BasicToggleButtonStyle}"/>
+                    <ToggleButton x:Name="boldToggleButton" Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" ClickMode="Press" Click="OnBoldToggleButtonClick" Style="{StaticResource BasicToggleButtonStyle}"/>
                     <ToggleButton x:Name="italicToggleButton" Content="{Binding Path=ControlsText.Italic, Source={StaticResource StringTable}}" FontStyle="Italic" Style="{StaticResource BasicToggleButtonStyle}"/>
                     <ToggleButton x:Name="underlineToggleButton" Content="{Binding Path=ControlsText.Underline, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}" />
                     <ToggleButton x:Name="strikeThroughToggleButton" Content="{Binding Path=ControlsText.StrikeThrough, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}"/>
@@ -67,9 +67,9 @@
                 <TextBlock Text="{Binding Path=ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <ToggleButton x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="cancelButton_Click" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="uploadChangesButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.UploadChanges, Source={StaticResource StringTable}}" Visibility="Collapsed" Click="uploadChangesButton_Click" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="saveButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="saveButton_Click" Style="{StaticResource BasicButtonStyle}"/>
+                    <Button x:Name="cancelButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="OnCancelButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                    <Button x:Name="uploadChangesButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.UploadChanges, Source={StaticResource StringTable}}" Visibility="Collapsed" Click="OnUploadChangesButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                    <Button x:Name="saveButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="OnSaveButtonClick" Style="{StaticResource BasicButtonStyle}"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

@@ -53,12 +53,12 @@
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="cancelButton_Click" Style="{StaticResource BasicButtonStyle}">
+                    <Button x:Name="cancelButton" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="OnCancelButtonClick" Style="{StaticResource BasicButtonStyle}">
                     	<Button.Foreground>
                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                     	</Button.Foreground>
                     </Button>
-                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="saveButton_Click" Style="{StaticResource BasicButtonStyle}">
+                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="OnSaveButtonClick" Style="{StaticResource BasicButtonStyle}">
                     	<Button.Foreground>
                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                     	</Button.Foreground>

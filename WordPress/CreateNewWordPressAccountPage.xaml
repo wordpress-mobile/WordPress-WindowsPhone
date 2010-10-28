@@ -22,11 +22,11 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="0" >
             <phone:WebBrowser x:Name="browser" 
-                              LoadCompleted="browser_LoadCompleted" 
-                              Loaded="browser_Loaded" 
-                              Navigated="browser_Navigated"
-                              Navigating="browser_Navigating"
-                              ScriptNotify="browser_ScriptNotify" 
+                              LoadCompleted="OnBrowserLoadCompleted" 
+                              Loaded="OnBrowserLoaded" 
+                              Navigated="OnBrowserNavigated"
+                              Navigating="OnBrowserNavigating"
+                              ScriptNotify="OnBrowserScriptNotify" 
                               Height="768" >
             </phone:WebBrowser>
         </Grid>

@@ -86,13 +86,13 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
         {
             //TODO: ask the user to confirm
             NavigationService.GoBack();
         }
 
-        private void uploadChangesButton_Click(object sender, RoutedEventArgs e)
+        private void OnUploadChangesButtonClick(object sender, RoutedEventArgs e)
         {
             Post post = DataContext as Post;
 
@@ -117,7 +117,7 @@ namespace WordPress
             App.WaitIndicationService.ShowIndicator("Uploading changes...");
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void OnSaveButtonClick(object sender, RoutedEventArgs e)
         {
             Post post = DataContext as Post;
 

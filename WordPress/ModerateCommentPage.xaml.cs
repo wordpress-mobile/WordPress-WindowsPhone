@@ -42,26 +42,26 @@ namespace WordPress
 
             _deleteIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
             _deleteIconButton.Text = _localizedStrings.ControlsText.Delete;
-            _deleteIconButton.Click += deleteIconButton_Click;
+            _deleteIconButton.Click += OnDeleteIconButtonClick;
 
             _replyIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_edit.png", UriKind.Relative));
             _replyIconButton.Text = _localizedStrings.ControlsText.Reply;
-            _replyIconButton.Click += replyIconButton_Click;
+            _replyIconButton.Click += OnReplyIconButtonClick;
 
             //TODO: need to acquire images for spam, approve, and unapprove
             //NOTE: not providing an image uri seems to cause an exception when the buttons
             //are added to the ApplicationBar
             _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
             _spamIconButton.Text = _localizedStrings.ControlsText.Spam;
-            _spamIconButton.Click += spamIconButton_Click;
+            _spamIconButton.Click += OnSpamIconButtonClick;
 
             _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
             _approveIconButton.Text = _localizedStrings.ControlsText.Approve;
-            _approveIconButton.Click += approveIconButton_Click;
+            _approveIconButton.Click += OnApproveIconButtonClick;
 
             _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
-            _unapproveIconButton.Click += unapproveIconButton_Click;
+            _unapproveIconButton.Click += OnUnapproveIconButtonClick;
         }
         
         #endregion
@@ -81,7 +81,7 @@ namespace WordPress
             }
         }
 
-        private void replyIconButton_Click(object sender, EventArgs e)
+        private void OnReplyIconButtonClick(object sender, EventArgs e)
         {
             ShowReplyPanel();
         }
@@ -135,7 +135,7 @@ namespace WordPress
             fadeOutStoryboard.Begin();
         }
 
-        void OnFadeOutStoryboardCompleted(object sender, EventArgs e)
+        private void OnFadeOutStoryboardCompleted(object sender, EventArgs e)
         {
             ApplicationBar.IsVisible = true;
             replyPanel.Visibility = Visibility.Collapsed;
@@ -145,7 +145,7 @@ namespace WordPress
             storyboard.Completed -= OnFadeOutStoryboardCompleted;
         }
 
-        private void spamIconButton_Click(object sender, EventArgs e)
+        private void OnSpamIconButtonClick(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.spam;
@@ -157,7 +157,7 @@ namespace WordPress
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingAsSpam);
         }
 
-        private void unapproveIconButton_Click(object sender, EventArgs e)
+        private void OnUnapproveIconButtonClick(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.hold;
@@ -169,7 +169,7 @@ namespace WordPress
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComment);
         }
 
-        private void approveIconButton_Click(object sender, EventArgs e)
+        private void OnApproveIconButtonClick(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.approve;
@@ -278,7 +278,7 @@ namespace WordPress
             }
         }
 
-        private void deleteIconButton_Click(object sender, EventArgs e)
+        private void OnDeleteIconButtonClick(object sender, EventArgs e)
         {
             Comment comment = DataContext as Comment;
             
@@ -315,7 +315,7 @@ namespace WordPress
             MessageBox.Show(exception.Message);
         }
 
-        private void replyButton_Click(object sender, RoutedEventArgs e)
+        private void OnReplyButtonClick(object sender, RoutedEventArgs e)
         {
             ReplyToComment();
         }

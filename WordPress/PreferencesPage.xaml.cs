@@ -46,12 +46,12 @@ namespace WordPress
             SavePageState();
         }
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private void OnSaveButtonClick(object sender, RoutedEventArgs e)
         {
             SaveSettings();
             NavigationService.GoBack();

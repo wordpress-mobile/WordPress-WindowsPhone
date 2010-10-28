@@ -68,9 +68,9 @@
                 <TextBlock Text="status" Style="{StaticResource LabelTextBlockStyle}"/>
                 <ToggleButton x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="cancelButton_Click" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="uploadChangesButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.UploadChanges, Source={StaticResource StringTable}}" Visibility="Collapsed" Click="uploadChangesButton_Click" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="saveButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="saveButton_Click" Style="{StaticResource BasicButtonStyle}"/>
+                    <Button x:Name="cancelButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="OnCancelButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                    <Button x:Name="uploadChangesButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.UploadChanges, Source={StaticResource StringTable}}" Visibility="Collapsed" Click="OnUploadChangesButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                    <Button x:Name="saveButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="OnSaveButtonClick" Style="{StaticResource BasicButtonStyle}"/>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

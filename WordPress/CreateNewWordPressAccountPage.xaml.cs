@@ -38,29 +38,29 @@ namespace WordPress
 
         #region methods
 
-        private void browser_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        private void OnBrowserLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             Debug.WriteLine("LoadCompleted");
         }
 
-        private void browser_Loaded(object sender, RoutedEventArgs e)
+        private void OnBrowserLoaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("Loaded");
             browser.Navigate(new Uri(WORDPRESSSIGNUP_VALUE), null, USERAGENT_VALUE);
         }
 
-        private void browser_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        private void OnBrowserNavigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             Debug.WriteLine("Navigated");
             Debug.WriteLine(string.Format("Uri: {0}", e.Uri));
         }
 
-        private void browser_Navigating(object sender, NavigatingEventArgs e)
+        private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
         {
             Debug.WriteLine("Navigating");
         }
 
-        private void browser_ScriptNotify(object sender, NotifyEventArgs e)
+        private void OnBrowserScriptNotify(object sender, NotifyEventArgs e)
         {
             Debug.WriteLine("ScriptNotify");
         }

@@ -66,11 +66,11 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button x:Name="cancelButton" Style="{StaticResource BasicButtonStyle}"
                             Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}"  
-                            Click="cancelButton_Click"
+                            Click="OnCancelButtonClick"
                             />
                     <Button x:Name="saveButton" Style="{StaticResource BasicButtonStyle}"
                             Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" 
-                            Click="saveButton_Click"
+                            Click="OnSaveButtonClick"
                             />
                 </StackPanel>
             </StackPanel>

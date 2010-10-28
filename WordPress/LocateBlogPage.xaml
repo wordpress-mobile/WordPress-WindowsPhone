@@ -36,9 +36,9 @@
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</TextBlock.Foreground>
                 </TextBlock>
-                <Button x:Name="createNewBlogButton" Content="{Binding ControlsText.StartNewBlog, Source={StaticResource StringTable}}" Click="createNewBlogButton_Click" Style="{StaticResource BasicButtonStyle}"/>
-                <Button x:Name="existingWPBlogButton" Content="{Binding ControlsText.AddExistingWPBlog, Source={StaticResource StringTable}}" Click="existingWPBlogButton_Click" Style="{StaticResource BasicButtonStyle}"/>
-                <Button x:Name="existingWPSiteButton" Content="{Binding ControlsText.AddExistingWPSite, Source={StaticResource StringTable}}" Click="existingWPSiteButton_Click" Style="{StaticResource BasicButtonStyle}"/>
+                <Button x:Name="createNewBlogButton" Content="{Binding ControlsText.StartNewBlog, Source={StaticResource StringTable}}" Click="OnCreateNewBlogButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                <Button x:Name="existingWPBlogButton" Content="{Binding ControlsText.AddExistingWPBlog, Source={StaticResource StringTable}}" Click="OnExistingWPBlogButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                <Button x:Name="existingWPSiteButton" Content="{Binding ControlsText.AddExistingWPSite, Source={StaticResource StringTable}}" Click="OnExistingWPSiteButtonClick" Style="{StaticResource BasicButtonStyle}"/>
             </StackPanel>
         </Grid>
     </Grid>
