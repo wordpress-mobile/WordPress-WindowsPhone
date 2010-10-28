@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-
+using System.Collections.ObjectModel;
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Converters;
 
 namespace WordPress
 {
@@ -37,18 +39,15 @@ namespace WordPress
             _deleteIconButton.Text = _localizedStrings.ControlsText.Delete;
             _deleteIconButton.Click += OnDeleteIconButtonClick;
 
-            //TODO: need to acquire images for spam, approve, and unapprove
-            //NOTE: not providing an image uri seems to cause an exception when the buttons
-            //are added to the ApplicationBar
-            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
+            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.spam.png", UriKind.Relative));
             _spamIconButton.Text = _localizedStrings.ControlsText.Spam;
             _spamIconButton.Click += OnSpamIconButtonClick;
 
-            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
+            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.approve.png", UriKind.Relative));
             _approveIconButton.Text = _localizedStrings.ControlsText.Approve;
             _approveIconButton.Click += OnApproveIconButtonClick;
 
-            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
+            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unapprove.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
         }
@@ -56,6 +55,13 @@ namespace WordPress
         #endregion
 
         #region methods
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
 
         private void OnCommentsPivotSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -140,23 +146,100 @@ namespace WordPress
         private void BatchDeleteComments(IList comments)
         {
             if (null == comments || 0 == comments.Count) return;
+
+            DeleteCommentsRPC rpc = new DeleteCommentsRPC();
+            rpc.Comments = ConvertList(comments);
+            rpc.Completed += OnBatchDeleteXmlRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
         }
 
         private void BatchApproveComments(IList comments)
         {
             if (null == comments || 0 == comments.Count) return;
 
+            EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+            rpc.CommentStatus = eCommentStatus.approve;
+            rpc.Comments = ConvertList(comments);
+            rpc.Completed += OnBatchEditXmlRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComments);
         }
 
         private void BatchUnapproveComments(IList comments)
         {
             if (null == comments || 0 == comments.Count) return;
 
+            EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+            rpc.CommentStatus = eCommentStatus.hold;
+            rpc.Comments = ConvertList(comments);
+            rpc.Completed += OnBatchEditXmlRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComments);
         }
 
         private void BatchSpamComments(IList comments)
         {
-            if (null == comments || 0 == comments.Count) return;            
+            if (null == comments || 0 == comments.Count) return;
+
+            EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+            rpc.CommentStatus = eCommentStatus.spam;
+            rpc.Comments = ConvertList(comments);
+            rpc.Completed += OnBatchEditXmlRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
+        }
+
+        private IList<Comment> ConvertList(IList comments)
+        {
+            List<Comment> result = new List<Comment>();
+            foreach (Comment c in comments)
+            {
+                result.Add(c);
+            }
+            return result;
+        }
+
+        private void OnBatchEditXmlRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
+        {
+            EditCommentsStatusRPC rpc = sender as EditCommentsStatusRPC;
+            rpc.Completed -= OnBatchEditXmlRPCCompleted;
+
+            App.WaitIndicationService.HideIndicator();
+
+            UpdateDisplay();
+        }
+
+        private void OnBatchDeleteXmlRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
+        {
+            DeleteCommentsRPC rpc = sender as DeleteCommentsRPC;
+            rpc.Completed -= OnBatchDeleteXmlRPCCompleted;
+
+            App.WaitIndicationService.HideIndicator();
+
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
+        {
+            //TODO: figure out how to bind this in the xaml.  The lists dont refresh
+            //properly when comments change their CommentStatus value, most likely due to the 
+            //new collection created by the converter.  
+            ObservableCollection<Comment> comments = App.MasterViewModel.CurrentBlog.Comments;
+            allCommentsListBox.ItemsSource = comments;
+
+            CommentStatusGroupingConverter approvedCommentConverter = Resources["ApprovedCommentConverter"] as CommentStatusGroupingConverter;
+            approvedCommentsListBox.ItemsSource = approvedCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
+
+            CommentStatusGroupingConverter unapprovedCommentConverter = Resources["UnapprovedCommentConverter"] as CommentStatusGroupingConverter;
+            unapprovedCommentsListBox.ItemsSource = unapprovedCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
+
+            CommentStatusGroupingConverter spamCommentConverter = Resources["SpamCommentConverter"] as CommentStatusGroupingConverter;
+            spamCommentsListBox.ItemsSource = spamCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
         }
 
         #endregion

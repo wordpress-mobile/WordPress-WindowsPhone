@@ -48,18 +48,15 @@ namespace WordPress
             _replyIconButton.Text = _localizedStrings.ControlsText.Reply;
             _replyIconButton.Click += OnReplyIconButtonClick;
 
-            //TODO: need to acquire images for spam, approve, and unapprove
-            //NOTE: not providing an image uri seems to cause an exception when the buttons
-            //are added to the ApplicationBar
-            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
+            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.spam.png", UriKind.Relative));
             _spamIconButton.Text = _localizedStrings.ControlsText.Spam;
             _spamIconButton.Click += OnSpamIconButtonClick;
 
-            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
+            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.approve.png", UriKind.Relative));
             _approveIconButton.Text = _localizedStrings.ControlsText.Approve;
             _approveIconButton.Click += OnApproveIconButtonClick;
 
-            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
+            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unapprove.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
         }

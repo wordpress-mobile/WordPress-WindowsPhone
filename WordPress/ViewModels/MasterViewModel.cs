@@ -71,6 +71,10 @@ namespace WordPress
                 return CurrentBlog.Comments;
             }
         }
+        public void NotifyCommentsChanged()
+        {
+            NotifyPropertyChanged("Comments");
+        }
 
         public Comment CurrentComment
         {

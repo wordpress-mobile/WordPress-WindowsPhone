@@ -574,6 +574,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to approving comments....
+        /// </summary>
+        internal static string Messages_ApprovingComments {
+            get {
+                return ResourceManager.GetString("Messages_ApprovingComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to deleting comment....
         /// </summary>
         internal static string Messages_DeletingComment {
@@ -583,11 +592,29 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to deleting comments....
+        /// </summary>
+        internal static string Messages_DeletingComments {
+            get {
+                return ResourceManager.GetString("Messages_DeletingComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to marking comment as spam....
         /// </summary>
         internal static string Messages_MarkingAsSpam {
             get {
                 return ResourceManager.GetString("Messages_MarkingAsSpam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to marking comments as spam....
+        /// </summary>
+        internal static string Messages_MarkingCommentsAsSpam {
+            get {
+                return ResourceManager.GetString("Messages_MarkingCommentsAsSpam", resourceCulture);
             }
         }
         
@@ -660,6 +687,15 @@ namespace WordPress.Localization {
         internal static string Messages_UnapprovingComment {
             get {
                 return ResourceManager.GetString("Messages_UnapprovingComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unapproving comments....
+        /// </summary>
+        internal static string Messages_UnapprovingComments {
+            get {
+                return ResourceManager.GetString("Messages_UnapprovingComments", resourceCulture);
             }
         }
         

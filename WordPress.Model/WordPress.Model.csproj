@@ -73,9 +73,11 @@
       <DependentUpon>XMLRPCTable.resx</DependentUpon>
     </Compile>
     <Compile Include="XMLRPC\DeleteCommentRPC.cs" />
+    <Compile Include="XMLRPC\DeleteCommentsRPC.cs" />
     <Compile Include="XMLRPC\DeletePageRPC.cs" />
     <Compile Include="XMLRPC\DeletePostRPC.cs" />
     <Compile Include="XMLRPC\EditCommentRPC.cs" />
+    <Compile Include="XMLRPC\EditCommentsStatusRPC.cs" />
     <Compile Include="XMLRPC\EditPostRPC.cs" />
     <Compile Include="XMLRPC\GetAllCommentsRPC.cs">
       <SubType>Code</SubType>

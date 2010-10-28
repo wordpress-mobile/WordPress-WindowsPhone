@@ -66,6 +66,8 @@ namespace WordPress.Model
                 result.Add(current);
             }
 
+            result = result.OrderByDescending(comment => comment.DateCreatedGMT).ToList();
+
             return result;
         }
     }

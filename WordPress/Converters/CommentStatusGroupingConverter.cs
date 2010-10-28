@@ -26,7 +26,7 @@ namespace WordPress.Converters
             }
 
             IEnumerable<Comment> comments = value as IEnumerable<Comment>;
-            IEnumerable<Comment> result = comments.Where(comment => Status == comment.CommentStatus);
+            IEnumerable<Comment> result = comments.Where(comment => Status == comment.CommentStatus).OrderByDescending(comment => comment.DateCreatedGMT);
 
             return result;
         }

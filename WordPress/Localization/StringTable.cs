@@ -134,9 +134,13 @@ namespace WordPress.Localization
             public UserMessages() { }
 
             public string MarkingAsSpam { get { return LocalizedResources.Messages_MarkingAsSpam; } }
+            public string MarkingCommentsAsSpam { get { return LocalizedResources.Messages_MarkingCommentsAsSpam; } }
             public string ApprovingComment { get { return LocalizedResources.Messages_ApprovingComment; } }
+            public string ApprovingComments { get { return LocalizedResources.Messages_ApprovingComments; } }
             public string UnapprovingComment { get { return LocalizedResources.Messages_UnapprovingComment; } }
+            public string UnapprovingComments { get { return LocalizedResources.Messages_UnapprovingComments; } }
             public string DeletingComment { get { return LocalizedResources.Messages_DeletingComment; } }
+            public string DeletingComments { get { return LocalizedResources.Messages_DeletingComments; } }
             public string MissingReply { get { return LocalizedResources.Messages_MissingReply; } }
             public string ReplyingToComment { get { return LocalizedResources.Messages_ReplyingToComment; } }
             public string RetrievingComments { get { return LocalizedResources.Messages_RetrievingComments; } }

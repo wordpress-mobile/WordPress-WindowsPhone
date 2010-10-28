@@ -291,11 +291,20 @@
   <data name="Messages_ApprovingComment" xml:space="preserve">
     <value>approving comment...</value>
   </data>
+  <data name="Messages_ApprovingComments" xml:space="preserve">
+    <value>approving comments...</value>
+  </data>
   <data name="Messages_DeletingComment" xml:space="preserve">
     <value>deleting comment...</value>
   </data>
+  <data name="Messages_DeletingComments" xml:space="preserve">
+    <value>deleting comments...</value>
+  </data>
   <data name="Messages_MarkingAsSpam" xml:space="preserve">
     <value>marking comment as spam...</value>
+  </data>
+  <data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
+    <value>marking comments as spam...</value>
   </data>
   <data name="Messages_MissingReply" xml:space="preserve">
     <value>Please enter a reply.</value>
@@ -320,6 +329,9 @@
   </data>
   <data name="Messages_UnapprovingComment" xml:space="preserve">
     <value>unapproving comment...</value>
+  </data>
+  <data name="Messages_UnapprovingComments" xml:space="preserve">
+    <value>unapproving comments...</value>
   </data>
   <data name="Options_RefreshEntity_Comments" xml:space="preserve">
     <value>comments</value>

@@ -196,6 +196,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.approve.png" />
     <Content Include="Images\appbar.cancel.png" />
     <Content Include="Images\appbar.delete.png" />
     <Content Include="Images\appbar.edit.png" />
@@ -208,6 +209,8 @@
     <Resource Include="Images\actionsRefresh.png" />
     <Resource Include="Images\actionsSettings.png" />
     <Resource Include="Images\actionsAddPg.png" />
+    <Content Include="Images\appbar.spam.png" />
+    <Content Include="Images\appbar.unapprove.png" />
     <Content Include="Images\icon_add.png" />
     <Content Include="Images\icon_delete.png" />
     <Content Include="Images\icon_edit.png" />
