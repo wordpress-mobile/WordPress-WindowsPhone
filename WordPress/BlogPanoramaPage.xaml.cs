@@ -219,7 +219,7 @@ namespace WordPress
 
         private void OnModerateCommentsButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Feature coming soon!");
+            NavigationService.Navigate(new Uri("/ModerateCommentsPage.xaml", UriKind.Relative));
         }
 
         private void OnSettingsButtonClick(object sender, RoutedEventArgs e)

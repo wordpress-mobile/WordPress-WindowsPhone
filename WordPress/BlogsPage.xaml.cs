@@ -33,13 +33,12 @@ namespace WordPress
 
             ApplicationBar = new ApplicationBar();
 
-            _addBlogIconButton = new ApplicationBarIconButton(new Uri("Images/icon_add.png", UriKind.Relative));
+            _addBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
             _addBlogIconButton.Text = "add blog";
             _addBlogIconButton.Click += OnAddAccountIconButtonClick;
             ApplicationBar.Buttons.Add(_addBlogIconButton);
 
-            //TODO: need to acquire icon for settings
-            _preferencesIconButton = new ApplicationBarIconButton(new Uri("Images/icon_add.png", UriKind.Relative));
+            _preferencesIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
             _preferencesIconButton.Text = "preferences";
             _preferencesIconButton.Click += OnPreferencesIconButtonClick;
             ApplicationBar.Buttons.Add(_preferencesIconButton);

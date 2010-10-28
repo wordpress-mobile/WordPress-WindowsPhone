@@ -78,6 +78,10 @@
       <DependentUpon>BlogsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanInversionConverter.cs" />
+    <Compile Include="Converters\CommentStatusGroupingConverter.cs" />
+    <Compile Include="ModerateCommentsPage.xaml.cs">
+      <DependentUpon>ModerateCommentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="ViewModels\CommentStatusToBrushConverter.cs" />
     <Compile Include="CreateNewWordPressAccountPage.xaml.cs">
@@ -168,6 +172,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ModerateCommentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PreferencesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,6 +195,13 @@
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.cancel.png" />
+    <Content Include="Images\appbar.delete.png" />
+    <Content Include="Images\appbar.edit.png" />
+    <Content Include="Images\appbar.settings.png" />
+    <Content Include="Images\appbar.refresh.png" />
+    <Content Include="Images\appbar.save.png" />
     <Resource Include="Images\background.jpg" />
     <Resource Include="Images\actionsEdit.png" />
     <Resource Include="Images\actionsModerate.png" />
@@ -198,7 +213,9 @@
     <Content Include="Images\icon_edit.png" />
     <Content Include="Images\icon_refresh.png" />
     <Resource Include="Images\panoramaActions.png" />
+    <Resource Include="Images\locateBlogBackground.jpg" />
     <Content Include="SplashScreenImage.jpg" />
+    <Resource Include="logowhitetop.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WordPress.Model\WordPress.Model.csproj">

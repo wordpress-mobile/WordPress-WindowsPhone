@@ -349,6 +349,14 @@
     <value>add account</value>
     <comment>title for the 'add existing WP blog' and 'add existing WP site' pages</comment>
   </data>
+  <data name="Title_All" xml:space="preserve">
+    <value>ALL</value>
+    <comment>title for the 'all' pivot item on the ModerateCommentsPage</comment>
+  </data>
+  <data name="Title_Approve" xml:space="preserve">
+    <value>APPROVE</value>
+    <comment>title for the 'approve' pivot item on the ModerateCommentsPage</comment>
+  </data>
   <data name="Title_Blogs" xml:space="preserve">
     <value>blogs</value>
     <comment>title for the 'blogs' page</comment>
@@ -369,6 +377,10 @@
     <value>moderate comment</value>
     <comment>title for the 'moderate comment' page</comment>
   </data>
+  <data name="Title_ModerateComments" xml:space="preserve">
+    <value>moderate comments</value>
+    <comment>title for the 'moderate comments' page</comment>
+  </data>
   <data name="Title_Pages" xml:space="preserve">
     <value>pages</value>
     <comment>title for the 'pages' panorama item</comment>
@@ -385,8 +397,16 @@
     <value>settings</value>
     <comment>title for the 'blog settings' page</comment>
   </data>
+  <data name="Title_Spam" xml:space="preserve">
+    <value>SPAM</value>
+    <comment>title for the 'spam' pivot item on the ModerateCommentsPage</comment>
+  </data>
   <data name="Title_Stats" xml:space="preserve">
     <value>stats</value>
     <comment>title for the 'stats' panorama item</comment>
+  </data>
+  <data name="Title_Unapprove" xml:space="preserve">
+    <value>UNAPPROVE</value>
+    <comment>title for the 'unapprove' pivot item on the ModerateCommentsPage</comment>
   </data>
 </root>

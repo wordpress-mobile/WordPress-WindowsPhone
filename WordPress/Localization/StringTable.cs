@@ -54,6 +54,11 @@ namespace WordPress.Localization
             public string EditPage { get { return LocalizedResources.Title_EditPage; } }
             public string EditPost { get { return LocalizedResources.Title_EditPost; } }
             public string ModerateComment { get { return LocalizedResources.Title_ModerateComment; } }
+            public string ModerateComments { get { return LocalizedResources.Title_ModerateComments; } }
+            public string All { get { return LocalizedResources.Title_All; } }
+            public string Approve { get { return LocalizedResources.Title_Approve; } }
+            public string Unapprove { get { return LocalizedResources.Title_Unapprove; } }
+            public string Spam { get { return LocalizedResources.Title_Spam; } }
         }
 
         #endregion

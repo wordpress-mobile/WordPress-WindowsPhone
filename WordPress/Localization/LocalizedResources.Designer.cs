@@ -727,6 +727,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ALL.
+        /// </summary>
+        internal static string Title_All {
+            get {
+                return ResourceManager.GetString("Title_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to APPROVE.
+        /// </summary>
+        internal static string Title_Approve {
+            get {
+                return ResourceManager.GetString("Title_Approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to blogs.
         /// </summary>
         internal static string Title_Blogs {
@@ -772,6 +790,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to moderate comments.
+        /// </summary>
+        internal static string Title_ModerateComments {
+            get {
+                return ResourceManager.GetString("Title_ModerateComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to pages.
         /// </summary>
         internal static string Title_Pages {
@@ -808,11 +835,29 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SPAM.
+        /// </summary>
+        internal static string Title_Spam {
+            get {
+                return ResourceManager.GetString("Title_Spam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to stats.
         /// </summary>
         internal static string Title_Stats {
             get {
                 return ResourceManager.GetString("Title_Stats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UNAPPROVE.
+        /// </summary>
+        internal static string Title_Unapprove {
+            get {
+                return ResourceManager.GetString("Title_Unapprove", resourceCulture);
             }
         }
     }

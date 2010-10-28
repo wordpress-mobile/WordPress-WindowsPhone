@@ -40,26 +40,26 @@ namespace WordPress
             ApplicationBar = new ApplicationBar();
             ApplicationBar.IsVisible = true;
 
-            _deleteIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _deleteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
             _deleteIconButton.Text = _localizedStrings.ControlsText.Delete;
             _deleteIconButton.Click += OnDeleteIconButtonClick;
 
-            _replyIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_edit.png", UriKind.Relative));
+            _replyIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.edit.png", UriKind.Relative));
             _replyIconButton.Text = _localizedStrings.ControlsText.Reply;
             _replyIconButton.Click += OnReplyIconButtonClick;
 
             //TODO: need to acquire images for spam, approve, and unapprove
             //NOTE: not providing an image uri seems to cause an exception when the buttons
             //are added to the ApplicationBar
-            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
             _spamIconButton.Text = _localizedStrings.ControlsText.Spam;
             _spamIconButton.Click += OnSpamIconButtonClick;
 
-            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
             _approveIconButton.Text = _localizedStrings.ControlsText.Approve;
             _approveIconButton.Click += OnApproveIconButtonClick;
 
-            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/icon_delete.png", UriKind.Relative));
+            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
         }
