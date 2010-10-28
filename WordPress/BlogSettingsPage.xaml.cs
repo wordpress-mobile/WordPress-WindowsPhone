@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
 using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
+using WordPress.Localization;
 using WordPress.Model;
 
 namespace WordPress
@@ -29,6 +25,9 @@ namespace WordPress
         private const string GEOTAGPOSTS_VALUE = "geotag";
 
         private List<int> _thumbnailSizes;
+        private ApplicationBarIconButton _cancelIconButton;
+        private ApplicationBarIconButton _saveIconButton;
+        private StringTable _localizedStrings;
 
         #endregion
 
@@ -39,6 +38,22 @@ namespace WordPress
             InitializeComponent();
                         
             _thumbnailSizes = new List<int>(new int[] { 100, 200, 300 });
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
+
+            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
+            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
+            _cancelIconButton.Click += OnCancelButtonClick;
+            ApplicationBar.Buttons.Add(_cancelIconButton);
+
+            _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
+            _saveIconButton.Text = _localizedStrings.ControlsText.Save;
+            _saveIconButton.Click += OnSaveButtonClick;
+            ApplicationBar.Buttons.Add(_saveIconButton);
         }
 
         #endregion
@@ -208,7 +223,7 @@ namespace WordPress
             App.PopupSelectionService.HidePopup();
         }
 
-        public void OnSaveButtonClick(object sender, RoutedEventArgs args)
+        public void OnSaveButtonClick(object sender, EventArgs args)
         {
             Blog blog = DataContext as Blog;
             if (blog.IsEditing)
@@ -218,7 +233,7 @@ namespace WordPress
             NavigationService.GoBack();
         }
 
-        public void OnCancelButtonClick(object sender, RoutedEventArgs args)
+        public void OnCancelButtonClick(object sender, EventArgs args)
         {
             NavigationService.GoBack();
         }

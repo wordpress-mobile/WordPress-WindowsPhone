@@ -211,10 +211,6 @@
     <Resource Include="Images\actionsAddPg.png" />
     <Content Include="Images\appbar.spam.png" />
     <Content Include="Images\appbar.unapprove.png" />
-    <Content Include="Images\icon_add.png" />
-    <Content Include="Images\icon_delete.png" />
-    <Content Include="Images\icon_edit.png" />
-    <Content Include="Images\icon_refresh.png" />
     <Resource Include="Images\panoramaActions.png" />
     <Resource Include="Images\locateBlogBackground.jpg" />
     <Content Include="SplashScreenImage.jpg" />

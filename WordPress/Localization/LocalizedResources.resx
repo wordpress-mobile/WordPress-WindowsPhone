@@ -133,6 +133,9 @@
   <data name="ControlText_AddAPage" xml:space="preserve">
     <value>add a page</value>
   </data>
+  <data name="ControlText_AddBlog" xml:space="preserve">
+    <value>add blog</value>
+  </data>
   <data name="ControlText_AddExistingSite" xml:space="preserve">
     <value>Add self-hosted WordPress blog</value>
   </data>
@@ -230,6 +233,9 @@
   <data name="ControlText_PostSignature" xml:space="preserve">
     <value>post signature</value>
   </data>
+  <data name="ControlText_Preferences" xml:space="preserve">
+    <value>preferences</value>
+  </data>
   <data name="ControlText_Publish" xml:space="preserve">
     <value>publish</value>
   </data>
@@ -300,6 +306,9 @@
   <data name="Messages_DeletingComments" xml:space="preserve">
     <value>deleting comments...</value>
   </data>
+  <data name="Messages_LoggingIn" xml:space="preserve">
+    <value>logging in...</value>
+  </data>
   <data name="Messages_MarkingAsSpam" xml:space="preserve">
     <value>marking comment as spam...</value>
   </data>
@@ -333,6 +342,9 @@
   <data name="Messages_UnapprovingComments" xml:space="preserve">
     <value>unapproving comments...</value>
   </data>
+  <data name="Messages_UploadingChanges" xml:space="preserve">
+    <value>uploading changes...</value>
+  </data>
   <data name="Options_RefreshEntity_Comments" xml:space="preserve">
     <value>comments</value>
     <comment>list option for the "refresh" button on the actions panorama item</comment>
@@ -348,6 +360,15 @@
   <data name="Options_RefreshEntity_Posts" xml:space="preserve">
     <value>posts</value>
     <comment>list option for the "refresh" button on the actions panorama item</comment>
+  </data>
+  <data name="Prompts_MissingPassword" xml:space="preserve">
+    <value>Please enter a password.</value>
+  </data>
+  <data name="Prompts_MissingUrl" xml:space="preserve">
+    <value>Please enter a url.</value>
+  </data>
+  <data name="Prompts_MissingUserName" xml:space="preserve">
+    <value>Please enter a user name.</value>
   </data>
   <data name="Prompts_RefreshEntity" xml:space="preserve">
     <value>What would you like to refresh?</value>

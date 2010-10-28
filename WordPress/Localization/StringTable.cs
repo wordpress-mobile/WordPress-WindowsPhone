@@ -123,6 +123,8 @@ namespace WordPress.Localization
             public string Write { get { return LocalizedResources.ControlText_Write; } }
             public string AddAPage { get { return LocalizedResources.ControlText_AddAPage; } }
             public string BlogSettings { get { return LocalizedResources.ControlText_BlogSettings; } }
+            public string AddBlog { get { return LocalizedResources.ControlText_AddBlog; } }
+            public string Preferences { get { return LocalizedResources.ControlText_Preferences; } }
         }
 
         #endregion
@@ -148,6 +150,8 @@ namespace WordPress.Localization
             public string RetrievingPages { get { return LocalizedResources.Messages_RetrievingPages; } }
             public string RetrievingEverything { get { return LocalizedResources.Messages_RetrievingEverything; } }
             public string RetrievingPost { get { return LocalizedResources.Messages_RetrievingPost; } }
+            public string UploadingChanges { get { return LocalizedResources.Messages_UploadingChanges; } }
+            public string LoggingIn { get { return LocalizedResources.Messages_LoggingIn; } }
         }
 
         #endregion
@@ -174,6 +178,9 @@ namespace WordPress.Localization
             public UserPrompts(){}
 
             public string RefreshEntity { get { return LocalizedResources.Prompts_RefreshEntity; } }
+            public string MissingUserName { get { return LocalizedResources.Prompts_MissingUserName; } }
+            public string MissingPassword { get { return LocalizedResources.Prompts_MissingPassword; } }
+            public string MissingUrl { get { return LocalizedResources.Prompts_MissingUrl; } }
         }
 
         #endregion

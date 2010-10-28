@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -38,7 +39,8 @@ namespace WordPress
             replyPanel.Visibility = Visibility.Collapsed;
 
             ApplicationBar = new ApplicationBar();
-            ApplicationBar.IsVisible = true;
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
             _deleteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
             _deleteIconButton.Text = _localizedStrings.ControlsText.Delete;

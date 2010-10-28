@@ -1,7 +1,10 @@
-﻿
+﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
+using WordPress.Localization;
 using WordPress.Settings;
 
 namespace WordPress
@@ -12,7 +15,11 @@ namespace WordPress
 
         private const string USETAGLINEFORNEWPOSTS_VALUE = "useTaglineForNewPosts";
         private const string TAGLINE_VALUE = "tagline";
-        
+
+        private ApplicationBarIconButton _cancelIconButton;
+        private ApplicationBarIconButton _saveIconButton;
+        private StringTable _localizedStrings;
+
         #endregion
 
         #region constructors
@@ -22,6 +29,22 @@ namespace WordPress
             InitializeComponent();
 
             DataContext = new UserSettings();
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
+
+            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
+            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
+            _cancelIconButton.Click += OnCancelButtonClick;
+            ApplicationBar.Buttons.Add(_cancelIconButton);
+
+            _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
+            _saveIconButton.Text = _localizedStrings.ControlsText.Save;
+            _saveIconButton.Click += OnSaveButtonClick;
+            ApplicationBar.Buttons.Add(_saveIconButton);
         }
 
         #endregion
@@ -46,12 +69,12 @@ namespace WordPress
             SavePageState();
         }
 
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
+        private void OnCancelButtonClick(object sender, EventArgs e)
         {
             NavigationService.GoBack();
         }
 
-        private void OnSaveButtonClick(object sender, RoutedEventArgs e)
+        private void OnSaveButtonClick(object sender, EventArgs e)
         {
             SaveSettings();
             NavigationService.GoBack();

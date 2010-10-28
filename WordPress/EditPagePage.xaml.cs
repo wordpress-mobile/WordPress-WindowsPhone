@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
+using WordPress.Localization;
 using WordPress.Model;
 
 namespace WordPress
@@ -15,14 +18,33 @@ namespace WordPress
         private const string POSTKEY_VALUE = "post";
         private const string PUBLISHKEY_VALUE = "publish";
 
-        #endregion
+        private ApplicationBarIconButton _cancelIconButton;
+        private ApplicationBarIconButton _saveIconButton;
+        private StringTable _localizedStrings;
 
+        #endregion
 
         #region constructors
 
         public EditPagePage()
         {
-            InitializeComponent();            
+            InitializeComponent();
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
+
+            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
+            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
+            _cancelIconButton.Click += OnCancelButtonClick;
+            ApplicationBar.Buttons.Add(_cancelIconButton);
+
+            _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
+            _saveIconButton.Text = _localizedStrings.ControlsText.Save;
+            _saveIconButton.Click += OnSaveButtonClick;
+            ApplicationBar.Buttons.Add(_saveIconButton);         
         }
 
         #endregion
@@ -86,13 +108,13 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
         }
 
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
+        private void OnCancelButtonClick(object sender, EventArgs e)
         {
-            //TODO: ask the user to confirm
+            //TODO: ask the user to confirm if there have been modifications
             NavigationService.GoBack();
         }
 
-        private void OnUploadChangesButtonClick(object sender, RoutedEventArgs e)
+        private void OnSaveButtonClick(object sender, EventArgs e)
         {
             Post post = DataContext as Post;
 
@@ -113,32 +135,7 @@ namespace WordPress
 
                 rpc.ExecuteAsync();
             }
-
-            App.WaitIndicationService.ShowIndicator("Uploading changes...");
-        }
-
-        private void OnSaveButtonClick(object sender, RoutedEventArgs e)
-        {
-            Post post = DataContext as Post;
-
-            if (post.IsNew)
-            {
-                NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.Publish = publishToggleButton.IsChecked.Value;
-                rpc.PostType = ePostType.page;
-                rpc.Completed += OnNewPostRPCCompleted;
-
-                rpc.ExecuteAsync();
-            }
-            else
-            {
-                EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.Publish = publishToggleButton.IsChecked.Value;
-                rpc.Completed += OnEditPostRPCCompleted;
-
-                rpc.ExecuteAsync();
-            }
-            App.WaitIndicationService.ShowIndicator("Uploading changes...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
 
         private void OnEditPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)

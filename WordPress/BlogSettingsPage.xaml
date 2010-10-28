@@ -165,31 +165,6 @@
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</CheckBox.Foreground>
                 </CheckBox>
-                <StackPanel Height="100" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" 
-                            Content="{Binding ControlsText.Cancel, Source={StaticResource StringTable}}" 
-                            Margin="0,0,0,31" 
-                            d:LayoutOverrides="Height"                             
-                            Style="{StaticResource BasicButtonStyle}"
-                            Click="OnCancelButtonClick"
-                            >
-                		<Button.Foreground>
-                			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                		</Button.Foreground>
-                	</Button>
-                    <Button x:Name="saveButton" 
-                            Content="{Binding ControlsText.Save, Source={StaticResource StringTable}}" 
-                            Margin="0,0,0,31" 
-                            FontSize="24" 
-                            d:LayoutOverrides="Height" 
-                            Style="{StaticResource BasicButtonStyle}"
-                            Click="OnSaveButtonClick"
-                            >
-                		<Button.Foreground>
-                			<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                		</Button.Foreground>
-                	</Button>
-                </StackPanel>
         	</StackPanel>
         </ScrollViewer>
     </Grid>

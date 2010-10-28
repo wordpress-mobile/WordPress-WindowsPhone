@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
+using WordPress.Localization;
 using WordPress.Model;
 
 namespace WordPress
@@ -15,6 +18,10 @@ namespace WordPress
         private const string USERNAMEKEY_VALUE = "username";
         private const string PASSWORDKEY_VALUE = "password";
 
+        private ApplicationBarIconButton _cancelIconButton;
+        private ApplicationBarIconButton _saveIconButton;
+        private StringTable _localizedStrings;
+
         #endregion
 
         #region constructor
@@ -22,6 +29,22 @@ namespace WordPress
         public AddExistingWordPressSitePage()
         {
             InitializeComponent();
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
+
+            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
+            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
+            _cancelIconButton.Click += OnCancelButtonClick;
+            ApplicationBar.Buttons.Add(_cancelIconButton);
+
+            _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
+            _saveIconButton.Text = _localizedStrings.ControlsText.Save;
+            _saveIconButton.Click += OnSaveButtonClick;
+            ApplicationBar.Buttons.Add(_saveIconButton);
         }
 
         #endregion
@@ -32,12 +55,12 @@ namespace WordPress
 
         #region methods
 
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
+        private void OnCancelButtonClick(object sender, EventArgs e)
         {
             NavigationService.GoBack();
         }
 
-        private void OnSaveButtonClick(object sender, RoutedEventArgs e)
+        private void OnSaveButtonClick(object sender, EventArgs e)
         {
             AttemptToLoginAsync();
         }
@@ -46,19 +69,19 @@ namespace WordPress
         {
             if (!ValidateUserName())
             {
-                PromptUserForInput("Please enter a user name", usernameTextBox);
+                PromptUserForInput(_localizedStrings.Prompts.MissingUserName, usernameTextBox);
                 return;
             }
 
             if (!ValidatePassword())
             {
-                PromptUserForInput("Please enter a password", passwordPasswordBox);
+                PromptUserForInput(_localizedStrings.Prompts.MissingPassword, passwordPasswordBox);
                 return;
             }
 
             if (!ValidateUrl())
             {
-                PromptUserForInput("Please enter a url", urlTextBox);
+                PromptUserForInput(_localizedStrings.Prompts.MissingUrl, urlTextBox);
             }
 
             string username = usernameTextBox.Text;
@@ -69,7 +92,7 @@ namespace WordPress
             rpc.Completed += OnGetUsersBlogsCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator("Attempting to log-in...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.LoggingIn);
         }
 
         /// <summary>

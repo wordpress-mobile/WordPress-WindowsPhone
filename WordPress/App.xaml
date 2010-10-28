@@ -24,6 +24,7 @@
 		<Color x:Key="WordPressOrange">#FFD54E21</Color>
         <Color x:Key="TextBoxBackgroundColor">#BFEBE7E7</Color>
         <Color x:Key="TextBoxForegroundColor">Black</Color>
+        <Color x:Key="AppbarBackgroundColor">#FFF0F0F0</Color>
         
         <LinearGradientBrush x:Key="PageBackgroundGradientBrush" EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect">
             <GradientStop Color="#FF464646" Offset="0"/>

@@ -66,25 +66,8 @@
                 <Button x:Name="selectCategoriesButton" Content="{Binding Path=ControlsText.SelectCategories, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
                 <TextBlock Text="{Binding Path=ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <ToggleButton x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Click="OnCancelButtonClick" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="uploadChangesButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.UploadChanges, Source={StaticResource StringTable}}" Visibility="Collapsed" Click="OnUploadChangesButtonClick" Style="{StaticResource BasicButtonStyle}"/>
-                    <Button x:Name="saveButton" HorizontalAlignment="Right" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Click="OnSaveButtonClick" Style="{StaticResource BasicButtonStyle}"/>
-                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+
+using WordPress.Localization;
 
 namespace WordPress
 {
@@ -31,15 +25,19 @@ namespace WordPress
 
             DataContext = App.MasterViewModel;
 
+            StringTable localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+
             ApplicationBar = new ApplicationBar();
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
             _addBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
-            _addBlogIconButton.Text = "add blog";
+            _addBlogIconButton.Text = localizedStrings.ControlsText.AddBlog;
             _addBlogIconButton.Click += OnAddAccountIconButtonClick;
             ApplicationBar.Buttons.Add(_addBlogIconButton);
 
             _preferencesIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
-            _preferencesIconButton.Text = "preferences";
+            _preferencesIconButton.Text = localizedStrings.ControlsText.Preferences;
             _preferencesIconButton.Click += OnPreferencesIconButtonClick;
             ApplicationBar.Buttons.Add(_preferencesIconButton);
         }

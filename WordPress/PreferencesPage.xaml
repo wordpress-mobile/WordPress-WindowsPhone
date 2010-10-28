@@ -63,16 +63,6 @@
                          Template="{StaticResource FocusedTextBoxTemplate}"
                          TextWrapping="Wrap"
                          AcceptsReturn="True"/>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="cancelButton" Style="{StaticResource BasicButtonStyle}"
-                            Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}"  
-                            Click="OnCancelButtonClick"
-                            />
-                    <Button x:Name="saveButton" Style="{StaticResource BasicButtonStyle}"
-                            Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" 
-                            Click="OnSaveButtonClick"
-                            />
-                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

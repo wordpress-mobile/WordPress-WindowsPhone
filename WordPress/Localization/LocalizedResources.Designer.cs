@@ -106,6 +106,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add blog.
+        /// </summary>
+        internal static string ControlText_AddBlog {
+            get {
+                return ResourceManager.GetString("ControlText_AddBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add self-hosted WordPress blog.
         /// </summary>
         internal static string ControlText_AddExistingSite {
@@ -394,6 +403,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to preferences.
+        /// </summary>
+        internal static string ControlText_Preferences {
+            get {
+                return ResourceManager.GetString("ControlText_Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to publish.
         /// </summary>
         internal static string ControlText_Publish {
@@ -601,6 +619,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to logging in....
+        /// </summary>
+        internal static string Messages_LoggingIn {
+            get {
+                return ResourceManager.GetString("Messages_LoggingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to marking comment as spam....
         /// </summary>
         internal static string Messages_MarkingAsSpam {
@@ -700,6 +727,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to uploading changes....
+        /// </summary>
+        internal static string Messages_UploadingChanges {
+            get {
+                return ResourceManager.GetString("Messages_UploadingChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to comments.
         /// </summary>
         internal static string Options_RefreshEntity_Comments {
@@ -732,6 +768,33 @@ namespace WordPress.Localization {
         internal static string Options_RefreshEntity_Posts {
             get {
                 return ResourceManager.GetString("Options_RefreshEntity_Posts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a password..
+        /// </summary>
+        internal static string Prompts_MissingPassword {
+            get {
+                return ResourceManager.GetString("Prompts_MissingPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a url..
+        /// </summary>
+        internal static string Prompts_MissingUrl {
+            get {
+                return ResourceManager.GetString("Prompts_MissingUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a user name..
+        /// </summary>
+        internal static string Prompts_MissingUserName {
+            get {
+                return ResourceManager.GetString("Prompts_MissingUserName", resourceCulture);
             }
         }
         

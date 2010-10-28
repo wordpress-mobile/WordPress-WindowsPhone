@@ -56,26 +56,10 @@
                 <TextBox x:Name="usernameTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" />
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button x:Name="cancelButton" Content="{Binding Path=ControlsText.Cancel, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnCancelButtonClick"/>
-                    <Button x:Name="saveButton" Content="{Binding Path=ControlsText.Save, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnSaveButtonClick"/>
-                </StackPanel>
-                <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="12,125,12,0"/>
+                <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="12,20,12,0"/>
                 <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Background="#BDFFFFFF"/>
             </StackPanel>
         </ScrollViewer>
-    </Grid>
- 
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </Grid> 
 
 </phone:PhoneApplicationPage>
