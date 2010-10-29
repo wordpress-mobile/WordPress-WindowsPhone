@@ -37,7 +37,12 @@ namespace WordPress
         {
             InitializeComponent();
                         
-            _thumbnailSizes = new List<int>(new int[] { 100, 200, 300 });
+            _thumbnailSizes = new List<int>();
+            int limit = 10;
+            for (int i = 0; i < limit; i++)
+            {
+                _thumbnailSizes.Add(i * 10);
+            }
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
@@ -195,7 +200,7 @@ namespace WordPress
 
         private void ShowThumbnailSizeSelections()
         {
-            App.PopupSelectionService.Title = "Please select a thumbnail size.";
+            App.PopupSelectionService.Title = _localizedStrings.Prompts.SelectThumbnailSize;
             App.PopupSelectionService.ItemsSource = _thumbnailSizes;
             App.PopupSelectionService.SelectionChanged += new SelectionChangedEventHandler(OnPopupSelectionServiceSelectionChanged);
             App.PopupSelectionService.ShowPopup();

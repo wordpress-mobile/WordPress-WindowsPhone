@@ -181,6 +181,7 @@ namespace WordPress.Localization
             public string MissingUserName { get { return LocalizedResources.Prompts_MissingUserName; } }
             public string MissingPassword { get { return LocalizedResources.Prompts_MissingPassword; } }
             public string MissingUrl { get { return LocalizedResources.Prompts_MissingUrl; } }
+            public string SelectThumbnailSize { get { return LocalizedResources.Prompt_SelectThumbnailSize; } }
         }
 
         #endregion

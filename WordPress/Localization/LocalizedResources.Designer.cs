@@ -772,6 +772,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a thumbnail size..
+        /// </summary>
+        internal static string Prompt_SelectThumbnailSize {
+            get {
+                return ResourceManager.GetString("Prompt_SelectThumbnailSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a password..
         /// </summary>
         internal static string Prompts_MissingPassword {
