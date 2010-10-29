@@ -53,11 +53,8 @@ namespace WordPress
 
             try
             {
-                Debug.WriteLine(string.Format("Current RootVisual child count: {0}", _rootVisual.Children.Count));
-                Debug.WriteLine(string.Format("Adding child to RootVisual: {0}", _rootVisual.Name));
                 _rootVisual.Children.Add(waitElement);
-                Debug.WriteLine(string.Format("New RootVisual child count: {0}", _rootVisual.Children.Count));
-
+                
                 var showSpinnerAnimation = CreateWaitAnimation(waitElement, Grid.OpacityProperty, 0.8, 0.00, 900, EasingMode.EaseOut);
                 var waitStoryboard = new Storyboard();
                 waitStoryboard.Children.Add(showSpinnerAnimation);
@@ -116,27 +113,25 @@ namespace WordPress
                 var hideSpinnerAnimation = CreateWaitAnimation(_currentWaitElement, Grid.OpacityProperty, 0.00, 0.80, 1000, EasingMode.EaseOut);
                 var waitStoryboard = new Storyboard();
                 waitStoryboard.Children.Add(hideSpinnerAnimation);
+                waitStoryboard.Completed += OnHideSpinnerStoryBoardCompleted;
                 waitStoryboard.Begin();
-
-                ThreadPool.QueueUserWorkItem(new WaitCallback(obj =>
-                {
-                    Thread.Sleep(900);
-                    _rootVisual.Dispatcher.BeginInvoke(() =>
-                    {
-                        Debug.WriteLine(string.Format("Current RootVisual child count: {0}", _rootVisual.Children.Count));
-                        Debug.WriteLine(string.Format("Removing child from RootVisual: {0}", _rootVisual.Name));
-                        _rootVisual.Children.Remove(_currentWaitElement);
-                        Debug.WriteLine(string.Format("New RootVisual child count: {0}", _rootVisual.Children.Count));
-
-                        _currentWaitElement = null;
-                    });
-
-                }), null);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(string.Format("Exception caught hiding the indicator: {0}", ex));
             }
+        }
+
+        private void OnHideSpinnerStoryBoardCompleted(object sender, EventArgs args)
+        {
+            Storyboard storyboard = sender as Storyboard;
+            storyboard.Completed -= OnHideSpinnerStoryBoardCompleted;
+
+            _rootVisual.Dispatcher.BeginInvoke(() =>
+            {
+                _rootVisual.Children.Remove(_currentWaitElement);
+                _currentWaitElement = null;                
+            });
 
             Waiting = false;
         }

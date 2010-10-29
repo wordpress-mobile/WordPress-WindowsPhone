@@ -152,6 +152,8 @@ namespace WordPress.Localization
             public string RetrievingPost { get { return LocalizedResources.Messages_RetrievingPost; } }
             public string UploadingChanges { get { return LocalizedResources.Messages_UploadingChanges; } }
             public string LoggingIn { get { return LocalizedResources.Messages_LoggingIn; } }
+            public string DeletingPage { get { return LocalizedResources.Messages_DeletingPage; } }
+            public string DeletingPost { get { return LocalizedResources.Messages_DeletingPost; } }
         }
 
         #endregion
@@ -167,6 +169,15 @@ namespace WordPress.Localization
             public string RefreshEntity_Pages { get { return LocalizedResources.Options_RefreshEntity_Pages; } }
             public string RefreshEntity_Everything { get { return LocalizedResources.Options_RefreshEntity_Everything; } }
 
+            public string PostOptions_ViewPost { get { return LocalizedResources.Options_PostActions_ViewPost; } }
+            public string PostOptions_ViewComments { get { return LocalizedResources.Options_PostActions_ViewComments; } }
+            public string PostOptions_EditPost { get { return LocalizedResources.Options_PostActions_EditPost; } }
+            public string PostOptions_DeletePost { get { return LocalizedResources.Options_PostActions_DeletePost; } }
+
+            public string PageOptions_ViewPage { get { return LocalizedResources.Options_PageActions_ViewPage; } }
+            public string PageOptions_ViewComments { get { return LocalizedResources.Options_PageActions_ViewComments; } }
+            public string PageOptions_EditPage { get { return LocalizedResources.Options_PageActions_EditPage; } }
+            public string PageOptions_DeletePage { get { return LocalizedResources.Options_PageActions_DeletePage; } }            
         }
 
         #endregion
@@ -182,6 +193,8 @@ namespace WordPress.Localization
             public string MissingPassword { get { return LocalizedResources.Prompts_MissingPassword; } }
             public string MissingUrl { get { return LocalizedResources.Prompts_MissingUrl; } }
             public string SelectThumbnailSize { get { return LocalizedResources.Prompt_SelectThumbnailSize; } }
+            public string PostActions { get { return LocalizedResources.Prompt_PostActions; } }
+            public string PageActions { get { return LocalizedResources.Prompt_PageActions; } }
         }
 
         #endregion

@@ -77,6 +77,9 @@
     <Compile Include="BlogsPage.xaml.cs">
       <DependentUpon>BlogsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowserShellPage.xaml.cs">
+      <DependentUpon>BrowserShellPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BooleanInversionConverter.cs" />
     <Compile Include="Converters\CommentStatusGroupingConverter.cs" />
     <Compile Include="ModerateCommentsPage.xaml.cs">
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="BrowserShellPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateNewWordPressAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,7 +221,6 @@
     <Resource Include="Images\panoramaActions.png" />
     <Resource Include="Images\locateBlogBackground.jpg" />
     <Content Include="SplashScreenImage.jpg" />
-    <Resource Include="logowhitetop.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WordPress.Model\WordPress.Model.csproj">

@@ -345,6 +345,30 @@
   <data name="Messages_UploadingChanges" xml:space="preserve">
     <value>uploading changes...</value>
   </data>
+  <data name="Options_PageActions_DeletePage" xml:space="preserve">
+    <value>delete page</value>
+  </data>
+  <data name="Options_PageActions_EditPage" xml:space="preserve">
+    <value>edit page</value>
+  </data>
+  <data name="Options_PageActions_ViewComments" xml:space="preserve">
+    <value>view comments</value>
+  </data>
+  <data name="Options_PageActions_ViewPage" xml:space="preserve">
+    <value>view page</value>
+  </data>
+  <data name="Options_PostActions_DeletePost" xml:space="preserve">
+    <value>delete post</value>
+  </data>
+  <data name="Options_PostActions_EditPost" xml:space="preserve">
+    <value>edit post</value>
+  </data>
+  <data name="Options_PostActions_ViewComments" xml:space="preserve">
+    <value>view comments</value>
+  </data>
+  <data name="Options_PostActions_ViewPost" xml:space="preserve">
+    <value>view post</value>
+  </data>
   <data name="Options_RefreshEntity_Comments" xml:space="preserve">
     <value>comments</value>
     <comment>list option for the "refresh" button on the actions panorama item</comment>
@@ -373,6 +397,12 @@
   <data name="Prompts_RefreshEntity" xml:space="preserve">
     <value>What would you like to refresh?</value>
     <comment>prompts the user to select an entity from the list to refresh</comment>
+  </data>
+  <data name="Prompt_PageActions" xml:space="preserve">
+    <value>Page Actions</value>
+  </data>
+  <data name="Prompt_PostActions" xml:space="preserve">
+    <value>Post Actions</value>
   </data>
   <data name="Prompt_SelectThumbnailSize" xml:space="preserve">
     <value>Please select a thumbnail size.</value>
@@ -444,5 +474,11 @@
   <data name="Title_Unapprove" xml:space="preserve">
     <value>UNAPPROVE</value>
     <comment>title for the 'unapprove' pivot item on the ModerateCommentsPage</comment>
+  </data>
+  <data name="Messages_DeletingPage" xml:space="preserve">
+    <value>deleting page...</value>
+  </data>
+  <data name="Messages_DeletingPost" xml:space="preserve">
+    <value>deleting post...</value>
   </data>
 </root>

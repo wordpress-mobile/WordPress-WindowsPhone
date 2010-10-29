@@ -619,6 +619,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to deleting page....
+        /// </summary>
+        internal static string Messages_DeletingPage {
+            get {
+                return ResourceManager.GetString("Messages_DeletingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to deleting post....
+        /// </summary>
+        internal static string Messages_DeletingPost {
+            get {
+                return ResourceManager.GetString("Messages_DeletingPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to logging in....
         /// </summary>
         internal static string Messages_LoggingIn {
@@ -736,6 +754,78 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete page.
+        /// </summary>
+        internal static string Options_PageActions_DeletePage {
+            get {
+                return ResourceManager.GetString("Options_PageActions_DeletePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit page.
+        /// </summary>
+        internal static string Options_PageActions_EditPage {
+            get {
+                return ResourceManager.GetString("Options_PageActions_EditPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to view comments.
+        /// </summary>
+        internal static string Options_PageActions_ViewComments {
+            get {
+                return ResourceManager.GetString("Options_PageActions_ViewComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to view page.
+        /// </summary>
+        internal static string Options_PageActions_ViewPage {
+            get {
+                return ResourceManager.GetString("Options_PageActions_ViewPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to delete post.
+        /// </summary>
+        internal static string Options_PostActions_DeletePost {
+            get {
+                return ResourceManager.GetString("Options_PostActions_DeletePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit post.
+        /// </summary>
+        internal static string Options_PostActions_EditPost {
+            get {
+                return ResourceManager.GetString("Options_PostActions_EditPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to view comments.
+        /// </summary>
+        internal static string Options_PostActions_ViewComments {
+            get {
+                return ResourceManager.GetString("Options_PostActions_ViewComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to view post.
+        /// </summary>
+        internal static string Options_PostActions_ViewPost {
+            get {
+                return ResourceManager.GetString("Options_PostActions_ViewPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to comments.
         /// </summary>
         internal static string Options_RefreshEntity_Comments {
@@ -768,6 +858,24 @@ namespace WordPress.Localization {
         internal static string Options_RefreshEntity_Posts {
             get {
                 return ResourceManager.GetString("Options_RefreshEntity_Posts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Actions.
+        /// </summary>
+        internal static string Prompt_PageActions {
+            get {
+                return ResourceManager.GetString("Prompt_PageActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post Actions.
+        /// </summary>
+        internal static string Prompt_PostActions {
+            get {
+                return ResourceManager.GetString("Prompt_PostActions", resourceCulture);
             }
         }
         
