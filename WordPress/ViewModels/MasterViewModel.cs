@@ -52,10 +52,10 @@ namespace WordPress
                 {
                     DataStore.Instance.CurrentBlog = value;
                     NotifyPropertyChanged("CurrentBlog");
-
-                    Comments.Clear();
-                    Posts.Clear();
-                    Pages.Clear();
+                
+                    NotifyPropertyChanged("Comments");
+                    NotifyPropertyChanged("Posts");
+                    NotifyPropertyChanged("Pages");
                 }
             }
         }
@@ -70,10 +70,6 @@ namespace WordPress
                 }
                 return CurrentBlog.Comments;
             }
-        }
-        public void NotifyCommentsChanged()
-        {
-            NotifyPropertyChanged("Comments");
         }
 
         public Comment CurrentComment
