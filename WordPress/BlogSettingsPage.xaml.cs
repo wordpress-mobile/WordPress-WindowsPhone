@@ -36,12 +36,12 @@ namespace WordPress
         public BlogSettingsPage()
         {
             InitializeComponent();
-                        
+
             _thumbnailSizes = new List<int>();
             int limit = 10;
             for (int i = 0; i < limit; i++)
             {
-                _thumbnailSizes.Add(i * 10);
+                _thumbnailSizes.Add((i+1) * 100);
             }
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
