@@ -54,8 +54,10 @@
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" />
                 <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="0,20,0,0"/>
-                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}"/>                
-            <!--</StackPanel>-->
+                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}"
+                        Click="OnCreateNewBlogButtonClick"
+                        />                
+            
 
         </StackPanel>
     </Grid>

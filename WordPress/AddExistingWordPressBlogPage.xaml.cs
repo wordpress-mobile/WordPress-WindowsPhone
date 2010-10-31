@@ -178,6 +178,12 @@ namespace WordPress
             State.Add(PASSWORDKEY_VALUE, passwordPasswordBox.Password);
         }
 
+        private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/BrowserShellPage.xaml?uri=http://wordpress.com/signup", UriKind.Relative));
+        }
+
         #endregion
+        
     }
 }

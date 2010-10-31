@@ -19,7 +19,7 @@ namespace WordPress
 
         private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/CreateNewWordPressAccountPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/BrowserShellPage.xaml?uri=http://wordpress.com/signup", UriKind.Relative));
         }
 
         private void OnExistingWPBlogButtonClick(object sender, RoutedEventArgs e)

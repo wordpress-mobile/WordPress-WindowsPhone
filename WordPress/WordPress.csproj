@@ -91,9 +91,6 @@
       <DependentUpon>RelatedCommentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\UserSettings.cs" />
-    <Compile Include="CreateNewWordPressAccountPage.xaml.cs">
-      <DependentUpon>CreateNewWordPressAccountPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Localization\LocalizedResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -154,10 +151,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowserShellPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CreateNewWordPressAccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
