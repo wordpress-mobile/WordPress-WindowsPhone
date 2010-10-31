@@ -17,8 +17,6 @@
 
         <local:MasterViewModel x:Key="MasterViewModelDataSource" d:IsDataSource="True"/>
 
-        <!--<local:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"/>-->
-
         <converters:CommentStatusGroupingConverter x:Key="ApprovedCommentConverter" Status="approve"/>
         <converters:CommentStatusGroupingConverter x:Key="UnapprovedCommentConverter" Status="hold"/>
         <converters:CommentStatusGroupingConverter x:Key="SpamCommentConverter" Status="spam"/>

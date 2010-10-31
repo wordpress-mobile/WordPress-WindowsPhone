@@ -81,10 +81,14 @@
       <DependentUpon>BrowserShellPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanInversionConverter.cs" />
+    <Compile Include="Converters\CommentsOnPostConverter.cs" />
     <Compile Include="Converters\CommentStatusGroupingConverter.cs" />
     <Compile Include="Converters\CommentStatusToBrushConverter.cs" />
     <Compile Include="ModerateCommentsPage.xaml.cs">
       <DependentUpon>ModerateCommentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RelatedCommentsPage.xaml.cs">
+      <DependentUpon>RelatedCommentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="CreateNewWordPressAccountPage.xaml.cs">
@@ -117,8 +121,6 @@
       <DependentUpon>PreferencesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="WaitIndicationService\IWaitIndicationService.cs" />
     <Compile Include="WaitIndicationService\Spinner.xaml.cs">
@@ -184,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PreferencesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RelatedCommentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

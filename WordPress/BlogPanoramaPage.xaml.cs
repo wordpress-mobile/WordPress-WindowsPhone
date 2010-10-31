@@ -153,7 +153,13 @@ namespace WordPress
 
         private void ViewPostComments()
         {
-            MessageBox.Show("Feature coming soon...");
+            int index = postsListBox.SelectedIndex;
+            if (-1 == index) return;
+
+            PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
+            string queryStringFormat = "?{0}={1}";
+            string queryString = string.Format(queryStringFormat, RelatedCommentsPage.IDKEY_VALUE, postListItem.PostId);
+            NavigationService.Navigate(new Uri("/RelatedCommentsPage.xaml" + queryString, UriKind.Relative));
         }
 
         private void EditPost()
@@ -294,7 +300,13 @@ namespace WordPress
 
         private void ViewPageComments()
         {
+            int index = pagesListBox.SelectedIndex;
+            if (-1 == index) return;
 
+            PageListItem pageListItem = pagesListBox.SelectedItem as PageListItem;
+            string queryStringFormat = "?{0}={1}";
+            string queryString = string.Format(queryStringFormat, RelatedCommentsPage.IDKEY_VALUE, pageListItem.PageId);
+            NavigationService.Navigate(new Uri("/RelatedCommentsPage.xaml" + queryString, UriKind.Relative));
         }
 
         private void DeletePage()

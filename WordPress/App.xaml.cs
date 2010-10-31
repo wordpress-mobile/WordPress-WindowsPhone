@@ -19,24 +19,6 @@ namespace WordPress
 {
     public partial class App : Application
     {
-        private static MainViewModel viewModel = null;
-
-        /// <summary>
-        /// A static ViewModel used by the views to bind against.
-        /// </summary>
-        /// <returns>The MainViewModel object.</returns>
-        public static MainViewModel ViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (viewModel == null)
-                    viewModel = new MainViewModel();
-
-                return viewModel;
-            }
-        }
-
         private static MasterViewModel _masterViewModel = null;
 
         public static MasterViewModel MasterViewModel
@@ -46,7 +28,6 @@ namespace WordPress
                 if (null == _masterViewModel)
                 {
                     _masterViewModel = new MasterViewModel();
-                    //_masterViewModel.CreateRuntimeSampleData();
                 }
                 return _masterViewModel;
             }
@@ -145,12 +126,7 @@ namespace WordPress
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-                DataStore.Instance.Initialize();
-            }
+            DataStore.Instance.Initialize();            
         }
 
         // Code to execute when the application is deactivated (sent to background)
