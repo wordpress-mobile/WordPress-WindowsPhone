@@ -8,12 +8,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:WordPress"
+    xmlns:Converters="clr-namespace:WordPress.Converters"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
+    
 	<phone:PhoneApplicationPage.Resources>
         <Style x:Key="actionsPanoramaItemStyle" TargetType="controls:PanoramaItem">
             <Setter Property="CacheMode" Value="BitmapCache"/>
@@ -146,7 +148,7 @@
             </Setter>
         </Style>
 
-        <local:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"></local:CommentStatusToBrushConverter>
+        <!--<Converters:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"></Converters:CommentStatusToBrushConverter>-->
         
         <Style x:Key="TileButtonTemplate" TargetType="Button">
         	<Setter Property="Background" Value="Transparent"/>
@@ -325,49 +327,9 @@
                 <Grid>
                     <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" 
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
-                             >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid MaxHeight="200" Margin="0,0,0,15">
-                            		<Grid.ColumnDefinitions>
-                            			<ColumnDefinition Width="Auto"/>
-                            			<ColumnDefinition Width="*"/>
-                            		</Grid.ColumnDefinitions>
-                            		<Grid.RowDefinitions>
-                            			<RowDefinition Height="Auto"/>
-                            			<RowDefinition Height="Auto"/>
-                            		</Grid.RowDefinitions>
-                            		<Image Grid.Column="0" Grid.Row="0" Height="75" Width="75" Source="{Binding GravatarUrl}" Margin="0,0,10,10"/>
-                            		<StackPanel Grid.Column="1" Grid.Row="0">
-                            			<TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="26.667" >
-                            				<TextBlock.Foreground>
-                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            				</TextBlock.Foreground>
-                            			</TextBlock>
-                            			<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="21.333" >
-                            				<TextBlock.Foreground>
-                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            				</TextBlock.Foreground>
-                            			</TextBlock>
-                            			<TextBlock x:Name="postTextBlock" Margin="0" FontSize="21.333" Text="{Binding PostTitle}">
-                            				<TextBlock.Foreground>
-                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            				</TextBlock.Foreground>
-                            			</TextBlock>
-                                    </StackPanel>
-                            		<StackPanel Grid.ColumnSpan="2" Margin="0" Orientation="Vertical" Grid.Row="1" d:LayoutOverrides="Width">
-                            			<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26.667" MaxHeight="40" >
-                            				<TextBlock.Foreground>
-                            					<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            				</TextBlock.Foreground>
-                            			</TextBlock>
-                            			<TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}" 
-                            				Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
-                                                   />
-                            		</StackPanel>
-                            	</Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                             ItemContainerStyle="{StaticResource CommentListItemStyle}"
+                             SelectionMode="Extended"
+                             >                        
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
