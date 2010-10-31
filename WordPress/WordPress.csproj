@@ -82,11 +82,11 @@
     </Compile>
     <Compile Include="Converters\BooleanInversionConverter.cs" />
     <Compile Include="Converters\CommentStatusGroupingConverter.cs" />
+    <Compile Include="Converters\CommentStatusToBrushConverter.cs" />
     <Compile Include="ModerateCommentsPage.xaml.cs">
       <DependentUpon>ModerateCommentsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\UserSettings.cs" />
-    <Compile Include="ViewModels\CommentStatusToBrushConverter.cs" />
     <Compile Include="CreateNewWordPressAccountPage.xaml.cs">
       <DependentUpon>CreateNewWordPressAccountPage.xaml</DependentUpon>
     </Compile>

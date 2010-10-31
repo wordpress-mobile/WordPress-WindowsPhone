@@ -328,7 +328,6 @@
                     <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" 
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
                              ItemContainerStyle="{StaticResource CommentListItemStyle}"
-                             SelectionMode="Extended"
                              >                        
                     </ListBox>
                 </Grid>
