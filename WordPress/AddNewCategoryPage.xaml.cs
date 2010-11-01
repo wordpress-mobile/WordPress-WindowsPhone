@@ -86,8 +86,7 @@ namespace WordPress
         {
             NewCategoryRPC rpc = sender as NewCategoryRPC;
             rpc.Completed -= OnNewCategoryRPCCompleted;
-            App.WaitIndicationService.HideIndicator();
-
+            
             if (null == args.Error)
             {
                 DataStore.Instance.FetchCurrentBlogCategories();
