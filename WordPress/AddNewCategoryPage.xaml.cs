@@ -86,18 +86,24 @@ namespace WordPress
         {
             NewCategoryRPC rpc = sender as NewCategoryRPC;
             rpc.Completed -= OnNewCategoryRPCCompleted;
-
             App.WaitIndicationService.HideIndicator();
 
             if (null == args.Error)
             {
-                App.MasterViewModel.CurrentBlog.Categories.Add(args.Items[0]);
-                NavigationService.GoBack();
+                DataStore.Instance.FetchCurrentBlogCategories();
+                DataStore.Instance.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
             }
             else
             {
                 HandleException(args.Error);
             }
+        }
+
+        private void OnFetchCurrentBlogCategoriesComplete(object sender, EventArgs args)
+        {
+            DataStore.Instance.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+            App.WaitIndicationService.HideIndicator();
+            NavigationService.GoBack();            
         }
 
         private void HandleException(Exception exception)
