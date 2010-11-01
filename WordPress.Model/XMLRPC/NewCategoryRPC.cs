@@ -74,7 +74,7 @@ namespace WordPress.Model
 
         protected override List<Category> ParseResponseContent(XDocument xDoc)
         {
-            XElement intElement = xDoc.Descendants(XmlRPCResponseConstants.INT).First();
+            XElement intElement = xDoc.Descendants(XmlRPCResponseConstants.STRING).First();
             int categoryId = 0;
             if (int.TryParse(intElement.Value, out categoryId))
             {
