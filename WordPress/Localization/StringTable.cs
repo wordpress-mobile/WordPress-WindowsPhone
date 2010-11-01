@@ -156,6 +156,7 @@ namespace WordPress.Localization
             public string DeletingPage { get { return LocalizedResources.Messages_DeletingPage; } }
             public string DeletingPost { get { return LocalizedResources.Messages_DeletingPost; } }
             public string RetrievingCategories { get { return LocalizedResources.Messages_RetrievingCategories; } }
+            public string RetrievingPage { get { return LocalizedResources.Messages_RetrievingPage; } }
         }
 
         #endregion

@@ -53,6 +53,8 @@ namespace WordPress
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_ViewComments);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_EditPage);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_DeletePage);
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
@@ -62,6 +64,11 @@ namespace WordPress
         #endregion
 
         #region methods
+
+        private void OnPageLoaded(object sender, RoutedEventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
 
         private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -366,8 +373,6 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
         }
 
         protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)

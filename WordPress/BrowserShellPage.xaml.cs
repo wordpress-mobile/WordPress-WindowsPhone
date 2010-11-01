@@ -18,11 +18,18 @@ namespace WordPress
         public BrowserShellPage()
         {
             InitializeComponent();
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region methods
+
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
@@ -37,8 +44,6 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             //save the uri in member _uriString and wait for the browser element load.
             //once that happens we can tell the browser to start loading the uri

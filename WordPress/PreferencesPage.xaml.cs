@@ -45,11 +45,18 @@ namespace WordPress
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region methods
+
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {

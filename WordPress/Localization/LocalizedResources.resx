@@ -488,4 +488,7 @@
   <data name="Messages_RetrievingCategories" xml:space="preserve">
     <value>retrieving categories...</value>
   </data>
+  <data name="Messages_RetrievingPage" xml:space="preserve">
+    <value>retrieving page...</value>
+  </data>
 </root>

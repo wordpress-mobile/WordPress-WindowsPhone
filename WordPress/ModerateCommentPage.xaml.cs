@@ -61,11 +61,31 @@ namespace WordPress
             _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unapprove.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
+
+            Loaded += OnPageLoaded;
         }
         
         #endregion
 
         #region methods
+
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
+            ChangeApplicationBarAppearance();
+
+            //now that the application bar is in the right visual state, check for any
+            //stored data for a reply
+            if (State.ContainsKey(REPLYPANELVISIBLE_VALUE))
+            {
+                if (State.ContainsKey(REPLYTEXTBOXTEXT_VALUE))
+                {
+                    replyTextBox.Text = State[REPLYTEXTBOXTEXT_VALUE] as string;
+                }
+                ShowReplyPanel();
+            }
+        }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
@@ -224,7 +244,6 @@ namespace WordPress
             base.OnNavigatedTo(e);
 
             Comment comment = null;
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             //check for transient data in the State dictionary
             if (State.ContainsKey(COMMENTKEY_VALUE))
@@ -237,18 +256,6 @@ namespace WordPress
                 DataContext = App.MasterViewModel.CurrentComment;
             }
 
-            ChangeApplicationBarAppearance();
-
-            //now that the application bar is in the right visual state, check for any
-            //stored data for a reply
-            if (State.ContainsKey(REPLYPANELVISIBLE_VALUE))
-            {
-                if (State.ContainsKey(REPLYTEXTBOXTEXT_VALUE))
-                {
-                    replyTextBox.Text = State[REPLYTEXTBOXTEXT_VALUE] as string;
-                }
-                ShowReplyPanel();
-            }
         }
 
         private void ChangeApplicationBarAppearance()

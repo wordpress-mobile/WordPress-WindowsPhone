@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Microsoft.Phone.Controls;
 
 using WordPress.Converters;
@@ -23,11 +24,18 @@ namespace WordPress
         public RelatedCommentsPage()
         {
             InitializeComponent();
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region methods
+
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {

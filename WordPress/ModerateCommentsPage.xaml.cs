@@ -52,17 +52,22 @@ namespace WordPress
             _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unapprove.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region methods
 
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
         }
 
         private void OnCommentsPivotSelectionChanged(object sender, SelectionChangedEventArgs e)

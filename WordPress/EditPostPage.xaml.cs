@@ -47,26 +47,32 @@ namespace WordPress
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region methods
 
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
+            if (!(State.ContainsKey(TITLEKEY_VALUE)))
+            {
+                LoadBlog();
+            }
+        }
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             //check for transient data stored in State dictionary
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 RestorePageState();
-            }
-            else
-            {
-                LoadBlog();
             }
         }
 
@@ -115,7 +121,9 @@ namespace WordPress
             }
             else
             {
-                DataContext = new Post();
+                Post post = new Post();
+                DataContext = post;
+                App.MasterViewModel.CurrentPost = post;
             }
         }
 
@@ -128,6 +136,7 @@ namespace WordPress
             {
                 Post post = args.Items[0];
                 DataContext = post;
+                App.MasterViewModel.CurrentPost = post;
             }
             else
             {
@@ -271,9 +280,6 @@ namespace WordPress
 
         private void OnSelectCategoriesButtonClick(object sender, RoutedEventArgs e)
         {
-            Post post = DataContext as Post;
-            App.MasterViewModel.CurrentPost = post;
-
             NavigationService.Navigate(new Uri("/SelectCategoriesPage.xaml", UriKind.Relative));
         }
 

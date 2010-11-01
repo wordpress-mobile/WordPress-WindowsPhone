@@ -44,18 +44,40 @@ namespace WordPress
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
-            ApplicationBar.Buttons.Add(_saveIconButton);         
+            ApplicationBar.Buttons.Add(_saveIconButton);
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region methods
 
+        private void OnPageLoaded(object sender, EventArgs args)
+        {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            if (null != App.MasterViewModel.CurrentPageListItem)
+            {
+                string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();
+
+                GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
+                rpc.Completed += OnGetPostRPCCompleted;
+                rpc.ExecuteAsync();
+
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
+            }
+            else
+            {
+                DataContext = new Post();
+            }
+        }
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             //look for transient data stored in the State dictionary
             if (State.ContainsKey(POSTKEY_VALUE))
@@ -66,26 +88,6 @@ namespace WordPress
                 if (State.ContainsKey(PUBLISHKEY_VALUE))
                 {
                     publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
-                }
-            }
-            else
-            {
-
-                Blog currentBlog = App.MasterViewModel.CurrentBlog;
-
-                if (null != App.MasterViewModel.CurrentPageListItem)
-                {
-                    string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();
-
-                    GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
-                    rpc.Completed += OnGetPostRPCCompleted;
-                    rpc.ExecuteAsync();
-
-                    App.WaitIndicationService.ShowIndicator("Retrieving page...");
-                }
-                else
-                {
-                    DataContext = new Post();
                 }
             }
         }
