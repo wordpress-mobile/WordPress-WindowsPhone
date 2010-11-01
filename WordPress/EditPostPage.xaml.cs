@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
+using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 
@@ -100,6 +101,11 @@ namespace WordPress
             {
                 tagsTextBox.Text = State[TAGSKEY_VALUE] as string;
             }
+
+            CategoryContentConverter converter = Resources["CategoryContentConverter"] as CategoryContentConverter;
+            if (null == converter) return;
+
+            categoriesTextBlock.Text = converter.Convert(App.MasterViewModel.CurrentPost.Categories, typeof(string), null, null) as string;
         }
 
         /// <summary>
