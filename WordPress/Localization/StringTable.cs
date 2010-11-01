@@ -126,6 +126,7 @@ namespace WordPress.Localization
             public string BlogSettings { get { return LocalizedResources.ControlText_BlogSettings; } }
             public string AddBlog { get { return LocalizedResources.ControlText_AddBlog; } }
             public string Preferences { get { return LocalizedResources.ControlText_Preferences; } }
+            public string SelectedCategories { get { return LocalizedResources.ControlText_SelectedCategories; } }
         }
 
         #endregion

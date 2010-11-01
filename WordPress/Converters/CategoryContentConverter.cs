@@ -37,16 +37,14 @@ namespace WordPress.Converters
                 throw new ArgumentException("Value cannot be assigned as ObservableCollection<string>", "value");
             }
 
-            string selectCategories = _localizedStrings.ControlsText.SelectCategories;
-
             List<string> categories = ((ObservableCollection<string>)value).OrderBy(category => category).ToList();
             if (0 == categories.Count())
             {
-                return selectCategories;
+                return _localizedStrings.ControlsText.SelectCategories;
             }
             
             StringBuilder builder = new StringBuilder();
-            builder.Append(selectCategories);
+            builder.Append(_localizedStrings.ControlsText.SelectedCategories);
             builder.Append(": \r\n");
 
             string separator = ", ";            

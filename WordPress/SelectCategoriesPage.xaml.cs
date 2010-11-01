@@ -13,7 +13,7 @@ namespace WordPress
     {
         #region member variables
 
-        private ApplicationBarIconButton _cancelIconButton;
+        private ApplicationBarIconButton _refreshIconButton;
         private ApplicationBarIconButton _addIconButton;
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
@@ -32,10 +32,10 @@ namespace WordPress
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
-            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
-            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
-            _cancelIconButton.Click += OnCancelButtonClick;
-            ApplicationBar.Buttons.Add(_cancelIconButton);
+            _refreshIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.refresh.png", UriKind.Relative));
+            _refreshIconButton.Text = _localizedStrings.ControlsText.Refresh;
+            _refreshIconButton.Click += OnRefreshButtonClick;
+            ApplicationBar.Buttons.Add(_refreshIconButton);
 
             _addIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
             _addIconButton.Text = _localizedStrings.ControlsText.Add;
@@ -58,7 +58,14 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
         }
-        
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            DataStore.Instance.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+        }
+
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
@@ -72,9 +79,7 @@ namespace WordPress
 
             if (0 == DataStore.Instance.CurrentBlog.Categories.Count)
             {
-                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingCategories);
-                DataStore.Instance.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
-                DataStore.Instance.FetchCurrentBlogCategories();
+                FetchCategories();
             }
             else
             {
@@ -91,15 +96,22 @@ namespace WordPress
             }
         }
 
+        private void FetchCategories()
+        {
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingCategories);
+            DataStore.Instance.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
+            DataStore.Instance.FetchCurrentBlogCategories();
+        }
+
         private void OnFetchCurrentBlogCategoriesComplete(object sender, EventArgs e)
         {
             DataStore.Instance.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
         }
 
-        private void OnCancelButtonClick(object sender, EventArgs args)
+        private void OnRefreshButtonClick(object sender, EventArgs args)
         {
-            NavigationService.GoBack();
+            FetchCategories();
         }
 
         private void OnAddButtonClick(object sender, EventArgs args)

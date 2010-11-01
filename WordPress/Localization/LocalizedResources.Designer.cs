@@ -457,6 +457,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to selected categories.
+        /// </summary>
+        internal static string ControlText_SelectedCategories {
+            get {
+                return ResourceManager.GetString("ControlText_SelectedCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to spam.
         /// </summary>
         internal static string ControlText_Spam {

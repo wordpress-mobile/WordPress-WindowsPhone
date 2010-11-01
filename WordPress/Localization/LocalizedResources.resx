@@ -491,4 +491,7 @@
   <data name="Messages_RetrievingPage" xml:space="preserve">
     <value>retrieving page...</value>
   </data>
+  <data name="ControlText_SelectedCategories" xml:space="preserve">
+    <value>selected categories</value>
+  </data>
 </root>
