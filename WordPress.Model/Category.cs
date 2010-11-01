@@ -16,6 +16,7 @@ namespace WordPress.Model
         private string _categoryName;
         private string _htmlUrl;
         private string _rssUrl;
+        private string _categorySlug;
 
         private const string CATEGORYID_VALUE = "categoryId";
         private const string PARENTID_VALUE = "parentId";
@@ -141,6 +142,18 @@ namespace WordPress.Model
             }
         }
 
+        public string CategorySlug
+        {
+            get { return _categorySlug; }
+            set
+            {
+                if (value != _categorySlug)
+                {
+                    _categorySlug = value;
+                    NotifyPropertyChanged("CategorySlug");
+                }
+            }
+        }
         #endregion
 
         #region methods

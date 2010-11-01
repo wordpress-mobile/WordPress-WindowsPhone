@@ -232,6 +232,42 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to category description (optional).
+        /// </summary>
+        internal static string ControlText_CategoryDescription {
+            get {
+                return ResourceManager.GetString("ControlText_CategoryDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to category name.
+        /// </summary>
+        internal static string ControlText_CategoryName {
+            get {
+                return ResourceManager.GetString("ControlText_CategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to category parent (optional).
+        /// </summary>
+        internal static string ControlText_CategoryParent {
+            get {
+                return ResourceManager.GetString("ControlText_CategoryParent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to category slug (optional).
+        /// </summary>
+        internal static string ControlText_CategorySlug {
+            get {
+                return ResourceManager.GetString("ControlText_CategorySlug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to comment notifications.
         /// </summary>
         internal static string ControlText_CommentNotifications {
@@ -345,6 +381,15 @@ namespace WordPress.Localization {
         internal static string ControlText_NeedBlog {
             get {
                 return ResourceManager.GetString("ControlText_NeedBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [none].
+        /// </summary>
+        internal static string ControlText_None {
+            get {
+                return ResourceManager.GetString("ControlText_None", resourceCulture);
             }
         }
         
@@ -606,6 +651,15 @@ namespace WordPress.Localization {
         internal static string Messages_ApprovingComments {
             get {
                 return ResourceManager.GetString("Messages_ApprovingComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to creating new category....
+        /// </summary>
+        internal static string Messages_CreatingNewCategory {
+            get {
+                return ResourceManager.GetString("Messages_CreatingNewCategory", resourceCulture);
             }
         }
         
@@ -916,6 +970,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a category name..
+        /// </summary>
+        internal static string Prompts_MissingCategoryName {
+            get {
+                return ResourceManager.GetString("Prompts_MissingCategoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a password..
         /// </summary>
         internal static string Prompts_MissingPassword {
@@ -952,6 +1015,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a category..
+        /// </summary>
+        internal static string Prompts_SelectCategory {
+            get {
+                return ResourceManager.GetString("Prompts_SelectCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to actions.
         /// </summary>
         internal static string Title_Actions {
@@ -966,6 +1038,15 @@ namespace WordPress.Localization {
         internal static string Title_AddAccount {
             get {
                 return ResourceManager.GetString("Title_AddAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new category.
+        /// </summary>
+        internal static string Title_AddNewCategory {
+            get {
+                return ResourceManager.GetString("Title_AddNewCategory", resourceCulture);
             }
         }
         

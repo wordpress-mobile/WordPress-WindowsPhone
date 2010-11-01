@@ -40,8 +40,6 @@ namespace WordPress.Model
 
         public Category Category { get; set; }
 
-        public string Slug { get; set; }
-
         #endregion
 
         #region methods
@@ -68,7 +66,7 @@ namespace WordPress.Model
                 Credentials.UserName.HtmlEncode(),
                 Credentials.Password.HtmlEncode(),
                 Category.Description.HtmlEncode(),
-                Slug.HtmlEncode(),
+                Category.CategorySlug.HtmlEncode(),
                 Category.ParentId,
                 Category.CategoryName.HtmlEncode());
             return result;

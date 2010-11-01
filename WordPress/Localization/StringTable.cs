@@ -60,6 +60,7 @@ namespace WordPress.Localization
             public string Unapprove { get { return LocalizedResources.Title_Unapprove; } }
             public string Spam { get { return LocalizedResources.Title_Spam; } }
             public string SelectCategories { get { return LocalizedResources.ControlText_SelectCategories; } }
+            public string AddNewCategory { get { return LocalizedResources.Title_AddNewCategory; } }
         }
 
         #endregion
@@ -127,6 +128,11 @@ namespace WordPress.Localization
             public string AddBlog { get { return LocalizedResources.ControlText_AddBlog; } }
             public string Preferences { get { return LocalizedResources.ControlText_Preferences; } }
             public string SelectedCategories { get { return LocalizedResources.ControlText_SelectedCategories; } }
+            public string CategoryName { get { return LocalizedResources.ControlText_CategoryName; } }
+            public string CategorySlug { get { return LocalizedResources.ControlText_CategorySlug; } }
+            public string CategoryDescription { get { return LocalizedResources.ControlText_CategoryDescription; } }
+            public string CategoryParent { get { return LocalizedResources.ControlText_CategoryParent; } }
+            public string None { get { return LocalizedResources.ControlText_None; } }
         }
 
         #endregion
@@ -158,6 +164,7 @@ namespace WordPress.Localization
             public string DeletingPost { get { return LocalizedResources.Messages_DeletingPost; } }
             public string RetrievingCategories { get { return LocalizedResources.Messages_RetrievingCategories; } }
             public string RetrievingPage { get { return LocalizedResources.Messages_RetrievingPage; } }
+            public string CreatingNewCategory { get { return LocalizedResources.Messages_CreatingNewCategory; } }
         }
 
         #endregion
@@ -199,6 +206,8 @@ namespace WordPress.Localization
             public string SelectThumbnailSize { get { return LocalizedResources.Prompt_SelectThumbnailSize; } }
             public string PostActions { get { return LocalizedResources.Prompt_PostActions; } }
             public string PageActions { get { return LocalizedResources.Prompt_PageActions; } }
+            public string SelectCategory { get { return LocalizedResources.Prompts_SelectCategory; } }
+            public string MissingCategoryName { get { return LocalizedResources.Prompts_MissingCategoryName; } }
         }
 
         #endregion

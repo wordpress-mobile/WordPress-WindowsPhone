@@ -116,7 +116,7 @@ namespace WordPress
 
         private void OnAddButtonClick(object sender, EventArgs args)
         {
-            
+            NavigationService.Navigate(new Uri("/AddNewCategoryPage.xaml", UriKind.Relative));
         }
 
         private void OnSaveButtonClick(object sender, EventArgs args)

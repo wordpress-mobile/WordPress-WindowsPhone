@@ -494,4 +494,31 @@
   <data name="ControlText_SelectedCategories" xml:space="preserve">
     <value>selected categories</value>
   </data>
+  <data name="ControlText_CategoryDescription" xml:space="preserve">
+    <value>category description (optional)</value>
+  </data>
+  <data name="ControlText_CategoryName" xml:space="preserve">
+    <value>category name</value>
+  </data>
+  <data name="ControlText_CategoryParent" xml:space="preserve">
+    <value>category parent (optional)</value>
+  </data>
+  <data name="ControlText_CategorySlug" xml:space="preserve">
+    <value>category slug (optional)</value>
+  </data>
+  <data name="ControlText_None" xml:space="preserve">
+    <value>[none]</value>
+  </data>
+  <data name="Messages_CreatingNewCategory" xml:space="preserve">
+    <value>creating new category...</value>
+  </data>
+  <data name="Prompts_MissingCategoryName" xml:space="preserve">
+    <value>Please enter a category name.</value>
+  </data>
+  <data name="Prompts_SelectCategory" xml:space="preserve">
+    <value>Please select a category.</value>
+  </data>
+  <data name="Title_AddNewCategory" xml:space="preserve">
+    <value>new category</value>
+  </data>
 </root>
