@@ -485,4 +485,7 @@
     <value>select categories</value>
     <comment>title for the 'select categories' page</comment>
   </data>
+  <data name="Messages_RetrievingCategories" xml:space="preserve">
+    <value>retrieving categories...</value>
+  </data>
 </root>

@@ -682,6 +682,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to retrieving categories....
+        /// </summary>
+        internal static string Messages_RetrievingCategories {
+            get {
+                return ResourceManager.GetString("Messages_RetrievingCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to retrieving comments....
         /// </summary>
         internal static string Messages_RetrievingComments {

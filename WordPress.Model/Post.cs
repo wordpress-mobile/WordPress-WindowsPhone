@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Xml;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Globalization;
 
 namespace WordPress.Model
 {
@@ -82,6 +71,7 @@ namespace WordPress.Model
         {
             _isNew = true;
             _categories = new ObservableCollection<string>();
+            _categories.CollectionChanged += OnCategoriesChanged;
             _customFields = new ObservableCollection<CustomField>();
         }
 
@@ -540,6 +530,11 @@ namespace WordPress.Model
             }
 
             IsNew = false;
+        }
+
+        private void OnCategoriesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("Categories");
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -45,6 +46,8 @@ namespace WordPress
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
+
+            Loaded += OnPageLoaded;
         }
 
         #endregion
@@ -54,7 +57,10 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
+        }
+        
+        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             LoadCategories();
@@ -66,7 +72,7 @@ namespace WordPress
 
             if (0 == DataStore.Instance.CurrentBlog.Categories.Count)
             {
-                App.WaitIndicationService.ShowIndicator("retrieving categories...");
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingCategories);
                 DataStore.Instance.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
                 DataStore.Instance.FetchCurrentBlogCategories();
             }

@@ -39,7 +39,7 @@ namespace WordPress.Converters
 
             string selectCategories = _localizedStrings.ControlsText.SelectCategories;
 
-            IEnumerable<string> categories = value as IEnumerable<string>;
+            List<string> categories = ((ObservableCollection<string>)value).OrderBy(category => category).ToList();
             if (0 == categories.Count())
             {
                 return selectCategories;
@@ -49,8 +49,8 @@ namespace WordPress.Converters
             builder.Append(selectCategories);
             builder.Append(": \r\n");
 
-            string separator = ", ";
-            categories.OrderBy(category => category).ToList().ForEach(category =>
+            string separator = ", ";            
+            categories.ForEach(category =>
             {
                 builder.Append(category);
                 if (categories.Last() != category)
