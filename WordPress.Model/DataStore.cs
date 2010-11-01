@@ -70,9 +70,11 @@ namespace WordPress.Model
 
         public Comment CurrentComment { get; set; }
 
-        public PostListItem CurrentPost { get; set; }
+        public PostListItem CurrentPostListItem { get; set; }
 
-        public PageListItem CurrentPage { get; set; }
+        public PageListItem CurrentPageListItem { get; set; }
+
+        public Post CurrentPost { get; set; }
 
         #endregion
 
@@ -90,8 +92,8 @@ namespace WordPress.Model
 
             CurrentBlog = null;
             CurrentComment = null;
-            CurrentPage = null;
-            CurrentPost = null;
+            CurrentPageListItem = null;
+            CurrentPostListItem = null;
         }
 
         public void Serialize()
@@ -136,8 +138,9 @@ namespace WordPress.Model
                     data.BlogId = -1;
                 }
                 data.Comment = CurrentComment;
+                data.PostListItem = CurrentPostListItem;
+                data.PageListItem = CurrentPageListItem;
                 data.Post = CurrentPost;
-                data.Page = CurrentPage;
 
                 XmlSerializer serializer = new XmlSerializer(typeof(StoreData));
                 serializer.Serialize(isoStream, data);
@@ -185,8 +188,9 @@ namespace WordPress.Model
                     }
                 }
                 CurrentComment = result.Comment;
+                CurrentPostListItem = result.PostListItem;
+                CurrentPageListItem = result.PageListItem;
                 CurrentPost = result.Post;
-                CurrentPage = result.Page;
             }
         }
 
@@ -312,6 +316,38 @@ namespace WordPress.Model
             }
         }
 
+        public void FetchCurrentBlogCategories()
+        {
+            if (null == CurrentBlog)
+            {
+                throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
+            }
+
+            GetCategoriesRPC rpc = new GetCategoriesRPC(CurrentBlog);
+            rpc.Completed += OnGetCategoriesRPCCompleted;
+            rpc.ExecuteAsync();
+        }
+
+        private void OnGetCategoriesRPCCompleted(object sender, XMLRPCCompletedEventArgs<Category> args)
+        {
+            GetCategoriesRPC rpc = sender as GetCategoriesRPC;
+            rpc.Completed -= OnGetCategoriesRPCCompleted;
+
+            if (null == args.Error)
+            {
+                CurrentBlog.Categories.Clear();
+                args.Items.ForEach(category =>
+                {
+                    CurrentBlog.Categories.Add(category);
+                });
+                NotifyFetchComplete();
+            }
+            else
+            {
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+        }
+
         #endregion
 
         #region StoreData class definition
@@ -322,8 +358,9 @@ namespace WordPress.Model
             //serializing a singleton won't work with the reflection constraints
             public int BlogId { get; set; }
             public Comment Comment { get; set; }
-            public PostListItem Post { get; set; }
-            public PageListItem Page { get; set; }
+            public PostListItem PostListItem { get; set; }
+            public PageListItem PageListItem { get; set; }
+            public Post Post { get; set; }
         }
 
         #endregion

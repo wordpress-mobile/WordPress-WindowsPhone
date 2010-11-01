@@ -73,9 +73,9 @@ namespace WordPress
 
                 Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
-                if (null != App.MasterViewModel.CurrentPage)
+                if (null != App.MasterViewModel.CurrentPageListItem)
                 {
-                    string pageId = App.MasterViewModel.CurrentPage.PageId.ToString();
+                    string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();
 
                     GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
                     rpc.Completed += OnGetPostRPCCompleted;

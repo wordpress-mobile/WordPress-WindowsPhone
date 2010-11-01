@@ -1042,6 +1042,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to select categories.
+        /// </summary>
+        internal static string Title_SelectCategories {
+            get {
+                return ResourceManager.GetString("Title_SelectCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to settings.
         /// </summary>
         internal static string Title_Settings {

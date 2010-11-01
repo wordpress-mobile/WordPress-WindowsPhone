@@ -481,4 +481,8 @@
   <data name="Messages_DeletingPost" xml:space="preserve">
     <value>deleting post...</value>
   </data>
+  <data name="Title_SelectCategories" xml:space="preserve">
+    <value>select categories</value>
+    <comment>title for the 'select categories' page</comment>
+  </data>
 </root>

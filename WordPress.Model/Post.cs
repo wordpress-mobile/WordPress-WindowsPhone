@@ -357,7 +357,7 @@ namespace WordPress.Model
         public bool IsNew
         {
             get { return _isNew; }
-            private set { _isNew = value; }
+            set { _isNew = value; }
         }
 
         #endregion

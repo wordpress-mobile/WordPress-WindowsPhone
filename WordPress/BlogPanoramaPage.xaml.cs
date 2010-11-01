@@ -167,7 +167,7 @@ namespace WordPress
             int index = postsListBox.SelectedIndex;
             if (-1 == index) return;
 
-            App.MasterViewModel.CurrentPost = App.MasterViewModel.Posts[index];
+            App.MasterViewModel.CurrentPostListItem = App.MasterViewModel.Posts[index];
 
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }
@@ -256,7 +256,7 @@ namespace WordPress
             int index = pagesListBox.SelectedIndex;
             if (-1 == index) return;
 
-            App.MasterViewModel.CurrentPage = App.MasterViewModel.Pages[index];
+            App.MasterViewModel.CurrentPageListItem = App.MasterViewModel.Pages[index];
 
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
         }
@@ -353,13 +353,13 @@ namespace WordPress
 
         private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
         {
-            App.MasterViewModel.CurrentPost = null;
+            App.MasterViewModel.CurrentPostListItem = null;
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }
 
         private void OnCreatePageButtonClick(object sender, RoutedEventArgs e)
         {
-            App.MasterViewModel.CurrentPage = null;
+            App.MasterViewModel.CurrentPageListItem = null;
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
         }
 

@@ -15,8 +15,10 @@ namespace WordPress
     {
         #region member variables
 
-        private const string POSTKEY_VALUE = "post";
         private const string PUBLISHKEY_VALUE = "publish";
+        private const string TITLEKEY_VALUE = "title";
+        private const string CONTENTKEY_VALUE = "content";
+        private const string TAGSKEY_VALUE = "tags";
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _cancelIconButton;
@@ -55,8 +57,10 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
 
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
             //check for transient data stored in State dictionary
-            if (State.ContainsKey(POSTKEY_VALUE))
+            if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 RestorePageState();
             }
@@ -71,15 +75,24 @@ namespace WordPress
         /// </summary>
         private void RestorePageState()
         {
-            if (State.ContainsKey(POSTKEY_VALUE))
+            if (State.ContainsKey(TITLEKEY_VALUE))
             {
-                Post post = State[POSTKEY_VALUE] as Post;
-                DataContext = post;
+                titleTextBox.Text = State[TITLEKEY_VALUE] as string;
+            }
+
+            if (State.ContainsKey(CONTENTKEY_VALUE))
+            {
+                contentTextBox.Text = State[CONTENTKEY_VALUE] as string;
             }
 
             if (State.ContainsKey(PUBLISHKEY_VALUE))
             {
                 publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
+            }
+
+            if (State.ContainsKey(TAGSKEY_VALUE))
+            {
+                tagsTextBox.Text = State[TAGSKEY_VALUE] as string;
             }
         }
 
@@ -89,12 +102,10 @@ namespace WordPress
         private void LoadBlog()
         {
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
-
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
-
-            if (null != App.MasterViewModel.CurrentPost)
+            
+            if (null != App.MasterViewModel.CurrentPostListItem)
             {
-                string postId = App.MasterViewModel.CurrentPost.PostId.ToString();
+                string postId = App.MasterViewModel.CurrentPostListItem.PostId.ToString();
 
                 GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
                 rpc.Completed += OnGetPostRPCCompleted;
@@ -117,12 +128,6 @@ namespace WordPress
             {
                 Post post = args.Items[0];
                 DataContext = post;
-                StringBuilder tagBuilder = new StringBuilder();
-                foreach (string tag in post.Categories)
-                {
-                    tagBuilder.Append(tag);
-                }
-                tagsTextBox.Text = tagBuilder.ToString();
             }
             else
             {
@@ -239,27 +244,41 @@ namespace WordPress
         /// </summary>
         private void SavePageState()
         {
-            if (State.ContainsKey(POSTKEY_VALUE))
+            if (State.ContainsKey(TITLEKEY_VALUE))
             {
-                State.Remove(POSTKEY_VALUE);
+                State.Remove(TITLEKEY_VALUE);
             }
+            State.Add(TITLEKEY_VALUE, titleTextBox.Text);
 
-            Post post = DataContext as Post;
-
-            //make sure that the post contains the latest title and content
-            post.Title = titleTextBox.Text;
-            post.Description = contentTextBox.Text;
-
-            State.Add(POSTKEY_VALUE, post);
+            if (State.ContainsKey(CONTENTKEY_VALUE))
+            {
+                State.Remove(CONTENTKEY_VALUE);
+            }
+            State.Add(CONTENTKEY_VALUE, contentTextBox.Text);
 
             if (State.ContainsKey(PUBLISHKEY_VALUE))
             {
                 State.Remove(PUBLISHKEY_VALUE);
             }
             State.Add(PUBLISHKEY_VALUE, publishToggleButton.IsChecked);
+
+            if (State.ContainsKey(TAGSKEY_VALUE))
+            {
+                State.Remove(TAGSKEY_VALUE);
+            }
+            State.Add(TAGSKEY_VALUE, tagsTextBox.Text);
+        }
+
+        private void OnSelectCategoriesButtonClick(object sender, RoutedEventArgs e)
+        {
+            Post post = DataContext as Post;
+            App.MasterViewModel.CurrentPost = post;
+
+            NavigationService.Navigate(new Uri("/SelectCategoriesPage.xaml", UriKind.Relative));
         }
 
         #endregion
+
 
     }
 }

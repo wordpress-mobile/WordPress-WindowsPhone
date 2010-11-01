@@ -59,6 +59,7 @@ namespace WordPress.Localization
             public string Approve { get { return LocalizedResources.Title_Approve; } }
             public string Unapprove { get { return LocalizedResources.Title_Unapprove; } }
             public string Spam { get { return LocalizedResources.Title_Spam; } }
+            public string SelectCategories { get { return LocalizedResources.ControlText_SelectCategories; } }
         }
 
         #endregion

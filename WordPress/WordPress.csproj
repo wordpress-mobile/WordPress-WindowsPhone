@@ -81,6 +81,7 @@
       <DependentUpon>BrowserShellPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanInversionConverter.cs" />
+    <Compile Include="Converters\CategoryContentConverter.cs" />
     <Compile Include="Converters\CommentsOnPostConverter.cs" />
     <Compile Include="Converters\CommentStatusGroupingConverter.cs" />
     <Compile Include="Converters\CommentStatusToBrushConverter.cs" />
@@ -89,6 +90,9 @@
     </Compile>
     <Compile Include="RelatedCommentsPage.xaml.cs">
       <DependentUpon>RelatedCommentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCategoriesPage.xaml.cs">
+      <DependentUpon>SelectCategoriesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Localization\LocalizedResources.Designer.cs">
@@ -183,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RelatedCommentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SelectCategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -48,6 +48,7 @@ namespace WordPress.Model
             Comments = new ObservableCollection<Comment>();
             PostListItems = new ObservableCollection<PostListItem>();
             PageListItems = new ObservableCollection<PageListItem>();
+            Categories = new ObservableCollection<Category>();
         }
 
         public Blog(XElement structElement) 
@@ -156,6 +157,8 @@ namespace WordPress.Model
         public ObservableCollection<PostListItem> PostListItems { get; private set; }
 
         public ObservableCollection<PageListItem> PageListItems { get; private set; }
+
+        public ObservableCollection<Category> Categories { get; private set; }
 
         public bool PlaceImageAboveText 
         {

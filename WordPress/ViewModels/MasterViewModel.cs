@@ -97,15 +97,15 @@ namespace WordPress
             }
         }
 
-        public PostListItem CurrentPost
+        public PostListItem CurrentPostListItem
         {
-            get { return DataStore.Instance.CurrentPost; }
+            get { return DataStore.Instance.CurrentPostListItem; }
             set
             {
-                if (value != DataStore.Instance.CurrentPost)
+                if (value != DataStore.Instance.CurrentPostListItem)
                 {
-                    DataStore.Instance.CurrentPost = value;
-                    NotifyPropertyChanged("CurrentPost");
+                    DataStore.Instance.CurrentPostListItem = value;
+                    NotifyPropertyChanged("CurrentPostListItem");
                 }
             }
         }
@@ -122,15 +122,28 @@ namespace WordPress
             }
         }
 
-        public PageListItem CurrentPage
+        public PageListItem CurrentPageListItem
         {
-            get { return DataStore.Instance.CurrentPage; }
+            get { return DataStore.Instance.CurrentPageListItem; }
             set
             {
-                if (value != DataStore.Instance.CurrentPage)
+                if (value != DataStore.Instance.CurrentPageListItem)
                 {
-                    DataStore.Instance.CurrentPage = value;
-                    NotifyPropertyChanged("CurrentPage");
+                    DataStore.Instance.CurrentPageListItem = value;
+                    NotifyPropertyChanged("CurrentPageListItem");
+                }
+            }
+        }
+
+        public Post CurrentPost
+        {
+            get { return DataStore.Instance.CurrentPost; }
+            set
+            {
+                if (value != DataStore.Instance.CurrentPost)
+                {
+                    DataStore.Instance.CurrentPost = value;
+                    NotifyPropertyChanged("CurrentPost");
                 }
             }
         }

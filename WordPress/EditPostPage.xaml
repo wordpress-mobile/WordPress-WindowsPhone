@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Converters="clr-namespace:WordPress.Converters"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -13,6 +14,10 @@
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        <Converters:CategoryContentConverter x:Key="CategoryContentConverter"/>
+    </phone:PhoneApplicationPage.Resources>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
@@ -62,8 +67,12 @@
                 <TextBlock Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <Button Content="{Binding Path=ControlsText.AddMedia, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
                 <TextBlock Text="{Binding Path=ControlsText.TagsAndCategories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox x:Name="tagsTextBox" IsReadOnly="True" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
-                <Button x:Name="selectCategoriesButton" Content="{Binding Path=ControlsText.SelectCategories, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"/>
+                <TextBox x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
+                <Button x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
+                        Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
+                </Button>
+                        
                 <TextBlock Text="{Binding Path=ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <ToggleButton x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
             </StackPanel>
