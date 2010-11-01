@@ -62,19 +62,7 @@ namespace WordPress.Model
             }
             set
             {
-                //clean out existing object references
-                Comments = null;
-                Posts = null;
-                Pages = null;
-                
                 _currentBlog = value;
-
-                if (null != _currentBlog)
-                {
-                    Comments = _currentBlog.Comments;
-                    Posts = _currentBlog.PostListItems;
-                    Pages = _currentBlog.PageListItems;
-                }
             }
         }
 
@@ -82,15 +70,9 @@ namespace WordPress.Model
 
         public Comment CurrentComment { get; set; }
 
-        public ObservableCollection<Comment> Comments { get; private set; }
-
         public PostListItem CurrentPost { get; set; }
 
-        public ObservableCollection<PostListItem> Posts { get; private set; }
-
         public PageListItem CurrentPage { get; set; }
-
-        public ObservableCollection<PageListItem> Pages { get; private set; }
 
         #endregion
 
@@ -244,13 +226,13 @@ namespace WordPress.Model
             GetAllCommentsRPC rpc = sender as GetAllCommentsRPC;
             rpc.Completed -= OnFetchCurrentBlogCommentsCompleted;
 
-            Comments.Clear();
+            CurrentBlog.Comments.Clear();
 
             if (null == args.Error)
             {
                 foreach (Comment comment in args.Items)
                 {
-                    Comments.Add(comment);
+                    CurrentBlog.Comments.Add(comment);
                 }
                 NotifyFetchComplete();
             }
@@ -279,13 +261,13 @@ namespace WordPress.Model
             GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
             rpc.Completed -= OnFetchCurrentBlogPostsCompleted;
 
-            Posts.Clear();
+            CurrentBlog.PostListItems.Clear();
 
             if (null == args.Error)
             {
                 foreach (PostListItem item in args.Items)
                 {
-                    Posts.Add(item);
+                    CurrentBlog.PostListItems.Add(item);
                 }
 
                 NotifyFetchComplete();
@@ -314,13 +296,13 @@ namespace WordPress.Model
             GetPageListRPC rpc = sender as GetPageListRPC;
             rpc.Completed -= OnFetchCurrentBlogPagesCompleted;
 
-            Pages.Clear();
+            CurrentBlog.PageListItems.Clear();
 
             if (null == args.Error)
             {
                 foreach (PageListItem item in args.Items)
                 {
-                    Pages.Add(item);
+                    CurrentBlog.PageListItems.Add(item);
                 }
                 NotifyFetchComplete();
             }
