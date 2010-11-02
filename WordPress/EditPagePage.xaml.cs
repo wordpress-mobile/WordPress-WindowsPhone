@@ -15,10 +15,11 @@ namespace WordPress
         //between a post and a page, so we use the "post" rpcs
         #region member variables
 
-        private const string POSTKEY_VALUE = "post";
+        private const string DATACONTEXT_VALUE = "dataContext";
+        private const string TITLEKEY_VALUE = "title";
+        private const string CONTENTKEY_VALUE = "content";
         private const string PUBLISHKEY_VALUE = "publish";
 
-        private ApplicationBarIconButton _cancelIconButton;
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
 
@@ -36,11 +37,6 @@ namespace WordPress
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
-            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
-            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
-            _cancelIconButton.Click += OnCancelButtonClick;
-            ApplicationBar.Buttons.Add(_cancelIconButton);
-
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
@@ -57,6 +53,14 @@ namespace WordPress
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
+            if (!State.ContainsKey(TITLEKEY_VALUE))
+            {
+                LoadPage();
+            }
+        }
+
+        private void LoadPage()
+        {
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
             if (null != App.MasterViewModel.CurrentPageListItem)
@@ -79,17 +83,7 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
 
-            //look for transient data stored in the State dictionary
-            if (State.ContainsKey(POSTKEY_VALUE))
-            {
-                Post post = State[POSTKEY_VALUE] as Post;
-                DataContext = post;
-
-                if (State.ContainsKey(PUBLISHKEY_VALUE))
-                {
-                    publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
-                }
-            }
+            RestorePageState();
         }
 
         private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -108,12 +102,6 @@ namespace WordPress
             }
 
             App.WaitIndicationService.HideIndicator();
-        }
-
-        private void OnCancelButtonClick(object sender, EventArgs e)
-        {
-            //TODO: ask the user to confirm if there have been modifications
-            NavigationService.GoBack();
         }
 
         private void OnSaveButtonClick(object sender, EventArgs e)
@@ -186,25 +174,59 @@ namespace WordPress
         {
             base.OnNavigatedFrom(e);
 
-            //store transient data in the State dictionary
-            if (State.ContainsKey(POSTKEY_VALUE))
-            {
-                State.Remove(POSTKEY_VALUE);
-            }
-            
-            Post post = DataContext as Post;
+            SavePageState();
+        }
 
-            //make sure that the post contains the latest title and content
-            post.Title = titleTextBox.Text;
-            post.Description = contentTextBox.Text;
-            
-            State.Add(POSTKEY_VALUE, post);
+        private void SavePageState()
+        {
+            //store transient data in the State dictionary
+            if (State.ContainsKey(DATACONTEXT_VALUE))
+            {
+                State.Remove(DATACONTEXT_VALUE);
+            }
+            State.Add(DATACONTEXT_VALUE, DataContext);
+
+            if (State.ContainsKey(TITLEKEY_VALUE))
+            {
+                State.Remove(TITLEKEY_VALUE);
+            }
+            State.Add(TITLEKEY_VALUE, titleTextBox.Text);
+
+            if (State.ContainsKey(CONTENTKEY_VALUE))
+            {
+                State.Remove(CONTENTKEY_VALUE);
+            }
+            State.Add(CONTENTKEY_VALUE, contentTextBox.Text);
 
             if (State.ContainsKey(PUBLISHKEY_VALUE))
             {
                 State.Remove(PUBLISHKEY_VALUE);
             }
             State.Add(PUBLISHKEY_VALUE, publishToggleButton.IsChecked);
+        }
+
+        private void RestorePageState()
+        {
+            //look for transient data stored in the State dictionary
+            if (State.ContainsKey(DATACONTEXT_VALUE))
+            {
+                DataContext = State[DATACONTEXT_VALUE];
+            }
+
+            if (State.ContainsKey(TITLEKEY_VALUE))
+            {
+                titleTextBox.Text = State[TITLEKEY_VALUE] as string;
+            }
+
+            if (State.ContainsKey(CONTENTKEY_VALUE))
+            {
+                contentTextBox.Text = State[CONTENTKEY_VALUE] as string;
+            }
+
+            if (State.ContainsKey(PUBLISHKEY_VALUE))
+            {
+                publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
+            }
         }
 
         #endregion
