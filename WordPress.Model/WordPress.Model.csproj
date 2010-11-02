@@ -50,7 +50,6 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
     <Compile Include="Blog.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Comment.cs" />
@@ -82,6 +81,7 @@
     <Compile Include="XMLRPC\GetAllCommentsRPC.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="XMLRPC\GetApiKeyRPC.cs" />
     <Compile Include="XMLRPC\GetCategoriesRPC.cs" />
     <Compile Include="XMLRPC\GetCommentsRPC.cs" />
     <Compile Include="XMLRPC\GetPageListRPC.cs" />

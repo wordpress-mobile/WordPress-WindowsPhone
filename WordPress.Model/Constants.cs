@@ -23,7 +23,7 @@
         public const string INT = "int";
         public const string FAULTCODE_VALUE = "faultCode";
         public const string FAULTSTRING_VALUE = "faultString";
-
+        public const string APIKEY = "apikey";
         public const string FALSE_STRING = "0";
 
         public const string XELEMENTMISSINGCHILDELEMENTS_MESSAGE = "XElement does not contain any child nodes.";

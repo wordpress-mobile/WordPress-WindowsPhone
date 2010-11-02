@@ -24,6 +24,7 @@ namespace WordPress.Model
         private bool _alignThumbnailToCenter;
         private bool _uploadAndLinkToFullImage;
         private bool _geotagPosts;
+        private string _apikey;
 
         private const string ISADMIN_VALUE = "isAdmin";
         private const string URL_VALUE = "url";
@@ -221,6 +222,19 @@ namespace WordPress.Model
                 {
                     _geotagPosts = value;
                     NotifyPropertyChanged("GeotagPosts");
+                }
+            }
+        }
+
+        public string ApiKey
+        {
+            get { return _apikey; }
+            set
+            {
+                if (value != _apikey)
+                {
+                    _apikey = value;
+                    NotifyPropertyChanged("ApiKey");
                 }
             }
         }
