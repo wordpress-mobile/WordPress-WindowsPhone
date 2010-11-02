@@ -52,7 +52,11 @@ namespace WordPress
             if (-1 == index) return;
 
             App.MasterViewModel.CurrentBlog = App.MasterViewModel.Blogs[index];
+
             NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+
+            //reset selected index so we can re-select the original list item if we want to
+            blogsListBox.SelectedIndex = -1;
         }
 
         private void OnAddAccountIconButtonClick(object sender, EventArgs e)
