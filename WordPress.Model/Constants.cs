@@ -4,6 +4,7 @@
     {
         public const string WORDPRESS_XMLRPC_URL = "https://wordpress.com/xmlrpc.php";
         public const string WORDPRESS_DATEFORMAT = "yyyyMMddTH:mm:ss";
+        public const string WORDPRESS_USERAGENT = "wp-windowsphone7/1.0.0";
     }
 
     public class XmlRPCResponseConstants

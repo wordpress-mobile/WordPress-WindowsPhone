@@ -33,7 +33,6 @@ namespace WordPress.Model
         //constants for the HttpWebRequest
         private const string REQUESTCONTENTTYPE_VALUE = "text/xml";
         private const string REQUESTMETHOD_VALUE = "post";
-        private const string REQUESTUSERAGENT_VALUE = "wp7/wordpress 1.0";
 
         #endregion
 
@@ -227,7 +226,7 @@ namespace WordPress.Model
             request.AllowAutoRedirect = true;
             request.ContentType = REQUESTCONTENTTYPE_VALUE;
             request.Method = REQUESTMETHOD_VALUE;
-            request.UserAgent = REQUESTUSERAGENT_VALUE;
+            request.UserAgent = Constants.WORDPRESS_USERAGENT;
 
             State state = new State { Operation = asyncOp, Request = request };
 
