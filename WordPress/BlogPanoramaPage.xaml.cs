@@ -75,10 +75,12 @@ namespace WordPress
             int index = commentsListBox.SelectedIndex;
             if (-1 == index) return;
 
-
             App.MasterViewModel.CurrentComment = App.MasterViewModel.Comments[index];
 
             NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
+
+            //reset selected index so we can re-select the original list item if we want to
+            commentsListBox.SelectedIndex = -1;
         }
 
         private void OnPostsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -119,6 +121,9 @@ namespace WordPress
                     DeletePost();
                     break;
             }
+
+            //reset selected index so we can re-select the original list item if we want to
+            postsListBox.SelectedIndex = -1;
         }
 
         private void ViewPost()
@@ -256,6 +261,9 @@ namespace WordPress
                     DeletePage();
                     break;
             }
+
+            //reset selected index so we can re-select the original list item if we want to
+            pagesListBox.SelectedIndex = -1;
         }
 
         private void EditPage()
@@ -390,6 +398,12 @@ namespace WordPress
             {
                 App.PopupSelectionService.HidePopup();
                 App.PopupSelectionService.SelectionChanged -= _popupServiceSelectionChangedHandler;
+
+                //make sure none of the list items are selected, allowing the user to re-select
+                //an item in the list.  This will trigger the SelectionChanged event
+                commentsListBox.SelectedIndex = -1;
+                postsListBox.SelectedIndex = -1;
+                pagesListBox.SelectedIndex = -1;
 
                 e.Cancel = true;
             }
@@ -549,10 +563,5 @@ namespace WordPress
         }
 
         #endregion
-
-
-
-
-
     }
 }
