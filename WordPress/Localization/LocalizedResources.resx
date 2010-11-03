@@ -521,4 +521,10 @@
   <data name="Title_AddNewCategory" xml:space="preserve">
     <value>new category</value>
   </data>
+  <data name="Messages_AcquiringPermalink" xml:space="preserve">
+    <value>acquiring permalink...</value>
+  </data>
+  <data name="Messages_Loading" xml:space="preserve">
+    <value>loading...</value>
+  </data>
 </root>

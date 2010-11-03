@@ -198,6 +198,16 @@ namespace WordPress
             return animation;
         }
 
+        public void KillSpinner()
+        {
+            if (null != _rootVisual && null != _currentWaitElement)
+            {
+                _rootVisual.Children.Remove(_currentWaitElement);
+                _currentWaitElement = null;
+            }
+            Waiting = false;
+        }
+
         #endregion
     }
 }

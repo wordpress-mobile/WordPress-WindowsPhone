@@ -193,7 +193,8 @@ namespace WordPress
 
         private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/BrowserShellPage.xaml?uri=http://wordpress.com/signup", UriKind.Relative));
+            string uriString = string.Format("/BrowserShellPage.xaml?uri={0}", Constants.WORDPRESS_SIGNUP_URL);
+            NavigationService.Navigate(new Uri(uriString, UriKind.Relative));
         }
 
         #endregion

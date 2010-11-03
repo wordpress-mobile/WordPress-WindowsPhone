@@ -2,6 +2,8 @@
 using System.Windows;
 using Microsoft.Phone.Controls;
 
+using WordPress.Model;
+
 namespace WordPress
 {
     public partial class LocateBlogPage : PhoneApplicationPage
@@ -19,7 +21,8 @@ namespace WordPress
 
         private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/BrowserShellPage.xaml?uri=http://wordpress.com/signup", UriKind.Relative));
+            string uriString = string.Format("/BrowserShellPage.xaml?uri={0}", Constants.WORDPRESS_SIGNUP_URL);
+            NavigationService.Navigate(new Uri(uriString, UriKind.Relative));
         }
 
         private void OnExistingWPBlogButtonClick(object sender, RoutedEventArgs e)

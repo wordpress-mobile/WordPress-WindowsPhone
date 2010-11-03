@@ -637,6 +637,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to acquiring permalink....
+        /// </summary>
+        internal static string Messages_AcquiringPermalink {
+            get {
+                return ResourceManager.GetString("Messages_AcquiringPermalink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to approving comment....
         /// </summary>
         internal static string Messages_ApprovingComment {
@@ -696,6 +705,15 @@ namespace WordPress.Localization {
         internal static string Messages_DeletingPost {
             get {
                 return ResourceManager.GetString("Messages_DeletingPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to loading....
+        /// </summary>
+        internal static string Messages_Loading {
+            get {
+                return ResourceManager.GetString("Messages_Loading", resourceCulture);
             }
         }
         

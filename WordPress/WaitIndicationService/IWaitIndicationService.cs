@@ -16,5 +16,7 @@ namespace WordPress
         void HideIndicator(double delay);
         void HideIndicator(TimeSpan delay);
         void HideIndicator();
+
+        void KillSpinner();
     }
 }

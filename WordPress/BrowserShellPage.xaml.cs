@@ -2,6 +2,8 @@
 using System.Windows;
 using Microsoft.Phone.Controls;
 
+using WordPress.Localization;
+
 namespace WordPress
 {
     public partial class BrowserShellPage : PhoneApplicationPage
@@ -9,6 +11,8 @@ namespace WordPress
         #region member variables
 
         public const string URIKEYNAME = "uri";
+
+        private StringTable _localizedStrings;
         private string _uriString;
 
         #endregion
@@ -18,6 +22,8 @@ namespace WordPress
         public BrowserShellPage()
         {
             InitializeComponent();
+
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
             Loaded += OnPageLoaded;
         }
@@ -51,7 +57,7 @@ namespace WordPress
         }
 
         private void OnBrowserLoaded(object sender, RoutedEventArgs e)
-        {
+        {            
             if (string.IsNullOrEmpty(_uriString)) return;
 
             browser.Navigate(new Uri(_uriString, UriKind.Absolute));            
@@ -61,22 +67,16 @@ namespace WordPress
         {
             if (!string.IsNullOrEmpty(_uriString))
             {
-                //App.WaitIndicationService.ShowIndicator("loading uri...");
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.Loading);
             }
         }
 
         private void OnLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            //the content isn't presented in the UI just yet, so we'll delay hiding
-            //the spinner for a bit
-            //App.WaitIndicationService.HideIndicator();
+            App.WaitIndicationService.HideIndicator();
         }
 
         #endregion
-
-
-
-        
 
     }
 }

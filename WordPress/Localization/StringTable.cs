@@ -165,6 +165,8 @@ namespace WordPress.Localization
             public string RetrievingCategories { get { return LocalizedResources.Messages_RetrievingCategories; } }
             public string RetrievingPage { get { return LocalizedResources.Messages_RetrievingPage; } }
             public string CreatingNewCategory { get { return LocalizedResources.Messages_CreatingNewCategory; } }
+            public string AcquiringPermalink { get { return LocalizedResources.Messages_AcquiringPermalink; } }
+            public string Loading { get { return LocalizedResources.Messages_Loading; } }
         }
 
         #endregion

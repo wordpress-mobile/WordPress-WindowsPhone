@@ -138,9 +138,7 @@ namespace WordPress
             rpc.Completed += OnGetPostRPCCompleted;
             rpc.ExecuteAsync();
 
-            //TODO: showing the spinner here causes the screen to be non-responsive when we return to it after navigation to the BrowserShellPage...
-            //doesn't seem to cause any issue when the spinner is shown when we stay on the page though.  Spinner needs to be presented in a Popup?
-            //App.WaitIndicationService.ShowIndicator("acquiring permalink...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
         private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -148,15 +146,20 @@ namespace WordPress
             GetPostRPC rpc = sender as GetPostRPC;
             rpc.Completed -= OnGetPostRPCCompleted;
 
-            //App.WaitIndicationService.HideIndicator();
-            
+            App.WaitIndicationService.KillSpinner();
+
             if (null == args.Error)
             {
+                //DEV NOTE: We could fire off a WebBrowserTask here but in testing with the emulator
+                //the browser acts a bit odd if there are already tabs open.  The WebBrowserTask 
+                //creates a new tab for the web content, but doesn't automatically
+                //open your new tab if other tabs already exist.
+
                 Post post = args.Items[0];
                 Uri permaLinkUri = new Uri(post.PermaLink, UriKind.Absolute);
                 string uriFormatString = "?{0}={1}";
                 string paramString = string.Format(uriFormatString, BrowserShellPage.URIKEYNAME, permaLinkUri.ToString());
-                NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + paramString, UriKind.Relative));
+                NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + paramString, UriKind.Relative));                
             }
             else
             {
@@ -287,9 +290,7 @@ namespace WordPress
             rpc.Completed += OnGetPageRPCCompleted;
             rpc.ExecuteAsync();
 
-            //TODO: showing the spinner here causes the screen to be non-responsive when we return to it after navigation to the BrowserShellPage...
-            //doesn't seem to cause any issue when the spinner is shown when we stay on the page though.  Spinner needs to be presented in a Popup?
-            //App.WaitIndicationService.ShowIndicator("acquiring permalink...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
         private void OnGetPageRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -297,10 +298,15 @@ namespace WordPress
             GetPostRPC rpc = sender as GetPostRPC;
             rpc.Completed -= OnGetPageRPCCompleted;
 
-            //App.WaitIndicationService.HideIndicator();
+            App.WaitIndicationService.KillSpinner();
 
             if (null == args.Error)
             {
+                //DEV NOTE: We could fire off a WebBrowserTask here but in testing with the emulator
+                //the browser acts a bit odd if there are already tabs open.  The WebBrowserTask 
+                //creates a new tab for the web content, but doesn't automatically
+                //open your new tab if other tabs already exist.
+
                 Post post = args.Items[0];
                 Uri permaLinkUri = new Uri(post.PermaLink, UriKind.Absolute);
                 string uriFormatString = "?{0}={1}";

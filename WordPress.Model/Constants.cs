@@ -4,6 +4,7 @@
     {
         public const string WORDPRESS_XMLRPC_URL = "https://wordpress.com/xmlrpc.php";
         public const string WORDPRESS_APIKEY_URL = "https://public-api.wordpress.com/getuserblogs.php";
+        public const string WORDPRESS_SIGNUP_URL = "http://wordpress.com/signup";
         public const string WORDPRESS_DATEFORMAT = "yyyyMMddTH:mm:ss";
         public const string WORDPRESS_USERAGENT = "wp-windowsphone7/1.0.0";
     }
