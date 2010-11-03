@@ -25,7 +25,6 @@ namespace WordPress
         private const string GEOTAGPOSTS_VALUE = "geotag";
 
         private List<int> _thumbnailSizes;
-        private ApplicationBarIconButton _cancelIconButton;
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
 
@@ -49,11 +48,6 @@ namespace WordPress
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
-
-            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
-            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
-            _cancelIconButton.Click += OnCancelButtonClick;
-            ApplicationBar.Buttons.Add(_cancelIconButton);
 
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
@@ -242,11 +236,6 @@ namespace WordPress
             {
                 blog.EndEdit();
             }
-            NavigationService.GoBack();
-        }
-
-        public void OnCancelButtonClick(object sender, EventArgs args)
-        {
             NavigationService.GoBack();
         }
 

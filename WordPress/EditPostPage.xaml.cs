@@ -22,7 +22,6 @@ namespace WordPress
         private const string TAGSKEY_VALUE = "tags";
 
         private StringTable _localizedStrings;
-        private ApplicationBarIconButton _cancelIconButton;
         private ApplicationBarIconButton _saveIconButton;
 
         #endregion
@@ -38,11 +37,6 @@ namespace WordPress
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
-
-            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
-            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
-            _cancelIconButton.Click += OnCancelButtonClick;
-            ApplicationBar.Buttons.Add(_cancelIconButton);
 
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
@@ -211,12 +205,6 @@ namespace WordPress
             }
 
             App.WaitIndicationService.HideIndicator();
-        }
-
-        private void OnCancelButtonClick(object sender, EventArgs e)
-        {
-            //TODO: ask the user to confirm
-            NavigationService.GoBack();
         }
 
         private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)

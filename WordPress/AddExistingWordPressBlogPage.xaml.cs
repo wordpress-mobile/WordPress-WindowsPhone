@@ -17,7 +17,6 @@ namespace WordPress
         private const string USERNAMEKEY_VALUE = "username";
         private const string PASSWORDKEY_VALUE = "password";
 
-        private ApplicationBarIconButton _cancelIconButton;
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
 
@@ -35,11 +34,6 @@ namespace WordPress
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
-            _cancelIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.cancel.png", UriKind.Relative));
-            _cancelIconButton.Text = _localizedStrings.ControlsText.Cancel;
-            _cancelIconButton.Click += OnCancelButtonClick;
-            ApplicationBar.Buttons.Add(_cancelIconButton);
-
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
@@ -53,11 +47,6 @@ namespace WordPress
         #endregion
 
         #region methods
-
-        private void OnCancelButtonClick(object sender, EventArgs e)
-        {
-            NavigationService.GoBack();
-        }
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
