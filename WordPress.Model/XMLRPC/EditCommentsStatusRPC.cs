@@ -104,7 +104,7 @@ namespace WordPress.Model
             {
                 comment.CommentStatus = this.CommentStatus;
 
-                EditCommentRPC rpc = new EditCommentRPC(DataStore.Instance.CurrentBlog, comment);
+                EditCommentRPC rpc = new EditCommentRPC(DataService.Current.CurrentBlog, comment);
                 rpc.Completed += OnEditCommentRPCCompleted;
                 rpc.ExecuteAsync();
             });
@@ -138,7 +138,7 @@ namespace WordPress.Model
             //modify any matches in the datastore so we can save a web call
             args.Items.ForEach(comment =>
             {
-                Comment match = DataStore.Instance.CurrentBlog.Comments.Single(c => c.CommentId == comment.CommentId);
+                Comment match = DataService.Current.CurrentBlog.Comments.Single(c => c.CommentId == comment.CommentId);
                 if (null != match)
                 {
                     match.CommentStatus = comment.CommentStatus;

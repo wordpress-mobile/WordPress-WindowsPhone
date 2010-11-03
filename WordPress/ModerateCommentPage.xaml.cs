@@ -356,7 +356,7 @@ namespace WordPress
             {
                 //fire off a request for the latest comment so we can get our comment updated
                 //with the latest from the server.
-                DataStore.Instance.FetchCurrentBlogCommentsAsync();
+                DataService.Current.FetchCurrentBlogCommentsAsync();
 
                 NavigationService.GoBack();
             }

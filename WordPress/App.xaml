@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:UriMapper="clr-namespace:System.Windows.Navigation;assembly=Microsoft.Phone"
     xmlns:WordPress="clr-namespace:WordPress" 
+    xmlns:Model="clr-namespace:WordPress.Model;assembly=WordPress.Model"
     xmlns:Converters="clr-namespace:WordPress.Converters" 
     mc:Ignorable="d" 
     x:Class="WordPress.App"
@@ -426,6 +427,9 @@
         <shell:PhoneApplicationService             
             Launching="Application_Launching" Closing="Application_Closing" 
             Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+        <Model:DataService/>
+        
+        
     </Application.ApplicationLifetimeObjects>
 
 </Application>

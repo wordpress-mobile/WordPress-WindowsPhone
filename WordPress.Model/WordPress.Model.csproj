@@ -55,7 +55,7 @@
     <Compile Include="Comment.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CustomField.cs" />
-    <Compile Include="DataStore.cs" />
+    <Compile Include="DataService.cs" />
     <Compile Include="DelegateMethods.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExtensionMethods.cs" />

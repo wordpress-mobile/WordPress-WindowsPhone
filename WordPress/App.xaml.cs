@@ -106,7 +106,7 @@ namespace WordPress
             UriMapper mapper = Resources["UriMapper"] as UriMapper;
             RootFrame.UriMapper = mapper;
 
-            if (null == DataStore.Instance.Blogs || 0 == DataStore.Instance.Blogs.Count)
+            if (null == DataService.Current.Blogs || 0 == DataService.Current.Blogs.Count)
             {
                 mapper.UriMappings[0].MappedUri = new Uri("/LocateBlogPage.xaml", UriKind.Relative);
             }
@@ -120,8 +120,6 @@ namespace WordPress
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            DataStore.Instance.Initialize();
-
             InitializeUriMapper();
         }
 
@@ -129,8 +127,6 @@ namespace WordPress
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            DataStore.Instance.Initialize();
-
             InitializeUriMapper();
         }
 
@@ -138,15 +134,14 @@ namespace WordPress
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            // Ensure that required application state is persisted here.
-            DataStore.Instance.Serialize();
+            
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
-            DataStore.Instance.Serialize();
+            
         }
 
         // Code to execute if a navigation fails

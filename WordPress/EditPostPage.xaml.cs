@@ -178,7 +178,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                DataStore.Instance.FetchCurrentBlogPostsAsync();
+                DataService.Current.FetchCurrentBlogPostsAsync();
                 NavigationService.GoBack();
             }
             else
@@ -196,7 +196,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                DataStore.Instance.FetchCurrentBlogPostsAsync();
+                DataService.Current.FetchCurrentBlogPostsAsync();
                 NavigationService.GoBack();
             }
             else

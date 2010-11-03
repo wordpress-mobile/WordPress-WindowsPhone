@@ -119,7 +119,7 @@ namespace WordPress
                 //to add to the data store
                 foreach (Blog blog in args.Items)
                 {                    
-                    DataStore.Instance.Blogs.Add(blog);
+                    DataService.Current.Blogs.Add(blog);
                 }
                 NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
             }

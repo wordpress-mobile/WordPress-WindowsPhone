@@ -33,7 +33,7 @@ namespace WordPress
 
         public MasterViewModel()
         {
-            Blogs = DataStore.Instance.Blogs;
+            Blogs = DataService.Current.Blogs;
         }
 
         #endregion
@@ -45,12 +45,12 @@ namespace WordPress
 
         public Blog CurrentBlog
         {
-            get { return DataStore.Instance.CurrentBlog; }
+            get { return DataService.Current.CurrentBlog; }
             set 
             {
-                if (value != DataStore.Instance.CurrentBlog)
+                if (value != DataService.Current.CurrentBlog)
                 {
-                    DataStore.Instance.CurrentBlog = value;
+                    DataService.Current.CurrentBlog = value;
                     NotifyPropertyChanged("CurrentBlog");
                 
                     NotifyPropertyChanged("Comments");
@@ -74,12 +74,12 @@ namespace WordPress
 
         public Comment CurrentComment
         {
-            get { return DataStore.Instance.CurrentComment; }
+            get { return DataService.Current.CurrentComment; }
             set 
             {
-                if (value != DataStore.Instance.CurrentComment)
+                if (value != DataService.Current.CurrentComment)
                 {
-                    DataStore.Instance.CurrentComment = value;
+                    DataService.Current.CurrentComment = value;
                     NotifyPropertyChanged("CurrentComment");
                 }
             }
@@ -99,12 +99,12 @@ namespace WordPress
 
         public PostListItem CurrentPostListItem
         {
-            get { return DataStore.Instance.CurrentPostListItem; }
+            get { return DataService.Current.CurrentPostListItem; }
             set
             {
-                if (value != DataStore.Instance.CurrentPostListItem)
+                if (value != DataService.Current.CurrentPostListItem)
                 {
-                    DataStore.Instance.CurrentPostListItem = value;
+                    DataService.Current.CurrentPostListItem = value;
                     NotifyPropertyChanged("CurrentPostListItem");
                 }
             }
@@ -124,12 +124,12 @@ namespace WordPress
 
         public PageListItem CurrentPageListItem
         {
-            get { return DataStore.Instance.CurrentPageListItem; }
+            get { return DataService.Current.CurrentPageListItem; }
             set
             {
-                if (value != DataStore.Instance.CurrentPageListItem)
+                if (value != DataService.Current.CurrentPageListItem)
                 {
-                    DataStore.Instance.CurrentPageListItem = value;
+                    DataService.Current.CurrentPageListItem = value;
                     NotifyPropertyChanged("CurrentPageListItem");
                 }
             }
@@ -137,12 +137,12 @@ namespace WordPress
 
         public Post CurrentPost
         {
-            get { return DataStore.Instance.CurrentPost; }
+            get { return DataService.Current.CurrentPost; }
             set
             {
-                if (value != DataStore.Instance.CurrentPost)
+                if (value != DataService.Current.CurrentPost)
                 {
-                    DataStore.Instance.CurrentPost = value;
+                    DataService.Current.CurrentPost = value;
                     NotifyPropertyChanged("CurrentPost");
                 }
             }

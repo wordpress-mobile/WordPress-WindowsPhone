@@ -89,8 +89,8 @@ namespace WordPress
             
             if (null == args.Error)
             {
-                DataStore.Instance.FetchCurrentBlogCategories();
-                DataStore.Instance.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
+                DataService.Current.FetchCurrentBlogCategories();
+                DataService.Current.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
             }
             else
             {
@@ -100,7 +100,7 @@ namespace WordPress
 
         private void OnFetchCurrentBlogCategoriesComplete(object sender, EventArgs args)
         {
-            DataStore.Instance.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+            DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
             NavigationService.GoBack();            
         }

@@ -89,7 +89,7 @@ namespace WordPress.Model
 
             foreach (Comment comment in Comments)
             {
-                DeleteCommentRPC rpc = new DeleteCommentRPC(DataStore.Instance.CurrentBlog, comment);
+                DeleteCommentRPC rpc = new DeleteCommentRPC(DataService.Current.CurrentBlog, comment);
                 rpc.Completed += OnDeleteCommentRPCCompleted;
                 rpc.ExecuteAsync();
             }
@@ -119,10 +119,10 @@ namespace WordPress.Model
             //modify any matches in the datastore so we can save a web call
             args.Items.ForEach(comment =>
             {
-                Comment match = DataStore.Instance.CurrentBlog.Comments.Single(c => c.CommentId == comment.CommentId);
+                Comment match = DataService.Current.CurrentBlog.Comments.Single(c => c.CommentId == comment.CommentId);
                 if (null != match)
                 {
-                    DataStore.Instance.CurrentBlog.Comments.Remove(match);
+                    DataService.Current.CurrentBlog.Comments.Remove(match);
                 }
             }); 
             

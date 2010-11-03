@@ -393,9 +393,9 @@ namespace WordPress
         {
             base.OnNavigatingFrom(e);
 
-            DataStore.Instance.FetchComplete -= OnSingleFetchComplete;
-            DataStore.Instance.FetchComplete -= OnMultiFetchComplete;
-            DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+            DataService.Current.FetchComplete -= OnSingleFetchComplete;
+            DataService.Current.FetchComplete -= OnMultiFetchComplete;
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -441,7 +441,7 @@ namespace WordPress
 
             if (index > _refreshListOptions.Count || 0 > index) return;
 
-            DataStore.Instance.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
 
             switch (index)
             {
@@ -463,47 +463,47 @@ namespace WordPress
         private void FetchEverything()
         {
             _multiFetchTaskCount = 3;
-            DataStore.Instance.FetchComplete += OnMultiFetchComplete;
-            DataStore.Instance.FetchCurrentBlogCommentsAsync();
-            DataStore.Instance.FetchCurrentBlogPostsAsync();
-            DataStore.Instance.FetchCurrentBlogPagesAsync();
+            DataService.Current.FetchComplete += OnMultiFetchComplete;
+            DataService.Current.FetchCurrentBlogCommentsAsync();
+            DataService.Current.FetchCurrentBlogPostsAsync();
+            DataService.Current.FetchCurrentBlogPagesAsync();
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingEverything);
         }
 
         private void FetchPages()
         {
-            DataStore.Instance.FetchComplete += OnSingleFetchComplete;
-            DataStore.Instance.FetchCurrentBlogPagesAsync();
+            DataService.Current.FetchComplete += OnSingleFetchComplete;
+            DataService.Current.FetchCurrentBlogPagesAsync();
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPages);
         }
 
         private void FetchPosts()
         {
-            DataStore.Instance.FetchComplete += OnSingleFetchComplete;
-            DataStore.Instance.FetchCurrentBlogPostsAsync();
+            DataService.Current.FetchComplete += OnSingleFetchComplete;
+            DataService.Current.FetchCurrentBlogPostsAsync();
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPosts);
         }
 
         private void FetchComments()
         {
-            DataStore.Instance.FetchComplete += OnSingleFetchComplete;
-            DataStore.Instance.FetchCurrentBlogCommentsAsync();
+            DataService.Current.FetchComplete += OnSingleFetchComplete;
+            DataService.Current.FetchCurrentBlogCommentsAsync();
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingComments);
         }
 
         private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
         {
             App.WaitIndicationService.HideIndicator();
-            DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
-            DataStore.Instance.FetchComplete -= OnSingleFetchComplete;
-            DataStore.Instance.FetchComplete -= OnMultiFetchComplete;
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+            DataService.Current.FetchComplete -= OnSingleFetchComplete;
+            DataService.Current.FetchComplete -= OnMultiFetchComplete;
 
             this.HandleException(args.Exception);
         }
 
         private void OnSingleFetchComplete(object sender, EventArgs e)
         {
-            DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
             App.WaitIndicationService.HideIndicator();
         }
 
@@ -513,7 +513,7 @@ namespace WordPress
             
             if (0 == _multiFetchTaskCount)
             {
-                DataStore.Instance.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+                DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
                 App.WaitIndicationService.HideIndicator();
             }
         }

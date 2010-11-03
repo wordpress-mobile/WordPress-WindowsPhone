@@ -5,14 +5,13 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
 using System.Linq;
+using System.Windows;
 
 namespace WordPress.Model
 {
-    public class DataStore
+    public class DataService: IApplicationService, IApplicationLifetimeAware
     {
         #region member variables
-
-        private static DataStore _instance;
 
         private Blog _currentBlog;
 
@@ -30,11 +29,8 @@ namespace WordPress.Model
 
         #region constructor
 
-        private DataStore()
+        public DataService()
         {
-            //for now...
-            //ClearStorage();
-            
             Blogs = new ObservableCollection<Blog>();
         }
 
@@ -42,17 +38,7 @@ namespace WordPress.Model
 
         #region properties
 
-        public static DataStore Instance
-        {
-            get 
-            {
-                if (null == _instance)
-                {
-                    _instance = new DataStore();
-                }
-                return _instance;
-            }
-        }
+        public static DataService Current { get; private set; }
 
         public Blog CurrentBlog
         {
@@ -348,6 +334,36 @@ namespace WordPress.Model
             }
         }
 
+        public void StartService(ApplicationServiceContext context)
+        {
+            Current = this;
+        }
+
+        public void StopService()
+        {
+            Current = null;
+        }
+
+        public void Exited()
+        {
+
+        }
+
+        public void Exiting()
+        {
+            Serialize();
+        }
+
+        public void Started()
+        {
+
+        }
+
+        public void Starting()
+        {
+            Initialize();
+        }
+
         #endregion
 
         #region StoreData class definition
@@ -364,6 +380,5 @@ namespace WordPress.Model
         }
 
         #endregion
-
     }
 }

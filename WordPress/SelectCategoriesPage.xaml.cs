@@ -63,7 +63,7 @@ namespace WordPress
         {
             base.OnNavigatedFrom(e);
 
-            DataStore.Instance.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+            DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace WordPress
         {
             if (null == App.MasterViewModel.CurrentBlog) return;
 
-            if (0 == DataStore.Instance.CurrentBlog.Categories.Count)
+            if (0 == DataService.Current.CurrentBlog.Categories.Count)
             {
                 FetchCategories();
             }
@@ -99,13 +99,13 @@ namespace WordPress
         private void FetchCategories()
         {
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingCategories);
-            DataStore.Instance.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
-            DataStore.Instance.FetchCurrentBlogCategories();
+            DataService.Current.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
+            DataService.Current.FetchCurrentBlogCategories();
         }
 
         private void OnFetchCurrentBlogCategoriesComplete(object sender, EventArgs e)
         {
-            DataStore.Instance.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+            DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
         }
 
