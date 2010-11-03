@@ -26,14 +26,6 @@ namespace WordPress.Model
         private SendOrPostCallback onCompletedDelegate;
         private Dictionary<object, object> userStateToLifetime = new Dictionary<object, object>();
 
-        //constants for parsing fault codes from the rpc response
-        private const string FAULTCODE_VALUE = "faultCode";
-        private const string FAULTSTRING_VALUE = "faultString";
-
-        //constants for the HttpWebRequest
-        private const string REQUESTCONTENTTYPE_VALUE = "text/xml";
-        private const string REQUESTMETHOD_VALUE = "post";
-
         #endregion
 
         #region events
@@ -224,8 +216,8 @@ namespace WordPress.Model
         {
             HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
-            request.ContentType = REQUESTCONTENTTYPE_VALUE;
-            request.Method = REQUESTMETHOD_VALUE;
+            request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
+            request.Method = XmlRPCRequestConstants.POST;
             request.UserAgent = Constants.WORDPRESS_USERAGENT;
 
             State state = new State { Operation = asyncOp, Request = request };
@@ -349,7 +341,7 @@ namespace WordPress.Model
             XElement valueElement = null;
             foreach (XElement nameElement in element.Descendants(XmlRPCResponseConstants.NAME))
             {
-                if (FAULTCODE_VALUE.Equals(nameElement.Value))
+                if (XmlRPCResponseConstants.FAULTCODE_VALUE.Equals(nameElement.Value))
                 {
                     valueElement = ((XElement)nameElement.NextNode).DescendantNodes().First() as XElement;
                     if (!int.TryParse(valueElement.Value, out faultCode))
@@ -357,7 +349,7 @@ namespace WordPress.Model
                         //TODO: what to do here?
                     }
                 }
-                else if (FAULTSTRING_VALUE.Equals(nameElement.Value))
+                else if (XmlRPCResponseConstants.FAULTSTRING_VALUE.Equals(nameElement.Value))
                 {
                     valueElement = ((XElement)nameElement.NextNode).DescendantNodes().First() as XElement;
                     message = valueElement.Value;
