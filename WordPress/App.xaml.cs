@@ -100,6 +100,9 @@ namespace WordPress
 
         private void InitializeUriMapper()
         {
+            //DEV NOTE: application launching and application activated happen on two different
+            //execution paths--if we want the UriMapper resource to contain the bindings below
+            //we have to ensure that the method is called in both places.
             UriMapper mapper = Resources["UriMapper"] as UriMapper;
             RootFrame.UriMapper = mapper;
 
@@ -126,7 +129,9 @@ namespace WordPress
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            DataStore.Instance.Initialize();            
+            DataStore.Instance.Initialize();
+
+            InitializeUriMapper();
         }
 
         // Code to execute when the application is deactivated (sent to background)
