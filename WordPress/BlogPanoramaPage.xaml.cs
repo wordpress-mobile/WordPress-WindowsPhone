@@ -162,8 +162,8 @@ namespace WordPress
                 NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + paramString, UriKind.Relative));                
             }
             else
-            {
-                HandleError(args.Error);
+            {                
+                this.HandleException(args.Error);
             }
         }
 
@@ -219,7 +219,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
@@ -315,7 +315,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }            
         }
 
@@ -361,7 +361,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
@@ -498,13 +498,7 @@ namespace WordPress
             DataStore.Instance.FetchComplete -= OnSingleFetchComplete;
             DataStore.Instance.FetchComplete -= OnMultiFetchComplete;
 
-            HandleError(args.Exception);
-        }
-
-        private void HandleError(Exception exception)
-        {
-            //TODO: clean this up...
-            MessageBox.Show(exception.Message);
+            this.HandleException(args.Exception);
         }
 
         private void OnSingleFetchComplete(object sender, EventArgs e)

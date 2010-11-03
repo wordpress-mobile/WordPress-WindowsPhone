@@ -140,7 +140,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
@@ -183,7 +183,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
@@ -201,7 +201,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
@@ -227,13 +227,7 @@ namespace WordPress
                 post.Description = description.Insert(startIndex, WordPressMarkupTags.BOLD_CLOSING_TAG);
             }
         }
-
-        private void HandleError(Exception exception)
-        {
-            //TODO: clean this up...
-            MessageBox.Show(exception.Message);
-        }
-
+        
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);

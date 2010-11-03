@@ -212,7 +212,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
@@ -309,18 +309,12 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
         }
-
-        private void HandleError(Exception exception)
-        {
-            //TODO: clean this up...
-            MessageBox.Show(exception.Message);
-        }
-
+        
         private void OnReplyButtonClick(object sender, RoutedEventArgs e)
         {
             ReplyToComment();
@@ -368,7 +362,7 @@ namespace WordPress
             }
             else
             {
-                HandleError(args.Error);
+                this.HandleException(args.Error);
             }
         }
 

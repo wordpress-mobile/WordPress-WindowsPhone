@@ -94,7 +94,7 @@ namespace WordPress
             }
             else
             {
-                HandleException(args.Error);
+                this.HandleException(args.Error);
             }
         }
 
@@ -104,12 +104,7 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
             NavigationService.GoBack();            
         }
-
-        private void HandleException(Exception exception)
-        {
-            MessageBox.Show(exception.Message);
-        }
-
+        
         private void OnCategoryParentButtonClick(object sender, RoutedEventArgs e)
         {
             PresentCategories();
