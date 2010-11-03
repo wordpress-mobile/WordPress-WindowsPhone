@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
@@ -209,10 +210,9 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                PostListItem selectedItem = postsListBox.SelectedItem as PostListItem;
-                postsListBox.SelectedItem = null;
-
-                App.MasterViewModel.CurrentBlog.PostListItems.Remove(selectedItem);
+                int postId = args.Items[0].PostId;
+                var postListItem = App.MasterViewModel.CurrentBlog.PostListItems.Single(item => postId == item.PostId);
+                App.MasterViewModel.CurrentBlog.PostListItems.Remove(postListItem);
             }
             else
             {
@@ -328,7 +328,7 @@ namespace WordPress
         {
             //TODO: prompt the user to confirm the delete
 
-            PageListItem pageListItem = postsListBox.SelectedItem as PageListItem;
+            PageListItem pageListItem = pagesListBox.SelectedItem as PageListItem;
             if (null == pageListItem) return;
 
             //TODO: rework the RPC--inefficient to create a new post just to call the delete rpc
@@ -348,9 +348,9 @@ namespace WordPress
             rpc.Completed -= OnDeletePageRPCCompleted;
 
             if (null == args.Error)
-            {
-                PageListItem pageListItem = pagesListBox.SelectedItem as PageListItem;
-                pagesListBox.SelectedItem = null;
+            {                
+                int pageId = args.Items[0].PostId;
+                var pageListItem = App.MasterViewModel.CurrentBlog.PageListItems.Single(item => pageId == item.PageId);
                 App.MasterViewModel.CurrentBlog.PageListItems.Remove(pageListItem);
             }
             else
