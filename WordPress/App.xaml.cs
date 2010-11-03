@@ -100,7 +100,7 @@ namespace WordPress
 
         private void InitializeUriMapper()
         {
-            UriMapper mapper = Resources["initialPageUriMapper"] as UriMapper;
+            UriMapper mapper = Resources["UriMapper"] as UriMapper;
             RootFrame.UriMapper = mapper;
 
             if (null == DataStore.Instance.Blogs || 0 == DataStore.Instance.Blogs.Count)

@@ -17,8 +17,8 @@
 
         <local:StringTable xmlns:local="clr-namespace:WordPress.Localization" x:Key="StringTable"/>
 
-        <UriMapper:UriMapper x:Name="initialPageUriMapper">
-            <UriMapper:UriMapping Uri="/LocateBlogPage.xaml"/>
+        <UriMapper:UriMapper x:Key="UriMapper">
+            <UriMapper:UriMapping Uri="/StartPage"/>
         </UriMapper:UriMapper>
         
     	<Color x:Key="WordPressBlue">#FF21759B</Color>
