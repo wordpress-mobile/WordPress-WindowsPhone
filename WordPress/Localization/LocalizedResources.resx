@@ -527,4 +527,40 @@
   <data name="Messages_Loading" xml:space="preserve">
     <value>loading...</value>
   </data>
+  <data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
+    <value>All Time</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
+    <value>Last Month</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
+    <value>Last Quarter</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
+    <value>Last Week</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
+    <value>Last Year</value>
+  </data>
+  <data name="Options_StatisticType_Clicks" xml:space="preserve">
+    <value>Clicks</value>
+  </data>
+  <data name="Options_StatisticType_PostViews" xml:space="preserve">
+    <value>Post Views</value>
+  </data>
+  <data name="Options_StatisticType_Referrers" xml:space="preserve">
+    <value>Referrers</value>
+  </data>
+  <data name="Options_StatisticType_SearchTerms" xml:space="preserve">
+    <value>Search Terms</value>
+  </data>
+  <data name="Options_StatisticType_Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
+    <value>How much data would you like to see?</value>
+  </data>
+  <data name="Prompts_SelectStatisticType" xml:space="preserve">
+    <value>Which statistic would you like data for?</value>
+  </data>
 </root>

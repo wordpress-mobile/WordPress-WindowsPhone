@@ -89,6 +89,8 @@
     <Compile Include="Converters\CommentsOnPostConverter.cs" />
     <Compile Include="Converters\CommentStatusGroupingConverter.cs" />
     <Compile Include="Converters\CommentStatusToBrushConverter.cs" />
+    <Compile Include="Converters\StatisticPeriodToStringConverter.cs" />
+    <Compile Include="Converters\StatisticTypeToStringConverter.cs" />
     <Compile Include="ModerateCommentsPage.xaml.cs">
       <DependentUpon>ModerateCommentsPage.xaml</DependentUpon>
     </Compile>

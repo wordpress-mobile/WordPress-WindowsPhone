@@ -17,6 +17,9 @@ namespace WordPress
         private List<string> _refreshListOptions;
         private List<string> _postListOptions;
         private List<string> _pageListOptions;
+        private List<string> _statisticTypeOptions;
+        private List<string> _statisticPeriodOptions;
+
         private int _multiFetchTaskCount;
         private StringTable _localizedStrings;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
@@ -55,12 +58,30 @@ namespace WordPress
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_EditPage);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_DeletePage);
 
+            _statisticTypeOptions = new List<string>(5);
+            _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_Views);
+            _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_PostViews);
+            _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_Referrers);
+            _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_SearchTerms);
+            _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_Clicks);
+
+            _statisticPeriodOptions = new List<string>(5);
+            _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastWeek);
+            _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastMonth);
+            _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastQuarter);
+            _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastYear);
+            _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_AllTime);
+
             Loaded += OnPageLoaded;
         }
 
         #endregion
 
         #region properties
+
+        public eStatisticPeriod StatisticPeriod { get; set; }
+
+        public eStatisticType StatisticType { get; set; }
 
         #endregion
 
@@ -576,6 +597,56 @@ namespace WordPress
                     FetchPages();
                 }
             }
+        }
+
+        private void OnStatisticPeriodButtonClick(object sender, RoutedEventArgs args)
+        {
+            PresentStatisticPeriodOptions();
+        }
+
+        private void PresentStatisticPeriodOptions()
+        {
+            App.PopupSelectionService.Title = _localizedStrings.Prompts.SelectStatisticPeriod;
+            App.PopupSelectionService.ItemsSource = _statisticPeriodOptions;
+            App.PopupSelectionService.SelectionChanged += OnStatisticPeriodOptionsSelectionChanged;
+            _popupServiceSelectionChangedHandler = OnStatisticPeriodOptionsSelectionChanged;
+            App.PopupSelectionService.ShowPopup();
+        }
+
+        private void OnStatisticPeriodOptionsSelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            App.PopupSelectionService.SelectionChanged -= OnStatisticPeriodOptionsSelectionChanged;
+            _popupServiceSelectionChangedHandler = null;
+
+            if (1 < args.AddedItems.Count) return;
+
+            string selection = args.AddedItems[0] as string;
+            statisticPeriodButton.Content = selection;
+        }
+
+        private void OnStatisticTypeButtonClick(object sender, RoutedEventArgs args)
+        {
+            PresentStatisticTypeOptions();
+        }
+
+        private void PresentStatisticTypeOptions()
+        {
+            App.PopupSelectionService.Title = _localizedStrings.Prompts.SelectStatisticType;
+            App.PopupSelectionService.ItemsSource = _statisticTypeOptions;
+            App.PopupSelectionService.SelectionChanged += OnStatisticTypeOptionsSelectionChanged;
+            _popupServiceSelectionChangedHandler = OnStatisticTypeOptionsSelectionChanged;
+            App.PopupSelectionService.ShowPopup();
+        }
+
+        private void OnStatisticTypeOptionsSelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            App.PopupSelectionService.SelectionChanged -= OnStatisticTypeOptionsSelectionChanged;
+            _popupServiceSelectionChangedHandler = null;
+
+            if (1 < args.AddedItems.Count) return;
+
+            string selection = args.AddedItems[0] as string;
+            statisticTypeButton.Content = selection;
         }
 
         #endregion

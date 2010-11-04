@@ -961,6 +961,96 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Time.
+        /// </summary>
+        internal static string Options_StatisticPeriod_AllTime {
+            get {
+                return ResourceManager.GetString("Options_StatisticPeriod_AllTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Month.
+        /// </summary>
+        internal static string Options_StatisticPeriod_LastMonth {
+            get {
+                return ResourceManager.GetString("Options_StatisticPeriod_LastMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Quarter.
+        /// </summary>
+        internal static string Options_StatisticPeriod_LastQuarter {
+            get {
+                return ResourceManager.GetString("Options_StatisticPeriod_LastQuarter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Week.
+        /// </summary>
+        internal static string Options_StatisticPeriod_LastWeek {
+            get {
+                return ResourceManager.GetString("Options_StatisticPeriod_LastWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Year.
+        /// </summary>
+        internal static string Options_StatisticPeriod_LastYear {
+            get {
+                return ResourceManager.GetString("Options_StatisticPeriod_LastYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clicks.
+        /// </summary>
+        internal static string Options_StatisticType_Clicks {
+            get {
+                return ResourceManager.GetString("Options_StatisticType_Clicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Post Views.
+        /// </summary>
+        internal static string Options_StatisticType_PostViews {
+            get {
+                return ResourceManager.GetString("Options_StatisticType_PostViews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referrers.
+        /// </summary>
+        internal static string Options_StatisticType_Referrers {
+            get {
+                return ResourceManager.GetString("Options_StatisticType_Referrers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Terms.
+        /// </summary>
+        internal static string Options_StatisticType_SearchTerms {
+            get {
+                return ResourceManager.GetString("Options_StatisticType_SearchTerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Views.
+        /// </summary>
+        internal static string Options_StatisticType_Views {
+            get {
+                return ResourceManager.GetString("Options_StatisticType_Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Page Actions.
         /// </summary>
         internal static string Prompt_PageActions {
@@ -1038,6 +1128,24 @@ namespace WordPress.Localization {
         internal static string Prompts_SelectCategory {
             get {
                 return ResourceManager.GetString("Prompts_SelectCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How much data would you like to see?.
+        /// </summary>
+        internal static string Prompts_SelectStatisticPeriod {
+            get {
+                return ResourceManager.GetString("Prompts_SelectStatisticPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which statistic would you like data for?.
+        /// </summary>
+        internal static string Prompts_SelectStatisticType {
+            get {
+                return ResourceManager.GetString("Prompts_SelectStatisticType", resourceCulture);
             }
         }
         

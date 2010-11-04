@@ -190,7 +190,19 @@ namespace WordPress.Localization
             public string PageOptions_ViewPage { get { return LocalizedResources.Options_PageActions_ViewPage; } }
             public string PageOptions_ViewComments { get { return LocalizedResources.Options_PageActions_ViewComments; } }
             public string PageOptions_EditPage { get { return LocalizedResources.Options_PageActions_EditPage; } }
-            public string PageOptions_DeletePage { get { return LocalizedResources.Options_PageActions_DeletePage; } }            
+            public string PageOptions_DeletePage { get { return LocalizedResources.Options_PageActions_DeletePage; } }
+
+            public string StatisticType_Views { get { return LocalizedResources.Options_StatisticType_Views; } }
+            public string StatisticType_PostViews { get { return LocalizedResources.Options_StatisticType_PostViews; } }
+            public string StatisticType_Referrers { get { return LocalizedResources.Options_StatisticType_Referrers; } }
+            public string StatisticType_SearchTerms { get { return LocalizedResources.Options_StatisticType_SearchTerms; } }
+            public string StatisticType_Clicks { get { return LocalizedResources.Options_StatisticType_Clicks; } }
+
+            public string StatisticPeriod_LastWeek { get { return LocalizedResources.Options_StatisticPeriod_LastWeek; } }
+            public string StatisticPeriod_LastMonth { get { return LocalizedResources.Options_StatisticPeriod_LastMonth; } }
+            public string StatisticPeriod_LastQuarter { get { return LocalizedResources.Options_StatisticPeriod_LastQuarter; } }
+            public string StatisticPeriod_LastYear { get { return LocalizedResources.Options_StatisticPeriod_LastYear; } }
+            public string StatisticPeriod_AllTime { get { return LocalizedResources.Options_StatisticPeriod_AllTime; } }
         }
 
         #endregion
@@ -210,6 +222,9 @@ namespace WordPress.Localization
             public string PageActions { get { return LocalizedResources.Prompt_PageActions; } }
             public string SelectCategory { get { return LocalizedResources.Prompts_SelectCategory; } }
             public string MissingCategoryName { get { return LocalizedResources.Prompts_MissingCategoryName; } }
+            public string SelectStatisticType { get { return LocalizedResources.Prompts_SelectStatisticType; } }
+            public string SelectStatisticPeriod { get { return LocalizedResources.Prompts_SelectStatisticPeriod; } }
+
         }
 
         #endregion

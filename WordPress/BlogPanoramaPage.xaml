@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage 
+﻿<phone:PhoneApplicationPage x:Name="phoneApplicationPage" 
     x:Class="WordPress.BlogPanoramaPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -203,6 +203,9 @@
         	</Setter>
         </Style>
         
+        <Converters:StatisticPeriodToStringConverter x:Key="StatisticPeriodToStringConverter"/>
+        <Converters:StatisticTypeToStringConverter x:Key="StatisticTypeToStringConverter"/>
+        
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -395,7 +398,7 @@
             </controls:PanoramaItem>
 
             <!--stats Panorama item-->
-            <controls:PanoramaItem Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource statsPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="statsPanoramaItem" Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource statsPanoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
@@ -404,22 +407,16 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>                        
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-10,0,0,0">
                         
-                        <ComboBox x:Name="statisticComboBox" Width="150" Foreground="Black" >
-                        	<ComboBoxItem Content="Views" IsSelected="True"/>
-                        	<ComboBoxItem Content="Post Views"/>
-                        	<ComboBoxItem Content="Search Terms"/>
-                        	<ComboBoxItem Content="Clicks"/>                            
-                        </ComboBox>
-                        <ComboBox x:Name="rangeComboBox" Width="150" Foreground="Black">
-                        	<ComboBoxItem Content="7 Days" IsSelected="True"/>
-                        	<ComboBoxItem Content="30 Days"/>
-                        	<ComboBoxItem Content="Quarter"/>
-                        	<ComboBoxItem Content="Year"/>
-                        	<ComboBoxItem Content="All Time"/>                            
-                        </ComboBox>
-                        <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                        <Button x:Name="statisticTypeButton" 
+                                Content="{Binding StatisticType, ElementName=phoneApplicationPage, Mode=TwoWay, Converter={StaticResource StatisticTypeToStringConverter}}"
+                                Click="OnStatisticTypeButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                        <Button x:Name="statisticPeriodButton" 
+                                Content="{Binding StatisticPeriod, ElementName=phoneApplicationPage, Mode=TwoWay, Converter={StaticResource StatisticPeriodToStringConverter}}"
+                                Click="OnStatisticPeriodButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
+                        
+                        <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
                     </StackPanel>
                     <ListBox x:Name="statsListBox" Grid.Row="1"/>
                 </Grid>
