@@ -162,6 +162,19 @@ namespace WordPress
             base.OnNavigatingFrom(e);
         }
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (App.PopupSelectionService.IsPopupOpen)
+            {
+                App.PopupSelectionService.HidePopup();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
+
         #endregion
     }
 }

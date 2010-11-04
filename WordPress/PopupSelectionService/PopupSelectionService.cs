@@ -92,6 +92,10 @@ namespace WordPress
         {
             BuildLayoutRoot(selectedIndex);
 
+            //make sure the application bar is not shown while the pop up is active;
+            //this prevents users from triggering events that shouldn't be accessible
+            HideApplicationBar();
+
             _popup.Child = _layoutRoot;
             _popup.VerticalOffset = VerticalOffset;
             _popup.HorizontalOffset = HorizontalOffset;
@@ -100,6 +104,16 @@ namespace WordPress
 
             Storyboard storyboard = CreateEaseInAnimationStoryBoard(_layoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MIN, BACKGROUND_OPACITY_MAX, Duration);
             storyboard.Begin();
+        }
+
+        private void HideApplicationBar()
+        {
+            object content = App.Current.RootVisual.GetValue(ContentControl.ContentProperty);
+            PhoneApplicationPage page = content as PhoneApplicationPage;
+            if (null != page && null != page.ApplicationBar)
+            {
+                page.ApplicationBar.IsVisible = false;
+            }
         }
 
         private void BuildLayoutRoot(int selectedIndex)
@@ -194,8 +208,19 @@ namespace WordPress
             }
 
             _popup.IsOpen = false;
+
+            RestoreApplicationBar();
         }
 
+        private void RestoreApplicationBar()
+        {
+            object content = App.Current.RootVisual.GetValue(ContentControl.ContentProperty);
+            PhoneApplicationPage page = content as PhoneApplicationPage;
+            if (null != page && null != page.ApplicationBar)
+            {
+                page.ApplicationBar.IsVisible = true;
+            }
+        }
 
         private Storyboard CreateEaseInAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
         {
