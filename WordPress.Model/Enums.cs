@@ -46,4 +46,29 @@ namespace WordPress.Model
         post,
         page
     }
+
+    /// <summary>
+    /// Specifies the type of statistic to query the WordPress statistic service for
+    /// </summary>
+    public enum eStatisticType
+    {
+        Views,
+        PostViews,
+        Referrers,
+        SearchTerms,
+        Clicks
+    }
+
+    /// <summary>
+    /// Specifies the time period to query to WordPress statistic service for the given
+    /// eStatisticType
+    /// </summary>
+    public enum eStatisticPeriod
+    {
+        LastWeek,
+        LastMonth,
+        LastQuarter,
+        LastYear,
+        AllTime
+    }
 }

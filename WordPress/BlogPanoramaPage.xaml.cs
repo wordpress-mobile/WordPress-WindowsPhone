@@ -369,7 +369,23 @@ namespace WordPress
 
         private void OnStatsButtonClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Feature coming soon!");
+            RetrieveStats();
+        }
+
+        private void RetrieveStats()
+        {
+            GetViewStatsRPC rpc = new GetViewStatsRPC(App.MasterViewModel.CurrentBlog);
+            rpc.StatisicPeriod = eStatisticPeriod.LastWeek;
+            rpc.Completed += OnGetViewStatsRPCCompleted;
+            rpc.ExecuteAsync();
+        }
+
+        private void OnGetViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<StatisticLinearDataPoint> args)
+        {
+            GetViewStatsRPC rpc = sender as GetViewStatsRPC;
+            rpc.Completed -= OnGetViewStatsRPCCompleted;
+
+
         }
 
         private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
