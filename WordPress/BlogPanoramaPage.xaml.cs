@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization.Charting;
 using Microsoft.Phone.Controls;
 
 using WordPress.Localization;
@@ -395,18 +396,95 @@ namespace WordPress
 
         private void RetrieveStats()
         {
-            GetViewStatsRPC rpc = new GetViewStatsRPC(App.MasterViewModel.CurrentBlog);
-            rpc.StatisicPeriod = eStatisticPeriod.LastWeek;
-            rpc.Completed += OnGetViewStatsRPCCompleted;
-            rpc.ExecuteAsync();
+            switch (StatisticType)
+            {
+                case eStatisticType.Views:
+                    RetrieveViews();
+                    break;
+                case eStatisticType.PostViews:
+                    break;
+                case eStatisticType.Referrers:
+                    break;
+                case eStatisticType.SearchTerms:
+                    break;
+                case eStatisticType.Clicks:
+                    break;
+                default:
+                    break;
+            }
         }
 
-        private void OnGetViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<StatisticLinearDataPoint> args)
+        private void RetrieveViews()
         {
+            GetViewStatsRPC rpc = new GetViewStatsRPC(App.MasterViewModel.CurrentBlog);
+            rpc.StatisicPeriod = StatisticPeriod;
+            rpc.Completed += OnGetViewStatsRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator("downloading statistics...");
+        }
+
+        private void OnGetViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ViewDataPoint> args)
+        {
+            //DEV NOTE: this link was really helpful getting things going:
+            //http://silverlighthack.com/post/2010/10/08/Windows-Phone-7-RTM-Charting-using-the-Silverlight-Control-Toolkit.aspx
+
             GetViewStatsRPC rpc = sender as GetViewStatsRPC;
             rpc.Completed -= OnGetViewStatsRPCCompleted;
 
+            if (null == args.Error)
+            {
+                if (null == args.Items) return;
 
+                statisticChart.Axes.Clear();
+                statisticChart.Series.Clear();
+
+                LinearAxis yAxis = new LinearAxis
+                {
+                    Location = AxisLocation.Left,
+                    Orientation = AxisOrientation.Y,
+                    Title="Number of Posts"
+                };
+                statisticChart.Axes.Add(yAxis);
+
+                DateTimeAxis xAxis = new DateTimeAxis
+                {
+                    Location = AxisLocation.Bottom,
+                    Orientation = AxisOrientation.X,
+                    IntervalType = ConvertStatisticPeriod(),
+                    Interval = 1
+                };
+                statisticChart.Axes.Add(xAxis);                
+
+                LineSeries series = new LineSeries
+                {
+                    DependentRangeAxis = yAxis,
+                    IndependentAxis = xAxis,
+                    IndependentValueBinding = new System.Windows.Data.Binding("ViewDate"),
+                    DependentValueBinding = new System.Windows.Data.Binding("ViewCount"),
+                    ItemsSource = args.Items
+                };
+                statisticChart.Series.Add(series);
+            }
+
+            App.WaitIndicationService.HideIndicator();
+        }
+
+        private DateTimeIntervalType ConvertStatisticPeriod()
+        {
+            switch (StatisticPeriod)
+            {
+                case eStatisticPeriod.LastWeek:
+                case eStatisticPeriod.LastMonth:
+                    return DateTimeIntervalType.Days;
+                case eStatisticPeriod.LastQuarter:
+                    return DateTimeIntervalType.Weeks;
+                case eStatisticPeriod.LastYear:
+                case eStatisticPeriod.AllTime:
+                    return DateTimeIntervalType.Years;
+                default:
+                    return DateTimeIntervalType.Auto;
+            }
         }
 
         private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)

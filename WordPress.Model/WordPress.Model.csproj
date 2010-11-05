@@ -66,6 +66,7 @@
     <Compile Include="PostListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatisticLinearDataPoint.cs" />
+    <Compile Include="ViewDataPoint.cs" />
     <Compile Include="XMLRPCTable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

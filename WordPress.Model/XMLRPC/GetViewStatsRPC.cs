@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace WordPress.Model
@@ -7,7 +9,7 @@ namespace WordPress.Model
     /// Queries the WordPress statistic service for the number of views for a blog
     /// over the given time period.
     /// </summary>
-    public class GetViewStatsRPC: GetStatsRPC<StatisticLinearDataPoint>
+    public class GetViewStatsRPC: GetStatsRPC<ViewDataPoint>
     {
         #region constructors
 
@@ -25,7 +27,9 @@ namespace WordPress.Model
 
         #endregion
 
-        protected override List<StatisticLinearDataPoint> ParseResponseContent(XDocument xDoc)
+        #region methods
+
+        protected override List<ViewDataPoint> ParseResponseContent(XDocument xDoc)
         {
             /*----------------------------------------------------------------------
              * DEV NOTE: the xml structure can vary depending on the requested period.  The structures
@@ -48,19 +52,17 @@ namespace WordPress.Model
              *   <month date="2009-11">3000</month>
              *   <month date="2009-12>4000</month>
              * </views>
-             * --------------------------------------------------------------------*/            
+             * --------------------------------------------------------------------*/
 
-            List<StatisticLinearDataPoint> result = new List<StatisticLinearDataPoint>();
+            List<ViewDataPoint> result = new List<ViewDataPoint>();
             string elementName = GetDataElementName();
             foreach (XElement element in xDoc.Descendants(elementName))
             {
-                StatisticLinearDataPoint dataPoint = new StatisticLinearDataPoint
-                {
-                    DependentAxisValue = element.Value,
-                    IndependentAxisValue = element.Attribute("date").Value
-                };
+                ViewDataPoint dataPoint = ParseDataPoint(element.Attribute("date").Value, element.Value);
                 result.Add(dataPoint);
             }
+
+            result = result.OrderBy(dataPoint => dataPoint.ViewDate).ToList();
 
             return result;
         }
@@ -90,5 +92,36 @@ namespace WordPress.Model
 
             return elementName;
         }
+
+        private ViewDataPoint ParseDataPoint(string date, string count)
+        {
+            int viewCount, year, week, month;
+            DateTime viewDate = DateTime.MinValue;
+
+            int.TryParse(count, out viewCount);
+
+            switch (StatisicPeriod)
+            {
+                case eStatisticPeriod.LastWeek:
+                case eStatisticPeriod.LastMonth:
+                    DateTime.TryParse(date, out viewDate);
+                    break;
+                case eStatisticPeriod.LastQuarter:
+                    year = int.Parse(date.Substring(0, 4));
+                    week = int.Parse(date.Substring(5));
+                    viewDate = new DateTime(year, 1, 1);
+                    viewDate = viewDate.AddDays(week * 7);
+                    break;
+                case eStatisticPeriod.LastYear:
+                case eStatisticPeriod.AllTime:
+                    year = int.Parse(date.Substring(0, 4));
+                    month = int.Parse(date.Substring(5));
+                    viewDate = new DateTime(year, month, 1);
+                    break;
+            }
+            return new ViewDataPoint { ViewCount = viewCount, ViewDate = viewDate };
+        }
+
+        #endregion
     }
 }

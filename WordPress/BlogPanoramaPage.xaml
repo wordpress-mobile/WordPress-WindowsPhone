@@ -8,15 +8,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:WordPress"
-    xmlns:Converters="clr-namespace:WordPress.Converters"
+    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+	xmlns:dataVisualization="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+    xmlns:dataControls="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+	xmlns:Converters="clr-namespace:WordPress.Converters"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
-    
-	<phone:PhoneApplicationPage.Resources>
+
+    <phone:PhoneApplicationPage.Resources>
         <Style x:Key="actionsPanoramaItemStyle" TargetType="controls:PanoramaItem">
             <Setter Property="CacheMode" Value="BitmapCache"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -31,12 +34,12 @@
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-                            		<ContentControl.RenderTransform>
-                            			<TranslateTransform x:Name="headerTransform"/>
-                            		</ContentControl.RenderTransform>
-                            	</ContentControl>
-                            	<Image Source="Images/panoramaActions.png" Stretch="None" VerticalAlignment="Center"/>
+                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
+                                    <ContentControl.RenderTransform>
+                                        <TranslateTransform x:Name="headerTransform"/>
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                                <Image Source="Images/panoramaActions.png" Stretch="None" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </ControlTemplate>
@@ -44,31 +47,31 @@
             </Setter>
         </Style>
         <Style x:Key="commentsPanoramaItemStyle" TargetType="controls:PanoramaItem">
-			<Setter Property="CacheMode" Value="BitmapCache"/>
-			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="controls:PanoramaItem">
-						<Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="auto"/>
-								<RowDefinition Height="*"/>
-							</Grid.RowDefinitions>
-							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-							<StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-								<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-									<ContentControl.RenderTransform>
-										<TranslateTransform x:Name="headerTransform"/>
-									</ContentControl.RenderTransform>
-								</ContentControl>
-								<Image Source="Images/panoramaComments.png" Stretch="None" VerticalAlignment="Center"/>
-							</StackPanel>
-						</Grid>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
+            <Setter Property="CacheMode" Value="BitmapCache"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:PanoramaItem">
+                        <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
+                                    <ContentControl.RenderTransform>
+                                        <TranslateTransform x:Name="headerTransform"/>
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                                <Image Source="Images/panoramaComments.png" Stretch="None" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="postsPanoramaItemStyle" TargetType="controls:PanoramaItem">
             <Setter Property="CacheMode" Value="BitmapCache"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -83,12 +86,12 @@
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
-                            		<ContentControl.RenderTransform>
-                            			<TranslateTransform x:Name="headerTransform"/>
-                            		</ContentControl.RenderTransform>
-                            	</ContentControl>
-                            	<Image Source="Images/panoramaPosts.png" Stretch="None" VerticalAlignment="Center"/>
+                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
+                                    <ContentControl.RenderTransform>
+                                        <TranslateTransform x:Name="headerTransform"/>
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                                <Image Source="Images/panoramaPosts.png" Stretch="None" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </ControlTemplate>
@@ -109,12 +112,12 @@
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
-                            		<ContentControl.RenderTransform>
-                            			<TranslateTransform x:Name="headerTransform"/>
-                            		</ContentControl.RenderTransform>
-                            	</ContentControl>
-                            	<Image Source="Images/panoramaPages.png" Stretch="None" VerticalAlignment="Center"/>
+                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
+                                    <ContentControl.RenderTransform>
+                                        <TranslateTransform x:Name="headerTransform"/>
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                                <Image Source="Images/panoramaPages.png" Stretch="None" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </ControlTemplate>
@@ -135,12 +138,12 @@
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                            	<ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
-                            		<ContentControl.RenderTransform>
-                            			<TranslateTransform x:Name="headerTransform"/>
-                            		</ContentControl.RenderTransform>
-                            	</ContentControl>
-                            	<Image Source="Images/panoramaStats.png" Stretch="None" VerticalAlignment="Center"/>
+                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
+                                    <ContentControl.RenderTransform>
+                                        <TranslateTransform x:Name="headerTransform"/>
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                                <Image Source="Images/panoramaStats.png" Stretch="None" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </ControlTemplate>
@@ -149,72 +152,72 @@
         </Style>
 
         <!--<Converters:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"></Converters:CommentStatusToBrushConverter>-->
-        
+
         <Style x:Key="TileButtonTemplate" TargetType="Button">
-        	<Setter Property="Background" Value="Transparent"/>
-        	<Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
-        	<Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-        	<Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}"/>
-        	<Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
-        	<Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
-        	<Setter Property="Padding" Value="10,3,10,5"/>
-        	<Setter Property="Template">
-        		<Setter.Value>
-        			<ControlTemplate TargetType="Button">
-        				<Grid Background="Transparent">
-        					<VisualStateManager.VisualStateGroups>
-        						<VisualStateGroup x:Name="CommonStates">
-        							<VisualState x:Name="Normal"/>
-        							<VisualState x:Name="MouseOver"/>
-        							<VisualState x:Name="Pressed">
-        								<Storyboard>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}"/>
-        									</ObjectAnimationUsingKeyFrames>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}"/>
-        									</ObjectAnimationUsingKeyFrames>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}"/>
-        									</ObjectAnimationUsingKeyFrames>
-        								</Storyboard>
-        							</VisualState>
-        							<VisualState x:Name="Disabled">
-        								<Storyboard>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
-        									</ObjectAnimationUsingKeyFrames>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
-        									</ObjectAnimationUsingKeyFrames>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
-        									</ObjectAnimationUsingKeyFrames>
-        								</Storyboard>
-        							</VisualState>
-        						</VisualStateGroup>
-        					</VisualStateManager.VisualStateGroups>
-        					<Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="5">
-        						<ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-        					</Border>
-        				</Grid>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}"/>
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+            <Setter Property="Padding" Value="10,3,10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentContainer">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="5">
+                                <ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
-        
+
         <Converters:StatisticPeriodToStringConverter x:Key="StatisticPeriodToStringConverter"/>
         <Converters:StatisticTypeToStringConverter x:Key="StatisticTypeToStringConverter"/>
-        
+
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
-        
+
         <controls:Panorama x:Name="blogPanorama" Title="{Binding CurrentBlog.BlogName}" SelectionChanged="OnPanoramaSelectionChanged">
-        	<controls:Panorama.Foreground>
-        		<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-        	</controls:Panorama.Foreground>
+            <controls:Panorama.Foreground>
+                <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+            </controls:Panorama.Foreground>
 
             <!--actions Panorama item -->
             <controls:PanoramaItem x:Name="actionsPanoramaItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource actionsPanoramaItemStyle}">
@@ -231,22 +234,22 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                	
+
                     <Button x:Name="refreshButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200"
                             Click="OnRefreshButtonClick">
-                		<Button.Background>
-                			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-                		</Button.Background>
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                        </Button.Background>
                         <StackPanel Height="186" Width="188" >
-                    		<Image Source="Images/actionsRefresh.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    		<TextBlock Text="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                            <Image Source="Images/actionsRefresh.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock Text="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
                     			TextAlignment="Right"/>
-                    	</StackPanel>
-                	</Button>
+                        </StackPanel>
+                    </Button>
 
                     <Button x:Name="moderateCommentsButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
@@ -315,11 +318,11 @@
                                     Source={StaticResource StringTable}}" TextAlignment="Right" HorizontalAlignment="Right"
                                            VerticalAlignment="Bottom" Margin="0,0,-185,0" d:LayoutOverrides="HorizontalAlignment"/>
                             </Grid>
-                            
+
                         </Button.Content>
-                    </Button>                    
+                    </Button>
                 </Grid>
-                
+
             </controls:PanoramaItem>
 
             <!--comments Panorama item -->
@@ -331,7 +334,7 @@
                     <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" 
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
                              ItemContainerStyle="{StaticResource CommentListItemStyle}"
-                             >                        
+                             >
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
@@ -342,7 +345,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    
+
                     <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}"
                              SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0"
                              >
@@ -388,7 +391,7 @@
                                     	<TextBlock.Foreground>
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>
-                                    </TextBlock>                                    
+                                    </TextBlock>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -405,20 +408,30 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>                        
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-10,0,0,0">
-                        
+
                         <Button x:Name="statisticTypeButton" 
                                 Content="{Binding StatisticType, ElementName=phoneApplicationPage, Mode=TwoWay, Converter={StaticResource StatisticTypeToStringConverter}}"
                                 Click="OnStatisticTypeButtonClick" Style="{StaticResource BasicButtonStyle}"/>
                         <Button x:Name="statisticPeriodButton" 
                                 Content="{Binding StatisticPeriod, ElementName=phoneApplicationPage, Mode=TwoWay, Converter={StaticResource StatisticPeriodToStringConverter}}"
                                 Click="OnStatisticPeriodButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
-                        
+
                         <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
                     </StackPanel>
-                    <ListBox x:Name="statsListBox" Grid.Row="1"/>
+                    <ScrollViewer Grid.Row="1">
+                        <chartingToolkit:Chart x:Name="statisticChart" BorderThickness="0">
+                            <chartingToolkit:Chart.LegendStyle>
+                                <Style TargetType="dataVisualization:Legend">
+                                    <Setter Property="Width" Value="0"/>
+                                    <Setter Property="Height" Value="0"/>
+                                </Style>
+                            </chartingToolkit:Chart.LegendStyle>
+
+                        </chartingToolkit:Chart>
+                    </ScrollViewer>
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
