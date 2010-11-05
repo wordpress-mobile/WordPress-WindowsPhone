@@ -563,4 +563,7 @@
   <data name="Prompts_SelectStatisticType" xml:space="preserve">
     <value>Which statistic would you like data for?</value>
   </data>
+  <data name="Messages_NoStatsAvailable" xml:space="preserve">
+    <value>No stats are available for the current query.</value>
+  </data>
 </root>

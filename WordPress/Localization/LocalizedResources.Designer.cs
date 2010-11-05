@@ -754,6 +754,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No stats are available for the current query..
+        /// </summary>
+        internal static string Messages_NoStatsAvailable {
+            get {
+                return ResourceManager.GetString("Messages_NoStatsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to replying to comment....
         /// </summary>
         internal static string Messages_ReplyingToComment {

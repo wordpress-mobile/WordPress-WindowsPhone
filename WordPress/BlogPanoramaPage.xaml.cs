@@ -439,38 +439,49 @@ namespace WordPress
                 statisticChart.Axes.Clear();
                 statisticChart.Series.Clear();
 
-                LinearAxis yAxis = new LinearAxis
+                if (0 == args.Items.Count)
                 {
-                    Location = AxisLocation.Left,
-                    Orientation = AxisOrientation.Y,
-                    Title="Number of Posts"
-                };
-                statisticChart.Axes.Add(yAxis);
+                    MessageBox.Show(_localizedStrings.Messages.NoStatsAvailable);
+                }
+                else
+                {
+                    LinearAxis yAxis = new LinearAxis
+                    {
+                        Location = AxisLocation.Left,
+                        Orientation = AxisOrientation.Y,
+                        Title = "Number of Posts"
+                    };
+                    statisticChart.Axes.Add(yAxis);
 
-                DateTimeAxis xAxis = new DateTimeAxis
-                {
-                    Location = AxisLocation.Bottom,
-                    Orientation = AxisOrientation.X,
-                    IntervalType = ConvertStatisticPeriod(),
-                    Interval = 1
-                };
-                statisticChart.Axes.Add(xAxis);                
+                    DateTimeAxis xAxis = new DateTimeAxis
+                    {
+                        Location = AxisLocation.Bottom,
+                        Orientation = AxisOrientation.X,
+                        IntervalType = ConvertStatisticPeriodToIntervalType(),
+                        Interval = ConvertStatisticPeriodToInterval()
+                    };
+                    statisticChart.Axes.Add(xAxis);
 
-                LineSeries series = new LineSeries
-                {
-                    DependentRangeAxis = yAxis,
-                    IndependentAxis = xAxis,
-                    IndependentValueBinding = new System.Windows.Data.Binding("ViewDate"),
-                    DependentValueBinding = new System.Windows.Data.Binding("ViewCount"),
-                    ItemsSource = args.Items
-                };
-                statisticChart.Series.Add(series);
+                    LineSeries series = new LineSeries
+                    {
+                        DependentRangeAxis = yAxis,
+                        IndependentAxis = xAxis,
+                        IndependentValueBinding = new System.Windows.Data.Binding("ViewDate"),
+                        DependentValueBinding = new System.Windows.Data.Binding("ViewCount"),
+                        ItemsSource = args.Items
+                    };
+                    statisticChart.Series.Add(series);
+                }
+            }
+            else
+            {
+                this.HandleException(args.Error);
             }
 
             App.WaitIndicationService.HideIndicator();
         }
 
-        private DateTimeIntervalType ConvertStatisticPeriod()
+        private DateTimeIntervalType ConvertStatisticPeriodToIntervalType()
         {
             switch (StatisticPeriod)
             {
@@ -484,6 +495,18 @@ namespace WordPress
                     return DateTimeIntervalType.Years;
                 default:
                     return DateTimeIntervalType.Auto;
+            }
+        }
+
+        private int ConvertStatisticPeriodToInterval()
+        {            
+            if (eStatisticPeriod.LastMonth == StatisticPeriod)
+            {
+                return 3;
+            }
+            else
+            {
+                return 1;
             }
         }
 

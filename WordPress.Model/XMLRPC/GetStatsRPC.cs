@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Xml.Linq;
+using System.Xml;
 
 namespace WordPress.Model
 {
@@ -230,9 +231,39 @@ namespace WordPress.Model
             }
             catch (Exception ex)
             {
-                throw new Exception("Exception caught parsing document", ex);
+                if (ex is XmlException)
+                {
+                    //most likely case here is that the API key is not for an administrator's account.
+                    //try to read the error from the response
+                    string errorDescription = ParseErrorDescription(content);
+                    if (!string.IsNullOrEmpty(errorDescription))
+                    {
+                        throw new Exception(errorDescription, ex);
+                    }
+                }
+
+                throw new Exception("Exception caught parsing response from statistics service", ex);
             }
             return xDoc;
+        }
+
+        private string ParseErrorDescription(string content)
+        {
+            string line = string.Empty;
+            string result = string.Empty;
+            string error = "Error:";
+
+            using (StringReader reader = new StringReader(content))
+            {
+                line = reader.ReadLine();
+
+                //TODO: will the string be I18N'ed?
+                if (line.StartsWith(error))
+                {
+                    result = line.Replace(error, string.Empty).Trim();
+                }
+            }
+            return result;
         }
 
         private Exception ParseFailureInfo(XElement element)
