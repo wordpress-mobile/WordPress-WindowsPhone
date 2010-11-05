@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
@@ -32,6 +33,32 @@ namespace WordPress.Model
         public DataService()
         {
             Blogs = new ObservableCollection<Blog>();
+            Blogs.CollectionChanged += OnBlogsCollectionChanged;
+        }
+
+        private void OnBlogsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (NotifyCollectionChangedAction.Add == e.Action)
+            {
+                if (0 == e.NewItems.Count) return;
+
+                foreach (Blog newBlog in e.NewItems)
+                {
+                    if (string.IsNullOrEmpty(newBlog.ApiKey))
+                    {
+                        GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog);
+                        rpc.Completed += OnGetApiKeyRPCCompleted;
+                        rpc.ExecuteAsync();
+                    }
+                }
+            }
+        }
+
+        private void OnGetApiKeyRPCCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
+        {
+            //the blog is updated by the rpc.  all we have to do here is unbind
+            GetApiKeyRPC rpc = sender as GetApiKeyRPC;
+            rpc.Completed -= OnGetApiKeyRPCCompleted;
         }
 
         #endregion
