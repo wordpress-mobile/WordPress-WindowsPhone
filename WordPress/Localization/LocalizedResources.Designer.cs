@@ -160,6 +160,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to api key.
+        /// </summary>
+        internal static string ControlText_Apikey {
+            get {
+                return ResourceManager.GetString("ControlText_Apikey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to approve.
         /// </summary>
         internal static string ControlText_Approve {
@@ -1083,6 +1092,15 @@ namespace WordPress.Localization {
         internal static string Prompt_SelectThumbnailSize {
             get {
                 return ResourceManager.GetString("Prompt_SelectThumbnailSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current blog doesn&apos;t have an api key.  Please enter one on the settings page..
+        /// </summary>
+        internal static string Prompts_MissingApikey {
+            get {
+                return ResourceManager.GetString("Prompts_MissingApikey", resourceCulture);
             }
         }
         

@@ -133,6 +133,7 @@ namespace WordPress.Localization
             public string CategoryDescription { get { return LocalizedResources.ControlText_CategoryDescription; } }
             public string CategoryParent { get { return LocalizedResources.ControlText_CategoryParent; } }
             public string None { get { return LocalizedResources.ControlText_None; } }
+            public string Apikey { get { return LocalizedResources.ControlText_Apikey; } }
         }
 
         #endregion
@@ -225,7 +226,7 @@ namespace WordPress.Localization
             public string MissingCategoryName { get { return LocalizedResources.Prompts_MissingCategoryName; } }
             public string SelectStatisticType { get { return LocalizedResources.Prompts_SelectStatisticType; } }
             public string SelectStatisticPeriod { get { return LocalizedResources.Prompts_SelectStatisticPeriod; } }
-
+            public string MissingApikey { get { return LocalizedResources.Prompts_MissingApikey; } }
         }
 
         #endregion

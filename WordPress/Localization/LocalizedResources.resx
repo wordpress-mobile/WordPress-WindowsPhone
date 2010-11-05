@@ -566,4 +566,10 @@
   <data name="Messages_NoStatsAvailable" xml:space="preserve">
     <value>No stats are available for the current query.</value>
   </data>
+  <data name="ControlText_Apikey" xml:space="preserve">
+    <value>api key</value>
+  </data>
+  <data name="Prompts_MissingApikey" xml:space="preserve">
+    <value>The current blog doesn't have an api key.  Please enter one on the settings page.</value>
+  </data>
 </root>

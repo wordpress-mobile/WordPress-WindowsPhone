@@ -78,6 +78,18 @@
                              Template="{StaticResource FocusedPasswordBoxTemplate}"
                              Password="{Binding Password, Mode=TwoWay}"
                              />
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" Text="{Binding ControlsText.Apikey, Source={StaticResource StringTable}}">
+        			<TextBlock.Foreground>
+        				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+        			</TextBlock.Foreground>
+                </TextBlock>
+                <PasswordBox x:Name="apikeyTextBox" 
+                             FontSize="{StaticResource ControlFontSize}" 
+                             Style="{StaticResource PasswordBoxStyle}" 
+                             Template="{StaticResource FocusedPasswordBoxTemplate}"
+                             Password="{Binding Password, Mode=TwoWay}"
+                            />
+                
                 <Border Background="{StaticResource SectionHeaderBackgroundBrush}">
                     <TextBlock TextWrapping="Wrap" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" FontSize="{StaticResource SectionHeaderFontSize}">
         				<TextBlock.Foreground>

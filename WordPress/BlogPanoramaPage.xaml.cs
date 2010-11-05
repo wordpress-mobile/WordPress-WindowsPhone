@@ -396,6 +396,13 @@ namespace WordPress
 
         private void RetrieveStats()
         {
+            //make sure the current blog has an api key associated to it.
+            if (string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.ApiKey))
+            {
+                MessageBox.Show(_localizedStrings.Prompts.MissingApikey);
+                return;
+            }
+
             switch (StatisticType)
             {
                 case eStatisticType.Views:
