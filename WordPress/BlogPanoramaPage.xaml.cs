@@ -443,41 +443,23 @@ namespace WordPress
             {
                 if (null == args.Items) return;
 
-                statisticChart.Axes.Clear();
-                statisticChart.Series.Clear();
-
                 if (0 == args.Items.Count)
                 {
                     MessageBox.Show(_localizedStrings.Messages.NoStatsAvailable);
                 }
                 else
                 {
-                    LinearAxis yAxis = new LinearAxis
+                    if (0 != statsChart.Series.Count)
                     {
-                        Location = AxisLocation.Left,
-                        Orientation = AxisOrientation.Y,
-                        Title = "Number of Posts"
-                    };
-                    statisticChart.Axes.Add(yAxis);
+                        LineSeries series = statsChart.Series[0] as LineSeries;
+                        DateTimeAxis axis = series.IndependentAxis as DateTimeAxis;
+                        axis.Interval = ConvertStatisticPeriodToInterval();
+                        axis.IntervalType = ConvertStatisticPeriodToIntervalType();                        
+                    }
 
-                    DateTimeAxis xAxis = new DateTimeAxis
-                    {
-                        Location = AxisLocation.Bottom,
-                        Orientation = AxisOrientation.X,
-                        IntervalType = ConvertStatisticPeriodToIntervalType(),
-                        Interval = ConvertStatisticPeriodToInterval()
-                    };
-                    statisticChart.Axes.Add(xAxis);
-
-                    LineSeries series = new LineSeries
-                    {
-                        DependentRangeAxis = yAxis,
-                        IndependentAxis = xAxis,
-                        IndependentValueBinding = new System.Windows.Data.Binding("ViewDate"),
-                        DependentValueBinding = new System.Windows.Data.Binding("ViewCount"),
-                        ItemsSource = args.Items
-                    };
-                    statisticChart.Series.Add(series);
+                    ObservableObjectCollection viewStatsDataSource = Resources["viewStatsDataSource"] as ObservableObjectCollection;
+                    viewStatsDataSource.Clear();
+                    args.Items.ForEach(item => viewStatsDataSource.Add(item));
                 }
             }
             else

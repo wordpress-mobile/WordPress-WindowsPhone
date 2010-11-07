@@ -10,8 +10,9 @@
     xmlns:local="clr-namespace:WordPress"
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
 	xmlns:dataVisualization="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-    xmlns:dataControls="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-	xmlns:Converters="clr-namespace:WordPress.Converters"
+    xmlns:Converters="clr-namespace:WordPress.Converters"
+    xmlns:model="clr-namespace:WordPress.Model;assembly=WordPress.Model"
+    xmlns:layout="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -150,9 +151,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <!--<Converters:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"></Converters:CommentStatusToBrushConverter>-->
-
+        
         <Style x:Key="TileButtonTemplate" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
@@ -209,6 +208,9 @@
         <Converters:StatisticPeriodToStringConverter x:Key="StatisticPeriodToStringConverter"/>
         <Converters:StatisticTypeToStringConverter x:Key="StatisticTypeToStringConverter"/>
 
+        <local:ObservableObjectCollection x:Key="viewStatsDataSource">
+        </local:ObservableObjectCollection>
+        
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -422,13 +424,38 @@
                         <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
                     </StackPanel>
                     <ScrollViewer Grid.Row="1">
-                        <chartingToolkit:Chart x:Name="statisticChart" BorderThickness="0">
+                        <chartingToolkit:Chart x:Name="statsChart" Title="" DataContext="{StaticResource viewStatsDataSource}" BorderThickness="0" >
                             <chartingToolkit:Chart.LegendStyle>
-                                <Style TargetType="dataVisualization:Legend">
+                            	<Style TargetType="dataVisualization:Legend">
                                     <Setter Property="Width" Value="0"/>
                                     <Setter Property="Height" Value="0"/>
-                                </Style>
-                            </chartingToolkit:Chart.LegendStyle>
+								</Style>
+							</chartingToolkit:Chart.LegendStyle>
+                            <chartingToolkit:LineSeries DependentValuePath="ViewCount" ItemsSource="{Binding}" IndependentValuePath="ViewDate">
+                                <chartingToolkit:LineSeries.DependentRangeAxis>
+                                    <chartingToolkit:LinearAxis Location="Left" Orientation="Y" Title="Views"/>
+                                </chartingToolkit:LineSeries.DependentRangeAxis>
+                                <chartingToolkit:LineSeries.IndependentAxis>
+                                    <chartingToolkit:DateTimeAxis x:Name="viewDateAxis" Orientation="X" Location="Bottom" Title="">
+                                        <chartingToolkit:DateTimeAxis.AxisLabelStyle>
+                                            <Style TargetType="chartingToolkit:AxisLabel">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="chartingToolkit:AxisLabel">
+                                                            <layout:LayoutTransformer>
+                                                                <layout:LayoutTransformer.LayoutTransform>
+                                                                    <RotateTransform Angle="-90"/>
+                                                                </layout:LayoutTransformer.LayoutTransform>
+                                                                <TextBlock Text="{TemplateBinding FormattedContent}"/>
+                                                            </layout:LayoutTransformer>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </chartingToolkit:DateTimeAxis.AxisLabelStyle>
+                                    </chartingToolkit:DateTimeAxis>
+                                </chartingToolkit:LineSeries.IndependentAxis>
+                            </chartingToolkit:LineSeries>
 
                         </chartingToolkit:Chart>
                     </ScrollViewer>
