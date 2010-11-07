@@ -572,4 +572,7 @@
   <data name="Prompts_MissingApikey" xml:space="preserve">
     <value>The current blog doesn't have an api key.  Please enter one on the settings page.</value>
   </data>
+  <data name="Message_DownloadingStatistics" xml:space="preserve">
+    <value>downloading statistics...</value>
+  </data>
 </root>

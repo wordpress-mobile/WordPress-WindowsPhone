@@ -65,7 +65,8 @@
     <Compile Include="Post.cs" />
     <Compile Include="PostListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewDataPoint.cs" />
+    <Compile Include="Stats\PostViewDataPoint.cs" />
+    <Compile Include="Stats\ViewDataPoint.cs" />
     <Compile Include="XMLRPCTable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -86,6 +87,7 @@
     <Compile Include="XMLRPC\GetCommentsRPC.cs" />
     <Compile Include="XMLRPC\GetPageListRPC.cs" />
     <Compile Include="XMLRPC\GetPostRPC.cs" />
+    <Compile Include="XMLRPC\GetPostViewStatsRPC.cs" />
     <Compile Include="XMLRPC\GetRecentPostsRPC.cs" />
     <Compile Include="XMLRPC\GetStatsRPC.cs" />
     <Compile Include="XMLRPC\GetUsersBlogsRPC.cs" />

@@ -20,7 +20,7 @@ namespace WordPress.Model
     {
         #region member variables
 
-        private const string STATSURL_FORMATSTRING = "http://stats.wordpress.com/csv.php?api_key={0}&blog_id={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
+        protected const string STATSURL_FORMATSTRING = "http://stats.wordpress.com/csv.php?api_key={0}&blog_id={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
         private SendOrPostCallback onCompletedDelegate;
         
         #endregion
@@ -54,7 +54,7 @@ namespace WordPress.Model
 
         public eStatisticType StatisticType { get; set; }
 
-        private Uri Uri
+        protected virtual Uri Uri
         {
             get
             {

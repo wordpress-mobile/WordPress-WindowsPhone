@@ -208,8 +208,8 @@
         <Converters:StatisticPeriodToStringConverter x:Key="StatisticPeriodToStringConverter"/>
         <Converters:StatisticTypeToStringConverter x:Key="StatisticTypeToStringConverter"/>
 
-        <local:ObservableObjectCollection x:Key="viewStatsDataSource">
-        </local:ObservableObjectCollection>
+        <local:ObservableObjectCollection x:Key="viewStatsDataSource"/>
+        <local:ObservableObjectCollection x:Key="postViewStatsDataSource"/>
         
     </phone:PhoneApplicationPage.Resources>
 
@@ -432,40 +432,88 @@
                 		<Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0" HorizontalAlignment="Left" Grid.Column="2"/>
                 	</Grid>
                     <ScrollViewer Grid.Row="1">
-                        <chartingToolkit:Chart x:Name="statsChart" Title="" DataContext="{StaticResource viewStatsDataSource}" BorderThickness="0" >
-                            <chartingToolkit:Chart.LegendStyle>
-                            	<Style TargetType="dataVisualization:Legend">
-                                    <Setter Property="Width" Value="0"/>
-                                    <Setter Property="Height" Value="0"/>
-								</Style>
-							</chartingToolkit:Chart.LegendStyle>
-                            <chartingToolkit:LineSeries DependentValuePath="ViewCount" ItemsSource="{Binding}" IndependentValuePath="ViewDate">
-                                <chartingToolkit:LineSeries.DependentRangeAxis>
-                                    <chartingToolkit:LinearAxis Location="Left" Orientation="Y" Title="Views"/>
-                                </chartingToolkit:LineSeries.DependentRangeAxis>
-                                <chartingToolkit:LineSeries.IndependentAxis>
-                                    <chartingToolkit:DateTimeAxis x:Name="viewDateAxis" Orientation="X" Location="Bottom" Title="">
-                                        <chartingToolkit:DateTimeAxis.AxisLabelStyle>
-                                            <Style TargetType="chartingToolkit:AxisLabel">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="chartingToolkit:AxisLabel">
-                                                            <layout:LayoutTransformer>
-                                                                <layout:LayoutTransformer.LayoutTransform>
-                                                                    <RotateTransform Angle="-90"/>
-                                                                </layout:LayoutTransformer.LayoutTransform>
-                                                                <TextBlock Text="{TemplateBinding FormattedContent}"/>
-                                                            </layout:LayoutTransformer>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </chartingToolkit:DateTimeAxis.AxisLabelStyle>
-                                    </chartingToolkit:DateTimeAxis>
-                                </chartingToolkit:LineSeries.IndependentAxis>
-                            </chartingToolkit:LineSeries>
+                        <StackPanel>
 
-                        </chartingToolkit:Chart>
+                            <chartingToolkit:Chart x:Name="viewsStatsChart" BorderThickness="0" DataContext="{StaticResource viewStatsDataSource}" Height="450">
+                                <chartingToolkit:Chart.LegendStyle>
+                                    <Style TargetType="dataVisualization:Legend">
+                                        <Setter Property="Width" Value="0"/>
+                                        <Setter Property="Height" Value="0"/>
+                                    </Style>
+                                </chartingToolkit:Chart.LegendStyle>
+
+                                <!-- series for views -->
+                                <chartingToolkit:LineSeries DependentValuePath="ViewCount" ItemsSource="{StaticResource viewStatsDataSource}" IndependentValuePath="ViewDate">
+                                    <chartingToolkit:LineSeries.DependentRangeAxis>
+                                        <chartingToolkit:LinearAxis Location="Left" Orientation="Y" Title="Views"/>
+                                    </chartingToolkit:LineSeries.DependentRangeAxis>
+                                    <chartingToolkit:LineSeries.IndependentAxis>
+                                        <chartingToolkit:DateTimeAxis Orientation="X" Location="Bottom" Title="">
+                                            <chartingToolkit:DateTimeAxis.AxisLabelStyle>
+                                                <Style TargetType="chartingToolkit:AxisLabel">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="chartingToolkit:AxisLabel">
+                                                                <layout:LayoutTransformer>
+                                                                    <layout:LayoutTransformer.LayoutTransform>
+                                                                        <RotateTransform Angle="-90"/>
+                                                                    </layout:LayoutTransformer.LayoutTransform>
+                                                                    <TextBlock Text="{TemplateBinding FormattedContent}"/>
+                                                                </layout:LayoutTransformer>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </chartingToolkit:DateTimeAxis.AxisLabelStyle>
+                                        </chartingToolkit:DateTimeAxis>
+                                    </chartingToolkit:LineSeries.IndependentAxis>
+                                </chartingToolkit:LineSeries>
+
+                            </chartingToolkit:Chart>
+
+                            <chartingToolkit:Chart x:Name="postViewsStatsChart" BorderThickness="0" DataContext="{StaticResource postViewStatsDataSource}" Height="450" Visibility="Collapsed">
+                                <chartingToolkit:Chart.LegendStyle>
+                                    <Style TargetType="dataVisualization:Legend">
+                                        <Setter Property="Width" Value="0"/>
+                                        <Setter Property="Height" Value="0"/>
+                                    </Style>
+                                </chartingToolkit:Chart.LegendStyle>
+
+                                <!-- series for post views -->
+                                <chartingToolkit:ColumnSeries ItemsSource="{Binding}" DependentValuePath="ViewCount" IndependentValuePath="Title" >
+                                    <chartingToolkit:ColumnSeries.DependentRangeAxis>
+                                        <chartingToolkit:LinearAxis Location="Left" Orientation="Y" Title="Views"/>
+                                    </chartingToolkit:ColumnSeries.DependentRangeAxis>
+                                    <chartingToolkit:ColumnSeries.IndependentAxis>
+                                        <chartingToolkit:CategoryAxis Orientation="X" Location="Bottom" Title="">
+                                            <chartingToolkit:CategoryAxis.AxisLabelStyle>
+                                                <Style TargetType="chartingToolkit:AxisLabel">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="chartingToolkit:AxisLabel">
+                                                                <layout:LayoutTransformer>
+                                                                    <layout:LayoutTransformer.LayoutTransform>
+                                                                        <RotateTransform Angle="-90"/>
+                                                                    </layout:LayoutTransformer.LayoutTransform>
+                                                                    <TextBlock Text="{TemplateBinding FormattedContent}"/>
+                                                                </layout:LayoutTransformer>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </chartingToolkit:CategoryAxis.AxisLabelStyle>
+                                        </chartingToolkit:CategoryAxis>
+                                    </chartingToolkit:ColumnSeries.IndependentAxis>
+                                </chartingToolkit:ColumnSeries>
+                            </chartingToolkit:Chart>
+
+                            <!-- chart for referrers -->
+
+                            <!-- chart for search terms -->
+
+                            <!-- chart for clicks -->
+
+                        </StackPanel>
                     </ScrollViewer>
                 </Grid>
             </controls:PanoramaItem>

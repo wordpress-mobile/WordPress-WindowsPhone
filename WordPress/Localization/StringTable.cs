@@ -169,6 +169,7 @@ namespace WordPress.Localization
             public string AcquiringPermalink { get { return LocalizedResources.Messages_AcquiringPermalink; } }
             public string Loading { get { return LocalizedResources.Messages_Loading; } }
             public string NoStatsAvailable { get { return LocalizedResources.Messages_NoStatsAvailable; } }
+            public string DownloadingStatistics { get { return LocalizedResources.Message_DownloadingStatistics; } }
         }
 
         #endregion

@@ -646,6 +646,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to downloading statistics....
+        /// </summary>
+        internal static string Message_DownloadingStatistics {
+            get {
+                return ResourceManager.GetString("Message_DownloadingStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to acquiring permalink....
         /// </summary>
         internal static string Messages_AcquiringPermalink {

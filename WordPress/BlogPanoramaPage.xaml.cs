@@ -409,14 +409,16 @@ namespace WordPress
                     RetrieveViews();
                     break;
                 case eStatisticType.PostViews:
+                    RetrievePostViews();
                     break;
                 case eStatisticType.Referrers:
+                    RetrieveReferrers();
                     break;
                 case eStatisticType.SearchTerms:
+                    RetrieveSearchTerms();
                     break;
                 case eStatisticType.Clicks:
-                    break;
-                default:
+                    RetrieveClicks();
                     break;
             }
         }
@@ -428,7 +430,7 @@ namespace WordPress
             rpc.Completed += OnGetViewStatsRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator("downloading statistics...");
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
         }
 
         private void OnGetViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ViewDataPoint> args)
@@ -449,12 +451,18 @@ namespace WordPress
                 }
                 else
                 {
-                    if (0 != statsChart.Series.Count)
+                    if (0 != viewsStatsChart.Series.Count)
                     {
-                        LineSeries series = statsChart.Series[0] as LineSeries;
+                        HideCharts();
+
+                        viewsStatsChart.Visibility = Visibility.Visible;
+
+                        LineSeries series = viewsStatsChart.Series[0] as LineSeries;
+                        series.Visibility = System.Windows.Visibility.Visible;
+
                         DateTimeAxis axis = series.IndependentAxis as DateTimeAxis;
                         axis.Interval = ConvertStatisticPeriodToInterval();
-                        axis.IntervalType = ConvertStatisticPeriodToIntervalType();                        
+                        axis.IntervalType = ConvertStatisticPeriodToIntervalType();    
                     }
 
                     ObservableObjectCollection viewStatsDataSource = Resources["viewStatsDataSource"] as ObservableObjectCollection;
@@ -468,6 +476,12 @@ namespace WordPress
             }
 
             App.WaitIndicationService.HideIndicator();
+        }
+
+        private void HideCharts()
+        {
+            viewsStatsChart.Visibility = Visibility.Collapsed;
+            postViewsStatsChart.Visibility = Visibility.Collapsed;
         }
 
         private DateTimeIntervalType ConvertStatisticPeriodToIntervalType()
@@ -497,6 +511,53 @@ namespace WordPress
             {
                 return 1;
             }
+        }
+
+        private void RetrievePostViews()
+        {
+            GetPostViewStatsRPC rpc = new GetPostViewStatsRPC(App.MasterViewModel.CurrentBlog);
+            rpc.StatisicPeriod = StatisticPeriod;
+            rpc.Completed += OnGetPostViewStatsRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+        }
+
+        private void OnGetPostViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<PostViewDataPoint> args)
+        {
+            GetPostViewStatsRPC rpc = sender as GetPostViewStatsRPC;
+            rpc.Completed -= OnGetPostViewStatsRPCCompleted;
+
+            if (null == args.Error)
+            {
+                HideCharts();
+
+                postViewsStatsChart.Visibility = Visibility.Visible;
+
+                ObservableObjectCollection dataSource = Resources["postViewStatsDataSource"] as ObservableObjectCollection;
+                dataSource.Clear();
+                args.Items.ForEach(item => dataSource.Add(item));
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
+        }
+
+        private void RetrieveReferrers()
+        {
+        }
+
+        private void RetrieveSearchTerms()
+        {
+
+        }
+
+        private void RetrieveClicks()
+        {
+
         }
 
         private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)

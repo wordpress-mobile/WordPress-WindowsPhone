@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace WordPress.Model
 {
+    /// <summary>
+    /// Data object returned by the GetViewStatsRPC
+    /// </summary>
     public class ViewDataPoint: INotifyPropertyChanged
     {
         #region member variables
