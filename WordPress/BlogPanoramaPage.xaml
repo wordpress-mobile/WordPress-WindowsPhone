@@ -412,17 +412,25 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-10,0,0,0">
+                    <Grid Margin="-10,0,0,0" Grid.Row="0">
+                    	<Grid.RowDefinitions>
+                    		<RowDefinition Height="Auto"/>
+                    	</Grid.RowDefinitions>
+                    	<Grid.ColumnDefinitions>
+                    		<ColumnDefinition Width="Auto"/>
+                    		<ColumnDefinition Width="Auto"/>
+                    		<ColumnDefinition Width="Auto"/>
+                    	</Grid.ColumnDefinitions>
 
-                        <Button x:Name="statisticTypeButton" 
-                                Content="{Binding StatisticType, ElementName=phoneApplicationPage, Mode=TwoWay, Converter={StaticResource StatisticTypeToStringConverter}}"
-                                Click="OnStatisticTypeButtonClick" Style="{StaticResource BasicButtonStyle}"/>
-                        <Button x:Name="statisticPeriodButton" 
-                                Content="{Binding StatisticPeriod, ElementName=phoneApplicationPage, Mode=TwoWay, Converter={StaticResource StatisticPeriodToStringConverter}}"
-                                Click="OnStatisticPeriodButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
+                		<Button x:Name="statisticTypeButton" 
+                			Content="{Binding StatisticType, Converter={StaticResource StatisticTypeToStringConverter}, ElementName=phoneApplicationPage, Mode=TwoWay}"
+                			Click="OnStatisticTypeButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Width="200" Margin="-5,0,0,0"/>
+                		<Button x:Name="statisticPeriodButton" 
+                			Content="{Binding StatisticPeriod, Converter={StaticResource StatisticPeriodToStringConverter}, ElementName=phoneApplicationPage, Mode=TwoWay}"
+                			Click="OnStatisticPeriodButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0" HorizontalAlignment="Left" Grid.Column="1" Width="200"/>
 
-                        <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0"/>
-                    </StackPanel>
+                		<Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0" HorizontalAlignment="Left" Grid.Column="2"/>
+                	</Grid>
                     <ScrollViewer Grid.Row="1">
                         <chartingToolkit:Chart x:Name="statsChart" Title="" DataContext="{StaticResource viewStatsDataSource}" BorderThickness="0" >
                             <chartingToolkit:Chart.LegendStyle>
