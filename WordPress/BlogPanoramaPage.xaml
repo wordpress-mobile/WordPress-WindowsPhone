@@ -443,11 +443,11 @@
                                 </chartingToolkit:Chart.LegendStyle>
 
                                 <!-- series for views -->
-                                <chartingToolkit:LineSeries DependentValuePath="ViewCount" ItemsSource="{StaticResource viewStatsDataSource}" IndependentValuePath="ViewDate">
-                                    <chartingToolkit:LineSeries.DependentRangeAxis>
+                                <chartingToolkit:ColumnSeries DependentValuePath="ViewCount" ItemsSource="{StaticResource viewStatsDataSource}" IndependentValuePath="ViewDate">
+                                    <chartingToolkit:ColumnSeries.DependentRangeAxis>
                                         <chartingToolkit:LinearAxis Location="Left" Orientation="Y" Title="Views"/>
-                                    </chartingToolkit:LineSeries.DependentRangeAxis>
-                                    <chartingToolkit:LineSeries.IndependentAxis>
+                                    </chartingToolkit:ColumnSeries.DependentRangeAxis>
+                                    <chartingToolkit:ColumnSeries.IndependentAxis>
                                         <chartingToolkit:DateTimeAxis Orientation="X" Location="Bottom" Title="">
                                             <chartingToolkit:DateTimeAxis.AxisLabelStyle>
                                                 <Style TargetType="chartingToolkit:AxisLabel">
@@ -466,8 +466,8 @@
                                                 </Style>
                                             </chartingToolkit:DateTimeAxis.AxisLabelStyle>
                                         </chartingToolkit:DateTimeAxis>
-                                    </chartingToolkit:LineSeries.IndependentAxis>
-                                </chartingToolkit:LineSeries>
+                                    </chartingToolkit:ColumnSeries.IndependentAxis>
+                                </chartingToolkit:ColumnSeries>
 
                             </chartingToolkit:Chart>
 

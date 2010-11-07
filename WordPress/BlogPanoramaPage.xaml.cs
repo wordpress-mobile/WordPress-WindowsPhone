@@ -457,8 +457,7 @@ namespace WordPress
 
                         viewsStatsChart.Visibility = Visibility.Visible;
 
-                        LineSeries series = viewsStatsChart.Series[0] as LineSeries;
-                        series.Visibility = System.Windows.Visibility.Visible;
+                        ColumnSeries series = viewsStatsChart.Series[0] as ColumnSeries;
 
                         DateTimeAxis axis = series.IndependentAxis as DateTimeAxis;
                         axis.Interval = ConvertStatisticPeriodToInterval();
@@ -495,7 +494,7 @@ namespace WordPress
                     return DateTimeIntervalType.Weeks;
                 case eStatisticPeriod.LastYear:
                 case eStatisticPeriod.AllTime:
-                    return DateTimeIntervalType.Years;
+                    return DateTimeIntervalType.Months;
                 default:
                     return DateTimeIntervalType.Auto;
             }
