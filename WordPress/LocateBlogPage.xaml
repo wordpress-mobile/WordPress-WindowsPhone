@@ -16,7 +16,7 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
     	<Grid.Background>
-    		<ImageBrush ImageSource="Images/locateBlogBackground.jpg" Stretch="UniformToFill"/>
+    		<ImageBrush ImageSource="Images/background.jpg" Stretch="UniformToFill"/>
     	</Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
