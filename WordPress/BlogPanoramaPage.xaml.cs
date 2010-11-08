@@ -547,16 +547,83 @@ namespace WordPress
 
         private void RetrieveReferrers()
         {
+            GetReferrerStatsRPC rpc = new GetReferrerStatsRPC(App.MasterViewModel.CurrentBlog);
+            rpc.StatisicPeriod = StatisticPeriod;
+            rpc.Completed += OnGetReferrerStatsRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+        }
+
+        private void OnGetReferrerStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ReferrerDataPoint> args)
+        {
+            GetReferrerStatsRPC rpc = sender as GetReferrerStatsRPC;
+            rpc.Completed -= OnGetReferrerStatsRPCCompleted;
+
+            if (null == args.Error)
+            {
+                //TODO: update the ui and data source
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
         }
 
         private void RetrieveSearchTerms()
         {
+            GetSearchTermStatsRPC rpc = new GetSearchTermStatsRPC(App.MasterViewModel.CurrentBlog);
+            rpc.StatisicPeriod = StatisticPeriod;
+            rpc.Completed += OnGetSearchTermStatsRPCCompleted;
+            rpc.ExecuteAsync();
 
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+        }
+
+        private void OnGetSearchTermStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<SearchTermDataPoint> args)
+        {
+            GetSearchTermStatsRPC rpc = sender as GetSearchTermStatsRPC;
+            rpc.Completed -= OnGetSearchTermStatsRPCCompleted;
+
+            if (null == args.Error)
+            {
+                //TODO: update the ui and data source
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
         }
 
         private void RetrieveClicks()
         {
+            GetClickStatsRPC rpc = new GetClickStatsRPC(App.MasterViewModel.CurrentBlog);
+            rpc.StatisicPeriod = StatisticPeriod;
+            rpc.Completed += OnGetClickStatsRPCCompleted;
+            rpc.ExecuteAsync();
 
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+        }
+
+        private void OnGetClickStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ClickDataPoint> args)
+        {
+            GetClickStatsRPC rpc = sender as GetClickStatsRPC;
+            rpc.Completed -= OnGetClickStatsRPCCompleted;
+
+            if (null == args.Error)
+            {
+                //TODO: update the ui and data source
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
+
+            App.WaitIndicationService.HideIndicator();
         }
 
         private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
