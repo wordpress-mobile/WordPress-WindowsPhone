@@ -5,7 +5,6 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:System="clr-namespace:System;assembly=mscorlib" 
     x:Class="WordPress.BlogSettingsPage"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
@@ -13,9 +12,7 @@
     
 	<phone:PhoneApplicationPage.Resources>
         <local:BooleanInversionConverter xmlns:local="clr-namespace:WordPress.Converters" x:Key="BooleanInversionConverter"/>
-		<System:Double x:Key="SectionHeaderFontSize">28</System:Double>
-		<System:Double x:Key="ControlFontSize">24</System:Double>
-		<SolidColorBrush x:Key="SectionHeaderBackgroundBrush" Color="#FFD4D4D4"/>
+		
 	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->

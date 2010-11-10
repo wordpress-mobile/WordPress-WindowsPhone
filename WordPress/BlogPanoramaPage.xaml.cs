@@ -453,9 +453,9 @@ namespace WordPress
                 {
                     if (0 != viewsStatsChart.Series.Count)
                     {
-                        HideCharts();
+                        HideStatControls();
 
-                        viewsStatsChart.Visibility = Visibility.Visible;
+                        viewsStatsScrollViewer.Visibility = Visibility.Visible;
 
                         ColumnSeries series = viewsStatsChart.Series[0] as ColumnSeries;
 
@@ -477,10 +477,13 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
         }
 
-        private void HideCharts()
+        private void HideStatControls()
         {
-            viewsStatsChart.Visibility = Visibility.Collapsed;
-            postViewsStatsChart.Visibility = Visibility.Collapsed;
+            viewsStatsScrollViewer.Visibility = Visibility.Collapsed;
+            postViewsGrid.Visibility = Visibility.Collapsed;
+            searchTermsGrid.Visibility = Visibility.Collapsed;
+            referrersGrid.Visibility = Visibility.Collapsed;
+            clicksGrid.Visibility = Visibility.Collapsed;
         }
 
         private DateTimeIntervalType ConvertStatisticPeriodToIntervalType()
@@ -529,9 +532,9 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                HideCharts();
+                HideStatControls();
 
-                postViewsStatsChart.Visibility = Visibility.Visible;
+                postViewsGrid.Visibility = Visibility.Visible;
 
                 ObservableObjectCollection dataSource = Resources["postViewStatsDataSource"] as ObservableObjectCollection;
                 dataSource.Clear();
@@ -562,7 +565,13 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                //TODO: update the ui and data source
+                HideStatControls();
+
+                referrersGrid.Visibility = Visibility.Visible;
+
+                ObservableObjectCollection dataSource = Resources["referrerStatsDataSource"] as ObservableObjectCollection;
+                dataSource.Clear();
+                args.Items.ForEach(item => dataSource.Add(item));
             }
             else
             {
@@ -589,7 +598,13 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                //TODO: update the ui and data source
+                HideStatControls();
+
+                searchTermsGrid.Visibility = Visibility.Visible;
+
+                ObservableObjectCollection dataSource = Resources["searchTermStatsDataSource"] as ObservableObjectCollection;
+                dataSource.Clear();
+                args.Items.ForEach(item => dataSource.Add(item));
             }
             else
             {
@@ -616,7 +631,13 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                //TODO: update the ui and data source
+                HideStatControls();
+
+                clicksGrid.Visibility = Visibility.Visible;
+
+                ObservableObjectCollection dataSource = Resources["clickStatsDataSource"] as ObservableObjectCollection;
+                dataSource.Clear();
+                args.Items.ForEach(item => dataSource.Add(item));
             }
             else
             {
@@ -864,6 +885,18 @@ namespace WordPress
 
             string selection = args.AddedItems[0] as string;
             statisticTypeButton.Content = selection;
+        }
+
+        private void OnHyperLinkButtonClick(object sender, RoutedEventArgs args)
+        {
+            HyperlinkButton button = sender as HyperlinkButton;
+            if (null == button) return;
+
+            string url = button.Content as string;            
+            string urlFormatString = "/BrowserShellPage.xaml?uri={0}";
+            string pageUrl = string.Format(urlFormatString, url);
+            NavigationService.Navigate(new Uri(pageUrl, UriKind.Relative));
+
         }
 
         #endregion

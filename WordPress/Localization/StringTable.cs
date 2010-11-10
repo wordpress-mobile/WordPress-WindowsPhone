@@ -134,6 +134,12 @@ namespace WordPress.Localization
             public string CategoryParent { get { return LocalizedResources.ControlText_CategoryParent; } }
             public string None { get { return LocalizedResources.ControlText_None; } }
             public string Apikey { get { return LocalizedResources.ControlText_Apikey; } }
+            public string Date { get { return LocalizedResources.ControlText_Date; } }
+            public string Views { get { return LocalizedResources.ControlText_Views; } }
+            public string PostTitle { get { return LocalizedResources.ControlText_PostTitle; } }
+            public string Referrers { get { return LocalizedResources.ControlText_Referrers; } }
+            public string SearchTerms { get { return LocalizedResources.ControlText_SearchTerms; } }
+            public string Clicks { get { return LocalizedResources.ControlText_Clicks; } }
         }
 
         #endregion

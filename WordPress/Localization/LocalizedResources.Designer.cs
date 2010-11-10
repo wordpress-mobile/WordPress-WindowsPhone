@@ -277,11 +277,29 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clicks.
+        /// </summary>
+        internal static string ControlText_Clicks {
+            get {
+                return ResourceManager.GetString("ControlText_Clicks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to comment notifications.
         /// </summary>
         internal static string ControlText_CommentNotifications {
             get {
                 return ResourceManager.GetString("ControlText_CommentNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string ControlText_Date {
+            get {
+                return ResourceManager.GetString("ControlText_Date", resourceCulture);
             }
         }
         
@@ -457,6 +475,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post Title.
+        /// </summary>
+        internal static string ControlText_PostTitle {
+            get {
+                return ResourceManager.GetString("ControlText_PostTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to preferences.
         /// </summary>
         internal static string ControlText_Preferences {
@@ -471,6 +498,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Publish {
             get {
                 return ResourceManager.GetString("ControlText_Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Referrers.
+        /// </summary>
+        internal static string ControlText_Referrers {
+            get {
+                return ResourceManager.GetString("ControlText_Referrers", resourceCulture);
             }
         }
         
@@ -498,6 +534,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Save {
             get {
                 return ResourceManager.GetString("ControlText_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Terms.
+        /// </summary>
+        internal static string ControlText_SearchTerms {
+            get {
+                return ResourceManager.GetString("ControlText_SearchTerms", resourceCulture);
             }
         }
         
@@ -633,6 +678,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Vibrate {
             get {
                 return ResourceManager.GetString("ControlText_Vibrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Views.
+        /// </summary>
+        internal static string ControlText_Views {
+            get {
+                return ResourceManager.GetString("ControlText_Views", resourceCulture);
             }
         }
         

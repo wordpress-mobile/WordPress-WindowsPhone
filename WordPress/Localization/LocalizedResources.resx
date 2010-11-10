@@ -575,4 +575,22 @@
   <data name="Message_DownloadingStatistics" xml:space="preserve">
     <value>downloading statistics...</value>
   </data>
+  <data name="ControlText_Clicks" xml:space="preserve">
+    <value>Clicks</value>
+  </data>
+  <data name="ControlText_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ControlText_PostTitle" xml:space="preserve">
+    <value>Post Title</value>
+  </data>
+  <data name="ControlText_Referrers" xml:space="preserve">
+    <value>Referrers</value>
+  </data>
+  <data name="ControlText_SearchTerms" xml:space="preserve">
+    <value>Search Terms</value>
+  </data>
+  <data name="ControlText_Views" xml:space="preserve">
+    <value>Views</value>
+  </data>
 </root>
