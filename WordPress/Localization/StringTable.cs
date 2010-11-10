@@ -62,6 +62,7 @@ namespace WordPress.Localization
             public string SelectCategories { get { return LocalizedResources.ControlText_SelectCategories; } }
             public string AddNewCategory { get { return LocalizedResources.Title_AddNewCategory; } }
             public string NewPost { get { return LocalizedResources.Title_NewPost; } }
+            public string NewPage { get { return LocalizedResources.Title_NewPage; } }
         }
 
         #endregion

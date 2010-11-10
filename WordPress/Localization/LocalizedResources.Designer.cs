@@ -1357,6 +1357,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to new page.
+        /// </summary>
+        internal static string Title_NewPage {
+            get {
+                return ResourceManager.GetString("Title_NewPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to new post.
         /// </summary>
         internal static string Title_NewPost {

@@ -602,4 +602,7 @@
   <data name="Title_NewPost" xml:space="preserve">
     <value>new post</value>
   </data>
+  <data name="Title_NewPage" xml:space="preserve">
+    <value>new page</value>
+  </data>
 </root>

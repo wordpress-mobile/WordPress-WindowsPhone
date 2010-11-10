@@ -6,6 +6,7 @@ using Microsoft.Phone.Shell;
 
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Settings;
 
 namespace WordPress
 {
@@ -76,6 +77,11 @@ namespace WordPress
             else
             {
                 DataContext = new Post();
+                UserSettings settings = new UserSettings();
+                if (settings.UseTaglineForNewPosts)
+                {
+                    contentTextBox.Text = settings.Tagline;
+                }
             }
         }
 
