@@ -61,6 +61,7 @@ namespace WordPress.Localization
             public string Spam { get { return LocalizedResources.Title_Spam; } }
             public string SelectCategories { get { return LocalizedResources.ControlText_SelectCategories; } }
             public string AddNewCategory { get { return LocalizedResources.Title_AddNewCategory; } }
+            public string NewPost { get { return LocalizedResources.Title_NewPost; } }
         }
 
         #endregion
@@ -140,6 +141,8 @@ namespace WordPress.Localization
             public string Referrers { get { return LocalizedResources.ControlText_Referrers; } }
             public string SearchTerms { get { return LocalizedResources.ControlText_SearchTerms; } }
             public string Clicks { get { return LocalizedResources.ControlText_Clicks; } }
+            public string Title { get { return LocalizedResources.ControlText_Title; } }
+            public string Content { get { return LocalizedResources.ControlText_Content; } }
         }
 
         #endregion

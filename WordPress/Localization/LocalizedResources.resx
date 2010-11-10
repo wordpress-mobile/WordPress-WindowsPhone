@@ -593,4 +593,13 @@
   <data name="ControlText_Views" xml:space="preserve">
     <value>Views</value>
   </data>
+  <data name="ControlText_Content" xml:space="preserve">
+    <value>content</value>
+  </data>
+  <data name="ControlText_Title" xml:space="preserve">
+    <value>title</value>
+  </data>
+  <data name="Title_NewPost" xml:space="preserve">
+    <value>new post</value>
+  </data>
 </root>

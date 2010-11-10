@@ -70,41 +70,23 @@
         </Style>
 
         <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Foreground" Value="{StaticResource WordPressBlueBrush}"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
             <Setter Property="Margin" Value="12,0"/>
         </Style>
 
         <Style x:Key="BasicButtonStyle" TargetType="Button">
-            <Setter Property="BorderBrush">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </Setter.Value>
-            </Setter>
             <Setter Property="Background" Value="#BFFFFFFF"/>
+            <Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>   
+            <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
         </Style>
 
         <Style x:Key="BasicToggleButtonStyle" TargetType="ToggleButton">
-            <Setter Property="BorderBrush">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="FontSize" Value="21.333"/>
             <Setter Property="Background" Value="#BFFFFFFF"/>
+            <Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
+            <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
         </Style>
 
         <Style x:Key="LayoutRootStyle" TargetType="Grid">

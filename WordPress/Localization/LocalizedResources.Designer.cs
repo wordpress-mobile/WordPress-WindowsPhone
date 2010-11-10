@@ -295,6 +295,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to content.
+        /// </summary>
+        internal static string ControlText_Content {
+            get {
+                return ResourceManager.GetString("ControlText_Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string ControlText_Date {
@@ -615,6 +624,15 @@ namespace WordPress.Localization {
         internal static string ControlText_TagsAndCategories {
             get {
                 return ResourceManager.GetString("ControlText_TagsAndCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to title.
+        /// </summary>
+        internal static string ControlText_Title {
+            get {
+                return ResourceManager.GetString("ControlText_Title", resourceCulture);
             }
         }
         
@@ -1335,6 +1353,15 @@ namespace WordPress.Localization {
         internal static string Title_ModerateComments {
             get {
                 return ResourceManager.GetString("Title_ModerateComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new post.
+        /// </summary>
+        internal static string Title_NewPost {
+            get {
+                return ResourceManager.GetString("Title_NewPost", resourceCulture);
             }
         }
         

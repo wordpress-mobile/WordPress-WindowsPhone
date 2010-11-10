@@ -93,6 +93,7 @@
       <DependentUpon>BrowserShellPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
+    <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Utils\ObservableObjectCollection.cs" />
     <Compile Include="Converters\BooleanInversionConverter.cs" />
     <Compile Include="Converters\CategoryContentConverter.cs" />
