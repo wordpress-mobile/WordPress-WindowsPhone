@@ -97,6 +97,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to add all.
+        /// </summary>
+        internal static string ControlText_AddAll {
+            get {
+                return ResourceManager.GetString("ControlText_AddAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to add a page.
         /// </summary>
         internal static string ControlText_AddAPage {
@@ -138,6 +147,15 @@ namespace WordPress.Localization {
         internal static string ControlText_AddMedia {
             get {
                 return ResourceManager.GetString("ControlText_AddMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to add selected.
+        /// </summary>
+        internal static string ControlText_AddSelected {
+            get {
+                return ResourceManager.GetString("ControlText_AddSelected", resourceCulture);
             }
         }
         
@@ -552,6 +570,15 @@ namespace WordPress.Localization {
         internal static string ControlText_SearchTerms {
             get {
                 return ResourceManager.GetString("ControlText_SearchTerms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select the blog or blogs you&apos;d like to import..
+        /// </summary>
+        internal static string ControlText_SelectBlogs {
+            get {
+                return ResourceManager.GetString("ControlText_SelectBlogs", resourceCulture);
             }
         }
         

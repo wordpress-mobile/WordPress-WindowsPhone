@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -126,22 +128,24 @@ namespace WordPress
             GetUsersBlogsRPC rpc = sender as GetUsersBlogsRPC;
             rpc.Completed -= OnGetUsersBlogsCompleted;
 
+            App.WaitIndicationService.KillSpinner();
+
             if (null == args.Error)
             {
-                //TODO: if multiple blogs are returned, ask the user to select which blogs 
-                //to add to the data store
-                foreach (Blog blog in args.Items)
+                if (1 == args.Items.Count)
                 {
-                    DataService.Current.Blogs.Add(blog);
+                    DataService.Current.Blogs.Add(args.Items[0]);
+                    NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
                 }
-                NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
+                else
+                {
+                    ShowBlogSelectionControl(args.Items);
+                }
             }
             else
             {
-                MessageBox.Show(args.Error.Message);
+                this.HandleException(args.Error);
             }
-
-            App.WaitIndicationService.HideIndicator();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -165,6 +169,8 @@ namespace WordPress
             {
                 passwordPasswordBox.Password = (string)State[PASSWORDKEY_VALUE];
             }
+
+            HideBlogSelectionControl();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -197,6 +203,47 @@ namespace WordPress
             NavigationService.Navigate(new Uri(uriString, UriKind.Relative));
         }
 
+        private void HideBlogSelectionControl()
+        {
+            blogSelectionControl.Visibility = Visibility.Collapsed;
+            blogSelectionControl.Blogs = null;
+            ContentPanel.Visibility = Visibility.Visible;
+            ApplicationBar.IsVisible = true;
+        }
+
+        private void ShowBlogSelectionControl(List<Blog> items)
+        {
+            ApplicationBar.IsVisible = false;
+            ContentPanel.Visibility = Visibility.Collapsed;
+            blogSelectionControl.Visibility = Visibility.Visible;
+            blogSelectionControl.Blogs = items;
+        }
+
+        private void OnBlogsSelected(object sender, RoutedEventArgs e)
+        {
+            blogSelectionControl.SelectedItems.ForEach(blog =>
+            {
+                if (!(DataService.Current.Blogs.Any(b => b.BlogId == blog.BlogId)))
+                {
+                    DataService.Current.Blogs.Add(blog);
+                }
+            });
+
+            NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (Visibility.Visible == blogSelectionControl.Visibility)
+            {
+                HideBlogSelectionControl();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
         #endregion
 
     }

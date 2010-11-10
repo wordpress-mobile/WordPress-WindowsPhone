@@ -605,4 +605,13 @@
   <data name="Title_NewPage" xml:space="preserve">
     <value>new page</value>
   </data>
+  <data name="ControlText_AddAll" xml:space="preserve">
+    <value>add all</value>
+  </data>
+  <data name="ControlText_AddSelected" xml:space="preserve">
+    <value>add selected</value>
+  </data>
+  <data name="ControlText_SelectBlogs" xml:space="preserve">
+    <value>Please select the blog or blogs you'd like to import.</value>
+  </data>
 </root>

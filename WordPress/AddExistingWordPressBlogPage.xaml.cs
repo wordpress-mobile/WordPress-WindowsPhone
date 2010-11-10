@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -7,6 +8,7 @@ using Microsoft.Phone.Shell;
 
 using WordPress.Localization;
 using WordPress.Model;
+using System.Collections.Generic;
 
 namespace WordPress
 {
@@ -97,11 +99,6 @@ namespace WordPress
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="control"></param>
         private void PromptUserForInput(string message, Control control)
         {
             MessageBox.Show(message);
@@ -113,22 +110,32 @@ namespace WordPress
             GetUsersBlogsRPC rpc = sender as GetUsersBlogsRPC;
             rpc.Completed -= OnGetUsersBlogsCompleted;
 
+            App.WaitIndicationService.KillSpinner();
+
             if (null == args.Error)
-            {                
-                //TODO: if multiple blogs are returned, ask the user to select which blogs 
-                //to add to the data store
-                foreach (Blog blog in args.Items)
-                {                    
-                    DataService.Current.Blogs.Add(blog);
+            {
+                if (1 == args.Items.Count)
+                {
+                    DataService.Current.Blogs.Add(args.Items[0]);
+                    NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
                 }
-                NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
+                else
+                {
+                    ShowBlogSelectionControl(args.Items);
+                }
             }
             else
             {
-                MessageBox.Show(args.Error.Message);
+                this.HandleException(args.Error);
             }
+        }
 
-            App.WaitIndicationService.HideIndicator();
+        private void ShowBlogSelectionControl(List<Blog> items)
+        {
+            ApplicationBar.IsVisible = false;
+            ContentPanel.Visibility = Visibility.Collapsed;
+            blogSelectionControl.Visibility = Visibility.Visible;
+            blogSelectionControl.Blogs = items;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -147,6 +154,16 @@ namespace WordPress
             {
                 passwordPasswordBox.Password = (string)State[PASSWORDKEY_VALUE];
             }
+
+            HideBlogSelectionControl();
+        }
+
+        private void HideBlogSelectionControl()
+        {
+            blogSelectionControl.Visibility = Visibility.Collapsed;
+            blogSelectionControl.Blogs = null;             
+            ContentPanel.Visibility = Visibility.Visible;            
+            ApplicationBar.IsVisible = true;
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -172,8 +189,35 @@ namespace WordPress
             string uriString = string.Format("/BrowserShellPage.xaml?uri={0}", Constants.WORDPRESS_SIGNUP_URL);
             NavigationService.Navigate(new Uri(uriString, UriKind.Relative));
         }
+        
+        private void OnBlogsSelected(object sender, RoutedEventArgs e)
+        {
+            blogSelectionControl.SelectedItems.ForEach(blog =>
+            {
+                if (!(DataService.Current.Blogs.Any(b => b.BlogId == blog.BlogId)))
+                {
+                    DataService.Current.Blogs.Add(blog);
+                }
+            });
+
+            NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
+        }
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (Visibility.Visible == blogSelectionControl.Visibility)
+            {
+                HideBlogSelectionControl();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
 
         #endregion
+
         
     }
 }

@@ -83,6 +83,9 @@
     <Compile Include="BlogPanoramaPage.xaml.cs">
       <DependentUpon>BlogPanoramaPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BlogSelectionControl.xaml.cs">
+      <DependentUpon>BlogSelectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BlogSettingsPage.xaml.cs">
       <DependentUpon>BlogSettingsPage.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,10 @@
     </Page>
     <Page Include="BlogPanoramaPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BlogSelectionControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BlogSettingsPage.xaml">
