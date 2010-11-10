@@ -9,6 +9,7 @@ using Microsoft.Phone.Shell;
 using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Settings;
 
 namespace WordPress
 {
@@ -123,6 +124,11 @@ namespace WordPress
             {
                 Post post = new Post();
                 DataContext = post;
+                UserSettings settings = new UserSettings();
+                if (settings.UseTaglineForNewPosts)
+                {
+                    contentTextBox.Text = settings.Tagline;
+                }
                 App.MasterViewModel.CurrentPost = post;
             }
         }
