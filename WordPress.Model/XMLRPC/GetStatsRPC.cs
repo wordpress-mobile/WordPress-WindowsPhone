@@ -280,7 +280,7 @@ namespace WordPress.Model
                     valueElement = ((XElement)nameElement.NextNode).DescendantNodes().First() as XElement;
                     if (!int.TryParse(valueElement.Value, out faultCode))
                     {
-                        //TODO: what to do here?
+                        return new ArgumentException("Unable to parse fault code from response");
                     }
                 }
                 else if (XmlRPCResponseConstants.FAULTSTRING_VALUE.Equals(nameElement.Value))

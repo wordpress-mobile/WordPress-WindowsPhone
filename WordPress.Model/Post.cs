@@ -397,8 +397,7 @@ namespace WordPress.Model
                     value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
                     if (!int.TryParse(value, out _postId))
                     {
-                        //TODO: need to handle this better...
-                        _postId = -1;
+                        throw new ArgumentException("Unable to successfully parse Post ID from response");
                     }
                 }
                 else if (DESCRIPTION_VALUE.Equals(memberName))
