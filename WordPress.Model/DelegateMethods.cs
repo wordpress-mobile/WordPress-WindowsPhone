@@ -4,18 +4,38 @@ using System.Collections.Generic;
 
 namespace WordPress.Model
 {
-    public class XmlRPCEventArgs<T>: EventArgs where T : INotifyPropertyChanged
-    {
-        public XmlRPCEventArgs()
-        {
-            Items = new List<T>();            
-        }
+    #region delegate method declarations
+        
+    /// <summary>
+    /// Used to communicate the progress of an xml rpc.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    public delegate void ProgressChangedEventHandler(object sender, ProgressChangedEventArgs args);
 
-        public List<T> Items { get; private set; }
-    }
+    /// <summary>
+    /// Used to communicate that an xml rpc has completed.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    public delegate void XMLRPCCompletedEventHandler<T>(object sender, XMLRPCCompletedEventArgs<T> args) where T : INotifyPropertyChanged;
 
-    public delegate void XmlRPCSucceededHandler<T>(object sender, XmlRPCEventArgs<T> args) where T:INotifyPropertyChanged;
+    /// <summary>
+    /// Used by the DataService to communicate that an error has occurred performing an operation.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    public delegate void ExceptionEventHandler(object sender, ExceptionEventArgs args);
+    
+    #endregion
 
+    #region event arg subclasses
+
+    /// <summary>
+    /// Used to wrap a fault code returned by the WordPress system when a remote procedure
+    /// call fails.
+    /// </summary>
     public class XmlRPCException : Exception
     {
         public XmlRPCException() : base() { }
@@ -35,20 +55,12 @@ namespace WordPress.Model
         public int FaultCode { get; private set; }        
     }
 
-    public delegate void XmlRPCFailedHandler(object sender, Exception exception);
-
-
-
-    /*-----------------------------------------------------
-     * Delegate declarations...
-     * --------------------------------------------------*/
-
-    public delegate void ProgressChangedEventHandler(object sender, ProgressChangedEventArgs args);
-
-
-    /*-----------------------------------------------------
-     * Event arg declarations...
-     * ---------------------------------------------------*/
+    /// <summary>
+    /// Used to indicate that an xml rpc has completed.  If an exception has occurred during the call
+    /// the Error property will reference the exception; if the Error property returns null that indicates
+    /// the xml rpc completed successfully.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class XMLRPCCompletedEventArgs<T> : AsyncCompletedEventArgs where T : INotifyPropertyChanged
     {
         public XMLRPCCompletedEventArgs(T item, Exception ex, bool canceled, object state)
@@ -74,8 +86,10 @@ namespace WordPress.Model
         public List<T> Items { get; private set; }
     }
 
-    public delegate void XMLRPCCompletedEventHandler<T>(object sender, XMLRPCCompletedEventArgs<T> args) where T : INotifyPropertyChanged;
-
+    /// <summary>
+    /// Used to communicate an exception has occurred on a task that may have been executed
+    /// on a separate thread.
+    /// </summary>
     public class ExceptionEventArgs : EventArgs
     {
         public ExceptionEventArgs(Exception exception)
@@ -87,5 +101,5 @@ namespace WordPress.Model
         public Exception Exception { get; private set; }
     }
 
-    public delegate void ExceptionEventHandler(object sender, ExceptionEventArgs args);
+    #endregion
 }
