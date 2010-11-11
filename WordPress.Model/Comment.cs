@@ -319,7 +319,6 @@ namespace WordPress.Model
                 throw new ArgumentException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
-            //TODO: research performance on this, seems a bit wordy...
             string value = null;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {

@@ -224,8 +224,7 @@ namespace WordPress.Model
 
             request.BeginGetRequestStream(OnBeginGetRequestStreamCompleted, state);
 
-            //TODO: wrap this in try/catch?
-            asyncOp.Post(onProgressReportDelegate, new ProgressChangedEventArgs(20, asyncOp.UserSuppliedState));
+            asyncOp.Post(onProgressReportDelegate, new ProgressChangedEventArgs(20, asyncOp.UserSuppliedState));            
         }
 
         private void OnBeginGetRequestStreamCompleted(IAsyncResult result)
@@ -255,7 +254,6 @@ namespace WordPress.Model
 
             request.BeginGetResponse(OnBeginGetResponseCompleted, state);
 
-            //TODO: wrap this in try/catch?
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(40, state.Operation.UserSuppliedState));
         }
 
@@ -276,9 +274,7 @@ namespace WordPress.Model
                 return;
             }
 
-            //TODO: wrap this in try/catch?
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(60, state.Operation.UserSuppliedState));
-
 
             Stream responseStream = response.GetResponseStream();
             string responseContent = null;
@@ -296,7 +292,6 @@ namespace WordPress.Model
                 return;
             }
 
-            //TODO: wrap this in try/catch?
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(80, state.Operation.UserSuppliedState));
 
             //search for fault code/fault string

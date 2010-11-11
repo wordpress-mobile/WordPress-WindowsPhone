@@ -268,7 +268,6 @@ namespace WordPress.Model
                 throw new ArgumentException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
-            //TODO: research performance on this, seems a bit wordy...
             string value = null;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
@@ -288,7 +287,7 @@ namespace WordPress.Model
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     if (!int.TryParse(value, out _blogId))
                     {
-                        //TODO: throw exception here?  failure to parse this is a major problem
+                        throw new ArgumentException("Unable to successfully parse Blog ID from server response");
                     }
                 }
                 else if (BLOGNAME_VALUE.Equals(memberName))
