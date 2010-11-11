@@ -376,7 +376,6 @@ namespace WordPress.Model
                 if (DATECREATED_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
-                    //TODO: confirm that this is correct...    
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
@@ -489,7 +488,6 @@ namespace WordPress.Model
                 else if (DATECREATEDGMT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
-                    //TODO: confirm that this is correct...    
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {

@@ -211,11 +211,13 @@ namespace WordPress
         }
 
         private void DeletePost()
-        {
-            //TODO: prompt the user to confirm the delete
-
+        {           
             PostListItem postItem = postsListBox.SelectedItem as PostListItem;
             if (null == postItem) return;
+
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmDeletePostFormat, postItem.Title);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
+            if (MessageBoxResult.Cancel == result) return;
 
             //TODO: rework the RPC--inefficient to create a new post just to call the delete rpc
             Post post = new Post();
@@ -354,10 +356,13 @@ namespace WordPress
 
         private void DeletePage()
         {
-            //TODO: prompt the user to confirm the delete
-
             PageListItem pageListItem = pagesListBox.SelectedItem as PageListItem;
             if (null == pageListItem) return;
+
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmDeletePageFormat, pageListItem.PageTitle);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
+            if (MessageBoxResult.Cancel == result) return;
+
 
             //TODO: rework the RPC--inefficient to create a new post just to call the delete rpc
             Post post = new Post();

@@ -633,4 +633,13 @@
   <data name="Title_CheckTheUrl" xml:space="preserve">
     <value>Is the url valid?</value>
   </data>
+  <data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
+    <value>Are you sure you want to delete page '{0}'?</value>
+  </data>
+  <data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
+    <value>Are you sure you want to delete post '{0}'?</value>
+  </data>
+  <data name="Title_ConfirmDelete" xml:space="preserve">
+    <value>Confirm delete</value>
+  </data>
 </root>

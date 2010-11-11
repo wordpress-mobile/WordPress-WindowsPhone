@@ -1241,6 +1241,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete page &apos;{0}&apos;?.
+        /// </summary>
+        internal static string Prompt_ConfirmDeletePageFormat {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmDeletePageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete post &apos;{0}&apos;?.
+        /// </summary>
+        internal static string Prompt_ConfirmDeletePostFormat {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmDeletePostFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Page Actions.
         /// </summary>
         internal static string Prompt_PageActions {
@@ -1417,6 +1435,15 @@ namespace WordPress.Localization {
         internal static string Title_Comments {
             get {
                 return ResourceManager.GetString("Title_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm delete.
+        /// </summary>
+        internal static string Title_ConfirmDelete {
+            get {
+                return ResourceManager.GetString("Title_ConfirmDelete", resourceCulture);
             }
         }
         
