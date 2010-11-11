@@ -772,19 +772,39 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GNU GENERAL PUBLIC LICENSE
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///
+        ///&lt;head&gt;
+        ///&lt;meta content=&quot;text/html; charset=utf-8&quot; http-equiv=&quot;Content-Type&quot; /&gt;
+        ///&lt;title&gt;Untitled 1&lt;/title&gt;
+        ///&lt;/head&gt;
+        ///
+        ///&lt;body style=&quot;color: #FFFFFF; background-color: #000000; font-size:45px&quot;&gt;
+        ///&lt;p&gt;
+        ///GNU GENERAL PUBLIC LICENSE
+        ///&lt;/p&gt;
+        ///&lt;p&gt;
         ///Version 2, June 1991
+        ///&lt;/p&gt;
+        ///&lt;p&gt;
         ///Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-        ///675 Mass Ave, Cambridge, MA 02139, USA
-        ///Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
-        ///
-        ///Preamble
-        ///
-        ///The licenses for most software are designed to take away your freedom to share and change it.  By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the so [rest of string was truncated]&quot;;.
+        ///&lt;/p&gt;
+        ///&lt;p&gt;
+        ///675 Ma [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Eula {
             get {
                 return ResourceManager.GetString("Eula", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There may be a problem with the url that was entered.  Did the url start with http://, or was xmlrpc.php left off the end?  The default for the WordPress.com site, for example, is https://wordpress.com/xmlrpc.php..
+        /// </summary>
+        internal static string Message_CheckTheUrl {
+            get {
+                return ResourceManager.GetString("Message_CheckTheUrl", resourceCulture);
             }
         }
         
@@ -1275,7 +1295,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a url..
+        ///   Looks up a localized string similar to Please enter a valid url..
         /// </summary>
         internal static string Prompts_MissingUrl {
             get {
@@ -1379,6 +1399,15 @@ namespace WordPress.Localization {
         internal static string Title_Blogs {
             get {
                 return ResourceManager.GetString("Title_Blogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is the url valid?.
+        /// </summary>
+        internal static string Title_CheckTheUrl {
+            get {
+                return ResourceManager.GetString("Title_CheckTheUrl", resourceCulture);
             }
         }
         

@@ -58,6 +58,12 @@ namespace WordPress
 
         private void AttemptToLoginAsync()
         {
+            if (!ValidateUrl())
+            {
+                PromptUserForInput(_localizedStrings.Prompts.MissingUrl, urlTextBox);
+                return;
+            }
+
             if (!ValidateUserName())
             {
                 PromptUserForInput(_localizedStrings.Prompts.MissingUserName, usernameTextBox);
@@ -68,11 +74,6 @@ namespace WordPress
             {
                 PromptUserForInput(_localizedStrings.Prompts.MissingPassword, passwordPasswordBox);
                 return;
-            }
-
-            if (!ValidateUrl())
-            {
-                PromptUserForInput(_localizedStrings.Prompts.MissingUrl, urlTextBox);
             }
 
             string username = usernameTextBox.Text;
@@ -108,8 +109,9 @@ namespace WordPress
 
         private bool ValidateUrl()
         {
-            bool result = !string.IsNullOrEmpty(urlTextBox.Text);
-            return result;
+            Uri testUri;            
+            bool result = Uri.TryCreate(urlTextBox.Text, UriKind.Absolute, out testUri);
+            return result;            
         }
 
         /// <summary>
@@ -144,6 +146,13 @@ namespace WordPress
             }
             else
             {
+                if (args.Error is NotSupportedException)
+                {
+
+                    this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
+                    urlTextBox.Focus();
+                    return;
+                }
                 this.HandleException(args.Error);
             }
         }
