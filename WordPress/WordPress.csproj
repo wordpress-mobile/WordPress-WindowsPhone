@@ -80,6 +80,7 @@
     <Compile Include="AddNewCategoryPage.xaml.cs">
       <DependentUpon>AddNewCategoryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationShouldEndException.cs" />
     <Compile Include="BlogPanoramaPage.xaml.cs">
       <DependentUpon>BlogPanoramaPage.xaml</DependentUpon>
     </Compile>
@@ -98,6 +99,9 @@
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
+    <Compile Include="EulaControl.xaml.cs">
+      <DependentUpon>EulaControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ObservableObjectCollection.cs" />
     <Compile Include="Converters\BooleanInversionConverter.cs" />
     <Compile Include="Converters\CategoryContentConverter.cs" />
@@ -189,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EulaControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LocateBlogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -258,6 +266,7 @@
     <Content Include="Images\appbar.unapprove.png" />
     <Resource Include="Images\panoramaActions.png" />
     <Resource Include="Images\locateBlogBackground.jpg" />
+    <None Include="Localization\Eula.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

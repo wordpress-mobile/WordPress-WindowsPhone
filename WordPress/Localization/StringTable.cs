@@ -147,6 +147,10 @@ namespace WordPress.Localization
             public string SelectBlogs { get { return LocalizedResources.ControlText_SelectBlogs; } }
             public string AddAll { get { return LocalizedResources.ControlText_AddAll; } }
             public string AddSelected { get { return LocalizedResources.ControlText_AddSelected; } }
+            public string EULA { get { return LocalizedResources.ControlText_EULA; } }
+            public string EULA_Content { get { return LocalizedResources.Eula; } }
+            public string Accept { get { return LocalizedResources.ControlText_Accept; } }
+            public string Decline { get { return LocalizedResources.ControlText_Decline; } }
         }
 
         #endregion

@@ -17,6 +17,7 @@ namespace WordPress.Settings
                 
         private const string USETAGLINEFORNEWPOSTS_VALUE = "useTaglineForNewPosts";
         private const string TAGLINE_VALUE = "tagline";
+        private const string ACCEPTED_EULA = "acceptedEula";
 
         private StringTable _localizedStrings;
 
@@ -99,6 +100,29 @@ namespace WordPress.Settings
                         Settings[TAGLINE_VALUE] = _localizedStrings.ControlsText.DefaultTagline;
                     }
                     NotifyPropertyChanged("Tagline");
+                }
+            }
+        }
+
+        public bool AcceptedEula
+        {
+            get
+            {
+                bool result = false;
+
+                if (Settings.Contains(ACCEPTED_EULA))
+                {
+                    result = (bool)Settings[ACCEPTED_EULA];
+                }
+                return result;
+            }
+            set
+            {
+                bool oldValue = AcceptedEula;
+                if (value != oldValue)
+                {
+                    Settings[ACCEPTED_EULA] = value;
+                    NotifyPropertyChanged("AcceptedEula");
                 }
             }
         }

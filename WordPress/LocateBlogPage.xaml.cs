@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.Phone.Controls;
 
 using WordPress.Model;
+using WordPress.Settings;
 
 namespace WordPress
 {
@@ -13,6 +14,7 @@ namespace WordPress
         public LocateBlogPage()
         {
             InitializeComponent();
+            Loaded += OnPageLoaded;
         }
 
         #endregion
@@ -35,6 +37,14 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/AddExistingWordPressSitePage.xaml", UriKind.Relative));
         }
 
+        private void OnPageLoaded(object sender, RoutedEventArgs args)
+        {
+            UserSettings settings = new UserSettings();
+            if (!settings.AcceptedEula)
+            {
+                eulaControl.Visibility = Visibility.Visible;
+            }
+        }
         #endregion
 
     }

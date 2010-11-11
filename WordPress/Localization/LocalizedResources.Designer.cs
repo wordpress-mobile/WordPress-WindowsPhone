@@ -79,6 +79,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string ControlText_Accept {
+            get {
+                return ResourceManager.GetString("ControlText_Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to account details.
         /// </summary>
         internal static string ControlText_AccountDetails {
@@ -331,6 +340,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Decline.
+        /// </summary>
+        internal static string ControlText_Decline {
+            get {
+                return ResourceManager.GetString("ControlText_Decline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posted from WordPress for WP7.
         /// </summary>
         internal static string ControlText_DefaultTagLine {
@@ -354,6 +372,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Edit {
             get {
                 return ResourceManager.GetString("ControlText_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End User License Agreement.
+        /// </summary>
+        internal static string ControlText_EULA {
+            get {
+                return ResourceManager.GetString("ControlText_EULA", resourceCulture);
             }
         }
         
@@ -741,6 +768,23 @@ namespace WordPress.Localization {
         internal static string ControlText_Write {
             get {
                 return ResourceManager.GetString("ControlText_Write", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GNU GENERAL PUBLIC LICENSE
+        ///Version 2, June 1991
+        ///Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+        ///675 Mass Ave, Cambridge, MA 02139, USA
+        ///Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
+        ///
+        ///Preamble
+        ///
+        ///The licenses for most software are designed to take away your freedom to share and change it.  By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the so [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Eula {
+            get {
+                return ResourceManager.GetString("Eula", resourceCulture);
             }
         }
         
