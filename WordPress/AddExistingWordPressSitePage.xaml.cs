@@ -138,7 +138,7 @@ namespace WordPress
             {
                 if (1 == args.Items.Count)
                 {
-                    DataService.Current.Blogs.Add(args.Items[0]);
+                    DataService.Current.AddBlogToStore(args.Items[0]);
                     NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
                 }
                 else
@@ -150,7 +150,6 @@ namespace WordPress
             {
                 if (args.Error is NotSupportedException)
                 {
-
                     this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
                     urlTextBox.Focus();
                     return;
@@ -236,7 +235,7 @@ namespace WordPress
             {
                 if (!(DataService.Current.Blogs.Any(b => b.BlogId == blog.BlogId)))
                 {
-                    DataService.Current.Blogs.Add(blog);
+                    DataService.Current.AddBlogToStore(blog);
                 }
             });
 

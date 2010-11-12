@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace WordPress.Model
 {
-    public class DataService: IApplicationService, IApplicationLifetimeAware
+    public class DataService : IApplicationService, IApplicationLifetimeAware
     {
         #region member variables
 
@@ -33,32 +33,6 @@ namespace WordPress.Model
         public DataService()
         {
             Blogs = new ObservableCollection<Blog>();
-            Blogs.CollectionChanged += OnBlogsCollectionChanged;
-        }
-
-        private void OnBlogsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (NotifyCollectionChangedAction.Add == e.Action)
-            {
-                if (0 == e.NewItems.Count) return;
-
-                foreach (Blog newBlog in e.NewItems)
-                {
-                    if (string.IsNullOrEmpty(newBlog.ApiKey))
-                    {
-                        GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog);
-                        rpc.Completed += OnGetApiKeyRPCCompleted;
-                        rpc.ExecuteAsync();
-                    }
-                }
-            }
-        }
-
-        private void OnGetApiKeyRPCCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
-        {
-            //the blog is updated by the rpc.  all we have to do here is unbind
-            GetApiKeyRPC rpc = sender as GetApiKeyRPC;
-            rpc.Completed -= OnGetApiKeyRPCCompleted;
         }
 
         #endregion
@@ -100,7 +74,7 @@ namespace WordPress.Model
                 if (isoStore.FileExists(BLOGS_FILENAME))
                 {
                     isoStore.DeleteFile(BLOGS_FILENAME);
-                } 
+                }
             }
 
             CurrentBlog = null;
@@ -391,6 +365,27 @@ namespace WordPress.Model
             Initialize();
         }
 
+        public void AddBlogToStore(Blog newBlog)
+        {
+            if (!(Blogs.Contains(newBlog)))
+            {
+                Blogs.Add(newBlog);
+            }
+
+            if (string.IsNullOrEmpty(newBlog.ApiKey))
+            {
+                GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog);
+                rpc.Completed += OnGetApiKeyRPCCompleted;
+                rpc.ExecuteAsync();
+            }
+        }
+
+        private void OnGetApiKeyRPCCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
+        {
+            //the blog is updated by the rpc.  all we have to do here is unbind
+            GetApiKeyRPC rpc = sender as GetApiKeyRPC;
+            rpc.Completed -= OnGetApiKeyRPCCompleted;
+        }
         #endregion
 
         #region StoreData class definition

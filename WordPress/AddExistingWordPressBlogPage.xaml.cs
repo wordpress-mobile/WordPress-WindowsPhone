@@ -118,7 +118,7 @@ namespace WordPress
             {
                 if (1 == args.Items.Count)
                 {
-                    DataService.Current.Blogs.Add(args.Items[0]);
+                    DataService.Current.AddBlogToStore(args.Items[0]);
                     NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
                 }
                 else
@@ -198,7 +198,7 @@ namespace WordPress
             {
                 if (!(DataService.Current.Blogs.Any(b => b.BlogId == blog.BlogId)))
                 {
-                    DataService.Current.Blogs.Add(blog);
+                    DataService.Current.AddBlogToStore(blog);
                 }
             });
 
