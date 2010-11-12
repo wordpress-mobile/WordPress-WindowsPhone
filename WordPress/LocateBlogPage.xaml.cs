@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 
+using WordPress.Commands;
 using WordPress.Model;
 using WordPress.Settings;
 
@@ -23,8 +25,8 @@ namespace WordPress
 
         private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
-            string uriString = string.Format("/BrowserShellPage.xaml?uri={0}", Constants.WORDPRESS_SIGNUP_URL);
-            NavigationService.Navigate(new Uri(uriString, UriKind.Relative));
+            LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
+            command.Execute(Constants.WORDPRESS_SIGNUP_URL);
         }
 
         private void OnExistingWPBlogButtonClick(object sender, RoutedEventArgs e)

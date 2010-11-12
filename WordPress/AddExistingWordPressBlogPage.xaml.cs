@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 
+using WordPress.Commands;
 using WordPress.Localization;
 using WordPress.Model;
-using System.Collections.Generic;
 
 namespace WordPress
 {
@@ -186,8 +188,8 @@ namespace WordPress
 
         private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
-            string uriString = string.Format("/BrowserShellPage.xaml?uri={0}", Constants.WORDPRESS_SIGNUP_URL);
-            NavigationService.Navigate(new Uri(uriString, UriKind.Relative));
+            LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
+            command.Execute(Constants.WORDPRESS_SIGNUP_URL);
         }
         
         private void OnBlogsSelected(object sender, RoutedEventArgs e)

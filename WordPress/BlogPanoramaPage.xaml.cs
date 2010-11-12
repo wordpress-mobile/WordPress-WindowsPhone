@@ -894,11 +894,10 @@ namespace WordPress
             HyperlinkButton button = sender as HyperlinkButton;
             if (null == button) return;
 
-            string url = button.Content as string;            
+            string url = button.Content as string;
             string urlFormatString = "/BrowserShellPage.xaml?uri={0}";
             string pageUrl = string.Format(urlFormatString, url);
             NavigationService.Navigate(new Uri(pageUrl, UriKind.Relative));
-
         }
 
         #endregion

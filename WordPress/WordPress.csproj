@@ -96,6 +96,7 @@
     <Compile Include="BrowserShellPage.xaml.cs">
       <DependentUpon>BrowserShellPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\LaunchWebBrowserCommand.cs" />
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
