@@ -219,7 +219,6 @@ namespace WordPress
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
             if (MessageBoxResult.Cancel == result) return;
 
-            //TODO: rework the RPC--inefficient to create a new post just to call the delete rpc
             Post post = new Post();
             post.PostId = postItem.PostId;
 
@@ -363,8 +362,6 @@ namespace WordPress
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
             if (MessageBoxResult.Cancel == result) return;
 
-
-            //TODO: rework the RPC--inefficient to create a new post just to call the delete rpc
             Post post = new Post();
             post.PostId = pageListItem.PageId;
 
