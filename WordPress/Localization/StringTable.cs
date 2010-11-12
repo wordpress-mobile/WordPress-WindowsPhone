@@ -153,6 +153,7 @@ namespace WordPress.Localization
             public string EULA_Content { get { return LocalizedResources.Eula; } }
             public string Accept { get { return LocalizedResources.ControlText_Accept; } }
             public string Decline { get { return LocalizedResources.ControlText_Decline; } }
+            public string DeleteBlog { get { return LocalizedResources.ControlText_DeleteBlog; } }
         }
 
         #endregion
@@ -250,6 +251,7 @@ namespace WordPress.Localization
             public string MissingApikey { get { return LocalizedResources.Prompts_MissingApikey; } }
             public string ConfirmDeletePageFormat { get { return LocalizedResources.Prompt_ConfirmDeletePageFormat; } }
             public string ConfirmDeletePostFormat { get { return LocalizedResources.Prompt_ConfirmDeletePostFormat; } }
+            public string SelectBlogToDelete { get { return LocalizedResources.Prompts_SelectBlogToDelete; } }
         }
 
         #endregion

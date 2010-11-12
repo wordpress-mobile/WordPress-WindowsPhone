@@ -642,4 +642,10 @@
   <data name="Title_ConfirmDelete" xml:space="preserve">
     <value>Confirm delete</value>
   </data>
+  <data name="ControlText_DeleteBlog" xml:space="preserve">
+    <value>delete blog</value>
+  </data>
+  <data name="Prompts_SelectBlogToDelete" xml:space="preserve">
+    <value>Please select the blog you'd like to delete.</value>
+  </data>
 </root>

@@ -367,6 +367,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete blog.
+        /// </summary>
+        internal static string ControlText_DeleteBlog {
+            get {
+                return ResourceManager.GetString("ControlText_DeleteBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to edit.
         /// </summary>
         internal static string ControlText_Edit {
@@ -1336,6 +1345,15 @@ namespace WordPress.Localization {
         internal static string Prompts_RefreshEntity {
             get {
                 return ResourceManager.GetString("Prompts_RefreshEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select the blog you&apos;d like to delete..
+        /// </summary>
+        internal static string Prompts_SelectBlogToDelete {
+            get {
+                return ResourceManager.GetString("Prompts_SelectBlogToDelete", resourceCulture);
             }
         }
         
