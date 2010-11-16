@@ -348,7 +348,7 @@ namespace WordPress
             //build out ui updates
             BitmapImage image = BuildBitmap(chosenPhoto);            
             Image imageElement = BuildImageElement(image);
-            imageStackPanel.Children.Add(imageElement);
+            imageWrapPanel.Children.Add(imageElement);
 
             //build out upload rpcs
             int length = (int)chosenPhoto.Length;
@@ -389,7 +389,7 @@ namespace WordPress
 
         private void ClearMedia()
         {
-            imageStackPanel.Children.Clear();
+            imageWrapPanel.Children.Clear();
             _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
             _mediaUploadRPCs.Clear();
         }
