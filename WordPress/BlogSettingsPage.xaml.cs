@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
@@ -19,7 +22,7 @@ namespace WordPress
 
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
-
+        private List<int> _thumbnailSizes;
         #endregion
 
         #region constructor
@@ -27,6 +30,13 @@ namespace WordPress
         public BlogSettingsPage()
         {
             InitializeComponent();
+
+            _thumbnailSizes = new List<int>();
+            int limit = 10;
+            for (int i = 0; i < limit; i++)
+            {
+                _thumbnailSizes.Add((i + 1) * 100);
+            }
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
@@ -45,6 +55,19 @@ namespace WordPress
         #endregion
 
         #region methods
+
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (App.PopupSelectionService.IsPopupOpen)
+            {
+                HidePopupSelectionService();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
 
         private void OnPageLoaded(object sender, EventArgs args)
         {
@@ -110,7 +133,7 @@ namespace WordPress
             {
                 blog.Username = (string)State[USERNAME_VALUE];
             }
-            
+
             if (State.ContainsKey(PASSWORD_VALUE))
             {
                 blog.Password = (string)State[PASSWORD_VALUE];
@@ -130,6 +153,41 @@ namespace WordPress
                 blog.EndEdit();
             }
             NavigationService.GoBack();
+        }
+
+        private void OnThumbnailPixelWidthButtonClick(object sender, RoutedEventArgs args)
+        {
+            ShowThumbnailSizeSelections();
+        }
+
+        private void ShowThumbnailSizeSelections()
+        {
+            App.PopupSelectionService.Title = _localizedStrings.Prompts.SelectThumbnailSize;
+            App.PopupSelectionService.ItemsSource = _thumbnailSizes;
+            App.PopupSelectionService.SelectionChanged += new SelectionChangedEventHandler(OnPopupSelectionServiceSelectionChanged);
+            App.PopupSelectionService.ShowPopup();
+        }
+
+        private void OnPopupSelectionServiceSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (0 == e.AddedItems.Count) return;
+            if (!(e.AddedItems[0] is int)) return;
+
+            int selection = (int)e.AddedItems[0];
+            if (_thumbnailSizes.Contains(selection))
+            {
+                int index = _thumbnailSizes.IndexOf(selection);
+                Blog currentBlog = DataContext as Blog;
+                currentBlog.ThumbnailPixelWidth = _thumbnailSizes[index];
+            }
+
+            HidePopupSelectionService();
+        }
+
+        private void HidePopupSelectionService()
+        {
+            App.PopupSelectionService.SelectionChanged -= OnPopupSelectionServiceSelectionChanged;
+            App.PopupSelectionService.HidePopup();
         }
 
         #endregion
