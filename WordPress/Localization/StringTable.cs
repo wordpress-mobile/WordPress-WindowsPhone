@@ -154,6 +154,7 @@ namespace WordPress.Localization
             public string Accept { get { return LocalizedResources.ControlText_Accept; } }
             public string Decline { get { return LocalizedResources.ControlText_Decline; } }
             public string DeleteBlog { get { return LocalizedResources.ControlText_DeleteBlog; } }
+            public string Clear { get { return LocalizedResources.ControlText_Clear; } }
         }
 
         #endregion

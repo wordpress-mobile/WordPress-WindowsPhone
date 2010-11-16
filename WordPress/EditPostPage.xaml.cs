@@ -1,10 +1,13 @@
 ﻿using System;
-using System.IO.IsolatedStorage;
-using System.Text;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
 
 using WordPress.Converters;
 using WordPress.Localization;
@@ -24,6 +27,7 @@ namespace WordPress
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
+        private List<Stream> _media;
 
         #endregion
 
@@ -43,6 +47,8 @@ namespace WordPress
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
+
+            _media = new List<Stream>();
 
             Loaded += OnPageLoaded;
         }
@@ -154,13 +160,29 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
+            if (0 < _media.Count)
+            {
+                UploadImagesAndSavePost();
+                return;
+            }
+
+            SavePost();
+        }
+
+        private void UploadImagesAndSavePost()
+        {
+            //TODO: revisit once rpc is implemented
+        }
+
+        private void SavePost()
+        {
             Post post = DataContext as Post;
 
             if (post.IsNew)
             {
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
                 rpc.PostType = ePostType.post;
-                rpc.Publish = publishToggleButton.IsChecked.Value;                
+                rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.Completed += OnNewPostRPCCompleted;
 
                 rpc.ExecuteAsync();
@@ -168,7 +190,7 @@ namespace WordPress
             else
             {
                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.Publish = publishToggleButton.IsChecked.Value;                
+                rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.Completed += OnEditPostRPCCompleted;
 
                 rpc.ExecuteAsync();
@@ -277,8 +299,61 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/SelectCategoriesPage.xaml", UriKind.Relative));
         }
 
+        private void OnAddNewMediaButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddNewMedia();
+        }
+
+        private void AddNewMedia()
+        {
+            PhotoChooserTask task = new PhotoChooserTask();            
+            task.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
+            task.ShowCamera = true;
+            task.Show();
+        }
+
+        void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
+        {
+            PhotoChooserTask task = sender as PhotoChooserTask;
+            task.Completed -= OnChoosePhotoTaskCompleted;
+
+            if (TaskResult.OK != e.TaskResult) return;
+            BitmapImage image = BuildBitmap(e.ChosenPhoto);
+            _media.Add(e.ChosenPhoto);
+            Image imageElement = BuildImageElement(image);
+            imageStackPanel.Children.Add(imageElement);            
+        }
+
+        private BitmapImage BuildBitmap(Stream bitmapStream)
+        {
+            BitmapImage image = new BitmapImage();
+            image.SetSource(bitmapStream);            
+            return image;
+        }
+
+        private Image BuildImageElement(BitmapImage image)
+        {
+            Image imageElement = new Image();
+            imageElement.Source = image;
+
+            //TODO: integrate with settings
+            imageElement.Height = 100;
+            imageElement.Width = 100;
+            imageElement.Margin = new Thickness(10);
+            return imageElement;
+        }
+
+        private void OnClearMediaButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearMedia();
+        }
+
+        private void ClearMedia()
+        {
+            imageStackPanel.Children.Clear();
+            _media.Clear();
+        }
+
         #endregion
-
-
     }
 }

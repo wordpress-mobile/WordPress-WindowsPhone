@@ -304,6 +304,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to clear.
+        /// </summary>
+        internal static string ControlText_Clear {
+            get {
+                return ResourceManager.GetString("ControlText_Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clicks.
         /// </summary>
         internal static string ControlText_Clicks {

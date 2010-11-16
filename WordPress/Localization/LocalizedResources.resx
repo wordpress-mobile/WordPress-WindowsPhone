@@ -648,4 +648,7 @@
   <data name="Prompts_SelectBlogToDelete" xml:space="preserve">
     <value>Please select the blog you'd like to delete.</value>
   </data>
+  <data name="ControlText_Clear" xml:space="preserve">
+    <value>clear</value>
+  </data>
 </root>
