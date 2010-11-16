@@ -470,6 +470,12 @@ namespace WordPress
             int height = (int)(width / originalImageSize.Width * originalImageSize.Height);            
 
             styleBuilder.Append(string.Format(dimensionFormatString, height, width));
+
+            if (currentBlog.AlignThumbnailToCenter)
+            {
+                styleBuilder.Append("display:block; margin-right:auto; margin-left:auto;");
+            }
+
             imageNode.SetAttributeValue("style", styleBuilder.ToString());
 
             if (!currentBlog.UploadAndLinkToFullImage)
@@ -477,13 +483,8 @@ namespace WordPress
                 return imageNode.ToString();
             }
 
-            XElement anchorNode = new XElement("a");
-                        
-            if (currentBlog.AlignThumbnailToCenter)
-            {
-                anchorNode.SetAttributeValue("style", "display:block; margin-right:auto; margin-left:auto;");
-                anchorNode.SetAttributeValue("href", info.Url);
-            }
+            XElement anchorNode = new XElement("a");                        
+            anchorNode.SetAttributeValue("href", info.Url);
             anchorNode.Add(imageNode);
             
             return anchorNode.ToString();
