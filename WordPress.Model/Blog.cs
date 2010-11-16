@@ -176,6 +176,8 @@ namespace WordPress.Model
 
         public int ThumbnailPixelWidth
         {
+            //DEV NOTE: a value of zero should be used to indicate the image should
+            //be displayed with its original dimensions
             get { return _thumbnailPixelWidth; }
             set 
             {

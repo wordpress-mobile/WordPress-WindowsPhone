@@ -22,7 +22,7 @@ namespace WordPress
 
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
-        private List<int> _thumbnailSizes;
+        private List<string> _thumbnailSizes;
         #endregion
 
         #region constructor
@@ -31,15 +31,16 @@ namespace WordPress
         {
             InitializeComponent();
 
-            _thumbnailSizes = new List<int>();
-            int limit = 10;
-            for (int i = 0; i < limit; i++)
-            {
-                _thumbnailSizes.Add((i + 1) * 100);
-            }
-
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
+            _thumbnailSizes = new List<string>();
+            _thumbnailSizes.Add(_localizedStrings.ControlsText.OriginalSize);
+            int limit = 10;
+            for (int i = 1; i < limit; i++)
+            {
+                _thumbnailSizes.Add((i * 100).ToString());
+            }
+            
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
@@ -171,16 +172,21 @@ namespace WordPress
         private void OnPopupSelectionServiceSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (0 == e.AddedItems.Count) return;
-            if (!(e.AddedItems[0] is int)) return;
 
-            int selection = (int)e.AddedItems[0];
-            if (_thumbnailSizes.Contains(selection))
-            {
-                int index = _thumbnailSizes.IndexOf(selection);
-                Blog currentBlog = DataContext as Blog;
-                currentBlog.ThumbnailPixelWidth = _thumbnailSizes[index];
-            }
-
+            //int selection = (int)e.AddedItems[0];
+            //if (_thumbnailSizes.Contains(selection))
+            //{
+            //    int index = _thumbnailSizes.IndexOf(selection);
+            //    Blog currentBlog = DataContext as Blog;
+            //    currentBlog.ThumbnailPixelWidth = _thumbnailSizes[index];
+            //}
+            Blog currentBlog = DataContext as Blog;
+            string selection = e.AddedItems[0] as string;
+            int width = 0;
+            //zero is what signifies that we do not want to create a thumbnail so we're
+            //counting on the parse to fail if the user picks "original size"
+            int.TryParse(selection, out width);
+            currentBlog.ThumbnailPixelWidth = width;
             HidePopupSelectionService();
         }
 

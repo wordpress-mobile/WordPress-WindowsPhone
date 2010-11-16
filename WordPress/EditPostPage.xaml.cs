@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
@@ -14,7 +15,6 @@ using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
-using System.Text;
 
 namespace WordPress
 {
@@ -33,8 +33,10 @@ namespace WordPress
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
         private List<UploadFileRPC> _mediaUploadRPCs;
+        private Dictionary<UploadFileRPC, Size> _rpcToImageSizeMap;
+        private Dictionary<UploadedFileInfo, UploadFileRPC> _infoToRpcMap;
         private List<UploadedFileInfo> _uploadInfo;
-
+        
         #endregion
 
         #region constructors
@@ -55,6 +57,9 @@ namespace WordPress
             ApplicationBar.Buttons.Add(_saveIconButton);
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
+            _rpcToImageSizeMap = new Dictionary<UploadFileRPC, Size>();
+            _infoToRpcMap = new Dictionary<UploadedFileInfo, UploadFileRPC>();
+
             _uploadInfo = new List<UploadedFileInfo>();
 
             Loaded += OnPageLoaded;
@@ -361,6 +366,9 @@ namespace WordPress
 
             //store this for later--we'll upload the files once the user hits save
             _mediaUploadRPCs.Add(rpc);
+
+            //we also need the original dimensions for the thumbnail calculations
+            _rpcToImageSizeMap.Add(rpc, new Size(image.PixelWidth, image.PixelHeight));
         }
 
         private BitmapImage BuildBitmap(Stream bitmapStream)
@@ -374,8 +382,7 @@ namespace WordPress
         {
             Image imageElement = new Image();
             imageElement.Source = image;
-
-            //TODO: integrate with settings
+            
             imageElement.Height = 100;
             imageElement.Width = 100;
             imageElement.Margin = new Thickness(10);
@@ -392,6 +399,7 @@ namespace WordPress
             imageWrapPanel.Children.Clear();
             _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
             _mediaUploadRPCs.Clear();
+            _rpcToImageSizeMap.Clear();
         }
 
         private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<UploadedFileInfo> args)
@@ -406,6 +414,7 @@ namespace WordPress
                 {
                     _uploadInfo.Add(args.Items[0]);
                 }
+                _infoToRpcMap.Add(args.Items[0], rpc);
             }
 
             //if we're not done, bail
@@ -425,16 +434,59 @@ namespace WordPress
                 builder.Append(BuildImgMarkup(info));
             });
 
-            contentTextBox.Text += builder.ToString();
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            if (currentBlog.PlaceImageAboveText)
+            {
+                contentTextBox.Text = builder.ToString() + contentTextBox.Text;
+            }
+            else
+            {
+                contentTextBox.Text += builder.ToString();
+            }
+
             contentTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
         private string BuildImgMarkup(UploadedFileInfo info)
         {
-            //TODO: integrate with settings
-            string imgFormat = "<img src='{0}'/>";
-            string img = string.Format(imgFormat, info.Url);
-            return img;
+            if (!_infoToRpcMap.ContainsKey(info))
+            {
+                return string.Empty;
+            }
+
+            UploadFileRPC rpc = _infoToRpcMap[info];
+            Size originalImageSize = _rpcToImageSizeMap[rpc];
+
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            XElement imageNode = new XElement("img");
+            imageNode.SetAttributeValue("src", info.Url);
+
+            StringBuilder styleBuilder = new StringBuilder();
+            string dimensionFormatString = "height:{0}px; width:{1}px;";
+
+            int width = 0 == currentBlog.ThumbnailPixelWidth ? (int)originalImageSize.Width : currentBlog.ThumbnailPixelWidth;
+            int height = (int)(width / originalImageSize.Width * originalImageSize.Height);            
+
+            styleBuilder.Append(string.Format(dimensionFormatString, height, width));
+            imageNode.SetAttributeValue("style", styleBuilder.ToString());
+
+            if (!currentBlog.UploadAndLinkToFullImage)
+            {
+                return imageNode.ToString();
+            }
+
+            XElement anchorNode = new XElement("a");
+                        
+            if (currentBlog.AlignThumbnailToCenter)
+            {
+                anchorNode.SetAttributeValue("style", "display:block; margin-right:auto; margin-left:auto;");
+                anchorNode.SetAttributeValue("href", info.Url);
+            }
+            anchorNode.Add(imageNode);
+            
+            return anchorNode.ToString();
         }
 
         #endregion

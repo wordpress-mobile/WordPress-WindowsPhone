@@ -6,12 +6,15 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	SupportedOrientations="Portrait" Orientation="Portrait"
+	xmlns:converters="clr-namespace:WordPress.Converters"
+    SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
-        <local:BooleanInversionConverter xmlns:local="clr-namespace:WordPress.Converters" x:Key="BooleanInversionConverter"/>
+        <converters:BooleanInversionConverter x:Key="BooleanInversionConverter"/>
+        <converters:ThumbnailSizeToStringConverter x:Key="ThumbnailSizeToStringConverter"/>
+        
         <Style x:Key="PhoneButtonBase" TargetType="ButtonBase">
         	<Setter Property="Background" Value="Transparent"/>
         	<Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
@@ -267,7 +270,7 @@
                             VerticalAlignment="Center" />
                 	<Button x:Name="thumbnailPixelWidthButton"
                 		    FontSize="{StaticResource ControlFontSize}"
-                		    Content="{Binding ThumbnailPixelWidth}"
+                		    Content="{Binding ThumbnailPixelWidth, Converter={StaticResource ThumbnailSizeToStringConverter}}"
                 		    Style="{StaticResource BasicButtonStyle}"
                 		    Click="OnThumbnailPixelWidthButtonClick" 
                             Margin="0,0,-10,0" 

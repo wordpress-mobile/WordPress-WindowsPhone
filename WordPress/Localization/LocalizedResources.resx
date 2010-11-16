@@ -280,7 +280,7 @@
     <value>update interval</value>
   </data>
   <data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
-    <value>upload and link to full image</value>
+    <value>create link to full image</value>
   </data>
   <data name="ControlText_UploadChanges" xml:space="preserve">
     <value>upload changes</value>
@@ -653,5 +653,11 @@
   </data>
   <data name="Messages_UploadingMedia" xml:space="preserve">
     <value>uploading media...</value>
+  </data>
+  <data name="ControlText_OriginalSize" xml:space="preserve">
+    <value>original size</value>
+  </data>
+  <data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
+    <value>OG</value>
   </data>
 </root>

@@ -70,6 +70,7 @@
     </Reference>
     <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddExistingWordPressBlogPage.xaml.cs">
@@ -101,6 +102,7 @@
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
+    <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
     <Compile Include="EulaControl.xaml.cs">
       <DependentUpon>EulaControl.xaml</DependentUpon>
     </Compile>

@@ -493,6 +493,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to original size.
+        /// </summary>
+        internal static string ControlText_OriginalSize {
+            get {
+                return ResourceManager.GetString("ControlText_OriginalSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OG.
+        /// </summary>
+        internal static string ControlText_OriginalSizeAbbr {
+            get {
+                return ResourceManager.GetString("ControlText_OriginalSizeAbbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to page content.
         /// </summary>
         internal static string ControlText_PageContent {
@@ -736,7 +754,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to upload and link to full image.
+        ///   Looks up a localized string similar to create link to full image.
         /// </summary>
         internal static string ControlText_UploadAndLinkToFullImage {
             get {
