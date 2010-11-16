@@ -269,7 +269,6 @@
     <Content Include="Images\appbar.spam.png" />
     <Content Include="Images\appbar.unapprove.png" />
     <Resource Include="Images\panoramaActions.png" />
-    <Resource Include="Images\locateBlogBackground.jpg" />
     <None Include="Localization\Eula.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
@@ -280,30 +279,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\blue-l.png" />
-    <Resource Include="Images\blue-m.png" />
     <Resource Include="Images\blue-s.png" />
     <Resource Include="Images\blue-xl.png" />
-    <Resource Include="Images\grey-l.png" />
-    <Resource Include="Images\grey-m.png" />
-    <Resource Include="Images\grey-s.png" />
-    <Resource Include="Images\grey-xl.png" />
     <Resource Include="Images\panoramaComments.png" />
     <Resource Include="Images\panoramaPages.png" />
     <Resource Include="Images\panoramaPosts.png" />
     <Resource Include="Images\panoramaStats.png" />
-    <Resource Include="Images\smbutton-blue.png" />
-    <Resource Include="Images\smbutton-grey.png" />
-    <Resource Include="Images\wordpress-logo-hoz-rgb.png" />
-    <Resource Include="Images\wordpress-logo-notext-rgb.png" />
-    <Resource Include="Images\wordpress-logo-stacked-rgb.png" />
-    <Resource Include="Images\wordpress-logo-textonly-rgb.png" />
-    <Resource Include="Images\wplogoblue-hoz-rgb.png" />
-    <Resource Include="Images\wplogoblue-notext-rgb.png" />
-    <Resource Include="Images\wplogoblue-stacked-rgb.png" />
-    <Resource Include="Images\wplogoblue-textonly-rgb.png" />
-    <Resource Include="Images\wpmini-blue.png" />
-    <Resource Include="Images\wpmini-grey.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\LocalizedResources.resx">
