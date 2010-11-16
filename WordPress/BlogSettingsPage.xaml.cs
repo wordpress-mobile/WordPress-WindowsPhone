@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
@@ -18,13 +15,8 @@ namespace WordPress
 
         private const string USERNAME_VALUE = "username";
         private const string PASSWORD_VALUE = "password";
-        private const string MEDIAABOVETEXT_VALUE = "mediaAboveText";
-        private const string THUMBNAILPIXELWIDTH_VALUE = "thumbnailPixelWidth";
-        private const string ALIGNTHUMBNAILTOCENTER_VALUE = "alignThumbnailToCenter";
-        private const string UPLOADANDLINKTOFULLIMAGE_VALUE = "uploadAndLinkToFullImage";
-        private const string GEOTAGPOSTS_VALUE = "geotag";
+        private const string APIKEY_VALUE = "apikey";
 
-        private List<int> _thumbnailSizes;
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
 
@@ -35,13 +27,6 @@ namespace WordPress
         public BlogSettingsPage()
         {
             InitializeComponent();
-
-            _thumbnailSizes = new List<int>();
-            int limit = 10;
-            for (int i = 0; i < limit; i++)
-            {
-                _thumbnailSizes.Add((i+1) * 100);
-            }
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
@@ -64,19 +49,6 @@ namespace WordPress
         private void OnPageLoaded(object sender, EventArgs args)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
-        }
-
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-        {
-            if (App.PopupSelectionService.IsPopupOpen)
-            {
-                HidePopupSelectionService();
-                e.Cancel = true;
-            }
-            else
-            {
-                base.OnBackKeyPress(e);
-            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -123,35 +95,11 @@ namespace WordPress
             }
             State.Add(PASSWORD_VALUE, passwordTextBox.Password);
 
-            if (State.ContainsKey(MEDIAABOVETEXT_VALUE))
+            if (State.ContainsKey(APIKEY_VALUE))
             {
-                State.Remove(MEDIAABOVETEXT_VALUE);
+                State.Remove(APIKEY_VALUE);
             }
-            State.Add(MEDIAABOVETEXT_VALUE, aboveTextRadioButton.IsChecked);
-
-            if (State.ContainsKey(THUMBNAILPIXELWIDTH_VALUE))
-            {
-                State.Remove(THUMBNAILPIXELWIDTH_VALUE);
-            }
-            State.Add(THUMBNAILPIXELWIDTH_VALUE, (int)thumbnailPixelWidthButton.Content);
-
-            if (State.ContainsKey(ALIGNTHUMBNAILTOCENTER_VALUE))
-            {
-                State.Remove(ALIGNTHUMBNAILTOCENTER_VALUE);
-            }
-            State.Add(ALIGNTHUMBNAILTOCENTER_VALUE, alignThumbnailCheckBox.IsChecked);
-
-            if (State.ContainsKey(UPLOADANDLINKTOFULLIMAGE_VALUE))
-            {
-                State.Remove(UPLOADANDLINKTOFULLIMAGE_VALUE);
-            }
-            State.Add(UPLOADANDLINKTOFULLIMAGE_VALUE, uploadCheckBox.IsChecked);
-
-            if (State.ContainsKey(GEOTAGPOSTS_VALUE))
-            {
-                State.Remove(GEOTAGPOSTS_VALUE);
-            }
-            State.Add(GEOTAGPOSTS_VALUE, geotagCheckBox.IsChecked);
+            State.Add(APIKEY_VALUE, apikeyTextBox.Password);
         }
 
         private void RestorePageState()
@@ -167,66 +115,11 @@ namespace WordPress
             {
                 blog.Password = (string)State[PASSWORD_VALUE];
             }
-            
-            if (State.ContainsKey(MEDIAABOVETEXT_VALUE))
+
+            if (State.ContainsKey(APIKEY_VALUE))
             {
-                blog.PlaceImageAboveText = (bool)State[MEDIAABOVETEXT_VALUE];
+                apikeyTextBox.Password = (string)State[APIKEY_VALUE];
             }
-
-            if (State.ContainsKey(THUMBNAILPIXELWIDTH_VALUE))
-            {
-                blog.ThumbnailPixelWidth = (int)State[THUMBNAILPIXELWIDTH_VALUE];
-            }
-
-            if (State.ContainsKey(ALIGNTHUMBNAILTOCENTER_VALUE))
-            {
-                blog.AlignThumbnailToCenter = (bool)State[ALIGNTHUMBNAILTOCENTER_VALUE];
-            }
-
-            if (State.ContainsKey(UPLOADANDLINKTOFULLIMAGE_VALUE))
-            {
-                blog.UploadAndLinkToFullImage = (bool)State[UPLOADANDLINKTOFULLIMAGE_VALUE]; 
-            }
-            
-            if (State.ContainsKey(GEOTAGPOSTS_VALUE))
-            {
-                blog.GeotagPosts = (bool)State[GEOTAGPOSTS_VALUE];
-            }
-        }
-
-        private void OnThumbnailPixelWidthButtonClick(object sender, RoutedEventArgs args)
-        {            
-            ShowThumbnailSizeSelections();
-        }
-
-        private void ShowThumbnailSizeSelections()
-        {
-            App.PopupSelectionService.Title = _localizedStrings.Prompts.SelectThumbnailSize;
-            App.PopupSelectionService.ItemsSource = _thumbnailSizes;
-            App.PopupSelectionService.SelectionChanged += new SelectionChangedEventHandler(OnPopupSelectionServiceSelectionChanged);
-            App.PopupSelectionService.ShowPopup();
-        }
-
-        private void OnPopupSelectionServiceSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (0 == e.AddedItems.Count) return;
-            if (!(e.AddedItems[0] is int)) return;
-
-            int selection = (int)e.AddedItems[0];
-            if (_thumbnailSizes.Contains(selection))
-            {
-                int index = _thumbnailSizes.IndexOf(selection);
-                Blog currentBlog = DataContext as Blog;
-                currentBlog.ThumbnailPixelWidth = _thumbnailSizes[index];
-            }
-
-            HidePopupSelectionService();
-        }
-
-        private void HidePopupSelectionService()
-        {
-            App.PopupSelectionService.SelectionChanged -= OnPopupSelectionServiceSelectionChanged;
-            App.PopupSelectionService.HidePopup();
         }
 
         public void OnSaveButtonClick(object sender, EventArgs args)
