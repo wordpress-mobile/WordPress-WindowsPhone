@@ -478,7 +478,7 @@ namespace WordPress
 
             imageNode.SetAttributeValue("style", styleBuilder.ToString());
 
-            if (!currentBlog.UploadAndLinkToFullImage)
+            if (!currentBlog.CreateLinkToFullImage)
             {
                 return imageNode.ToString();
             }

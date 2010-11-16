@@ -291,7 +291,7 @@
                 <CheckBox x:Name="uploadCheckBox" 
                           Content="{Binding ControlsText.UploadAndLinkToFullImage, Source={StaticResource StringTable}}" 
                           FontSize="{StaticResource ControlFontSize}"
-                          IsChecked="{Binding UploadAndLinkToFullImage, Mode=TwoWay}"
+                          IsChecked="{Binding CreateLinkToFullImage, Mode=TwoWay}"
                           Foreground="{StaticResource WordPressGreyBrush}"
                           Style="{StaticResource RightAlignedCheckbox}"
                           Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="0,0,0,20"/>

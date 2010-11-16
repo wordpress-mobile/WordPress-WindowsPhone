@@ -22,7 +22,7 @@ namespace WordPress.Model
         private bool _placeImageAboveText;
         private int _thumbnailPixelWidth;
         private bool _alignThumbnailToCenter;
-        private bool _uploadAndLinkToFullImage;
+        private bool _createLinkToFullImage;
         private bool _geotagPosts;
         private string _apikey;
 
@@ -202,15 +202,15 @@ namespace WordPress.Model
             }
         }
 
-        public bool UploadAndLinkToFullImage 
+        public bool CreateLinkToFullImage 
         {
-            get { return _uploadAndLinkToFullImage; }
+            get { return _createLinkToFullImage; }
             set
             {
-                if (value != _uploadAndLinkToFullImage)
+                if (value != _createLinkToFullImage)
                 {
-                    _uploadAndLinkToFullImage = value;
-                    NotifyPropertyChanged("UploadAndLinkToFullImage");
+                    _createLinkToFullImage = value;
+                    NotifyPropertyChanged("CreateLinkToFullImage");
                 }
             }
         }
