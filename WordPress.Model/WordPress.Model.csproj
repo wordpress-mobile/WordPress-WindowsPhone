@@ -70,6 +70,7 @@
     <Compile Include="Stats\ReferrerDataPoint.cs" />
     <Compile Include="Stats\SearchTermDataPoint.cs" />
     <Compile Include="Stats\ViewDataPoint.cs" />
+    <Compile Include="UploadedFileInfo.cs" />
     <Compile Include="XMLRPCTable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +102,7 @@
     <Compile Include="XMLRPC\NewCategoryRPC.cs" />
     <Compile Include="XMLRPC\NewCommentRPC.cs" />
     <Compile Include="XMLRPC\NewPostRPC.cs" />
+    <Compile Include="XMLRPC\UploadFileRPC.cs" />
     <Compile Include="XMLRPC\XmlRemoteProcedureCall.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,6 +124,7 @@
     <Content Include="XMLRPC\wp_getUsersBlogs.xml" />
     <Content Include="XMLRPC\wp_newCategory.xml" />
     <Content Include="XMLRPC\wp_newComment.xml" />
+    <Content Include="XMLRPC\wp_uploadFile.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="XMLRPCTable.resx">

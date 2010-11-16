@@ -54,4 +54,12 @@
         public const string BLOCKQUOTE_OPENING_TAG = "<blockquote>";
         public const string BLOCKQUOTE_CLOSING_TAG = "</blockquote>";
     }
+
+    public class MimeTypes
+    {
+        public const string JPEG = "image/jpeg";
+        public const string PNG = "image/png";
+        public const string BMP = "image/bmp";
+        public const string UNKNOWN = "application/octet-stream";
+    }
 }

@@ -163,4 +163,7 @@
   <data name="wp_newComment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\wp_newComment.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
   </data>
+  <data name="wp_uploadFile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>XMLRPC\wp_uploadFile.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
+  </data>
 </root>

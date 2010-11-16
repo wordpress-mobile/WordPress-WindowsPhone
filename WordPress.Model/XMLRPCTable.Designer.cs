@@ -555,5 +555,40 @@ namespace WordPress.Model {
                 return ResourceManager.GetString("wp_newComment", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;methodCall&gt;
+        ///  &lt;methodName&gt;wp.uploadFile&lt;/methodName&gt;
+        ///  &lt;params&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;int&gt;{0}&lt;/int&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;string&gt;{1}&lt;/string&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;string&gt;{2}&lt;/string&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///    &lt;param&gt;
+        ///      &lt;struct&gt;
+        ///        &lt;member&gt;
+        ///          &lt;name&gt;name&lt;/name&gt;
+        ///          &lt;value&gt;
+        ///            &lt;string&gt;{3}&lt;/string&gt;
+        ///          &lt;/value&gt;
+        ///        &lt;/memb [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string wp_uploadFile {
+            get {
+                return ResourceManager.GetString("wp_uploadFile", resourceCulture);
+            }
+        }
     }
 }

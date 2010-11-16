@@ -192,6 +192,7 @@ namespace WordPress.Localization
             public string NoStatsAvailable { get { return LocalizedResources.Messages_NoStatsAvailable; } }
             public string DownloadingStatistics { get { return LocalizedResources.Message_DownloadingStatistics; } }
             public string CheckTheUrl { get { return LocalizedResources.Message_CheckTheUrl; } }
+            public string UploadingMedia { get { return LocalizedResources.Messages_UploadingMedia; } }
         }
 
         #endregion

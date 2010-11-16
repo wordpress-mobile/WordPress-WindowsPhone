@@ -651,4 +651,7 @@
   <data name="ControlText_Clear" xml:space="preserve">
     <value>clear</value>
   </data>
+  <data name="Messages_UploadingMedia" xml:space="preserve">
+    <value>uploading media...</value>
+  </data>
 </root>

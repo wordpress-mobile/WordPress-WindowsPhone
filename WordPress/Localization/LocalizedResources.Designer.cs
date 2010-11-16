@@ -1061,6 +1061,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to uploading media....
+        /// </summary>
+        internal static string Messages_UploadingMedia {
+            get {
+                return ResourceManager.GetString("Messages_UploadingMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to delete page.
         /// </summary>
         internal static string Options_PageActions_DeletePage {

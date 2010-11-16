@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,6 +14,7 @@ using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
+using System.Text;
 
 namespace WordPress
 {
@@ -20,6 +22,9 @@ namespace WordPress
     {
         #region member variables
 
+        private static object _syncRoot = new object();
+
+        private const string DATACONTEXT_VALUE = "dataContext";
         private const string PUBLISHKEY_VALUE = "publish";
         private const string TITLEKEY_VALUE = "title";
         private const string CONTENTKEY_VALUE = "content";
@@ -27,7 +32,8 @@ namespace WordPress
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
-        private List<Stream> _media;
+        private List<UploadFileRPC> _mediaUploadRPCs;
+        private List<UploadedFileInfo> _uploadInfo;
 
         #endregion
 
@@ -48,7 +54,8 @@ namespace WordPress
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
 
-            _media = new List<Stream>();
+            _mediaUploadRPCs = new List<UploadFileRPC>();
+            _uploadInfo = new List<UploadedFileInfo>();
 
             Loaded += OnPageLoaded;
         }
@@ -83,6 +90,11 @@ namespace WordPress
         /// </summary>
         private void RestorePageState()
         {
+            if (State.ContainsKey(DATACONTEXT_VALUE))
+            {
+                DataContext = State[DATACONTEXT_VALUE];
+            }
+
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 titleTextBox.Text = State[TITLEKEY_VALUE] as string;
@@ -160,7 +172,7 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
-            if (0 < _media.Count)
+            if (0 < _mediaUploadRPCs.Count)
             {
                 UploadImagesAndSavePost();
                 return;
@@ -171,7 +183,13 @@ namespace WordPress
 
         private void UploadImagesAndSavePost()
         {
-            //TODO: revisit once rpc is implemented
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingMedia);
+            
+            //make sure nothing is in our results collection
+            _uploadInfo.Clear();
+
+            //fire off the worker rpcs
+            _mediaUploadRPCs.ForEach(rpc => rpc.ExecuteAsync());
         }
 
         private void SavePost()
@@ -269,6 +287,12 @@ namespace WordPress
         /// </summary>
         private void SavePageState()
         {
+            if (State.ContainsKey(DATACONTEXT_VALUE))
+            {
+                State.Remove(DATACONTEXT_VALUE);
+            }
+            State.Add(DATACONTEXT_VALUE, DataContext);
+
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 State.Remove(TITLEKEY_VALUE);
@@ -312,22 +336,37 @@ namespace WordPress
             task.Show();
         }
 
-        void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
+        private void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
         {
             PhotoChooserTask task = sender as PhotoChooserTask;
             task.Completed -= OnChoosePhotoTaskCompleted;
 
             if (TaskResult.OK != e.TaskResult) return;
-            BitmapImage image = BuildBitmap(e.ChosenPhoto);
-            _media.Add(e.ChosenPhoto);
+
+            Stream chosenPhoto = e.ChosenPhoto;
+
+            //build out ui updates
+            BitmapImage image = BuildBitmap(chosenPhoto);            
             Image imageElement = BuildImageElement(image);
-            imageStackPanel.Children.Add(imageElement);            
+            imageStackPanel.Children.Add(imageElement);
+
+            //build out upload rpcs
+            int length = (int)chosenPhoto.Length;
+            chosenPhoto.Position = 0;
+            byte[] payload = new byte[length];
+            chosenPhoto.Read(payload, 0, length);
+
+            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, e.OriginalFileName, payload, true);
+            rpc.Completed += OnUploadMediaRPCCompleted;
+
+            //store this for later--we'll upload the files once the user hits save
+            _mediaUploadRPCs.Add(rpc);
         }
 
         private BitmapImage BuildBitmap(Stream bitmapStream)
         {
             BitmapImage image = new BitmapImage();
-            image.SetSource(bitmapStream);            
+            image.SetSource(bitmapStream);
             return image;
         }
 
@@ -351,7 +390,51 @@ namespace WordPress
         private void ClearMedia()
         {
             imageStackPanel.Children.Clear();
-            _media.Clear();
+            _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
+            _mediaUploadRPCs.Clear();
+        }
+
+        private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<UploadedFileInfo> args)
+        {
+            UploadFileRPC rpc = sender as UploadFileRPC;
+            rpc.Completed -= OnUploadMediaRPCCompleted;
+
+            lock (_syncRoot)
+            {
+                _mediaUploadRPCs.Remove(rpc);
+                if (null == args.Error)
+                {
+                    _uploadInfo.Add(args.Items[0]);
+                }
+            }
+
+            //if we're not done, bail
+            if (0 < _mediaUploadRPCs.Count) return;
+
+            UpdatePostContent();
+            App.WaitIndicationService.KillSpinner();
+            SavePost();
+        }
+
+        private void UpdatePostContent()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            _uploadInfo.ForEach(info =>
+            {
+                builder.Append(BuildImgMarkup(info));
+            });
+
+            contentTextBox.Text += builder.ToString();
+            contentTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
+
+        private string BuildImgMarkup(UploadedFileInfo info)
+        {
+            //TODO: integrate with settings
+            string imgFormat = "<img src='{0}'/>";
+            string img = string.Format(imgFormat, info.Url);
+            return img;
         }
 
         #endregion
