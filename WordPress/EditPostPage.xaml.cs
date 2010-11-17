@@ -382,9 +382,12 @@ namespace WordPress
         {
             Image imageElement = new Image();
             imageElement.Source = image;
-            
-            imageElement.Height = 100;
-            imageElement.Width = 100;
+
+            float width = 100F;
+            int height = (int)(width / image.PixelWidth * image.PixelHeight);
+            imageElement.Width = width;
+            imageElement.Height = height;
+
             imageElement.Margin = new Thickness(10);
             return imageElement;
         }
