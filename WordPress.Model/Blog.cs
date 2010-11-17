@@ -44,7 +44,7 @@ namespace WordPress.Model
 
         public Blog() 
         {
-            _thumbnailPixelWidth = 100;
+            _thumbnailPixelWidth = 500;
 
             Comments = new ObservableCollection<Comment>();
             PostListItems = new ObservableCollection<PostListItem>();
