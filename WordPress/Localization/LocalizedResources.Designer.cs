@@ -799,7 +799,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to write.
+        ///   Looks up a localized string similar to add a post.
         /// </summary>
         internal static string ControlText_Write {
             get {

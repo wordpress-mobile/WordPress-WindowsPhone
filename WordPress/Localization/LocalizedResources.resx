@@ -292,7 +292,7 @@
     <value>vibrate</value>
   </data>
   <data name="ControlText_Write" xml:space="preserve">
-    <value>write</value>
+    <value>add a post</value>
   </data>
   <data name="Messages_ApprovingComment" xml:space="preserve">
     <value>approving comment...</value>

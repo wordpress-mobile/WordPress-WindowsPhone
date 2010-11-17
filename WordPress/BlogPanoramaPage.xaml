@@ -280,19 +280,19 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="refreshButton" Height="200" Margin="0" 
+                    <Button x:Name="createPostButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200"
-                            Click="OnRefreshButtonClick">
+                            Style="{StaticResource TileButtonTemplate}" Width="200" 
+                            Click="OnCreatePostButtonClick">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
                         <StackPanel Height="186" Width="188" >
-                            <Image Source="Images/actionsRefresh.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBlock Text="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                            <Image Source="Images/actionsEdit.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock Text="{Binding ControlsText.Write, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
-                    			TextAlignment="Right"/>
+                    			Width="{Binding Width, ElementName=grid}" TextAlignment="Right"/>
                         </StackPanel>
                     </Button>
 
@@ -312,25 +312,9 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="createPostButton" Height="200" Margin="0" 
-                            VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
-                            Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200" 
-                            Click="OnCreatePostButtonClick">
-                        <Button.Background>
-                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-                        </Button.Background>
-                        <StackPanel Height="186" Width="188" >
-                            <Image Source="Images/actionsEdit.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBlock Text="{Binding ControlsText.Write, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
-                    			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
-                    			Width="{Binding Width, ElementName=grid}" TextAlignment="Right"/>
-                        </StackPanel>
-                    </Button>
-
                     <Button x:Name="createPageButton"  Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
-                            Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
+                            Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200"
                             Click="OnCreatePageButtonClick">
                         <Button.Background>
@@ -339,6 +323,22 @@
                         <StackPanel Height="186" Width="188" >
                             <Image Source="Images/actionsAddPg.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <TextBlock Text="{Binding ControlsText.AddAPage, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                    			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
+                    			TextAlignment="Right"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button x:Name="refreshButton" Height="200" Margin="0" 
+                            VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
+                            Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
+                            Style="{StaticResource TileButtonTemplate}" Width="200"
+                            Click="OnRefreshButtonClick">
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                        </Button.Background>
+                        <StackPanel Height="186" Width="188" >
+                            <Image Source="Images/actionsRefresh.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock Text="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
                     			TextAlignment="Right"/>
                         </StackPanel>
