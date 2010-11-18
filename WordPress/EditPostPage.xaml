@@ -18,6 +18,7 @@
     <phone:PhoneApplicationPage.Resources>
         <Converters:CategoryContentConverter x:Key="CategoryContentConverter"/>
         <Converters:PostTitleConverter x:Key="PostTitleConverter"/>
+       
     </phone:PhoneApplicationPage.Resources>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -78,10 +79,12 @@
                 <TextBlock Grid.Row="3" Text="{Binding Path=ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MaxHeight="400" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}"/>
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
-                    <ToggleButton x:Name="boldToggleButton" Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" ClickMode="Press" Click="OnBoldToggleButtonClick" Style="{StaticResource BasicToggleButtonStyle}"/>
+                    <ToggleButton x:Name="boldToggleButton" Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" ClickMode="Press" Click="OnBoldToggleButtonClick" Style="{StaticResource BasicToggleButtonStyle}" FontWeight="Bold"/>
                     <ToggleButton x:Name="italicToggleButton" Content="{Binding Path=ControlsText.Italic, Source={StaticResource StringTable}}" FontStyle="Italic" Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0"/>
-                    <ToggleButton x:Name="underlineToggleButton" Content="{Binding Path=ControlsText.Underline, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0" />
-                    <ToggleButton x:Name="strikeThroughToggleButton" Content="{Binding Path=ControlsText.StrikeThrough, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0"/>
+                    <ToggleButton x:Name="underlineToggleButton" Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0" >
+                        <TextBlock Text="{Binding Path=ControlsText.Underline, Source={StaticResource StringTable}}" TextDecorations="Underline"/>
+                    </ToggleButton>
+                    <ToggleButton x:Name="strikeThroughToggleButton" Content="{Binding Path=ControlsText.StrikeThrough, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0" Template="{StaticResource StrikethroughToggleButtonStyle}"/>
                     <Button x:Name="linkButton" Content="{Binding Path=ControlsText.Link, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Margin="-5,0,0,0"/>
                     <ToggleButton x:Name="blockQuoteButton" Content="{Binding Path=ControlsText.BlockQuote, Source={StaticResource StringTable}}" Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0"/>
                 </StackPanel>
