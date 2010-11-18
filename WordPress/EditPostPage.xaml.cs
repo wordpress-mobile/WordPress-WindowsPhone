@@ -150,7 +150,7 @@ namespace WordPress
                 UserSettings settings = new UserSettings();
                 if (settings.UseTaglineForNewPosts)
                 {
-                    contentTextBox.Text = settings.Tagline;
+                    contentTextBox.Text = "\r\n\r\n" + settings.Tagline;
                 }
                 App.MasterViewModel.CurrentPost = post;
             }
