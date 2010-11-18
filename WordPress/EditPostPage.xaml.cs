@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
@@ -260,6 +262,36 @@ namespace WordPress
 
         private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)
         {
+            InsertMarkupTagIntoContent(boldToggleButton, WordPressMarkupTags.BOLD_OPENING_TAG, WordPressMarkupTags.BOLD_CLOSING_TAG);
+        }
+
+        private void OnItalicToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(italicToggleButton, WordPressMarkupTags.ITALICS_OPENING_TAG, WordPressMarkupTags.ITALICS_CLOSING_TAG);
+        }
+
+        private void OnUnderlineToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(underlineToggleButton, WordPressMarkupTags.UNDERLINE_OPENING_TAG, WordPressMarkupTags.UNDERLINE_CLOSING_TAG);
+        }
+
+        private void OnStrikethroughToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(strikethroughToggleButton, WordPressMarkupTags.STRIKETHROUGH_OPENING_TAG, WordPressMarkupTags.STRIKETHROUGH_CLOSING_TAG);
+        }
+
+        private void OnLinkButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnBlockquoteToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(blockquoteToggleButton, WordPressMarkupTags.BLOCKQUOTE_OPENING_TAG, WordPressMarkupTags.BLOCKQUOTE_CLOSING_TAG);
+        }
+
+        private void InsertMarkupTagIntoContent(ToggleButton toggleButton, string openingTag, string closingTag)
+        {
             Post post = DataContext as Post;
             string description = post.Description;
 
@@ -269,16 +301,31 @@ namespace WordPress
                 startIndex = description.Length;
             }
 
-            if (boldToggleButton.IsChecked.Value)
+            string tag;
+            if (toggleButton.IsChecked.Value)
             {
-                post.Description = description.Insert(startIndex, WordPressMarkupTags.BOLD_OPENING_TAG);
+                tag = openingTag;
             }
             else
             {
-                post.Description = description.Insert(startIndex, WordPressMarkupTags.BOLD_CLOSING_TAG);
+                tag = closingTag;
             }
+
+            post.Description = description.Insert(startIndex, tag);
+
+            ThreadPool.QueueUserWorkItem((state) =>
+            {
+                //yield long enough for the button to take focus away from the text box,
+                //then reset focus to the text box
+                Thread.Sleep(200);
+                Dispatcher.BeginInvoke(() =>
+                {
+                    contentTextBox.Focus();
+                    contentTextBox.SelectionStart = startIndex + tag.Length;
+                });
+            });
         }
-        
+
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
