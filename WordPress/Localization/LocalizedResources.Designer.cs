@@ -22,7 +22,7 @@ namespace WordPress.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class LocalizedResources {
+    public class LocalizedResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace WordPress.Localization {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WordPress.Localization.LocalizedResources", typeof(LocalizedResources).Assembly);
@@ -51,7 +51,7 @@ namespace WordPress.Localization {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to WordPress.
         /// </summary>
-        internal static string ApplicationTitle {
+        public static string ApplicationTitle {
             get {
                 return ResourceManager.GetString("ApplicationTitle", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to above text.
         /// </summary>
-        internal static string ControlText_AboveText {
+        public static string ControlText_AboveText {
             get {
                 return ResourceManager.GetString("ControlText_AboveText", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
-        internal static string ControlText_Accept {
+        public static string ControlText_Accept {
             get {
                 return ResourceManager.GetString("ControlText_Accept", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to account details.
         /// </summary>
-        internal static string ControlText_AccountDetails {
+        public static string ControlText_AccountDetails {
             get {
                 return ResourceManager.GetString("ControlText_AccountDetails", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add new.
         /// </summary>
-        internal static string ControlText_Add {
+        public static string ControlText_Add {
             get {
                 return ResourceManager.GetString("ControlText_Add", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add all.
         /// </summary>
-        internal static string ControlText_AddAll {
+        public static string ControlText_AddAll {
             get {
                 return ResourceManager.GetString("ControlText_AddAll", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add a page.
         /// </summary>
-        internal static string ControlText_AddAPage {
+        public static string ControlText_AddAPage {
             get {
                 return ResourceManager.GetString("ControlText_AddAPage", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add blog.
         /// </summary>
-        internal static string ControlText_AddBlog {
+        public static string ControlText_AddBlog {
             get {
                 return ResourceManager.GetString("ControlText_AddBlog", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Add self-hosted WordPress blog.
         /// </summary>
-        internal static string ControlText_AddExistingSite {
+        public static string ControlText_AddExistingSite {
             get {
                 return ResourceManager.GetString("ControlText_AddExistingSite", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Add blog hosted at WordPress.com.
         /// </summary>
-        internal static string ControlText_AddExistingWPBlog {
+        public static string ControlText_AddExistingWPBlog {
             get {
                 return ResourceManager.GetString("ControlText_AddExistingWPBlog", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add.
         /// </summary>
-        internal static string ControlText_AddMedia {
+        public static string ControlText_AddMedia {
             get {
                 return ResourceManager.GetString("ControlText_AddMedia", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add selected.
         /// </summary>
-        internal static string ControlText_AddSelected {
+        public static string ControlText_AddSelected {
             get {
                 return ResourceManager.GetString("ControlText_AddSelected", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add a tag line to new posts.
         /// </summary>
-        internal static string ControlText_AddTaglineToNewPosts {
+        public static string ControlText_AddTaglineToNewPosts {
             get {
                 return ResourceManager.GetString("ControlText_AddTaglineToNewPosts", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to align thumbnail to center.
         /// </summary>
-        internal static string ControlText_AlignThumbnailToCenter {
+        public static string ControlText_AlignThumbnailToCenter {
             get {
                 return ResourceManager.GetString("ControlText_AlignThumbnailToCenter", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to api key.
         /// </summary>
-        internal static string ControlText_Apikey {
+        public static string ControlText_Apikey {
             get {
                 return ResourceManager.GetString("ControlText_Apikey", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to approve.
         /// </summary>
-        internal static string ControlText_Approve {
+        public static string ControlText_Approve {
             get {
                 return ResourceManager.GetString("ControlText_Approve", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to below text.
         /// </summary>
-        internal static string ControlText_BelowText {
+        public static string ControlText_BelowText {
             get {
                 return ResourceManager.GetString("ControlText_BelowText", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to blink notification light.
         /// </summary>
-        internal static string ControlText_BlinkNotificationLight {
+        public static string ControlText_BlinkNotificationLight {
             get {
                 return ResourceManager.GetString("ControlText_BlinkNotificationLight", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to b-quote.
         /// </summary>
-        internal static string ControlText_BlockQuote {
+        public static string ControlText_BlockQuote {
             get {
                 return ResourceManager.GetString("ControlText_BlockQuote", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to blog settings.
         /// </summary>
-        internal static string ControlText_BlogSettings {
+        public static string ControlText_BlogSettings {
             get {
                 return ResourceManager.GetString("ControlText_BlogSettings", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to blog url.
         /// </summary>
-        internal static string ControlText_BlogUrl {
+        public static string ControlText_BlogUrl {
             get {
                 return ResourceManager.GetString("ControlText_BlogUrl", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to B.
         /// </summary>
-        internal static string ControlText_Bold {
+        public static string ControlText_Bold {
             get {
                 return ResourceManager.GetString("ControlText_Bold", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to cancel.
         /// </summary>
-        internal static string ControlText_Cancel {
+        public static string ControlText_Cancel {
             get {
                 return ResourceManager.GetString("ControlText_Cancel", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to category description (optional).
         /// </summary>
-        internal static string ControlText_CategoryDescription {
+        public static string ControlText_CategoryDescription {
             get {
                 return ResourceManager.GetString("ControlText_CategoryDescription", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to category name.
         /// </summary>
-        internal static string ControlText_CategoryName {
+        public static string ControlText_CategoryName {
             get {
                 return ResourceManager.GetString("ControlText_CategoryName", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to category parent (optional).
         /// </summary>
-        internal static string ControlText_CategoryParent {
+        public static string ControlText_CategoryParent {
             get {
                 return ResourceManager.GetString("ControlText_CategoryParent", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to category slug (optional).
         /// </summary>
-        internal static string ControlText_CategorySlug {
+        public static string ControlText_CategorySlug {
             get {
                 return ResourceManager.GetString("ControlText_CategorySlug", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to clear.
         /// </summary>
-        internal static string ControlText_Clear {
+        public static string ControlText_Clear {
             get {
                 return ResourceManager.GetString("ControlText_Clear", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Clicks.
         /// </summary>
-        internal static string ControlText_Clicks {
+        public static string ControlText_Clicks {
             get {
                 return ResourceManager.GetString("ControlText_Clicks", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to comment notifications.
         /// </summary>
-        internal static string ControlText_CommentNotifications {
+        public static string ControlText_CommentNotifications {
             get {
                 return ResourceManager.GetString("ControlText_CommentNotifications", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to content.
         /// </summary>
-        internal static string ControlText_Content {
+        public static string ControlText_Content {
             get {
                 return ResourceManager.GetString("ControlText_Content", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
-        internal static string ControlText_Date {
+        public static string ControlText_Date {
             get {
                 return ResourceManager.GetString("ControlText_Date", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Decline.
         /// </summary>
-        internal static string ControlText_Decline {
+        public static string ControlText_Decline {
             get {
                 return ResourceManager.GetString("ControlText_Decline", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Posted from WordPress for WP7.
         /// </summary>
-        internal static string ControlText_DefaultTagLine {
+        public static string ControlText_DefaultTagLine {
             get {
                 return ResourceManager.GetString("ControlText_DefaultTagLine", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to delete.
         /// </summary>
-        internal static string ControlText_Delete {
+        public static string ControlText_Delete {
             get {
                 return ResourceManager.GetString("ControlText_Delete", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to delete blog.
         /// </summary>
-        internal static string ControlText_DeleteBlog {
+        public static string ControlText_DeleteBlog {
             get {
                 return ResourceManager.GetString("ControlText_DeleteBlog", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to edit.
         /// </summary>
-        internal static string ControlText_Edit {
+        public static string ControlText_Edit {
             get {
                 return ResourceManager.GetString("ControlText_Edit", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to End User License Agreement.
         /// </summary>
-        internal static string ControlText_EULA {
+        public static string ControlText_EULA {
             get {
                 return ResourceManager.GetString("ControlText_EULA", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to geotag posts.
         /// </summary>
-        internal static string ControlText_GeoTagPosts {
+        public static string ControlText_GeoTagPosts {
             get {
                 return ResourceManager.GetString("ControlText_GeoTagPosts", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Get a free blog at WordPress.com.
         /// </summary>
-        internal static string ControlText_GetBlog {
+        public static string ControlText_GetBlog {
             get {
                 return ResourceManager.GetString("ControlText_GetBlog", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to I.
         /// </summary>
-        internal static string ControlText_Italic {
+        public static string ControlText_Italic {
             get {
                 return ResourceManager.GetString("ControlText_Italic", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to link.
         /// </summary>
-        internal static string ControlText_Link {
+        public static string ControlText_Link {
             get {
                 return ResourceManager.GetString("ControlText_Link", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to location.
         /// </summary>
-        internal static string ControlText_Location {
+        public static string ControlText_Location {
             get {
                 return ResourceManager.GetString("ControlText_Location", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to maximum thumbnail pixel width.
         /// </summary>
-        internal static string ControlText_MaximumThumbnailPixelWidth {
+        public static string ControlText_MaximumThumbnailPixelWidth {
             get {
                 return ResourceManager.GetString("ControlText_MaximumThumbnailPixelWidth", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to media.
         /// </summary>
-        internal static string ControlText_Media {
+        public static string ControlText_Media {
             get {
                 return ResourceManager.GetString("ControlText_Media", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to moderate comments.
         /// </summary>
-        internal static string ControlText_ModerateComments {
+        public static string ControlText_ModerateComments {
             get {
                 return ResourceManager.GetString("ControlText_ModerateComments", resourceCulture);
             }
@@ -477,7 +477,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to don&apos;t yet have a blog?.
         /// </summary>
-        internal static string ControlText_NeedBlog {
+        public static string ControlText_NeedBlog {
             get {
                 return ResourceManager.GetString("ControlText_NeedBlog", resourceCulture);
             }
@@ -486,7 +486,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to [none].
         /// </summary>
-        internal static string ControlText_None {
+        public static string ControlText_None {
             get {
                 return ResourceManager.GetString("ControlText_None", resourceCulture);
             }
@@ -495,7 +495,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to original size.
         /// </summary>
-        internal static string ControlText_OriginalSize {
+        public static string ControlText_OriginalSize {
             get {
                 return ResourceManager.GetString("ControlText_OriginalSize", resourceCulture);
             }
@@ -504,7 +504,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to OG.
         /// </summary>
-        internal static string ControlText_OriginalSizeAbbr {
+        public static string ControlText_OriginalSizeAbbr {
             get {
                 return ResourceManager.GetString("ControlText_OriginalSizeAbbr", resourceCulture);
             }
@@ -513,7 +513,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to page content.
         /// </summary>
-        internal static string ControlText_PageContent {
+        public static string ControlText_PageContent {
             get {
                 return ResourceManager.GetString("ControlText_PageContent", resourceCulture);
             }
@@ -522,7 +522,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to password.
         /// </summary>
-        internal static string ControlText_Password {
+        public static string ControlText_Password {
             get {
                 return ResourceManager.GetString("ControlText_Password", resourceCulture);
             }
@@ -531,7 +531,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to place image.
         /// </summary>
-        internal static string ControlText_PlaceImage {
+        public static string ControlText_PlaceImage {
             get {
                 return ResourceManager.GetString("ControlText_PlaceImage", resourceCulture);
             }
@@ -540,7 +540,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to play notification sound.
         /// </summary>
-        internal static string ControlText_PlayNotificationSound {
+        public static string ControlText_PlayNotificationSound {
             get {
                 return ResourceManager.GetString("ControlText_PlayNotificationSound", resourceCulture);
             }
@@ -549,7 +549,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to post content.
         /// </summary>
-        internal static string ControlText_PostContent {
+        public static string ControlText_PostContent {
             get {
                 return ResourceManager.GetString("ControlText_PostContent", resourceCulture);
             }
@@ -558,7 +558,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to post signature.
         /// </summary>
-        internal static string ControlText_PostSignature {
+        public static string ControlText_PostSignature {
             get {
                 return ResourceManager.GetString("ControlText_PostSignature", resourceCulture);
             }
@@ -567,7 +567,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Post Title.
         /// </summary>
-        internal static string ControlText_PostTitle {
+        public static string ControlText_PostTitle {
             get {
                 return ResourceManager.GetString("ControlText_PostTitle", resourceCulture);
             }
@@ -576,7 +576,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to preferences.
         /// </summary>
-        internal static string ControlText_Preferences {
+        public static string ControlText_Preferences {
             get {
                 return ResourceManager.GetString("ControlText_Preferences", resourceCulture);
             }
@@ -585,7 +585,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to publish.
         /// </summary>
-        internal static string ControlText_Publish {
+        public static string ControlText_Publish {
             get {
                 return ResourceManager.GetString("ControlText_Publish", resourceCulture);
             }
@@ -594,7 +594,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Referrers.
         /// </summary>
-        internal static string ControlText_Referrers {
+        public static string ControlText_Referrers {
             get {
                 return ResourceManager.GetString("ControlText_Referrers", resourceCulture);
             }
@@ -603,7 +603,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to refresh.
         /// </summary>
-        internal static string ControlText_Refresh {
+        public static string ControlText_Refresh {
             get {
                 return ResourceManager.GetString("ControlText_Refresh", resourceCulture);
             }
@@ -612,7 +612,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to reply.
         /// </summary>
-        internal static string ControlText_Reply {
+        public static string ControlText_Reply {
             get {
                 return ResourceManager.GetString("ControlText_Reply", resourceCulture);
             }
@@ -621,7 +621,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to save.
         /// </summary>
-        internal static string ControlText_Save {
+        public static string ControlText_Save {
             get {
                 return ResourceManager.GetString("ControlText_Save", resourceCulture);
             }
@@ -630,7 +630,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Search Terms.
         /// </summary>
-        internal static string ControlText_SearchTerms {
+        public static string ControlText_SearchTerms {
             get {
                 return ResourceManager.GetString("ControlText_SearchTerms", resourceCulture);
             }
@@ -639,7 +639,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please select the blog or blogs you&apos;d like to import..
         /// </summary>
-        internal static string ControlText_SelectBlogs {
+        public static string ControlText_SelectBlogs {
             get {
                 return ResourceManager.GetString("ControlText_SelectBlogs", resourceCulture);
             }
@@ -648,7 +648,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to select categories.
         /// </summary>
-        internal static string ControlText_SelectCategories {
+        public static string ControlText_SelectCategories {
             get {
                 return ResourceManager.GetString("ControlText_SelectCategories", resourceCulture);
             }
@@ -657,7 +657,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to selected categories.
         /// </summary>
-        internal static string ControlText_SelectedCategories {
+        public static string ControlText_SelectedCategories {
             get {
                 return ResourceManager.GetString("ControlText_SelectedCategories", resourceCulture);
             }
@@ -666,7 +666,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to spam.
         /// </summary>
-        internal static string ControlText_Spam {
+        public static string ControlText_Spam {
             get {
                 return ResourceManager.GetString("ControlText_Spam", resourceCulture);
             }
@@ -675,7 +675,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Start blogging from Windows Phone 7 in seconds.
         /// </summary>
-        internal static string ControlText_StartBloggingInSeconds {
+        public static string ControlText_StartBloggingInSeconds {
             get {
                 return ResourceManager.GetString("ControlText_StartBloggingInSeconds", resourceCulture);
             }
@@ -684,7 +684,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Start a new blog at WordPress.com.
         /// </summary>
-        internal static string ControlText_StartNewBlog {
+        public static string ControlText_StartNewBlog {
             get {
                 return ResourceManager.GetString("ControlText_StartNewBlog", resourceCulture);
             }
@@ -693,7 +693,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to status.
         /// </summary>
-        internal static string ControlText_Status {
+        public static string ControlText_Status {
             get {
                 return ResourceManager.GetString("ControlText_Status", resourceCulture);
             }
@@ -702,7 +702,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to ABC.
         /// </summary>
-        internal static string ControlText_StrikeThrough {
+        public static string ControlText_StrikeThrough {
             get {
                 return ResourceManager.GetString("ControlText_StrikeThrough", resourceCulture);
             }
@@ -711,7 +711,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to tags &amp; categories.
         /// </summary>
-        internal static string ControlText_TagsAndCategories {
+        public static string ControlText_TagsAndCategories {
             get {
                 return ResourceManager.GetString("ControlText_TagsAndCategories", resourceCulture);
             }
@@ -720,7 +720,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to title.
         /// </summary>
-        internal static string ControlText_Title {
+        public static string ControlText_Title {
             get {
                 return ResourceManager.GetString("ControlText_Title", resourceCulture);
             }
@@ -729,7 +729,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to unapprove.
         /// </summary>
-        internal static string ControlText_Unapprove {
+        public static string ControlText_Unapprove {
             get {
                 return ResourceManager.GetString("ControlText_Unapprove", resourceCulture);
             }
@@ -738,7 +738,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to U.
         /// </summary>
-        internal static string ControlText_Underline {
+        public static string ControlText_Underline {
             get {
                 return ResourceManager.GetString("ControlText_Underline", resourceCulture);
             }
@@ -747,7 +747,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to update interval.
         /// </summary>
-        internal static string ControlText_UpdateInterval {
+        public static string ControlText_UpdateInterval {
             get {
                 return ResourceManager.GetString("ControlText_UpdateInterval", resourceCulture);
             }
@@ -756,7 +756,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to create link to full image.
         /// </summary>
-        internal static string ControlText_UploadAndLinkToFullImage {
+        public static string ControlText_UploadAndLinkToFullImage {
             get {
                 return ResourceManager.GetString("ControlText_UploadAndLinkToFullImage", resourceCulture);
             }
@@ -765,7 +765,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to upload changes.
         /// </summary>
-        internal static string ControlText_UploadChanges {
+        public static string ControlText_UploadChanges {
             get {
                 return ResourceManager.GetString("ControlText_UploadChanges", resourceCulture);
             }
@@ -774,7 +774,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to user name.
         /// </summary>
-        internal static string ControlText_Username {
+        public static string ControlText_Username {
             get {
                 return ResourceManager.GetString("ControlText_Username", resourceCulture);
             }
@@ -783,7 +783,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to vibrate.
         /// </summary>
-        internal static string ControlText_Vibrate {
+        public static string ControlText_Vibrate {
             get {
                 return ResourceManager.GetString("ControlText_Vibrate", resourceCulture);
             }
@@ -792,7 +792,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Views.
         /// </summary>
-        internal static string ControlText_Views {
+        public static string ControlText_Views {
             get {
                 return ResourceManager.GetString("ControlText_Views", resourceCulture);
             }
@@ -801,7 +801,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add a post.
         /// </summary>
-        internal static string ControlText_Write {
+        public static string ControlText_Write {
             get {
                 return ResourceManager.GetString("ControlText_Write", resourceCulture);
             }
@@ -829,7 +829,7 @@ namespace WordPress.Localization {
         ///&lt;p&gt;
         ///675 Ma [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Eula {
+        public static string Eula {
             get {
                 return ResourceManager.GetString("Eula", resourceCulture);
             }
@@ -838,7 +838,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to There may be a problem with the url that was entered.  Did the url start with http://, or was xmlrpc.php left off the end?  The default for the WordPress.com site, for example, is https://wordpress.com/xmlrpc.php..
         /// </summary>
-        internal static string Message_CheckTheUrl {
+        public static string Message_CheckTheUrl {
             get {
                 return ResourceManager.GetString("Message_CheckTheUrl", resourceCulture);
             }
@@ -847,7 +847,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to downloading statistics....
         /// </summary>
-        internal static string Message_DownloadingStatistics {
+        public static string Message_DownloadingStatistics {
             get {
                 return ResourceManager.GetString("Message_DownloadingStatistics", resourceCulture);
             }
@@ -856,7 +856,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to acquiring permalink....
         /// </summary>
-        internal static string Messages_AcquiringPermalink {
+        public static string Messages_AcquiringPermalink {
             get {
                 return ResourceManager.GetString("Messages_AcquiringPermalink", resourceCulture);
             }
@@ -865,7 +865,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to approving comment....
         /// </summary>
-        internal static string Messages_ApprovingComment {
+        public static string Messages_ApprovingComment {
             get {
                 return ResourceManager.GetString("Messages_ApprovingComment", resourceCulture);
             }
@@ -874,7 +874,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to approving comments....
         /// </summary>
-        internal static string Messages_ApprovingComments {
+        public static string Messages_ApprovingComments {
             get {
                 return ResourceManager.GetString("Messages_ApprovingComments", resourceCulture);
             }
@@ -883,7 +883,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to creating new category....
         /// </summary>
-        internal static string Messages_CreatingNewCategory {
+        public static string Messages_CreatingNewCategory {
             get {
                 return ResourceManager.GetString("Messages_CreatingNewCategory", resourceCulture);
             }
@@ -892,7 +892,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to deleting comment....
         /// </summary>
-        internal static string Messages_DeletingComment {
+        public static string Messages_DeletingComment {
             get {
                 return ResourceManager.GetString("Messages_DeletingComment", resourceCulture);
             }
@@ -901,7 +901,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to deleting comments....
         /// </summary>
-        internal static string Messages_DeletingComments {
+        public static string Messages_DeletingComments {
             get {
                 return ResourceManager.GetString("Messages_DeletingComments", resourceCulture);
             }
@@ -910,7 +910,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to deleting page....
         /// </summary>
-        internal static string Messages_DeletingPage {
+        public static string Messages_DeletingPage {
             get {
                 return ResourceManager.GetString("Messages_DeletingPage", resourceCulture);
             }
@@ -919,7 +919,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to deleting post....
         /// </summary>
-        internal static string Messages_DeletingPost {
+        public static string Messages_DeletingPost {
             get {
                 return ResourceManager.GetString("Messages_DeletingPost", resourceCulture);
             }
@@ -928,7 +928,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to loading....
         /// </summary>
-        internal static string Messages_Loading {
+        public static string Messages_Loading {
             get {
                 return ResourceManager.GetString("Messages_Loading", resourceCulture);
             }
@@ -937,7 +937,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to logging in....
         /// </summary>
-        internal static string Messages_LoggingIn {
+        public static string Messages_LoggingIn {
             get {
                 return ResourceManager.GetString("Messages_LoggingIn", resourceCulture);
             }
@@ -946,7 +946,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to marking comment as spam....
         /// </summary>
-        internal static string Messages_MarkingAsSpam {
+        public static string Messages_MarkingAsSpam {
             get {
                 return ResourceManager.GetString("Messages_MarkingAsSpam", resourceCulture);
             }
@@ -955,7 +955,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to marking comments as spam....
         /// </summary>
-        internal static string Messages_MarkingCommentsAsSpam {
+        public static string Messages_MarkingCommentsAsSpam {
             get {
                 return ResourceManager.GetString("Messages_MarkingCommentsAsSpam", resourceCulture);
             }
@@ -964,7 +964,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a reply..
         /// </summary>
-        internal static string Messages_MissingReply {
+        public static string Messages_MissingReply {
             get {
                 return ResourceManager.GetString("Messages_MissingReply", resourceCulture);
             }
@@ -973,7 +973,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to No stats are available for the current query..
         /// </summary>
-        internal static string Messages_NoStatsAvailable {
+        public static string Messages_NoStatsAvailable {
             get {
                 return ResourceManager.GetString("Messages_NoStatsAvailable", resourceCulture);
             }
@@ -982,7 +982,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to replying to comment....
         /// </summary>
-        internal static string Messages_ReplyingToComment {
+        public static string Messages_ReplyingToComment {
             get {
                 return ResourceManager.GetString("Messages_ReplyingToComment", resourceCulture);
             }
@@ -991,7 +991,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving categories....
         /// </summary>
-        internal static string Messages_RetrievingCategories {
+        public static string Messages_RetrievingCategories {
             get {
                 return ResourceManager.GetString("Messages_RetrievingCategories", resourceCulture);
             }
@@ -1000,7 +1000,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving comments....
         /// </summary>
-        internal static string Messages_RetrievingComments {
+        public static string Messages_RetrievingComments {
             get {
                 return ResourceManager.GetString("Messages_RetrievingComments", resourceCulture);
             }
@@ -1009,7 +1009,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving everything....
         /// </summary>
-        internal static string Messages_RetrievingEverything {
+        public static string Messages_RetrievingEverything {
             get {
                 return ResourceManager.GetString("Messages_RetrievingEverything", resourceCulture);
             }
@@ -1018,7 +1018,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving page....
         /// </summary>
-        internal static string Messages_RetrievingPage {
+        public static string Messages_RetrievingPage {
             get {
                 return ResourceManager.GetString("Messages_RetrievingPage", resourceCulture);
             }
@@ -1027,7 +1027,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving pages....
         /// </summary>
-        internal static string Messages_RetrievingPages {
+        public static string Messages_RetrievingPages {
             get {
                 return ResourceManager.GetString("Messages_RetrievingPages", resourceCulture);
             }
@@ -1036,7 +1036,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving post....
         /// </summary>
-        internal static string Messages_RetrievingPost {
+        public static string Messages_RetrievingPost {
             get {
                 return ResourceManager.GetString("Messages_RetrievingPost", resourceCulture);
             }
@@ -1045,7 +1045,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to retrieving posts....
         /// </summary>
-        internal static string Messages_RetrievingPosts {
+        public static string Messages_RetrievingPosts {
             get {
                 return ResourceManager.GetString("Messages_RetrievingPosts", resourceCulture);
             }
@@ -1054,7 +1054,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to unapproving comment....
         /// </summary>
-        internal static string Messages_UnapprovingComment {
+        public static string Messages_UnapprovingComment {
             get {
                 return ResourceManager.GetString("Messages_UnapprovingComment", resourceCulture);
             }
@@ -1063,7 +1063,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to unapproving comments....
         /// </summary>
-        internal static string Messages_UnapprovingComments {
+        public static string Messages_UnapprovingComments {
             get {
                 return ResourceManager.GetString("Messages_UnapprovingComments", resourceCulture);
             }
@@ -1072,7 +1072,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to uploading changes....
         /// </summary>
-        internal static string Messages_UploadingChanges {
+        public static string Messages_UploadingChanges {
             get {
                 return ResourceManager.GetString("Messages_UploadingChanges", resourceCulture);
             }
@@ -1081,7 +1081,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to uploading media....
         /// </summary>
-        internal static string Messages_UploadingMedia {
+        public static string Messages_UploadingMedia {
             get {
                 return ResourceManager.GetString("Messages_UploadingMedia", resourceCulture);
             }
@@ -1090,7 +1090,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to delete page.
         /// </summary>
-        internal static string Options_PageActions_DeletePage {
+        public static string Options_PageActions_DeletePage {
             get {
                 return ResourceManager.GetString("Options_PageActions_DeletePage", resourceCulture);
             }
@@ -1099,7 +1099,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to edit page.
         /// </summary>
-        internal static string Options_PageActions_EditPage {
+        public static string Options_PageActions_EditPage {
             get {
                 return ResourceManager.GetString("Options_PageActions_EditPage", resourceCulture);
             }
@@ -1108,7 +1108,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to view comments.
         /// </summary>
-        internal static string Options_PageActions_ViewComments {
+        public static string Options_PageActions_ViewComments {
             get {
                 return ResourceManager.GetString("Options_PageActions_ViewComments", resourceCulture);
             }
@@ -1117,7 +1117,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to view page.
         /// </summary>
-        internal static string Options_PageActions_ViewPage {
+        public static string Options_PageActions_ViewPage {
             get {
                 return ResourceManager.GetString("Options_PageActions_ViewPage", resourceCulture);
             }
@@ -1126,7 +1126,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to delete post.
         /// </summary>
-        internal static string Options_PostActions_DeletePost {
+        public static string Options_PostActions_DeletePost {
             get {
                 return ResourceManager.GetString("Options_PostActions_DeletePost", resourceCulture);
             }
@@ -1135,7 +1135,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to edit post.
         /// </summary>
-        internal static string Options_PostActions_EditPost {
+        public static string Options_PostActions_EditPost {
             get {
                 return ResourceManager.GetString("Options_PostActions_EditPost", resourceCulture);
             }
@@ -1144,7 +1144,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to view comments.
         /// </summary>
-        internal static string Options_PostActions_ViewComments {
+        public static string Options_PostActions_ViewComments {
             get {
                 return ResourceManager.GetString("Options_PostActions_ViewComments", resourceCulture);
             }
@@ -1153,7 +1153,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to view post.
         /// </summary>
-        internal static string Options_PostActions_ViewPost {
+        public static string Options_PostActions_ViewPost {
             get {
                 return ResourceManager.GetString("Options_PostActions_ViewPost", resourceCulture);
             }
@@ -1162,7 +1162,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to comments.
         /// </summary>
-        internal static string Options_RefreshEntity_Comments {
+        public static string Options_RefreshEntity_Comments {
             get {
                 return ResourceManager.GetString("Options_RefreshEntity_Comments", resourceCulture);
             }
@@ -1171,7 +1171,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to everything.
         /// </summary>
-        internal static string Options_RefreshEntity_Everything {
+        public static string Options_RefreshEntity_Everything {
             get {
                 return ResourceManager.GetString("Options_RefreshEntity_Everything", resourceCulture);
             }
@@ -1180,7 +1180,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to pages.
         /// </summary>
-        internal static string Options_RefreshEntity_Pages {
+        public static string Options_RefreshEntity_Pages {
             get {
                 return ResourceManager.GetString("Options_RefreshEntity_Pages", resourceCulture);
             }
@@ -1189,7 +1189,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to posts.
         /// </summary>
-        internal static string Options_RefreshEntity_Posts {
+        public static string Options_RefreshEntity_Posts {
             get {
                 return ResourceManager.GetString("Options_RefreshEntity_Posts", resourceCulture);
             }
@@ -1198,7 +1198,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to All Time.
         /// </summary>
-        internal static string Options_StatisticPeriod_AllTime {
+        public static string Options_StatisticPeriod_AllTime {
             get {
                 return ResourceManager.GetString("Options_StatisticPeriod_AllTime", resourceCulture);
             }
@@ -1207,7 +1207,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Last Month.
         /// </summary>
-        internal static string Options_StatisticPeriod_LastMonth {
+        public static string Options_StatisticPeriod_LastMonth {
             get {
                 return ResourceManager.GetString("Options_StatisticPeriod_LastMonth", resourceCulture);
             }
@@ -1216,7 +1216,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Last Quarter.
         /// </summary>
-        internal static string Options_StatisticPeriod_LastQuarter {
+        public static string Options_StatisticPeriod_LastQuarter {
             get {
                 return ResourceManager.GetString("Options_StatisticPeriod_LastQuarter", resourceCulture);
             }
@@ -1225,7 +1225,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Last Week.
         /// </summary>
-        internal static string Options_StatisticPeriod_LastWeek {
+        public static string Options_StatisticPeriod_LastWeek {
             get {
                 return ResourceManager.GetString("Options_StatisticPeriod_LastWeek", resourceCulture);
             }
@@ -1234,7 +1234,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Last Year.
         /// </summary>
-        internal static string Options_StatisticPeriod_LastYear {
+        public static string Options_StatisticPeriod_LastYear {
             get {
                 return ResourceManager.GetString("Options_StatisticPeriod_LastYear", resourceCulture);
             }
@@ -1243,7 +1243,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Clicks.
         /// </summary>
-        internal static string Options_StatisticType_Clicks {
+        public static string Options_StatisticType_Clicks {
             get {
                 return ResourceManager.GetString("Options_StatisticType_Clicks", resourceCulture);
             }
@@ -1252,7 +1252,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Post Views.
         /// </summary>
-        internal static string Options_StatisticType_PostViews {
+        public static string Options_StatisticType_PostViews {
             get {
                 return ResourceManager.GetString("Options_StatisticType_PostViews", resourceCulture);
             }
@@ -1261,7 +1261,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Referrers.
         /// </summary>
-        internal static string Options_StatisticType_Referrers {
+        public static string Options_StatisticType_Referrers {
             get {
                 return ResourceManager.GetString("Options_StatisticType_Referrers", resourceCulture);
             }
@@ -1270,7 +1270,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Search Terms.
         /// </summary>
-        internal static string Options_StatisticType_SearchTerms {
+        public static string Options_StatisticType_SearchTerms {
             get {
                 return ResourceManager.GetString("Options_StatisticType_SearchTerms", resourceCulture);
             }
@@ -1279,7 +1279,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Views.
         /// </summary>
-        internal static string Options_StatisticType_Views {
+        public static string Options_StatisticType_Views {
             get {
                 return ResourceManager.GetString("Options_StatisticType_Views", resourceCulture);
             }
@@ -1288,7 +1288,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete page &apos;{0}&apos;?.
         /// </summary>
-        internal static string Prompt_ConfirmDeletePageFormat {
+        public static string Prompt_ConfirmDeletePageFormat {
             get {
                 return ResourceManager.GetString("Prompt_ConfirmDeletePageFormat", resourceCulture);
             }
@@ -1297,7 +1297,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete post &apos;{0}&apos;?.
         /// </summary>
-        internal static string Prompt_ConfirmDeletePostFormat {
+        public static string Prompt_ConfirmDeletePostFormat {
             get {
                 return ResourceManager.GetString("Prompt_ConfirmDeletePostFormat", resourceCulture);
             }
@@ -1306,7 +1306,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Page Actions.
         /// </summary>
-        internal static string Prompt_PageActions {
+        public static string Prompt_PageActions {
             get {
                 return ResourceManager.GetString("Prompt_PageActions", resourceCulture);
             }
@@ -1315,7 +1315,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Post Actions.
         /// </summary>
-        internal static string Prompt_PostActions {
+        public static string Prompt_PostActions {
             get {
                 return ResourceManager.GetString("Prompt_PostActions", resourceCulture);
             }
@@ -1324,7 +1324,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please select a thumbnail size..
         /// </summary>
-        internal static string Prompt_SelectThumbnailSize {
+        public static string Prompt_SelectThumbnailSize {
             get {
                 return ResourceManager.GetString("Prompt_SelectThumbnailSize", resourceCulture);
             }
@@ -1333,7 +1333,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to The current blog doesn&apos;t have an api key.  Please enter one on the settings page..
         /// </summary>
-        internal static string Prompts_MissingApikey {
+        public static string Prompts_MissingApikey {
             get {
                 return ResourceManager.GetString("Prompts_MissingApikey", resourceCulture);
             }
@@ -1342,7 +1342,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a category name..
         /// </summary>
-        internal static string Prompts_MissingCategoryName {
+        public static string Prompts_MissingCategoryName {
             get {
                 return ResourceManager.GetString("Prompts_MissingCategoryName", resourceCulture);
             }
@@ -1351,7 +1351,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a password..
         /// </summary>
-        internal static string Prompts_MissingPassword {
+        public static string Prompts_MissingPassword {
             get {
                 return ResourceManager.GetString("Prompts_MissingPassword", resourceCulture);
             }
@@ -1360,7 +1360,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a valid url..
         /// </summary>
-        internal static string Prompts_MissingUrl {
+        public static string Prompts_MissingUrl {
             get {
                 return ResourceManager.GetString("Prompts_MissingUrl", resourceCulture);
             }
@@ -1369,7 +1369,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please enter a user name..
         /// </summary>
-        internal static string Prompts_MissingUserName {
+        public static string Prompts_MissingUserName {
             get {
                 return ResourceManager.GetString("Prompts_MissingUserName", resourceCulture);
             }
@@ -1378,7 +1378,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to What would you like to refresh?.
         /// </summary>
-        internal static string Prompts_RefreshEntity {
+        public static string Prompts_RefreshEntity {
             get {
                 return ResourceManager.GetString("Prompts_RefreshEntity", resourceCulture);
             }
@@ -1387,7 +1387,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please select the blog you&apos;d like to delete..
         /// </summary>
-        internal static string Prompts_SelectBlogToDelete {
+        public static string Prompts_SelectBlogToDelete {
             get {
                 return ResourceManager.GetString("Prompts_SelectBlogToDelete", resourceCulture);
             }
@@ -1396,7 +1396,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Please select a category..
         /// </summary>
-        internal static string Prompts_SelectCategory {
+        public static string Prompts_SelectCategory {
             get {
                 return ResourceManager.GetString("Prompts_SelectCategory", resourceCulture);
             }
@@ -1405,7 +1405,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to How much data would you like to see?.
         /// </summary>
-        internal static string Prompts_SelectStatisticPeriod {
+        public static string Prompts_SelectStatisticPeriod {
             get {
                 return ResourceManager.GetString("Prompts_SelectStatisticPeriod", resourceCulture);
             }
@@ -1414,7 +1414,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Which statistic would you like data for?.
         /// </summary>
-        internal static string Prompts_SelectStatisticType {
+        public static string Prompts_SelectStatisticType {
             get {
                 return ResourceManager.GetString("Prompts_SelectStatisticType", resourceCulture);
             }
@@ -1423,7 +1423,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to actions.
         /// </summary>
-        internal static string Title_Actions {
+        public static string Title_Actions {
             get {
                 return ResourceManager.GetString("Title_Actions", resourceCulture);
             }
@@ -1432,7 +1432,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to add account.
         /// </summary>
-        internal static string Title_AddAccount {
+        public static string Title_AddAccount {
             get {
                 return ResourceManager.GetString("Title_AddAccount", resourceCulture);
             }
@@ -1441,7 +1441,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to new category.
         /// </summary>
-        internal static string Title_AddNewCategory {
+        public static string Title_AddNewCategory {
             get {
                 return ResourceManager.GetString("Title_AddNewCategory", resourceCulture);
             }
@@ -1450,7 +1450,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to ALL.
         /// </summary>
-        internal static string Title_All {
+        public static string Title_All {
             get {
                 return ResourceManager.GetString("Title_All", resourceCulture);
             }
@@ -1459,7 +1459,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to APPROVE.
         /// </summary>
-        internal static string Title_Approve {
+        public static string Title_Approve {
             get {
                 return ResourceManager.GetString("Title_Approve", resourceCulture);
             }
@@ -1468,7 +1468,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to blogs.
         /// </summary>
-        internal static string Title_Blogs {
+        public static string Title_Blogs {
             get {
                 return ResourceManager.GetString("Title_Blogs", resourceCulture);
             }
@@ -1477,7 +1477,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Is the url valid?.
         /// </summary>
-        internal static string Title_CheckTheUrl {
+        public static string Title_CheckTheUrl {
             get {
                 return ResourceManager.GetString("Title_CheckTheUrl", resourceCulture);
             }
@@ -1486,7 +1486,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to comments.
         /// </summary>
-        internal static string Title_Comments {
+        public static string Title_Comments {
             get {
                 return ResourceManager.GetString("Title_Comments", resourceCulture);
             }
@@ -1495,7 +1495,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Confirm delete.
         /// </summary>
-        internal static string Title_ConfirmDelete {
+        public static string Title_ConfirmDelete {
             get {
                 return ResourceManager.GetString("Title_ConfirmDelete", resourceCulture);
             }
@@ -1504,7 +1504,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to edit page.
         /// </summary>
-        internal static string Title_EditPage {
+        public static string Title_EditPage {
             get {
                 return ResourceManager.GetString("Title_EditPage", resourceCulture);
             }
@@ -1513,7 +1513,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to edit post.
         /// </summary>
-        internal static string Title_EditPost {
+        public static string Title_EditPost {
             get {
                 return ResourceManager.GetString("Title_EditPost", resourceCulture);
             }
@@ -1522,7 +1522,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to moderate comment.
         /// </summary>
-        internal static string Title_ModerateComment {
+        public static string Title_ModerateComment {
             get {
                 return ResourceManager.GetString("Title_ModerateComment", resourceCulture);
             }
@@ -1531,7 +1531,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to moderate comments.
         /// </summary>
-        internal static string Title_ModerateComments {
+        public static string Title_ModerateComments {
             get {
                 return ResourceManager.GetString("Title_ModerateComments", resourceCulture);
             }
@@ -1540,7 +1540,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to new page.
         /// </summary>
-        internal static string Title_NewPage {
+        public static string Title_NewPage {
             get {
                 return ResourceManager.GetString("Title_NewPage", resourceCulture);
             }
@@ -1549,7 +1549,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to new post.
         /// </summary>
-        internal static string Title_NewPost {
+        public static string Title_NewPost {
             get {
                 return ResourceManager.GetString("Title_NewPost", resourceCulture);
             }
@@ -1558,7 +1558,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to pages.
         /// </summary>
-        internal static string Title_Pages {
+        public static string Title_Pages {
             get {
                 return ResourceManager.GetString("Title_Pages", resourceCulture);
             }
@@ -1567,7 +1567,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to posts.
         /// </summary>
-        internal static string Title_Posts {
+        public static string Title_Posts {
             get {
                 return ResourceManager.GetString("Title_Posts", resourceCulture);
             }
@@ -1576,7 +1576,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to preferences.
         /// </summary>
-        internal static string Title_Preferences {
+        public static string Title_Preferences {
             get {
                 return ResourceManager.GetString("Title_Preferences", resourceCulture);
             }
@@ -1585,7 +1585,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to select categories.
         /// </summary>
-        internal static string Title_SelectCategories {
+        public static string Title_SelectCategories {
             get {
                 return ResourceManager.GetString("Title_SelectCategories", resourceCulture);
             }
@@ -1594,7 +1594,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to settings.
         /// </summary>
-        internal static string Title_Settings {
+        public static string Title_Settings {
             get {
                 return ResourceManager.GetString("Title_Settings", resourceCulture);
             }
@@ -1603,7 +1603,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to SPAM.
         /// </summary>
-        internal static string Title_Spam {
+        public static string Title_Spam {
             get {
                 return ResourceManager.GetString("Title_Spam", resourceCulture);
             }
@@ -1612,7 +1612,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to stats.
         /// </summary>
-        internal static string Title_Stats {
+        public static string Title_Stats {
             get {
                 return ResourceManager.GetString("Title_Stats", resourceCulture);
             }
@@ -1621,7 +1621,7 @@ namespace WordPress.Localization {
         /// <summary>
         ///   Looks up a localized string similar to UNAPPROVE.
         /// </summary>
-        internal static string Title_Unapprove {
+        public static string Title_Unapprove {
             get {
                 return ResourceManager.GetString("Title_Unapprove", resourceCulture);
             }
