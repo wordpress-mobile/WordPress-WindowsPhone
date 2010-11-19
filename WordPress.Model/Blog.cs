@@ -31,7 +31,8 @@ namespace WordPress.Model
         private const string BLOGID_VALUE = "blogid";
         private const string BLOGNAME_VALUE = "blogName";
         private const string XMLRPC_VALUE = "xmlrpc";
-        
+        private const string NOBLOGTITLE_VALUE = "(No Blog Title)";
+
         #endregion
 
         #region events
@@ -296,6 +297,12 @@ namespace WordPress.Model
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     _blogName = value.HtmlDecode();
+
+                    //provide a default title if one was not downloaded
+                    if (string.IsNullOrEmpty(_blogName))
+                    {
+                        _blogName = NOBLOGTITLE_VALUE;
+                    }
                 }
                 else if (XMLRPC_VALUE.Equals(memberName))
                 {
