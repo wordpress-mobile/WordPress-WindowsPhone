@@ -286,7 +286,7 @@
     <value>upload changes</value>
   </data>
   <data name="ControlText_Username" xml:space="preserve">
-    <value>user name</value>
+    <value>username</value>
   </data>
   <data name="ControlText_Vibrate" xml:space="preserve">
     <value>vibrate</value>

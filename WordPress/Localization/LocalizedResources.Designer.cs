@@ -772,7 +772,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to user name.
+        ///   Looks up a localized string similar to username.
         /// </summary>
         internal static string ControlText_Username {
             get {
