@@ -165,10 +165,12 @@ namespace WordPress
         private void BatchApproveComments(IList comments)
         {
             if (null == comments || 0 == comments.Count) return;
+            IList<Comment> list = ConvertList(comments, eCommentStatus.approve);
+            if (0 == list.Count) return;
 
             EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
             rpc.CommentStatus = eCommentStatus.approve;
-            rpc.Comments = ConvertList(comments);
+            rpc.Comments = list;
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
@@ -178,10 +180,12 @@ namespace WordPress
         private void BatchUnapproveComments(IList comments)
         {
             if (null == comments || 0 == comments.Count) return;
-
+            IList<Comment> list = ConvertList(comments, eCommentStatus.hold);
+            if (0 == list.Count) return;
+            
             EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
             rpc.CommentStatus = eCommentStatus.hold;
-            rpc.Comments = ConvertList(comments);
+            rpc.Comments = list;
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
@@ -191,10 +195,12 @@ namespace WordPress
         private void BatchSpamComments(IList comments)
         {
             if (null == comments || 0 == comments.Count) return;
+            IList<Comment> list = ConvertList(comments, eCommentStatus.spam);
+            if (0 == list.Count) return;
 
             EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
             rpc.CommentStatus = eCommentStatus.spam;
-            rpc.Comments = ConvertList(comments);
+            rpc.Comments = list;
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
@@ -207,6 +213,19 @@ namespace WordPress
             foreach (Comment c in comments)
             {
                 result.Add(c);
+            }
+            return result;
+        }
+
+        private IList<Comment> ConvertList(IList comments, eCommentStatus statusToExclude)
+        {
+            List<Comment> result = new List<Comment>();
+            foreach (Comment c in comments)
+            {
+                if (statusToExclude != c.CommentStatus)
+                {
+                    result.Add(c);
+                }
             }
             return result;
         }
