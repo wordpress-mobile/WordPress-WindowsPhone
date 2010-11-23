@@ -102,7 +102,7 @@ namespace WordPress
 
             _popup.IsOpen = true;
 
-            Storyboard storyboard = CreateEaseInAnimationStoryBoard(_layoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MIN, BACKGROUND_OPACITY_MAX, Duration);
+            Storyboard storyboard = AnimationHelper.CreateEaseInAnimationStoryBoard(_layoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MIN, BACKGROUND_OPACITY_MAX, Duration);
             storyboard.Begin();
         }
 
@@ -187,7 +187,7 @@ namespace WordPress
 
         public void HidePopup()
         {
-            Storyboard storyboard = CreateEaseOutAnimationStoryBoard(_layoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MAX, BACKGROUND_OPACITY_MIN, Duration);
+            Storyboard storyboard = AnimationHelper.CreateEaseOutAnimationStoryBoard(_layoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MAX, BACKGROUND_OPACITY_MIN, Duration);
             storyboard.Completed += OnEaseOutStoryboardCompleted;
 
             //delaying the begin time lets the user see what was picked prior
@@ -220,38 +220,6 @@ namespace WordPress
             {
                 page.ApplicationBar.IsVisible = true;
             }
-        }
-
-        private Storyboard CreateEaseInAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
-        {
-            Storyboard animationStoryboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = duration,
-                From = from,
-                To = to,
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
-            };
-            animationStoryboard.Children.Add(animation);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
-            Storyboard.SetTarget(animation, target);
-            return animationStoryboard;
-        }
-
-        private Storyboard CreateEaseOutAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
-        {
-            Storyboard animationStoryboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = duration,
-                From = from,
-                To = to,
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-            };
-            animationStoryboard.Children.Add(animation);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
-            Storyboard.SetTarget(animation, target);
-            return animationStoryboard;
         }
 
         /// <summary>

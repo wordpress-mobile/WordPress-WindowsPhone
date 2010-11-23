@@ -88,14 +88,14 @@ namespace WordPress
             LinkText = string.Empty;
             insertLinkButton.IsEnabled = false;
 
-            Storyboard storyboard = CreateEaseInAnimationStoryBoard(LayoutRoot, StackPanel.OpacityProperty, BACKGROUND_OPACITY_MIN, BACKGROUND_OPACITY_MAX, DEFAULT_DURATION);
+            Storyboard storyboard = AnimationHelper.CreateEaseInAnimationStoryBoard(LayoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MIN, BACKGROUND_OPACITY_MAX, DEFAULT_DURATION);
             Visibility = Visibility.Visible;
             storyboard.Begin();
         }
         
         public void Hide()
         {
-            Storyboard storyboard = CreateEaseOutAnimationStoryBoard(LayoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MAX, BACKGROUND_OPACITY_MIN, DEFAULT_DURATION);
+            Storyboard storyboard = AnimationHelper.CreateEaseOutAnimationStoryBoard(LayoutRoot, Grid.OpacityProperty, BACKGROUND_OPACITY_MAX, BACKGROUND_OPACITY_MIN, DEFAULT_DURATION);
             storyboard.Completed += OnEaseOutStoryboardCompleted;
             storyboard.Begin();
         }
@@ -106,38 +106,6 @@ namespace WordPress
             storyboard.Completed -= OnEaseOutStoryboardCompleted;
 
             Visibility = Visibility.Collapsed;
-        }
-
-        private Storyboard CreateEaseInAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
-        {
-            Storyboard animationStoryboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = duration,
-                From = from,
-                To = to,
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
-            };
-            animationStoryboard.Children.Add(animation);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
-            Storyboard.SetTarget(animation, target);
-            return animationStoryboard;
-        }
-
-        private Storyboard CreateEaseOutAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
-        {
-            Storyboard animationStoryboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = duration,
-                From = from,
-                To = to,
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-            };
-            animationStoryboard.Children.Add(animation);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
-            Storyboard.SetTarget(animation, target);
-            return animationStoryboard;
         }
 
         private void NotifyLinkChosen()

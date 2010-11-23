@@ -110,6 +110,7 @@
     <Compile Include="EulaControl.xaml.cs">
       <DependentUpon>EulaControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AnimationHelper.cs" />
     <Compile Include="Utils\ObservableObjectCollection.cs" />
     <Compile Include="Converters\BooleanInversionConverter.cs" />
     <Compile Include="Converters\CategoryContentConverter.cs" />

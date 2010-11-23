@@ -110,45 +110,13 @@ namespace WordPress
             replyPanel.Visibility = Visibility.Visible;
             ApplicationBar.IsVisible = false;
 
-            Storyboard fadeInStoryboard = CreateEaseInAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.0, 0.97, TimeSpan.FromMilliseconds(250));
+            Storyboard fadeInStoryboard = AnimationHelper.CreateEaseInAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.0, 0.97, TimeSpan.FromMilliseconds(250));
             fadeInStoryboard.Begin();
-        }
-
-        private Storyboard CreateEaseInAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
-        {
-            Storyboard animationStoryboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = duration,
-                From = from,
-                To = to,
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
-            };
-            animationStoryboard.Children.Add(animation);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
-            Storyboard.SetTarget(animation, target);
-            return animationStoryboard;
-        }
-
-        private Storyboard CreateEaseOutAnimationStoryBoard(DependencyObject target, DependencyProperty targetProperty, Double from, Double to, TimeSpan duration)
-        {
-            Storyboard animationStoryboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation
-            {
-                Duration = duration,
-                From = from,
-                To = to,
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-            };
-            animationStoryboard.Children.Add(animation);
-            Storyboard.SetTargetProperty(animation, new PropertyPath(targetProperty));
-            Storyboard.SetTarget(animation, target);
-            return animationStoryboard;
         }
 
         private void HideReplyPanel()
         {
-            Storyboard fadeOutStoryboard = CreateEaseOutAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.97, 0, TimeSpan.FromMilliseconds(250));
+            Storyboard fadeOutStoryboard = AnimationHelper.CreateEaseOutAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.97, 0, TimeSpan.FromMilliseconds(250));
             fadeOutStoryboard.BeginTime = TimeSpan.FromMilliseconds(250);
             fadeOutStoryboard.Completed += OnFadeOutStoryboardCompleted;
             fadeOutStoryboard.Begin();
