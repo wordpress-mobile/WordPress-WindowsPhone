@@ -164,7 +164,7 @@ namespace WordPress.Model
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     if (!int.TryParse(value, out _postId))
                     {
                         _postId = -1;
