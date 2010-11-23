@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:local="clr-namespace:WordPress" 
     xmlns:Converters="clr-namespace:WordPress.Converters"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -136,6 +137,17 @@
                 <ToggleButton Grid.Row="13" x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
             </Grid>
         </ScrollViewer>
+
+        <local:AddLinkControl x:Name="addLinkControl" 
+                              Margin="0" 
+                              VerticalAlignment="Center" 
+                              HorizontalAlignment="Center" 
+                              Height="768" 
+                              Width="480"
+                              Canvas.ZIndex="1" 
+                              Grid.RowSpan="2" 
+                              Visibility="Collapsed"
+                              LinkChosen="OnLinkChosen"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

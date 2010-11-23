@@ -660,4 +660,13 @@
   <data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
     <value>OG</value>
   </data>
+  <data name="ControlText_EnterLinkText" xml:space="preserve">
+    <value>[optional] enter the text that should appear for the link.</value>
+  </data>
+  <data name="ControlText_EnterURL" xml:space="preserve">
+    <value>Please enter the url for the link you'd like to insert.</value>
+  </data>
+  <data name="ControlText_InsertLink" xml:space="preserve">
+    <value>insert link</value>
+  </data>
 </root>

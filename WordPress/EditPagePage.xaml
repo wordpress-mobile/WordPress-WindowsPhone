@@ -1,6 +1,4 @@
-﻿<phone:PhoneApplicationPage 
-    x:Class="WordPress.EditPagePage"
-    x:Name="phoneApplicationPage"
+﻿<phone:PhoneApplicationPage
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -8,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="clr-namespace:WordPress.Converters"
-    FontFamily="{StaticResource PhoneFontFamilyNormal}"
-    FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
+    xmlns:local="clr-namespace:WordPress" 
+    x:Class="WordPress.EditPagePage"
+    x:Name="phoneApplicationPage"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
@@ -18,6 +16,16 @@
     <phone:PhoneApplicationPage.Resources>
         <Converters:PageTitleConverter x:Key="PageTitleConverter"/>
     </phone:PhoneApplicationPage.Resources>
+    
+	<phone:PhoneApplicationPage.FontFamily>
+		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+	</phone:PhoneApplicationPage.FontFamily>
+	<phone:PhoneApplicationPage.FontSize>
+		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
+	</phone:PhoneApplicationPage.FontSize>
+	<phone:PhoneApplicationPage.Foreground>
+		<StaticResource ResourceKey="PhoneForegroundBrush"/>
+	</phone:PhoneApplicationPage.Foreground>
     
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
@@ -37,14 +45,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="Images/blue-s.png" Stretch="None" Width="50" Margin="0" HorizontalAlignment="Left" RenderTransformOrigin="0.52,-0.18" d:LayoutOverrides="Height"/>
-                <TextBlock x:Name="ApplicationTitle" Text="{Binding Path=ApplicationTitle, Source={StaticResource StringTable}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
+                <TextBlock x:Name="ApplicationTitle" Text="{Binding ApplicationTitle, Source={StaticResource StringTable}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
             		<TextBlock.Foreground>
             			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
             		</TextBlock.Foreground>
                 </TextBlock>
             </Grid>
 
-            <TextBlock x:Name="PageTitle"  Text="{Binding DataContext, ElementName=phoneApplicationPage, Converter={StaticResource PageTitleConverter}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
+            <TextBlock x:Name="PageTitle"  Text="{Binding DataContext, Converter={StaticResource PageTitleConverter}, ElementName=phoneApplicationPage}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
             <TextBlock.Foreground>
             		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             	</TextBlock.Foreground>
@@ -65,20 +73,20 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Rectangle Grid.Row="0" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="0" Text="{Binding Path=ControlsText.PageContent, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="0" Text="{Binding ControlsText.PageContent, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <TextBlock Grid.Row="1" Text="{Binding ControlsText.Title, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"/>
-                <TextBlock Grid.Row="3" Text="{Binding Path=ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
+                <TextBlock Grid.Row="3" Text="{Binding ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MaxHeight="400" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}"/>
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
                     <ToggleButton x:Name="boldToggleButton" 
-                                  Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" 
+                                  Content="{Binding ControlsText.Bold, Source={StaticResource StringTable}}" 
                                   ClickMode="Press" 
                                   Click="OnBoldToggleButtonClick" 
                                   Style="{StaticResource BasicToggleButtonStyle}" 
                                   FontWeight="Bold"/>
                     <ToggleButton x:Name="italicToggleButton" 
-                                  Content="{Binding Path=ControlsText.Italic, Source={StaticResource StringTable}}" 
+                                  Content="{Binding ControlsText.Italic, Source={StaticResource StringTable}}" 
                                   ClickMode="Press"
                                   Click="OnItalicToggleButtonClick"
                                   FontStyle="Italic" 
@@ -88,10 +96,10 @@
                                   ClickMode="Press"
                                   Click="OnUnderlineToggleButtonClick"
                                   Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0" >
-                        <TextBlock Text="{Binding Path=ControlsText.Underline, Source={StaticResource StringTable}}" TextDecorations="Underline"/>
+                        <TextBlock Text="{Binding ControlsText.Underline, Source={StaticResource StringTable}}" TextDecorations="Underline"/>
                     </ToggleButton>
                     <ToggleButton x:Name="strikethroughToggleButton" 
-                                  Content="{Binding Path=ControlsText.StrikeThrough, Source={StaticResource StringTable}}" 
+                                  Content="{Binding ControlsText.StrikeThrough, Source={StaticResource StringTable}}" 
                                   ClickMode="Press"
                                   Click="OnStrikethroughToggleButtonClick"
                                   Style="{StaticResource BasicToggleButtonStyle}" 
@@ -99,21 +107,31 @@
                                   Template="{StaticResource StrikethroughToggleButtonStyle}"/>
                     <Button x:Name="linkButton" 
                             Click="OnLinkButtonClick"
-                            Content="{Binding Path=ControlsText.Link, Source={StaticResource StringTable}}" 
+                            Content="{Binding ControlsText.Link, Source={StaticResource StringTable}}" 
                             Style="{StaticResource BasicButtonStyle}" 
                             Margin="-5,0,0,0"/>
                     <ToggleButton x:Name="blockquoteToggleButton" 
                                   ClickMode="Press"
                                   Click="OnBlockquoteToggleButtonClick"
-                                  Content="{Binding Path=ControlsText.BlockQuote, Source={StaticResource StringTable}}" 
+                                  Content="{Binding ControlsText.BlockQuote, Source={StaticResource StringTable}}" 
                                   Style="{StaticResource BasicToggleButtonStyle}" 
                                   Margin="-5,0,0,0"/>
                 </StackPanel>
                 <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="6" Text="status" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <ToggleButton Grid.Row="7" x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>                
+                <ToggleButton Grid.Row="7" x:Name="publishToggleButton" Content="{Binding ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>                
             </Grid>
         </ScrollViewer>
+        <local:AddLinkControl x:Name="addLinkControl" 
+                              Margin="0" 
+                              VerticalAlignment="Center" 
+                              HorizontalAlignment="Center" 
+                              Height="768" 
+                              Width="480"
+                              Canvas.ZIndex="1" 
+                              Grid.RowSpan="2" 
+                              Visibility="Collapsed"
+                              LinkChosen="OnLinkChosen"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

@@ -157,6 +157,9 @@ namespace WordPress.Localization
             public string Clear { get { return LocalizedResources.ControlText_Clear; } }
             public string OriginalSize { get { return LocalizedResources.ControlText_OriginalSize; } }
             public string OriginalSizeAbbr { get { return LocalizedResources.ControlText_OriginalSizeAbbr; } }
+            public string EnterUrl { get { return LocalizedResources.ControlText_EnterURL; } }
+            public string EnterLinkText { get { return LocalizedResources.ControlText_EnterLinkText; } }
+            public string InsertLink { get { return LocalizedResources.ControlText_InsertLink; } }
         }
 
         #endregion

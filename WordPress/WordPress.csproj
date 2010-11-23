@@ -79,10 +79,14 @@
     <Compile Include="AddExistingWordPressSitePage.xaml.cs">
       <DependentUpon>AddExistingWordPressSitePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddLinkControl.xaml.cs">
+      <DependentUpon>AddLinkControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddNewCategoryPage.xaml.cs">
       <DependentUpon>AddNewCategoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationShouldEndException.cs" />
+    <Compile Include="Behaviors\UpdateSourceOnTextChangedBehavior.cs" />
     <Compile Include="BlogPanoramaPage.xaml.cs">
       <DependentUpon>BlogPanoramaPage.xaml</DependentUpon>
     </Compile>
@@ -172,6 +176,10 @@
     <Page Include="AddExistingWordPressSitePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddLinkControl.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="AddNewCategoryPage.xaml">
       <SubType>Designer</SubType>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -59,6 +60,19 @@ namespace WordPress
             if (!State.ContainsKey(TITLEKEY_VALUE))
             {
                 LoadPage();
+            }
+        }
+
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            if (Visibility.Visible == addLinkControl.Visibility)
+            {
+                HideAddLinkControl();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
             }
         }
 
@@ -192,11 +206,6 @@ namespace WordPress
             InsertMarkupTagIntoContent(strikethroughToggleButton, WordPressMarkupTags.STRIKETHROUGH_OPENING_TAG, WordPressMarkupTags.STRIKETHROUGH_CLOSING_TAG);
         }
 
-        private void OnLinkButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void OnBlockquoteToggleButtonClick(object sender, RoutedEventArgs e)
         {
             InsertMarkupTagIntoContent(blockquoteToggleButton, WordPressMarkupTags.BLOCKQUOTE_OPENING_TAG, WordPressMarkupTags.BLOCKQUOTE_CLOSING_TAG);
@@ -296,6 +305,35 @@ namespace WordPress
             }
         }
 
+        private void OnLinkButtonClick(object sender, RoutedEventArgs e)
+        {
+            ShowLinkControl();
+        }
+
+        private void ShowLinkControl()
+        {
+            ApplicationBar.IsVisible = false;
+            addLinkControl.Show();
+        }
+
+        private void HideAddLinkControl()
+        {
+            addLinkControl.Hide();
+            ApplicationBar.IsVisible = true;
+        }
+
+        private void OnLinkChosen(object sender, EventArgs e)
+        {
+            HideAddLinkControl();
+            string linkMarkup = addLinkControl.CreateLinkMarkup();
+            int startIndex = contentTextBox.SelectionStart;
+            string content = contentTextBox.Text;
+            string newContent = content.Insert(startIndex, linkMarkup);
+            contentTextBox.Text = newContent;
+            contentTextBox.Focus();
+        }
+
         #endregion
+
     }
 }

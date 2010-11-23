@@ -394,6 +394,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [optional] enter the text that should appear for the link..
+        /// </summary>
+        internal static string ControlText_EnterLinkText {
+            get {
+                return ResourceManager.GetString("ControlText_EnterLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the url for the link you&apos;d like to insert..
+        /// </summary>
+        internal static string ControlText_EnterURL {
+            get {
+                return ResourceManager.GetString("ControlText_EnterURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End User License Agreement.
         /// </summary>
         internal static string ControlText_EULA {
@@ -417,6 +435,15 @@ namespace WordPress.Localization {
         internal static string ControlText_GetBlog {
             get {
                 return ResourceManager.GetString("ControlText_GetBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to insert link.
+        /// </summary>
+        internal static string ControlText_InsertLink {
+            get {
+                return ResourceManager.GetString("ControlText_InsertLink", resourceCulture);
             }
         }
         

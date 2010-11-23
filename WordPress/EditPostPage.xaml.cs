@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -78,6 +79,19 @@ namespace WordPress
             if (!(State.ContainsKey(TITLEKEY_VALUE)))
             {
                 LoadBlog();
+            }
+        }
+
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            if (Visibility.Visible == addLinkControl.Visibility)
+            {
+                HideAddLinkControl();
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
             }
         }
 
@@ -278,11 +292,6 @@ namespace WordPress
         private void OnStrikethroughToggleButtonClick(object sender, RoutedEventArgs e)
         {
             InsertMarkupTagIntoContent(strikethroughToggleButton, WordPressMarkupTags.STRIKETHROUGH_OPENING_TAG, WordPressMarkupTags.STRIKETHROUGH_CLOSING_TAG);
-        }
-
-        private void OnLinkButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void OnBlockquoteToggleButtonClick(object sender, RoutedEventArgs e)
@@ -540,6 +549,33 @@ namespace WordPress
             return anchorNode.ToString();
         }
 
+        private void OnLinkButtonClick(object sender, RoutedEventArgs e)
+        {
+            ShowLinkControl();
+        }
+
+        private void ShowLinkControl()
+        {
+            ApplicationBar.IsVisible = false;
+            addLinkControl.Show();
+        }
+
+        private void HideAddLinkControl()
+        {
+            addLinkControl.Hide();
+            ApplicationBar.IsVisible = true;
+        }
+
+        private void OnLinkChosen(object sender, EventArgs e)
+        {
+            HideAddLinkControl();
+            string linkMarkup = addLinkControl.CreateLinkMarkup();
+            int startIndex = contentTextBox.SelectionStart;
+            string content = contentTextBox.Text;
+            string newContent = content.Insert(startIndex, linkMarkup);
+            contentTextBox.Text = newContent;
+            contentTextBox.Focus();
+        }
         #endregion
     }
 }
