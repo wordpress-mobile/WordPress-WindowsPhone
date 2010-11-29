@@ -287,7 +287,7 @@ namespace WordPress.Model
                 }
                 else if (BLOGID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     if (!int.TryParse(value, out _blogId))
                     {
                         throw new ArgumentException("Unable to successfully parse Blog ID from server response");
