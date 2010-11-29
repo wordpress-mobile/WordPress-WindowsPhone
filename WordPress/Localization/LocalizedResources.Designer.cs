@@ -241,7 +241,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to blog url.
+        ///   Looks up a localized string similar to blog url (full path to xmlrpc.php).
         /// </summary>
         internal static string ControlText_BlogUrl {
             get {

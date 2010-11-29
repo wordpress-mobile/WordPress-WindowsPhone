@@ -52,7 +52,7 @@
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
                 <TextBlock Text="{Binding Path=ControlsText.BlogUrl, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox x:Name="urlTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" InputScope="Url" />
+                <TextBox x:Name="urlTextBox" Text="http://" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" InputScope="Url" />
                 <TextBlock Text="{Binding Path=ControlsText.Username, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox x:Name="usernameTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>

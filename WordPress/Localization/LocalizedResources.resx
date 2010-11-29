@@ -167,7 +167,7 @@
     <value>blog settings</value>
   </data>
   <data name="ControlText_BlogUrl" xml:space="preserve">
-    <value>blog url</value>
+    <value>blog url (full path to xmlrpc.php)</value>
   </data>
   <data name="ControlText_Bold" xml:space="preserve">
     <value>B</value>

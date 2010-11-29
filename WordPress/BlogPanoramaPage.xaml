@@ -358,7 +358,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="Images/actionsSettings.png" HorizontalAlignment="Left" Margin="-195,0,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Top" Stretch="None" />
+                                <Image Grid.Column="0" Source="Images/actionsSettings.png" HorizontalAlignment="Left" Margin="-193,0,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Top" Stretch="None" />
                                 <TextBlock Grid.Column="1" Text="{Binding ControlsText.BlogSettings, 
                                     Source={StaticResource StringTable}}" TextAlignment="Right" HorizontalAlignment="Right"
                                            VerticalAlignment="Bottom" Margin="0,0,-185,0" d:LayoutOverrides="HorizontalAlignment"/>
