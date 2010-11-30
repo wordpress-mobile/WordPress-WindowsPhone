@@ -269,6 +269,7 @@
     <Content Include="Images\appbar.settings.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\appbar.save.png" />
+    <Resource Include="Images\wp-logo.png" />
     <Content Include="wp-tile.png" />
     <Resource Include="Images\background.jpg" />
     <Resource Include="Images\actionsEdit.png" />

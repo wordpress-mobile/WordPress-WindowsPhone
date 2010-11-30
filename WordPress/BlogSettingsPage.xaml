@@ -183,12 +183,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="Images/blue-s.png" Stretch="None" Width="50" Margin="0" HorizontalAlignment="Left" RenderTransformOrigin="0.52,-0.18" d:LayoutOverrides="Height"/>
-                <TextBlock x:Name="ApplicationTitle" Text="{Binding ApplicationTitle, Source={StaticResource StringTable}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="10,0,0,0" HorizontalAlignment="Left" Grid.Column="1" d:LayoutOverrides="Height" VerticalAlignment="Center">
-            		<TextBlock.Foreground>
-            			<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-            		</TextBlock.Foreground>
-                </TextBlock>
+                <Image Source="Images/wp-logo.png" Stretch="None" Width="227" Height="50" Margin="0" HorizontalAlignment="Left" RenderTransformOrigin="0.52,-0.18" d:LayoutOverrides="Height"/>
             </Grid>
             <TextBlock x:Name="PageTitle" Text="{Binding PageTitles.Settings, Source={StaticResource StringTable}}" Margin="9,-7,8,0" Style="{StaticResource PhoneTextTitle1Style}">
                 <TextBlock.Foreground>
