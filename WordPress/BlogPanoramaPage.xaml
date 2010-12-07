@@ -292,7 +292,7 @@
                             <Image Source="Images/actionsEdit.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <TextBlock Text="{Binding ControlsText.Write, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
-                    			Width="{Binding Width, ElementName=grid}" TextAlignment="Right"/>
+                    			Width="{Binding Width, ElementName=grid}" TextAlignment="Right" Foreground="White"/>
                         </StackPanel>
                     </Button>
 
@@ -308,7 +308,7 @@
                             <Image Source="Images/actionsModerate.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <TextBlock Text="{Binding ControlsText.ModerateComments, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,52,10,0" HorizontalAlignment="Right" 
-                    			TextAlignment="Right"/>
+                    			TextAlignment="Right" Foreground="White"/>
                         </StackPanel>
                     </Button>
 
@@ -324,7 +324,7 @@
                             <Image Source="Images/actionsAddPg.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <TextBlock Text="{Binding ControlsText.AddAPage, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
-                    			TextAlignment="Right"/>
+                    			TextAlignment="Right" Foreground="White"/>
                         </StackPanel>
                     </Button>
 
@@ -340,7 +340,7 @@
                             <Image Source="Images/actionsRefresh.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <TextBlock Text="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
-                    			TextAlignment="Right"/>
+                    			TextAlignment="Right" Foreground="White"/>
                         </StackPanel>
                     </Button>
 
@@ -361,7 +361,7 @@
                                 <Image Grid.Column="0" Source="Images/actionsSettings.png" HorizontalAlignment="Left" Margin="-193,0,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Top" Stretch="None" />
                                 <TextBlock Grid.Column="1" Text="{Binding ControlsText.BlogSettings, 
                                     Source={StaticResource StringTable}}" TextAlignment="Right" HorizontalAlignment="Right"
-                                           VerticalAlignment="Bottom" Margin="0,0,-185,0" d:LayoutOverrides="HorizontalAlignment"/>
+                                           VerticalAlignment="Bottom" Margin="0,0,-185,0" d:LayoutOverrides="HorizontalAlignment" Foreground="White"/>
                             </Grid>
 
                         </Button.Content>
