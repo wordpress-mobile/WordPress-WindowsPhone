@@ -149,6 +149,9 @@ namespace WordPress
         public void OnSaveButtonClick(object sender, EventArgs args)
         {
             Blog blog = DataContext as Blog;
+            blog.Username = usernameTextBox.Text;
+            blog.Password = passwordTextBox.Password;
+            blog.ApiKey = apikeyTextBox.Password;
             if (blog.IsEditing)
             {
                 blog.EndEdit();
