@@ -54,12 +54,18 @@
               <string>{6}</string>
             </value>
           </member>
+          <member>
+            <name>{7}_status</name>
+            <value>
+              <string>{8}</string>
+            </value>
+          </member>
         </struct>
       </value>
     </param>
     <param>
       <value>
-        <boolean>{7}</boolean>
+        <boolean>false</boolean>
       </value>
     </param>
   </params>

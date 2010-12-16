@@ -224,7 +224,7 @@
                              FontSize="{StaticResource ControlFontSize}" 
                              Style="{StaticResource PasswordBoxStyle}" 
                              Template="{StaticResource FocusedPasswordBoxTemplate}"
-                             Password="{Binding Password, Mode=TwoWay}"
+                             Password="{Binding ApiKey, Mode=TwoWay}"
                             />
                 <Border Background="{StaticResource SectionHeaderBackgroundBrush}">
                     <TextBlock Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" 

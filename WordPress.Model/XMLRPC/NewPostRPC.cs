@@ -85,6 +85,16 @@ namespace WordPress.Model
 
         protected override string BuildPostContentString()
         {
+
+            string status = "";
+            if (Publish)
+            {
+                status = "publish";
+            }
+            else
+            {
+                status = "draft";
+            }
             string result = string.Format(_content,
                 Post.PostId,
                 Credentials.UserName.HtmlEncode(),
@@ -94,7 +104,8 @@ namespace WordPress.Model
                 FormatCategories(),
                 Post.Title.HtmlEncode(),
                 Post.Description.HtmlEncode(),
-                Publish);
+                PostType.ToString(),
+                status);
 
             return result;
         }

@@ -117,6 +117,10 @@ namespace WordPress
             {
                 Post post = args.Items[0];
                 DataContext = post;
+                if (post.PostStatus.Equals("publish"))
+                {
+                    publishToggleButton.IsChecked = true;
+                }
             }
             else
             {

@@ -71,9 +71,9 @@
                 <Rectangle Grid.Row="0" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="0" Text="{Binding Path=ControlsText.PostContent, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <TextBlock Grid.Row="1" Text="{Binding ControlsText.Title, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}"/>
+                <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
                 <TextBlock Grid.Row="3" Text="{Binding Path=ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MaxHeight="400" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}"/>
+                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MaxHeight="400" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" />
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
                     <ToggleButton x:Name="boldToggleButton" 
                                   Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" 
@@ -122,7 +122,7 @@
                 <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
                 <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="9" Text="{Binding Path=ControlsText.TagsAndCategories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <TextBox Grid.Row="10" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" />
+                <TextBox Grid.Row="10" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
                 <Button Grid.Row="11" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>

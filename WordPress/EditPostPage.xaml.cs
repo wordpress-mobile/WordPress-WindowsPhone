@@ -182,6 +182,10 @@ namespace WordPress
                 Post post = args.Items[0];
                 DataContext = post;
                 App.MasterViewModel.CurrentPost = post;
+                if (post.PostStatus.Equals("publish"))
+                {
+                    publishToggleButton.IsChecked = true;
+                }
             }
             else
             {
@@ -215,8 +219,9 @@ namespace WordPress
 
         private void SavePost()
         {
-            Post post = DataContext as Post;
-
+            //Post post = DataContext as Post;
+            //changed to CurrentPost so categories would save
+            Post post = App.MasterViewModel.CurrentPost;
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
             //which doesn't force focus to change
             post.Title = titleTextBox.Text;
@@ -228,7 +233,6 @@ namespace WordPress
                 rpc.PostType = ePostType.post;                            
                 rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.Completed += OnNewPostRPCCompleted;
-
                 rpc.ExecuteAsync();
             }
             else
@@ -236,7 +240,7 @@ namespace WordPress
                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
                 rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.Completed += OnEditPostRPCCompleted;
-
+                rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.ExecuteAsync();
             }
 
