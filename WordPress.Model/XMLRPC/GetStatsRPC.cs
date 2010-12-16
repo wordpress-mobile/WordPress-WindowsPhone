@@ -20,7 +20,7 @@ namespace WordPress.Model
     {
         #region member variables
 
-        protected const string STATSURL_FORMATSTRING = "http://stats.wordpress.com/api/1.0/?api_key={0}&blog_id={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
+        protected const string STATSURL_FORMATSTRING = "http://stats.wordpress.com/api/1.0/?api_key={0}&blog_uri={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
 
         private SendOrPostCallback onCompletedDelegate;
         
@@ -61,7 +61,7 @@ namespace WordPress.Model
             {
                 string url = string.Format(STATSURL_FORMATSTRING,
                     Blog.ApiKey,
-                    Blog.BlogId,
+                    Blog.Url,
                     StatisticType.ToString().ToLower(),
                     DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString(),
                     Days,
