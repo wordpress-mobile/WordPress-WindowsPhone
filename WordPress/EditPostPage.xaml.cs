@@ -311,7 +311,7 @@ namespace WordPress
         private void InsertMarkupTagIntoContent(ToggleButton toggleButton, string openingTag, string closingTag)
         {
             Post post = DataContext as Post;
-            string description = post.Description;
+            string description = contentTextBox.Text;
 
             int startIndex = contentTextBox.SelectionStart;
             if (description.Length <= startIndex)
