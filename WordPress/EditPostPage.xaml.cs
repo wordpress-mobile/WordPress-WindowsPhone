@@ -217,10 +217,15 @@ namespace WordPress
         {
             Post post = DataContext as Post;
 
+            //make sure the post has the latest UI data--the Save button is a ToolbarButton
+            //which doesn't force focus to change
+            post.Title = titleTextBox.Text;
+            post.Description = contentTextBox.Text;
+
             if (post.IsNew)
             {
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.PostType = ePostType.post;
+                rpc.PostType = ePostType.post;                            
                 rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.Completed += OnNewPostRPCCompleted;
 
