@@ -186,6 +186,10 @@ namespace WordPress
                 {
                     publishToggleButton.IsChecked = true;
                 }
+                if (post.MtKeyWords != "")
+                {
+                    tagsTextBox.Text = post.MtKeyWords;
+                }
             }
             else
             {
@@ -226,6 +230,7 @@ namespace WordPress
             //which doesn't force focus to change
             post.Title = titleTextBox.Text;
             post.Description = contentTextBox.Text;
+            post.MtKeyWords = tagsTextBox.Text;
 
             if (post.IsNew)
             {
