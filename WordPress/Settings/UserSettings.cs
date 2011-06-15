@@ -48,7 +48,7 @@ namespace WordPress.Settings
         {
             get
             {
-                bool result = true;
+                bool result = false;
 
                 if (Settings.Contains(USETAGLINEFORNEWPOSTS_VALUE))
                 {

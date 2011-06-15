@@ -163,11 +163,6 @@ namespace WordPress
             {
                 Post post = new Post();
                 DataContext = post;
-                UserSettings settings = new UserSettings();
-                if (settings.UseTaglineForNewPosts)
-                {
-                    contentTextBox.Text = "\r\n\r\n" + settings.Tagline;
-                }
                 App.MasterViewModel.CurrentPost = post;
             }
         }
@@ -234,6 +229,11 @@ namespace WordPress
 
             if (post.IsNew)
             {
+                UserSettings settings = new UserSettings();
+                if (settings.UseTaglineForNewPosts)
+                {
+                    post.Description = post.Description + "\r\n\r\n<span class=\"post-sig\">" + settings.Tagline + "</span>";
+                }
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
                 rpc.PostType = ePostType.post;                            
                 rpc.Publish = publishToggleButton.IsChecked.Value;
