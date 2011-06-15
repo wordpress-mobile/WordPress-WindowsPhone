@@ -109,6 +109,11 @@
     <Compile Include="EulaControl.xaml.cs">
       <DependentUpon>EulaControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Localization\LocalizedResources.de-DE.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedResources.de-DE.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\AnimationHelper.cs" />
     <Compile Include="Utils\ObservableObjectCollection.cs" />
     <Compile Include="Converters\BooleanInversionConverter.cs" />
@@ -301,6 +306,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizedResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedResources.de-DE.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
