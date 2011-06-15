@@ -9,7 +9,7 @@
     xmlns:local="clr-namespace:WordPress" 
     x:Class="WordPress.EditPagePage"
     x:Name="phoneApplicationPage"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
     
