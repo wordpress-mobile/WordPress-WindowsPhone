@@ -93,11 +93,6 @@ namespace WordPress
             else
             {
                 DataContext = new Post();
-                UserSettings settings = new UserSettings();
-                if (settings.UseTaglineForNewPosts)
-                {
-                    contentTextBox.Text = "\r\n\r\n" + settings.Tagline;
-                }
             }
         }
 
