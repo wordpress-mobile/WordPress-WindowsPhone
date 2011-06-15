@@ -1358,6 +1358,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel Editing.
+        /// </summary>
+        internal static string Prompts_CancelEditing {
+            get {
+                return ResourceManager.GetString("Prompts_CancelEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current blog doesn&apos;t have an api key.  Please enter one on the settings page..
         /// </summary>
         internal static string Prompts_MissingApikey {
@@ -1403,6 +1412,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to page.
+        /// </summary>
+        internal static string Prompts_Page {
+            get {
+                return ResourceManager.GetString("Prompts_Page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to post.
+        /// </summary>
+        internal static string Prompts_Post {
+            get {
+                return ResourceManager.GetString("Prompts_Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What would you like to refresh?.
         /// </summary>
         internal static string Prompts_RefreshEntity {
@@ -1444,6 +1471,15 @@ namespace WordPress.Localization {
         internal static string Prompts_SelectStatisticType {
             get {
                 return ResourceManager.GetString("Prompts_SelectStatisticType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to cancel editing this {0}?.
+        /// </summary>
+        internal static string Prompts_SureCancel {
+            get {
+                return ResourceManager.GetString("Prompts_SureCancel", resourceCulture);
             }
         }
         

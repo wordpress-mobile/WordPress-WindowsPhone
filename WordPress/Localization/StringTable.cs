@@ -259,6 +259,10 @@ namespace WordPress.Localization
             public string ConfirmDeletePageFormat { get { return LocalizedResources.Prompt_ConfirmDeletePageFormat; } }
             public string ConfirmDeletePostFormat { get { return LocalizedResources.Prompt_ConfirmDeletePostFormat; } }
             public string SelectBlogToDelete { get { return LocalizedResources.Prompts_SelectBlogToDelete; } }
+            public string SureCancel { get { return LocalizedResources.Prompts_SureCancel; } }
+            public string CancelEditing { get { return LocalizedResources.Prompts_CancelEditing; } }
+            public string Page { get { return LocalizedResources.Prompts_Page; } }
+            public string Post { get { return LocalizedResources.Prompts_Post; } }
         }
 
         #endregion

@@ -72,7 +72,16 @@ namespace WordPress
             }
             else
             {
-                base.OnBackKeyPress(e);
+                string prompt = string.Format(_localizedStrings.Prompts.SureCancel, _localizedStrings.Prompts.Page);
+                MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    base.OnBackKeyPress(e);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
 

@@ -669,4 +669,18 @@
   <data name="ControlText_InsertLink" xml:space="preserve">
     <value>insert link</value>
   </data>
+  <data name="Prompts_CancelEditing" xml:space="preserve">
+    <value>Cancel Editing</value>
+    <comment>title for cancel prompt</comment>
+  </data>
+  <data name="Prompts_Page" xml:space="preserve">
+    <value>page</value>
+  </data>
+  <data name="Prompts_Post" xml:space="preserve">
+    <value>post</value>
+  </data>
+  <data name="Prompts_SureCancel" xml:space="preserve">
+    <value>Are you sure you want to cancel editing this {0}?</value>
+    <comment>prompt when a user taps back button in editor</comment>
+  </data>
 </root>
