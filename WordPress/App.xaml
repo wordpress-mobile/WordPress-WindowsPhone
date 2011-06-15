@@ -376,31 +376,31 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
-                                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
-                                        <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24" >
+                                    <Image Margin="0,0,10,10" Width="80" Height="80" Source="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80"/>
+                                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,-6,0,0">
+                                        <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
                                             <TextBlock.Foreground>
-							                    <SolidColorBrush x:Name="authorTextBrush" Color="{StaticResource WordPressGrey}"/>
+							                    <SolidColorBrush x:Name="authorTextBrush" Color="#FF111111"/>
 						                    </TextBlock.Foreground>
                                         </TextBlock>
-                                        <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
+                                        <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="20" >
 						                    <TextBlock.Foreground>
 							                    <SolidColorBrush x:Name="authorEmailTextBrush" Color="{StaticResource WordPressGrey}"/>
 						                    </TextBlock.Foreground>
                                         </TextBlock>
-                                        <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
+                                        <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="20" >
 						                    <TextBlock.Foreground>
 							                    <SolidColorBrush x:Name="postTextBrush" Color="{StaticResource WordPressGrey}"/>
 						                    </TextBlock.Foreground>
                                         </TextBlock>
                                     </StackPanel>
                                     <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
-                                        <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
+                                        <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="22" MaxHeight="60" TextWrapping="Wrap">
 						                    <TextBlock.Foreground>
 							                    <SolidColorBrush x:Name="contentTextBrush" Color="{StaticResource WordPressGrey}"/>
 						                    </TextBlock.Foreground>
                                         </TextBlock>
-                                        <TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
+                                        <TextBlock x:Name="statusTextBlock" FontSize="17" Text="{Binding FormattedStatus}" Margin="0,0,0,16"
 								                    Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"/>
                                     </StackPanel>
                                 </Grid>

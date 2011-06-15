@@ -420,7 +420,7 @@
     <comment>title for the 'all' pivot item on the ModerateCommentsPage</comment>
   </data>
   <data name="Title_Approve" xml:space="preserve">
-    <value>APPROVE</value>
+    <value>APPROVED</value>
     <comment>title for the 'approve' pivot item on the ModerateCommentsPage</comment>
   </data>
   <data name="Title_Blogs" xml:space="preserve">
@@ -472,7 +472,7 @@
     <comment>title for the 'stats' panorama item</comment>
   </data>
   <data name="Title_Unapprove" xml:space="preserve">
-    <value>UNAPPROVE</value>
+    <value>UNAPPROVED</value>
     <comment>title for the 'unapprove' pivot item on the ModerateCommentsPage</comment>
   </data>
   <data name="Messages_DeletingPage" xml:space="preserve">

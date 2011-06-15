@@ -144,6 +144,20 @@ namespace WordPress.Model
             }
         }
 
+        public string FormattedStatus
+        {
+            //Format the comment status from 'approve' to 'Approved' etc
+            get {
+                String formattedStatus = "Approved";
+                if (_status == "hold")
+                    formattedStatus = "Unapproved";
+                else if (_status == "spam")
+                    formattedStatus = "Spam";
+
+                return formattedStatus; 
+            }
+        }
+
         [XmlIgnore]
         public eCommentStatus CommentStatus
         {
@@ -294,7 +308,7 @@ namespace WordPress.Model
                 encoder.GetBytes(_authorEmail.ToCharArray(), 0, _authorEmail.Length, unicodeText, 0, true);
 
                 string hash = MD5.GetMd5String(_authorEmail.Trim());
-                string uriFormat = "http://gravatar.com/avatar/{0}?s=60&d=identicon";
+                string uriFormat = "http://gravatar.com/avatar/{0}?s=100&d=identicon";
                 string result = string.Format(uriFormat, hash);
                 return result;
             }
