@@ -805,40 +805,6 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
         }
 
-        private void OnPanoramaSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FetchInitialDataForBlog();
-        }
-
-        private void FetchInitialDataForBlog()
-        {
-            PanoramaItem selectedItem = blogPanorama.SelectedItem as PanoramaItem;
-            Blog currentBlog = App.MasterViewModel.CurrentBlog;
-
-            //TODO: determine how to resolve scenarios where a user actually doesn't have any of the following
-            if (selectedItem == commentsPanoramaItem)
-            {
-                if (0 == currentBlog.Comments.Count)
-                {
-                    FetchComments();
-                }
-            }
-            else if (selectedItem == postsPanoramaItem)
-            {
-                if (0 == currentBlog.PostListItems.Count)
-                {
-                    FetchPosts();
-                }
-            }
-            else if (selectedItem == pagesPanoramaItem)
-            {
-                if (0 == currentBlog.PageListItems.Count)
-                {
-                    FetchPages();
-                }
-            }
-        }
-
         private void OnStatisticPeriodButtonClick(object sender, RoutedEventArgs args)
         {
             PresentStatisticPeriodOptions();

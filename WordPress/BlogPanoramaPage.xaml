@@ -259,7 +259,7 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
 
-        <controls:Panorama x:Name="blogPanorama" Title="{Binding CurrentBlog.BlogName}" SelectionChanged="OnPanoramaSelectionChanged">
+        <controls:Panorama x:Name="blogPanorama" Title="{Binding CurrentBlog.BlogName}">
             <controls:Panorama.Foreground>
                 <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
             </controls:Panorama.Foreground>
