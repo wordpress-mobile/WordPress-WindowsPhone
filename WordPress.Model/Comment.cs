@@ -297,17 +297,13 @@ namespace WordPress.Model
         {
             get
             {
-                if (string.IsNullOrEmpty(_authorEmail))
-                {
-                    //TODO: return placeholder or something
-                    return string.Empty;
-                }
+                string emailAddress = _authorEmail ?? String.Empty;
 
                 Encoder encoder = Encoding.Unicode.GetEncoder();
-                byte[] unicodeText = new byte[_authorEmail.Length * 2];
-                encoder.GetBytes(_authorEmail.ToCharArray(), 0, _authorEmail.Length, unicodeText, 0, true);
+                byte[] unicodeText = new byte[emailAddress.Length * 2];
+                encoder.GetBytes(emailAddress.ToCharArray(), 0, emailAddress.Length, unicodeText, 0, true);
 
-                string hash = MD5.GetMd5String(_authorEmail.Trim());
+                string hash = MD5.GetMd5String(emailAddress.Trim());
                 string uriFormat = "http://gravatar.com/avatar/{0}?s=100&d=identicon";
                 string result = string.Format(uriFormat, hash);
                 return result;
