@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -16,8 +17,21 @@ namespace WordPress.Model
 
         private Blog _currentBlog;
 
+        /// <summary>
+        /// This collection is used to hold new blogs that we're downloading data for.
+        /// If one of the new blogs becomes the current blog we can query this collection
+        /// to avoid kicking off unnecessary downloads.  Once the download is complete
+        /// the blog will be removed from this collection.
+        /// </summary>
+        private List<Blog> _trackedBlogs;
+
         private const string BLOGS_FILENAME = "blogs.dat";
         private const string STORE_FILENAME = "store.dat";
+
+        /// <summary>
+        /// The number of *items* to download per web call.
+        /// </summary>
+        private const int CHUNK_SIZE = 30;
 
         #endregion
 
@@ -33,6 +47,7 @@ namespace WordPress.Model
         public DataService()
         {
             Blogs = new ObservableCollection<Blog>();
+            _trackedBlogs = new List<Blog>();
         }
 
         #endregion
@@ -190,7 +205,7 @@ namespace WordPress.Model
         }
 
         private void NotifyExceptionOccurred(ExceptionEventArgs args)
-        {
+        {            
             if (null != ExceptionOccurred)
             {
                 ExceptionOccurred(this, args);
@@ -205,7 +220,7 @@ namespace WordPress.Model
             }
 
             GetAllCommentsRPC rpc = new GetAllCommentsRPC(CurrentBlog);
-            rpc.Number = 30;
+            rpc.Number = CHUNK_SIZE;
             rpc.Offset = 0;
             rpc.Completed += OnFetchCurrentBlogCommentsCompleted;
 
@@ -241,7 +256,7 @@ namespace WordPress.Model
             }
 
             GetRecentPostsRPC rpc = new GetRecentPostsRPC(CurrentBlog);
-            rpc.NumberOfPosts = 30;
+            rpc.NumberOfPosts = CHUNK_SIZE;
             rpc.Completed += OnFetchCurrentBlogPostsCompleted;
 
             rpc.ExecuteAsync();
@@ -385,7 +400,157 @@ namespace WordPress.Model
             //the blog is updated by the rpc.  all we have to do here is unbind
             GetApiKeyRPC rpc = sender as GetApiKeyRPC;
             rpc.Completed -= OnGetApiKeyRPCCompleted;
+
+            //now that we have our new blog we need to download its contents.  
+            Blog newBlog = args.Items[0];
+            _trackedBlogs.Add(newBlog);
+
+            this.DebugLog("Blog '" + newBlog.BlogName + "' is now downloading data.");
+
+            //start with the comments
+            GetAllCommentsRPC getCommentsRPC = new GetAllCommentsRPC(newBlog);
+            getCommentsRPC.Number = CHUNK_SIZE;
+            getCommentsRPC.Offset = 0;
+            getCommentsRPC.Completed += OnGetNewBlogCommentsCompleted;
+            getCommentsRPC.ProgressChanged += OnGetCommentsRPCProgressChanged;
+
+            getCommentsRPC.ExecuteAsync();
         }
+
+        private void OnGetCommentsRPCProgressChanged(object sender, ProgressChangedEventArgs args)
+        {
+            GetAllCommentsRPC rpc = sender as GetAllCommentsRPC;
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null != newBlog)
+            {
+                this.DebugLog("OnGetCommentsRPCProgressChanged-- Blog: " + newBlog.BlogName);
+            }
+            this.DebugLog("GetCommentsProgressChanged-- Progress: " + args.ProgressPercentage.ToString());
+            this.DebugLog("GetCommentsProgressChanged-- UserState: " + args.UserState);
+        }
+
+        private void OnGetNewBlogCommentsCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
+        {
+            GetAllCommentsRPC rpc = sender as GetAllCommentsRPC;
+            rpc.Completed -= OnGetNewBlogCommentsCompleted;
+            rpc.ProgressChanged -= OnGetCommentsRPCProgressChanged;
+
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null == newBlog) return;
+
+            //report the error, but keep trying to get data
+            if (null != args.Error)
+            {
+                this.DebugLog("OnFetchNewBlogCommentsCompleted: Exception occurred (" + newBlog.BlogName + ")");
+                this.DebugLog(args.Error.ToString());
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+            else
+            {
+                foreach (Comment comment in args.Items)
+                {
+                    newBlog.Comments.Add(comment);
+                }
+                this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading comments.");
+            }
+
+            this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading comments.");
+
+            //get the posts for the new blog
+            GetRecentPostsRPC recentPostsRPC = new GetRecentPostsRPC(newBlog);
+            recentPostsRPC.NumberOfPosts = CHUNK_SIZE;
+            recentPostsRPC.Completed += OnGetNewBlogRecentPostsCompleted;
+            recentPostsRPC.ProgressChanged += OnGetNewBlogRecentPostsRPCProgressChanged;
+            recentPostsRPC.ExecuteAsync();
+        }
+
+        private void OnGetNewBlogRecentPostsRPCProgressChanged(object sender, ProgressChangedEventArgs args)
+        {
+            GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null != newBlog)
+            {
+                this.DebugLog("OnGetNewBlogRecentPostsRPCProgressChanged-- Blog: " + newBlog.BlogName);
+            }
+            this.DebugLog("OnGetNewBlogRecentPostsRPCProgressChanged-- Progress: " + args.ProgressPercentage.ToString());
+            this.DebugLog("OnGetNewBlogRecentPostsRPCProgressChanged-- UserState: " + args.UserState);
+        }
+
+        private void OnGetNewBlogRecentPostsCompleted(object sender, XMLRPCCompletedEventArgs<PostListItem> args)
+        {
+            GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
+            rpc.Completed -= OnGetNewBlogRecentPostsCompleted;
+            rpc.ProgressChanged -= OnGetNewBlogRecentPostsRPCProgressChanged;
+
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null == newBlog) return;
+
+            //report the error, but keep trying to get data
+            if (null != args.Error)
+            {
+                this.DebugLog("OnGetNewBlogRecentPostsCompleted: Exception occurred (" + newBlog.BlogName + ")");
+                this.DebugLog(args.Error.ToString());
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+            else
+            {
+                foreach (PostListItem item in args.Items)
+                {
+                    newBlog.PostListItems.Add(item);
+                }
+            }
+
+            this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading posts.");
+
+            //get the pages for the new blog
+            GetPageListRPC pageListRPC = new GetPageListRPC(newBlog);
+            pageListRPC.Completed += OnGetNewBlogPagesCompleted;
+            pageListRPC.ProgressChanged += OnGetNewBlogPagesProgressChanged;
+            pageListRPC.ExecuteAsync();
+        }
+
+        private void OnGetNewBlogPagesProgressChanged(object sender, ProgressChangedEventArgs args)
+        {
+            GetPageListRPC rpc = sender as GetPageListRPC;
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null != newBlog)
+            {
+                this.DebugLog("OnGetNewBlogPagesProgressChanged-- Blog: " + newBlog.BlogName);
+            }
+            this.DebugLog("OnGetNewBlogPagesProgressChanged-- Progress: " + args.ProgressPercentage.ToString());
+            this.DebugLog("OnGetNewBlogPagesProgressChanged-- UserState: " + args.UserState);
+        }
+
+        private void OnGetNewBlogPagesCompleted(object sender, XMLRPCCompletedEventArgs<PageListItem> args)
+        {
+            GetPageListRPC rpc = sender as GetPageListRPC;
+            rpc.Completed -= OnGetNewBlogPagesCompleted;
+            rpc.ProgressChanged -= OnGetNewBlogPagesProgressChanged;
+
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null == newBlog) return;
+
+            if (null != args.Error)
+            {
+                this.DebugLog("OnGetNewBlogPagesCompleted: Exception occurred (" + newBlog.BlogName + ")");
+                this.DebugLog(args.Error.ToString());
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+            else
+            {
+                foreach (PageListItem item in args.Items)
+                {
+                    newBlog.PageListItems.Add(item);
+                }
+            }
+
+            _trackedBlogs.Remove(newBlog);
+
+            //TODO: if the new blog *is* the current blog we need to notify subscribers that the
+            //fetch is now complete
+        }
+
+
         #endregion
 
         #region StoreData class definition
