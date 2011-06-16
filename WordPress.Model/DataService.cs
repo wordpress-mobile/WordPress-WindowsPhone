@@ -219,6 +219,10 @@ namespace WordPress.Model
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
 
+            //we're already downloading data here--don't allow scenarios where we could be
+            //kicking off another download
+            if (_trackedBlogs.Contains(CurrentBlog)) return;
+
             GetAllCommentsRPC rpc = new GetAllCommentsRPC(CurrentBlog);
             rpc.Number = CHUNK_SIZE;
             rpc.Offset = 0;
@@ -255,6 +259,10 @@ namespace WordPress.Model
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
 
+            //we're already downloading data here--don't allow scenarios where we could be
+            //kicking off another download
+            if (_trackedBlogs.Contains(CurrentBlog)) return;
+
             GetRecentPostsRPC rpc = new GetRecentPostsRPC(CurrentBlog);
             rpc.NumberOfPosts = CHUNK_SIZE;
             rpc.Completed += OnFetchCurrentBlogPostsCompleted;
@@ -290,6 +298,10 @@ namespace WordPress.Model
             {
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
+
+            //we're already downloading data here--don't allow scenarios where we could be
+            //kicking off another download
+            if (_trackedBlogs.Contains(CurrentBlog)) return;
 
             GetPageListRPC rpc = new GetPageListRPC(CurrentBlog);
             rpc.Completed += OnFetchCurrentBlogPagesCompleted;
@@ -456,6 +468,11 @@ namespace WordPress.Model
 
             this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading comments.");
 
+            if (newBlog == CurrentBlog)
+            {
+                NotifyFetchComplete();
+            }
+
             //get the posts for the new blog
             GetRecentPostsRPC recentPostsRPC = new GetRecentPostsRPC(newBlog);
             recentPostsRPC.NumberOfPosts = CHUNK_SIZE;
@@ -502,6 +519,11 @@ namespace WordPress.Model
 
             this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading posts.");
 
+            if (newBlog == CurrentBlog)
+            {
+                NotifyFetchComplete();
+            }
+
             //get the pages for the new blog
             GetPageListRPC pageListRPC = new GetPageListRPC(newBlog);
             pageListRPC.Completed += OnGetNewBlogPagesCompleted;
@@ -546,8 +568,10 @@ namespace WordPress.Model
 
             _trackedBlogs.Remove(newBlog);
 
-            //TODO: if the new blog *is* the current blog we need to notify subscribers that the
-            //fetch is now complete
+            if (newBlog == CurrentBlog)
+            {
+                NotifyFetchComplete();
+            }
         }
 
 
