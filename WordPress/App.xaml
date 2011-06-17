@@ -17,459 +17,466 @@
     <!--Application Resources-->
     <Application.Resources>
 
-        <local:StringTable xmlns:local="clr-namespace:WordPress.Localization" x:Key="StringTable"/>
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="Resources/LightStyles.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
 
-        <UriMapper:UriMapper x:Key="UriMapper">
-            <UriMapper:UriMapping Uri="/StartPage"/>
-        </UriMapper:UriMapper>
+    		<local:StringTable xmlns:local="clr-namespace:WordPress.Localization" x:Key="StringTable"/>
 
-        <Color x:Key="WordPressBlue">#FF21759B</Color>
-        <Color x:Key="WordPressGrey">#FF464646</Color>
-        <Color x:Key="WordPressOrange">#FFD54E21</Color>
-        <Color x:Key="TextBoxBackgroundColor">#BFEBE7E7</Color>
-        <Color x:Key="TextBoxForegroundColor">Black</Color>
-        <Color x:Key="AppbarBackgroundColor">#FFF0F0F0</Color>
+    		<UriMapper:UriMapper x:Key="UriMapper">
+    			<UriMapper:UriMapping Uri="/StartPage"/>
+    		</UriMapper:UriMapper>
+        
+    		<Color x:Key="WordPressBlue">#FF21759B</Color>
+    		<Color x:Key="WordPressGrey">#FF464646</Color>
+    		<Color x:Key="WordPressOrange">#FFD54E21</Color>
+    		<Color x:Key="TextBoxBackgroundColor">#BFEBE7E7</Color>
+    		<Color x:Key="TextBoxForegroundColor">Black</Color>
+    		<Color x:Key="AppbarBackgroundColor">#FFF0F0F0</Color>
 
-        <SolidColorBrush x:Key="WordPressGreyBrush" Color="#FF464646"/>
-        <SolidColorBrush x:Key="WordPressBlueBrush" Color="#FF21859B"/>
-        <SolidColorBrush x:Key="WordPressOrangeBrush" Color="#FFD54E21"/>
-        <SolidColorBrush x:Key="SectionHeaderBackgroundBrush" Color="#FFD4D4D4"/>
+    		<SolidColorBrush x:Key="WordPressGreyBrush" Color="#FF464646"/>
+    		<SolidColorBrush x:Key="WordPressBlueBrush" Color="#FF21859B"/>
+    		<SolidColorBrush x:Key="WordPressOrangeBrush" Color="#FFD54E21"/>
+    		<SolidColorBrush x:Key="SectionHeaderBackgroundBrush" Color="#FFD4D4D4"/>
 
-        <System:Double x:Key="SectionHeaderFontSize">28</System:Double>
-        <System:Double x:Key="ControlFontSize">24</System:Double>
+    		<System:Double x:Key="SectionHeaderFontSize">28</System:Double>
+    		<System:Double x:Key="ControlFontSize">24</System:Double>
 
-        <LinearGradientBrush x:Key="PageBackgroundGradientBrush" EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect">
-            <GradientStop Color="#FF464646" Offset="0"/>
-            <GradientStop Color="#FFFFFFFF" Offset="0.03"/>
-        </LinearGradientBrush>
+    		<LinearGradientBrush x:Key="PageBackgroundGradientBrush" EndPoint="0.5,1" StartPoint="0.5,0" SpreadMethod="Reflect">
+    			<GradientStop Color="#FF464646" Offset="0"/>
+    			<GradientStop Color="#FFFFFFFF" Offset="0.03"/>
+    		</LinearGradientBrush>
 
-        <Style x:Key="TextBoxStyle" TargetType="TextBox">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource TextBoxBackgroundColor}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource TextBoxForegroundColor}"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    		<Style x:Key="TextBoxStyle" TargetType="TextBox">
+    			<Setter Property="Background">
+    				<Setter.Value>
+    					<SolidColorBrush Color="{StaticResource TextBoxBackgroundColor}"/>
+    				</Setter.Value>
+    			</Setter>
+    			<Setter Property="Foreground">
+    				<Setter.Value>
+    					<SolidColorBrush Color="{StaticResource TextBoxForegroundColor}"/>
+    				</Setter.Value>
+    			</Setter>
+    		</Style>
 
-        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource TextBoxBackgroundColor}"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground">
-                <Setter.Value>
-                    <SolidColorBrush Color="{StaticResource TextBoxForegroundColor}"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    		<Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
+    			<Setter Property="Background">
+    				<Setter.Value>
+    					<SolidColorBrush Color="{StaticResource TextBoxBackgroundColor}"/>
+    				</Setter.Value>
+    			</Setter>
+    			<Setter Property="Foreground">
+    				<Setter.Value>
+    					<SolidColorBrush Color="{StaticResource TextBoxForegroundColor}"/>
+    				</Setter.Value>
+    			</Setter>
+    		</Style>
 
-        <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
-            <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
-            <Setter Property="Margin" Value="10,0"/>
-        </Style>
+    		<Style x:Key="LabelTextBlockStyle" TargetType="TextBlock">
+    			<Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
+    			<Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
+    			<Setter Property="Margin" Value="10,0"/>
+    		</Style>
 
-        <Style x:Key="BasicButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#BFFFFFFF"/>
-            <Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
-            <Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>   
-            <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
-        </Style>
+    		<Style x:Key="BasicButtonStyle" TargetType="Button">
+    			<Setter Property="Background" Value="#BFFFFFFF"/>
+    			<Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
+    			<Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>   
+    			<Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
+    		</Style>
 
-        <Style x:Key="BasicToggleButtonStyle" TargetType="ToggleButton">
-            <Setter Property="Background" Value="#BFFFFFFF"/>
-            <Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
-            <Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
-            <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
-        </Style>
+    		<Style x:Key="BasicToggleButtonStyle" TargetType="ToggleButton">
+    			<Setter Property="Background" Value="#BFFFFFFF"/>
+    			<Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
+    			<Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
+    			<Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
+    		</Style>
 
-        <Style x:Key="LayoutRootStyle" TargetType="Grid">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <ImageBrush Stretch="Fill" ImageSource="Images/background.jpg"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    		<Style x:Key="LayoutRootStyle" TargetType="Grid">
+    			<Setter Property="Background">
+    				<Setter.Value>
+    					<ImageBrush Stretch="Fill" ImageSource="Images/background.jpg"/>
+    				</Setter.Value>
+    			</Setter>
+    		</Style>
 
-        <ControlTemplate x:Key="PhoneDisabledTextBoxTemplate" TargetType="TextBox">
-            <ContentControl x:Name="ContentElement" BorderThickness="0" Padding="{TemplateBinding Padding}" Margin="{StaticResource PhoneTextBoxInnerMargin}"
-    			HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
-        </ControlTemplate>
+    		<ControlTemplate x:Key="PhoneDisabledTextBoxTemplate" TargetType="TextBox">
+    			<ContentControl x:Name="ContentElement" BorderThickness="0" Padding="{TemplateBinding Padding}" Margin="{StaticResource PhoneTextBoxInnerMargin}"
+    				HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+    		</ControlTemplate>
 
-        <ControlTemplate x:Key="FocusedTextBoxTemplate" TargetType="TextBox">
-            <Grid Background="Transparent">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal"/>
-                        <VisualState x:Name="MouseOver"/>
-                        <VisualState x:Name="Disabled">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Collapsed</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Visible</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="ReadOnly">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Collapsed</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Visible</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Background">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="BorderBrush">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyContent" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                    <VisualStateGroup x:Name="FocusStates">
-                        <VisualState x:Name="Focused">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Background">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBackgroundBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ColorAnimation Duration="0" To="{StaticResource WordPressOrange}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="EnabledBorder" d:IsOptimized="True"/>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Unfocused"/>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-                <Border x:Name="EnabledBorder" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
-                    <Border.BorderBrush>
-                        <SolidColorBrush Color="{StaticResource PhoneTextBoxEditBorderColor}"/>
-                    </Border.BorderBrush>
-                    <ContentControl x:Name="ContentElement" BorderThickness="0" Padding="{TemplateBinding Padding}" 
-    					HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}"/>
-                </Border>
-                <Border x:Name="DisabledOrReadonlyBorder" Visibility="Collapsed" Background="Transparent" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
-                    <TextBox x:Name="DisabledOrReadonlyContent" Text="{TemplateBinding Text}" Foreground="{StaticResource PhoneDisabledBrush}" Background="Transparent"
-    					SelectionBackground="{TemplateBinding SelectionBackground}" SelectionForeground="{TemplateBinding SelectionForeground}"
-    					TextWrapping="{TemplateBinding TextWrapping}" TextAlignment="{TemplateBinding TextAlignment}" IsReadOnly="True" Template="{StaticResource PhoneDisabledTextBoxTemplate}"
-    					FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" />
-                </Border>
-            </Grid>
-        </ControlTemplate>
+    		<ControlTemplate x:Key="FocusedTextBoxTemplate" TargetType="TextBox">
+    			<Grid Background="Transparent">
+    				<VisualStateManager.VisualStateGroups>
+    					<VisualStateGroup x:Name="CommonStates">
+    						<VisualState x:Name="Normal"/>
+    						<VisualState x:Name="MouseOver"/>
+    						<VisualState x:Name="Disabled">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Collapsed</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Visible</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    							</Storyboard>
+    						</VisualState>
+    						<VisualState x:Name="ReadOnly">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Collapsed</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Visible</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Background">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="BorderBrush">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyContent" Storyboard.TargetProperty="Foreground">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    							</Storyboard>
+    						</VisualState>
+    					</VisualStateGroup>
+    					<VisualStateGroup x:Name="FocusStates">
+    						<VisualState x:Name="Focused">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Background">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBackgroundBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ColorAnimation Duration="0" To="{StaticResource WordPressOrange}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="EnabledBorder" d:IsOptimized="True"/>
+    							</Storyboard>
+    						</VisualState>
+    						<VisualState x:Name="Unfocused"/>
+    					</VisualStateGroup>
+    				</VisualStateManager.VisualStateGroups>
+    				<Border x:Name="EnabledBorder" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
+    					<Border.BorderBrush>
+    						<SolidColorBrush Color="{StaticResource PhoneTextBoxEditBorderColor}"/>
+    					</Border.BorderBrush>
+    					<ContentControl x:Name="ContentElement" BorderThickness="0" Padding="{TemplateBinding Padding}" 
+    						HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}"/>
+    				</Border>
+    				<Border x:Name="DisabledOrReadonlyBorder" Visibility="Collapsed" Background="Transparent" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
+    					<TextBox x:Name="DisabledOrReadonlyContent" Text="{TemplateBinding Text}" Foreground="{StaticResource PhoneDisabledBrush}" Background="Transparent"
+    						SelectionBackground="{TemplateBinding SelectionBackground}" SelectionForeground="{TemplateBinding SelectionForeground}"
+    						TextWrapping="{TemplateBinding TextWrapping}" TextAlignment="{TemplateBinding TextAlignment}" IsReadOnly="True" Template="{StaticResource PhoneDisabledTextBoxTemplate}"
+    						FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" />
+    				</Border>
+    			</Grid>
+    		</ControlTemplate>
 
-        <ControlTemplate x:Key="FocusedPasswordBoxTemplate" TargetType="PasswordBox">
-            <Grid Background="Transparent">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal"/>
-                        <VisualState x:Name="MouseOver"/>
-                        <VisualState x:Name="Disabled">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Collapsed</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Visible</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="ReadOnly">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Collapsed</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Visible</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Background">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="BorderBrush">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyContent" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                    <VisualStateGroup x:Name="FocusStates">
-                        <VisualState x:Name="Focused">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Background">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBackgroundBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ColorAnimation Duration="0" To="{StaticResource WordPressOrange}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="EnabledBorder" d:IsOptimized="True"/>
-                            </Storyboard>
-                        </VisualState>
-                        <VisualState x:Name="Unfocused"/>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-                <Border x:Name="EnabledBorder" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
-                    <Border.BorderBrush>
-                        <SolidColorBrush Color="{StaticResource PhoneTextBoxEditBorderColor}"/>
-                    </Border.BorderBrush>
-                    <ContentControl x:Name="ContentElement" BorderThickness="0" Padding="{TemplateBinding Padding}" 
-    					HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}"/>
-                </Border>
-                <Border x:Name="DisabledOrReadonlyBorder" Visibility="Collapsed" Background="Transparent" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
-                    <PasswordBox x:Name="DisabledOrReadonlyContent" Password="{TemplateBinding Password}" Foreground="{StaticResource PhoneDisabledBrush}" Background="Transparent"
-    					SelectionBackground="{TemplateBinding SelectionBackground}" SelectionForeground="{TemplateBinding SelectionForeground}"
-    					Template="{StaticResource PhoneDisabledTextBoxTemplate}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" 
-                        FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" />
-                </Border>
-            </Grid>
-        </ControlTemplate>
+    		<ControlTemplate x:Key="FocusedPasswordBoxTemplate" TargetType="PasswordBox">
+    			<Grid Background="Transparent">
+    				<VisualStateManager.VisualStateGroups>
+    					<VisualStateGroup x:Name="CommonStates">
+    						<VisualState x:Name="Normal"/>
+    						<VisualState x:Name="MouseOver"/>
+    						<VisualState x:Name="Disabled">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Collapsed</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Visible</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    							</Storyboard>
+    						</VisualState>
+    						<VisualState x:Name="ReadOnly">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Collapsed</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Visible</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="Background">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyBorder" Storyboard.TargetProperty="BorderBrush">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledOrReadonlyContent" Storyboard.TargetProperty="Foreground">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    							</Storyboard>
+    						</VisualState>
+    					</VisualStateGroup>
+    					<VisualStateGroup x:Name="FocusStates">
+    						<VisualState x:Name="Focused">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBorder" Storyboard.TargetProperty="Background">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBackgroundBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ColorAnimation Duration="0" To="{StaticResource WordPressOrange}" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="EnabledBorder" d:IsOptimized="True"/>
+    							</Storyboard>
+    						</VisualState>
+    						<VisualState x:Name="Unfocused"/>
+    					</VisualStateGroup>
+    				</VisualStateManager.VisualStateGroups>
+    				<Border x:Name="EnabledBorder" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
+    					<Border.BorderBrush>
+    						<SolidColorBrush Color="{StaticResource PhoneTextBoxEditBorderColor}"/>
+    					</Border.BorderBrush>
+    					<ContentControl x:Name="ContentElement" BorderThickness="0" Padding="{TemplateBinding Padding}" 
+    						HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}"/>
+    				</Border>
+    				<Border x:Name="DisabledOrReadonlyBorder" Visibility="Collapsed" Background="Transparent" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
+    					<PasswordBox x:Name="DisabledOrReadonlyContent" Password="{TemplateBinding Password}" Foreground="{StaticResource PhoneDisabledBrush}" Background="Transparent"
+    						SelectionBackground="{TemplateBinding SelectionBackground}" SelectionForeground="{TemplateBinding SelectionForeground}"
+    						Template="{StaticResource PhoneDisabledTextBoxTemplate}" FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" 
+    						FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" />
+    				</Border>
+    			</Grid>
+    		</ControlTemplate>
 
-        <Converters:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"></Converters:CommentStatusToBrushConverter>
+    		<Converters:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"/>
 
-        <DataTemplate x:Key="CommentListItemTemplate">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
-                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
-                    <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24">
-						<TextBlock.Foreground>
-							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-						</TextBlock.Foreground>
-                    </TextBlock>
-                    <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
-						<TextBlock.Foreground>
-							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-						</TextBlock.Foreground>
-                    </TextBlock>
-                    <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
-						<TextBlock.Foreground>
-							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-						</TextBlock.Foreground>
-                    </TextBlock>
-                </StackPanel>
-                <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
-                    <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
-						<TextBlock.Foreground>
-							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-						</TextBlock.Foreground>
-                    </TextBlock>
-                    <TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
-								Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
+    		<DataTemplate x:Key="CommentListItemTemplate">
+    			<Grid>
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="Auto"/>
+    					<RowDefinition Height="Auto"/>
+    				</Grid.RowDefinitions>
+    				<Grid.ColumnDefinitions>
+    					<ColumnDefinition Width="Auto"/>
+    					<ColumnDefinition/>
+    				</Grid.ColumnDefinitions>
+    				<Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
+    				<StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
+    					<TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24">
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+    					</TextBlock>
+    					<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+    					</TextBlock>
+    					<TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+    					</TextBlock>
+    				</StackPanel>
+    				<StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
+    					<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+    					</TextBlock>
+    					<TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
+    						Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
 								/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
+    				</StackPanel>
+    			</Grid>
+    		</DataTemplate>
 
-        <Style x:Key="CommentListItemStyle" TargetType="ListBoxItem">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="VerticalContentAlignment" Value="Top"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseOver"/>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TransparentBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation Duration="0" To=".5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentContainer"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="SelectionStates">
-                                    <VisualState x:Name="Unselected">
-                                        <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
-                                                            Duration="0:0:0.15"
-                                                            From="{StaticResource WordPressBlue}" To="Transparent" />
-                                            <ColorAnimation Storyboard.TargetName="authorTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" 
-                                                            From="White" To="{StaticResource WordPressGrey}"/>
-                                            <ColorAnimation Storyboard.TargetName="authorEmailTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" 
-                                                            From="White" To="{StaticResource WordPressGrey}"/>
-                                            <ColorAnimation Storyboard.TargetName="postTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" 
-                                                            From="White" To="{StaticResource WordPressGrey}"/>
-                                            <ColorAnimation Storyboard.TargetName="contentTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" 
-                                                            From="White" To="{StaticResource WordPressGrey}"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Selected">
-                                        <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
-                                                            Duration="0:0:0.15"
-                                                            From="Transparent" To="{StaticResource WordPressBlue}" />
-                                            <ColorAnimation Storyboard.TargetName="authorTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
-                                            <ColorAnimation Storyboard.TargetName="authorEmailTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
-                                            <ColorAnimation Storyboard.TargetName="postTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
-                                            <ColorAnimation Storyboard.TargetName="contentTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <ContentControl x:Name="ContentContainer" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Margin="0,0,10,10" Width="80" Height="80" Source="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80"/>
-                                    <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,-6,0,0">
-                                        <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
-                                            <TextBlock.Foreground>
-							                    <SolidColorBrush x:Name="authorTextBrush" Color="#FF111111"/>
-						                    </TextBlock.Foreground>
-                                        </TextBlock>
-                                        <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="20" >
-						                    <TextBlock.Foreground>
-							                    <SolidColorBrush x:Name="authorEmailTextBrush" Color="{StaticResource WordPressGrey}"/>
-						                    </TextBlock.Foreground>
-                                        </TextBlock>
-                                        <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="20" Margin="0,-4,0,0">
-						                    <TextBlock.Foreground>
-							                    <SolidColorBrush x:Name="postTextBrush" Color="{StaticResource WordPressGrey}"/>
-						                    </TextBlock.Foreground>
-                                        </TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
-                                        <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="22" MaxHeight="60" Margin="0,-8,0,0" TextWrapping="Wrap">
-						                    <TextBlock.Foreground>
-							                    <SolidColorBrush x:Name="contentTextBrush" Color="{StaticResource WordPressGrey}"/>
-						                    </TextBlock.Foreground>
-                                        </TextBlock>
-                                        <TextBlock x:Name="statusTextBlock" FontSize="17" Text="{Binding FormattedStatus}" Margin="0,0,0,20"
-								                    Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"/>
-                                    </StackPanel>
-                                </Grid>
-                            </ContentControl>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+    		<Style x:Key="CommentListItemStyle" TargetType="ListBoxItem">
+    			<Setter Property="Background" Value="Transparent"/>
+    			<Setter Property="BorderThickness" Value="0"/>
+    			<Setter Property="BorderBrush" Value="Transparent"/>
+    			<Setter Property="Padding" Value="0"/>
+    			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+    			<Setter Property="VerticalContentAlignment" Value="Top"/>
+    			<Setter Property="Template">
+    				<Setter.Value>
+    					<ControlTemplate TargetType="ListBoxItem">
+    						<Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+    							<VisualStateManager.VisualStateGroups>
+    								<VisualStateGroup x:Name="CommonStates">
+    									<VisualState x:Name="Normal"/>
+    									<VisualState x:Name="MouseOver"/>
+    									<VisualState x:Name="Disabled">
+    										<Storyboard>
+    											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+    												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TransparentBrush}"/>
+    											</ObjectAnimationUsingKeyFrames>
+    											<DoubleAnimation Duration="0" To=".5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentContainer"/>
+    										</Storyboard>
+    									</VisualState>
+    								</VisualStateGroup>
+    								<VisualStateGroup x:Name="SelectionStates">
+    									<VisualState x:Name="Unselected">
+    										<Storyboard>
+    											<ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
+    												Duration="0:0:0.15"
+    												From="{StaticResource WordPressBlue}" To="Transparent" />
+    											<ColorAnimation Storyboard.TargetName="authorTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" 
+    												From="White" To="{StaticResource WordPressGrey}"/>
+    											<ColorAnimation Storyboard.TargetName="authorEmailTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" 
+    												From="White" To="{StaticResource WordPressGrey}"/>
+    											<ColorAnimation Storyboard.TargetName="postTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" 
+    												From="White" To="{StaticResource WordPressGrey}"/>
+    											<ColorAnimation Storyboard.TargetName="contentTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" 
+    												From="White" To="{StaticResource WordPressGrey}"/>
+    										</Storyboard>
+    									</VisualState>
+    									<VisualState x:Name="Selected">
+    										<Storyboard>
+    											<ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
+    												Duration="0:0:0.15"
+    												From="Transparent" To="{StaticResource WordPressBlue}" />
+    											<ColorAnimation Storyboard.TargetName="authorTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+    											<ColorAnimation Storyboard.TargetName="authorEmailTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+    											<ColorAnimation Storyboard.TargetName="postTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+    											<ColorAnimation Storyboard.TargetName="contentTextBrush" Storyboard.TargetProperty="Color"
+    												Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
+    										</Storyboard>
+    									</VisualState>
+    								</VisualStateGroup>
+    							</VisualStateManager.VisualStateGroups>
+    							<ContentControl x:Name="ContentContainer" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+    								<Grid>
+    									<Grid.RowDefinitions>
+    										<RowDefinition Height="Auto"/>
+    										<RowDefinition Height="Auto"/>
+    									</Grid.RowDefinitions>
+    									<Grid.ColumnDefinitions>
+    										<ColumnDefinition Width="Auto"/>
+    										<ColumnDefinition/>
+    									</Grid.ColumnDefinitions>
+    									<Image Margin="0,0,10,10" Width="80" Height="80" Source="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80"/>
+    									<StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,-6,0,0">
+    										<TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
+    											<TextBlock.Foreground>
+    												<SolidColorBrush x:Name="authorTextBrush" Color="#FF111111"/>
+    											</TextBlock.Foreground>
+    										</TextBlock>
+    										<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="20" >
+    											<TextBlock.Foreground>
+    												<SolidColorBrush x:Name="authorEmailTextBrush" Color="{StaticResource WordPressGrey}"/>
+    											</TextBlock.Foreground>
+    										</TextBlock>
+    										<TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="20" Margin="0,-4,0,0">
+    											<TextBlock.Foreground>
+    												<SolidColorBrush x:Name="postTextBrush" Color="{StaticResource WordPressGrey}"/>
+    											</TextBlock.Foreground>
+    										</TextBlock>
+    									</StackPanel>
+    									<StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
+    										<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="22" MaxHeight="60" Margin="0,-8,0,0" TextWrapping="Wrap">
+    											<TextBlock.Foreground>
+    												<SolidColorBrush x:Name="contentTextBrush" Color="{StaticResource WordPressGrey}"/>
+    											</TextBlock.Foreground>
+    										</TextBlock>
+    										<TextBlock x:Name="statusTextBlock" FontSize="17" Text="{Binding FormattedStatus}" Margin="0,0,0,20"
+    											Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"/>
+    									</StackPanel>
+    								</Grid>
+    							</ContentControl>
+    						</Border>
+    					</ControlTemplate>
+    				</Setter.Value>
+    			</Setter>
+    		</Style>
 
-        <ControlTemplate x:Key="StrikethroughToggleButtonStyle" TargetType="ToggleButton">
-            <Grid Background="Transparent" >
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal"/>
-                        <VisualState x:Name="Disabled">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBackground" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Collapsed</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledBackground" Storyboard.TargetProperty="Visibility">
-                                    <DiscreteObjectKeyFrame KeyTime="0">
-                                        <DiscreteObjectKeyFrame.Value>
-                                            <Visibility>Visible</Visibility>
-                                        </DiscreteObjectKeyFrame.Value>
-                                    </DiscreteObjectKeyFrame>
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                    <VisualStateGroup x:Name="CheckStates">
-                        <VisualState x:Name="Unchecked" />
-                        <VisualState x:Name="Checked">
-                            <Storyboard>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBackground" Storyboard.TargetProperty="Background">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBackground" Storyboard.TargetProperty="BorderBrush">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledContent" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledBackground" Storyboard.TargetProperty="Background">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledBackground" Storyboard.TargetProperty="BorderBrush">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledContent" Storyboard.TargetProperty="Foreground">
-                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}" />
-                                </ObjectAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-                <Border x:Name="EnabledBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}">
-                    <ContentControl x:Name="EnabledContent" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-                </Border>
-                <Border x:Name="DisabledBackground" IsHitTestVisible="False" Background="Transparent" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" Visibility="Collapsed">
-                    <ContentControl x:Name="DisabledContent" Foreground="{StaticResource PhoneDisabledBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
-                </Border>
-                <Rectangle Fill="{StaticResource WordPressGreyBrush}" Stroke="{StaticResource WordPressGreyBrush}" Height="1" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50"/>
-            </Grid>
-        </ControlTemplate>
+    		<ControlTemplate x:Key="StrikethroughToggleButtonStyle" TargetType="ToggleButton">
+    			<Grid Background="Transparent" >
+    				<VisualStateManager.VisualStateGroups>
+    					<VisualStateGroup x:Name="CommonStates">
+    						<VisualState x:Name="Normal"/>
+    						<VisualState x:Name="Disabled">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBackground" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Collapsed</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledBackground" Storyboard.TargetProperty="Visibility">
+    									<DiscreteObjectKeyFrame KeyTime="0">
+    										<DiscreteObjectKeyFrame.Value>
+    											<Visibility>Visible</Visibility>
+    										</DiscreteObjectKeyFrame.Value>
+    									</DiscreteObjectKeyFrame>
+    								</ObjectAnimationUsingKeyFrames>
+    							</Storyboard>
+    						</VisualState>
+    					</VisualStateGroup>
+    					<VisualStateGroup x:Name="CheckStates">
+    						<VisualState x:Name="Unchecked" />
+    						<VisualState x:Name="Checked">
+    							<Storyboard>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBackground" Storyboard.TargetProperty="Background">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledBackground" Storyboard.TargetProperty="BorderBrush">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="EnabledContent" Storyboard.TargetProperty="Foreground">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledBackground" Storyboard.TargetProperty="Background">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledBackground" Storyboard.TargetProperty="BorderBrush">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="DisabledContent" Storyboard.TargetProperty="Foreground">
+    									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}" />
+    								</ObjectAnimationUsingKeyFrames>
+    							</Storyboard>
+    						</VisualState>
+    					</VisualStateGroup>
+    				</VisualStateManager.VisualStateGroups>
+    				<Border x:Name="EnabledBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}">
+    					<ContentControl x:Name="EnabledContent" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+    				</Border>
+    				<Border x:Name="DisabledBackground" IsHitTestVisible="False" Background="Transparent" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="{StaticResource PhoneTouchTargetOverhang}" Visibility="Collapsed">
+    					<ContentControl x:Name="DisabledContent" Foreground="{StaticResource PhoneDisabledBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+    				</Border>
+    				<Rectangle Fill="{StaticResource WordPressGreyBrush}" Stroke="{StaticResource WordPressGreyBrush}" Height="1" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50"/>
+    			</Grid>
+    		</ControlTemplate>
+
+    	</ResourceDictionary>
 
     </Application.Resources>
 
