@@ -68,6 +68,22 @@ namespace WordPress.Model
             return categoryBuilder.ToString();
         }
 
+        private string FormatCustomFields()
+        {
+            string dataFormatString = "<value><struct><member><name>key</name><value><string>{0}</string></value></member><member><name>value</name><value><string>{1}</string></value></member></struct></value>";
+
+            StringBuilder customFieldBuilder = new StringBuilder();
+            string data = string.Empty;
+
+            foreach (CustomField cf in Post.CustomFields)
+            {
+                data = string.Format(dataFormatString, cf.Key, cf.Value);
+                customFieldBuilder.Append(data);
+            }
+
+            return customFieldBuilder.ToString();
+        }
+
         protected override void ValidateValues()
         {
             base.ValidateValues();
@@ -105,7 +121,8 @@ namespace WordPress.Model
                 Post.Title.HtmlEncode(),
                 Post.Description.HtmlEncode(),
                 PostType.ToString(),
-                status);
+                status,
+                FormatCustomFields());
 
             return result;
         }

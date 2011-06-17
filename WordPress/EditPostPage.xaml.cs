@@ -230,6 +230,7 @@ namespace WordPress
             //Post post = DataContext as Post;
             //changed to CurrentPost so categories would save
             Post post = App.MasterViewModel.CurrentPost;
+            Blog blog = App.MasterViewModel.CurrentBlog;
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
             //which doesn't force focus to change
             post.Title = titleTextBox.Text;
@@ -241,7 +242,13 @@ namespace WordPress
                 UserSettings settings = new UserSettings();
                 if (settings.UseTaglineForNewPosts)
                 {
-                    post.Description = post.Description + "\r\n\r\n<span class=\"post-sig\">" + settings.Tagline + "</span>";
+                    post.Description = post.Description + "\r\n<p class=\"post-sig\">" + settings.Tagline + "</p>";
+                }
+                if (!blog.Xmlrpc.Contains("wordpress.com")) {
+                    CustomField tagCF = new CustomField();
+                    tagCF.Key = "_post_client";
+                    tagCF.Value = "wp-windowsphone";
+                    post.CustomFields.Add(tagCF);
                 }
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
                 rpc.PostType = ePostType.post;                            

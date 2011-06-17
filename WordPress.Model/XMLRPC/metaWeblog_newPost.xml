@@ -64,6 +64,16 @@
               </string>
             </value>
           </member>
+          <member>
+            <name>custom_fields</name>
+            <value>
+              <array>
+                <data>
+                  {10}
+                </data>
+              </array>
+            </value>
+          </member>
         </struct>
       </value>
     </param>
