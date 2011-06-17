@@ -72,7 +72,7 @@ namespace WordPress.Model
                 Comment.Content.HtmlEncode(),
                 Comment.Author.HtmlEncode(),
                 Comment.AuthorEmail,
-                Comment.DateCreatedGMT,
+                Comment.DateCreatedGMT.ToString("yyyyMMddTHH:mm:ss"),
                 Comment.Status,
                 Comment.AuthorUrl);
             return result;
