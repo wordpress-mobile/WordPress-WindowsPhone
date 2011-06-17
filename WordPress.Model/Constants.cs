@@ -35,10 +35,11 @@
         public const string APIKEY = "apikey";
         public const string FALSE_STRING = "0";
 
+        public const string SERVER_RETURNED_INVALID_XML_RPC_MESSAGE = "Sorry, the server returned invalid data. Please try again.";
         public const string XELEMENTMISSINGCHILDELEMENTS_MESSAGE = "XElement does not contain any child nodes.";
-        public const string XELEMENTUNEXPECTEDCHILDNODES_MESSAGE = "XElement contains an unexpected number of child nodes.";
-        public const string UNABLETOPARSEEXPECTEDRESPONSE_MESSAGE = "Unable to parse expected value.";
-        public const string RPCRETURNEDFAILURE_MESSAGE = "RPC returned a failure.";
+       // public const string XELEMENTUNEXPECTEDCHILDNODES_MESSAGE = "XElement contains an unexpected number of child nodes.";
+        public const string UNABLETOPARSEEXPECTEDRESPONSE_MESSAGE = "Sorry, the server returned invalid data. Please try again.";
+        public const string RPCRETURNEDFAILURE_MESSAGE = "Sorry, the server returned invalid data. Please try again.";
     }
 
     public class WordPressMarkupTags

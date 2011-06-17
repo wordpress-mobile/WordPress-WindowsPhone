@@ -55,6 +55,25 @@ namespace WordPress.Model
         public int FaultCode { get; private set; }        
     }
 
+
+    //when the server cannot parse the xml-rpc message we should launch this exception
+    public class XmlRPCParserException : Exception
+    {
+         public XmlRPCParserException() : base() { }
+
+         public XmlRPCParserException(string message) : base(message)
+        {
+          
+        }
+
+         public XmlRPCParserException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+          
+        }     
+    }
+
+
     /// <summary>
     /// Used to indicate that an xml rpc has completed.  If an exception has occurred during the call
     /// the Error property will reference the exception; if the Error property returns null that indicates

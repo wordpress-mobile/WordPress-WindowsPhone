@@ -118,7 +118,7 @@ namespace WordPress.Model
             }
             if (null == Credentials)
             {
-                throw new ArgumentException("Crednetials may not be null");
+                throw new ArgumentException("Credentials may not be null");
             }
             if (string.IsNullOrEmpty(Credentials.UserName))
             {
@@ -297,7 +297,8 @@ namespace WordPress.Model
            
             if (!String.IsNullOrEmpty(responseContent))
             {
-                //this.DebugLog("XML-RPC response: " + responseContent);
+                //responseContent += "<<";
+                this.DebugLog("XML-RPC response: " + responseContent);
                 //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
                 string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
                 Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -323,7 +324,9 @@ namespace WordPress.Model
             }
             catch (Exception ex)
             {
-                CompletionMethod(null, ex, false, state.Operation);
+                this.DebugLog("Parser error: " + ex.Message); //this is the original error, that should not be shown to the user.
+                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
+                CompletionMethod(null, exception, false, state.Operation);
                 return;
             }
 
@@ -345,6 +348,7 @@ namespace WordPress.Model
                 {
                     exception = ex;
                 }
+
                 CompletionMethod(items, exception, false, state.Operation);
             }
         }
@@ -362,7 +366,8 @@ namespace WordPress.Model
                     valueElement = ((XElement)nameElement.NextNode).DescendantNodes().First() as XElement;
                     if (!int.TryParse(valueElement.Value, out faultCode))
                     {
-                        return new ArgumentException("Unable to parse fault code from response");
+                        this.DebugLog("Unable to parse fault code from response, showing a predefined error message");
+                        return new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE);
                     }
                 }
                 else if (XmlRPCResponseConstants.FAULTSTRING_VALUE.Equals(nameElement.Value))
