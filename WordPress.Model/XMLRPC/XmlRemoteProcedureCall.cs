@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -293,7 +294,27 @@ namespace WordPress.Model
             }
 
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(80, state.Operation.UserSuppliedState));
-
+           
+            if (!String.IsNullOrEmpty(responseContent))
+            {
+                //this.DebugLog("XML-RPC response: " + responseContent);
+                //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
+                string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
+                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                if (regex.IsMatch(responseContent))
+                {
+                    this.DebugLog("found characters that must not appear in the XML-RPC response");
+                    responseContent = regex.Replace(responseContent, String.Empty);
+                }
+                
+                if (!responseContent.StartsWith("<"))
+                {
+                    //clean the junk b4 the xml preamble
+                    this.DebugLog("cleaning the junk before the xml preamble");
+                    int indexOfFirstLt = responseContent.IndexOf("<");
+                    responseContent = responseContent.Substring(indexOfFirstLt);
+                }
+            }
             //search for fault code/fault string
             XDocument xDoc = null;
             try
