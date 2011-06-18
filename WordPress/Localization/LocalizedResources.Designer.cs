@@ -1367,6 +1367,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Media Upload Error.
+        /// </summary>
+        internal static string Prompts_MediaError {
+            get {
+                return ResourceManager.GetString("Prompts_MediaError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, an error was encountered when uploading media.  Would you still like to upload the post?.
+        /// </summary>
+        internal static string Prompts_MediaErrorContent {
+            get {
+                return ResourceManager.GetString("Prompts_MediaErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The current blog doesn&apos;t have an api key.  Please enter one on the settings page..
         /// </summary>
         internal static string Prompts_MissingApikey {

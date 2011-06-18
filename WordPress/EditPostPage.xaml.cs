@@ -244,12 +244,6 @@ namespace WordPress
                 {
                     post.Description = post.Description + "\r\n<p class=\"post-sig\">" + settings.Tagline + "</p>";
                 }
-                if (!blog.Xmlrpc.Contains("wordpress.com")) {
-                    CustomField tagCF = new CustomField();
-                    tagCF.Key = "_post_client";
-                    tagCF.Value = "wp-windowsphone";
-                    post.CustomFields.Add(tagCF);
-                }
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
                 rpc.PostType = ePostType.post;                            
                 rpc.Publish = publishToggleButton.IsChecked.Value;
@@ -520,7 +514,29 @@ namespace WordPress
                 {
                     _uploadInfo.Add(args.Items[0]);
                 }
-                _infoToRpcMap.Add(args.Items[0], rpc);
+                if (args.Items.Count > 0)
+                {
+                    _infoToRpcMap.Add(args.Items[0], rpc);
+                }
+                else
+                {
+                    //uh oh, media upload problem
+                    App.WaitIndicationService.KillSpinner();
+                    MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        UpdatePostContent();
+                        SavePost();
+                        return;
+                    }
+                    else
+                    {
+                        //add the object back since the user wants to have another go at uploading
+                        rpc.Completed += OnUploadMediaRPCCompleted;
+                        _mediaUploadRPCs.Add(rpc);
+                        return;
+                    }
+                }
             }
 
             //if we're not done, bail

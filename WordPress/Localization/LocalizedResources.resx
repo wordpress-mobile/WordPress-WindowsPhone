@@ -683,4 +683,12 @@
     <value>Are you sure you want to cancel editing this {0}?</value>
     <comment>prompt when a user taps back button in editor</comment>
   </data>
+  <data name="Prompts_MediaError" xml:space="preserve">
+    <value>Media Upload Error</value>
+    <comment>prompt when media fails</comment>
+  </data>
+  <data name="Prompts_MediaErrorContent" xml:space="preserve">
+    <value>Sorry, an error was encountered when uploading media.  Would you still like to upload the post?</value>
+    <comment>prompt when media fails</comment>
+  </data>
 </root>
