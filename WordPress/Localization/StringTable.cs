@@ -268,6 +268,8 @@ namespace WordPress.Localization
             public string Post { get { return LocalizedResources.Prompts_Post; } }
             public string MediaError { get { return LocalizedResources.Prompts_MediaError; } }
             public string MediaErrorContent { get { return LocalizedResources.Prompts_MediaErrorContent; } }
+            public string SupportEmailBody { get { return LocalizedResources.Prompts_SupportEmailBody; } }
+            public string SupportEmailSubject { get { return LocalizedResources.Prompts_SupportEmailSubject; } }
         }
 
         #endregion

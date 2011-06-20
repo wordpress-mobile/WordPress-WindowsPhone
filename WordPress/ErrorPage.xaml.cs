@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone;
@@ -17,11 +18,18 @@ namespace WordPress
     public partial class ErrorPage : PhoneApplicationPage
     {
         public static Exception Exception;
+        
+        private StringTable _localizedStrings;
 
+        private const string ERROR_DESC_VALUE = "errDesc";
+        private const string FULL_STACK_VALUE = "fullStackDesc";
+        
         #region constructors
         public ErrorPage()
         {
             InitializeComponent();
+            _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+            Debug.WriteLine("end constructor");
         }
         #endregion
 
@@ -29,11 +37,43 @@ namespace WordPress
         protected override void OnNavigatedTo(NavigationEventArgs e)
         { 
            // base.OnNavigatedTo(e);
+            Debug.WriteLine("OnNavigatedTo");
             if (Exception != null)
             {
                 ErrorText.Text = Exception.Message;
                 FullErrorText.Text = Exception.ToString();
             }
+            else //user re-activaed the app
+            {
+                //look for transient data stored in the State dictionary
+                if (State.ContainsKey(ERROR_DESC_VALUE))
+                {
+                    ErrorText.Text = State[ERROR_DESC_VALUE] as string;
+                }
+
+                if (State.ContainsKey(FULL_STACK_VALUE))
+                {
+                    FullErrorText.Text = State[FULL_STACK_VALUE] as string;
+                }
+            }
+        }
+         
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Debug.WriteLine("OnNavigatedFrom");
+            base.OnNavigatedFrom(e);
+            //store transient data in the State dictionary
+            if (State.ContainsKey(ERROR_DESC_VALUE))
+            {
+                State.Remove(ERROR_DESC_VALUE);
+            }
+            State.Add(ERROR_DESC_VALUE, ErrorText.Text);
+
+            if (State.ContainsKey(FULL_STACK_VALUE))
+            {
+                State.Remove(FULL_STACK_VALUE);
+            }
+            State.Add(FULL_STACK_VALUE, FullErrorText.Text);
         }
 
         private void FAQButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -54,9 +94,9 @@ namespace WordPress
         {
             //NavigationService.GoBack();
             EmailComposeTask emailComposeTask = new EmailComposeTask();
-            emailComposeTask.To = "support@wordpress.com";
-            emailComposeTask.Body = "Insert the URL of your blog and the error message";
-            emailComposeTask.Subject = "WordPress for Windows Phone support";
+            emailComposeTask.To = Constants.WORDPRESS_SUPPORT_EMAIL;
+            emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody;
+            emailComposeTask.Subject = _localizedStrings.Prompts.SupportEmailSubject;
             emailComposeTask.Show();
         }
 

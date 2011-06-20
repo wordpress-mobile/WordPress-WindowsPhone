@@ -1520,6 +1520,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please insert the URL of your blog and the detail of the error message.
+        /// </summary>
+        internal static string Prompts_SupportEmailBody {
+            get {
+                return ResourceManager.GetString("Prompts_SupportEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WordPress for Windows Phone Support Request.
+        /// </summary>
+        internal static string Prompts_SupportEmailSubject {
+            get {
+                return ResourceManager.GetString("Prompts_SupportEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to cancel editing this {0}?.
         /// </summary>
         internal static string Prompts_SureCancel {

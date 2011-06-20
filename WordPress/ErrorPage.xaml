@@ -21,7 +21,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,18">
             <Grid Margin="0,0,8,0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -32,7 +32,7 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="Images/wp-logo.png" Stretch="None" Width="227" Height="50" Margin="0" HorizontalAlignment="Left" RenderTransformOrigin="0.52,-0.18" d:LayoutOverrides="Height"/>
             </Grid>
-            <TextBlock x:Name="PageTitle" Text="error" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
+            <TextBlock x:Name="PageTitle" Text="error" Margin="9,0,0,0" Style="{StaticResource PhoneTextTitle1Style}">
             	<TextBlock.Foreground>
             		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             	</TextBlock.Foreground>
@@ -47,15 +47,15 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row ="0"  Text="error msg" x:Name="ErrorText" TextWrapping="Wrap" />
+            <TextBlock Margin="9,0,9,10" Text="error msg" x:Name="ErrorText" TextWrapping="Wrap" Grid.ColumnSpan="2" />
             <Button x:Name="FAQButton" Grid.Row ="1" Content="{Binding ControlsText.visitFAQ, Source={StaticResource StringTable}}"
-				Style="{StaticResource BasicButtonStyle}" Click="FAQButton_Click" />
+				Style="{StaticResource BasicButtonStyle}" Click="FAQButton_Click" Grid.ColumnSpan="2" />
             <Button x:Name="forumButton" Grid.Row ="2" Content="{Binding ControlsText.visitForums, Source={StaticResource StringTable}}"
-				Style="{StaticResource BasicButtonStyle}" Click="forumButton_Click" />
+				Style="{StaticResource BasicButtonStyle}" Click="forumButton_Click" Grid.ColumnSpan="2" />
             <Button x:Name="mailButton" Grid.Row ="3" Content="{Binding ControlsText.sendEmailToSupport, Source={StaticResource StringTable}}"
-				Style="{StaticResource BasicButtonStyle}" Click="mailButton_Click" />
+				Style="{StaticResource BasicButtonStyle}" Click="mailButton_Click" Grid.ColumnSpan="2" />
            
-            <TextBlock Grid.Row ="4"  Text="error msg" x:Name="FullErrorText" Style="{StaticResource PhoneTextSmallStyle}"  TextWrapping="Wrap" />
+            <TextBlock Grid.Row ="4"  Text="error msg" x:Name="FullErrorText" Style="{StaticResource PhoneTextSmallStyle}"  TextWrapping="Wrap" Grid.ColumnSpan="2" Margin="12,0" />
           </Grid>
     </Grid>
  

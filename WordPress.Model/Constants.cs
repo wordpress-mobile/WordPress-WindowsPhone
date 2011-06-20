@@ -7,6 +7,7 @@
         public const string WORDPRESS_SIGNUP_URL = "http://wordpress.com/signup";
         public const string WORDPRESS_FORUMS_URL = "http://windowsphone.forums.wordpress.org/";
         public const string WORDPRESS_FAQ_URL = "http://windowsphone.forums.wordpress.org/";
+        public const string WORDPRESS_SUPPORT_EMAIL = "support@wordpress.com";
         public const string WORDPRESS_DATEFORMAT = "yyyyMMddTH:mm:ss";
         public const string WORDPRESS_USERAGENT = "wp-windowsphone/1.0.0";
     }

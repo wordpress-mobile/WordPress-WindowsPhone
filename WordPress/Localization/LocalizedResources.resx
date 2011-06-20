@@ -700,4 +700,10 @@
   <data name="ControlText_Forums" xml:space="preserve">
     <value>Visit Forums</value>
   </data>
+  <data name="Prompts_SupportEmailBody" xml:space="preserve">
+    <value>Please insert the URL of your blog and the detail of the error message</value>
+  </data>
+  <data name="Prompts_SupportEmailSubject" xml:space="preserve">
+    <value>WordPress for Windows Phone Support Request</value>
+  </data>
 </root>
