@@ -26,5 +26,6 @@
                           IsScriptEnabled="True"      
                           LoadCompleted="OnLoadCompleted"
                           />
+    	<ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Height="60" VerticalAlignment="Top" Foreground="{StaticResource WordPressBlueBrush}"/>
     </Grid>
 </phone:PhoneApplicationPage>

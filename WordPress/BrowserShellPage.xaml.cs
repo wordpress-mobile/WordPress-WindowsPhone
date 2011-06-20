@@ -34,14 +34,14 @@ namespace WordPress
 
         private void OnPageLoaded(object sender, EventArgs args)
         {
-            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+            
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (App.WaitIndicationService.Waiting)
+            if (progressBar.Visibility == Visibility.Visible)
             {
-                App.WaitIndicationService.HideIndicator();
+                progressBar.Visibility = Visibility.Visible;
             } 
 
             base.OnBackKeyPress(e);            
@@ -67,13 +67,13 @@ namespace WordPress
         {
             if (!string.IsNullOrEmpty(_uriString))
             {
-                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.Loading);
+                progressBar.Visibility = Visibility.Visible;
             }
         }
 
         private void OnLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            App.WaitIndicationService.HideIndicator();
+            progressBar.Visibility = Visibility.Collapsed;
         }
 
         #endregion
