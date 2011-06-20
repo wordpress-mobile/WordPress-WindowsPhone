@@ -236,16 +236,32 @@ namespace WordPress
             }
 
             string tag;
-            if (toggleButton.IsChecked.Value)
+            int selectionLength = contentTextBox.SelectionLength;
+            if (selectionLength > 0)
             {
                 tag = openingTag;
+
+                description = description.Insert(startIndex, openingTag);
+                description = description.Insert(startIndex + openingTag.Length + selectionLength, closingTag);
+
+                // cancel toggle switch
+                toggleButton.IsChecked = !toggleButton.IsChecked;
             }
             else
             {
-                tag = closingTag;
+                if (toggleButton.IsChecked.Value)
+                {
+                    tag = openingTag;
+                }
+                else
+                {
+                    tag = closingTag;
+                }
+
+                description = description.Insert(startIndex, tag);
             }
 
-            post.Description = description.Insert(startIndex, tag);
+            post.Description = description;
 
             ThreadPool.QueueUserWorkItem((state) =>
             {
@@ -256,6 +272,7 @@ namespace WordPress
                 {
                     contentTextBox.Focus();
                     contentTextBox.SelectionStart = startIndex + tag.Length;
+                    contentTextBox.SelectionLength = selectionLength;
                 });
             });
         }
@@ -327,6 +344,17 @@ namespace WordPress
         {
             ApplicationBar.IsVisible = false;
             addLinkControl.Show();
+
+            // if content text is selected, pre-populate the dialog's fields
+            if (contentTextBox.SelectionLength > 0)
+            {
+                addLinkControl.LinkText = contentTextBox.SelectedText;
+
+                if (Uri.IsWellFormedUriString(contentTextBox.SelectedText, UriKind.Absolute))
+                {
+                    addLinkControl.Url = contentTextBox.SelectedText;
+                }
+            }
         }
 
         private void HideAddLinkControl()
@@ -339,10 +367,7 @@ namespace WordPress
         {
             HideAddLinkControl();
             string linkMarkup = addLinkControl.CreateLinkMarkup();
-            int startIndex = contentTextBox.SelectionStart;
-            string content = contentTextBox.Text;
-            string newContent = content.Insert(startIndex, linkMarkup);
-            contentTextBox.Text = newContent;
+            contentTextBox.SelectedText = linkMarkup;
             contentTextBox.Focus();
         }
 
