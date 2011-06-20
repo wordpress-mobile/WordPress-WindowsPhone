@@ -56,7 +56,7 @@ namespace WordPress.Model
     }
 
 
-    //when the server cannot parse the xml-rpc message we should launch this exception
+    //thrown when the client cannot parse the XML-RPC message or when the message doesn't contains a valid XML-RPC message response
     public class XmlRPCParserException : Exception
     {
          public XmlRPCParserException() : base() { }
@@ -77,7 +77,7 @@ namespace WordPress.Model
     /// <summary>
     /// Used to indicate that an xml rpc has completed.  If an exception has occurred during the call
     /// the Error property will reference the exception; if the Error property returns null that indicates
-    /// the xml rpc completed successfully.
+    /// the XML-RPC completed successfully.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class XMLRPCCompletedEventArgs<T> : AsyncCompletedEventArgs where T : INotifyPropertyChanged

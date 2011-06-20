@@ -268,7 +268,7 @@ namespace WordPress.Model
         {
             if (!element.HasElements)
             {
-                throw new ArgumentException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
             string value = null;

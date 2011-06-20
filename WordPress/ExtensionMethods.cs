@@ -17,19 +17,18 @@ namespace WordPress
             }
             else
             {
-                //TODO check the exception type here
-                if (exception is WordPress.Model.XmlRPCParserException)
-                {
-                    MessageBox.Show(exception.Message);
-                    /*MessageBoxResult m = MessageBox.Show(exception.Message + "\nNeed Help?", "Error", MessageBoxButton.OKCancel);
+                if (exception is WordPress.Model.XmlRPCParserException) //cannot parse the XML-RPC response document
+                { 
+                   MessageBox.Show(exception.Message);
+                   /* MessageBoxResult m = MessageBox.Show(exception.Message + "\nNeed Help?", "Error", MessageBoxButton.OKCancel);
                     if(m == MessageBoxResult.OK) {
                         Debug.WriteLine("clicked ok");
                     } else {
                         Debug.WriteLine("clicked cancel");
                     }*/
                 }
-                else if (exception is WordPress.Model.XmlRPCException)
-                {
+                else if (exception is WordPress.Model.XmlRPCException) //the XML-RPC document contains a fault error
+                { 
                     MessageBox.Show(exception.Message);
                 } 
                 else

@@ -131,7 +131,7 @@ namespace WordPress.Model
         }
 
         /// <summary>
-        /// Implementation classes will parse the xml rpc response here into a list of specific
+        /// Implementation classes will parse the XML-RPC response here into a list of specific
         /// object types.  If an unexpected value is found during the process, the implementation
         /// should throw a meaningful exception.
         /// </summary>
@@ -298,7 +298,7 @@ namespace WordPress.Model
             if (!String.IsNullOrEmpty(responseContent))
             {
                 //responseContent += "<<";
-                this.DebugLog("XML-RPC response: " + responseContent);
+                //this.DebugLog("XML-RPC response: " + responseContent);
                 //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
                 string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
                 Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
