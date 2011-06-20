@@ -54,9 +54,10 @@
 				Style="{StaticResource BasicButtonStyle}" Click="forumButton_Click" Grid.ColumnSpan="2" />
             <Button x:Name="mailButton" Grid.Row ="3" Content="{Binding ControlsText.sendEmailToSupport, Source={StaticResource StringTable}}"
 				Style="{StaticResource BasicButtonStyle}" Click="mailButton_Click" Grid.ColumnSpan="2" />
-           
-            <TextBlock Grid.Row ="4"  Text="error msg" x:Name="FullErrorText" Style="{StaticResource PhoneTextSmallStyle}"  TextWrapping="Wrap" Grid.ColumnSpan="2" Margin="12,0" />
-          </Grid>
+            <ScrollViewer Grid.Row ="4" HorizontalAlignment="Left" Margin="10,10,0,0" Name="scrollViewer1" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto">
+                <TextBlock   Text="error msg" x:Name="FullErrorText" Style="{StaticResource PhoneTextSmallStyle}"  TextWrapping="Wrap" Grid.ColumnSpan="2" Margin="12,0" />
+            </ScrollViewer>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
