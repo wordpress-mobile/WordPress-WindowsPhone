@@ -160,6 +160,9 @@ namespace WordPress.Localization
             public string EnterUrl { get { return LocalizedResources.ControlText_EnterURL; } }
             public string EnterLinkText { get { return LocalizedResources.ControlText_EnterLinkText; } }
             public string InsertLink { get { return LocalizedResources.ControlText_InsertLink; } }
+            public string visitForums { get { return LocalizedResources.ControlText_Forums; } }
+            public string visitFAQ { get { return LocalizedResources.ControlText_FAQ; } }
+            public string sendEmailToSupport { get { return LocalizedResources.ControlText_EMail; } }
         }
 
         #endregion

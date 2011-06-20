@@ -106,6 +106,9 @@
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
+    <Compile Include="ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EulaControl.xaml.cs">
       <DependentUpon>EulaControl.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowserShellPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ErrorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
