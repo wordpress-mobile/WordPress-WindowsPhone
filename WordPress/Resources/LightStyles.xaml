@@ -54,7 +54,7 @@
 
 <SolidColorBrush x:Key="PhoneTextBoxForegroundBrush" Color="{StaticResource PhoneTextBoxForegroundColor}"/>
 
-<SolidColorBrush x:Key="PhoneTextBoxEditBackgroundBrush" Color="{StaticResource PhoneTextBoxEditBackgroundColor}"/>
+<SolidColorBrush x:Key="PhoneTextBoxEditBackgroundBrush" Color="#FFFFFFFF"/>
 
 <SolidColorBrush x:Key="PhoneTextBoxEditBorderBrush" Color="{StaticResource PhoneTextBoxEditBorderColor}"/>
 
