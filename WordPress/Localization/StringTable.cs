@@ -163,6 +163,7 @@ namespace WordPress.Localization
             public string visitForums { get { return LocalizedResources.ControlText_Forums; } }
             public string visitFAQ { get { return LocalizedResources.ControlText_FAQ; } }
             public string sendEmailToSupport { get { return LocalizedResources.ControlText_EMail; } }
+            public string LoadingContent { get { return LocalizedResources.ControlText_LoadingContent; } }
         }
 
         #endregion

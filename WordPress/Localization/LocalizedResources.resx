@@ -706,4 +706,7 @@
   <data name="Prompts_SupportEmailSubject" xml:space="preserve">
     <value>WordPress for Windows Phone Support Request</value>
   </data>
+  <data name="ControlText_LoadingContent" xml:space="preserve">
+    <value>loading content</value>
+  </data>
 </root>

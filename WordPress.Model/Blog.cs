@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace WordPress.Model
 {
@@ -32,6 +33,8 @@ namespace WordPress.Model
         private const string BLOGNAME_VALUE = "blogName";
         private const string XMLRPC_VALUE = "xmlrpc";
         private const string NOBLOGTITLE_VALUE = "(No Blog Title)";
+
+        private bool _isLoadingContent;
 
         #endregion
 
@@ -252,6 +255,18 @@ namespace WordPress.Model
             get { return null != Snapshot; }
         }
 
+        [XmlIgnore]
+        public bool IsLoadingContent
+        {
+            get { return _isLoadingContent; }
+            
+            internal set 
+            {
+                _isLoadingContent = value; 
+                NotifyPropertyChanged("IsLoadingContent");
+            }
+        }
+        
         #endregion
 
         #region methods

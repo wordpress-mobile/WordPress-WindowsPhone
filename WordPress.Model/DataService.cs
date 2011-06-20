@@ -401,6 +401,7 @@ namespace WordPress.Model
 
             if (string.IsNullOrEmpty(newBlog.ApiKey))
             {
+                newBlog.IsLoadingContent = true;
                 GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog);
                 rpc.Completed += OnGetApiKeyRPCCompleted;
                 rpc.ExecuteAsync();
@@ -568,12 +569,13 @@ namespace WordPress.Model
 
             _trackedBlogs.Remove(newBlog);
 
+            newBlog.IsLoadingContent = false;
+
             if (newBlog == CurrentBlog)
             {
                 NotifyFetchComplete();
             }
         }
-
 
         #endregion
 

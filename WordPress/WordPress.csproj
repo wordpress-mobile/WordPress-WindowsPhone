@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="Commands\LaunchWebBrowserCommand.cs" />
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
