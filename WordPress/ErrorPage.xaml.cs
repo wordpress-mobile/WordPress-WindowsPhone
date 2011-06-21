@@ -23,13 +23,14 @@ namespace WordPress
 
         private const string ERROR_DESC_VALUE = "errDesc";
         private const string FULL_STACK_VALUE = "fullStackDesc";
+        private string fullStackTrace = ""; //used to store the page state
         
         #region constructors
         public ErrorPage()
         {
             InitializeComponent();
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
-            Debug.WriteLine("end constructor");
+            this.DebugLog("end constructor");
         }
         #endregion
 
@@ -37,11 +38,11 @@ namespace WordPress
         protected override void OnNavigatedTo(NavigationEventArgs e)
         { 
            // base.OnNavigatedTo(e);
-            Debug.WriteLine("OnNavigatedTo");
+            this.DebugLog("OnNavigatedTo");
             if (Exception != null)
             {
                 ErrorText.Text = Exception.Message;
-                FullErrorText.Text = Exception.ToString();
+                fullStackTrace = Exception.ToString();
             }
             else //user re-activaed the app
             {
@@ -53,14 +54,14 @@ namespace WordPress
 
                 if (State.ContainsKey(FULL_STACK_VALUE))
                 {
-                    FullErrorText.Text = State[FULL_STACK_VALUE] as string;
+                    fullStackTrace = State[FULL_STACK_VALUE] as string;
                 }
             }
         }
          
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            Debug.WriteLine("OnNavigatedFrom");
+            this.DebugLog("OnNavigatedFrom");
             base.OnNavigatedFrom(e);
             //store transient data in the State dictionary
             if (State.ContainsKey(ERROR_DESC_VALUE))
@@ -73,7 +74,7 @@ namespace WordPress
             {
                 State.Remove(FULL_STACK_VALUE);
             }
-            State.Add(FULL_STACK_VALUE, FullErrorText.Text);
+            State.Add(FULL_STACK_VALUE, fullStackTrace);
         }
 
         private void FAQButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -95,7 +96,7 @@ namespace WordPress
             //NavigationService.GoBack();
             EmailComposeTask emailComposeTask = new EmailComposeTask();
             emailComposeTask.To = Constants.WORDPRESS_SUPPORT_EMAIL;
-            emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody;
+            emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody + "\n\n\n\n" + fullStackTrace; 
             emailComposeTask.Subject = _localizedStrings.Prompts.SupportEmailSubject;
             emailComposeTask.Show();
         }

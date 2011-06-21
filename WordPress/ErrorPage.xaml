@@ -45,18 +45,14 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Margin="9,0,9,10" Text="error msg" x:Name="ErrorText" TextWrapping="Wrap" Grid.ColumnSpan="2" />
+            <TextBlock Margin="9,0,9,10" Text="error msg" x:Name="ErrorText" TextWrapping="Wrap" Grid.ColumnSpan="2" Style="{StaticResource LabelTextBlockStyle}" />
             <Button x:Name="FAQButton" Grid.Row ="1" Content="{Binding ControlsText.visitFAQ, Source={StaticResource StringTable}}"
 				Style="{StaticResource BasicButtonStyle}" Click="FAQButton_Click" Grid.ColumnSpan="2" />
             <Button x:Name="forumButton" Grid.Row ="2" Content="{Binding ControlsText.visitForums, Source={StaticResource StringTable}}"
 				Style="{StaticResource BasicButtonStyle}" Click="forumButton_Click" Grid.ColumnSpan="2" />
             <Button x:Name="mailButton" Grid.Row ="3" Content="{Binding ControlsText.sendEmailToSupport, Source={StaticResource StringTable}}"
 				Style="{StaticResource BasicButtonStyle}" Click="mailButton_Click" Grid.ColumnSpan="2" />
-            <ScrollViewer Grid.Row ="4" HorizontalAlignment="Left" Margin="10,10,0,0" Name="scrollViewer1" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto">
-                <TextBlock   Text="error msg" x:Name="FullErrorText" Style="{StaticResource PhoneTextSmallStyle}"  TextWrapping="Wrap" Grid.ColumnSpan="2" Margin="12,0" />
-            </ScrollViewer>
         </Grid>
     </Grid>
  
