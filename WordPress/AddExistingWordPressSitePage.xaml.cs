@@ -80,7 +80,13 @@ namespace WordPress
 
             string username = usernameTextBox.Text;
             string password = passwordPasswordBox.Password;
-            string url = urlTextBox.Text;
+                             
+            string url = urlTextBox.Text.Trim();
+            if (url.EndsWith("/")) url = url.Substring(0, url.Length - 1); //remove the trailing slash
+            if (url.EndsWith("/wp-admin")) url = url.Replace("/wp-admin", "");
+            if (!url.EndsWith("/xmlrpc.php")) url = url + "/xmlrpc.php";
+
+            this.DebugLog("XML-RPC URL: " + url);
 
             GetUsersBlogsRPC rpc = new GetUsersBlogsRPC(url, username, password);
             rpc.Completed += OnGetUsersBlogsCompleted;
