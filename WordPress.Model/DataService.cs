@@ -414,8 +414,12 @@ namespace WordPress.Model
             GetApiKeyRPC rpc = sender as GetApiKeyRPC;
             rpc.Completed -= OnGetApiKeyRPCCompleted;
 
-            //now that we have our new blog we need to download its contents.  
-            Blog newBlog = args.Items[0];
+            //check for empty args.Items, self-hosted blogs will return null here
+            Blog newBlog;
+            if (args.Items.Count == 0)
+                newBlog = rpc.blog;
+            else
+                newBlog = args.Items[0];
             _trackedBlogs.Add(newBlog);
 
             this.DebugLog("Blog '" + newBlog.BlogName + "' is now downloading data.");

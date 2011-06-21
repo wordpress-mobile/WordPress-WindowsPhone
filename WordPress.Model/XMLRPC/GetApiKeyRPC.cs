@@ -16,7 +16,7 @@ namespace WordPress.Model
 
         #region member variables
 
-        private Blog _blog;
+        public Blog blog;
         private SendOrPostCallback onCompletedDelegate;
         
         #endregion
@@ -30,9 +30,9 @@ namespace WordPress.Model
 
         #region constructors
 
-        public GetApiKeyRPC(Blog blog)
+        public GetApiKeyRPC(Blog aBlog)
         {
-            _blog = blog;
+            blog = aBlog;
             onCompletedDelegate = new SendOrPostCallback(NotifyCompleted);
         }
 
@@ -81,15 +81,15 @@ namespace WordPress.Model
 
         private void ValidateValues()
         {
-            if (null == _blog)
+            if (null == blog)
             {
                 throw new ArgumentException("Blog may not be null", "Blog");
             }
-            if (string.IsNullOrEmpty(_blog.Username))
+            if (string.IsNullOrEmpty(blog.Username))
             {
                 throw new ArgumentException("Blog.Username may not be null or an empty string", "Blog");
             }
-            if (string.IsNullOrEmpty(_blog.Password))
+            if (string.IsNullOrEmpty(blog.Password))
             {
                 throw new ArgumentException("Blog.Password may not be null or an empty string.", "Blog");
             }
@@ -102,7 +102,7 @@ namespace WordPress.Model
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
             request.Method = XmlRPCRequestConstants.POST;
             request.UserAgent = Constants.WORDPRESS_USERAGENT;
-            request.Credentials = new NetworkCredential(_blog.Username, _blog.Password);
+            request.Credentials = new NetworkCredential(blog.Username, blog.Password);
 
             request.BeginGetResponse(responseResult =>
             {
@@ -189,8 +189,8 @@ namespace WordPress.Model
         {
             string key = xDoc.Descendants(XmlRPCResponseConstants.APIKEY).First().Value;
             List<Blog> result = new List<Blog>();
-            _blog.ApiKey = key;
-            result.Add(_blog);
+            blog.ApiKey = key;
+            result.Add(blog);
             return result;
         }
 
