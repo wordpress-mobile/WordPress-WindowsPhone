@@ -175,6 +175,9 @@ namespace WordPress
             if (phoneApplicationInitialized)
                 return;
 
+            // Ensure we don't initialize again
+            phoneApplicationInitialized = true;
+
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
             RootFrame = new PhoneApplicationFrame();
@@ -182,9 +185,6 @@ namespace WordPress
 
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
-
-            // Ensure we don't initialize again
-            phoneApplicationInitialized = true;
         }
 
         // Do not add any additional code to this method

@@ -18,7 +18,8 @@ namespace WordPress
             else
             {
                 if (exception is WordPress.Model.XmlRPCParserException) //cannot parse the XML-RPC response document
-                { 
+                {
+
                    //MessageBox.Show(exception.Message);
                   /*  MessageBoxResult m = MessageBox.Show(exception.Message + "\nNeed Help?", "Error", MessageBoxButton.OKCancel);
                     if(m == MessageBoxResult.OK) {
@@ -26,8 +27,8 @@ namespace WordPress
                     } else {
                         Debug.WriteLine("clicked cancel");
                     }*/
-                    ErrorPage.Exception = exception;
-                    (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
+                   ErrorPage.Exception = exception;
+                   (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
                 }
                 else if (exception is WordPress.Model.XmlRPCException) //the XML-RPC document contains a fault error
                 { 
@@ -68,6 +69,7 @@ namespace WordPress
                 }
             }
             Debug.WriteLine(stackTraceFormat, exception.StackTrace);
+            Debug.WriteLine("Full exception:\n"+exception.ToString());
             Debug.WriteLine(separator);
             Debug.WriteLine(string.Empty);
         }
