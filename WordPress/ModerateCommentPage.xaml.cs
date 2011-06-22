@@ -3,11 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Input;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-
 using WordPress.Localization;
 using WordPress.Model;
+using Microsoft.Phone.Tasks;
 
 namespace WordPress
 {
@@ -62,6 +63,8 @@ namespace WordPress
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
 
+            authorEmailTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(authorEmailTextBlock_MouseLeftButtonDown);
+            authorURLTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(authorURLTextBlock_MouseLeftButtonDown);
             Loaded += OnPageLoaded;
         }
         
@@ -332,6 +335,24 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
+        }
+
+        private void authorEmailTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Comment comment = DataContext as Comment;
+            EmailComposeTask emailcomposer = new EmailComposeTask();
+            emailcomposer.To = comment.AuthorEmail;
+            emailcomposer.Subject = String.Format("Re: {0}", comment.PostTitle);
+            emailcomposer.Body = String.Format("{0} {1},", _localizedStrings.Messages.Hello, comment.Author);
+            emailcomposer.Show();
+        }
+
+        private void authorURLTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Comment comment = DataContext as Comment;
+            WebBrowserTask wbTask = new WebBrowserTask();
+            wbTask.URL = comment.AuthorUrl;
+            wbTask.Show();
         }
 
         #endregion

@@ -998,6 +998,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hello.
+        /// </summary>
+        internal static string Messages_Hello {
+            get {
+                return ResourceManager.GetString("Messages_Hello", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to loading....
         /// </summary>
         internal static string Messages_Loading {

@@ -203,6 +203,7 @@ namespace WordPress.Localization
             public string DownloadingStatistics { get { return LocalizedResources.Message_DownloadingStatistics; } }
             public string CheckTheUrl { get { return LocalizedResources.Message_CheckTheUrl; } }
             public string UploadingMedia { get { return LocalizedResources.Messages_UploadingMedia; } }
+            public string Hello { get { return LocalizedResources.Messages_Hello; } }
         }
 
         #endregion

@@ -712,4 +712,8 @@
   <data name="ControlText_SaveDraft" xml:space="preserve">
     <value>save draft</value>
   </data>
+  <data name="Messages_Hello" xml:space="preserve">
+    <value>Hello</value>
+    <comment>email greeting - 'Hello John,"</comment>
+  </data>
 </root>
