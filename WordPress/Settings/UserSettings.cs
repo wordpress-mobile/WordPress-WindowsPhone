@@ -18,6 +18,7 @@ namespace WordPress.Settings
         private const string USETAGLINEFORNEWPOSTS_VALUE = "useTaglineForNewPosts";
         private const string TAGLINE_VALUE = "tagline";
         private const string ACCEPTED_EULA = "acceptedEula";
+        private const string LAST_STATS_UPLOAD = "lastStatsUpload";
 
         private StringTable _localizedStrings;
 
@@ -124,6 +125,31 @@ namespace WordPress.Settings
                     Settings[ACCEPTED_EULA] = value;
                     NotifyPropertyChanged("AcceptedEula");
                 }
+            }
+        }
+
+        public DateTime LastStatsUpload
+        {
+            get
+            {
+                DateTime result = DateTime.Now;
+
+                if (Settings.Contains(LAST_STATS_UPLOAD))
+                {
+                    result = (DateTime)Settings[LAST_STATS_UPLOAD];
+                }
+                else
+                {
+                    //first run, set date in the past 8 days
+                    result = result.AddDays(-8);
+                }
+                return result;
+            }
+
+            set
+            {
+                Settings[LAST_STATS_UPLOAD] = value;
+                NotifyPropertyChanged("LastStatsUpload");
             }
         }
 
