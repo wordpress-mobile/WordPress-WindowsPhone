@@ -164,6 +164,7 @@ namespace WordPress.Localization
             public string visitFAQ { get { return LocalizedResources.ControlText_FAQ; } }
             public string sendEmailToSupport { get { return LocalizedResources.ControlText_EMail; } }
             public string LoadingContent { get { return LocalizedResources.ControlText_LoadingContent; } }
+            public string SaveDraft { get { return LocalizedResources.ControlText_SaveDraft; } }
         }
 
         #endregion

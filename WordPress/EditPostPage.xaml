@@ -127,9 +127,7 @@
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
-                <Rectangle Grid.Row="12" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>                        
-                <TextBlock Grid.Row="12" Text="{Binding Path=ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <ToggleButton Grid.Row="13" x:Name="publishToggleButton" Content="{Binding Path=ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>
+                <Rectangle Grid.Row="12" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
             </Grid>
         </ScrollViewer>
 

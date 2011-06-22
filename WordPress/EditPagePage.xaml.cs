@@ -25,6 +25,7 @@ namespace WordPress
         private const string PUBLISHKEY_VALUE = "publish";
 
         private ApplicationBarIconButton _saveIconButton;
+        private ApplicationBarIconButton _publishIconButton;
         private StringTable _localizedStrings;
 
         #endregion
@@ -45,6 +46,11 @@ namespace WordPress
             _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
+
+            _publishIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.upload.png", UriKind.Relative));
+            _publishIconButton.Text = _localizedStrings.ControlsText.Publish;
+            _publishIconButton.Click += OnSaveButtonClick;
+            ApplicationBar.Buttons.Add(_publishIconButton);
 
             Loaded += OnPageLoaded;
         }
@@ -121,10 +127,6 @@ namespace WordPress
             {
                 Post post = args.Items[0];
                 DataContext = post;
-                if (post.PostStatus.Equals("publish"))
-                {
-                    publishToggleButton.IsChecked = true;
-                }
             }
             else
             {
@@ -137,6 +139,10 @@ namespace WordPress
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
             Post post = DataContext as Post;
+            if (sender == _publishIconButton)
+                post.PostStatus = "publish";
+            else
+                post.PostStatus = "draft";
 
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
             //which doesn't force focus to change
@@ -146,16 +152,21 @@ namespace WordPress
             if (post.IsNew)
             {
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.Publish = publishToggleButton.IsChecked.Value;
+                if (post.PostStatus == "publish")
+                    rpc.Publish = true;
+                else
+                    rpc.Publish = false;
                 rpc.PostType = ePostType.page;
                 rpc.Completed += OnNewPostRPCCompleted;
-
                 rpc.ExecuteAsync();
             }
             else
             {
                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.Publish = publishToggleButton.IsChecked.Value;
+                if (post.PostStatus == "publish")
+                    rpc.Publish = true;
+                else
+                    rpc.Publish = false;
                 rpc.Completed += OnEditPostRPCCompleted;
 
                 rpc.ExecuteAsync();
@@ -303,12 +314,6 @@ namespace WordPress
                 State.Remove(CONTENTKEY_VALUE);
             }
             State.Add(CONTENTKEY_VALUE, contentTextBox.Text);
-
-            if (State.ContainsKey(PUBLISHKEY_VALUE))
-            {
-                State.Remove(PUBLISHKEY_VALUE);
-            }
-            State.Add(PUBLISHKEY_VALUE, publishToggleButton.IsChecked);
         }
 
         private void RestorePageState()
@@ -327,11 +332,6 @@ namespace WordPress
             if (State.ContainsKey(CONTENTKEY_VALUE))
             {
                 contentTextBox.Text = State[CONTENTKEY_VALUE] as string;
-            }
-
-            if (State.ContainsKey(PUBLISHKEY_VALUE))
-            {
-                publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
             }
         }
 

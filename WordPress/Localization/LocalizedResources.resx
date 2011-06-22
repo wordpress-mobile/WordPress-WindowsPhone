@@ -709,4 +709,7 @@
   <data name="ControlText_LoadingContent" xml:space="preserve">
     <value>loading content</value>
   </data>
+  <data name="ControlText_SaveDraft" xml:space="preserve">
+    <value>save draft</value>
+  </data>
 </root>

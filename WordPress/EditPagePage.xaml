@@ -112,9 +112,7 @@
                                   Style="{StaticResource BasicToggleButtonStyle}" 
                                   Margin="-5,0,0,0"/>
                 </StackPanel>
-                <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="6" Text="status" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <ToggleButton Grid.Row="7" x:Name="publishToggleButton" Content="{Binding ControlsText.Publish, Source={StaticResource StringTable}}" HorizontalAlignment="Left" Style="{StaticResource BasicToggleButtonStyle}"/>                
+                <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>                
             </Grid>
         </ScrollViewer>
         <local:AddLinkControl x:Name="addLinkControl" 

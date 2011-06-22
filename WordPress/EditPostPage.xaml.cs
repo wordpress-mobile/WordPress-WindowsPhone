@@ -35,6 +35,7 @@ namespace WordPress
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
+        private ApplicationBarIconButton _publishIconButton;
         private List<UploadFileRPC> _mediaUploadRPCs;
         private Dictionary<UploadFileRPC, Size> _rpcToImageSizeMap;
         private Dictionary<UploadedFileInfo, UploadFileRPC> _infoToRpcMap;
@@ -55,9 +56,14 @@ namespace WordPress
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
-            _saveIconButton.Text = _localizedStrings.ControlsText.Save;
+            _saveIconButton.Text = _localizedStrings.ControlsText.SaveDraft;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
+
+            _publishIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.upload.png", UriKind.Relative));
+            _publishIconButton.Text = _localizedStrings.ControlsText.Publish;
+            _publishIconButton.Click += OnSaveButtonClick;
+            ApplicationBar.Buttons.Add(_publishIconButton);
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
             _rpcToImageSizeMap = new Dictionary<UploadFileRPC, Size>();
@@ -135,11 +141,6 @@ namespace WordPress
                 contentTextBox.Text = State[CONTENTKEY_VALUE] as string;
             }
 
-            if (State.ContainsKey(PUBLISHKEY_VALUE))
-            {
-                publishToggleButton.IsChecked = (bool)State[PUBLISHKEY_VALUE];
-            }
-
             if (State.ContainsKey(TAGSKEY_VALUE))
             {
                 tagsTextBox.Text = State[TAGSKEY_VALUE] as string;
@@ -186,10 +187,6 @@ namespace WordPress
                 Post post = args.Items[0];
                 DataContext = post;
                 App.MasterViewModel.CurrentPost = post;
-                if (post.PostStatus.Equals("publish"))
-                {
-                    publishToggleButton.IsChecked = true;
-                }
                 if (post.MtKeyWords != "")
                 {
                     tagsTextBox.Text = post.MtKeyWords;
@@ -205,6 +202,12 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
+            Post post = App.MasterViewModel.CurrentPost;
+            if (sender == _publishIconButton)
+                post.PostStatus = "publish";
+            else
+                post.PostStatus = "draft";
+
             if (0 < _mediaUploadRPCs.Count)
             {
                 UploadImagesAndSavePost();
@@ -245,17 +248,22 @@ namespace WordPress
                     post.Description = post.Description + "\r\n<p class=\"post-sig\">" + settings.Tagline + "</p>";
                 }
                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.PostType = ePostType.post;                            
-                rpc.Publish = publishToggleButton.IsChecked.Value;
+                rpc.PostType = ePostType.post;
+                if (post.PostStatus == "publish")
+                    rpc.Publish = true;
+                else
+                    rpc.Publish = false;
                 rpc.Completed += OnNewPostRPCCompleted;
                 rpc.ExecuteAsync();
             }
             else
             {
                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.Publish = publishToggleButton.IsChecked.Value;
+                if (post.PostStatus == "publish")
+                    rpc.Publish = true;
+                else
+                    rpc.Publish = false;
                 rpc.Completed += OnEditPostRPCCompleted;
-                rpc.Publish = publishToggleButton.IsChecked.Value;
                 rpc.ExecuteAsync();
             }
 
@@ -406,12 +414,6 @@ namespace WordPress
                 State.Remove(CONTENTKEY_VALUE);
             }
             State.Add(CONTENTKEY_VALUE, contentTextBox.Text);
-
-            if (State.ContainsKey(PUBLISHKEY_VALUE))
-            {
-                State.Remove(PUBLISHKEY_VALUE);
-            }
-            State.Add(PUBLISHKEY_VALUE, publishToggleButton.IsChecked);
 
             if (State.ContainsKey(TAGSKEY_VALUE))
             {
