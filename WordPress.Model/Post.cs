@@ -383,7 +383,8 @@ namespace WordPress.Model
                     }
                     else
                     {
-                        throw new FormatException("Unable to parse given date-time");
+                        Exception detailedError = new FormatException("Unable to parse dataCreated: " + value);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
                     }
                 }
                 else if (USERID_VALUE.Equals(memberName))
@@ -495,7 +496,8 @@ namespace WordPress.Model
                     }
                     else
                     {
-                        throw new FormatException("Unable to parse given date-time");
+                        Exception detailedError = new FormatException("Unable to parse GMT date-time: " + value);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
                     }
                 }
                 else if (POSTSTATUS_VALUE.Equals(memberName))

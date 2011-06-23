@@ -338,7 +338,8 @@ namespace WordPress.Model
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
                     if (!DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out _dateCreatedGMT))
                     {
-                        throw new FormatException("Unable to parse given date-time.");
+                        Exception detailedError = new FormatException("Unable to parse GMT date-time: " + value);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
                     }
                 }
                 else if (USERID_VALUE.Equals(memberName))
