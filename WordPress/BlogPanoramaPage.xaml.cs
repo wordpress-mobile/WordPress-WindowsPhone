@@ -8,6 +8,7 @@ using Microsoft.Phone.Controls;
 
 using WordPress.Localization;
 using WordPress.Model;
+using System.Windows.Navigation;
 
 namespace WordPress
 {
@@ -155,7 +156,7 @@ namespace WordPress
 
             PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
             if (null == postListItem) return;
-
+        
             GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId.ToString());
             rpc.Completed += OnGetPostRPCCompleted;
             rpc.ExecuteAsync();
@@ -176,19 +177,17 @@ namespace WordPress
                 //the browser acts a bit odd if there are already tabs open.  The WebBrowserTask 
                 //creates a new tab for the web content, but doesn't automatically
                 //open your new tab if other tabs already exist.
-
                 Post post = args.Items[0];
-                Uri permaLinkUri = new Uri(post.PermaLink, UriKind.Absolute);
-                string uriFormatString = "?{0}={1}";
-                string paramString = string.Format(uriFormatString, BrowserShellPage.URIKEYNAME, permaLinkUri.ToString());
-                NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + paramString, UriKind.Relative));                
+                string queryStringFormat = "?{0}={1}";
+                string queryString = string.Format(queryStringFormat, BrowserShellPage.ITEM_PERMALINK, post.PermaLink);
+                NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + queryString, UriKind.Relative));
             }
             else
             {                
                 this.HandleException(args.Error);
             }
         }
-
+         
         private void ViewPostComments()
         {
             int index = postsListBox.SelectedIndex;
@@ -333,7 +332,7 @@ namespace WordPress
                 Post post = args.Items[0];
                 Uri permaLinkUri = new Uri(post.PermaLink, UriKind.Absolute);
                 string uriFormatString = "?{0}={1}";
-                string paramString = string.Format(uriFormatString, BrowserShellPage.URIKEYNAME, permaLinkUri.ToString());
+                string paramString = string.Format(uriFormatString, BrowserShellPage.ITEM_PERMALINK, permaLinkUri.ToString());
                 NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + paramString, UriKind.Relative));
             }
             else
