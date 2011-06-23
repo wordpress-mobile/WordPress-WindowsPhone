@@ -27,22 +27,22 @@
         <!--TitlePanel contains the name of the application and page title-->
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" d:IsHidden="True">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="53*" />
                 <RowDefinition Height="690*" />
                 <RowDefinition Height="25*" />
             </Grid.RowDefinitions>
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="668" Margin="0,50,0,25" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="668" Margin="0,50,0,25" Grid.RowSpan="2" Width="454">
                 <Image Height="300" Margin="0" Source="Images/blue-xl.png" Width="300"/>
                 <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.StartBloggingInSeconds, Source={StaticResource StringTable}}" Width="361" FontSize="32" TextAlignment="Center" Margin="0,10,0,20" FontFamily="Georgia" >
                 	<TextBlock.Foreground>
                 		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 	</TextBlock.Foreground>
                 </TextBlock>
-                <Button x:Name="createNewBlogButton" Content="{Binding ControlsText.StartNewBlog, Source={StaticResource StringTable}}" Click="OnCreateNewBlogButtonClick" Style="{StaticResource BasicButtonStyle}"/>
-                <Button x:Name="existingWPBlogButton" Content="{Binding ControlsText.AddExistingWPBlog, Source={StaticResource StringTable}}" Click="OnExistingWPBlogButtonClick" Style="{StaticResource BasicButtonStyle}"/>
-                <Button x:Name="existingWPSiteButton" Content="{Binding ControlsText.AddExistingWPSite, Source={StaticResource StringTable}}" Click="OnExistingWPSiteButtonClick" Style="{StaticResource BasicButtonStyle}"/>
+                <Button x:Name="createNewBlogButton" Content="{Binding ControlsText.StartNewBlog, Source={StaticResource StringTable}}" Click="OnCreateNewBlogButtonClick" Style="{StaticResource BasicButtonStyle}" FontSize="21.333" VerticalAlignment="Center"/>
+                <Button x:Name="existingWPBlogButton" Content="{Binding ControlsText.AddExistingWPBlog, Source={StaticResource StringTable}}" Click="OnExistingWPBlogButtonClick" Style="{StaticResource BasicButtonStyle}" FontSize="21.333"/>
+                <Button x:Name="existingWPSiteButton" Content="{Binding ControlsText.AddExistingWPSite, Source={StaticResource StringTable}}" Click="OnExistingWPSiteButtonClick" Style="{StaticResource BasicButtonStyle}" FontSize="21.333"/>
             </StackPanel>
         </Grid>
 		<local:EulaControl x:Name="eulaControl" Grid.RowSpan="2" Visibility="Collapsed" />
