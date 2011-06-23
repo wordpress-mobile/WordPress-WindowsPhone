@@ -71,7 +71,10 @@ namespace WordPress
             if (!string.IsNullOrEmpty(_uriString))
                 browser.Navigate(new Uri(_uriString, UriKind.Absolute));
             else
+            {
+                progressBar.Visibility = Visibility.Visible;
                 this.startLoadingPostUsingLoginForm();
+            }
         }
 
         private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
@@ -134,31 +137,24 @@ namespace WordPress
             try
             {
                 response = request.EndGetResponse(asynchronousResult) as HttpWebResponse;
-            }
-            catch (Exception ex)
-            {
-                this.HandleException(new Exception("Something went wrong during Preview", ex));
-            }
-
-            Stream responseStream = response.GetResponseStream();
-            string responseContent = null;
-
-            try
-            {
+    
+                Stream responseStream = response.GetResponseStream();
+                string responseContent = null;
                 using (StreamReader reader = new StreamReader(responseStream))
                 {
                     responseContent = reader.ReadToEnd();
                 }
+
+                UIThread.Invoke(() =>
+                {
+                    browser.NavigateToString(responseContent);
+                });
+
             }
             catch (Exception ex)
             {
                 this.HandleException(new Exception("Something went wrong during Preview", ex));
             }
-
-            UIThread.Invoke(() =>
-            {
-                browser.NavigateToString(responseContent);
-            });
         }
 
         #endregion
