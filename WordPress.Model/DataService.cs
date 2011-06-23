@@ -223,6 +223,8 @@ namespace WordPress.Model
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
 
+            CurrentBlog.IsLoadingContent = true;
+
             GetAllCommentsRPC rpc = new GetAllCommentsRPC(CurrentBlog);
             rpc.Number = CHUNK_SIZE;
             rpc.Offset = 0;
@@ -250,6 +252,8 @@ namespace WordPress.Model
             {
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
+
+            CurrentBlog.IsLoadingContent = false;
         }
 
         public void FetchCurrentBlogPostsAsync()
@@ -262,6 +266,8 @@ namespace WordPress.Model
             //we're already downloading data here--don't allow scenarios where we could be
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
+
+            CurrentBlog.IsLoadingContent = true;
 
             GetRecentPostsRPC rpc = new GetRecentPostsRPC(CurrentBlog);
             rpc.NumberOfPosts = CHUNK_SIZE;
@@ -290,6 +296,8 @@ namespace WordPress.Model
             {
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
+
+            CurrentBlog.IsLoadingContent = false;
         }
 
         public void FetchCurrentBlogPagesAsync()
@@ -302,6 +310,8 @@ namespace WordPress.Model
             //we're already downloading data here--don't allow scenarios where we could be
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
+
+            CurrentBlog.IsLoadingContent = true;
 
             GetPageListRPC rpc = new GetPageListRPC(CurrentBlog);
             rpc.Completed += OnFetchCurrentBlogPagesCompleted;
@@ -328,6 +338,8 @@ namespace WordPress.Model
             {
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
+
+            CurrentBlog.IsLoadingContent = false;
         }
 
         public void FetchCurrentBlogCategories()

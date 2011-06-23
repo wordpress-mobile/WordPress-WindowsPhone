@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,12 +43,11 @@ namespace WordPress
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
-            _refreshListOptions = new List<string>(4);
+            _refreshListOptions = new List<string>(3);
             _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Comments);
             _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Posts);
             _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Pages);
-            _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Everything);
-
+            
             _postListOptions = new List<string>(4);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_ViewPost);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_ViewComments);
@@ -663,15 +663,53 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            //determine if the current blog is loading content.  If so we need to show the indicator
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+            
+            double opacity = 0.0;
+            double height = 0.0;
+            if (currentBlog.IsLoadingContent)
+            {
+                opacity = (double)Resources["loadingContentOpacityMax"];
+                height = (double)Resources["loadingContentStackPanelHeight"];
+            }
+            loadingContentStackPanel.Opacity = opacity;
+            loadingContentStackPanel.Height = height;
+
+            //listen for the changes to the IsLoadingContent property
+            currentBlog.PropertyChanged += OnCurrentBlogPropertyChanged;
+        }
+
+        private void OnCurrentBlogPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName.Equals("IsLoadingContent"))
+            {
+                Blog currentBlog = App.MasterViewModel.CurrentBlog;
+                if (currentBlog.IsLoadingContent)
+                {
+                    fadeInLoadingContentStoryboard.Begin();
+                }
+                else
+                {
+                    //stop the fade in animation and capture the current values for 
+                    //height and opacity.  This prevents choppyness in the animation
+                    //if you're running on a fast device/emulator
+                    fadeInLoadingContentStoryboard.Stop();
+                    fadeOutHeightDoubleAnimation.From = loadingContentStackPanel.DesiredSize.Height;
+                    fadeOutOpacityDoubleAnimation.From = loadingContentStackPanel.Opacity;
+                    fadeOutLoadingContentStoryboard.Begin();
+                }
+            }
         }
 
         protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
 
-            DataService.Current.FetchComplete -= OnSingleFetchComplete;
-            DataService.Current.FetchComplete -= OnMultiFetchComplete;
             DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+
+            App.MasterViewModel.CurrentBlog.PropertyChanged -= OnCurrentBlogPropertyChanged;
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -731,67 +769,32 @@ namespace WordPress
                     FetchPages();
                     break;
                 case 3:     //everything
-                    FetchEverything();
+                    //FetchEverything();
                     break;
             }
         }
 
-        private void FetchEverything()
-        {
-            _multiFetchTaskCount = 3;
-            DataService.Current.FetchComplete += OnMultiFetchComplete;
-            DataService.Current.FetchCurrentBlogCommentsAsync();
-            DataService.Current.FetchCurrentBlogPostsAsync();
-            DataService.Current.FetchCurrentBlogPagesAsync();
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingEverything);
-        }
-
         private void FetchPages()
         {
-            DataService.Current.FetchComplete += OnSingleFetchComplete;
             DataService.Current.FetchCurrentBlogPagesAsync();
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPages);
         }
 
         private void FetchPosts()
         {
-            DataService.Current.FetchComplete += OnSingleFetchComplete;
-            DataService.Current.FetchCurrentBlogPostsAsync();
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPosts);
+            DataService.Current.FetchCurrentBlogPostsAsync();            
         }
 
         private void FetchComments()
         {
-            DataService.Current.FetchComplete += OnSingleFetchComplete;
-            DataService.Current.FetchCurrentBlogCommentsAsync();
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingComments);
+            DataService.Current.FetchCurrentBlogCommentsAsync();            
         }
 
         private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
         {
             App.WaitIndicationService.HideIndicator();
             DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
-            DataService.Current.FetchComplete -= OnSingleFetchComplete;
-            DataService.Current.FetchComplete -= OnMultiFetchComplete;
-
-            this.HandleException(args.Exception);
-        }
-
-        private void OnSingleFetchComplete(object sender, EventArgs e)
-        {
-            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
-            App.WaitIndicationService.HideIndicator();
-        }
-
-        private void OnMultiFetchComplete(object sender, EventArgs e)
-        {            
-            _multiFetchTaskCount--;
             
-            if (0 == _multiFetchTaskCount)
-            {
-                DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
-                App.WaitIndicationService.HideIndicator();
-            }
+            this.HandleException(args.Exception);
         }
 
         private void OnModerateCommentsButtonClick(object sender, RoutedEventArgs e)
