@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -19,8 +20,11 @@ namespace WordPress
             {
                 if (exception is WordPress.Model.XmlRPCParserException) //cannot parse the XML-RPC response document
                 {
-                   ErrorPage.Exception = exception;
-                   (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
+                    UIThread.Invoke(() =>
+                    {
+                        ErrorPage.Exception = exception;
+                        (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
+                    });
                 }
                 else if (exception is WordPress.Model.XmlRPCException) //the XML-RPC document contains a fault error
                 { 
@@ -31,8 +35,11 @@ namespace WordPress
                 else
                 {
                     //MessageBox.Show(exception.Message);
-                    ErrorPage.Exception = exception;
-                    (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
+                    UIThread.Invoke(() =>
+                    {
+                        ErrorPage.Exception = exception;
+                        (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
+                    });
                 }
             }
         }

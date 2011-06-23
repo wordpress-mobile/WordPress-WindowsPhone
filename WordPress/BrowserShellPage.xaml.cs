@@ -7,6 +7,7 @@ using System.Net;
 using System.IO;
 using WordPress.Model;
 using System.Text;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -154,7 +155,7 @@ namespace WordPress
                 this.HandleException(new Exception("Something went wrong during Preview", ex));
             }
 
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            UIThread.Invoke(() =>
             {
                 browser.NavigateToString(responseContent);
             });
