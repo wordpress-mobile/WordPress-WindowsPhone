@@ -70,7 +70,7 @@ namespace WordPress
 
             if (!string.IsNullOrEmpty(_uriString))
                 browser.Navigate(new Uri(_uriString, UriKind.Absolute));
-            else
+            else if (!string.IsNullOrEmpty(_itemPermaLink))
             {
                 progressBar.Visibility = Visibility.Visible;
                 this.startLoadingPostUsingLoginForm();
@@ -89,12 +89,14 @@ namespace WordPress
         {
             progressBar.Visibility = Visibility.Collapsed;
         }
-
-
-
+        
         private void startLoadingPostUsingLoginForm() {
             string xmlrpcURL = App.MasterViewModel.CurrentBlog.Xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
+                
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(xmlrpcURL);
+                CookieContainer container = new CookieContainer();    
+                request.CookieContainer = container;
+                request.AllowAutoRedirect = true;
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.Method = XmlRPCRequestConstants.POST;
                 request.UserAgent = Constants.WORDPRESS_USERAGENT;
@@ -112,7 +114,6 @@ namespace WordPress
                                 HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Password), HttpUtility.UrlEncode(_itemPermaLink));
 
                         byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-
                         using (contentStream)
                         {
                             contentStream.Write(byteArray, 0, byteArray.Length);
@@ -150,6 +151,7 @@ namespace WordPress
                     browser.NavigateToString(responseContent);
                 });
 
+                try { response.Close(); } catch (Exception ex) { /* no error here*/ }
             }
             catch (Exception ex)
             {
