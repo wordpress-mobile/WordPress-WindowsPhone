@@ -80,27 +80,27 @@ namespace WordPress
         {
             ApplicationBar.Buttons.Clear();
 
-            ApplicationBar.Buttons.Add(_deleteIconButton);
-
             switch (index)
             {
                 case 0:         //all
-                    ApplicationBar.Buttons.Add(_spamIconButton);
-                    ApplicationBar.Buttons.Add(_unapproveIconButton);
                     ApplicationBar.Buttons.Add(_approveIconButton);
+                    ApplicationBar.Buttons.Add(_unapproveIconButton);
+                    ApplicationBar.Buttons.Add(_spamIconButton);
                     break;
                 case 1:         //approve
-                    ApplicationBar.Buttons.Add(_spamIconButton);
                     ApplicationBar.Buttons.Add(_unapproveIconButton);
+                    ApplicationBar.Buttons.Add(_spamIconButton);
                     break;
                 case 2:         //unapprove
-                    ApplicationBar.Buttons.Add(_spamIconButton);
                     ApplicationBar.Buttons.Add(_approveIconButton);
+                    ApplicationBar.Buttons.Add(_spamIconButton);
                     break;
                 case 3:         //spam
                     ApplicationBar.Buttons.Add(_approveIconButton);
                     break;
             }
+
+            ApplicationBar.Buttons.Add(_deleteIconButton);
         }
 
         private void OnDeleteIconButtonClick(object sender, EventArgs e)
