@@ -247,7 +247,16 @@ namespace WordPress
 
         private static void GetResponseCallback(IAsyncResult asynchronousResult)
         {
-            //we don't need to do anything with the response.
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
+                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
+                response.Close();
+            }
+            catch (WebException e)
+            {
+                //moving on
+            }
         }
     }
 
