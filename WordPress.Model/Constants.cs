@@ -39,7 +39,7 @@
         public const string FALSE_STRING = "0";
 
         public const string SERVER_RETURNED_INVALID_XML_RPC_MESSAGE = "Sorry, the server returned invalid data. Please try again.";
-        public const string XML_RPC_OPERATION_FAILED = "Sorry, something went wrong. Please try again.";
+        public const string XML_RPC_OPERATION_FAILED = "Sorry, the requested action failed. Please try again.";
         public const string XELEMENTMISSINGCHILDELEMENTS_MESSAGE = "Sorry, the server returned invalid data. Please try again.";      
     }
 

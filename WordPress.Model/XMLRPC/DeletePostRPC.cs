@@ -75,7 +75,7 @@ namespace WordPress.Model
             }
             else
             {
-                Exception exception = new Exception(XmlRPCResponseConstants.XML_RPC_OPERATION_FAILED);
+                XmlRPCException exception = new XmlRPCException(10000, XmlRPCResponseConstants.XML_RPC_OPERATION_FAILED);
                 throw exception;
             }
         }
