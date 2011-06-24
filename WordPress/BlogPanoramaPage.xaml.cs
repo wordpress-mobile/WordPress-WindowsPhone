@@ -157,7 +157,7 @@ namespace WordPress
             PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
             if (null == postListItem) return;
         
-            GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId.ToString());
+            GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
             rpc.Completed += OnGetPostRPCCompleted;
             rpc.ExecuteAsync();
 
@@ -235,8 +235,8 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                int postId = args.Items[0].PostId;
-                var postListItem = App.MasterViewModel.CurrentBlog.PostListItems.Single(item => postId == item.PostId);
+                string postId = args.Items[0].PostId;
+                var postListItem = App.MasterViewModel.CurrentBlog.PostListItems.Single(item => postId.Equals(item.PostId));
                 App.MasterViewModel.CurrentBlog.PostListItems.Remove(postListItem);
             }
             else
@@ -378,8 +378,8 @@ namespace WordPress
 
             if (null == args.Error)
             {                
-                int pageId = args.Items[0].PostId;
-                var pageListItem = App.MasterViewModel.CurrentBlog.PageListItems.Single(item => pageId == item.PageId);
+                string pageId = args.Items[0].PostId;
+                var pageListItem = App.MasterViewModel.CurrentBlog.PageListItems.Single(item => pageId.Equals(item.PageId));
                 App.MasterViewModel.CurrentBlog.PageListItems.Remove(pageListItem);
             }
             else

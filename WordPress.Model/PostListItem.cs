@@ -14,7 +14,7 @@ namespace WordPress.Model
         private int _userId;
         private DateTime _dateCreated;
         private string _content;
-        private int _postId;
+        private string _postId;
 
         private const string USERID_VALUE = "userid";
         private const string DATECREATED_VALUE = "dateCreated";
@@ -83,7 +83,7 @@ namespace WordPress.Model
             }
         }
 
-        public int PostId
+        public string PostId
         {
             get { return _postId; }
             set
@@ -135,6 +135,7 @@ namespace WordPress.Model
             string value = null;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
+                value = null;
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
                 if (USERID_VALUE.Equals(memberName))
                 {
@@ -164,11 +165,27 @@ namespace WordPress.Model
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _postId))
+                    try
                     {
-                        _postId = -1;
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                    
+                    if (value == null)
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+
+                    _postId = value;
+                    
                 }
             }
         }

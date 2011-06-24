@@ -131,23 +131,14 @@ namespace WordPress.Model
         {
             XElement stringElement = xDoc.Descendants(XmlRPCResponseConstants.STRING).First();
 
-            int postId;
-            if (int.TryParse(stringElement.Value, out postId))
-            {
-                Post.PostId = postId;
-                List<Post> result = new List<Post>();
-                result.Add(Post);
-                return result;
-            }
-            else
-            {
-                Exception exception = new Exception(XmlRPCResponseConstants.XML_RPC_OPERATION_FAILED);
-                throw exception;
-            }
+            string postId = stringElement.Value;
+            Post.PostId = postId;
+            List<Post> result = new List<Post>();
+            result.Add(Post);
+            return result;
         }
 
         #endregion
-
 
     }
 }

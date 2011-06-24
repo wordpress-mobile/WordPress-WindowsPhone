@@ -44,12 +44,8 @@ namespace WordPress
             string selectedId;
             if (NavigationContext.QueryString.TryGetValue("ID", out selectedId))
             {
-                int id;
-                if (int.TryParse(selectedId, out id))
-                {
-                    CommentsOnPostConverter converter = Resources["CommentsOnPostConverter"] as CommentsOnPostConverter;
-                    converter.Id = id;
-                }
+                CommentsOnPostConverter converter = Resources["CommentsOnPostConverter"] as CommentsOnPostConverter;
+                converter.Id = selectedId;
             }
         }
 

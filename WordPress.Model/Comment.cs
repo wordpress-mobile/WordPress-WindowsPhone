@@ -16,12 +16,12 @@ namespace WordPress.Model
 
         private DateTime _dateCreatedGMT;
         private int _userId;
-        private int _commentId;
-        private int _parent;
+        private string _commentId;
+        private string _parent;
         private string _status;
         private string _content;
         private string _link;
-        private int _postId;
+        private string _postId;
         private string _postTitle;
         private string _author;
         private string _authorUrl;
@@ -91,7 +91,7 @@ namespace WordPress.Model
             }
         }
 
-        public int CommentId
+        public string CommentId
         {
             get { return _commentId; }
             set
@@ -104,7 +104,7 @@ namespace WordPress.Model
             }
         }
 
-        public int Parent
+        public string Parent
         {
             get { return _parent; }
             set 
@@ -201,7 +201,7 @@ namespace WordPress.Model
             }
         }
 
-        public int PostId
+        public string PostId
         {
             get { return _postId; }
             set 
@@ -353,18 +353,12 @@ namespace WordPress.Model
                 else if (COMMENTID_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _commentId))
-                    {
-                        _commentId = -1;
-                    }
+                    _commentId = value;
                 }
                 else if (PARENT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _parent))
-                    {
-                        _parent = -1;
-                    }
+                    _parent = value;
                 }
                 else if (STATUS_VALUE.Equals(memberName))
                 {
@@ -384,10 +378,7 @@ namespace WordPress.Model
                 else if (POSTID_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _postId))
-                    {
-                        _postId = -1;
-                    }
+                    _postId = value;
                 }
                 else if (POSTTITLE_VALUE.Equals(memberName))
                 {

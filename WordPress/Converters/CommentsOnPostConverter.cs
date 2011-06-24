@@ -14,7 +14,7 @@ namespace WordPress.Converters
     {
         public CommentsOnPostConverter() { }
 
-        public int? Id { get; set; }
+        public string Id { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
@@ -25,9 +25,9 @@ namespace WordPress.Converters
 
             IEnumerable<Comment> comments = value as IEnumerable<Comment>;
             IEnumerable<Comment> result;
-            if (Id.HasValue)
+            if (!string.IsNullOrEmpty(Id))
             {
-                result = comments.Where(comment => Id.Value == comment.PostId).OrderByDescending(comment => comment.DateCreatedGMT);
+                result = comments.Where(comment => Id.Equals(comment.PostId)).OrderByDescending(comment => comment.DateCreatedGMT);
             }
             else
             {

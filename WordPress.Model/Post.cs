@@ -14,7 +14,7 @@ namespace WordPress.Model
 
         private DateTime _dateCreated;
         private string _userId;
-        private int _postId;
+        private string _postId;
         private string _description;
         private string _title;
         private string _link;
@@ -111,7 +111,7 @@ namespace WordPress.Model
             }
         }
 
-        public int PostId
+        public string PostId
         {
             get { return _postId; }
             set
@@ -395,10 +395,7 @@ namespace WordPress.Model
                 else if (POSTID_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                    if (!int.TryParse(value, out _postId))
-                    {
-                        throw new ArgumentException("Unable to successfully parse Post ID from response");
-                    }
+                    _postId = value;
                 }
                 else if (DESCRIPTION_VALUE.Equals(memberName))
                 {

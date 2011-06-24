@@ -9,7 +9,7 @@ namespace WordPress.Model
     /// Used to reply to an existing comment.  On success, the Comment property will be
     /// updated with the resulting id value from the WordPress system.
     /// </summary>
-    public class NewCommentRPC: XmlRemoteProcedureCall<Comment>
+    public class NewCommentRPC : XmlRemoteProcedureCall<Comment>
     {
         #region member variables
 
@@ -51,7 +51,7 @@ namespace WordPress.Model
 
         #region methods
 
-       protected override void ValidateValues()
+        protected override void ValidateValues()
         {
             base.ValidateValues();
 
@@ -86,24 +86,13 @@ namespace WordPress.Model
         protected override List<Comment> ParseResponseContent(XDocument xDoc)
         {
             XElement intElement = xDoc.Descendants(XmlRPCResponseConstants.INT).First();
-            int commentId = -1;
-            if (int.TryParse(intElement.Value, out commentId))
-            {
-                Comment.CommentId = commentId;
-                List<Comment> result = new List<Comment>();
-                result.Add(Comment);
-                return result;
-            }
-            else
-            {
-                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
-                throw exception;
-            }
+            Comment.CommentId = intElement.Value;
+            List<Comment> result = new List<Comment>();
+            result.Add(Comment);
+            return result;
         }
 
         #endregion
-
-
-
+        
     }
 }

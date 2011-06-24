@@ -12,9 +12,9 @@ namespace WordPress.Model
     {
         #region member variables
 
-        private int _pageId;
+        private string _pageId;
         private string _pageTitle;
-        private int _pageParentId;
+        private string _pageParentId;
         private DateTime _dateCreated;
         private DateTime _dateCreatedGMT;
 
@@ -45,7 +45,7 @@ namespace WordPress.Model
 
         #region properties
 
-        public int PageId
+        public string PageId
         {
             get { return _pageId; }
             set
@@ -71,7 +71,7 @@ namespace WordPress.Model
             }
         }
 
-        public int PageParentId
+        public string PageParentId
         {
             get { return _pageParentId; }
             set
@@ -129,17 +129,32 @@ namespace WordPress.Model
                 throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
-            string value = null;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
+                string value = null;
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
                 if (PAGEID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _pageId))
+                    try
                     {
-                        _pageId = -1;
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+
+                    if (value == null)
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+
+                    _pageId = value;
                 }
                 else if (PAGETITLE_VALUE.Equals(memberName))
                 {
@@ -148,11 +163,26 @@ namespace WordPress.Model
                 }
                 else if (PAGEPARENTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _pageParentId))
+                    try
                     {
-                        _pageParentId = -1;
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+
+                    if (value == null)
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                    
+                    _pageParentId = value;
                 }
                 else if (DATECREATED_VALUE.Equals(memberName))
                 {

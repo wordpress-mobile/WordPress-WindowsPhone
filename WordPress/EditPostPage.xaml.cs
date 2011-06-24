@@ -161,7 +161,7 @@ namespace WordPress
             
             if (null != App.MasterViewModel.CurrentPostListItem)
             {
-                string postId = App.MasterViewModel.CurrentPostListItem.PostId.ToString();
+                string postId = App.MasterViewModel.CurrentPostListItem.PostId;
 
                 GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
                 rpc.Completed += OnGetPostRPCCompleted;

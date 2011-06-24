@@ -164,6 +164,10 @@ namespace WordPress.Model
 
             using (IsolatedStorageFileStream isoStream = isoStore.OpenFile(BLOGS_FILENAME, FileMode.Open))
             {
+               /* StreamReader reader = new StreamReader(isoStream);
+                string rawGraph = reader.ReadToEnd();
+                isoStream.Position = 0;
+                */
                 XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Blog>));
                 var result = serializer.Deserialize(isoStream);
                 if (null != result && result is ObservableCollection<Blog>)
