@@ -269,10 +269,15 @@ namespace WordPress.Localization
             public string CancelEditing { get { return LocalizedResources.Prompts_CancelEditing; } }
             public string Page { get { return LocalizedResources.Prompts_Page; } }
             public string Post { get { return LocalizedResources.Prompts_Post; } }
-            public string MediaError { get { return LocalizedResources.Prompts_MediaError; } }
-            public string MediaErrorContent { get { return LocalizedResources.Prompts_MediaErrorContent; } }
             public string SupportEmailBody { get { return LocalizedResources.Prompts_SupportEmailBody; } }
             public string SupportEmailSubject { get { return LocalizedResources.Prompts_SupportEmailSubject; } }
+
+            /*Error String*/
+            public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }
+            public string XmlRpcOperationFailed { get { return LocalizedResources.Prompts_XmlRpcOperationFailed; } }
+            public string XeElementMissing { get { return LocalizedResources.Prompts_XeElementMissing; } }
+            public string MediaError { get { return LocalizedResources.Prompts_MediaError; } }
+            public string MediaErrorContent { get { return LocalizedResources.Prompts_MediaErrorContent; } }
         }
 
         #endregion

@@ -18,13 +18,13 @@ namespace WordPress
     public partial class ErrorPage : PhoneApplicationPage
     {
         public static Exception Exception;
-        
+
         private StringTable _localizedStrings;
 
         private const string ERROR_DESC_VALUE = "errDesc";
         private const string FULL_STACK_VALUE = "fullStackDesc";
         private string fullStackTrace = ""; //used to store the page state
-        
+
         #region constructors
         public ErrorPage()
         {
@@ -36,12 +36,21 @@ namespace WordPress
 
         // Executes when the user navigates to this page.
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        { 
-           // base.OnNavigatedTo(e);
+        {
+            // base.OnNavigatedTo(e);
             this.DebugLog("OnNavigatedTo");
             if (Exception != null)
             {
-                ErrorText.Text = Exception.Message;
+                //translate the exception message here (I know, it's very horrible):
+                if (Exception.Message.StartsWith(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE) )
+                    ErrorText.Text = _localizedStrings.Prompts.ServerReturnedInvalidXmlRpcMessage;
+                else if (Exception.Message.StartsWith(XmlRPCResponseConstants.XML_RPC_OPERATION_FAILED))
+                    ErrorText.Text = _localizedStrings.Prompts.XmlRpcOperationFailed;
+                else if (Exception.Message.StartsWith(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE))
+                    ErrorText.Text = _localizedStrings.Prompts.XeElementMissing;
+                else
+                    ErrorText.Text = Exception.Message;
+
                 fullStackTrace = Exception.ToString();
             }
             else //user re-activaed the app
@@ -58,7 +67,7 @@ namespace WordPress
                 }
             }
         }
-         
+
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.DebugLog("OnNavigatedFrom");
@@ -81,14 +90,14 @@ namespace WordPress
         {
             //NavigationService.GoBack();
             LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
-            command.Execute(Constants.WORDPRESS_FAQ_URL);          
+            command.Execute(Constants.WORDPRESS_FAQ_URL);
         }
 
         private void forumButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-           // NavigationService.GoBack();
+            // NavigationService.GoBack();
             LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
-            command.Execute(Constants.WORDPRESS_FORUMS_URL);             
+            command.Execute(Constants.WORDPRESS_FORUMS_URL);
         }
 
         private void mailButton_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -96,7 +105,7 @@ namespace WordPress
             //NavigationService.GoBack();
             EmailComposeTask emailComposeTask = new EmailComposeTask();
             emailComposeTask.To = Constants.WORDPRESS_SUPPORT_EMAIL;
-            emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody + "\n\n\n\n" + fullStackTrace; 
+            emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody + "\n\n\n\n" + fullStackTrace;
             emailComposeTask.Subject = _localizedStrings.Prompts.SupportEmailSubject;
             emailComposeTask.Show();
         }
