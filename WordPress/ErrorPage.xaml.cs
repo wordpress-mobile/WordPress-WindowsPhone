@@ -13,8 +13,6 @@ using WordPress.Model;
 namespace WordPress
 {
 
-
-
     public partial class ErrorPage : PhoneApplicationPage
     {
         public static Exception Exception;
@@ -41,13 +39,20 @@ namespace WordPress
             this.DebugLog("OnNavigatedTo");
             if (Exception != null)
             {
-                //translate the exception message here (I know, it's very horrible):
-                if (Exception.Message.StartsWith(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE) )
-                    ErrorText.Text = _localizedStrings.Prompts.ServerReturnedInvalidXmlRpcMessage;
-                else if (Exception.Message.StartsWith(XmlRPCResponseConstants.XML_RPC_OPERATION_FAILED))
-                    ErrorText.Text = _localizedStrings.Prompts.XmlRpcOperationFailed;
-                else if (Exception.Message.StartsWith(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE))
-                    ErrorText.Text = _localizedStrings.Prompts.XeElementMissing;
+                if (Exception is WordPress.Model.XmlRPCParserException)
+                {
+                    //translate the exception message here
+                    WordPress.Model.XmlRPCParserException exp = Exception as WordPress.Model.XmlRPCParserException;
+                   
+                    if (exp.FaultCode == XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE)
+                        ErrorText.Text = _localizedStrings.Prompts.ServerReturnedInvalidXmlRpcMessage;
+                    else if (exp.FaultCode == XmlRPCResponseConstants.XML_RPC_OPERATION_FAILED_CODE)
+                        ErrorText.Text = _localizedStrings.Prompts.XmlRpcOperationFailed;
+                    else if (exp.FaultCode == XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE)
+                        ErrorText.Text = _localizedStrings.Prompts.XeElementMissing;
+                    else
+                        ErrorText.Text = Exception.Message;
+                }
                 else
                     ErrorText.Text = Exception.Message;
 
@@ -88,27 +93,23 @@ namespace WordPress
 
         private void FAQButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            //NavigationService.GoBack();
             LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
             command.Execute(Constants.WORDPRESS_FAQ_URL);
         }
 
         private void forumButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            // NavigationService.GoBack();
             LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
             command.Execute(Constants.WORDPRESS_FORUMS_URL);
         }
 
         private void mailButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            //NavigationService.GoBack();
             EmailComposeTask emailComposeTask = new EmailComposeTask();
             emailComposeTask.To = Constants.WORDPRESS_SUPPORT_EMAIL;
             emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody + "\n\n\n\n" + fullStackTrace;
             emailComposeTask.Subject = _localizedStrings.Prompts.SupportEmailSubject;
             emailComposeTask.Show();
         }
-
     }
 }

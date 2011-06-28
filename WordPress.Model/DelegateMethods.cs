@@ -61,19 +61,21 @@ namespace WordPress.Model
     {
          public XmlRPCParserException() : base() { }
 
-         public XmlRPCParserException(string message) : base(message)
+       public XmlRPCParserException(int faultCode, string message)
+            : base(message)
         {
-          
+            FaultCode = faultCode;
         }
 
-         public XmlRPCParserException(string message, Exception innerException)
+       public XmlRPCParserException(int faultCode, string message, Exception innerException)
             : base(message, innerException)
         {
-          
-        }     
+            FaultCode = faultCode;
+        }
+
+        public int FaultCode { get; private set; }      
     }
-
-
+    
     /// <summary>
     /// Used to indicate that an xml rpc has completed.  If an exception has occurred during the call
     /// the Error property will reference the exception; if the Error property returns null that indicates

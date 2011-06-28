@@ -325,7 +325,7 @@ namespace WordPress.Model
             catch (Exception ex)
             {
                 this.DebugLog("Parser error: " + ex.Message); //this is the original error, that should not be shown to the user.
-                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
+                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
                 CompletionMethod(null, exception, false, state.Operation);
                 return;
             }
@@ -367,7 +367,7 @@ namespace WordPress.Model
                     if (!int.TryParse(valueElement.Value, out faultCode))
                     {
                         this.DebugLog("Unable to parse fault code from response, showing a predefined error message");
-                        return new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE);
+                        return new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE);
                     }
                 }
                 else if (XmlRPCResponseConstants.FAULTSTRING_VALUE.Equals(nameElement.Value))

@@ -327,7 +327,7 @@ namespace WordPress.Model
         {
             if (!element.HasElements)
             {
-                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
             string value = null;
@@ -340,7 +340,7 @@ namespace WordPress.Model
                     if (!DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out _dateCreatedGMT))
                     {
                         Exception detailedError = new FormatException("Unable to parse GMT date-time: " + value);
-                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
                     }
                 }
                 else if (USERID_VALUE.Equals(memberName))

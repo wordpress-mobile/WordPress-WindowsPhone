@@ -366,7 +366,7 @@ namespace WordPress.Model
         {
             if (!element.HasElements)
             {
-                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
             string value = string.Empty;
@@ -384,7 +384,7 @@ namespace WordPress.Model
                     else
                     {
                         Exception detailedError = new FormatException("Unable to parse dataCreated: " + value);
-                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
                     }
                 }
                 else if (USERID_VALUE.Equals(memberName))
@@ -494,7 +494,7 @@ namespace WordPress.Model
                     else
                     {
                         Exception detailedError = new FormatException("Unable to parse GMT date-time: " + value);
-                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, detailedError);
                     }
                 }
                 else if (POSTSTATUS_VALUE.Equals(memberName))

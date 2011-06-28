@@ -90,7 +90,7 @@ namespace WordPress.Model
             }
             else
             {
-                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
                 throw exception;
             }
         }

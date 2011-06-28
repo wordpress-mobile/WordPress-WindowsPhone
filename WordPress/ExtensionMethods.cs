@@ -27,7 +27,7 @@ namespace WordPress
                     });
                 }
                 else if (exception is WordPress.Model.XmlRPCException) //the XML-RPC document contains a fault error
-                { 
+                {                    
                     MessageBox.Show(exception.Message);
                    // ErrorPage.Exception = exception;
                    // (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);

@@ -126,7 +126,7 @@ namespace WordPress.Model
         {
             if (!element.HasElements)
             {
-                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
@@ -152,7 +152,7 @@ namespace WordPress.Model
                     }
 
                     if (value == null)
-                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
 
                     _pageId = value;
                 }
@@ -180,7 +180,7 @@ namespace WordPress.Model
                     }
 
                     if (value == null)
-                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
                     
                     _pageParentId = value;
                 }
