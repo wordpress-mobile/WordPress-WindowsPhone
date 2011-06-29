@@ -286,6 +286,10 @@
                              From="0"
                              To="{StaticResource loadingContentStackPanelHeight}"/>
         </Storyboard>
+
+        
+
+
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -360,43 +364,20 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="refreshButton" Height="200" Margin="0" 
+                    <Button x:Name="settingsButton" Height="200" Margin="0" 
                             VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
                             Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
                             Style="{StaticResource TileButtonTemplate}" Width="200"
-                            Click="OnRefreshButtonClick">
-                        <Button.Background>
-                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-                        </Button.Background>
-                        <StackPanel Height="186" Width="188" >
-                            <Image Source="Images/actionsRefresh.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBlock Text="{Binding ControlsText.Refresh, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
-                    			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
-                    			TextAlignment="Right" Foreground="White"/>
-                        </StackPanel>
-                    </Button>
-
-                    <Button x:Name="settingsButton" HorizontalAlignment="Left" 
-                            Height="80" Margin="0" VerticalAlignment="Top" Width="400" BorderBrush="{x:Null}" BorderThickness="0"
-                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                            Style="{StaticResource TileButtonTemplate}"
                             Click="OnSettingsButtonClick">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
-                        <Button.Content>
-                            <Grid Margin="0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="Images/actionsSettings.png" HorizontalAlignment="Left" Margin="-193,0,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Top" Stretch="None" />
-                                <TextBlock Grid.Column="1" Text="{Binding ControlsText.BlogSettings, 
-                                    Source={StaticResource StringTable}}" TextAlignment="Right" HorizontalAlignment="Right"
-                                           VerticalAlignment="Bottom" Margin="0,0,-185,0" d:LayoutOverrides="HorizontalAlignment" Foreground="White"/>
-                            </Grid>
-
-                        </Button.Content>
+                        <StackPanel Height="186" Width="188" >
+                            <Image Source="Images/actionsSettings.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <TextBlock Text="{Binding ControlsText.BlogSettings, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                    			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
+                    			TextAlignment="Right" Foreground="White"/>
+                        </StackPanel>
                     </Button>
                 </Grid>
 
@@ -408,10 +389,14 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}" 
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshCommentsRequested"/>
+                    <ListBox x:Name="commentsListBox" Grid.Row="1" ItemsSource="{Binding Comments}" 
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
-                             ItemContainerStyle="{StaticResource CommentListItemStyle}"
-                             >
+                             ItemContainerStyle="{StaticResource CommentListItemStyle}">
                     </ListBox>
                 </Grid>
             </controls:PanoramaItem>
@@ -422,8 +407,13 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPostsRequested"/>
 
-                    <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}"
+                    <ListBox x:Name="postsListBox" Grid.Row="1" ItemsSource="{Binding Posts}"
                              SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0"
                              >
                         <ListBox.ItemTemplate>
@@ -452,8 +442,12 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-
-                    <ListBox x:Name="pagesListBox" Grid.Row="0" ItemsSource="{Binding Pages}"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPagesRequested"/>
+                    <ListBox x:Name="pagesListBox" Grid.Row="1" ItemsSource="{Binding Pages}"
                              SelectionChanged="OnPagesListBoxSelectionChanged" Margin="0" d:LayoutOverrides="GridBox"
                              >
                         <ListBox.ItemTemplate>

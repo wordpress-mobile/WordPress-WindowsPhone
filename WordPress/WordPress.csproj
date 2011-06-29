@@ -104,6 +104,7 @@
     <Compile Include="Commands\LaunchWebBrowserCommand.cs" />
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\NegativeValueConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
@@ -118,6 +119,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalizedResources.de-DE.resx</DependentUpon>
     </Compile>
+    <Compile Include="PullDownToRefreshPanel.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
     <Compile Include="Utils\ObservableObjectCollection.cs" />
     <Compile Include="Converters\BooleanInversionConverter.cs" />

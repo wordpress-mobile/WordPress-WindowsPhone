@@ -733,47 +733,6 @@ namespace WordPress
             }
         }
 
-        private void OnRefreshButtonClick(object sender, RoutedEventArgs e)
-        {
-            App.PopupSelectionService.Title = _localizedStrings.Prompts.RefreshEntity;
-            App.PopupSelectionService.ItemsSource = _refreshListOptions;
-            App.PopupSelectionService.SelectionChanged += OnRefreshOptionSelected;
-            App.PopupSelectionService.ShowPopup();
-
-            _popupServiceSelectionChangedHandler = OnRefreshOptionSelected;
-        }
-
-        private void OnRefreshOptionSelected(object sender, SelectionChangedEventArgs e)
-        {
-            App.PopupSelectionService.SelectionChanged -= OnRefreshOptionSelected;
-            _popupServiceSelectionChangedHandler = null;
-
-            if (1 > e.AddedItems.Count) return;
-
-            string selection = (string)e.AddedItems[0];
-            int index = _refreshListOptions.IndexOf(selection);
-
-            if (index > _refreshListOptions.Count || 0 > index) return;
-
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
-
-            switch (index)
-            {
-                case 0:     //comments
-                    FetchComments();
-                    break;
-                case 1:     //posts
-                    FetchPosts();
-                    break;
-                case 2:     //pages
-                    FetchPages();
-                    break;
-                case 3:     //everything
-                    //FetchEverything();
-                    break;
-            }
-        }
-
         private void FetchPages()
         {
             DataService.Current.FetchCurrentBlogPagesAsync();
@@ -866,6 +825,21 @@ namespace WordPress
             string urlFormatString = "/BrowserShellPage.xaml?uri={0}";
             string pageUrl = string.Format(urlFormatString, url);
             NavigationService.Navigate(new Uri(pageUrl, UriKind.Relative));
+        }
+
+        private void OnRefreshCommentsRequested(object sender, EventArgs e)
+        {
+            FetchComments();
+        }
+
+        private void OnRefreshPostsRequested(object sender, EventArgs e)
+        {
+            FetchPosts();
+        }
+
+        private void OnRefreshPagesRequested(object sender, EventArgs e)
+        {
+            FetchPages();
         }
 
         #endregion

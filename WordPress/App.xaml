@@ -476,7 +476,94 @@
     			</Grid>
     		</ControlTemplate>
 
-    	</ResourceDictionary>
+            <Style x:Key="refreshPanelStyle" TargetType="WordPress:PullDownToRefreshPanel">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="PullingDownTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock
+                                Margin="0, 20, 0, 0"
+                                TextAlignment="Center"
+                                Style="{StaticResource LabelTextBlockStyle}"
+                                Text="{Binding Path=ControlsText.PullDownToRefresh, Source={StaticResource StringTable} }" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ReadyToReleaseTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock
+                                Margin="0, 20, 0, 0"
+                                Style="{StaticResource LabelTextBlockStyle}"
+                                TextAlignment="Center"
+                                Text="{Binding Path=ControlsText.ReleaseToRefresh, Source={StaticResource StringTable} }" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="WordPress:PullDownToRefreshPanel">
+                            <StackPanel x:Name="PullDownContainer" HorizontalAlignment="Stretch">
+                                <StackPanel.Resources>
+                                    <Converters:NegativeValueConverter x:Key="NegativeValueConverter" />
+                                </StackPanel.Resources>
+                                <StackPanel x:Name="PullingDownPanel"
+                                            Background="{TemplateBinding Background}"
+                                            Height="{TemplateBinding PullDistance}"
+                                            Opacity="{TemplateBinding PullFraction}"
+                                            Margin="{Binding PullDistance, RelativeSource={RelativeSource TemplatedParent},
+                                            Converter={StaticResource NegativeValueConverter}, ConverterParameter=Bottom}"
+                                            Visibility="Collapsed"
+                                            >
+                                    <ContentPresenter ContentTemplate="{TemplateBinding PullingDownTemplate}" />
+                                </StackPanel>
+                                <StackPanel x:Name="ReadyToReleasePanel"
+                                            Background="{TemplateBinding Background}"
+                                            Height="{TemplateBinding PullDistance}"
+                                            Margin="{Binding PullDistance, RelativeSource={RelativeSource TemplatedParent},
+                                            Converter={StaticResource NegativeValueConverter}, ConverterParameter=Bottom}"
+                                            Visibility="Collapsed"
+                                            >
+                                    <ContentPresenter ContentTemplate="{TemplateBinding ReadyToReleaseTemplate}" />
+                                </StackPanel>
+                                <StackPanel x:Name="RefreshingPanel"
+                                            Background="{TemplateBinding Background}"
+                                            Visibility="Collapsed"
+                                            >
+                                    <ContentPresenter ContentTemplate="{TemplateBinding RefreshingTemplate}" />
+                                </StackPanel>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="ActivityStates">
+                                        <VisualState x:Name="Inactive" />
+                                        <VisualState x:Name="PullingDown">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PullingDownPanel" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="ReadyToRelease">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ReadyToReleasePanel" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Refreshing">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RefreshingPanel" Storyboard.TargetProperty="Visibility">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
 
     </Application.Resources>
 

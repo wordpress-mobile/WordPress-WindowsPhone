@@ -725,4 +725,10 @@
   <data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
     <value>Sorry, the requested action failed. Please try again.</value>
   </data>
+  <data name="ControlText_PullDownToRefresh" xml:space="preserve">
+    <value>Pull down to refresh</value>
+  </data>
+  <data name="ControlText_ReleaseToRefresh" xml:space="preserve">
+    <value>Release to refresh</value>
+  </data>
 </root>
