@@ -243,7 +243,7 @@ namespace WordPress.Model
                     }
                 }
 
-                throw new Exception("Exception caught parsing response from statistics service", ex);
+                throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
             }
             return xDoc;
         }

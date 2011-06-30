@@ -130,7 +130,7 @@ namespace WordPress.Model
                             }
                             catch (Exception ex)
                             {
-                                exception = new Exception("Exception caught parsing key", ex);
+                                exception = new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE, ex);
                             }
                         }
 
@@ -154,7 +154,7 @@ namespace WordPress.Model
             }
             catch (Exception ex)
             {
-                throw new Exception("Exception caught parsing document", ex);
+                throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
             }
             return xDoc;
         }
