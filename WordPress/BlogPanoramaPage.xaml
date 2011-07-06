@@ -210,7 +210,8 @@
         <Converters:StatisticTypeToStringConverter x:Key="StatisticTypeToStringConverter"/>
         <Converters:DateToShortDateStringConverter x:Key="DateToShortDateStringConverter"/>
         <Converters:BooleanToVisibilityConverter x:Key="LoadingContentConverter"/>
-        
+        <Converters:ItemTitleInListConverter x:Key="ItemTitleInListConverter"/>
+
         <local:ObservableObjectCollection x:Key="viewStatsDataSource"/>
         <local:ObservableObjectCollection x:Key="postViewStatsDataSource"/>
         <local:ObservableObjectCollection x:Key="searchTermStatsDataSource"/>
@@ -419,7 +420,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17" Width="432">
-                                    <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
+                                    <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
                                     	<TextBlock.Foreground>
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>
@@ -453,7 +454,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17" Width="432">
-                                    <TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle}" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" FontSize="32">
+                                    <TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" FontSize="32">
                                     	<TextBlock.Foreground>
                                     		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                                     	</TextBlock.Foreground>

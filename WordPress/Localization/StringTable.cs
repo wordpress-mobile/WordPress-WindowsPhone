@@ -145,6 +145,7 @@ namespace WordPress.Localization
             public string SearchTerms { get { return LocalizedResources.ControlText_SearchTerms; } }
             public string Clicks { get { return LocalizedResources.ControlText_Clicks; } }
             public string Title { get { return LocalizedResources.ControlText_Title; } }
+            public string NoTitle { get { return LocalizedResources.ControlText_NoTitle; } }
             public string Content { get { return LocalizedResources.ControlText_Content; } }
             public string SelectBlogs { get { return LocalizedResources.ControlText_SelectBlogs; } }
             public string AddAll { get { return LocalizedResources.ControlText_AddAll; } }

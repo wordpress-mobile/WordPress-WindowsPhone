@@ -731,4 +731,8 @@
   <data name="ControlText_ReleaseToRefresh" xml:space="preserve">
     <value>Release to refresh</value>
   </data>
+  <data name="ControlText_NoTitle" xml:space="preserve">
+    <value>No Title for this Item</value>
+    <comment>marker string used in the lists Page when the page/post has no title</comment>
+  </data>
 </root>
