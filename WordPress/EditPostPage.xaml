@@ -48,18 +48,29 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" x:Name="PageTitle"  
-                           Text="{Binding DataContext, ElementName=phoneApplicationPage, Converter={StaticResource PostTitleConverter}}" 
-                           Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
-                <TextBlock.Foreground>
-            		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-            	</TextBlock.Foreground>
-                </TextBlock>
+                <!--TitlePanel contains the name of the application and page title-->
+                <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,10">
+                    <Grid Margin="0,0,8,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="Images/wp-logo.png" Stretch="None" Width="227" Height="50" Margin="0" HorizontalAlignment="Left" RenderTransformOrigin="0.52,-0.18" d:LayoutOverrides="Height"/>
+                    </Grid>
+                    <TextBlock x:Name="PageTitle"  Text="{Binding DataContext, Converter={StaticResource PostTitleConverter}, ElementName=phoneApplicationPage}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
+                        <TextBlock.Foreground>
+            		        <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+            	        </TextBlock.Foreground>
+                    </TextBlock>
+                </StackPanel>
 
                 <TextBlock Grid.Row="1" Text="{Binding ControlsText.Title, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
                 <TextBlock Grid.Row="3" Text="{Binding Path=ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MinHeight="200" MaxHeight="600" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" />
+                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" />
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
                     <ToggleButton x:Name="boldToggleButton" 
                                   Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" 
