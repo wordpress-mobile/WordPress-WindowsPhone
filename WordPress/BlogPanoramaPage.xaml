@@ -288,7 +288,7 @@
                              To="{StaticResource loadingContentStackPanelHeight}"/>
         </Storyboard>
 
-        
+
 
 
     </phone:PhoneApplicationPage.Resources>
@@ -390,12 +390,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshCommentsRequested"/>
-                    <ListBox x:Name="commentsListBox" Grid.Row="1" ItemsSource="{Binding Comments}" 
+                    <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}"
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
                              ItemContainerStyle="{StaticResource CommentListItemStyle}">
                     </ListBox>
@@ -408,13 +403,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPostsRequested"/>
-
-                    <ListBox x:Name="postsListBox" Grid.Row="1" ItemsSource="{Binding Posts}"
+                        <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}"
                              SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0"
                              >
                         <ListBox.ItemTemplate>
@@ -443,12 +432,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPagesRequested"/>
-                    <ListBox x:Name="pagesListBox" Grid.Row="1" ItemsSource="{Binding Pages}"
+                    <ListBox x:Name="pagesListBox" Grid.Row="0" ItemsSource="{Binding Pages}"
                              SelectionChanged="OnPagesListBoxSelectionChanged" Margin="0" d:LayoutOverrides="GridBox"
                              >
                         <ListBox.ItemTemplate>
@@ -721,7 +705,7 @@
             </controls:PanoramaItem>
         </controls:Panorama>
         <StackPanel x:Name="loadingContentStackPanel" Background="LightGray" VerticalAlignment="Bottom" Opacity="{StaticResource loadingContentOpacityMin}">
-             <TextBlock FontSize="{StaticResource PhoneFontSizeLarge}" FontWeight="Bold" TextAlignment="Center" Text="{Binding ControlsText.LoadingContent, Source={StaticResource StringTable}}"/>
+            <TextBlock FontSize="{StaticResource PhoneFontSizeLarge}" FontWeight="Bold" TextAlignment="Center" Text="{Binding ControlsText.LoadingContent, Source={StaticResource StringTable}}"/>
             <ProgressBar Height="30" IsIndeterminate="True"/>
         </StackPanel>
     </Grid>
