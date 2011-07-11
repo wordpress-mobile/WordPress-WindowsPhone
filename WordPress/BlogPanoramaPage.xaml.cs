@@ -75,6 +75,7 @@ namespace WordPress
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_AllTime);
 
             Loaded += OnPageLoaded;
+            
         }
 
         #endregion
@@ -827,17 +828,17 @@ namespace WordPress
             NavigationService.Navigate(new Uri(pageUrl, UriKind.Relative));
         }
 
-        private void OnRefreshCommentsRequested(object sender, EventArgs e)
+        private void OnRefreshComments(object sender, RoutedEventArgs e)
         {
             FetchComments();
         }
 
-        private void OnRefreshPostsRequested(object sender, EventArgs e)
+        private void OnRefreshPosts(object sender, RoutedEventArgs e)
         {
             FetchPosts();
         }
 
-        private void OnRefreshPagesRequested(object sender, EventArgs e)
+        private void OnRefreshPages(object sender, RoutedEventArgs e)
         {
             FetchPages();
         }

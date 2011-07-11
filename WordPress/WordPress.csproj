@@ -281,6 +281,9 @@
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="icons\appbar.refresh.rest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\appbar.add.png" />
     <Content Include="Images\appbar.approve.png" />
     <Content Include="Images\appbar.cancel.png" />
@@ -289,6 +292,9 @@
     <Content Include="Images\appbar.settings.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\appbar.save.png" />
+    <Content Include="icons\appbar.refresh.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\wp-logo.png" />
     <Content Include="Images\appbar.upload.png" />
     <Content Include="wp-tile.png" />

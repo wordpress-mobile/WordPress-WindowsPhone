@@ -392,8 +392,20 @@
                 <Grid>
                     <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}"
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
-                             ItemContainerStyle="{StaticResource CommentListItemStyle}">
+                             ItemContainerStyle="{StaticResource CommentListItemStyle}" Background="{StaticResource PhoneBackgroundBrush}" Margin="0,0,0,65" Height="624">
                     </ListBox>
+                    <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
+                    	<Grid.RowDefinitions>
+                    		<RowDefinition Height="Auto"/>
+                    		<RowDefinition Height="*"/>
+                    	</Grid.RowDefinitions>
+                    	<Button Content="" BorderThickness="0" Margin="205,0,205,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshPosts" Grid.RowSpan="2">
+                    		<Button.Background>
+                    			<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
+                    		</Button.Background>
+                    	</Button>
+
+                    </Grid>
                 </Grid>
             </controls:PanoramaItem>
 
@@ -403,27 +415,44 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                        <ListBox x:Name="postsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Posts}"
-                             SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0"
-                             >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,17" Width="432">
-                                    <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
-                                    	<TextBlock.Foreground>
-                                    		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                                    	</TextBlock.Foreground>
-                                    </TextBlock>
-                                    <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
-                                    	<TextBlock.Foreground>
-                                    		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                                    	</TextBlock.Foreground>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </Grid>
+            		<ListBox x:Name="postsListBox" Grid.Row="0" ItemsSource="{Binding Posts}"
+            			SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0,0,0,61" Height="624">
+            			<ListBox.ItemTemplate>
+            				<DataTemplate>
+            					<StackPanel Margin="0,0,0,17" Width="432">
+            						<TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
+            							<TextBlock.Foreground>
+            								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+            							</TextBlock.Foreground>
+            						</TextBlock>
+            						<TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+            							<TextBlock.Foreground>
+            								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+            							</TextBlock.Foreground>
+            						</TextBlock>
+            					</StackPanel>
+            				</DataTemplate>
+            			</ListBox.ItemTemplate>
+            		</ListBox>
+            		<Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
+            			<Grid.RowDefinitions>
+            				<RowDefinition Height="Auto"/>
+            				<RowDefinition Height="*"/>
+            			</Grid.RowDefinitions>
+                            <!--<local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPagesRequested"/>-->
+                        <Button Content="" BorderThickness="0" Margin="0,0,164,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshPosts" Grid.RowSpan="2" HorizontalAlignment="Right" Width="70">
+            				<Button.Background>
+            					<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
+            				</Button.Background>
+            			</Button>
+                        <Button Content="" BorderThickness="0" Margin="164,0,0,-7" VerticalAlignment="Bottom" Height="70" Click="OnCreatePostButtonClick" Grid.RowSpan="2" HorizontalAlignment="Left" Width="70">
+            				<Button.Background>
+            					<ImageBrush ImageSource="/Images/appbar.add.png"/>
+            				</Button.Background>
+            			</Button>
+
+            		</Grid>
+            	</Grid>
             </controls:PanoramaItem>
 
             <!--pages Panorama item-->
@@ -433,25 +462,42 @@
                 </controls:PanoramaItem.Foreground>
                 <Grid>
                     <ListBox x:Name="pagesListBox" Grid.Row="0" ItemsSource="{Binding Pages}"
-                             SelectionChanged="OnPagesListBoxSelectionChanged" Margin="0" d:LayoutOverrides="GridBox"
-                             >
+                             SelectionChanged="OnPagesListBoxSelectionChanged" Margin="0,0,0,57" d:LayoutOverrides="GridBox" Height="624">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,17" Width="432">
-                                    <TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" FontSize="32">
-                                    	<TextBlock.Foreground>
-                                    		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                                    	</TextBlock.Foreground>
-                                    </TextBlock>
-                                    <TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="21.333">
-                                    	<TextBlock.Foreground>
-                                    		<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                                    	</TextBlock.Foreground>
-                                    </TextBlock>
-                                </StackPanel>
+                            	<StackPanel Margin="0,0,0,17" Width="432">
+                            		<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" FontSize="32">
+                            			<TextBlock.Foreground>
+                            				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                            			</TextBlock.Foreground>
+                            		</TextBlock>
+                            		<TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="21.333">
+                            			<TextBlock.Foreground>
+                            				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                            			</TextBlock.Foreground>
+                            		</TextBlock>
+                            	</StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
+                    <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Width="480" Margin="-12,0,-48,0">
+                    	<Grid.RowDefinitions>
+                    		<RowDefinition Height="Auto"/>
+                    		<RowDefinition Height="*"/>
+                    	</Grid.RowDefinitions>
+                            <!--<local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPagesRequested"/>-->
+                        <Button Content="" BorderThickness="0" Margin="0,0,164,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshPages" Grid.RowSpan="2" HorizontalAlignment="Right" Width="70">
+                    		<Button.Background>
+                    			<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
+                    		</Button.Background>
+                    	</Button>
+                        <Button Content="" BorderThickness="0" Margin="164,0,0,-7" VerticalAlignment="Bottom" Height="70" Click="OnCreatePageButtonClick" Grid.RowSpan="2" HorizontalAlignment="Left" Width="70">
+                    		<Button.Background>
+                    			<ImageBrush ImageSource="/Images/appbar.add.png"/>
+                    		</Button.Background>
+                    	</Button>
+
+                    </Grid>
 
                 </Grid>
             </controls:PanoramaItem>
