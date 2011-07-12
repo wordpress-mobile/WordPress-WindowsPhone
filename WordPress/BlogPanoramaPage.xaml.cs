@@ -40,6 +40,8 @@ namespace WordPress
             InitializeComponent();
 
             DataContext = App.MasterViewModel;
+            
+            BlogTitle.Text = App.MasterViewModel.CurrentBlog.BlogName.ToLower();
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 

@@ -22,14 +22,14 @@
     shell:SystemTray.IsVisible="False">
 
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="actionsPanoramaItemStyle" TargetType="controls:PanoramaItem">
+        <Style x:Key="panoramaItemStyle" TargetType="controls:PanoramaItem">
             <Setter Property="CacheMode" Value="BitmapCache"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="controls:PanoramaItem">
-                        <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
+                        <Grid Background="{TemplateBinding Background}" Margin="12,-8,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
@@ -41,118 +41,12 @@
                                         <TranslateTransform x:Name="headerTransform"/>
                                     </ContentControl.RenderTransform>
                                 </ContentControl>
-                                <Image Source="Images/panoramaActions.png" Stretch="None" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="commentsPanoramaItemStyle" TargetType="controls:PanoramaItem">
-            <Setter Property="CacheMode" Value="BitmapCache"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:PanoramaItem">
-                        <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
-                                    <ContentControl.RenderTransform>
-                                        <TranslateTransform x:Name="headerTransform"/>
-                                    </ContentControl.RenderTransform>
-                                </ContentControl>
-                                <Image Source="Images/panoramaComments.png" Stretch="None" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="postsPanoramaItemStyle" TargetType="controls:PanoramaItem">
-            <Setter Property="CacheMode" Value="BitmapCache"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:PanoramaItem">
-                        <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
-                                    <ContentControl.RenderTransform>
-                                        <TranslateTransform x:Name="headerTransform"/>
-                                    </ContentControl.RenderTransform>
-                                </ContentControl>
-                                <Image Source="Images/panoramaPosts.png" Stretch="None" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="pagesPanoramaItemStyle" TargetType="controls:PanoramaItem">
-            <Setter Property="CacheMode" Value="BitmapCache"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:PanoramaItem">
-                        <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
-                                    <ContentControl.RenderTransform>
-                                        <TranslateTransform x:Name="headerTransform"/>
-                                    </ContentControl.RenderTransform>
-                                </ContentControl>
-                                <Image Source="Images/panoramaPages.png" Stretch="None" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="statsPanoramaItemStyle" TargetType="controls:PanoramaItem">
-            <Setter Property="CacheMode" Value="BitmapCache"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="controls:PanoramaItem">
-                        <Grid Background="{TemplateBinding Background}" Margin="12,0,0,0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
-                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" Margin="0,8,0,16">
-                                    <ContentControl.RenderTransform>
-                                        <TranslateTransform x:Name="headerTransform"/>
-                                    </ContentControl.RenderTransform>
-                                </ContentControl>
-                                <Image Source="Images/panoramaStats.png" Stretch="None" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style x:Key="TileButtonTemplate" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
@@ -296,13 +190,21 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
 
-        <controls:Panorama x:Name="blogPanorama" Title="{Binding CurrentBlog.BlogName}">
+        <controls:Panorama x:Name="blogPanorama">
             <controls:Panorama.Foreground>
                 <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
             </controls:Panorama.Foreground>
+            <controls:Panorama.Title>
+                <StackPanel Margin="0,50,0,0" >
+                        <TextBlock Margin="2,6,0,0" Foreground="White" FontSize="88" Text="blog title" x:Name="BlogTitle"  />
+                    </StackPanel>
+            </controls:Panorama.Title>
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="Images/pano-bg.png"/>
+            </controls:Panorama.Background>
 
             <!--actions Panorama item -->
-            <controls:PanoramaItem x:Name="actionsPanoramaItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource actionsPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="actionsPanoramaItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource panoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
@@ -385,16 +287,21 @@
             </controls:PanoramaItem>
 
             <!--comments Panorama item -->
-            <controls:PanoramaItem x:Name="commentsPanoramaItem" Header="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" Style="{StaticResource commentsPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="commentsPanoramaItem">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
-                <Grid>
-                    <ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}"
+				<Grid Margin="0,0,0,0" Height="669">
+				<ScrollViewer Margin="0,0,0,57">
+                    <StackPanel>                     
+                   		<TextBlock Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,25" Height="92" />                     
+                   		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}"
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
-                             ItemContainerStyle="{StaticResource CommentListItemStyle}" Background="{StaticResource PhoneBackgroundBrush}" Margin="0,0,0,65" Height="624">
-                    </ListBox>
-                    <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
+                             ItemContainerStyle="{StaticResource CommentListItemStyle}" Background="{StaticResource PhoneBackgroundBrush}" Margin="5,0,12,65" 
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+				   </StackPanel>
+               </ScrollViewer>
+			   <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
                     	<Grid.RowDefinitions>
                     		<RowDefinition Height="Auto"/>
                     		<RowDefinition Height="*"/>
@@ -404,36 +311,41 @@
                     			<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
                     		</Button.Background>
                     	</Button>
-
                     </Grid>
-                </Grid>
+			   </Grid>
             </controls:PanoramaItem>
 
             <!--posts Panorama item-->
-            <controls:PanoramaItem x:Name="postsPanoramaItem" Header="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" Style="{StaticResource postsPanoramaItemStyle}" >
+            <controls:PanoramaItem x:Name="postsPanoramaItem" >
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-            		<ListBox x:Name="postsListBox" Grid.Row="0" ItemsSource="{Binding Posts}"
-            			SelectionChanged="OnPostsListBoxSelectionChanged" Margin="0,0,0,61" Height="624">
-            			<ListBox.ItemTemplate>
-            				<DataTemplate>
-            					<StackPanel Margin="0,0,0,17" Width="432">
-            						<TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
+                    <ScrollViewer Margin="0,0,0,57">
+                        <StackPanel>
+                            <TextBlock Text="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
+                            <ListBox x:Name="postsListBox" Grid.Row="0" ItemsSource="{Binding Posts}"
+            			             SelectionChanged="OnPostsListBoxSelectionChanged" Margin="4,14,12,0"
+                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,0,0,17" Width="432">
+                                            <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
             							<TextBlock.Foreground>
             								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             							</TextBlock.Foreground>
-            						</TextBlock>
-            						<TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                                            </TextBlock>
+                                            <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
             							<TextBlock.Foreground>
             								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             							</TextBlock.Foreground>
-            						</TextBlock>
-            					</StackPanel>
-            				</DataTemplate>
-            			</ListBox.ItemTemplate>
-            		</ListBox>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
             		<Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
             			<Grid.RowDefinitions>
             				<RowDefinition Height="Auto"/>
@@ -450,52 +362,56 @@
             					<ImageBrush ImageSource="/Images/appbar.add.png"/>
             				</Button.Background>
             			</Button>
-
             		</Grid>
             	</Grid>
             </controls:PanoramaItem>
 
-            <!--pages Panorama item-->
-            <controls:PanoramaItem x:Name="pagesPanoramaItem" Header="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" Style="{StaticResource pagesPanoramaItemStyle}">
+            <!-- pages panorama item-->
+            <controls:PanoramaItem x:Name="pagesPanoramaItem">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ListBox x:Name="pagesListBox" Grid.Row="0" ItemsSource="{Binding Pages}"
-                             SelectionChanged="OnPagesListBoxSelectionChanged" Margin="0,0,0,57" d:LayoutOverrides="GridBox" Height="624">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                            	<StackPanel Margin="0,0,0,17" Width="432">
-                            		<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0" FontSize="32">
-                            			<TextBlock.Foreground>
-                            				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            			</TextBlock.Foreground>
-                            		</TextBlock>
-                            		<TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource PhoneTextExtraLargeStyle}" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="21.333">
-                            			<TextBlock.Foreground>
-                            				<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                            			</TextBlock.Foreground>
-                            		</TextBlock>
-                            	</StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <ScrollViewer Margin="0,0,0,57">
+                        <StackPanel>
+                            <TextBlock Text="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
+                            <ListBox x:Name="pagesListBox" ItemsSource="{Binding Pages}"
+                            	SelectionChanged="OnPagesListBoxSelectionChanged" Margin="4,14,12,0"
+                            	ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            	<ListBox.ItemTemplate>
+                            		<DataTemplate>
+                            			<StackPanel Margin="0,0,0,17" Width="432">
+                            				<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
+                            					<TextBlock.Foreground>
+                            						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                            					</TextBlock.Foreground>
+                            				</TextBlock>
+                            				<TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                            					<TextBlock.Foreground>
+                            						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                            					</TextBlock.Foreground>
+                            				</TextBlock>
+                            			</StackPanel>
+                            		</DataTemplate>
+                            	</ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </ScrollViewer>
                     <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Width="480" Margin="-12,0,-48,0">
-                    	<Grid.RowDefinitions>
-                    		<RowDefinition Height="Auto"/>
-                    		<RowDefinition Height="*"/>
-                    	</Grid.RowDefinitions>
-                            <!--<local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPagesRequested"/>-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
                         <Button Content="" BorderThickness="0" Margin="0,0,164,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshPages" Grid.RowSpan="2" HorizontalAlignment="Right" Width="70">
-                    		<Button.Background>
-                    			<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
-                    		</Button.Background>
-                    	</Button>
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Images/appbar.refresh.png"/>
+                            </Button.Background>
+                        </Button>
                         <Button Content="" BorderThickness="0" Margin="164,0,0,-7" VerticalAlignment="Bottom" Height="70" Click="OnCreatePageButtonClick" Grid.RowSpan="2" HorizontalAlignment="Left" Width="70">
-                    		<Button.Background>
-                    			<ImageBrush ImageSource="/Images/appbar.add.png"/>
-                    		</Button.Background>
-                    	</Button>
+                            <Button.Background>
+                                <ImageBrush ImageSource="/Images/appbar.add.png"/>
+                            </Button.Background>
+                        </Button>
 
                     </Grid>
 
@@ -503,7 +419,7 @@
             </controls:PanoramaItem>
 
             <!--stats Panorama item-->
-            <controls:PanoramaItem x:Name="statsPanoramaItem" Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource statsPanoramaItemStyle}">
+            <controls:PanoramaItem x:Name="statsPanoramaItem" Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource panoramaItemStyle}">
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
