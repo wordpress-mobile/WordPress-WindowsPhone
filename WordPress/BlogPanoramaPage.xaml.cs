@@ -736,16 +736,19 @@ namespace WordPress
 
         private void FetchPages()
         {
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
             DataService.Current.FetchCurrentBlogPagesAsync();
         }
 
         private void FetchPosts()
         {
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
             DataService.Current.FetchCurrentBlogPostsAsync();            
         }
 
         private void FetchComments()
         {
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
             DataService.Current.FetchCurrentBlogCommentsAsync();            
         }
 
