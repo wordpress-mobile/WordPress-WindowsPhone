@@ -286,9 +286,9 @@ namespace WordPress.Model
                 throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
-            string value = null;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
+                string value = null;
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
                 if (ISADMIN_VALUE.Equals(memberName))
                 {
@@ -302,7 +302,14 @@ namespace WordPress.Model
                 }
                 else if (BLOGID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    try
+                    {
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    }
+                    catch (Exception e)
+                    {
+                        value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                    }                    
                     if (!int.TryParse(value, out _blogId))
                     {
                         throw new ArgumentException("Unable to successfully parse Blog ID from server response");
