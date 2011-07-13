@@ -146,9 +146,6 @@
 	<data name="ControlText_Decline" xml:space="preserve">
 		<value>Ablehnen</value>
 	</data>
-	<data name="Eula" xml:space="preserve">
-		<value>Eula.txt;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;Windows-1252</value>
-	</data>
 	<data name="Prompts_SelectStatisticType" xml:space="preserve">
 		<value>Welche Statistik möchten Sie anzeigen?</value>
 	</data>

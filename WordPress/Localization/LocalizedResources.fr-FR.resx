@@ -377,9 +377,6 @@
 	<data name="Message_CheckTheUrl" xml:space="preserve">
 		<value>Il y a peut-être un problème avec l'url qui a été saisie. Commence t-elle bien par par http://, ou finie t-elle bien par xmlrpc.php? Par exemple, la valeur par défaut pour le site WordPress.com est https://wordpress.com/xmlrpc.php.</value>
 	</data>
-	<data name="Eula" xml:space="preserve">
-		<value>Eula.txt;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;Windows-1252</value>
-	</data>
 	<data name="ControlText_AddSelected" xml:space="preserve">
 		<value>Ajouter la sélection</value>
 	</data>
