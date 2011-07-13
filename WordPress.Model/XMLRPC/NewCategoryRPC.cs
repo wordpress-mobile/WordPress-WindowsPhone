@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace WordPress.Model
 {
-    public class NewCategoryRPC: XmlRemoteProcedureCall<Category>
+    public class NewCategoryRPC : XmlRemoteProcedureCall<Category>
     {
         #region member variables
 
@@ -28,7 +28,7 @@ namespace WordPress.Model
             : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
         {
             _content = XMLRPCTable.wp_newCategory;
-            BlogId= blog.BlogId;
+            BlogId = blog.BlogId;
             Category = category;
         }
 
@@ -74,7 +74,17 @@ namespace WordPress.Model
 
         protected override List<Category> ParseResponseContent(XDocument xDoc)
         {
-            XElement intElement = xDoc.Descendants(XmlRPCResponseConstants.STRING).First();
+            XElement intElement = null;
+
+            try
+            {
+                intElement = xDoc.Descendants(XmlRPCResponseConstants.STRING).First();
+            }
+            catch (Exception e)
+            {
+                intElement = xDoc.Descendants(XmlRPCResponseConstants.INT).First();
+            }
+
             int categoryId = 0;
             if (int.TryParse(intElement.Value, out categoryId))
             {
