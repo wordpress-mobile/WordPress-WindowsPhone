@@ -369,9 +369,10 @@ namespace WordPress.Model
                 throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
-            string value = string.Empty;
+            
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
+                string value = string.Empty;
                 string memberName = member.Element(XmlRPCResponseConstants.NAME).Value;
                 if (DATECREATED_VALUE.Equals(memberName))
                 {
@@ -394,7 +395,14 @@ namespace WordPress.Model
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                    try
+                    {
+                        value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                    }
+                    catch (Exception e)
+                    {
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    }
                     _postId = value;
                 }
                 else if (DESCRIPTION_VALUE.Equals(memberName))
