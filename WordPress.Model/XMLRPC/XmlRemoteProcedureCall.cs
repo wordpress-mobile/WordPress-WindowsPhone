@@ -346,9 +346,13 @@ namespace WordPress.Model
                 }
                 catch (Exception ex)
                 {
-                    exception = ex;
+                    if (ex is XmlRPCException || ex is XmlRPCParserException)
+                        exception = ex;
+                    else
+                    {
+                        exception = new XmlRPCException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
+                    }   
                 }
-
                 CompletionMethod(items, exception, false, state.Operation);
             }
         }
