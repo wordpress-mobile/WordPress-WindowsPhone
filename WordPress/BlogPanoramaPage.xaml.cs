@@ -163,11 +163,6 @@ namespace WordPress
             }
         }
 
-        private void OnPreferencesMenuItemClick(object sender, EventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/PreferencesPage.xaml", UriKind.Relative));
-        }
-
         private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = commentsListBox.SelectedIndex;
