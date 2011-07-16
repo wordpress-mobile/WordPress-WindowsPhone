@@ -3,10 +3,11 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="viewport" content="width=400, user-scalable=no"/>
 <title>Untitled 1</title>
 </head>
 
-<body style="color: #FFFFFF; background-color: #000000; font-size:45px">
+<body style="color: #FFFFFF; background-color: #000000;">
 <p>
 GNU GENERAL PUBLIC LICENSE
 </p>
