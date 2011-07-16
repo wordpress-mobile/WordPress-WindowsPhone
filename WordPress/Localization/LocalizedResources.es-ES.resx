@@ -98,6 +98,57 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<data name="Messages_MarketDescription" xml:space="preserve">
+		<value>Wordpress para Windows Phone es una aplicación de Código abierto que te permite escribir nuevas entradas, editar contenido, ver estadísticas y gestionar los comentarios de tu Sitio Wordpress.</value>
+	</data>
+	<data name="ControlText_NoTitle" xml:space="preserve">
+		<value>No hay título para este artículo</value>
+	</data>
+	<data name="ControlText_ReleaseToRefresh" xml:space="preserve">
+		<value>Suelta para refrescar</value>
+	</data>
+	<data name="ControlText_PullDownToRefresh" xml:space="preserve">
+		<value>Presiona para actualizar</value>
+	</data>
+	<data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
+		<value>Lo sentimos, la acción solicitada falló. Por favor, prueba de nuevo.</value>
+	</data>
+	<data name="Prompts_XeElementMissing" xml:space="preserve">
+		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo. </value>
+	</data>
+	<data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
+		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo.</value>
+	</data>
+	<data name="Messages_Hello" xml:space="preserve">
+		<value>Hola</value>
+	</data>
+	<data name="ControlText_SaveDraft" xml:space="preserve">
+		<value>guardar borrador</value>
+	</data>
+	<data name="ControlText_LoadingContent" xml:space="preserve">
+		<value>cargando contenido</value>
+	</data>
+	<data name="ControlText_FAQ" xml:space="preserve">
+		<value>Visitar Preguntas Frecuentes</value>
+	</data>
+	<data name="ControlText_EMail" xml:space="preserve">
+		<value>Soporte por E-Mail</value>
+	</data>
+	<data name="ControlText_Forums" xml:space="preserve">
+		<value>Visita los foros</value>
+	</data>
+	<data name="Prompts_MediaError" xml:space="preserve">
+		<value>Error de subida de archivos</value>
+	</data>
+	<data name="Prompts_MediaErrorContent" xml:space="preserve">
+		<value>Lo siento, ha ocurrido un error subiendo el archivo multimeda. ¿Quieres seguir con la subida a la entrada?</value>
+	</data>
+	<data name="Prompts_SupportEmailSubject" xml:space="preserve">
+		<value>Petición de Soporte a Wordpress para Windows Phone </value>
+	</data>
+	<data name="Prompts_SupportEmailBody" xml:space="preserve">
+		<value>Por favor, inserta la URL de tu blog y el detalle del mensaje de error</value>
+	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
 		<value>insertar vínculo</value>
 	</data>
@@ -110,14 +161,14 @@
 	<data name="Prompts_Post" xml:space="preserve">
 		<value>publicación</value>
 	</data>
+	<data name="Prompts_Page" xml:space="preserve">
+		<value>página</value>
+	</data>
 	<data name="Prompts_CancelEditing" xml:space="preserve">
 		<value>Cancelar Edición</value>
 	</data>
 	<data name="ControlText_DefaultTagLine" xml:space="preserve">
 		<value>Publicado desde WordPress para Windows Phone</value>
-	</data>
-	<data name="Prompts_Page" xml:space="preserve">
-		<value>página</value>
 	</data>
 	<data name="ControlText_EnterLinkText" xml:space="preserve">
 		<value>[opcional] escribe el texto que debe aparecer para el enlace.</value>
@@ -131,17 +182,17 @@
 	<data name="Title_Unapprove" xml:space="preserve">
 		<value>RECHAZADO</value>
 	</data>
-	<data name="ControlText_Clicks" xml:space="preserve">
-		<value>Clics</value>
-	</data>
-	<data name="Options_StatisticType_Views" xml:space="preserve">
-		<value>Vistas</value>
-	</data>
 	<data name="ControlText_Apikey" xml:space="preserve">
 		<value>clave api</value>
 	</data>
 	<data name="Prompts_MissingApikey" xml:space="preserve">
 		<value>El blog actual no posee una clave api. Introduzca una en la página de configuraciones.</value>
+	</data>
+	<data name="Options_StatisticType_Views" xml:space="preserve">
+		<value>Vistas</value>
+	</data>
+	<data name="ControlText_Clicks" xml:space="preserve">
+		<value>Clics</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
 		<value>Última semana</value>
@@ -179,6 +230,12 @@
 	<data name="ControlText_Decline" xml:space="preserve">
 		<value>Declinar</value>
 	</data>
+	<data name="Prompts_SelectStatisticType" xml:space="preserve">
+		<value>¿Sobre qué estadísticas quiere datos?</value>
+	</data>
+	<data name="Messages_NoStatsAvailable" xml:space="preserve">
+		<value>No hay estadísticas disponibles para la consulta actual.</value>
+	</data>
 	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
 		<value>Último año</value>
 	</data>
@@ -211,6 +268,21 @@
 	</data>
 	<data name="Messages_ApprovingComment" xml:space="preserve">
 		<value>aprobando comentario...</value>
+	</data>
+	<data name="ControlText_Vibrate" xml:space="preserve">
+		<value>vibrar</value>
+	</data>
+	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
+		<value>TO</value>
+	</data>
+	<data name="Title_NewPost" xml:space="preserve">
+		<value>publicación nueva</value>
+	</data>
+	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
+		<value>Seleccione un tamaño de miniatura.</value>
+	</data>
+	<data name="ControlText_Accept" xml:space="preserve">
+		<value>Aceptar</value>
 	</data>
 	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
 		<value>marcando comentarios como spam...</value>
@@ -257,6 +329,9 @@
 	<data name="ControlText_OriginalSize" xml:space="preserve">
 		<value>tamaño original</value>
 	</data>
+	<data name="ControlText_CategorySlug" xml:space="preserve">
+		<value>slug de la categoría (opcional)</value>
+	</data>
 	<data name="Title_Preferences" xml:space="preserve">
 		<value>preferencias</value>
 	</data>
@@ -274,6 +349,12 @@
 	</data>
 	<data name="ControlText_PlayNotificationSound" xml:space="preserve">
 		<value>reproducir sonido de notificación</value>
+	</data>
+	<data name="ControlText_PlaceImage" xml:space="preserve">
+		<value>incluir imagen</value>
+	</data>
+	<data name="ControlText_PageContent" xml:space="preserve">
+		<value>contenido de página</value>
 	</data>
 	<data name="Options_StatisticType_Clicks" xml:space="preserve">
 		<value>Clics</value>
@@ -298,6 +379,9 @@
 	</data>
 	<data name="ControlText_CategoryName" xml:space="preserve">
 		<value>nombre de categoría</value>
+	</data>
+	<data name="ControlText_CategoryParent" xml:space="preserve">
+		<value>categoría padre (opcional)</value>
 	</data>
 	<data name="ControlText_Refresh" xml:space="preserve">
 		<value>actualizar</value>
@@ -341,6 +425,9 @@
 	<data name="Options_StatisticType_PostViews" xml:space="preserve">
 		<value>Vistas de publicación</value>
 	</data>
+	<data name="Options_StatisticType_Referrers" xml:space="preserve">
+		<value>Referidos</value>
+	</data>
 	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
 		<value>Términos de búsqueda</value>
 	</data>
@@ -352,6 +439,9 @@
 	</data>
 	<data name="ControlText_Edit" xml:space="preserve">
 		<value>editar</value>
+	</data>
+	<data name="ControlText_GeoTagPosts" xml:space="preserve">
+		<value>publicaciones con etiqueta geográfica</value>
 	</data>
 	<data name="ControlText_Media" xml:space="preserve">
 		<value>medios</value>
@@ -521,6 +611,9 @@
 	<data name="ControlText_Reply" xml:space="preserve">
 		<value>responder</value>
 	</data>
+	<data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
+		<value>ancho máximo de píxel de la miniatura</value>
+	</data>
 	<data name="ControlText_Italic" xml:space="preserve">
 		<value>K</value>
 	</data>
@@ -545,6 +638,9 @@
 	<data name="ControlText_Delete" xml:space="preserve">
 		<value>eliminar</value>
 	</data>
+	<data name="ControlText_BlinkNotificationLight" xml:space="preserve">
+		<value>parpadeo luz de notificación</value>
+	</data>
 	<data name="ControlText_BlockQuote" xml:space="preserve">
 		<value>citar</value>
 	</data>
@@ -556,6 +652,9 @@
 	</data>
 	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
 		<value>alinear miniatura al centro</value>
+	</data>
+	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
+		<value>agrega una etiqueta a nuevas publicaciones</value>
 	</data>
 	<data name="ControlText_AddMedia" xml:space="preserve">
 		<value>añadir</value>
@@ -583,44 +682,5 @@
 	</data>
 	<data name="ControlText_AddBlog" xml:space="preserve">
 		<value>añadir blog</value>
-	</data>
-	<data name="Title_NewPost" xml:space="preserve">
-		<value>publicación nueva</value>
-	</data>
-	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
-		<value>Seleccione un tamaño de miniatura.</value>
-	</data>
-	<data name="ControlText_Accept" xml:space="preserve">
-		<value>Aceptar</value>
-	</data>
-	<data name="ControlText_PageContent" xml:space="preserve">
-		<value>contenido de página</value>
-	</data>
-	<data name="Options_StatisticType_Referrers" xml:space="preserve">
-		<value>Referidos</value>
-	</data>
-	<data name="ControlText_GeoTagPosts" xml:space="preserve">
-		<value>publicaciones con etiqueta geográfica</value>
-	</data>
-	<data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-		<value>ancho máximo de píxel de la miniatura</value>
-	</data>
-	<data name="Messages_NoStatsAvailable" xml:space="preserve">
-		<value>No hay estadísticas disponibles para la consulta actual.</value>
-	</data>
-	<data name="ControlText_Vibrate" xml:space="preserve">
-		<value>vibrar</value>
-	</data>
-	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
-		<value>TO</value>
-	</data>
-	<data name="Prompts_SelectStatisticType" xml:space="preserve">
-		<value>¿Sobre qué estadísticas quiere datos?</value>
-	</data>
-	<data name="ControlText_CategoryParent" xml:space="preserve">
-		<value>categoría padre (opcional)</value>
-	</data>
-	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-		<value>agrega una etiqueta a nuevas publicaciones</value>
 	</data>
 </root>

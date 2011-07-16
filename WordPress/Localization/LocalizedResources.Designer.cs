@@ -1052,6 +1052,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WordPress for Windows Phone is an Open Source app that empowers you to write new posts, edit content, view stats, and manage comments for your WordPress site..
+        /// </summary>
+        internal static string Messages_MarketDescription {
+            get {
+                return ResourceManager.GetString("Messages_MarketDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to marking comment as spam....
         /// </summary>
         internal static string Messages_MarkingAsSpam {

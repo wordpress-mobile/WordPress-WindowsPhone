@@ -207,6 +207,7 @@ namespace WordPress.Localization
             public string CheckTheUrl { get { return LocalizedResources.Message_CheckTheUrl; } }
             public string UploadingMedia { get { return LocalizedResources.Messages_UploadingMedia; } }
             public string Hello { get { return LocalizedResources.Messages_Hello; } }
+            public string MarketDescription { get { return LocalizedResources.Messages_MarketDescription; } }
         }
 
         #endregion

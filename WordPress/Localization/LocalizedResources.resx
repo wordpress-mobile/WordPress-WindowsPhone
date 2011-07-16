@@ -735,4 +735,8 @@
     <value>No Title for this Item</value>
     <comment>marker string used in the lists Page when the page/post has no title</comment>
   </data>
+  <data name="Messages_MarketDescription" xml:space="preserve">
+    <value>WordPress for Windows Phone is an Open Source app that empowers you to write new posts, edit content, view stats, and manage comments for your WordPress site.</value>
+    <comment>Marketplace description, not used in app.</comment>
+  </data>
 </root>

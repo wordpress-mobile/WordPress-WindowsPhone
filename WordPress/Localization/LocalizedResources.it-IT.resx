@@ -98,6 +98,57 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
+	<data name="Messages_MarketDescription" xml:space="preserve">
+		<value>WordPress per Windows Phone è un'applicazione Open Source che consente di scrivere nuovi messaggi, modificare i contenuti, visualizzare le statistiche e gestire i commenti del vostro sito WordPress.</value>
+	</data>
+	<data name="ControlText_NoTitle" xml:space="preserve">
+		<value>Nessun Titolo</value>
+	</data>
+	<data name="ControlText_ReleaseToRefresh" xml:space="preserve">
+		<value>Rilasciare per aggiornare</value>
+	</data>
+	<data name="ControlText_PullDownToRefresh" xml:space="preserve">
+		<value>Tirare in basso per aggiornare</value>
+	</data>
+	<data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
+		<value>Spiacenti, l'azione richiesta non è stata eseguita. Riprovare più tardi.</value>
+	</data>
+	<data name="Prompts_XeElementMissing" xml:space="preserve">
+		<value>Spiacenti, il server ha inviato una risposta non valida. Riprovare più tardi.</value>
+	</data>
+	<data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
+		<value>Spiacenti, il server ha inviato una risposta non valida. Riprovare più tardi.</value>
+	</data>
+	<data name="Messages_Hello" xml:space="preserve">
+		<value>Salve</value>
+	</data>
+	<data name="ControlText_SaveDraft" xml:space="preserve">
+		<value>salva bozza</value>
+	</data>
+	<data name="ControlText_LoadingContent" xml:space="preserve">
+		<value>caricamento in corso</value>
+	</data>
+	<data name="ControlText_FAQ" xml:space="preserve">
+		<value>Visita le FAQ</value>
+	</data>
+	<data name="ControlText_EMail" xml:space="preserve">
+		<value>Invia una E-Mail al supporto</value>
+	</data>
+	<data name="ControlText_Forums" xml:space="preserve">
+		<value>Visita il Forum</value>
+	</data>
+	<data name="Prompts_MediaError" xml:space="preserve">
+		<value>Errore durante l'invio del file</value>
+	</data>
+	<data name="Prompts_MediaErrorContent" xml:space="preserve">
+		<value>Spiacenti, si è verificato un errore durante il caricamento del file. Vuoi pubblicare il post ugualmente?</value>
+	</data>
+	<data name="Prompts_SupportEmailSubject" xml:space="preserve">
+		<value>WordPress for Windows Phone Richiesta di Supporto</value>
+	</data>
+	<data name="Prompts_SupportEmailBody" xml:space="preserve">
+		<value>Per favore inserire l'indirizzo del tuo blog ed il dettaglio dell'errore ricevuto.</value>
+	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
 		<value>inserisci link</value>
 	</data>
@@ -131,20 +182,14 @@
 	<data name="Title_Unapprove" xml:space="preserve">
 		<value>NON APPROVATO</value>
 	</data>
-	<data name="ControlText_Preferences" xml:space="preserve">
-		<value>Preferenze</value>
-	</data>
-	<data name="ControlText_Spam" xml:space="preserve">
-		<value>spam</value>
-	</data>
-	<data name="ControlText_Status" xml:space="preserve">
-		<value>stato</value>
-	</data>
-	<data name="ControlText_TagsAndCategories" xml:space="preserve">
-		<value>tag e categorie</value>
+	<data name="ControlText_Apikey" xml:space="preserve">
+		<value>chiave API</value>
 	</data>
 	<data name="Prompts_MissingApikey" xml:space="preserve">
 		<value>Il blog attuale non dispone di una chiave API. Si prega di aggiungerne una nella pagina delle impostazioni.</value>
+	</data>
+	<data name="Options_StatisticType_Views" xml:space="preserve">
+		<value>Visite</value>
 	</data>
 	<data name="ControlText_Clicks" xml:space="preserve">
 		<value>Click</value>
@@ -152,17 +197,44 @@
 	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
 		<value>Ultima Settimana</value>
 	</data>
+	<data name="ControlText_Underline" xml:space="preserve">
+		<value>U</value>
+	</data>
+	<data name="ControlText_Status" xml:space="preserve">
+		<value>stato</value>
+	</data>
+	<data name="ControlText_StrikeThrough" xml:space="preserve">
+		<value>ABC</value>
+	</data>
+	<data name="ControlText_TagsAndCategories" xml:space="preserve">
+		<value>tag e categorie</value>
+	</data>
+	<data name="ControlText_Unapprove" xml:space="preserve">
+		<value>non approvare</value>
+	</data>
+	<data name="ControlText_Preferences" xml:space="preserve">
+		<value>Preferenze</value>
+	</data>
 	<data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
 		<value>Inizia a bloggare da Windows Phone 7 in pochi secondi</value>
 	</data>
-	<data name="ControlText_Apikey" xml:space="preserve">
-		<value>chiave API</value>
+	<data name="ControlText_Spam" xml:space="preserve">
+		<value>spam</value>
 	</data>
-	<data name="Options_StatisticType_Views" xml:space="preserve">
-		<value>Visite</value>
+	<data name="ControlText_SearchTerms" xml:space="preserve">
+		<value>Ricerca termini</value>
+	</data>
+	<data name="Message_CheckTheUrl" xml:space="preserve">
+		<value>Potrebbe esserci un un problema con la URL inserita. La URL inizia con http://. L'impostazione predefinita per il sito WordPress.com, ad esempio, è https://wordpress.com</value>
 	</data>
 	<data name="ControlText_Decline" xml:space="preserve">
 		<value>Rifiuta</value>
+	</data>
+	<data name="Prompts_SelectStatisticType" xml:space="preserve">
+		<value>Di quale statistica si preferisce visualizzare i dati?</value>
+	</data>
+	<data name="Messages_NoStatsAvailable" xml:space="preserve">
+		<value>Nessuna statistica è disponibile per la query attuale.</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
 		<value>Ultimo Anno</value>
@@ -186,31 +258,16 @@
 		<value>aggiungi selezionati</value>
 	</data>
 	<data name="ControlText_SelectBlogs" xml:space="preserve">
-		<value>Si prega di selezionare il blog o i blog che si desidera importare.</value>
+		<value>Si prega di selezionare il blog o i blogs che si desidera importare.</value>
+	</data>
+	<data name="ControlText_None" xml:space="preserve">
+		<value>[nessuno]</value>
 	</data>
 	<data name="ControlText_PostContent" xml:space="preserve">
 		<value>contenuto del post</value>
 	</data>
 	<data name="Messages_ApprovingComment" xml:space="preserve">
 		<value>commento in corso di approvazione...</value>
-	</data>
-	<data name="ControlText_Underline" xml:space="preserve">
-		<value>U</value>
-	</data>
-	<data name="ControlText_StrikeThrough" xml:space="preserve">
-		<value>ABC</value>
-	</data>
-	<data name="ControlText_Unapprove" xml:space="preserve">
-		<value>non approvare</value>
-	</data>
-	<data name="ControlText_SearchTerms" xml:space="preserve">
-		<value>Ricerca termini</value>
-	</data>
-	<data name="Prompts_SelectStatisticType" xml:space="preserve">
-		<value>Di quale statistica si preferisce visualizzare i dati?</value>
-	</data>
-	<data name="Messages_NoStatsAvailable" xml:space="preserve">
-		<value>Nessuna statistica è disponibile per la query attuale.</value>
 	</data>
 	<data name="ControlText_Vibrate" xml:space="preserve">
 		<value>vibra</value>
@@ -227,6 +284,12 @@
 	<data name="ControlText_Accept" xml:space="preserve">
 		<value>Accetta</value>
 	</data>
+	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
+		<value>segna i commenti come spam...</value>
+	</data>
+	<data name="Messages_MarkingAsSpam" xml:space="preserve">
+		<value>segna il commento come spam...</value>
+	</data>
 	<data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
 		<value>Quanti dati si deside vedere?</value>
 	</data>
@@ -239,20 +302,32 @@
 	<data name="ControlText_UpdateInterval" xml:space="preserve">
 		<value>intervallo di aggiornamento</value>
 	</data>
+	<data name="Title_CheckTheUrl" xml:space="preserve">
+		<value>La URL è valida?</value>
+	</data>
 	<data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
 		<value>Sicuro di voler cancellare la pagina '{0}'?</value>
+	</data>
+	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
+		<value>Sicuro di voler cancellare l'articolo '{0}'?</value>
 	</data>
 	<data name="Title_ConfirmDelete" xml:space="preserve">
 		<value>Conferma la cancellazione</value>
 	</data>
+	<data name="ControlText_DeleteBlog" xml:space="preserve">
+		<value>rimuove il blog</value>
+	</data>
+	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
+		<value>Selezionare il blog che si desidera rimuovere</value>
+	</data>
 	<data name="ControlText_Clear" xml:space="preserve">
 		<value>ripulisci</value>
 	</data>
-	<data name="ControlText_OriginalSize" xml:space="preserve">
-		<value>dimensione originale</value>
-	</data>
 	<data name="Messages_UploadingMedia" xml:space="preserve">
 		<value>caricamento...</value>
+	</data>
+	<data name="ControlText_OriginalSize" xml:space="preserve">
+		<value>dimensione originale</value>
 	</data>
 	<data name="ControlText_CategorySlug" xml:space="preserve">
 		<value>alias categoria (opzionale)</value>
@@ -281,6 +356,9 @@
 	<data name="ControlText_PageContent" xml:space="preserve">
 		<value>contenuto della pagina</value>
 	</data>
+	<data name="Options_StatisticType_Clicks" xml:space="preserve">
+		<value>Clicks</value>
+	</data>
 	<data name="ControlText_Publish" xml:space="preserve">
 		<value>pubblica</value>
 	</data>
@@ -289,6 +367,12 @@
 	</data>
 	<data name="ControlText_StartNewBlog" xml:space="preserve">
 		<value>Crea un nuovo blog su WordPress.com</value>
+	</data>
+	<data name="ControlText_Referrers" xml:space="preserve">
+		<value>Referenti</value>
+	</data>
+	<data name="ControlText_PostTitle" xml:space="preserve">
+		<value>Titolo dell' articolo</value>
 	</data>
 	<data name="ControlText_Date" xml:space="preserve">
 		<value>Data</value>
@@ -304,6 +388,9 @@
 	</data>
 	<data name="Prompts_MissingUserName" xml:space="preserve">
 		<value>Si prega di inserire un nome utente.</value>
+	</data>
+	<data name="Prompts_MissingUrl" xml:space="preserve">
+		<value>Si prega di inserire una URL valida.</value>
 	</data>
 	<data name="ControlText_Password" xml:space="preserve">
 		<value>password</value>
@@ -332,8 +419,14 @@
 	<data name="ControlText_CategoryDescription" xml:space="preserve">
 		<value>descrizione della categoria (opzionale)</value>
 	</data>
+	<data name="Title_Posts" xml:space="preserve">
+		<value>articoli</value>
+	</data>
 	<data name="Options_StatisticType_PostViews" xml:space="preserve">
 		<value>Visite Messaggio</value>
+	</data>
+	<data name="Options_StatisticType_Referrers" xml:space="preserve">
+		<value>Referenti</value>
 	</data>
 	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
 		<value>Termini di Ricerca</value>
@@ -341,8 +434,14 @@
 	<data name="ControlText_Location" xml:space="preserve">
 		<value>posizione</value>
 	</data>
+	<data name="ControlText_CommentNotifications" xml:space="preserve">
+		<value>notifiche dei commenti</value>
+	</data>
 	<data name="ControlText_Edit" xml:space="preserve">
 		<value>modifica</value>
+	</data>
+	<data name="ControlText_GeoTagPosts" xml:space="preserve">
+		<value>geotag degli articoli</value>
 	</data>
 	<data name="ControlText_Media" xml:space="preserve">
 		<value>media</value>
@@ -364,6 +463,9 @@
 	</data>
 	<data name="Prompts_MissingPassword" xml:space="preserve">
 		<value>Si prega di inserire una password.</value>
+	</data>
+	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
+		<value>articoli</value>
 	</data>
 	<data name="Options_RefreshEntity_Everything" xml:space="preserve">
 		<value>tutto</value>
@@ -389,20 +491,32 @@
 	<data name="Messages_UnapprovingComment" xml:space="preserve">
 		<value>disapprovazione commento...</value>
 	</data>
+	<data name="Messages_RetrievingPosts" xml:space="preserve">
+		<value>recupero degli articoli...</value>
+	</data>
 	<data name="Messages_RetrievingPost" xml:space="preserve">
 		<value>recupero del messaggio...</value>
 	</data>
 	<data name="Options_RefreshEntity_Comments" xml:space="preserve">
 		<value>commenti</value>
 	</data>
+	<data name="Options_PostActions_ViewPost" xml:space="preserve">
+		<value>visualizza articolo</value>
+	</data>
 	<data name="Options_PostActions_ViewComments" xml:space="preserve">
 		<value>mostra commenti</value>
 	</data>
+	<data name="Options_PostActions_EditPost" xml:space="preserve">
+		<value>modifica articolo</value>
+	</data>
+	<data name="Options_PostActions_DeletePost" xml:space="preserve">
+		<value>elimina articolo</value>
+	</data>
 	<data name="Options_PageActions_ViewPage" xml:space="preserve">
-		<value>mostra pagina</value>
+		<value>visualizza pagina</value>
 	</data>
 	<data name="Options_PageActions_ViewComments" xml:space="preserve">
-		<value>mostra commenti</value>
+		<value>visualizza commenti</value>
 	</data>
 	<data name="Options_PageActions_EditPage" xml:space="preserve">
 		<value>modifica pagina</value>
@@ -412,6 +526,9 @@
 	</data>
 	<data name="Title_ModerateComment" xml:space="preserve">
 		<value>modera commento</value>
+	</data>
+	<data name="Title_EditPost" xml:space="preserve">
+		<value>modifica articolo</value>
 	</data>
 	<data name="Title_EditPage" xml:space="preserve">
 		<value>modifica pagina</value>
@@ -431,11 +548,17 @@
 	<data name="Title_Actions" xml:space="preserve">
 		<value>azioni</value>
 	</data>
+	<data name="Prompt_PostActions" xml:space="preserve">
+		<value>Azioni Articolo</value>
+	</data>
 	<data name="Prompt_PageActions" xml:space="preserve">
 		<value>Azioni Pagina</value>
 	</data>
 	<data name="Title_SelectCategories" xml:space="preserve">
 		<value>selezionare le categorie</value>
+	</data>
+	<data name="Messages_DeletingPost" xml:space="preserve">
+		<value>eliminazione dell'articolo...</value>
 	</data>
 	<data name="Title_Stats" xml:space="preserve">
 		<value>statistiche</value>
@@ -472,6 +595,9 @@
 	</data>
 	<data name="Prompts_MissingCategoryName" xml:space="preserve">
 		<value>Si prega di inserire un nome di categoria.</value>
+	</data>
+	<data name="Prompts_SelectCategory" xml:space="preserve">
+		<value>Si prega di selezionare una categoria.</value>
 	</data>
 	<data name="Title_AddNewCategory" xml:space="preserve">
 		<value>nuova categoria</value>
@@ -527,6 +653,9 @@
 	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
 		<value>allinea miniatura al centro</value>
 	</data>
+	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
+		<value>aggiungi i tag ai nuovi articoli</value>
+	</data>
 	<data name="ControlText_AddMedia" xml:space="preserve">
 		<value>aggiungi</value>
 	</data>
@@ -544,84 +673,6 @@
 	</data>
 	<data name="ControlText_AddAPage" xml:space="preserve">
 		<value>aggiungi una pagina</value>
-	</data>
-	<data name="Prompts_SelectCategory" xml:space="preserve">
-		<value>Si prega di selezionare una categoria.</value>
-	</data>
-	<data name="Message_CheckTheUrl" xml:space="preserve">
-		<value>Potrebbe esserci un un problema con la URL inserita. La URL inizia con http://. L'impostazione predefinita per il sito WordPress.com, ad esempio, è https://wordpress.com</value>
-	</data>
-	<data name="ControlText_None" xml:space="preserve">
-		<value>[nessuno]</value>
-	</data>
-	<data name="Messages_MarkingAsSpam" xml:space="preserve">
-		<value>segna il commento come spam...</value>
-	</data>
-	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
-		<value>segna i commenti come spam...</value>
-	</data>
-	<data name="Title_CheckTheUrl" xml:space="preserve">
-		<value>La URL è valida?</value>
-	</data>
-	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
-		<value>Sicuro di voler cancellare l'articolo '{0}'?</value>
-	</data>
-	<data name="ControlText_DeleteBlog" xml:space="preserve">
-		<value>rimuove il blog</value>
-	</data>
-	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
-		<value>Selezionare il blog che si desidera rimuovere</value>
-	</data>
-	<data name="Options_StatisticType_Clicks" xml:space="preserve">
-		<value>Clicks</value>
-	</data>
-	<data name="ControlText_Referrers" xml:space="preserve">
-		<value>Referenti</value>
-	</data>
-	<data name="ControlText_PostTitle" xml:space="preserve">
-		<value>Titolo dell' articolo</value>
-	</data>
-	<data name="Prompts_MissingUrl" xml:space="preserve">
-		<value>Si prega di inserire una URL valida.</value>
-	</data>
-	<data name="Title_Posts" xml:space="preserve">
-		<value>articoli</value>
-	</data>
-	<data name="Options_StatisticType_Referrers" xml:space="preserve">
-		<value>Referenti</value>
-	</data>
-	<data name="ControlText_CommentNotifications" xml:space="preserve">
-		<value>notifiche dei commenti</value>
-	</data>
-	<data name="ControlText_GeoTagPosts" xml:space="preserve">
-		<value>geotag degli articoli</value>
-	</data>
-	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
-		<value>articoli</value>
-	</data>
-	<data name="Options_PostActions_ViewPost" xml:space="preserve">
-		<value>mostra articolo</value>
-	</data>
-	<data name="Messages_RetrievingPosts" xml:space="preserve">
-		<value>recupero degli articoli...</value>
-	</data>
-	<data name="Options_PostActions_DeletePost" xml:space="preserve">
-		<value>elimina articolo</value>
-	</data>
-	<data name="Options_PostActions_EditPost" xml:space="preserve">
-		<value>modifica articolo</value>
-	</data>
-	<data name="Title_EditPost" xml:space="preserve">
-		<value>modifica articolo</value>
-	</data>
-	<data name="Messages_DeletingPost" xml:space="preserve">
-		<value>eliminazione dell'articolo...</value>
-	</data>
-	<data name="Prompt_PostActions" xml:space="preserve">
-		<value>Azioni Articolo</value>
-	</data>
-	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-		<value>aggiungi i tag ai nuovi articoli</value>
 	</data>
 	<data name="ControlText_AddExistingWPBlog" xml:space="preserve">
 		<value>Aggiungi un sito ospitato su WordPress.com</value>
