@@ -10,6 +10,8 @@ using Microsoft.Phone.Controls;
 using WordPress.Localization;
 using WordPress.Model;
 using System.Windows.Navigation;
+using Microsoft.Phone.Shell;
+using System.Windows.Media;
 
 namespace WordPress
 {
@@ -26,6 +28,9 @@ namespace WordPress
         private int _multiFetchTaskCount;
         private StringTable _localizedStrings;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
+
+        private ApplicationBarIconButton _addIconButton;
+        private ApplicationBarIconButton _refreshIconButton;
 
         #endregion
 
@@ -76,8 +81,23 @@ namespace WordPress
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastYear);
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_AllTime);
 
+            ApplicationBar = new ApplicationBar();
+            ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
+            ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
+            ApplicationBar.Opacity = 0.5;
+            ApplicationBar.IsVisible = false;
+
+            _addIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
+            _addIconButton.Text = _localizedStrings.ControlsText.Add;
+            _addIconButton.Click += OnAddIconButtonClick;
+
+            _refreshIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.refresh.png", UriKind.Relative));
+            _refreshIconButton.Text = _localizedStrings.ControlsText.Refresh;
+            _refreshIconButton.Click += OnRefreshIconButtonClick;
+
+            blogPanorama.SelectionChanged += OnBlogPanoramaSelectionChanged;
+
             Loaded += OnPageLoaded;
-            
         }
 
         #endregion
@@ -95,6 +115,57 @@ namespace WordPress
         private void OnPageLoaded(object sender, RoutedEventArgs args)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
+        }
+
+        private void OnBlogPanoramaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Set the app bar based on which pivot item is visible
+            ApplicationBar.Buttons.Clear();
+
+            if (blogPanorama.SelectedItem == pagesPanoramaItem || blogPanorama.SelectedItem == postsPanoramaItem)
+            {
+                ApplicationBar.Buttons.Add(_addIconButton);
+                ApplicationBar.Buttons.Add(_refreshIconButton);
+            }
+            else if (blogPanorama.SelectedItem == commentsPanoramaItem)
+            {
+                ApplicationBar.Buttons.Add(_refreshIconButton);
+            }
+
+            ApplicationBar.IsVisible = ApplicationBar.Buttons.Count > 0;
+        }
+
+        private void OnAddIconButtonClick(object sender, EventArgs e)
+        {
+            if (blogPanorama.SelectedItem == postsPanoramaItem)
+            {
+                OnCreatePostButtonClick(sender, null);
+            }
+            else if (blogPanorama.SelectedItem == pagesPanoramaItem)
+            {
+                OnCreatePageButtonClick(sender, null);
+            }
+        }
+
+        private void OnRefreshIconButtonClick(object sender, EventArgs e)
+        {
+            if (blogPanorama.SelectedItem == commentsPanoramaItem)
+            {
+                FetchComments();
+            }
+            else if (blogPanorama.SelectedItem == postsPanoramaItem)
+            {
+                FetchPosts();
+            }
+            else if (blogPanorama.SelectedItem == pagesPanoramaItem)
+            {
+                FetchPages();
+            }
+        }
+
+        private void OnPreferencesMenuItemClick(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/PreferencesPage.xaml", UriKind.Relative));
         }
 
         private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -831,21 +902,6 @@ namespace WordPress
             string urlFormatString = "/BrowserShellPage.xaml?uri={0}";
             string pageUrl = string.Format(urlFormatString, url);
             NavigationService.Navigate(new Uri(pageUrl, UriKind.Relative));
-        }
-
-        private void OnRefreshComments(object sender, RoutedEventArgs e)
-        {
-            FetchComments();
-        }
-
-        private void OnRefreshPosts(object sender, RoutedEventArgs e)
-        {
-            FetchPosts();
-        }
-
-        private void OnRefreshPages(object sender, RoutedEventArgs e)
-        {
-            FetchPages();
         }
 
         #endregion

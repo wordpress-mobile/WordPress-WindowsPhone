@@ -292,7 +292,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
 				<Grid Margin="0,0,0,0" Height="669">
-				<ScrollViewer Margin="0,0,0,57">
+				<ScrollViewer Margin="0,0,0,72">
                     <StackPanel>                     
                    		<TextBlock Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,25" Height="92" />                     
                    		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}"
@@ -301,17 +301,6 @@
                              ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 				   </StackPanel>
                </ScrollViewer>
-			   <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
-                    	<Grid.RowDefinitions>
-                    		<RowDefinition Height="Auto"/>
-                    		<RowDefinition Height="*"/>
-                    	</Grid.RowDefinitions>
-                    	<Button Content="" BorderThickness="0" Margin="205,0,205,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshComments" Grid.RowSpan="2">
-                    		<Button.Background>
-                    			<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
-                    		</Button.Background>
-                    	</Button>
-                    </Grid>
 			   </Grid>
             </controls:PanoramaItem>
 
@@ -321,7 +310,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ScrollViewer Margin="0,0,0,57">
+                    <ScrollViewer Margin="0,0,0,72">
                         <StackPanel>
                             <TextBlock Text="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="postsListBox" Grid.Row="0" ItemsSource="{Binding Posts}"
@@ -346,23 +335,6 @@
                             </ListBox>
                         </StackPanel>
                     </ScrollViewer>
-            		<Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Margin="-12,0,-48,0" Width="480">
-            			<Grid.RowDefinitions>
-            				<RowDefinition Height="Auto"/>
-            				<RowDefinition Height="*"/>
-            			</Grid.RowDefinitions>
-                            <!--<local:PullDownToRefreshPanel Style="{StaticResource refreshPanelStyle}" RefreshRequested="OnRefreshPagesRequested"/>-->
-                        <Button Content="" BorderThickness="0" Margin="0,0,164,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshPosts" Grid.RowSpan="2" HorizontalAlignment="Right" Width="70">
-            				<Button.Background>
-            					<ImageBrush ImageSource="/Images/appbar.refresh.png"/>
-            				</Button.Background>
-            			</Button>
-                        <Button Content="" BorderThickness="0" Margin="164,0,0,-7" VerticalAlignment="Bottom" Height="70" Click="OnCreatePostButtonClick" Grid.RowSpan="2" HorizontalAlignment="Left" Width="70">
-            				<Button.Background>
-            					<ImageBrush ImageSource="/Images/appbar.add.png"/>
-            				</Button.Background>
-            			</Button>
-            		</Grid>
             	</Grid>
             </controls:PanoramaItem>
 
@@ -372,7 +344,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ScrollViewer Margin="0,0,0,57">
+                    <ScrollViewer Margin="0,0,0,72">
                         <StackPanel>
                             <TextBlock Text="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="pagesListBox" ItemsSource="{Binding Pages}"
@@ -397,24 +369,6 @@
                             </ListBox>
                         </StackPanel>
                     </ScrollViewer>
-                    <Grid Height="57" Grid.Row="1" VerticalAlignment="Bottom" Width="480" Margin="-12,0,-48,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Button Content="" BorderThickness="0" Margin="0,0,164,-7" VerticalAlignment="Bottom" Height="70" Click="OnRefreshPages" Grid.RowSpan="2" HorizontalAlignment="Right" Width="70">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/Images/appbar.refresh.png"/>
-                            </Button.Background>
-                        </Button>
-                        <Button Content="" BorderThickness="0" Margin="164,0,0,-7" VerticalAlignment="Bottom" Height="70" Click="OnCreatePageButtonClick" Grid.RowSpan="2" HorizontalAlignment="Left" Width="70">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/Images/appbar.add.png"/>
-                            </Button.Background>
-                        </Button>
-
-                    </Grid>
-
                 </Grid>
             </controls:PanoramaItem>
 
