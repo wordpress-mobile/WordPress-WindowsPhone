@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:WordPress"
@@ -150,41 +151,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <system:Double x:Key="loadingContentOpacityMax">0.9</system:Double>
-        <system:Double x:Key="loadingContentOpacityMin">0.0</system:Double>
-        <system:Double x:Key="loadingContentStackPanelHeight">80</system:Double>
-
-        <Storyboard x:Name="fadeOutLoadingContentStoryboard">
-            <DoubleAnimation x:Name="fadeOutOpacityDoubleAnimation"
-                             Duration="0:0:0.5"
-                             Storyboard.TargetName="loadingContentStackPanel"
-                             Storyboard.TargetProperty="Opacity"
-                             From="{StaticResource loadingContentOpacityMax}"
-                             To="{StaticResource loadingContentOpacityMin}"/>
-            <DoubleAnimation x:Name="fadeOutHeightDoubleAnimation" 
-                             Duration="0:0:0.5"
-                             Storyboard.TargetName="loadingContentStackPanel"
-                             Storyboard.TargetProperty="Height"
-                             From="{StaticResource loadingContentStackPanelHeight}"
-                             To="0"/>
-        </Storyboard>
-        <Storyboard x:Name="fadeInLoadingContentStoryboard">
-            <DoubleAnimation Duration="0:0:0.5"
-                             Storyboard.TargetName="loadingContentStackPanel"
-                             Storyboard.TargetProperty="Opacity"
-                             From="{StaticResource loadingContentOpacityMin}"
-                             To="{StaticResource loadingContentOpacityMax}"/>
-            <DoubleAnimation Duration="0:0:0.5"
-                             Storyboard.TargetName="loadingContentStackPanel"
-                             Storyboard.TargetProperty="Height"
-                             From="0"
-                             To="{StaticResource loadingContentStackPanelHeight}"/>
-        </Storyboard>
-
-
-
-
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -620,8 +586,8 @@
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
-        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Opacity="{StaticResource loadingContentOpacityMin}" Canvas.ZIndex="1000" Margin="0,101,0,0">
-            <ProgressBar Height="30" IsIndeterminate="True"/>
+        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,101,0,0">
+            <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="{Binding CurrentBlog.IsLoadingContent, Converter={StaticResource LoadingContentConverter}}" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
         </StackPanel>
     </Grid>
 

@@ -729,56 +729,11 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            //determine if the current blog is loading content.  If so we need to show the indicator
-            Blog currentBlog = App.MasterViewModel.CurrentBlog;
-            
-            double opacity = 0.0;
-            double height = 0.0;
-            if (currentBlog.IsLoadingContent)
-            {
-                opacity = (double)Resources["loadingContentOpacityMax"];
-                height = (double)Resources["loadingContentStackPanelHeight"];
-            }
-            loadingContentStackPanel.Opacity = opacity;
-            loadingContentStackPanel.Height = height;
-
-            //listen for the changes to the IsLoadingContent property
-            currentBlog.PropertyChanged += OnCurrentBlogPropertyChanged;
-        }
-
-        private void OnCurrentBlogPropertyChanged(object sender, PropertyChangedEventArgs args)
-        {
-            if (args.PropertyName.Equals("IsLoadingContent"))
-            {
-                Blog currentBlog = App.MasterViewModel.CurrentBlog;
-                if (currentBlog.IsLoadingContent)
-                {
-                    fadeInLoadingContentStoryboard.Begin();
-                }
-                else
-                {
-                    //stop the fade in animation and capture the current values for 
-                    //height and opacity.  This prevents choppyness in the animation
-                    //if you're running on a fast device/emulator
-                    fadeInLoadingContentStoryboard.Stop();
-                    fadeOutHeightDoubleAnimation.From = loadingContentStackPanel.DesiredSize.Height;
-                    fadeOutOpacityDoubleAnimation.From = loadingContentStackPanel.Opacity;
-                    fadeOutLoadingContentStoryboard.Begin();
-                }
-            }
-        }
-
         protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
 
             DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
-
-            App.MasterViewModel.CurrentBlog.PropertyChanged -= OnCurrentBlogPropertyChanged;
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
