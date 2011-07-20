@@ -109,6 +109,9 @@
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
+    <Compile Include="ReaderBrowserPage.xaml.cs">
+      <DependentUpon>ReaderBrowserPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ReaderBrowserPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ErrorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -283,9 +290,10 @@
     </Content>
     <Content Include="Images\appbar.add.png" />
     <Content Include="Images\appbar.approve.png" />
+    <Content Include="Images\appbar.back.png" />
     <Content Include="Images\appbar.cancel.png" />
-    <Content Include="Images\appbar.delete.png" />
     <Content Include="Images\appbar.edit.png" />
+    <Content Include="Images\appbar.reader.png" />
     <Content Include="Images\appbar.settings.png" />
     <Content Include="Images\appbar.refresh.png" />
     <Content Include="Images\appbar.save.png" />

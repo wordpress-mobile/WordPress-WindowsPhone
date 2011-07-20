@@ -131,6 +131,8 @@ namespace WordPress.Localization
             public string BlogSettings { get { return LocalizedResources.ControlText_BlogSettings; } }
             public string AddBlog { get { return LocalizedResources.ControlText_AddBlog; } }
             public string Preferences { get { return LocalizedResources.ControlText_Preferences; } }
+            public string Reader { get { return LocalizedResources.ControlText_Reader; } }
+            public string Back { get { return LocalizedResources.ControlText_Back; } }
             public string SelectedCategories { get { return LocalizedResources.ControlText_SelectedCategories; } }
             public string CategoryName { get { return LocalizedResources.ControlText_CategoryName; } }
             public string CategorySlug { get { return LocalizedResources.ControlText_CategorySlug; } }

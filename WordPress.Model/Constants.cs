@@ -3,6 +3,8 @@
     public class Constants
     {
         public const string WORDPRESS_XMLRPC_URL = "https://wordpress.com/xmlrpc.php";
+        public const string WORDPRESS_LOGIN_URL = "http://wordpress.com/wp-login.php";
+        public const string WORDPRESS_READER_URL = "http://wordpress.com/reader/mobile/";
         public const string WORDPRESS_APIKEY_URL = "https://public-api.wordpress.com/get-user-blogs/1.0";
         public const string WORDPRESS_SIGNUP_URL = "http://wordpress.com/signup";
         public const string WORDPRESS_FORUMS_URL = "http://windowsphone.forums.wordpress.org/";

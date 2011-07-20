@@ -17,6 +17,7 @@ namespace WordPress
 
         private ApplicationBarIconButton _addBlogIconButton;
         private ApplicationBarIconButton _preferencesIconButton;
+        private ApplicationBarIconButton _readerIconButton;
 
         private StringTable _localizedStrings;
 
@@ -49,6 +50,25 @@ namespace WordPress
             ApplicationBarMenuItem deleteBlogMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.DeleteBlog);
             deleteBlogMenuItem.Click += OnDeleteBlogMenuItemClick;
             ApplicationBar.MenuItems.Add(deleteBlogMenuItem);
+
+            //check is there is a WP.COM blog
+            List<Blog> blogs = DataService.Current.Blogs.ToList();
+            bool presence = false;
+            foreach (Blog currentBlog in blogs)
+            {
+                if (currentBlog.Xmlrpc.EndsWith("wordpress.com/xmlrpc.php"))
+                {
+                    presence = true;
+                    break;
+                }
+            }
+            if (presence)
+            {
+                _readerIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.reader.png", UriKind.Relative));
+                _readerIconButton.Text = _localizedStrings.ControlsText.Reader;
+                _readerIconButton.Click += OnReaderIconButtonClick;
+              //  ApplicationBar.Buttons.Add(_readerIconButton);
+            }
         }
 
         #endregion
@@ -76,6 +96,13 @@ namespace WordPress
         private void OnPreferencesIconButtonClick(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/PreferencesPage.xaml", UriKind.Relative));
+        }
+
+        private void OnReaderIconButtonClick(object sender, EventArgs e)
+        {
+            string queryStringFormat = "?{0}={1}";
+            string queryString = string.Format(queryStringFormat, ReaderBrowserPage.READER, "GoMobileTeam!");
+            NavigationService.Navigate(new Uri("/ReaderBrowserPage.xaml" + queryString, UriKind.Relative));
         }
 
         private void OnDeleteBlogMenuItemClick(object sender, EventArgs e)

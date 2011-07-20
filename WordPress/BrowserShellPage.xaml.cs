@@ -8,6 +8,10 @@ using System.IO;
 using WordPress.Model;
 using System.Text;
 using WordPress.Utils;
+using System.Collections.Generic;
+
+using System.Linq;
+
 
 namespace WordPress
 {
@@ -16,10 +20,10 @@ namespace WordPress
         #region member variables
 
         public const string URIKEYNAME = "uri";
-         public const string ITEM_PERMALINK = "permaLink";
+        public const string ITEM_PERMALINK = "permaLink";
 
         private StringTable _localizedStrings;
-        private string _uriString; //one between _uriString and _itemPermaLink must be available
+        private string _uriString; //one between _uriString / _itemPermaLink must be available
         public static string _itemPermaLink;
 
         #endregion
@@ -37,11 +41,30 @@ namespace WordPress
 
         #endregion
 
+        #region browser_methods
+        //The WebBrowser class events are raised in the following order: Navigating, Navigated, and LoadCompleted.
+
+        private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(_uriString) || !string.IsNullOrEmpty(_itemPermaLink))
+            {
+                progressBar.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void OnLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            progressBar.Visibility = Visibility.Collapsed;
+        }
+
+        #endregion
+
+
         #region methods
 
         private void OnPageLoaded(object sender, EventArgs args)
         {
-            
+
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -70,24 +93,11 @@ namespace WordPress
 
             if (!string.IsNullOrEmpty(_uriString))
                 browser.Navigate(new Uri(_uriString, UriKind.Absolute));
-            else if (!string.IsNullOrEmpty(_itemPermaLink))
+            else if (!string.IsNullOrEmpty(_itemPermaLink)) //preview of posts
             {
                 progressBar.Visibility = Visibility.Visible;
                 this.startLoadingPostUsingLoginForm();
             }
-        }
-
-        private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(_uriString) || !string.IsNullOrEmpty(_itemPermaLink) )
-            {
-                progressBar.Visibility = Visibility.Visible;
-            }
-        }
-
-        private void OnLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
-            progressBar.Visibility = Visibility.Collapsed;
         }
         
         private void startLoadingPostUsingLoginForm() {
@@ -158,7 +168,6 @@ namespace WordPress
                 this.HandleException(new Exception("Something went wrong during Preview", ex));
             }
         }
-
         #endregion
     }
 }

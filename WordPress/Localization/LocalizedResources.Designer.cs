@@ -205,6 +205,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to back.
+        /// </summary>
+        internal static string ControlText_Back {
+            get {
+                return ResourceManager.GetString("ControlText_Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to below text.
         /// </summary>
         internal static string ControlText_BelowText {
@@ -673,6 +682,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reader.
+        /// </summary>
+        internal static string ControlText_Reader {
+            get {
+                return ResourceManager.GetString("ControlText_Reader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Referrers.
         /// </summary>
         internal static string ControlText_Referrers {
@@ -912,10 +930,11 @@ namespace WordPress.Localization {
         ///
         ///&lt;head&gt;
         ///&lt;meta content=&quot;text/html; charset=utf-8&quot; http-equiv=&quot;Content-Type&quot; /&gt;
+        ///&lt;meta name=&quot;viewport&quot; content=&quot;width=400, user-scalable=no&quot;/&gt;
         ///&lt;title&gt;Untitled 1&lt;/title&gt;
         ///&lt;/head&gt;
         ///
-        ///&lt;body style=&quot;color: #FFFFFF; background-color: #000000; font-size:45px&quot;&gt;
+        ///&lt;body style=&quot;color: #FFFFFF; background-color: #000000;&quot;&gt;
         ///&lt;p&gt;
         ///GNU GENERAL PUBLIC LICENSE
         ///&lt;/p&gt;
@@ -923,10 +942,7 @@ namespace WordPress.Localization {
         ///Version 2, June 1991
         ///&lt;/p&gt;
         ///&lt;p&gt;
-        ///Copyright (C) 1989, 1991 Free Software Foundation, Inc.
-        ///&lt;/p&gt;
-        ///&lt;p&gt;
-        ///675 Ma [rest of string was truncated]&quot;;.
+        ///Copyright (C) 1989, 1991 F [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Eula {
             get {
