@@ -16,7 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>de-DE;sv-SE;it-IT;fr-FR;es-ES;</SupportedCultures>
+    <SupportedCultures>sv-SE;it-IT;fr-FR;es-ES;</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>WordPress.xap</XapFilename>
@@ -117,11 +117,6 @@
     </Compile>
     <Compile Include="EulaControl.xaml.cs">
       <DependentUpon>EulaControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Localization\LocalizedResources.de-DE.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LocalizedResources.de-DE.resx</DependentUpon>
     </Compile>
     <Compile Include="PullDownToRefreshPanel.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
@@ -335,10 +330,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizedResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Localization\LocalizedResources.de-DE.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LocalizedResources.de-DE.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
