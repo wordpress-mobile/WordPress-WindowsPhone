@@ -16,7 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>sv-SE;it-IT;fr-FR;es-ES;</SupportedCultures>
+    <SupportedCultures>de-DE;sv-SE;it-IT;fr-FR;es-ES;</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>WordPress.xap</XapFilename>
@@ -323,6 +323,7 @@
     <Resource Include="Images\panoramaStats.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Localization\LocalizedResources.de-DE.resx" />
     <EmbeddedResource Include="Localization\LocalizedResources.es-ES.resx" />
     <EmbeddedResource Include="Localization\LocalizedResources.fr-FR.resx" />
     <EmbeddedResource Include="Localization\LocalizedResources.it-IT.resx" />
