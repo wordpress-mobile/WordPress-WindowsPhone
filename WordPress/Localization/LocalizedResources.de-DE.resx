@@ -162,12 +162,6 @@
   <data name="Prompts_MediaErrorContent" xml:space="preserve">
     <value>Entschuldige, ein Fehler ist während des Medienuploads aufgetreten. Möchtest du den Beitrag trotzdem hochladen?</value>
   </data>
-  <data name="Prompts_SupportEmailSubject" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompts_SupportEmailBody" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlText_InsertLink" xml:space="preserve">
     <value>Link einfügen</value>
   </data>

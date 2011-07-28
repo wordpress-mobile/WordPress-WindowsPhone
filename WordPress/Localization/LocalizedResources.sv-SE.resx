@@ -1,0 +1,665 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+		Microsoft ResX Schema
+
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Messages_Hello" xml:space="preserve">
+		<value>Hallå</value>
+	</data>
+	<data name="ControlText_SaveDraft" xml:space="preserve">
+		<value>spara utkast</value>
+	</data>
+	<data name="ControlText_LoadingContent" xml:space="preserve">
+		<value>laddar innehåll</value>
+	</data>
+	<data name="ControlText_FAQ" xml:space="preserve">
+		<value>Besök FAQ</value>
+	</data>
+	<data name="ControlText_EMail" xml:space="preserve">
+		<value>Skicka e-post till supporten</value>
+	</data>
+	<data name="ControlText_Forums" xml:space="preserve">
+		<value>Besök forum</value>
+	</data>
+	<data name="Prompts_MediaError" xml:space="preserve">
+		<value>Uppladdningsfel</value>
+	</data>
+	<data name="Prompts_MediaErrorContent" xml:space="preserve">
+		<value>Tyvärr uppstod ett fel vid uppladdning av media. Vill du ändå ladda upp inlägget?</value>
+	</data>
+	<data name="Prompts_SupportEmailSubject" xml:space="preserve">
+		<value>WordPress för Windows Phone Supportförfrågan</value>
+	</data>
+	<data name="Prompts_SupportEmailBody" xml:space="preserve">
+		<value>Ange webbadressen till din blogg och detaljerna i felmeddelandet</value>
+	</data>
+	<data name="ControlText_InsertLink" xml:space="preserve">
+		<value>infoga länk</value>
+	</data>
+	<data name="ControlText_EnterURL" xml:space="preserve">
+		<value>Skriv in adressen för länken som du vill infoga.</value>
+	</data>
+	<data name="Prompts_SureCancel" xml:space="preserve">
+		<value>Är du säker på att du vill avbryta redigeringen av denna {0}?</value>
+	</data>
+	<data name="Prompts_Post" xml:space="preserve">
+		<value>inlägg</value>
+	</data>
+	<data name="Prompts_Page" xml:space="preserve">
+		<value>sida</value>
+	</data>
+	<data name="Prompts_CancelEditing" xml:space="preserve">
+		<value>Avbryt redigering</value>
+	</data>
+	<data name="ControlText_DefaultTagLine" xml:space="preserve">
+		<value>Publicerad från WordPress för Windows Phone</value>
+	</data>
+	<data name="ControlText_EnterLinkText" xml:space="preserve">
+		<value>[valfritt] skriv in texten som ska visas för länken</value>
+	</data>
+	<data name="ControlText_Username" xml:space="preserve">
+		<value>användarnamn</value>
+	</data>
+	<data name="Title_Approve" xml:space="preserve">
+		<value>GODKÄND</value>
+	</data>
+	<data name="Title_Unapprove" xml:space="preserve">
+		<value>FÖRKASTAD</value>
+	</data>
+	<data name="ControlText_Apikey" xml:space="preserve">
+		<value>api-nyckel</value>
+	</data>
+	<data name="Prompts_MissingApikey" xml:space="preserve">
+		<value>Den nuvarande bloggen har ingen api-nyckel. Ange en på sidan Inställningar.</value>
+	</data>
+	<data name="Options_StatisticType_Views" xml:space="preserve">
+		<value>Visningar</value>
+	</data>
+	<data name="ControlText_Clicks" xml:space="preserve">
+		<value>Klick</value>
+	</data>
+	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
+		<value>Senaste veckan</value>
+	</data>
+	<data name="ControlText_Underline" xml:space="preserve">
+		<value>U</value>
+	</data>
+	<data name="ControlText_Status" xml:space="preserve">
+		<value>status</value>
+	</data>
+	<data name="ControlText_StrikeThrough" xml:space="preserve">
+		<value>ABC</value>
+	</data>
+	<data name="ControlText_TagsAndCategories" xml:space="preserve">
+		<value>etiketter &amp; kategorier</value>
+	</data>
+	<data name="ControlText_Unapprove" xml:space="preserve">
+		<value>förkasta</value>
+	</data>
+	<data name="ControlText_Preferences" xml:space="preserve">
+		<value>alternativ</value>
+	</data>
+	<data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
+		<value>Börja blogga från Windows Phone 7 på sekunder</value>
+	</data>
+	<data name="ControlText_Spam" xml:space="preserve">
+		<value>skräppost</value>
+	</data>
+	<data name="ControlText_SearchTerms" xml:space="preserve">
+		<value>Söktermer</value>
+	</data>
+	<data name="Message_CheckTheUrl" xml:space="preserve">
+		<value>Det kan finnas ett problem med webbadressen som angavs. Börjar urlen med http:// eller var xmlrpc.php inte med i slutet? Standardinställningen för WordPress.com webbplatsen är till exempel https://wordpress.com/xmlrpc.php.</value>
+	</data>
+	<data name="ControlText_Decline" xml:space="preserve">
+		<value>Avböj</value>
+	</data>
+	<data name="Prompts_SelectStatisticType" xml:space="preserve">
+		<value>Vilken statistik vill du ha data för?</value>
+	</data>
+	<data name="Messages_NoStatsAvailable" xml:space="preserve">
+		<value>Ingen statistik tillgänglig för den aktuella frågan.</value>
+	</data>
+	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
+		<value>Senaste året</value>
+	</data>
+	<data name="ControlText_Title" xml:space="preserve">
+		<value>titel</value>
+	</data>
+	<data name="ControlText_Content" xml:space="preserve">
+		<value>innehåll</value>
+	</data>
+	<data name="ControlText_Views" xml:space="preserve">
+		<value>Visningar</value>
+	</data>
+	<data name="Title_NewPage" xml:space="preserve">
+		<value>ny sida</value>
+	</data>
+	<data name="ControlText_AddAll" xml:space="preserve">
+		<value>lägg till alla</value>
+	</data>
+	<data name="ControlText_AddSelected" xml:space="preserve">
+		<value>lägg till vald</value>
+	</data>
+	<data name="ControlText_SelectBlogs" xml:space="preserve">
+		<value>Välj blogg eller bloggar du vill importera.</value>
+	</data>
+	<data name="ControlText_None" xml:space="preserve">
+		<value>[ingen]</value>
+	</data>
+	<data name="ControlText_PostContent" xml:space="preserve">
+		<value>textinnehåll</value>
+	</data>
+	<data name="Messages_ApprovingComment" xml:space="preserve">
+		<value>godkänner kommentar...</value>
+	</data>
+	<data name="ControlText_Vibrate" xml:space="preserve">
+		<value>vibrera</value>
+	</data>
+	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
+		<value>OS</value>
+	</data>
+	<data name="Title_NewPost" xml:space="preserve">
+		<value>nytt inlägg</value>
+	</data>
+	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
+		<value>Välj storlek för miniatyrbild.</value>
+	</data>
+	<data name="ControlText_Accept" xml:space="preserve">
+		<value>Acceptera</value>
+	</data>
+	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
+		<value>markerar kommentarer som skräppost...</value>
+	</data>
+	<data name="Messages_MarkingAsSpam" xml:space="preserve">
+		<value>markerar kommentar som skräppost...</value>
+	</data>
+	<data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
+		<value>Hur mycket data skulle du vilja se?</value>
+	</data>
+	<data name="Title_Pages" xml:space="preserve">
+		<value>sidor</value>
+	</data>
+	<data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
+		<value>skapa länk till fullständig bild</value>
+	</data>
+	<data name="ControlText_UpdateInterval" xml:space="preserve">
+		<value>uppdateringsintervall</value>
+	</data>
+	<data name="Title_CheckTheUrl" xml:space="preserve">
+		<value>Är webbadressen giltig?</value>
+	</data>
+	<data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
+		<value>Är du säker på att du vill ta bort sidan '{0}'?</value>
+	</data>
+	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
+		<value>Är du säker på att du vill ta bort inlägget '{0}'?</value>
+	</data>
+	<data name="Title_ConfirmDelete" xml:space="preserve">
+		<value>Bekräfta radering</value>
+	</data>
+	<data name="ControlText_DeleteBlog" xml:space="preserve">
+		<value>radera blogg</value>
+	</data>
+	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
+		<value>Välj bloggen som du vill radera.</value>
+	</data>
+	<data name="ControlText_Clear" xml:space="preserve">
+		<value>rensa</value>
+	</data>
+	<data name="Messages_UploadingMedia" xml:space="preserve">
+		<value>laddar upp media ...</value>
+	</data>
+	<data name="ControlText_OriginalSize" xml:space="preserve">
+		<value>originalstorlek</value>
+	</data>
+	<data name="ControlText_CategorySlug" xml:space="preserve">
+		<value>permalänk för kategori (valfritt)</value>
+	</data>
+	<data name="Title_Preferences" xml:space="preserve">
+		<value>alternativ</value>
+	</data>
+	<data name="ControlText_UploadChanges" xml:space="preserve">
+		<value>ladda upp ändringar</value>
+	</data>
+	<data name="Messages_MissingReply" xml:space="preserve">
+		<value>Ange ett svar.</value>
+	</data>
+	<data name="Title_ModerateComments" xml:space="preserve">
+		<value>moderera kommentarer</value>
+	</data>
+	<data name="Message_DownloadingStatistics" xml:space="preserve">
+		<value>hämtar statistik...</value>
+	</data>
+	<data name="ControlText_PlayNotificationSound" xml:space="preserve">
+		<value>spela meddelaneljud</value>
+	</data>
+	<data name="ControlText_PlaceImage" xml:space="preserve">
+		<value>infoga bild</value>
+	</data>
+	<data name="ControlText_PageContent" xml:space="preserve">
+		<value>sidinnehåll</value>
+	</data>
+	<data name="Options_StatisticType_Clicks" xml:space="preserve">
+		<value>Klick</value>
+	</data>
+	<data name="ControlText_Publish" xml:space="preserve">
+		<value>publicera</value>
+	</data>
+	<data name="ControlText_Save" xml:space="preserve">
+		<value>spara</value>
+	</data>
+	<data name="ControlText_StartNewBlog" xml:space="preserve">
+		<value>Starta en ny blogg på WordPress.com</value>
+	</data>
+	<data name="ControlText_Referrers" xml:space="preserve">
+		<value>Alternativ</value>
+	</data>
+	<data name="ControlText_PostTitle" xml:space="preserve">
+		<value>Inläggsrubrik</value>
+	</data>
+	<data name="ControlText_Date" xml:space="preserve">
+		<value>Datum</value>
+	</data>
+	<data name="ControlText_CategoryName" xml:space="preserve">
+		<value>kategorinamn</value>
+	</data>
+	<data name="ControlText_CategoryParent" xml:space="preserve">
+		<value>moderkategori (valfritt)</value>
+	</data>
+	<data name="ControlText_Refresh" xml:space="preserve">
+		<value>uppdatera</value>
+	</data>
+	<data name="Prompts_MissingUserName" xml:space="preserve">
+		<value>Ange ett användarnamn.</value>
+	</data>
+	<data name="Prompts_MissingUrl" xml:space="preserve">
+		<value>Ange en giltig webbadress.</value>
+	</data>
+	<data name="ControlText_Password" xml:space="preserve">
+		<value>lösenord</value>
+	</data>
+	<data name="ControlText_ModerateComments" xml:space="preserve">
+		<value>moderera kommentarer</value>
+	</data>
+	<data name="ControlText_NeedBlog" xml:space="preserve">
+		<value>har du ingen blogg än?</value>
+	</data>
+	<data name="Prompts_RefreshEntity" xml:space="preserve">
+		<value>Vad vill du uppdatera?</value>
+	</data>
+	<data name="ControlText_PostSignature" xml:space="preserve">
+		<value>inläggssignatur</value>
+	</data>
+	<data name="ControlText_Write" xml:space="preserve">
+		<value>skapa ett inlägg</value>
+	</data>
+	<data name="ControlText_EULA" xml:space="preserve">
+		<value>Användarvillkor</value>
+	</data>
+	<data name="ControlText_SelectedCategories" xml:space="preserve">
+		<value>valda kategorier</value>
+	</data>
+	<data name="ControlText_CategoryDescription" xml:space="preserve">
+		<value>beskrivning för kategori (valfritt)</value>
+	</data>
+	<data name="Title_Posts" xml:space="preserve">
+		<value>inlägg</value>
+	</data>
+	<data name="Options_StatisticType_PostViews" xml:space="preserve">
+		<value>Inläggsvisningar</value>
+	</data>
+	<data name="Options_StatisticType_Referrers" xml:space="preserve">
+		<value>Hänvisningar</value>
+	</data>
+	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
+		<value>Söktermer</value>
+	</data>
+	<data name="ControlText_Location" xml:space="preserve">
+		<value>plats</value>
+	</data>
+	<data name="ControlText_CommentNotifications" xml:space="preserve">
+		<value>notifikationer för kommentarer</value>
+	</data>
+	<data name="ControlText_Edit" xml:space="preserve">
+		<value>redigera</value>
+	</data>
+	<data name="ControlText_GeoTagPosts" xml:space="preserve">
+		<value>geotagga inlägg</value>
+	</data>
+	<data name="ControlText_Media" xml:space="preserve">
+		<value>media</value>
+	</data>
+	<data name="ControlText_SelectCategories" xml:space="preserve">
+		<value>välj kategorier</value>
+	</data>
+	<data name="Messages_LoggingIn" xml:space="preserve">
+		<value>loggar in...</value>
+	</data>
+	<data name="Messages_ApprovingComments" xml:space="preserve">
+		<value>godkänner kommentarer...</value>
+	</data>
+	<data name="Messages_DeletingComment" xml:space="preserve">
+		<value>raderar kommentar...</value>
+	</data>
+	<data name="Messages_DeletingComments" xml:space="preserve">
+		<value>raderar kommentarer...</value>
+	</data>
+	<data name="Prompts_MissingPassword" xml:space="preserve">
+		<value>Ange ett lösenord.</value>
+	</data>
+	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
+		<value>inlägg</value>
+	</data>
+	<data name="Options_RefreshEntity_Everything" xml:space="preserve">
+		<value>allt</value>
+	</data>
+	<data name="Options_RefreshEntity_Pages" xml:space="preserve">
+		<value>sidor</value>
+	</data>
+	<data name="Messages_ReplyingToComment" xml:space="preserve">
+		<value>svarar på kommentar...</value>
+	</data>
+	<data name="Messages_RetrievingComments" xml:space="preserve">
+		<value>hämtar kommentarer...</value>
+	</data>
+	<data name="Messages_RetrievingEverything" xml:space="preserve">
+		<value>hämtar allt...</value>
+	</data>
+	<data name="Messages_UploadingChanges" xml:space="preserve">
+		<value>laddar upp ändringar...</value>
+	</data>
+	<data name="Messages_UnapprovingComments" xml:space="preserve">
+		<value>förkastar kommentarer...</value>
+	</data>
+	<data name="Messages_UnapprovingComment" xml:space="preserve">
+		<value>förkastar kommentar...</value>
+	</data>
+	<data name="Messages_RetrievingPosts" xml:space="preserve">
+		<value>hämtar inlägg ...</value>
+	</data>
+	<data name="Messages_RetrievingPost" xml:space="preserve">
+		<value>hämtar inlägg...</value>
+	</data>
+	<data name="Options_RefreshEntity_Comments" xml:space="preserve">
+		<value>kommentarer</value>
+	</data>
+	<data name="Options_PostActions_ViewPost" xml:space="preserve">
+		<value>visa inlägg</value>
+	</data>
+	<data name="Options_PostActions_ViewComments" xml:space="preserve">
+		<value>visa kommentarer</value>
+	</data>
+	<data name="Options_PostActions_EditPost" xml:space="preserve">
+		<value>redigera inlägg</value>
+	</data>
+	<data name="Options_PostActions_DeletePost" xml:space="preserve">
+		<value>radera inlägg</value>
+	</data>
+	<data name="Options_PageActions_ViewPage" xml:space="preserve">
+		<value>visa sida</value>
+	</data>
+	<data name="Options_PageActions_ViewComments" xml:space="preserve">
+		<value>visa kommentarer</value>
+	</data>
+	<data name="Options_PageActions_EditPage" xml:space="preserve">
+		<value>redigera sida</value>
+	</data>
+	<data name="Options_PageActions_DeletePage" xml:space="preserve">
+		<value>radera sida</value>
+	</data>
+	<data name="Title_ModerateComment" xml:space="preserve">
+		<value>moderera kommentar</value>
+	</data>
+	<data name="Title_EditPost" xml:space="preserve">
+		<value>redigera inlägg</value>
+	</data>
+	<data name="Title_EditPage" xml:space="preserve">
+		<value>redigera sida</value>
+	</data>
+	<data name="Title_Comments" xml:space="preserve">
+		<value>kommentarer</value>
+	</data>
+	<data name="Title_Blogs" xml:space="preserve">
+		<value>bloggar</value>
+	</data>
+	<data name="Title_All" xml:space="preserve">
+		<value>ALLA</value>
+	</data>
+	<data name="Title_AddAccount" xml:space="preserve">
+		<value>lägg till konto</value>
+	</data>
+	<data name="Title_Actions" xml:space="preserve">
+		<value>åtgärder</value>
+	</data>
+	<data name="Prompt_PostActions" xml:space="preserve">
+		<value>Åtgärder för inlägg</value>
+	</data>
+	<data name="Prompt_PageActions" xml:space="preserve">
+		<value>Åtgärder för sida</value>
+	</data>
+	<data name="Title_SelectCategories" xml:space="preserve">
+		<value>välj kategorier</value>
+	</data>
+	<data name="Messages_DeletingPost" xml:space="preserve">
+		<value>raderar inlägget...</value>
+	</data>
+	<data name="Title_Stats" xml:space="preserve">
+		<value>statistik</value>
+	</data>
+	<data name="Title_Spam" xml:space="preserve">
+		<value>SKRÄPPOST</value>
+	</data>
+	<data name="Messages_DeletingPage" xml:space="preserve">
+		<value>raderar sida...</value>
+	</data>
+	<data name="Title_Settings" xml:space="preserve">
+		<value>inställningar</value>
+	</data>
+	<data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
+		<value>Senaste kvartalet</value>
+	</data>
+	<data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
+		<value>Senaste månaden</value>
+	</data>
+	<data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
+		<value>Sedan start</value>
+	</data>
+	<data name="Messages_Loading" xml:space="preserve">
+		<value>laddar...</value>
+	</data>
+	<data name="Messages_AcquiringPermalink" xml:space="preserve">
+		<value>efterfrågar permalänk...</value>
+	</data>
+	<data name="Messages_RetrievingPage" xml:space="preserve">
+		<value>hämtar sida...</value>
+	</data>
+	<data name="Messages_CreatingNewCategory" xml:space="preserve">
+		<value>skapar ny kategori...</value>
+	</data>
+	<data name="Prompts_MissingCategoryName" xml:space="preserve">
+		<value>Ange ett kategorinamn.</value>
+	</data>
+	<data name="Prompts_SelectCategory" xml:space="preserve">
+		<value>Välj en kategori.</value>
+	</data>
+	<data name="Title_AddNewCategory" xml:space="preserve">
+		<value>ny kategori</value>
+	</data>
+	<data name="Messages_RetrievingCategories" xml:space="preserve">
+		<value>hämtar kategorier...</value>
+	</data>
+	<data name="Messages_RetrievingPages" xml:space="preserve">
+		<value>hämtar sidor...</value>
+	</data>
+	<data name="ControlText_Reply" xml:space="preserve">
+		<value>svara</value>
+	</data>
+	<data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
+		<value>maximal miniatyrbredd i pixlar</value>
+	</data>
+	<data name="ControlText_Italic" xml:space="preserve">
+		<value>K</value>
+	</data>
+	<data name="ControlText_Link" xml:space="preserve">
+		<value>länk</value>
+	</data>
+	<data name="ControlText_GetBlog" xml:space="preserve">
+		<value>Skaffa en gratis blogg på WordPress.com</value>
+	</data>
+	<data name="ControlText_BlogSettings" xml:space="preserve">
+		<value>blogginställningar</value>
+	</data>
+	<data name="ControlText_BlogUrl" xml:space="preserve">
+		<value>bloggurl</value>
+	</data>
+	<data name="ControlText_Bold" xml:space="preserve">
+		<value>F</value>
+	</data>
+	<data name="ControlText_Cancel" xml:space="preserve">
+		<value>avbryt</value>
+	</data>
+	<data name="ControlText_Delete" xml:space="preserve">
+		<value>radera</value>
+	</data>
+	<data name="ControlText_BlinkNotificationLight" xml:space="preserve">
+		<value>Blinka notifikationslampa</value>
+	</data>
+	<data name="ControlText_BlockQuote" xml:space="preserve">
+		<value>b-quote</value>
+	</data>
+	<data name="ControlText_BelowText" xml:space="preserve">
+		<value>under text</value>
+	</data>
+	<data name="ControlText_Approve" xml:space="preserve">
+		<value>godkänn</value>
+	</data>
+	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
+		<value>centrera miniatyr</value>
+	</data>
+	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
+		<value>Lägg till en signatur för nya inlägg</value>
+	</data>
+	<data name="ControlText_AddMedia" xml:space="preserve">
+		<value>lägg till</value>
+	</data>
+	<data name="ApplicationTitle" xml:space="preserve">
+		<value>WordPress</value>
+	</data>
+	<data name="ControlText_AboveText" xml:space="preserve">
+		<value>ovanför texten</value>
+	</data>
+	<data name="ControlText_AccountDetails" xml:space="preserve">
+		<value>kontouppgifter</value>
+	</data>
+	<data name="ControlText_Add" xml:space="preserve">
+		<value>lägg till ny</value>
+	</data>
+	<data name="ControlText_AddAPage" xml:space="preserve">
+		<value>Lägg till en sida</value>
+	</data>
+	<data name="ControlText_AddExistingWPBlog" xml:space="preserve">
+		<value>Lägg till en blogg på WordPress.com</value>
+	</data>
+	<data name="ControlText_AddExistingSite" xml:space="preserve">
+		<value>Lägg till egen WordPress blogg</value>
+	</data>
+	<data name="ControlText_AddBlog" xml:space="preserve">
+		<value>lägg till blogg</value>
+	</data>
+</root>
