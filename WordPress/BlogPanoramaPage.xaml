@@ -263,7 +263,7 @@
                    		<TextBlock Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,25" Height="92" />                     
                    		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3" ItemsSource="{Binding Comments}"
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
-                             ItemContainerStyle="{StaticResource CommentListItemStyle}" Background="{StaticResource PhoneBackgroundBrush}" Margin="5,0,12,65" 
+                             ItemContainerStyle="{StaticResource CommentListItemStyle}" Margin="5,0,12,65" 
                              ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
 				   </StackPanel>
                </ScrollViewer>

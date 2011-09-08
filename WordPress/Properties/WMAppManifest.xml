@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
   <App xmlns="" ProductID="{c5702e91-c6e6-4126-b561-8b65f31f65ee}" Title="WordPress" RuntimeType="Silverlight" Version="1.1.0.0" Genre="apps.normal" Author="WordPress author" Description="Sample description" Publisher="WordPress">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>

@@ -13,7 +13,7 @@
     <AssemblyName>WordPress</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>de-DE;it-IT;fr-FR;es-ES;</SupportedCultures>
@@ -287,6 +287,7 @@
     <Content Include="Images\appbar.approve.png" />
     <Content Include="Images\appbar.back.png" />
     <Content Include="Images\appbar.cancel.png" />
+    <Content Include="Images\appbar.delete.png" />
     <Content Include="Images\appbar.edit.png" />
     <Content Include="Images\appbar.reader.png" />
     <Content Include="Images\appbar.settings.png" />
