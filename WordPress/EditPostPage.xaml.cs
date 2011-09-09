@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
+using Microsoft.Xna.Framework.Media;
 
 using WordPress.Converters;
 using WordPress.Localization;
@@ -158,8 +159,10 @@ namespace WordPress
         private void LoadBlog()
         {
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            bool isSharingPhoto = (App.MasterViewModel.SharingPhotoToken != null);
             
-            if (null != App.MasterViewModel.CurrentPostListItem)
+            if (null != App.MasterViewModel.CurrentPostListItem && !isSharingPhoto)
             {
                 string postId = App.MasterViewModel.CurrentPostListItem.PostId;
 
@@ -174,6 +177,20 @@ namespace WordPress
                 Post post = new Post();
                 DataContext = post;
                 App.MasterViewModel.CurrentPost = post;
+
+                if (isSharingPhoto)
+                {
+                    MediaLibrary library = new MediaLibrary();
+                    Picture picture = library.GetPictureFromToken(App.MasterViewModel.SharingPhotoToken);
+                    AddNewMediaStream(picture.GetImage(), picture.Name);
+
+                    // clear the photo token so we don't try to add it to another post
+                    App.MasterViewModel.SharingPhotoToken = null;
+
+                    // blog selection page will be in the backstack, but if the user hits Back they should leave the app
+                    // and return to the photo that they were sharing (e.g., so they can share it on another service)
+                    NavigationService.RemoveBackEntry();
+                }
             }
         }
 
@@ -448,19 +465,23 @@ namespace WordPress
             if (TaskResult.OK != e.TaskResult) return;
 
             Stream chosenPhoto = e.ChosenPhoto;
+            AddNewMediaStream(chosenPhoto, e.OriginalFileName);
+        }
 
+        private void AddNewMediaStream(Stream bitmapStream, string originalFileName)
+        {
             //build out ui updates
-            BitmapImage image = BuildBitmap(chosenPhoto);            
+            BitmapImage image = BuildBitmap(bitmapStream);
             Image imageElement = BuildImageElement(image);
             imageWrapPanel.Children.Add(imageElement);
 
             //build out upload rpcs
-            int length = (int)chosenPhoto.Length;
-            chosenPhoto.Position = 0;
+            int length = (int)bitmapStream.Length;
+            bitmapStream.Position = 0;
             byte[] payload = new byte[length];
-            chosenPhoto.Read(payload, 0, length);
+            bitmapStream.Read(payload, 0, length);
 
-            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, e.OriginalFileName, payload, true);
+            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, originalFileName, payload, true);
             rpc.Completed += OnUploadMediaRPCCompleted;
 
             //store this for later--we'll upload the files once the user hits save

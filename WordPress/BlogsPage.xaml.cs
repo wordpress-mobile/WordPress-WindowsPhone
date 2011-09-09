@@ -82,7 +82,14 @@ namespace WordPress
 
             App.MasterViewModel.CurrentBlog = App.MasterViewModel.Blogs[index];
 
-            NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+            if (null != App.MasterViewModel.SharingPhotoToken)
+            {
+                NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+            }
 
             //reset selected index so we can re-select the original list item if we want to
             blogsListBox.SelectedIndex = -1;
@@ -151,6 +158,19 @@ namespace WordPress
                 return;
             }
             base.OnBackKeyPress(e);
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;
+
+            if (queryStrings.ContainsKey("FileId") && queryStrings.ContainsKey("Action") && queryStrings["Action"] == "ShareContent")
+            {
+                // sharing a photo
+                App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
+            }
         }
         #endregion
 

@@ -148,6 +148,20 @@ namespace WordPress
             }
         }
 
+        private string _sharingPhotoToken = null;
+        public string SharingPhotoToken
+        {
+            get { return _sharingPhotoToken; }
+            set
+            {
+                if (value != _sharingPhotoToken)
+                {
+                    _sharingPhotoToken = value;
+                    NotifyPropertyChanged("SharingPhotoToken");
+                }
+            }
+        }
+
         #endregion
 
         #region methods
