@@ -34,7 +34,7 @@ namespace WordPress.Commands
         {
             string url = parameter as string;
             WebBrowserTask task = new WebBrowserTask();
-            task.URL = url;
+            task.Uri = new Uri(url);
             task.Show();
         }
 

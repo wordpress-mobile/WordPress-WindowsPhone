@@ -351,7 +351,7 @@ namespace WordPress
         {
             Comment comment = DataContext as Comment;
             WebBrowserTask wbTask = new WebBrowserTask();
-            wbTask.URL = comment.AuthorUrl;
+            wbTask.Uri = new Uri(comment.AuthorUrl);
             wbTask.Show();
         }
 
