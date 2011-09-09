@@ -140,8 +140,14 @@ namespace WordPress.Model
                 {
                     _blogName = value;
                     NotifyPropertyChanged("BlogName");
+                    NotifyPropertyChanged("BlogNameLower");
                 }
             }
+        }
+
+        public string BlogNameLower
+        {
+            get { return _blogName.ToLower(); }
         }
 
         public string Xmlrpc

@@ -170,6 +170,8 @@ namespace WordPress.Localization
             public string SaveDraft { get { return LocalizedResources.ControlText_SaveDraft; } }
             public string PullDownToRefresh { get { return LocalizedResources.ControlText_PullDownToRefresh; } }
             public string ReleaseToRefresh { get { return LocalizedResources.ControlText_ReleaseToRefresh; } }
+            public string Pin { get { return LocalizedResources.ControlText_Pin; } }
+            public string Unpin { get { return LocalizedResources.ControlText_Unpin; } }
         }
 
         #endregion

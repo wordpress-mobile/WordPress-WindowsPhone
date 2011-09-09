@@ -745,4 +745,12 @@
   <data name="ControlText_Back" xml:space="preserve">
     <value>back</value>
   </data>
+  <data name="ControlText_Pin" xml:space="preserve">
+    <value>pin</value>
+    <comment>title for the 'pin' appbar icon</comment>
+  </data>
+  <data name="ControlText_Unpin" xml:space="preserve">
+    <value>unpin</value>
+    <comment>title for the 'unpin' appbar icon</comment>
+  </data>
 </root>

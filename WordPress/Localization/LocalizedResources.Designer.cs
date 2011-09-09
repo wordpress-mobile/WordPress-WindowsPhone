@@ -610,6 +610,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to pin.
+        /// </summary>
+        internal static string ControlText_Pin {
+            get {
+                return ResourceManager.GetString("ControlText_Pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to place image.
         /// </summary>
         internal static string ControlText_PlaceImage {
@@ -858,6 +867,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Underline {
             get {
                 return ResourceManager.GetString("ControlText_Underline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unpin.
+        /// </summary>
+        internal static string ControlText_Unpin {
+            get {
+                return ResourceManager.GetString("ControlText_Unpin", resourceCulture);
             }
         }
         

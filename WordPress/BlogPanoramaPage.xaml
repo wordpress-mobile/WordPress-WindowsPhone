@@ -162,7 +162,7 @@
             </controls:Panorama.Foreground>
             <controls:Panorama.Title>
                 <StackPanel Margin="0,50,0,0" >
-                        <TextBlock Margin="2,6,0,0" Foreground="White" FontSize="88" Text="blog title" x:Name="BlogTitle"  />
+                        <TextBlock Margin="2,6,0,0" Foreground="White" FontSize="88" x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameLower, Mode=OneWay}" />
                     </StackPanel>
             </controls:Panorama.Title>
             <controls:Panorama.Background>

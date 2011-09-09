@@ -146,7 +146,17 @@ namespace WordPress
             }
             if (null == blogToRemove) return;
 
+            int blogIndex = DataService.Current.Blogs.IndexOf(blogToRemove);
             DataService.Current.Blogs.Remove(blogToRemove);
+
+            // remove this blog's tile
+            ShellTile blogTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogIndex.ToString()));
+            if (null != blogTile)
+            {
+                blogTile.Delete();
+            }
+            // todo: since tiles are index-based, any blogs with a higher index than the blog that was just deleted now have invalid
+            // NavigationUri for their tiles. to solve this, we probably need some other way of uniquely address blogs.
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)

@@ -26,9 +26,12 @@ namespace WordPress
         private List<string> _statisticPeriodOptions;
 
         private int _multiFetchTaskCount;
+        private bool _blogIsPinned = false;
         private StringTable _localizedStrings;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
 
+        private ApplicationBarIconButton _pinBlogIconButton;
+        private ApplicationBarIconButton _unpinBlogIconButton;
         private ApplicationBarIconButton _addIconButton;
         private ApplicationBarIconButton _refreshIconButton;
 
@@ -45,8 +48,6 @@ namespace WordPress
             InitializeComponent();
 
             DataContext = App.MasterViewModel;
-            
-            BlogTitle.Text = App.MasterViewModel.CurrentBlog.BlogName.ToLower();
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
@@ -85,7 +86,14 @@ namespace WordPress
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
             ApplicationBar.Opacity = 0.5;
-            ApplicationBar.IsVisible = false;
+
+            _pinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/actionsEdit.png", UriKind.Relative)); // todo: icon
+            _pinBlogIconButton.Text =_localizedStrings.ControlsText.Pin;
+            _pinBlogIconButton.Click += OnPinIconButtonClick;
+
+            _unpinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/actionsEdit.png", UriKind.Relative)); // todo: icon
+            _unpinBlogIconButton.Text = _localizedStrings.ControlsText.Unpin;
+            _unpinBlogIconButton.Click += OnUnpinIconButtonClick;
 
             _addIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
             _addIconButton.Text = _localizedStrings.ControlsText.Add;
@@ -115,9 +123,14 @@ namespace WordPress
         private void OnPageLoaded(object sender, RoutedEventArgs args)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
+
+            // check if blog is pinned
+            int blogIndex = App.MasterViewModel.Blogs.IndexOf(App.MasterViewModel.CurrentBlog);
+            _blogIsPinned = (FindBlogTile(blogIndex) != null);
+            RefreshAppBar();
         }
 
-        private void OnBlogPanoramaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void RefreshAppBar()
         {
             // Set the app bar based on which pivot item is visible
             ApplicationBar.Buttons.Clear();
@@ -131,8 +144,62 @@ namespace WordPress
             {
                 ApplicationBar.Buttons.Add(_refreshIconButton);
             }
+            else if (blogPanorama.SelectedItem == actionsPanoramaItem)
+            {
+                if (_blogIsPinned)
+                {
+                    ApplicationBar.Buttons.Add(_unpinBlogIconButton);
+                }
+                else
+                {
+                    ApplicationBar.Buttons.Add(_pinBlogIconButton);
+                }
+            }
 
             ApplicationBar.IsVisible = ApplicationBar.Buttons.Count > 0;
+        }
+
+        private void OnBlogPanoramaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshAppBar();
+        }
+
+        private ShellTile FindBlogTile(int blogIndex)
+        {
+            return ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogIndex.ToString()));
+        }
+
+        private void OnPinIconButtonClick(object sender, EventArgs e)
+        {
+            // check to see if tile already exists
+            int blogIndex = App.MasterViewModel.Blogs.IndexOf(App.MasterViewModel.CurrentBlog);
+            ShellTile existingTile = FindBlogTile(blogIndex);
+
+            if (null == existingTile)
+            {
+                StandardTileData BlogTile = new StandardTileData
+                {
+                    Title = App.MasterViewModel.CurrentBlog.BlogName,
+                    BackgroundImage = new Uri("wp-tile.png", UriKind.Relative)
+                };
+
+                _blogIsPinned = true;
+                ShellTile.Create(new Uri("/BlogPanoramaPage.xaml?Blog=" + blogIndex.ToString(), UriKind.Relative), BlogTile);
+                RefreshAppBar();
+            }
+        }
+
+        private void OnUnpinIconButtonClick(object sender, EventArgs e)
+        {
+            int blogIndex = App.MasterViewModel.Blogs.IndexOf(App.MasterViewModel.CurrentBlog);
+            ShellTile existingTile = FindBlogTile(blogIndex);
+
+            if (null != existingTile)
+            {
+                existingTile.Delete();
+                _blogIsPinned = false;
+                RefreshAppBar();
+            }
         }
 
         private void OnAddIconButtonClick(object sender, EventArgs e)
@@ -727,6 +794,29 @@ namespace WordPress
         {
             App.MasterViewModel.CurrentPageListItem = null;
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (this.NavigationContext.QueryString.ContainsKey("Blog"))
+            {
+                // navigated from secondary tile
+                int blogIndex = int.Parse(this.NavigationContext.QueryString["Blog"]);
+
+                if (App.MasterViewModel.Blogs.Count > blogIndex)
+                {
+                    App.MasterViewModel.CurrentBlog = App.MasterViewModel.Blogs[blogIndex];
+                }
+                else
+                {
+                    // hm... blog index is no longer valid. delete the tile and quit the app
+                    ShellTile OldTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogIndex.ToString()));
+                    OldTile.Delete();
+                    NavigationService.GoBack();
+                }
+            }
+
+            base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
