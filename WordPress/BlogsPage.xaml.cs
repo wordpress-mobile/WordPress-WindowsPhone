@@ -119,12 +119,8 @@ namespace WordPress
 
         private void PresentSelectionOptions()
         {
-            List<string> blogTitles = new List<string>();
-            List<Blog> blogs = DataService.Current.Blogs.ToList();
-            blogs.ForEach(blog => blogTitles.Add(blog.BlogName));
-
             App.PopupSelectionService.Title = _localizedStrings.Prompts.SelectBlogToDelete;
-            App.PopupSelectionService.ItemsSource = blogTitles;
+            App.PopupSelectionService.ItemsSource = DataService.Current.Blogs;
             App.PopupSelectionService.SelectionChanged += OnBlogSelectedForDelete;
             App.PopupSelectionService.ShowPopup();
         }
@@ -135,28 +131,17 @@ namespace WordPress
 
             if (0 == e.AddedItems.Count) return;
 
-            string blogName = e.AddedItems[0] as string;
-            if (string.IsNullOrEmpty(blogName)) return;
-
-            Blog blogToRemove = null;
-            List<Blog> blogs = DataService.Current.Blogs.ToList();
-            if (blogs.Any(blog => blog.BlogName.Equals(blogName)))
-            {
-                blogToRemove = blogs.Single(blog => blog.BlogName.Equals(blogName));
-            }
+            Blog blogToRemove = e.AddedItems[0] as Blog;
             if (null == blogToRemove) return;
 
-            int blogIndex = DataService.Current.Blogs.IndexOf(blogToRemove);
-            DataService.Current.Blogs.Remove(blogToRemove);
-
             // remove this blog's tile
-            ShellTile blogTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogIndex.ToString()));
+            ShellTile blogTile = App.MasterViewModel.FindBlogTile(blogToRemove);
             if (null != blogTile)
             {
                 blogTile.Delete();
             }
-            // todo: since tiles are index-based, any blogs with a higher index than the blog that was just deleted now have invalid
-            // NavigationUri for their tiles. to solve this, we probably need some other way of uniquely address blogs.
+
+            DataService.Current.Blogs.Remove(blogToRemove);
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -165,6 +150,7 @@ namespace WordPress
             {
                 App.PopupSelectionService.SelectionChanged -= OnBlogSelectedForDelete;
                 e.Cancel = true;
+                App.PopupSelectionService.HidePopup();
                 return;
             }
             base.OnBackKeyPress(e);

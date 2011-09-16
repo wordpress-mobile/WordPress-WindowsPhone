@@ -125,8 +125,7 @@ namespace WordPress
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             // check if blog is pinned
-            int blogIndex = App.MasterViewModel.Blogs.IndexOf(App.MasterViewModel.CurrentBlog);
-            _blogIsPinned = (FindBlogTile(blogIndex) != null);
+            _blogIsPinned = (App.MasterViewModel.FindBlogTile() != null);
             RefreshAppBar();
         }
 
@@ -164,16 +163,10 @@ namespace WordPress
             RefreshAppBar();
         }
 
-        private ShellTile FindBlogTile(int blogIndex)
-        {
-            return ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogIndex.ToString()));
-        }
-
         private void OnPinIconButtonClick(object sender, EventArgs e)
         {
             // check to see if tile already exists
-            int blogIndex = App.MasterViewModel.Blogs.IndexOf(App.MasterViewModel.CurrentBlog);
-            ShellTile existingTile = FindBlogTile(blogIndex);
+            ShellTile existingTile = App.MasterViewModel.FindBlogTile();
 
             if (null == existingTile)
             {
@@ -184,15 +177,14 @@ namespace WordPress
                 };
 
                 _blogIsPinned = true;
-                ShellTile.Create(new Uri("/BlogPanoramaPage.xaml?Blog=" + blogIndex.ToString(), UriKind.Relative), BlogTile);
+                ShellTile.Create(App.MasterViewModel.BuildBlogTileUrl(App.MasterViewModel.CurrentBlog), BlogTile);
                 RefreshAppBar();
             }
         }
 
         private void OnUnpinIconButtonClick(object sender, EventArgs e)
         {
-            int blogIndex = App.MasterViewModel.Blogs.IndexOf(App.MasterViewModel.CurrentBlog);
-            ShellTile existingTile = FindBlogTile(blogIndex);
+            ShellTile existingTile = App.MasterViewModel.FindBlogTile();
 
             if (null != existingTile)
             {
@@ -801,16 +793,17 @@ namespace WordPress
             if (this.NavigationContext.QueryString.ContainsKey("Blog"))
             {
                 // navigated from secondary tile
-                int blogIndex = int.Parse(this.NavigationContext.QueryString["Blog"]);
+                string blogXmlrpc = this.NavigationContext.QueryString["Blog"];
+                Blog blog = App.MasterViewModel.Blogs.FirstOrDefault(b => b.Xmlrpc == blogXmlrpc);
 
-                if (App.MasterViewModel.Blogs.Count > blogIndex)
+                if (null != blog)
                 {
-                    App.MasterViewModel.CurrentBlog = App.MasterViewModel.Blogs[blogIndex];
+                    App.MasterViewModel.CurrentBlog = blog;
                 }
                 else
                 {
                     // hm... blog index is no longer valid. delete the tile and quit the app
-                    ShellTile OldTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogIndex.ToString()));
+                    ShellTile OldTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogXmlrpc));
                     OldTile.Delete();
                     NavigationService.GoBack();
                 }

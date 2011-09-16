@@ -367,6 +367,11 @@ namespace WordPress.Model
             Snapshot = null;
         }
 
+        public override string ToString()
+        {
+            return this.BlogName;
+        }
+
         #endregion
 
     }

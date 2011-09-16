@@ -14,6 +14,7 @@ using System.Linq.Expressions;
 
 using WordPress.Model;
 using System.ComponentModel;
+using Microsoft.Phone.Shell;
 
 namespace WordPress
 {
@@ -172,6 +173,21 @@ namespace WordPress
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        public Uri BuildBlogTileUrl(Blog blog)
+        {
+            return new Uri("/BlogPanoramaPage.xaml?Blog=" + blog.Xmlrpc, UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Searches for a secondary ShellTile for a blog.
+        /// </summary>
+        /// <param name="blog">Blog to find a tile for. If null, searches for the currently active blog.</param>
+        public ShellTile FindBlogTile(Blog blog=null)
+        {
+            Uri blogUri = App.MasterViewModel.BuildBlogTileUrl(blog ?? CurrentBlog);
+            return ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri == blogUri);
         }
 
         #endregion

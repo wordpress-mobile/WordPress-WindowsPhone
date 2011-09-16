@@ -144,7 +144,10 @@ namespace WordPress
             {
                 if (1 == args.Items.Count)
                 {
-                    DataService.Current.AddBlogToStore(args.Items[0]);
+                    if (!(DataService.Current.Blogs.Any(b => b.Xmlrpc == args.Items[0].Xmlrpc)))
+                    {
+                        DataService.Current.AddBlogToStore(args.Items[0]);
+                    }
                     NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
                 }
                 else
@@ -239,7 +242,7 @@ namespace WordPress
         {
             blogSelectionControl.SelectedItems.ForEach(blog =>
             {
-                if (!(DataService.Current.Blogs.Any(b => b.BlogId == blog.BlogId)))
+                if (!(DataService.Current.Blogs.Any(b => b.Xmlrpc == blog.Xmlrpc)))
                 {
                     DataService.Current.AddBlogToStore(blog);
                 }
