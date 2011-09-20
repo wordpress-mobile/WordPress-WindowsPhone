@@ -124,9 +124,26 @@ namespace WordPress
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
-            // check if blog is pinned
-            _blogIsPinned = (App.MasterViewModel.FindBlogTile() != null);
-            RefreshAppBar();
+            // check if blog is pinned (on background thread to prevent blocking the UI)
+            var worker = new BackgroundWorker();
+            worker.DoWork += (workSender, e) =>
+            {
+                _blogIsPinned = (App.MasterViewModel.FindBlogTile() != null);
+            };
+            worker.RunWorkerCompleted += (completeSender, e) => RefreshAppBar();
+            worker.RunWorkerAsync();
+
+            // we don't want the data-binding to delay load of the overall panorama,
+            // so put the bindings at the end of the UI thread's task queue instead
+            // of putting them in the XAML (where they get evalutead at XAML instantiation)
+            Application.Current.RootVisual.Dispatcher.BeginInvoke(SetPanoramaListDataBindings);
+        }
+
+        private void SetPanoramaListDataBindings()
+        {
+            commentsListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
+            postsListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Posts"));
+            pagesListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Pages"));
         }
 
         private void RefreshAppBar()
