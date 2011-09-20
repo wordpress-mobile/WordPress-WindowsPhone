@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -41,7 +42,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="blogsListBox" ItemsSource="{Binding Blogs}" SelectionChanged="OnBlogsListBoxSelectionChanged">
+            <ListBox x:Name="blogsListBox" ItemsSource="{Binding Blogs}" SelectionChanged="OnBlogsListBoxSelectionChanged" toolkit:TiltEffect.IsTiltEnabled="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,0,0,17" Width="432">
@@ -55,6 +56,6 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-    </Grid> 
+    </Grid>
 
 </phone:PhoneApplicationPage>
