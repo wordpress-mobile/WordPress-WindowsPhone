@@ -87,11 +87,11 @@ namespace WordPress
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
             ApplicationBar.Opacity = 0.5;
 
-            _pinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/actionsEdit.png", UriKind.Relative)); // todo: icon
+            _pinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.pin.png", UriKind.Relative)); // todo: icon
             _pinBlogIconButton.Text =_localizedStrings.ControlsText.Pin;
             _pinBlogIconButton.Click += OnPinIconButtonClick;
 
-            _unpinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/actionsEdit.png", UriKind.Relative)); // todo: icon
+            _unpinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unpin.png", UriKind.Relative)); // todo: icon
             _unpinBlogIconButton.Text = _localizedStrings.ControlsText.Unpin;
             _unpinBlogIconButton.Click += OnUnpinIconButtonClick;
 
