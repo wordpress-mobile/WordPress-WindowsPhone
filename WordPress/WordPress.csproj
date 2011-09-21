@@ -279,12 +279,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="WordPress_2011_09_20_15_11_12.sap" />
-    <None Include="WordPress_2011_09_20_15_40_05.sap" />
-    <None Include="WordPress_2011_09_20_16_09_02.sap" />
-    <None Include="WordPress_2011_09_20_16_14_23.sap" />
-    <None Include="WordPress_2011_09_20_16_16_32.sap" />
-    <None Include="WordPress_2011_09_20_16_54_49.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
