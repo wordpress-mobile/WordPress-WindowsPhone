@@ -32,7 +32,7 @@ namespace WordPress.Model
         private const string BLOGID_VALUE = "blogid";
         private const string BLOGNAME_VALUE = "blogName";
         private const string XMLRPC_VALUE = "xmlrpc";
-        private const string NOBLOGTITLE_VALUE = "(No Blog Title)";
+        private const string NOBLOGTITLE_VALUE = "__(_No Blog Title_)__";
 
         private bool _isLoadingContent;
 
@@ -326,7 +326,7 @@ namespace WordPress.Model
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     _blogName = value.HtmlDecode();
 
-                    //provide a default title if one was not downloaded
+                    //provide a placeholder if title was not set on the blog. Placeholder will be replaced with the blog url later in this method.
                     if (string.IsNullOrEmpty(_blogName))
                     {
                         _blogName = NOBLOGTITLE_VALUE;
@@ -337,7 +337,17 @@ namespace WordPress.Model
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     _xmlrpc = value;
                 }
-            }            
+            }
+            
+            //Check the blog name
+            if (_blogName.Equals(NOBLOGTITLE_VALUE))
+            {
+                _blogName = _url.Replace("http://", "");
+                _blogName = _blogName.Replace("https://", "");
+                if( _blogName.EndsWith( "/" ) ) {
+                    _blogName = _blogName.Substring(0, _blogName.Length - 1);
+                }
+            }
         }
 
         public void BeginEdit()
