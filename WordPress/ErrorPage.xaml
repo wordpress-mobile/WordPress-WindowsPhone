@@ -51,8 +51,8 @@
 				Style="{StaticResource BasicButtonStyle}" Click="FAQButton_Click" Grid.ColumnSpan="2" />
             <Button x:Name="forumButton" Grid.Row ="2" Content="{Binding ControlsText.visitForums, Source={StaticResource StringTable}}"
 				Style="{StaticResource BasicButtonStyle}" Click="forumButton_Click" Grid.ColumnSpan="2" />
-            <Button x:Name="mailButton" Grid.Row ="3" Content="{Binding ControlsText.sendEmailToSupport, Source={StaticResource StringTable}}"
-				Style="{StaticResource BasicButtonStyle}" Click="mailButton_Click" Grid.ColumnSpan="2" />
+            <Button x:Name="mailButton" Grid.Row ="3" Content="{Binding ControlsText.copyErrorMessage, Source={StaticResource StringTable}}"
+				Style="{StaticResource BasicButtonStyle}" Click="copyButton_Click" Grid.ColumnSpan="2" />
         </Grid>
     </Grid>
  

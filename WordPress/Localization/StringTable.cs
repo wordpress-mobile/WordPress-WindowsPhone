@@ -165,7 +165,7 @@ namespace WordPress.Localization
             public string InsertLink { get { return LocalizedResources.ControlText_InsertLink; } }
             public string visitForums { get { return LocalizedResources.ControlText_Forums; } }
             public string visitFAQ { get { return LocalizedResources.ControlText_FAQ; } }
-            public string sendEmailToSupport { get { return LocalizedResources.ControlText_EMail; } }
+            public string copyErrorMessage { get { return LocalizedResources.ControlText_CopyErrorMessage; } }
             public string LoadingContent { get { return LocalizedResources.ControlText_LoadingContent; } }
             public string SaveDraft { get { return LocalizedResources.ControlText_SaveDraft; } }
             public string PullDownToRefresh { get { return LocalizedResources.ControlText_PullDownToRefresh; } }
@@ -212,6 +212,8 @@ namespace WordPress.Localization
             public string UploadingMedia { get { return LocalizedResources.Messages_UploadingMedia; } }
             public string Hello { get { return LocalizedResources.Messages_Hello; } }
             public string MarketDescription { get { return LocalizedResources.Messages_MarketDescription; } }
+            public string Info { get { return LocalizedResources.Messages_Info; } }
+            public string ContentCopied { get { return LocalizedResources.Messages_ContentCopied; } }
         }
 
         #endregion
@@ -277,9 +279,7 @@ namespace WordPress.Localization
             public string CancelEditing { get { return LocalizedResources.Prompts_CancelEditing; } }
             public string Page { get { return LocalizedResources.Prompts_Page; } }
             public string Post { get { return LocalizedResources.Prompts_Post; } }
-            public string SupportEmailBody { get { return LocalizedResources.Prompts_SupportEmailBody; } }
-            public string SupportEmailSubject { get { return LocalizedResources.Prompts_SupportEmailSubject; } }
-
+        
             /*Error String*/
             public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }
             public string XmlRpcOperationFailed { get { return LocalizedResources.Prompts_XmlRpcOperationFailed; } }

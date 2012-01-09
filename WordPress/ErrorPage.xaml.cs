@@ -8,6 +8,7 @@ using Microsoft.Phone.Tasks;
 using WordPress.Commands;
 using WordPress.Localization;
 using WordPress.Model;
+using System.Windows;
 
 
 namespace WordPress
@@ -103,13 +104,10 @@ namespace WordPress
             command.Execute(Constants.WORDPRESS_FORUMS_URL);
         }
 
-        private void mailButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void copyButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            EmailComposeTask emailComposeTask = new EmailComposeTask();
-            emailComposeTask.To = Constants.WORDPRESS_SUPPORT_EMAIL;
-            emailComposeTask.Body = _localizedStrings.Prompts.SupportEmailBody + "\n\n\n\n" + fullStackTrace;
-            emailComposeTask.Subject = _localizedStrings.Prompts.SupportEmailSubject;
-            emailComposeTask.Show();
+            Clipboard.SetText(fullStackTrace);
+            MessageBoxResult result = MessageBox.Show(_localizedStrings.Messages.ContentCopied, _localizedStrings.Messages.Info , MessageBoxButton.OK);
         }
     }
 }
