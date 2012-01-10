@@ -1,0 +1,13 @@
+WordPress for Windows Phone 7 Dependencies
+--------------------------------------------------------------
+
+The following SDKs should be installed in the development environment prior to building the source:
+
+
+Silverlight 3 Toolkit November 2009: http://silverlight.codeplex.com/releases/view/36060#DownloadId=93512
+
+
+Silverlight for Windows Phone Toolkit - Nov 2010.msi: http://silverlight.codeplex.com/releases/view/55034#DownloadId=163011
+
+
+Silverlight for Windows Phone Toolkit - Feb 2011 http://silverlight.codeplex.com/releases/view/60291	
