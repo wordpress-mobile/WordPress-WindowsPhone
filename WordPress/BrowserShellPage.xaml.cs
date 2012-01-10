@@ -19,12 +19,12 @@ namespace WordPress
     {
         #region member variables
 
-        public const string URIKEYNAME = "uri";
-        public const string ITEM_PERMALINK = "permaLink";
+        public const string TARGET_URL = "targetURL";
+        public const string REQUIRE_LOGIN = "loginReq";
 
         private StringTable _localizedStrings;
-        private string _uriString; //one between _uriString / _itemPermaLink must be available
-        public static string _itemPermaLink;
+        public string _targetURL;
+        public string _requireLogin;
 
         #endregion
 
@@ -42,18 +42,41 @@ namespace WordPress
         #endregion
 
         #region browser_methods
-        //The WebBrowser class events are raised in the following order: Navigating, Navigated, and LoadCompleted.
 
+        private void OnBrowserLoaded(object sender, RoutedEventArgs e)
+        {
+            this.DebugLog("OnBrowserLoaded");
+            if ( string.IsNullOrEmpty(_targetURL) ) return; //no target URL defined
+
+            if (string.IsNullOrEmpty(_requireLogin) )
+            {
+                browser.Navigate(new Uri(_targetURL, UriKind.Absolute));
+            }
+            else
+            {
+                progressBar.Visibility = Visibility.Visible;
+                this.startLoadingPostUsingLoginForm();
+            }
+        }
+                
+        //The WebBrowser class events are raised in the following order: Navigating, Navigated, and LoadCompleted.
         private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
         {
-            if (!string.IsNullOrEmpty(_uriString) || !string.IsNullOrEmpty(_itemPermaLink))
+            this.DebugLog("OnBrowserNavigating");
+            if ( !string.IsNullOrEmpty(_targetURL) )
             {
                 progressBar.Visibility = Visibility.Visible;
             }
         }
 
-        private void OnLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        private void OnBrowserNavigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
+            this.DebugLog("OnBrowserNavigated");
+        }
+
+        private void OnBrowserLoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            this.DebugLog("OnBrowserLoadCompleted");
             progressBar.Visibility = Visibility.Collapsed;
         }
 
@@ -82,61 +105,95 @@ namespace WordPress
             base.OnNavigatedTo(e);
             //save the uri in member _uriString and wait for the browser element load.
             //once that happens we can tell the browser to start loading the uri
-            this.NavigationContext.QueryString.TryGetValue(URIKEYNAME, out _uriString);
-
-            this.NavigationContext.QueryString.TryGetValue(ITEM_PERMALINK, out _itemPermaLink);
-        }
-
-        private void OnBrowserLoaded(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(_uriString) && string.IsNullOrEmpty(_itemPermaLink)) return;
-
-            if (!string.IsNullOrEmpty(_uriString))
-                browser.Navigate(new Uri(_uriString, UriKind.Absolute));
-            else if (!string.IsNullOrEmpty(_itemPermaLink)) //preview of posts
+            this.NavigationContext.QueryString.TryGetValue(REQUIRE_LOGIN, out _requireLogin);
+            if (this.NavigationContext.QueryString.TryGetValue(TARGET_URL, out _targetURL))
             {
-                progressBar.Visibility = Visibility.Visible;
-                this.startLoadingPostUsingLoginForm();
+            }
+            else
+            {
+                this._targetURL = null;
             }
         }
-        
+
         private void startLoadingPostUsingLoginForm() {
             string xmlrpcURL = App.MasterViewModel.CurrentBlog.Xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
+                  
+            string responseContent = "<head>"
+             + "<script type=\"text/javascript\">"
+             + "function submitform(){document.loginform.submit();} </script>"
+             + "</head>"
+             + "<body onload=\"submitform()\">"
+             + "<form style=\"visibility:hidden;\" name=\"loginform\" id=\"loginform\" action=\"" + xmlrpcURL + "\" method=\"post\">"
+             + "<input type=\"text\" name=\"log\" id=\"user_login\" value=\"" + App.MasterViewModel.CurrentBlog.Username + "\"/></label>"
+             + "<input type=\"password\" name=\"pwd\" id=\"user_pass\" value=\"" + App.MasterViewModel.CurrentBlog.Password + "\" /></label>"
+             + "<input type=\"submit\" name=\"wp-submit\" id=\"wp-submit\" value=\"Log In\" />"
+             + "<input type=\"hidden\" name=\"redirect_to\" value=\"" + System.Uri.EscapeUriString(_targetURL) + "\" />"
+             + "</form>"
+             + "</body>";
+
+            UIThread.Invoke(() =>
+            {
+                browser.NavigateToString(responseContent);
+            });
+       
+        }
                 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(xmlrpcURL);
-                CookieContainer container = new CookieContainer();    
-                request.CookieContainer = container;
-                request.AllowAutoRedirect = true;
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.Method = XmlRPCRequestConstants.POST;
-                request.UserAgent = Constants.WORDPRESS_USERAGENT;
+        /*
+        private void startLoadingPostUsingLoginForm() {
+            string xmlrpcURL = App.MasterViewModel.CurrentBlog.Xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
 
-                request.BeginGetRequestStream(asynchronousResult =>
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(xmlrpcURL);
+      
+            CookieContainer container = new CookieContainer();    
+            request.CookieContainer = container;
+            request.AllowAutoRedirect = true;
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Method = XmlRPCRequestConstants.POST;
+            request.UserAgent = Constants.WORDPRESS_USERAGENT;
+            
+            request.BeginGetRequestStream(asynchronousResult => 
+            {
+                HttpWebRequest webRequest = (HttpWebRequest)asynchronousResult.AsyncState;
+
+                String testUrlDecoded = HttpUtility.UrlDecode(_itemPermaLink);
+                String testUrlEncoded = HttpUtility.UrlEncode(testUrlDecoded); //sould be used only on get request? 
+                String testSystemUriEscapeDataString = System.Uri.EscapeDataString(testUrlDecoded);
+                String testSystemUriEscapeUriString = System.Uri.EscapeUriString(testUrlDecoded); //Good for URL encoding
+                this.DebugLog(_itemPermaLink);
+                this.DebugLog(testUrlDecoded);
+                this.DebugLog(testUrlEncoded);
+                this.DebugLog(testSystemUriEscapeDataString);
+                this.DebugLog(testSystemUriEscapeUriString);
+                if (_itemPermaLink.Equals(testSystemUriEscapeDataString))
                 {
-                    HttpWebRequest webRequest = (HttpWebRequest)asynchronousResult.AsyncState;
+                    this.DebugLog("_itemPermaLink.Equals(testSystemUriEscapeDataString)");
+                }
+                if (_itemPermaLink.Equals(testSystemUriEscapeUriString))
+                {
+                    this.DebugLog("_itemPermaLink.Equals(testSystemUriEscapeUriString)");
+                }
 
-                    try
+                try
+                {
+                    Stream contentStream = null;
+                    contentStream = webRequest.EndGetRequestStream(asynchronousResult);
+                       
+                    string postData = String.Format("log={0}&pwd={1}&redirect_to={2}", HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Username),
+                            HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Password),  HttpUtility.UrlEncode(_itemPermaLink));
+                    
+                    byte[] byteArray =Encoding.UTF8.GetBytes(postData);
+                    using (contentStream)
                     {
-                        Stream contentStream = null;
-                        contentStream = webRequest.EndGetRequestStream(asynchronousResult);
-
-                        string postData = String.Format("log={0}&pwd={1}&redirect_to={2}", HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Username),
-                                HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Password), HttpUtility.UrlEncode(_itemPermaLink));
-
-                        byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-                        using (contentStream)
-                        {
-                            contentStream.Write(byteArray, 0, byteArray.Length);
-                        }
-
-                        webRequest.BeginGetResponse(OnBeginGetResponseCompleted, webRequest);
+                        contentStream.Write(byteArray, 0, byteArray.Length);
                     }
-                    catch (Exception ex)
-                    {
-                        this.HandleException(new Exception("Something went wrong during Preview", ex));
-                    }
-                }, request);
-    
+                        
+                    webRequest.BeginGetResponse(OnBeginGetResponseCompleted, webRequest);
+                }
+                catch (Exception ex)
+                {
+                    this.HandleException(new Exception("Something went wrong during Preview", ex));
+                }
+            }, request);
         }
 
 
@@ -161,13 +218,17 @@ namespace WordPress
                     browser.NavigateToString(responseContent);
                 });
 
-                try { response.Close(); } catch (Exception ex) { /* no error here*/ }
+                try { response.Close(); } catch (Exception ex) {  }
             }
             catch (Exception ex)
             {
                 this.HandleException(new Exception("Something went wrong during Preview", ex));
             }
         }
+
+        */
+
+
         #endregion
     }
 }

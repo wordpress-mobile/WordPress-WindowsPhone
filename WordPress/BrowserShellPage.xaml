@@ -23,8 +23,9 @@
                           Width="{Binding ActualWidth, ElementName=phoneApplicationPage}"
                           Loaded="OnBrowserLoaded"  
                           Navigating="OnBrowserNavigating"
-                          IsScriptEnabled="True"      
-                          LoadCompleted="OnLoadCompleted"
+                          Navigated="OnBrowserNavigated"
+                          LoadCompleted="OnBrowserLoadCompleted"
+                          IsScriptEnabled="True"   
                           />
     	<ProgressBar x:Name="progressBar" IsIndeterminate="True" Visibility="Collapsed" Height="60" VerticalAlignment="Top" Foreground="{StaticResource WordPressBlueBrush}"/>
     </Grid>

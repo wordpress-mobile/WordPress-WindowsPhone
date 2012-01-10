@@ -323,8 +323,8 @@ namespace WordPress
                 //creates a new tab for the web content, but doesn't automatically
                 //open your new tab if other tabs already exist.
                 Post post = args.Items[0];
-                string queryStringFormat = "?{0}={1}";
-                string queryString = string.Format(queryStringFormat, BrowserShellPage.ITEM_PERMALINK, post.PermaLink);
+                string queryStringFormat = "?{0}={1}&{2}={3}";
+                string queryString = string.Format(queryStringFormat, BrowserShellPage.TARGET_URL, post.PermaLink, BrowserShellPage.REQUIRE_LOGIN, "1");
                 NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + queryString, UriKind.Relative));
             }
             else
@@ -476,8 +476,8 @@ namespace WordPress
 
                 Post post = args.Items[0];
                 Uri permaLinkUri = new Uri(post.PermaLink, UriKind.Absolute);
-                string uriFormatString = "?{0}={1}";
-                string paramString = string.Format(uriFormatString, BrowserShellPage.ITEM_PERMALINK, permaLinkUri.ToString());
+                string queryStringFormat = "?{0}={1}&{2}={3}";
+                string paramString = string.Format(queryStringFormat, BrowserShellPage.TARGET_URL, permaLinkUri.ToString(), BrowserShellPage.REQUIRE_LOGIN, "1");
                 NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + paramString, UriKind.Relative));
             }
             else
