@@ -753,4 +753,10 @@
   <data name="Messages_Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Messages_InvalidCredentials" xml:space="preserve">
+    <value>Invalid WordPress.com credentials</value>
+  </data>
+  <data name="Messages_MissingFields" xml:space="preserve">
+    <value>Please fill in all fields</value>
+  </data>
 </root>

@@ -214,6 +214,8 @@ namespace WordPress.Localization
             public string MarketDescription { get { return LocalizedResources.Messages_MarketDescription; } }
             public string Info { get { return LocalizedResources.Messages_Info; } }
             public string ContentCopied { get { return LocalizedResources.Messages_ContentCopied; } }
+            public string InvalidCredentials { get { return LocalizedResources.Messages_InvalidCredentials; } }
+            public string MissingFields { get { return LocalizedResources.Messages_MissingFields; } }
         }
 
         #endregion

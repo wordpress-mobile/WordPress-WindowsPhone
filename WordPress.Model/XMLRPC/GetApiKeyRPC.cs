@@ -18,6 +18,7 @@ namespace WordPress.Model
 
         public Blog blog;
         private SendOrPostCallback onCompletedDelegate;
+        private bool selfHosted;
         
         #endregion
 
@@ -30,8 +31,9 @@ namespace WordPress.Model
 
         #region constructors
 
-        public GetApiKeyRPC(Blog aBlog)
+        public GetApiKeyRPC(Blog aBlog, bool selfHostedBlog)
         {
+            selfHosted = selfHostedBlog;
             blog = aBlog;
             onCompletedDelegate = new SendOrPostCallback(NotifyCompleted);
         }
@@ -102,7 +104,15 @@ namespace WordPress.Model
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
             request.Method = XmlRPCRequestConstants.POST;
             request.UserAgent = Constants.WORDPRESS_USERAGENT;
-            request.Credentials = new NetworkCredential(blog.Username, blog.Password);
+            if (selfHosted)
+            {
+                request.Credentials = new NetworkCredential(blog.DotcomUsername, blog.DotcomPassword);
+            }
+            else
+            {
+                request.Credentials = new NetworkCredential(blog.Username, blog.Password);
+            }
+           
 
             request.BeginGetResponse(responseResult =>
             {

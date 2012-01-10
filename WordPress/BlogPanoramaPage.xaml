@@ -582,6 +582,15 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
+                    <Grid x:Name="dotcomLoginGrid" Opacity="0" Margin="0,8,8,220" Grid.Row="1" Style="{StaticResource LayoutRootStyle}" Height="371" Background="#FF21759B">
+                    	<PasswordBox x:Name="dotcomPasswordBox" Margin="0,0,0,157" VerticalAlignment="Bottom" Background="White" Height="72"/>
+                    	<TextBox x:Name="dotcomUsernameBox" Margin="0,66,0,233" TextWrapping="Wrap" Background="White" Height="72"/>
+                    	<TextBlock Margin="14,11,12,0" TextWrapping="Wrap" Text="Please enter your WordPress.com login:" Height="33" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
+                        <Button Content="OK" Click="OnDotcomOKButtonClick" HorizontalAlignment="Right" Margin="0,0,2,96" VerticalAlignment="Bottom" Foreground="#DEFFFFFF" BorderBrush="#DEFFFFFF"/>
+                        <Button Content="Cancel" Click="OnDotcomCancelButtonClick" HorizontalAlignment="Right" Margin="0,0,89,96" VerticalAlignment="Bottom" BorderBrush="#DEFFFFFF" Foreground="#DEFFFFFF"/>
+                        <TextBlock Margin="14,47,12,0" TextWrapping="Wrap" Text="username:" Height="27" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
+                        <TextBlock Margin="14,124,12,0" TextWrapping="Wrap" Text="password:" Height="27" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
+                    </Grid>
 
                 </Grid>
             </controls:PanoramaItem>

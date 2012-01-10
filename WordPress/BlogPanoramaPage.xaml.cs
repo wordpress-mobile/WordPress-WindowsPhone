@@ -12,6 +12,7 @@ using WordPress.Model;
 using System.Windows.Navigation;
 using Microsoft.Phone.Shell;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace WordPress
 {
@@ -537,16 +538,42 @@ namespace WordPress
 
         private void OnStatsButtonClick(object sender, RoutedEventArgs e)
         {
-            RetrieveStats();
+            RetrieveStats(false);
         }
 
-        private void RetrieveStats()
+        private void RetrieveStats(bool invalidCredentials)
         {
             //make sure the current blog has an api key associated to it.
             if (string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.ApiKey))
             {
-                MessageBox.Show(_localizedStrings.Prompts.MissingApikey);
-                return;
+                if (App.MasterViewModel.CurrentBlog.DotcomUsername == null || invalidCredentials)
+                {
+                    Storyboard sB = new Storyboard();
+                    DoubleAnimation doubleAnimation = new DoubleAnimation();
+                    PropertyPath pPath = new PropertyPath("dotcomLoginGrid.Opacity");    // your button name.Opacity
+
+                    doubleAnimation.Duration = TimeSpan.FromMilliseconds(500);
+                    doubleAnimation.From = 0;
+                    doubleAnimation.To = 1;
+                    sB.Children.Add(doubleAnimation);
+                    Storyboard.SetTargetProperty(doubleAnimation, pPath);
+                    Storyboard.SetTarget(doubleAnimation, (dotcomLoginGrid));    // your button name
+                    sB.Begin();
+
+                    if (invalidCredentials)
+                    {
+                        MessageBox.Show(_localizedStrings.Messages.InvalidCredentials);
+                    }
+                    
+                    return;
+                }
+                else
+                {
+                    GetApiKeyRPC rpc = new GetApiKeyRPC(App.MasterViewModel.CurrentBlog, true);
+                    rpc.Completed += OnGetApiKeyRPCCompleted;
+                    rpc.ExecuteAsync();
+                    return;
+                }
             }
 
             switch (StatisticType)
@@ -567,6 +594,54 @@ namespace WordPress
                     RetrieveClicks();
                     break;
             }
+        }
+
+        private void OnGetApiKeyRPCCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
+        {
+            if (App.MasterViewModel.CurrentBlog.ApiKey != null)
+            {
+                RetrieveStats(false);
+            }
+            else
+            {
+                RetrieveStats(true);
+            }
+            
+        }
+
+        private void OnDotcomCancelButtonClick(object sender, RoutedEventArgs e)
+        {
+            fadeOutDoctomGrid();
+        }
+
+        private void OnDotcomOKButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (dotcomUsernameBox.Text != "" && dotcomPasswordBox.Password != "")
+            {
+                App.MasterViewModel.CurrentBlog.DotcomUsername = dotcomUsernameBox.Text;
+                App.MasterViewModel.CurrentBlog.DotcomPassword = dotcomPasswordBox.Password;
+                fadeOutDoctomGrid();
+                RetrieveStats(false);
+            }
+            else
+            {
+                MessageBox.Show(_localizedStrings.Messages.MissingFields);
+            }
+        }
+
+        private void fadeOutDoctomGrid()
+        {
+            Storyboard sB = new Storyboard();
+            DoubleAnimation doubleAnimation = new DoubleAnimation();
+            PropertyPath pPath = new PropertyPath("dotcomLoginGrid.Opacity");    // your button name.Opacity
+
+            doubleAnimation.Duration = TimeSpan.FromMilliseconds(500);
+            doubleAnimation.From = 1;
+            doubleAnimation.To = 0;
+            sB.Children.Add(doubleAnimation);
+            Storyboard.SetTargetProperty(doubleAnimation, pPath);
+            Storyboard.SetTarget(doubleAnimation, (dotcomLoginGrid));    // your button name
+            sB.Begin();
         }
 
         private void RetrieveViews()

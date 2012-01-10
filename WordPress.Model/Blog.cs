@@ -26,6 +26,8 @@ namespace WordPress.Model
         private bool _createLinkToFullImage;
         private bool _geotagPosts;
         private string _apikey;
+        private string _dotcomUsername;
+        private string _dotcomPassword;
 
         private const string ISADMIN_VALUE = "isAdmin";
         private const string URL_VALUE = "url";
@@ -247,6 +249,32 @@ namespace WordPress.Model
                 {
                     _apikey = value;
                     NotifyPropertyChanged("ApiKey");
+                }
+            }
+        }
+
+        public string DotcomUsername
+        {
+            get { return _dotcomUsername; }
+            set
+            {
+                if (value != _dotcomUsername)
+                {
+                    _dotcomUsername = value;
+                    NotifyPropertyChanged("DotcomUsername");
+                }
+            }
+        }
+
+        public string DotcomPassword
+        {
+            get { return _dotcomPassword; }
+            set
+            {
+                if (value != _dotcomPassword)
+                {
+                    _dotcomPassword = value;
+                    NotifyPropertyChanged("DotcomPassword");
                 }
             }
         }

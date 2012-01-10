@@ -1086,6 +1086,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid WordPress.com credentials.
+        /// </summary>
+        internal static string Messages_InvalidCredentials {
+            get {
+                return ResourceManager.GetString("Messages_InvalidCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to loading....
         /// </summary>
         internal static string Messages_Loading {
@@ -1127,6 +1136,15 @@ namespace WordPress.Localization {
         internal static string Messages_MarkingCommentsAsSpam {
             get {
                 return ResourceManager.GetString("Messages_MarkingCommentsAsSpam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please fill in all fields.
+        /// </summary>
+        internal static string Messages_MissingFields {
+            get {
+                return ResourceManager.GetString("Messages_MissingFields", resourceCulture);
             }
         }
         

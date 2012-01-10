@@ -418,7 +418,7 @@ namespace WordPress.Model
             if (string.IsNullOrEmpty(newBlog.ApiKey))
             {
                 newBlog.IsLoadingContent = true;
-                GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog);
+                GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog, false);
                 rpc.Completed += OnGetApiKeyRPCCompleted;
                 rpc.ExecuteAsync();
             }
