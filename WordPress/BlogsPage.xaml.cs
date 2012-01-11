@@ -88,7 +88,7 @@ namespace WordPress
             }
             else
             {
-                NavigationService.Navigate(new Uri("/blogPivotPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
             }
 
             //reset selected index so we can re-select the original list item if we want to

@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage x:Name="phoneApplicationPage" 
-    x:Class="WordPress.BlogPivotPage"
+    x:Class="WordPress.BlogPanoramaPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -23,19 +23,26 @@
     shell:SystemTray.IsVisible="False">
 
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="pivotItemStyle" TargetType="controls:PivotItem">
+        <Style x:Key="panoramaItemStyle" TargetType="controls:PanoramaItem">
             <Setter Property="CacheMode" Value="BitmapCache"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Stretch"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="controls:PivotItem">
+                    <ControlTemplate TargetType="controls:PanoramaItem">
                         <Grid Background="{TemplateBinding Background}" Margin="12,-8,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <StackPanel Orientation="Horizontal" d:LayoutOverrides="Width">
+                                <ContentControl x:Name="header" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" FontFamily="{StaticResource PhoneFontFamilySemiLight}" HorizontalAlignment="Left" Margin="0,8,0,16">
+                                    <ContentControl.RenderTransform>
+                                        <TranslateTransform x:Name="headerTransform"/>
+                                    </ContentControl.RenderTransform>
+                                </ContentControl>
+                            </StackPanel>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -149,19 +156,24 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
 
-        <controls:Pivot x:Name="blogPivot" Background="{x:Null}">
-            <controls:Pivot.Foreground>
-                <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-            </controls:Pivot.Foreground>
-            <controls:Pivot.Title>
-                    <TextBlock Margin="0,20,0,-10" Foreground="{StaticResource WordPressBlueBrush}" FontSize="24"  x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameUpper, Mode=OneWay}"  />
-            </controls:Pivot.Title>
+        <controls:Panorama x:Name="blogPanorama">
+            <controls:Panorama.Foreground>
+                <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+            </controls:Panorama.Foreground>
+            <controls:Panorama.Title>
+                <StackPanel Margin="0,50,0,0" >
+                        <TextBlock Margin="2,6,0,0" Foreground="White" FontSize="88" x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameLower, Mode=OneWay}" />
+                    </StackPanel>
+            </controls:Panorama.Title>
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="Images/pano-bg.png"/>
+            </controls:Panorama.Background>
 
-            <!--actions Pivot item -->
-            <controls:PivotItem x:Name="actionsPivotItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource pivotItemStyle}">
-                <controls:PivotItem.Foreground>
+            <!--actions Panorama item -->
+            <controls:PanoramaItem x:Name="actionsPanoramaItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource panoramaItemStyle}">
+                <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </controls:PivotItem.Foreground>
+                </controls:PanoramaItem.Foreground>
                 <Grid Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -238,16 +250,17 @@
                     </Button>
                 </Grid>
 
-            </controls:PivotItem>
+            </controls:PanoramaItem>
 
-            <!--comments Pivot item -->
-            <controls:PivotItem x:Name="commentsPivotItem" Header="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" Style="{StaticResource pivotItemStyle}">
-                <controls:PivotItem.Foreground>
+            <!--comments Panorama item -->
+            <controls:PanoramaItem x:Name="commentsPanoramaItem">
+                <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </controls:PivotItem.Foreground>
-                    <Grid Margin="0,0,0,8">
-				<ScrollViewer Margin="0,0,0,64">
-                    <StackPanel>                                         
+                </controls:PanoramaItem.Foreground>
+				<Grid Margin="0,0,0,0" Height="669">
+				<ScrollViewer Margin="0,0,0,72">
+                    <StackPanel>                     
+                   		<TextBlock Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,25" Height="92" />                     
                    		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3"
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
                              ItemContainerStyle="{StaticResource CommentListItemStyle}" Margin="5,0,12,65" 
@@ -255,30 +268,31 @@
 				   </StackPanel>
                </ScrollViewer>
 			   </Grid>
-            </controls:PivotItem>
+            </controls:PanoramaItem>
 
-            <!--posts Pivot item-->
-            <controls:PivotItem x:Name="postsPivotItem" Header="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" Style="{StaticResource pivotItemStyle}">
-                <controls:PivotItem.Foreground>
+            <!--posts Panorama item-->
+            <controls:PanoramaItem x:Name="postsPanoramaItem" >
+                <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </controls:PivotItem.Foreground>
+                </controls:PanoramaItem.Foreground>
                 <Grid>
                     <ScrollViewer Margin="0,0,0,72">
                         <StackPanel>
+                            <TextBlock Text="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="postsListBox" Grid.Row="0"
             			             SelectionChanged="OnPostsListBoxSelectionChanged" Margin="4,14,12,0"
                                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="0,0,0,17" Width="432">
-                                            <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="38" Margin="0">
+                                            <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
             							<TextBlock.Foreground>
             								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             							</TextBlock.Foreground>
                                             </TextBlock>
                                             <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
             							<TextBlock.Foreground>
-            								<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+            								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             							</TextBlock.Foreground>
                                             </TextBlock>
                                         </StackPanel>
@@ -288,30 +302,31 @@
                         </StackPanel>
                     </ScrollViewer>
             	</Grid>
-            </controls:PivotItem>
+            </controls:PanoramaItem>
 
-            <!-- pages Pivot item-->
-            <controls:PivotItem x:Name="pagesPivotItem" Header="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" Style="{StaticResource pivotItemStyle}">
-                <controls:PivotItem.Foreground>
+            <!-- pages panorama item-->
+            <controls:PanoramaItem x:Name="pagesPanoramaItem">
+                <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </controls:PivotItem.Foreground>
+                </controls:PanoramaItem.Foreground>
                 <Grid>
                     <ScrollViewer Margin="0,0,0,72">
                         <StackPanel>
+                            <TextBlock Text="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="pagesListBox"
                             	SelectionChanged="OnPagesListBoxSelectionChanged" Margin="4,14,12,0"
                             	ScrollViewer.VerticalScrollBarVisibility="Disabled">
                             	<ListBox.ItemTemplate>
                             		<DataTemplate>
                             			<StackPanel Margin="0,0,0,17" Width="432">
-                            				<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="38" Margin="0">
+                            				<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
                             					<TextBlock.Foreground>
                             						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             					</TextBlock.Foreground>
                             				</TextBlock>
                             				<TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
                             					<TextBlock.Foreground>
-                            						<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                            						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             					</TextBlock.Foreground>
                             				</TextBlock>
                             			</StackPanel>
@@ -321,13 +336,13 @@
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
-            </controls:PivotItem>
+            </controls:PanoramaItem>
 
-            <!--stats Pivot item-->
-            <controls:PivotItem x:Name="statsPivotItem" Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource pivotItemStyle}">
-                <controls:PivotItem.Foreground>
+            <!--stats Panorama item-->
+            <controls:PanoramaItem x:Name="statsPanoramaItem" Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource panoramaItemStyle}">
+                <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </controls:PivotItem.Foreground>
+                </controls:PanoramaItem.Foreground>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -355,7 +370,7 @@
                     <ScrollViewer x:Name="viewsStatsScrollViewer" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
                         <StackPanel>
 
-                            <chartingToolkit:Chart Margin="-46,0,0,0" x:Name="viewsStatsChart" BorderThickness="0" DataContext="{StaticResource viewStatsDataSource}" Height="450" Width="440">
+                            <chartingToolkit:Chart x:Name="viewsStatsChart" BorderThickness="0" DataContext="{StaticResource viewStatsDataSource}" Height="450">
                                 <chartingToolkit:Chart.LegendStyle>
                                     <Style TargetType="dataVisualization:Legend">
                                         <Setter Property="Width" Value="0"/>
@@ -439,7 +454,7 @@
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.PostTitle, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource postViewStatsDataSource}" ItemsSource="{Binding}" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -473,7 +488,7 @@
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.SearchTerms, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource searchTermStatsDataSource}" ItemsSource="{Binding}" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -507,7 +522,7 @@
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Referrers, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource referrerStatsDataSource}" ItemsSource="{Binding}" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -544,7 +559,7 @@
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Clicks, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource clickStatsDataSource}" ItemsSource="{Binding}" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -567,7 +582,7 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </Grid>
-                    <Grid x:Name="dotcomLoginGrid" Opacity="0" Visibility="Collapsed" Margin="-1,8,8,220" Grid.Row="1" Style="{StaticResource LayoutRootStyle}" Height="371" Background="#FF21759B">
+                    <Grid x:Name="dotcomLoginGrid" Opacity="0" Margin="0,8,8,220" Grid.Row="1" Style="{StaticResource LayoutRootStyle}" Height="371" Background="#FF21759B">
                     	<PasswordBox x:Name="dotcomPasswordBox" Margin="0,0,0,157" VerticalAlignment="Bottom" Background="White" Height="72"/>
                     	<TextBox x:Name="dotcomUsernameBox" Margin="0,66,0,233" TextWrapping="Wrap" Background="White" Height="72"/>
                     	<TextBlock Margin="14,11,12,0" TextWrapping="Wrap" Text="Please enter your WordPress.com login:" Height="33" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
@@ -578,9 +593,13 @@
                     </Grid>
 
                 </Grid>
-            </controls:PivotItem>
-        </controls:Pivot>
-        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,101,0,0"></StackPanel>
-        <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="{Binding CurrentBlog.IsLoadingContent, Converter={StaticResource LoadingContentConverter}}" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}" Margin="0,0,0,770" />
+            </controls:PanoramaItem>
+        </controls:Panorama>
+        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,101,0,0">
+            <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="{Binding CurrentBlog.IsLoadingContent, Converter={StaticResource LoadingContentConverter}}" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
+        </StackPanel>
     </Grid>
+
+    <!--Panorama-based applications should not show an ApplicationBar-->
+
 </phone:PhoneApplicationPage>

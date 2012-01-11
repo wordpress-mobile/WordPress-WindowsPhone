@@ -177,7 +177,7 @@ namespace WordPress
 
         public Uri BuildBlogTileUrl(Blog blog)
         {
-            return new Uri("/blogPivotPage.xaml?Blog=" + blog.Xmlrpc, UriKind.Relative);
+            return new Uri("/BlogPanoramaPage.xaml?Blog=" + blog.Xmlrpc, UriKind.Relative);
         }
 
         /// <summary>

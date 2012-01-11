@@ -36,7 +36,7 @@
     		<Color x:Key="AppbarBackgroundColor">#FFF0F0F0</Color>
 
     		<SolidColorBrush x:Key="WordPressGreyBrush" Color="#FF464646"/>
-            <SolidColorBrush x:Key="WordPressBlueBrush" Color="#FF21759b"/>
+    		<SolidColorBrush x:Key="WordPressBlueBrush" Color="#FF21859B"/>
     		<SolidColorBrush x:Key="WordPressOrangeBrush" Color="#FFD54E21"/>
     		<SolidColorBrush x:Key="SectionHeaderBackgroundBrush" Color="#FFD4D4D4"/>
 

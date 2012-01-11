@@ -87,8 +87,8 @@
     </Compile>
     <Compile Include="ApplicationShouldEndException.cs" />
     <Compile Include="Behaviors\UpdateSourceOnTextChangedBehavior.cs" />
-    <Compile Include="BlogPivotPage.xaml.cs">
-      <DependentUpon>BlogPivotPage.xaml</DependentUpon>
+    <Compile Include="BlogPanoramaPage.xaml.cs">
+      <DependentUpon>BlogPanoramaPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="BlogSelectionControl.xaml.cs">
       <DependentUpon>BlogSelectionControl.xaml</DependentUpon>
@@ -198,7 +198,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BlogPivotPage.xaml">
+    <Page Include="BlogPanoramaPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -302,7 +302,7 @@
     <Resource Include="Images\pano-bg.png" />
     <Content Include="wp-tile.png" />
     <Resource Include="Images\background.jpg" />
-    <Resource Include="Images\actionsEdit.png" />
+    <Content Include="Images\actionsEdit.png" />
     <Resource Include="Images\actionsModerate.png" />
     <Resource Include="Images\actionsRefresh.png" />
     <Resource Include="Images\actionsSettings.png" />
