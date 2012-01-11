@@ -10,6 +10,7 @@ using WordPress.Converters;
 
 using WordPress.Localization;
 using WordPress.Model;
+using System.ComponentModel;
 
 namespace WordPress
 {
@@ -58,6 +59,19 @@ namespace WordPress
 
         #endregion
 
+
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            base.OnBackKeyPress(e);
+            MultiselectList activeListBox = FindActiveListBox();
+            if (activeListBox.IsSelectionEnabled)
+            {
+                activeListBox.IsSelectionEnabled = false;
+                e.Cancel = true;
+            }
+        }
+
+
         #region methods
 
         private void OnPageLoaded(object sender, EventArgs args)
@@ -105,31 +119,31 @@ namespace WordPress
 
         private void OnDeleteIconButtonClick(object sender, EventArgs e)
         {
-            ListBox activeListBox = FindActiveListBox();
+            MultiselectList activeListBox = FindActiveListBox();
             BatchDeleteComments(activeListBox.SelectedItems);
         }
 
         private void OnApproveIconButtonClick(object sender, EventArgs e)
         {
-            ListBox activeListBox = FindActiveListBox();
+            MultiselectList activeListBox = FindActiveListBox();
             BatchApproveComments(activeListBox.SelectedItems);
         }
 
         private void OnUnapproveIconButtonClick(object sender, EventArgs e)
         {
-            ListBox activeListBox = FindActiveListBox();
+            MultiselectList activeListBox = FindActiveListBox();
             BatchUnapproveComments(activeListBox.SelectedItems);
         }
 
         private void OnSpamIconButtonClick(object sender, EventArgs e)
         {
-            ListBox activeListBox = FindActiveListBox();
+            MultiselectList activeListBox = FindActiveListBox();
             BatchSpamComments(activeListBox.SelectedItems);
         }
 
-        private ListBox FindActiveListBox()
+        private MultiselectList FindActiveListBox()
         {
-            ListBox result = null;
+            MultiselectList result = null;
 
             int index = commentsPivot.SelectedIndex;
             switch (index)
