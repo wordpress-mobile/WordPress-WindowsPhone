@@ -149,17 +149,12 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
 
-        <controls:Pivot x:Name="blogPivot">
-        	<controls:Pivot.Background>
-        		<ImageBrush Stretch="Fill" ImageSource="Images/pano-bg.png"/>
-        	</controls:Pivot.Background>
+        <controls:Pivot x:Name="blogPivot" Background="{x:Null}">
             <controls:Pivot.Foreground>
                 <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             </controls:Pivot.Foreground>
             <controls:Pivot.Title>
-                <StackPanel Margin="0,-30,0,24" >
-                        <TextBlock Margin="0,0,0,0" Foreground="White" FontSize="88" Height="98" x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameLower, Mode=OneWay}" />
-                    </StackPanel>
+                    <TextBlock Margin="0,20,0,-10" Foreground="{StaticResource WordPressBlueBrush}" FontSize="24"  x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameUpper, Mode=OneWay}"  />
             </controls:Pivot.Title>
 
             <!--actions Pivot item -->
@@ -585,8 +580,7 @@
                 </Grid>
             </controls:PivotItem>
         </controls:Pivot>
-        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,101,0,0">
-            <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="{Binding CurrentBlog.IsLoadingContent, Converter={StaticResource LoadingContentConverter}}" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
-        </StackPanel>
+        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,101,0,0"></StackPanel>
+        <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="{Binding CurrentBlog.IsLoadingContent, Converter={StaticResource LoadingContentConverter}}" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}" Margin="0,0,0,770" />
     </Grid>
 </phone:PhoneApplicationPage>
