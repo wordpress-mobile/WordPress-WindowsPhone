@@ -11,6 +11,7 @@ using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using System.ComponentModel;
+using System.Windows;
 
 namespace WordPress
 {
@@ -53,14 +54,18 @@ namespace WordPress
             _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unapprove.png", UriKind.Relative));
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
-
+                 
             Loaded += OnPageLoaded;
+            allCommentsListBox.Loaded += OnListLoaded;
+            approvedCommentsListBox.Loaded += OnListLoaded;
+            allCommentsListBox.Loaded += OnListLoaded;
+            allCommentsListBox.Loaded += OnListLoaded;
         }
 
         #endregion
 
 
-        protected override void OnBackKeyPress(CancelEventArgs e)
+       /* protected override void OnBackKeyPress(CancelEventArgs e)
         {
             base.OnBackKeyPress(e);
             MultiselectList activeListBox = FindActiveListBox();
@@ -70,9 +75,10 @@ namespace WordPress
                 e.Cancel = true;
             }
         }
-
+        */
 
         #region methods
+        
 
         private void OnPageLoaded(object sender, EventArgs args)
         {
@@ -282,6 +288,35 @@ namespace WordPress
             spamCommentsListBox.ItemsSource = spamCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
         }
 
+
+        private void OnListLoaded(object sender, EventArgs args)
+        {
+            MultiselectList activeListBox = (MultiselectList)sender; //set the IsSelectionEnabled = true on the first list. Don't know why but if set it in XAML an error is thrown.
+            activeListBox.IsSelectionEnabled = true;
+        }
+
+        private void CommentListItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            ToggleCommentSelection(((FrameworkElement)sender).DataContext);
+        }
+
+        private void ToggleCommentSelection(Object category)
+        {
+            MultiselectList activeListBox = FindActiveListBox();
+            MultiselectItem container = activeListBox.ItemContainerGenerator.ContainerFromItem(category) as MultiselectItem;
+            if (null != container)
+            {
+                container.IsSelected = !container.IsSelected;
+            }
+        }
+        
+        private void multiselectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MultiselectList activeListBox = (MultiselectList)sender;
+            // when all items are unselected the selection mode automatically turns off
+            if (activeListBox.SelectedItems.Count == 0)
+                activeListBox.IsSelectionEnabled = true;
+        }
         #endregion
 
     }

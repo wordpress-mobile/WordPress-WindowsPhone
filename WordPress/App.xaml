@@ -268,48 +268,7 @@
     		</ControlTemplate>
 
     		<Converters:CommentStatusToBrushConverter x:Key="CommentStatusToBrushConverter"/>
-
-    		<DataTemplate x:Key="CommentListItemTemplate">
-    			<Grid>
-    				<Grid.RowDefinitions>
-    					<RowDefinition Height="Auto"/>
-    					<RowDefinition Height="Auto"/>
-    				</Grid.RowDefinitions>
-    				<Grid.ColumnDefinitions>
-    					<ColumnDefinition Width="Auto"/>
-    					<ColumnDefinition/>
-    				</Grid.ColumnDefinitions>
-    				<Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75"/>
-    				<StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0">
-    					<TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24">
-    						<TextBlock.Foreground>
-    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-    						</TextBlock.Foreground>
-    					</TextBlock>
-    					<TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
-    						<TextBlock.Foreground>
-    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-    						</TextBlock.Foreground>
-    					</TextBlock>
-    					<TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
-    						<TextBlock.Foreground>
-    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-    						</TextBlock.Foreground>
-    					</TextBlock>
-    				</StackPanel>
-    				<StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
-    					<TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
-    						<TextBlock.Foreground>
-    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-    						</TextBlock.Foreground>
-    					</TextBlock>
-    					<TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
-    						Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
-								/>
-    				</StackPanel>
-    			</Grid>
-    		</DataTemplate>
-
+    	
     		<Style x:Key="CommentListItemStyle" TargetType="ListBoxItem">
     			<Setter Property="Background" Value="Transparent"/>
     			<Setter Property="BorderThickness" Value="0"/>

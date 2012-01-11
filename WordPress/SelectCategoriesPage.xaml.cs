@@ -6,9 +6,6 @@ using Microsoft.Phone.Shell;
 
 using WordPress.Localization;
 using WordPress.Model;
-using System.ComponentModel;
-using System.Windows.Data;
-using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace WordPress

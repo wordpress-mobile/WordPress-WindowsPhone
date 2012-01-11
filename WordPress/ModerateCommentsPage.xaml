@@ -17,7 +17,48 @@
     <phone:PhoneApplicationPage.Resources>
       
         <local:MasterViewModel x:Key="MasterViewModelDataSource" d:IsDataSource="True"/>
-        
+
+        <DataTemplate x:Key="CommentListItemTemplate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Margin="0,0,10,10" Width="75" Height="75" Source="{Binding GravatarUrl}" MaxWidth="75" MaxHeight="75" Tap="CommentListItem_Tap" />
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0" Tap="CommentListItem_Tap">
+                    <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" FontSize="24">
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="24" >
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="24" >
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
+                    <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="26" MaxHeight="40">
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock x:Name="statusTextBlock" FontSize="21.333" Text="{Binding CommentStatus}"
+    						Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
+								/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
         <converters:CommentStatusGroupingConverter x:Key="ApprovedCommentConverter" Status="approve"/>
         <converters:CommentStatusGroupingConverter x:Key="UnapprovedCommentConverter" Status="hold"/>
         <converters:CommentStatusGroupingConverter x:Key="SpamCommentConverter" Status="spam"/>
@@ -70,30 +111,33 @@
                 <controls:PivotItem Header="{Binding PageTitles.All, Source={StaticResource StringTable}}">
                     <toolkit:MultiselectList x:Name="allCommentsListBox" 
                                              ItemTemplate="{StaticResource CommentListItemTemplate}"
-                                             ItemsSource="{Binding CurrentBlog.Comments}" />
+                                             ItemsSource="{Binding CurrentBlog.Comments}" 
+                                             SelectionChanged="multiselectList_SelectionChanged"
+                                             />
                 </controls:PivotItem>
                 <controls:PivotItem Header="{Binding PageTitles.Approve, Source={StaticResource StringTable}}">
                     <toolkit:MultiselectList x:Name="approvedCommentsListBox" 
                                              ItemTemplate="{StaticResource CommentListItemTemplate}"
                                              ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource ApprovedCommentConverter}}" 
-                            />
+                                             SelectionChanged="multiselectList_SelectionChanged"
+                                             />
                 </controls:PivotItem>
                 <controls:PivotItem Header="{Binding PageTitles.Unapprove, Source={StaticResource StringTable}}">
                     <toolkit:MultiselectList x:Name="unapprovedCommentsListBox" 
                                              ItemTemplate="{StaticResource CommentListItemTemplate}"
                                              ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource UnapprovedCommentConverter}}" 
-                            />
+                                             SelectionChanged="multiselectList_SelectionChanged"
+                                            />
                 </controls:PivotItem>
                 <controls:PivotItem Header="{Binding PageTitles.Spam, Source={StaticResource StringTable}}">
                     <toolkit:MultiselectList x:Name="spamCommentsListBox" 
                                              ItemTemplate="{StaticResource CommentListItemTemplate}"
-                                             ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource SpamCommentConverter}}" 
-                            />
+                                             ItemsSource="{Binding CurrentBlog.Comments, Converter={StaticResource SpamCommentConverter}}"
+                                             SelectionChanged="multiselectList_SelectionChanged"
+                                            />
                 </controls:PivotItem>
             
             </controls:Pivot>
         </Grid>
     </Grid>
-
-
 </phone:PhoneApplicationPage>
