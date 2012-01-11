@@ -279,6 +279,7 @@ namespace WordPress.Model
 
             Stream responseStream = response.GetResponseStream();
             string responseContent = null;
+            string originalServerResponse = null; //Keep copy of the server response "as-is", without cleaning it.
 
             try
             {
@@ -294,9 +295,10 @@ namespace WordPress.Model
             }
 
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(80, state.Operation.UserSuppliedState));
-           
+                      
             if (!String.IsNullOrEmpty(responseContent))
             {
+                originalServerResponse = String.Copy(responseContent);
                 //responseContent += "<<";
                 //this.DebugLog("XML-RPC response: " + responseContent);
                 //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
@@ -324,10 +326,42 @@ namespace WordPress.Model
             }
             catch (Exception ex)
             {
+                //something went wrong during the parsing process we'd like to recover the error.
+
                 this.DebugLog("Parser error: " + ex.Message); //this is the original error, that should not be shown to the user.
-                Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
-                CompletionMethod(null, exception, false, state.Operation);
-                return;
+                //Keep track of the original exception by adding the response from the server. If the recovery fails we should throw this exception.
+                if ( !String.IsNullOrEmpty( originalServerResponse ) )
+                {
+                    ex = new Exception("\n Server Response --> " + originalServerResponse, ex);
+                }
+                
+                //we are crazy
+                if (responseContent.Contains( "<fault>") )
+                {
+                    int startIndex = responseContent.IndexOf("<struct>");
+                    int lastIndex = responseContent.LastIndexOf("</struct>");
+                    responseContent = "<methodResponse><fault><value>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</struct></value></fault</methodResponse>";
+                }
+                else
+                {
+                    int startIndex = responseContent.IndexOf("<value>");
+                    int lastIndex = responseContent.LastIndexOf("</value>");
+                    responseContent = "<methodResponse><params><param>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</value></param></params></methodResponse>";
+                }
+                //Try to re-parse the content once again
+                xDoc = null;
+                try
+                {
+                    xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+                }
+                catch (Exception ex2)
+                {
+                    //Error recovery failed!!
+                    //Original Exception should be thrown when the error recovery fails...
+                    Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
+                    CompletionMethod(null, exception, false, state.Operation);
+                    return;
+                }
             }
 
             var fault = xDoc.Descendants().Where(element => XmlRPCResponseConstants.NAME == element.Name && XmlRPCResponseConstants.FAULTCODE_VALUE == element.Value);
