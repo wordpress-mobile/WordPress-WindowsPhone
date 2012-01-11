@@ -6,6 +6,10 @@ using Microsoft.Phone.Shell;
 
 using WordPress.Localization;
 using WordPress.Model;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace WordPress
 {
@@ -54,7 +58,7 @@ namespace WordPress
 
         #region methods
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
         }
@@ -62,19 +66,16 @@ namespace WordPress
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
             DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
+            this.categoriesListBox.IsSelectionEnabled = true;
+            //Add a listener on the selection changes
+            categoriesListBox.SelectionChanged += new SelectionChangedEventHandler(multiselectList_SelectionChanged);
 
-            LoadCategories();
-        }
-
-        private void LoadCategories()
-        {
             if (null == App.MasterViewModel.CurrentBlog) return;
 
             if (0 == DataService.Current.CurrentBlog.Categories.Count)
@@ -82,18 +83,19 @@ namespace WordPress
                 FetchCategories();
             }
             else
-            {
+            {  
                 foreach (string categoryString in App.MasterViewModel.CurrentPost.Categories)
                 {
                     foreach (Category category in App.MasterViewModel.CurrentBlog.Categories)
                     {
                         if (categoryString.Equals(category.Description))
                         {
+                            //ToggleCategorySelection(category);
                             categoriesListBox.SelectedItems.Add(category);
                         }
                     }
-                }
-            }
+                } 
+             }
         }
 
         private void FetchCategories()
@@ -107,6 +109,18 @@ namespace WordPress
         {
             DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
+            //update the list
+            categoriesListBox.IsSelectionEnabled = true;
+            foreach (string categoryString in App.MasterViewModel.CurrentPost.Categories)
+            {
+                foreach (Category category in App.MasterViewModel.CurrentBlog.Categories)
+                {
+                    if (categoryString.Equals(category.Description))
+                    {
+                        ToggleCategorySelection(category); 
+                    }
+                }
+            }
         }
 
         private void OnRefreshButtonClick(object sender, EventArgs args)
@@ -130,6 +144,29 @@ namespace WordPress
             }
             NavigationService.GoBack();
         }
+    
+        //Occurs when there is a change in the SelectedItems collection.
+        private void multiselectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // when all items are unselected the selection mode automatically turns off
+            if ( categoriesListBox.SelectedItems.Count == 0 )
+                categoriesListBox.IsSelectionEnabled = true;
+        }
+
+        private void CategoryListItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Category cat = ((FrameworkElement)sender).DataContext as Category;
+            ToggleCategorySelection(cat);
+        }
+
+        private void ToggleCategorySelection(Category category)
+        {
+            MultiselectItem container = categoriesListBox.ItemContainerGenerator.ContainerFromItem(category) as MultiselectItem;
+            if (null != container)
+            {
+                container.IsSelected = !container.IsSelected;
+            }
+        } 
 
         #endregion
     }

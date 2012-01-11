@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,69 +17,22 @@
 
     <phone:PhoneApplicationPage.Resources>
         <local:MasterViewModel x:Key="MasterViewModelDataSource" d:IsDataSource="True"/>
-        <Style x:Key="CategoryListItemStyle" TargetType="ListBoxItem">
-        	<Setter Property="Background" Value="Transparent"/>
-        	<Setter Property="BorderThickness" Value="0"/>
-        	<Setter Property="BorderBrush" Value="Transparent"/>
-        	<Setter Property="Padding" Value="0"/>
-        	<Setter Property="HorizontalContentAlignment" Value="Left"/>
-        	<Setter Property="VerticalContentAlignment" Value="Top"/>
-        	<Setter Property="Template">
-        		<Setter.Value>
-        			<ControlTemplate TargetType="ListBoxItem">
-        				<Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-        					<VisualStateManager.VisualStateGroups>
-        						<VisualStateGroup x:Name="CommonStates">
-        							<VisualState x:Name="Normal"/>
-        							<VisualState x:Name="MouseOver"/>
-        							<VisualState x:Name="Disabled">
-        								<Storyboard>
-        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
-        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TransparentBrush}"/>
-        									</ObjectAnimationUsingKeyFrames>
-        									<DoubleAnimation Duration="0" To=".5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="ContentContainer"/>
-        								</Storyboard>
-        							</VisualState>
-        						</VisualStateGroup>
-        						<VisualStateGroup x:Name="SelectionStates">
-        							<VisualState x:Name="Unselected">
-                                        <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
-                                                            Duration="0:0:0.15"
-                                                            From="{StaticResource WordPressBlue}" To="Transparent" />
-                                            <ColorAnimation Storyboard.TargetName="categoryTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" 
-                                                            From="White" To="{StaticResource WordPressGrey}"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Selected">
-                                        <Storyboard>
-                                            <ColorAnimation Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="(Grid.Background).(SolidBrushColor.Color)"  
-                                                            Duration="0:0:0.15"
-                                                            From="Transparent" To="{StaticResource WordPressBlue}" />
-                                            <ColorAnimation Storyboard.TargetName="categoryTextBrush" Storyboard.TargetProperty="Color"
-                                                            Duration="0:0:0.15" From="{StaticResource WordPressGrey}" To="White"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-        					</VisualStateManager.VisualStateGroups>
-                            <ContentControl x:Name="ContentContainer" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-                                <StackPanel>
-                                    <TextBlock x:Name="categoryTextBlock" Text="{Binding Description}" FontSize="26">
-                                        <TextBlock.Foreground>
-                                            <SolidColorBrush x:Name="categoryTextBrush" Color="{StaticResource WordPressGrey}"/>
-                                        </TextBlock.Foreground>
-                                    </TextBlock>
-                                </StackPanel>
-                            </ContentControl>
-        				</Border>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
-        </Style>
-
+        <DataTemplate x:Key="CategoryListItemStyle">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="categoryTextBlock" Text="{Binding Description}"  Tap="CategoryListItem_Tap" FontSize="24">
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+                    </TextBlock>
+            </Grid>
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
-    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}" DataContext="{Binding Source={StaticResource MasterViewModelDataSource}}">
         <Grid.RowDefinitions>
@@ -107,7 +61,7 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="categoriesListBox" Grid.Row="0" Grid.Column="0" SelectionMode="Multiple" ItemsSource="{Binding CurrentBlog.Categories}" ItemContainerStyle="{StaticResource CategoryListItemStyle}" />            
+            <toolkit:MultiselectList x:Name="categoriesListBox" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding CurrentBlog.Categories}"  ItemTemplate="{StaticResource CategoryListItemStyle}"/>            
         </Grid>
     </Grid>
 
