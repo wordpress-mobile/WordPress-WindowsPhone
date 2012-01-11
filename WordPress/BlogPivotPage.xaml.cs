@@ -16,7 +16,7 @@ using System.Windows.Media.Animation;
 
 namespace WordPress
 {
-    public partial class BlogPanoramaPage : PhoneApplicationPage
+    public partial class BlogPivotPage : PhoneApplicationPage
     {
         #region member variables
 
@@ -44,7 +44,7 @@ namespace WordPress
 
         #region constructors
 
-        public BlogPanoramaPage()
+        public BlogPivotPage()
         {
             InitializeComponent();
 
@@ -104,7 +104,7 @@ namespace WordPress
             _refreshIconButton.Text = _localizedStrings.ControlsText.Refresh;
             _refreshIconButton.Click += OnRefreshIconButtonClick;
 
-            blogPanorama.SelectionChanged += OnBlogPanoramaSelectionChanged;
+            blogPivot.SelectionChanged += OnblogPivotSelectionChanged;
 
             Loaded += OnPageLoaded;
         }
@@ -152,16 +152,16 @@ namespace WordPress
             // Set the app bar based on which pivot item is visible
             ApplicationBar.Buttons.Clear();
 
-            if (blogPanorama.SelectedItem == pagesPanoramaItem || blogPanorama.SelectedItem == postsPanoramaItem)
+            if (blogPivot.SelectedItem == pagesPivotItem || blogPivot.SelectedItem == postsPivotItem)
             {
                 ApplicationBar.Buttons.Add(_addIconButton);
                 ApplicationBar.Buttons.Add(_refreshIconButton);
             }
-            else if (blogPanorama.SelectedItem == commentsPanoramaItem)
+            else if (blogPivot.SelectedItem == commentsPivotItem)
             {
                 ApplicationBar.Buttons.Add(_refreshIconButton);
             }
-            else if (blogPanorama.SelectedItem == actionsPanoramaItem)
+            else if (blogPivot.SelectedItem == actionsPivotItem)
             {
                 if (_blogIsPinned)
                 {
@@ -176,7 +176,7 @@ namespace WordPress
             ApplicationBar.IsVisible = ApplicationBar.Buttons.Count > 0;
         }
 
-        private void OnBlogPanoramaSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnblogPivotSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             RefreshAppBar();
         }
@@ -214,11 +214,11 @@ namespace WordPress
 
         private void OnAddIconButtonClick(object sender, EventArgs e)
         {
-            if (blogPanorama.SelectedItem == postsPanoramaItem)
+            if (blogPivot.SelectedItem == postsPivotItem)
             {
                 OnCreatePostButtonClick(sender, null);
             }
-            else if (blogPanorama.SelectedItem == pagesPanoramaItem)
+            else if (blogPivot.SelectedItem == pagesPivotItem)
             {
                 OnCreatePageButtonClick(sender, null);
             }
@@ -226,15 +226,15 @@ namespace WordPress
 
         private void OnRefreshIconButtonClick(object sender, EventArgs e)
         {
-            if (blogPanorama.SelectedItem == commentsPanoramaItem)
+            if (blogPivot.SelectedItem == commentsPivotItem)
             {
                 FetchComments();
             }
-            else if (blogPanorama.SelectedItem == postsPanoramaItem)
+            else if (blogPivot.SelectedItem == postsPivotItem)
             {
                 FetchPosts();
             }
-            else if (blogPanorama.SelectedItem == pagesPanoramaItem)
+            else if (blogPivot.SelectedItem == pagesPivotItem)
             {
                 FetchPages();
             }
@@ -548,6 +548,7 @@ namespace WordPress
             {
                 if (App.MasterViewModel.CurrentBlog.DotcomUsername == null || invalidCredentials)
                 {
+                    dotcomLoginGrid.Visibility = System.Windows.Visibility.Visible;
                     Storyboard sB = new Storyboard();
                     DoubleAnimation doubleAnimation = new DoubleAnimation();
                     PropertyPath pPath = new PropertyPath("dotcomLoginGrid.Opacity");    // your button name.Opacity
@@ -642,6 +643,7 @@ namespace WordPress
             Storyboard.SetTargetProperty(doubleAnimation, pPath);
             Storyboard.SetTarget(doubleAnimation, (dotcomLoginGrid));    // your button name
             sB.Begin();
+            dotcomLoginGrid.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void RetrieveViews()
