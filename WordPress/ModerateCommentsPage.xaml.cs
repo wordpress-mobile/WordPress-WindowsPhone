@@ -288,7 +288,6 @@ namespace WordPress
             spamCommentsListBox.ItemsSource = spamCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
         }
 
-
         private void OnListLoaded(object sender, EventArgs args)
         {
             MultiselectList activeListBox = (MultiselectList)sender; //set the IsSelectionEnabled = true on the first list. Don't know why but if set it in XAML an error is thrown.

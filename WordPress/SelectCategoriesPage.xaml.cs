@@ -69,6 +69,7 @@ namespace WordPress
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
+            categoriesListBox.SelectedItems.Clear();
             this.categoriesListBox.IsSelectionEnabled = true;
             //Add a listener on the selection changes
             categoriesListBox.SelectionChanged += new SelectionChangedEventHandler(multiselectList_SelectionChanged);
@@ -80,19 +81,18 @@ namespace WordPress
                 FetchCategories();
             }
             else
-            {  
+            {
                 foreach (string categoryString in App.MasterViewModel.CurrentPost.Categories)
                 {
                     foreach (Category category in App.MasterViewModel.CurrentBlog.Categories)
                     {
                         if (categoryString.Equals(category.Description))
                         {
-                            //ToggleCategorySelection(category);
                             categoriesListBox.SelectedItems.Add(category);
                         }
                     }
-                } 
-             }
+                }                       
+            }
         }
 
         private void FetchCategories()
@@ -107,6 +107,7 @@ namespace WordPress
             DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
             //update the list
+            categoriesListBox.SelectedItems.Clear();
             categoriesListBox.IsSelectionEnabled = true;
             foreach (string categoryString in App.MasterViewModel.CurrentPost.Categories)
             {
@@ -114,7 +115,8 @@ namespace WordPress
                 {
                     if (categoryString.Equals(category.Description))
                     {
-                        ToggleCategorySelection(category); 
+                        //ToggleCategorySelection(category); 
+                        categoriesListBox.SelectedItems.Add(category);
                     }
                 }
             }
