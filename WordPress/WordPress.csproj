@@ -302,7 +302,7 @@
     <Resource Include="Images\pano-bg.png" />
     <Content Include="wp-tile.png" />
     <Resource Include="Images\background.jpg" />
-    <Content Include="Images\actionsEdit.png" />
+    <Resource Include="Images\actionsEdit.png" />
     <Resource Include="Images\actionsModerate.png" />
     <Resource Include="Images\actionsRefresh.png" />
     <Resource Include="Images\actionsSettings.png" />
