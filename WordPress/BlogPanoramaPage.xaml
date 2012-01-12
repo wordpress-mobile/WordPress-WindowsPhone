@@ -156,6 +156,8 @@
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
 
+        <Grid Style="{StaticResource LayoutRootStyle}" Background="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" Width="2048" Height="97" VerticalAlignment="Top"/>
+
         <controls:Panorama x:Name="blogPanorama">
             <controls:Panorama.Foreground>
                 <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
@@ -165,9 +167,6 @@
                         <TextBlock Margin="2,6,0,0" Foreground="White" FontSize="88" x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameLower, Mode=OneWay}" />
                     </StackPanel>
             </controls:Panorama.Title>
-            <controls:Panorama.Background>
-                <ImageBrush ImageSource="Images/pano-bg.png"/>
-            </controls:Panorama.Background>
 
             <!--actions Panorama item -->
             <controls:PanoramaItem x:Name="actionsPanoramaItem" Header="{Binding PageTitles.Actions, Source={StaticResource StringTable}}" Style="{StaticResource panoramaItemStyle}">
@@ -176,13 +175,13 @@
                 </controls:PanoramaItem.Foreground>
                 <Grid Margin="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                    	<RowDefinition Height="Auto"/>
+                    	<RowDefinition Height="Auto"/>
+                    	<RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                    	<ColumnDefinition Width="Auto"/>
+                    	<ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="createPostButton" Height="200" Margin="0" 
@@ -345,17 +344,17 @@
                 </controls:PanoramaItem.Foreground>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                    	<RowDefinition Height="Auto"/>
+                    	<RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Grid Margin="-10,0,0,0" Grid.Row="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
+                        	<RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
+                        	<ColumnDefinition Width="Auto"/>
+                        	<ColumnDefinition Width="Auto"/>
+                        	<ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="statisticTypeButton" 
@@ -408,12 +407,12 @@
 
                             <Grid >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition/>
+                                	<RowDefinition Height="Auto"/>
+                                	<RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                    <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                                	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                                	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
                                 <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Date, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
@@ -424,8 +423,8 @@
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="300"/>
-                                                    <ColumnDefinition Width="100"/>
+                                                	<ColumnDefinition Width="300"/>
+                                                	<ColumnDefinition Width="100"/>
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock Grid.Column="0" Margin="{StaticResource DataItemMargin}" 
 													 Text="{Binding ViewDate, Converter={StaticResource DateToShortDateStringConverter}}" 
@@ -444,12 +443,12 @@
 
                     <Grid x:Name="postViewsGrid" Grid.Row="1" Visibility="Collapsed">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
+                        	<RowDefinition Height="Auto"/>
+                        	<RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                         </Grid.ColumnDefinitions>
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.PostTitle, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
@@ -460,8 +459,8 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"  Margin="{StaticResource DataItemMargin}" 
 											Text="{Binding Title}" FontSize="{StaticResource ControlFontSize}" 
@@ -478,12 +477,12 @@
 
                     <Grid x:Name="searchTermsGrid" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
+                        	<RowDefinition Height="Auto"/>
+                        	<RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                         </Grid.ColumnDefinitions>
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.SearchTerms, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
@@ -494,8 +493,8 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0"  Margin="{StaticResource DataItemMargin}" 
 											Text="{Binding SearchTerm}" FontSize="{StaticResource ControlFontSize}" 
@@ -512,12 +511,12 @@
 
                     <Grid x:Name="referrersGrid" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
+                        	<RowDefinition Height="Auto"/>
+                        	<RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                         </Grid.ColumnDefinitions>
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Referrers, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
@@ -528,8 +527,8 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                                         </Grid.ColumnDefinitions>
                                         <HyperlinkButton Grid.Column="0" Content="{Binding Url}" Margin="{StaticResource DataItemMargin}"
 											FontSize="{StaticResource ControlFontSize}" Foreground="{StaticResource WordPressGreyBrush}"
@@ -549,12 +548,12 @@
 
                     <Grid x:Name="clicksGrid" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
+                        	<RowDefinition Height="Auto"/>
+                        	<RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                         </Grid.ColumnDefinitions>
                         <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Clicks, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
@@ -565,8 +564,8 @@
                                 <DataTemplate>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                            <ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
+                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
                                         </Grid.ColumnDefinitions>
                                         <HyperlinkButton Grid.Column="0" Content="{Binding Url}" Margin="{StaticResource DataItemMargin}"
 											FontSize="{StaticResource ControlFontSize}" Foreground="{StaticResource WordPressGreyBrush}"
