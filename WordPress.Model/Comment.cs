@@ -305,7 +305,7 @@ namespace WordPress.Model
                 encoder.GetBytes(emailAddress.ToCharArray(), 0, emailAddress.Length, unicodeText, 0, true);
 
                 string hash = MD5.GetMd5String(emailAddress.Trim());
-                string uriFormat = "http://gravatar.com/avatar/{0}?s=100&d=identicon";
+                string uriFormat = "http://gravatar.com/avatar/{0}?s=100&d=mm";
                 string result = string.Format(uriFormat, hash);
                 return result;
             }
