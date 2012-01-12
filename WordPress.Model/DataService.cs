@@ -31,7 +31,7 @@ namespace WordPress.Model
         /// <summary>
         /// The number of *items* to download per web call.
         /// </summary>
-        private const int CHUNK_SIZE = 30;
+        private const int CHUNK_SIZE = 20;
 
         #endregion
 
@@ -230,7 +230,7 @@ namespace WordPress.Model
             CurrentBlog.IsLoadingContent = true;
 
             GetAllCommentsRPC rpc = new GetAllCommentsRPC(CurrentBlog);
-            rpc.Number = CHUNK_SIZE;
+            rpc.Number = 100; //Like other mobile apps
             rpc.Offset = 0;
             rpc.Completed += OnFetchCurrentBlogCommentsCompleted;
 
@@ -262,19 +262,36 @@ namespace WordPress.Model
 
         public void FetchCurrentBlogPostsAsync()
         {
+            this.FetchCurrentBlogPostsAsync(false);
+        }
+
+        public void FetchCurrentBlogPostsAsync(bool more)
+        {
             if (null == CurrentBlog)
             {
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
-
+                        
             //we're already downloading data here--don't allow scenarios where we could be
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
 
             CurrentBlog.IsLoadingContent = true;
 
+            int numerberOfPosts = 0;
+            if (more)
+            {
+                numerberOfPosts = Math.Max(CurrentBlog.PostListItems.Count, CHUNK_SIZE);
+                if (CurrentBlog.HasOlderPosts)
+                    numerberOfPosts += CHUNK_SIZE;
+            }
+            else
+            {
+                numerberOfPosts = CHUNK_SIZE;
+            }
+            
             GetRecentPostsRPC rpc = new GetRecentPostsRPC(CurrentBlog);
-            rpc.NumberOfPosts = CHUNK_SIZE;
+            rpc.NumberOfPosts = numerberOfPosts;
             rpc.Completed += OnFetchCurrentBlogPostsCompleted;
 
             rpc.ExecuteAsync();
@@ -285,10 +302,22 @@ namespace WordPress.Model
             GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
             rpc.Completed -= OnFetchCurrentBlogPostsCompleted;
 
+            int prevPostsCount = CurrentBlog.PostListItems.Count;
             CurrentBlog.PostListItems.Clear();
 
             if (null == args.Error)
             {
+                // If we asked for more and we got what we had, there are no more posts to load
+                if (rpc.NumberOfPosts > CHUNK_SIZE && (args.Items.Count <= prevPostsCount))
+                {
+                    CurrentBlog.HasOlderPosts = false;
+                }
+                else if (rpc.NumberOfPosts == CHUNK_SIZE)
+                {
+                    //we should reset the flag otherwise when you refresh this blog you can't get more than CHUNK_SIZE posts
+                    CurrentBlog.HasOlderPosts = true;
+                }
+
                 foreach (PostListItem item in args.Items)
                 {
                     CurrentBlog.PostListItems.Add(item);
@@ -327,7 +356,7 @@ namespace WordPress.Model
         {
             GetPageListRPC rpc = sender as GetPageListRPC;
             rpc.Completed -= OnFetchCurrentBlogPagesCompleted;
-
+     
             CurrentBlog.PageListItems.Clear();
 
             if (null == args.Error)

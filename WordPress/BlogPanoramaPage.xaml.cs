@@ -13,6 +13,9 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Shell;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Collections;
+using System.Windows.Input;
+using System.Windows.Controls.Primitives;
 
 namespace WordPress
 {
@@ -107,6 +110,10 @@ namespace WordPress
             blogPanorama.SelectionChanged += OnBlogPanoramaSelectionChanged;
 
             Loaded += OnPageLoaded;
+            postsScrollerView.Loaded += enableInfiniteScrolling;
+            //we don't need infinite scroll on page, since we are using wp.getPageList and not getPages
+            //pagesScrollerView.Loaded += enableInfiniteScrolling;
+            commentsScrollerView.Loaded += enableInfiniteScrolling;
         }
 
         #endregion
@@ -120,6 +127,74 @@ namespace WordPress
         #endregion
 
         #region methods
+
+        private void enableInfiniteScrolling(object sender, RoutedEventArgs args)
+        {
+
+            if (sender is ScrollViewer == false) return;
+            ScrollViewer sv = (ScrollViewer)sender;// postsScrollerView;
+            if (sv != null)
+            {
+                // Visual States are always on the first child of the control template 
+                FrameworkElement element = VisualTreeHelper.GetChild(sv, 0) as FrameworkElement;
+                if (element != null)
+                {
+                    VisualStateGroup group = FindVisualState(element, "ScrollStates");
+                    if (group != null)
+                    {
+                        group.CurrentStateChanging += new EventHandler<VisualStateChangedEventArgs>(group_CurrentStateChanging);
+                    }
+                }
+            }
+        }
+
+        private void group_CurrentStateChanging(object sender, VisualStateChangedEventArgs e)
+        {
+            this.DebugLog("group_CurrentStateChanging " + e.NewState.Name);
+            Control ctrl = e.Control;
+            if (ctrl is ScrollViewer)
+            {
+                if (e.NewState.Name == "NotScrolling")
+                {
+                    //check the position 
+                    ScrollViewer currScroller = (ScrollViewer)ctrl;
+                    this.DebugLog(ctrl.Name + " " + currScroller.VerticalOffset);
+                    this.DebugLog(ctrl.Name + " " + currScroller.ScrollableHeight);
+                    if (currScroller.ScrollableHeight > 0 && currScroller.ScrollableHeight == currScroller.VerticalOffset)
+                        loadMoreItems(currScroller);
+                }
+            }
+        }
+
+        private void loadMoreItems(ScrollViewer currScroller)
+        {
+            if (currScroller.Name == "postsScrollerView")
+            {
+                this.DebugLog("LoadingMorePosts");
+                FetchPosts(true);
+            }
+            else if (currScroller.Name == "pagesScrollerView")
+            {
+                this.DebugLog("LoadingMorePages");
+            }
+            else if (currScroller.Name == "commentsScrollerView")
+            {
+                this.DebugLog("LoadingMoreComments");
+            }
+        }
+
+       private VisualStateGroup FindVisualState(FrameworkElement element, string name)
+        {
+            if (element == null)
+                return null;
+
+            IList groups = VisualStateManager.GetVisualStateGroups(element);
+            foreach (VisualStateGroup group in groups)
+                if (group.Name == name)
+                    return group;
+
+            return null;
+        }
 
         private void OnPageLoaded(object sender, RoutedEventArgs args)
         {
@@ -232,7 +307,7 @@ namespace WordPress
             }
             else if (blogPanorama.SelectedItem == postsPanoramaItem)
             {
-                FetchPosts();
+                FetchPosts(false);
             }
             else if (blogPanorama.SelectedItem == pagesPanoramaItem)
             {
@@ -938,10 +1013,10 @@ namespace WordPress
             DataService.Current.FetchCurrentBlogPagesAsync();
         }
 
-        private void FetchPosts()
+        private void FetchPosts(bool more)
         {
             DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
-            DataService.Current.FetchCurrentBlogPostsAsync();            
+            DataService.Current.FetchCurrentBlogPostsAsync(more);            
         }
 
         private void FetchComments()

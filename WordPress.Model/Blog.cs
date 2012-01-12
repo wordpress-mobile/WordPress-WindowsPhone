@@ -37,6 +37,7 @@ namespace WordPress.Model
         private const string NOBLOGTITLE_VALUE = "__(_No Blog Title_)__";
 
         private bool _isLoadingContent;
+        private bool _hasOlderPosts = true;
 
         #endregion
 
@@ -298,6 +299,17 @@ namespace WordPress.Model
             {
                 _isLoadingContent = value; 
                 NotifyPropertyChanged("IsLoadingContent");
+            }
+        }
+
+        [XmlIgnore]
+        public bool HasOlderPosts
+        {
+            get { return _hasOlderPosts; }
+
+            internal set
+            {
+                _hasOlderPosts = value;
             }
         }
         

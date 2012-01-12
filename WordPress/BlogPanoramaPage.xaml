@@ -257,7 +257,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
 				<Grid Margin="0,0,0,0" Height="669">
-				<ScrollViewer Margin="0,0,0,72">
+                    <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,72">
                     <StackPanel>                     
                    		<TextBlock Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,25" Height="92" />                     
                    		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3"
@@ -275,7 +275,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ScrollViewer Margin="0,0,0,72">
+                    <ScrollViewer x:Name="postsScrollerView" Margin="0,0,0,72">
                         <StackPanel>
                             <TextBlock Text="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="postsListBox" Grid.Row="0"
@@ -309,7 +309,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ScrollViewer Margin="0,0,0,72">
+                    <ScrollViewer x:Name="pagesScrollerView" Margin="0,0,0,72">
                         <StackPanel>
                             <TextBlock Text="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="pagesListBox"
