@@ -88,12 +88,27 @@ namespace WordPress
                     {
                         if (categoryString.Equals(category.Description))
                         {
-                            categoriesListBox.SelectedItems.Add(category);
+                            selectItemOnPageLoaded(category);
                         }
                     }
-                }                       
+                }
             }
         }
+
+        private void selectItemOnPageLoaded(Category category)
+        {
+            MultiselectItem container = categoriesListBox.ItemContainerGenerator.ContainerFromItem(category) as MultiselectItem;
+            if (null != container)
+            {
+                container.IsSelected = !container.IsSelected;
+            }
+            else 
+            {
+                //on long list the container could be null since the list is not fully rendered on the screen, so we can't select items at the end of the list
+                categoriesListBox.SelectedItems.Add(category);
+            }
+        } 
+
 
         private void FetchCategories()
         {
@@ -115,8 +130,7 @@ namespace WordPress
                 {
                     if (categoryString.Equals(category.Description))
                     {
-                        //ToggleCategorySelection(category); 
-                        categoriesListBox.SelectedItems.Add(category);
+                        selectItemOnPageLoaded(category);
                     }
                 }
             }
