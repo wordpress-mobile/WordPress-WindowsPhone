@@ -38,6 +38,7 @@ namespace WordPress.Model
 
         private bool _isLoadingContent;
         private bool _hasOlderPosts = true;
+        private bool _hasOlderComments = true;
 
         #endregion
 
@@ -312,7 +313,18 @@ namespace WordPress.Model
                 _hasOlderPosts = value;
             }
         }
-        
+
+        [XmlIgnore]
+        public bool HasOlderComments
+        {
+            get { return _hasOlderComments; }
+
+            internal set
+            {
+                _hasOlderComments = value;
+            }
+        }
+
         #endregion
 
         #region methods

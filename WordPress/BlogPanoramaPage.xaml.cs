@@ -130,9 +130,8 @@ namespace WordPress
 
         private void enableInfiniteScrolling(object sender, RoutedEventArgs args)
         {
-
             if (sender is ScrollViewer == false) return;
-            ScrollViewer sv = (ScrollViewer)sender;// postsScrollerView;
+            ScrollViewer sv = (ScrollViewer)sender;
             if (sv != null)
             {
                 // Visual States are always on the first child of the control template 
@@ -150,7 +149,6 @@ namespace WordPress
 
         private void group_CurrentStateChanging(object sender, VisualStateChangedEventArgs e)
         {
-            this.DebugLog("group_CurrentStateChanging " + e.NewState.Name);
             Control ctrl = e.Control;
             if (ctrl is ScrollViewer)
             {
@@ -158,8 +156,8 @@ namespace WordPress
                 {
                     //check the position 
                     ScrollViewer currScroller = (ScrollViewer)ctrl;
-                    this.DebugLog(ctrl.Name + " " + currScroller.VerticalOffset);
-                    this.DebugLog(ctrl.Name + " " + currScroller.ScrollableHeight);
+                    this.DebugLog(ctrl.Name + "->VerticalOffset: " + currScroller.VerticalOffset);
+                    this.DebugLog(ctrl.Name + "->ScrollableHeight: " + currScroller.ScrollableHeight);
                     if (currScroller.ScrollableHeight > 0 && currScroller.ScrollableHeight == currScroller.VerticalOffset)
                         loadMoreItems(currScroller);
                 }
@@ -180,6 +178,7 @@ namespace WordPress
             else if (currScroller.Name == "commentsScrollerView")
             {
                 this.DebugLog("LoadingMoreComments");
+                FetchComments(true);
             }
         }
 
@@ -303,7 +302,7 @@ namespace WordPress
         {
             if (blogPanorama.SelectedItem == commentsPanoramaItem)
             {
-                FetchComments();
+                FetchComments(false);
             }
             else if (blogPanorama.SelectedItem == postsPanoramaItem)
             {
@@ -1019,10 +1018,10 @@ namespace WordPress
             DataService.Current.FetchCurrentBlogPostsAsync(more);            
         }
 
-        private void FetchComments()
+        private void FetchComments(bool more)
         {
             DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
-            DataService.Current.FetchCurrentBlogCommentsAsync();            
+            DataService.Current.FetchCurrentBlogCommentsAsync(more);            
         }
 
         private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)

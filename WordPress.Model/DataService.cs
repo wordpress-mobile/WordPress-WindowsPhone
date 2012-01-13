@@ -216,7 +216,7 @@ namespace WordPress.Model
             }
         }
 
-        public void FetchCurrentBlogCommentsAsync()
+        public void FetchCurrentBlogCommentsAsync(bool more)
         {
             if (null == CurrentBlog)
             {
@@ -229,12 +229,35 @@ namespace WordPress.Model
 
             CurrentBlog.IsLoadingContent = true;
 
+            int numerberOfComments = 0;
+            if (more)
+            {
+                numerberOfComments = Math.Max(CurrentBlog.Comments.Count, CHUNK_SIZE);
+                if (CurrentBlog.HasOlderComments)
+                    numerberOfComments += CHUNK_SIZE;
+                else
+                {
+                    //removing this block you will enable the refresh of comments when reached the end of the list and no more comments are available
+                    CurrentBlog.IsLoadingContent = false;
+                    return;
+                }
+            }
+            else
+            {
+                numerberOfComments = CHUNK_SIZE;
+            }
+            
             GetAllCommentsRPC rpc = new GetAllCommentsRPC(CurrentBlog);
-            rpc.Number = 100; //Like other mobile apps
+            rpc.Number = numerberOfComments;
             rpc.Offset = 0;
             rpc.Completed += OnFetchCurrentBlogCommentsCompleted;
 
             rpc.ExecuteAsync();
+        }
+
+        public void FetchCurrentBlogCommentsAsync()
+        {
+            this.FetchCurrentBlogCommentsAsync(false);
         }
 
         private void OnFetchCurrentBlogCommentsCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
@@ -242,10 +265,23 @@ namespace WordPress.Model
             GetAllCommentsRPC rpc = sender as GetAllCommentsRPC;
             rpc.Completed -= OnFetchCurrentBlogCommentsCompleted;
 
+            int prevCommentsCount = CurrentBlog.Comments.Count;
             CurrentBlog.Comments.Clear();
 
             if (null == args.Error)
             {
+
+                // If we asked for more and we got what we had, there are no more posts to load
+                if (rpc.Number > CHUNK_SIZE && (args.Items.Count <= prevCommentsCount))
+                {
+                    CurrentBlog.HasOlderComments = false;
+                }
+                else if (rpc.Number == CHUNK_SIZE)
+                {
+                    //we should reset the flag otherwise when you refresh this blog you can't get more than CHUNK_SIZE comments
+                    CurrentBlog.HasOlderComments = true;
+                }
+
                 foreach (Comment comment in args.Items)
                 {
                     CurrentBlog.Comments.Add(comment);
@@ -284,6 +320,12 @@ namespace WordPress.Model
                 numerberOfPosts = Math.Max(CurrentBlog.PostListItems.Count, CHUNK_SIZE);
                 if (CurrentBlog.HasOlderPosts)
                     numerberOfPosts += CHUNK_SIZE;
+                else 
+                {
+                    //removing this block you will enable the refresh of posts when reached the end of the list and no more posts are available
+                    CurrentBlog.IsLoadingContent = false;
+                    return;
+                }
             }
             else
             {
