@@ -17,21 +17,6 @@
 
     <phone:PhoneApplicationPage.Resources>
         <local:MasterViewModel x:Key="MasterViewModelDataSource" d:IsDataSource="True"/>
-        <DataTemplate x:Key="CategoryListItemStyle">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock x:Name="categoryTextBlock" Text="{Binding Description}"  Tap="CategoryListItem_Tap" FontSize="24">
-    						<TextBlock.Foreground>
-    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-    						</TextBlock.Foreground>
-                    </TextBlock>
-            </Grid>
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}" DataContext="{Binding Source={StaticResource MasterViewModelDataSource}}">
@@ -61,7 +46,17 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:MultiselectList x:Name="categoriesListBox" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding CurrentBlog.Categories}"  ItemTemplate="{StaticResource CategoryListItemStyle}"/>            
+            <toolkit:MultiselectList x:Name="categoriesListBox" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding CurrentBlog.Categories}">
+                <toolkit:MultiselectList.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock x:Name="categoryTextBlock" Text="{Binding Description}"  Tap="CategoryListItem_Tap" FontSize="24">
+    						<TextBlock.Foreground>
+    							<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+    						</TextBlock.Foreground>
+                        </TextBlock>
+                    </DataTemplate>
+                </toolkit:MultiselectList.ItemTemplate>
+            </toolkit:MultiselectList>
         </Grid>
     </Grid>
 
