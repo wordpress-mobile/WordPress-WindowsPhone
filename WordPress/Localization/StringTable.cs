@@ -172,6 +172,7 @@ namespace WordPress.Localization
             public string ReleaseToRefresh { get { return LocalizedResources.ControlText_ReleaseToRefresh; } }
             public string Pin { get { return LocalizedResources.ControlText_Pin; } }
             public string Unpin { get { return LocalizedResources.ControlText_Unpin; } }
+            public string ViewStats { get { return LocalizedResources.ControlText_ViewStats; } }
         }
 
         #endregion

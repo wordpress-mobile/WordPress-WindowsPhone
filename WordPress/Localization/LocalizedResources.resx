@@ -759,4 +759,7 @@
   <data name="Messages_MissingFields" xml:space="preserve">
     <value>Please fill in all fields</value>
   </data>
+  <data name="ControlText_ViewStats" xml:space="preserve">
+    <value>view stats</value>
+  </data>
 </root>

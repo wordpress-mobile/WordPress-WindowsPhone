@@ -62,9 +62,7 @@
     <Reference Include="System.Windows.Controls">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v3.0\Libraries\Client\System.Windows.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v3.0\Toolkit\Nov09\Bin\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Layout.Toolkit">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Silverlight\v3.0\Toolkit\Nov09\Bin\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
     </Reference>
@@ -170,6 +168,9 @@
     <Compile Include="Utils\Tools.cs" />
     <Compile Include="Utils\UIThread.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
+    <Compile Include="ViewStatsPage.xaml.cs">
+      <DependentUpon>ViewStatsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitIndicationService\IWaitIndicationService.cs" />
     <Compile Include="WaitIndicationService\Spinner.xaml.cs">
       <DependentUpon>Spinner.xaml</DependentUpon>
@@ -269,6 +270,10 @@
     <Page Include="SelectCategoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewStatsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WaitIndicationService\Spinner.xaml">
       <SubType>Designer</SubType>

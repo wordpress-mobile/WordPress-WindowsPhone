@@ -9,11 +9,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:WordPress"
-    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
-	xmlns:dataVisualization="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:Converters="clr-namespace:WordPress.Converters"
     xmlns:model="clr-namespace:WordPress.Model;assembly=WordPress.Model"
-    xmlns:layout="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -100,57 +97,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-        <Converters:StatisticPeriodToStringConverter x:Key="StatisticPeriodToStringConverter"/>
-        <Converters:StatisticTypeToStringConverter x:Key="StatisticTypeToStringConverter"/>
         <Converters:DateToShortDateStringConverter x:Key="DateToShortDateStringConverter"/>
         <Converters:BooleanToVisibilityConverter x:Key="LoadingContentConverter"/>
         <Converters:ItemTitleInListConverter x:Key="ItemTitleInListConverter"/>
-
-        <local:ObservableObjectCollection x:Key="viewStatsDataSource"/>
-        <local:ObservableObjectCollection x:Key="postViewStatsDataSource"/>
-        <local:ObservableObjectCollection x:Key="searchTermStatsDataSource"/>
-        <local:ObservableObjectCollection x:Key="referrerStatsDataSource"/>
-        <local:ObservableObjectCollection x:Key="clickStatsDataSource"/>
-        <GridLength x:Key="DataColumnWidth">316</GridLength>
-        <GridLength x:Key="CountColumnWidth">100</GridLength>
-        <Thickness x:Key="DataItemMargin">0,0,0,10</Thickness>
-
-        <Style x:Key="WrappableHyperLinkButtonStyle" TargetType="HyperlinkButton">
-            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="HyperlinkButton">
-                        <Border Background="Transparent">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal"/>
-                                    <VisualState x:Name="MouseOver"/>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="TextElement"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="TextElement">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <Border Background="{TemplateBinding Background}" Margin="{StaticResource PhoneHorizontalMargin}" Padding="{TemplateBinding Padding}">
-                                <TextBlock x:Name="TextElement" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{TemplateBinding Content}" TextDecorations="Underline" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" TextWrapping="Wrap"/>
-                            </Border>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -241,11 +190,26 @@
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
                         <StackPanel Height="186" Width="188" >
-                            <Image Source="Images/actionsSettings.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBlock Text="{Binding ControlsText.BlogSettings, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                    		<Image Source="Images/actionsSettings.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    		<TextBlock Text="{Binding ControlsText.BlogSettings, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
                     			TextAlignment="Right" Foreground="White"/>
-                        </StackPanel>
+                    	</StackPanel>
+                    </Button>
+                    <Button x:Name="viewStatsButton" Height="84" Margin="0" 
+                    	VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
+                    	Grid.Row="2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
+                    	Style="{StaticResource TileButtonTemplate}" Width="400"
+                    	Click="OnStatsButtonClick" Grid.ColumnSpan="2" d:LayoutOverrides="VerticalAlignment">
+                    	<Button.Background>
+                    		<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                    	</Button.Background>
+                    	<StackPanel Height="76" Width="390" RenderTransformOrigin="0.715,0.478" >
+                    		<Image Source="Images/actionsSettings.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/>
+                    		<TextBlock Text="{Binding ControlsText.ViewStats, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                    			VerticalAlignment="Bottom" Margin="0,-31,10,0" HorizontalAlignment="Right" 
+                    			TextAlignment="Right" Foreground="White"/>
+                    	</StackPanel>
                     </Button>
                 </Grid>
 
@@ -334,263 +298,6 @@
                             </ListBox>
                         </StackPanel>
                     </ScrollViewer>
-                </Grid>
-            </controls:PanoramaItem>
-
-            <!--stats Panorama item-->
-            <controls:PanoramaItem x:Name="statsPanoramaItem" Header="{Binding PageTitles.Stats, Source={StaticResource StringTable}}" Style="{StaticResource panoramaItemStyle}">
-                <controls:PanoramaItem.Foreground>
-                    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-                </controls:PanoramaItem.Foreground>
-                <Grid>
-                    <Grid.RowDefinitions>
-                    	<RowDefinition Height="Auto"/>
-                    	<RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Margin="-10,0,0,0" Grid.Row="0">
-                        <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                        	<ColumnDefinition Width="Auto"/>
-                        	<ColumnDefinition Width="Auto"/>
-                        	<ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button x:Name="statisticTypeButton" 
-                			Content="{Binding StatisticType, Converter={StaticResource StatisticTypeToStringConverter}, ElementName=phoneApplicationPage, Mode=TwoWay}"
-                			Click="OnStatisticTypeButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Width="200" Margin="-5,0,0,0"/>
-                        <Button x:Name="statisticPeriodButton" 
-                			Content="{Binding StatisticPeriod, Converter={StaticResource StatisticPeriodToStringConverter}, ElementName=phoneApplicationPage, Mode=TwoWay}"
-                			Click="OnStatisticPeriodButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0" HorizontalAlignment="Left" Grid.Column="1" Width="200"/>
-
-                        <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" Margin="-20,0,0,0" HorizontalAlignment="Left" Grid.Column="2"/>
-                    </Grid>
-                    <ScrollViewer x:Name="viewsStatsScrollViewer" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
-                        <StackPanel>
-
-                            <chartingToolkit:Chart x:Name="viewsStatsChart" BorderThickness="0" DataContext="{StaticResource viewStatsDataSource}" Height="450">
-                                <chartingToolkit:Chart.LegendStyle>
-                                    <Style TargetType="dataVisualization:Legend">
-                                        <Setter Property="Width" Value="0"/>
-                                        <Setter Property="Height" Value="0"/>
-                                    </Style>
-                                </chartingToolkit:Chart.LegendStyle>
-
-                                <chartingToolkit:ColumnSeries DependentValuePath="ViewCount" ItemsSource="{StaticResource viewStatsDataSource}" IndependentValuePath="ViewDate">
-                                    <chartingToolkit:ColumnSeries.DependentRangeAxis>
-                                        <chartingToolkit:LinearAxis Location="Left" Orientation="Y" Title="Views"/>
-                                    </chartingToolkit:ColumnSeries.DependentRangeAxis>
-                                    <chartingToolkit:ColumnSeries.IndependentAxis>
-                                        <chartingToolkit:DateTimeAxis Orientation="X" Location="Bottom" Title="">
-                                            <chartingToolkit:DateTimeAxis.AxisLabelStyle>
-                                                <Style TargetType="chartingToolkit:AxisLabel">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate TargetType="chartingToolkit:AxisLabel">
-                                                                <layout:LayoutTransformer>
-                                                                    <layout:LayoutTransformer.LayoutTransform>
-                                                                        <RotateTransform Angle="-90"/>
-                                                                    </layout:LayoutTransformer.LayoutTransform>
-                                                                    <TextBlock Text="{TemplateBinding FormattedContent}"/>
-                                                                </layout:LayoutTransformer>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </chartingToolkit:DateTimeAxis.AxisLabelStyle>
-                                        </chartingToolkit:DateTimeAxis>
-                                    </chartingToolkit:ColumnSeries.IndependentAxis>
-                                </chartingToolkit:ColumnSeries>
-
-                            </chartingToolkit:Chart>
-
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                	<RowDefinition Height="Auto"/>
-                                	<RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Date, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                                <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" MaxHeight="200"
-										 DataContext="{StaticResource viewStatsDataSource}" ItemsSource="{Binding}" >
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                	<ColumnDefinition Width="300"/>
-                                                	<ColumnDefinition Width="100"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0" Margin="{StaticResource DataItemMargin}" 
-													 Text="{Binding ViewDate, Converter={StaticResource DateToShortDateStringConverter}}" 
-													 FontSize="{StaticResource ControlFontSize}" Foreground="{StaticResource WordPressGreyBrush}"/>
-                                                <TextBlock Grid.Column="1"  Margin="{StaticResource DataItemMargin}" 
-													Text="{Binding ViewCount}" FontSize="{StaticResource ControlFontSize}" 
-													Foreground="{StaticResource WordPressGreyBrush}"
-													HorizontalAlignment="Right" TextAlignment="Right" />
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </Grid>
-                        </StackPanel>
-                    </ScrollViewer>
-
-                    <Grid x:Name="postViewsGrid" Grid.Row="1" Visibility="Collapsed">
-                        <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        	<RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                        </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.PostTitle, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
-										 DataContext="{StaticResource postViewStatsDataSource}" ItemsSource="{Binding}" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0"  Margin="{StaticResource DataItemMargin}" 
-											Text="{Binding Title}" FontSize="{StaticResource ControlFontSize}" 
-											Foreground="{StaticResource WordPressGreyBrush}" TextWrapping="Wrap"/>
-                                        <TextBlock Grid.Column="1"  Margin="{StaticResource DataItemMargin}" 
-											Text="{Binding ViewCount}" FontSize="{StaticResource ControlFontSize}" 
-											Foreground="{StaticResource WordPressGreyBrush}"
-											HorizontalAlignment="Right" TextAlignment="Right" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-
-                    <Grid x:Name="searchTermsGrid" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
-                        <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        	<RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                        </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.SearchTerms, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
-										 DataContext="{StaticResource searchTermStatsDataSource}" ItemsSource="{Binding}" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0"  Margin="{StaticResource DataItemMargin}" 
-											Text="{Binding SearchTerm}" FontSize="{StaticResource ControlFontSize}" 
-											Foreground="{StaticResource WordPressGreyBrush}" TextWrapping="Wrap"/>
-                                        <TextBlock Grid.Column="1"  Margin="{StaticResource DataItemMargin}" 
-											Text="{Binding Count}" FontSize="{StaticResource ControlFontSize}" 
-											Foreground="{StaticResource WordPressGreyBrush}"
-											HorizontalAlignment="Right" TextAlignment="Right" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-
-                    <Grid x:Name="referrersGrid" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
-                        <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        	<RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                        </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Referrers, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
-										 DataContext="{StaticResource referrerStatsDataSource}" ItemsSource="{Binding}" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                                        </Grid.ColumnDefinitions>
-                                        <HyperlinkButton Grid.Column="0" Content="{Binding Url}" Margin="{StaticResource DataItemMargin}"
-											FontSize="{StaticResource ControlFontSize}" Foreground="{StaticResource WordPressGreyBrush}"
-											HorizontalAlignment="Left" HorizontalContentAlignment="Left" 
-											Style="{StaticResource WrappableHyperLinkButtonStyle}" 		
-                                            Click="OnHyperLinkButtonClick"
-											/>
-                                        <TextBlock Grid.Column="1"  Margin="{StaticResource DataItemMargin}" 
-											Text="{Binding Referrals}" FontSize="{StaticResource ControlFontSize}" 
-											Foreground="{StaticResource WordPressGreyBrush}"
-											HorizontalAlignment="Right" TextAlignment="Right" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-
-                    <Grid x:Name="clicksGrid" Grid.Row="1" Visibility="Collapsed" d:IsHidden="True">
-                        <Grid.RowDefinitions>
-                        	<RowDefinition Height="Auto"/>
-                        	<RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                        </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Clicks, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                        <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
-										 DataContext="{StaticResource clickStatsDataSource}" ItemsSource="{Binding}" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                        	<ColumnDefinition Width="{StaticResource DataColumnWidth}"/>
-                                        	<ColumnDefinition Width="{StaticResource CountColumnWidth}"/>
-                                        </Grid.ColumnDefinitions>
-                                        <HyperlinkButton Grid.Column="0" Content="{Binding Url}" Margin="{StaticResource DataItemMargin}"
-											FontSize="{StaticResource ControlFontSize}" Foreground="{StaticResource WordPressGreyBrush}"
-											HorizontalAlignment="Left" HorizontalContentAlignment="Left" Style="{StaticResource WrappableHyperLinkButtonStyle}"
-                                            Click="OnHyperLinkButtonClick"             
-                                            />
-                                        <TextBlock Grid.Column="1"  Margin="{StaticResource DataItemMargin}" 
-											Text="{Binding Count}" FontSize="{StaticResource ControlFontSize}" 
-											Foreground="{StaticResource WordPressGreyBrush}"
-											HorizontalAlignment="Right" TextAlignment="Right" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                    <Grid x:Name="dotcomLoginGrid" Opacity="0" Margin="0,8,8,220" Grid.Row="1" Style="{StaticResource LayoutRootStyle}" Height="371" Background="#FF21759B">
-                    	<PasswordBox x:Name="dotcomPasswordBox" Margin="0,0,0,157" VerticalAlignment="Bottom" Background="White" Height="72"/>
-                    	<TextBox x:Name="dotcomUsernameBox" Margin="0,66,0,233" TextWrapping="Wrap" Background="White" Height="72"/>
-                    	<TextBlock Margin="14,11,12,0" TextWrapping="Wrap" Text="Please enter your WordPress.com login:" Height="33" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
-                        <Button Content="OK" Click="OnDotcomOKButtonClick" HorizontalAlignment="Right" Margin="0,0,2,96" VerticalAlignment="Bottom" Foreground="#DEFFFFFF" BorderBrush="#DEFFFFFF"/>
-                        <Button Content="Cancel" Click="OnDotcomCancelButtonClick" HorizontalAlignment="Right" Margin="0,0,89,96" VerticalAlignment="Bottom" BorderBrush="#DEFFFFFF" Foreground="#DEFFFFFF"/>
-                        <TextBlock Margin="14,47,12,0" TextWrapping="Wrap" Text="username:" Height="27" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
-                        <TextBlock Margin="14,124,12,0" TextWrapping="Wrap" Text="password:" Height="27" VerticalAlignment="Top" Foreground="White" FontSize="21.333"/>
-                    </Grid>
-
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
