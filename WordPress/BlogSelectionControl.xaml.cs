@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 
 using WordPress.Model;
+using System;
+using Microsoft.Phone.Controls;
 
 namespace WordPress
 {
@@ -32,6 +34,7 @@ namespace WordPress
 
             selectAllButton.Click += OnSelectAllButtonClick;
             selectButton.Click += OnSelectButtonClick;
+
             blogListBox.SelectionChanged += new SelectionChangedEventHandler(OnBlogListBoxSelectionChanged);
 		}
 
@@ -67,7 +70,7 @@ namespace WordPress
         #endregion
 
         #region methods
-
+        
         private void NotifyBlogsSelected(RoutedEventArgs args)
         {
             if (null != BlogsSelected)
@@ -98,6 +101,11 @@ namespace WordPress
 
         private void OnBlogListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            // when all items are unselected the selection mode automatically turns off
+            if (blogListBox.SelectedItems.Count == 0)
+                blogListBox.IsSelectionEnabled = true;
+
             bool isEnabled = false;
 
             if (0 < SelectedItems.Count)
@@ -108,6 +116,15 @@ namespace WordPress
             selectButton.IsEnabled = isEnabled;
         }
 
+        private void BlogListItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Object element = ((FrameworkElement)sender).DataContext;
+            MultiselectItem container = blogListBox.ItemContainerGenerator.ContainerFromItem(element) as MultiselectItem;
+            if (null != container)
+            {
+                container.IsSelected = !container.IsSelected;
+            }
+        }
         #endregion
     }
 }
