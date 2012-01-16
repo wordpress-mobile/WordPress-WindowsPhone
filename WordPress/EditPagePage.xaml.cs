@@ -95,6 +95,8 @@ namespace WordPress
         {
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
+            BlogName.Text = currentBlog.BlogNameUpper;
+
             if (null != App.MasterViewModel.CurrentPageListItem)
             {
                 string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();

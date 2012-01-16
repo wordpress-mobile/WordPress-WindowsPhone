@@ -69,6 +69,7 @@ namespace WordPress
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
+            BlogName.Text = App.MasterViewModel.CurrentBlog.BlogNameUpper;
             categoriesListBox.SelectedItems.Clear();
             this.categoriesListBox.IsSelectionEnabled = true;
             //Add a listener on the selection changes

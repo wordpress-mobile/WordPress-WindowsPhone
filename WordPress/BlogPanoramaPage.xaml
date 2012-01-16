@@ -19,6 +19,27 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="False">
 
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="panoramaItemStyle" TargetType="controls:PanoramaItem">
             <Setter Property="CacheMode" Value="BitmapCache"/>
@@ -248,14 +269,14 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="0,0,0,17" Width="432">
-                                            <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
+                                            <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="35" Margin="0">
             							<TextBlock.Foreground>
             								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             							</TextBlock.Foreground>
                                             </TextBlock>
-                                            <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                                            <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
             							<TextBlock.Foreground>
-            								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+            								<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
             							</TextBlock.Foreground>
                                             </TextBlock>
                                         </StackPanel>
@@ -282,14 +303,14 @@
                             	<ListBox.ItemTemplate>
                             		<DataTemplate>
                             			<StackPanel Margin="0,0,0,17" Width="432">
-                            				<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="32" Margin="0">
+                            				<TextBlock x:Name="pageTitleTextBlock" Text="{Binding PageTitle, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="35" Margin="0">
                             					<TextBlock.Foreground>
                             						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             					</TextBlock.Foreground>
                             				</TextBlock>
                             				<TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
                             					<TextBlock.Foreground>
-                            						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                            						<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                             					</TextBlock.Foreground>
                             				</TextBlock>
                             			</StackPanel>

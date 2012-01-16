@@ -53,6 +53,7 @@ namespace WordPress
         private void OnPageLoaded(object sender, RoutedEventArgs args)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
+            BlogName.Text = App.MasterViewModel.CurrentBlog.BlogNameUpper;
         }
 
         private void OnSaveButtonClick(object sender, EventArgs args)

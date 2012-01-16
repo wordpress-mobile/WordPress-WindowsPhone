@@ -160,6 +160,8 @@ namespace WordPress
         {
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
+            BlogName.Text = currentBlog.BlogNameUpper;
+
             bool isSharingPhoto = (App.MasterViewModel.SharingPhotoToken != null);
             
             if (null != App.MasterViewModel.CurrentPostListItem && !isSharingPhoto)

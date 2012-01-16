@@ -76,6 +76,8 @@ namespace WordPress
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
+            BlogName.Text = App.MasterViewModel.CurrentBlog.BlogNameUpper;
+
             ChangeApplicationBarAppearance();
 
             //now that the application bar is in the right visual state, check for any

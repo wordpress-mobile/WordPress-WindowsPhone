@@ -31,6 +31,8 @@ namespace WordPress
         {
             InitializeComponent();
 
+            DataContext = App.MasterViewModel;
+
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
             _thumbnailSizes = new List<string>();
