@@ -133,8 +133,8 @@
 
                 <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Grid.Column="2" Margin="-4,0,0,0"/>
             </Grid>
-            <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,64,0,-64">
-                <toolkit:PerformanceProgressBar x:Name="loadingStatsProgressBar" Height="30" IsIndeterminate="True" Opacity="0" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
+            <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,60,0,-60">
+                <toolkit:PerformanceProgressBar x:Name="loadingStatsProgressBar" Height="10" IsIndeterminate="True" Opacity="0" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
             </StackPanel>
             <ScrollViewer x:Name="viewsStatsScrollViewer" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,0" d:IsHidden="True">
                 <StackPanel>
