@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
+using System.Windows.Input;
 
 namespace WordPress
 {
@@ -136,6 +137,16 @@ namespace WordPress
             }
 
             App.WaitIndicationService.HideIndicator();
+        }
+
+
+        //Title text field KeyUp event handler: Dismiss the keyboard by focusing the main control if the Key pressed is the Enter key
+        private void Input_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Focus();
+            }
         }
 
         private void OnSaveButtonClick(object sender, EventArgs e)

@@ -19,6 +19,7 @@ using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
+using System.Windows.Input;
 
 namespace WordPress
 {
@@ -246,6 +247,15 @@ namespace WordPress
             //fire off the worker rpcs
             _mediaUploadRPCs.ForEach(rpc => rpc.ExecuteAsync());
         }
+       
+        //Title text field KeyUp event handler: Dismiss the keyboard by focusing the main control if the Key pressed is the Enter key
+        private void Input_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.Focus();
+            }
+        }
 
         private void SavePost()
         {
@@ -286,6 +296,7 @@ namespace WordPress
                 rpc.ExecuteAsync();
             }
 
+            this.Focus();
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
 
