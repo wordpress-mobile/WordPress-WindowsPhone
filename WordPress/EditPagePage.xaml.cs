@@ -184,6 +184,8 @@ namespace WordPress
 
                 rpc.ExecuteAsync();
             }
+            this.Focus();
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
 
@@ -191,6 +193,7 @@ namespace WordPress
         {
             EditPostRPC rpc = sender as EditPostRPC;
             rpc.Completed -= OnEditPostRPCCompleted;
+            ApplicationBar.IsVisible = true;
 
             if (null == args.Error)
             {
@@ -201,7 +204,7 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
-
+            
             App.WaitIndicationService.HideIndicator();
         }
 
@@ -209,6 +212,7 @@ namespace WordPress
         {
             NewPostRPC rpc = sender as NewPostRPC;
             rpc.Completed -= OnNewPostRPCCompleted;
+            ApplicationBar.IsVisible = true;
 
             if (null == args.Error)
             {
@@ -219,7 +223,7 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
-
+            
             App.WaitIndicationService.HideIndicator();
         }
         

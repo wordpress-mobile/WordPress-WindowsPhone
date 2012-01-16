@@ -239,6 +239,8 @@ namespace WordPress
 
         private void UploadImagesAndSavePost()
         {
+            this.Focus(); //hide the keyboard
+            ApplicationBar.IsVisible = false; //hide the application bar
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingMedia);
             
             //make sure nothing is in our results collection
@@ -297,6 +299,7 @@ namespace WordPress
             }
 
             this.Focus();
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
 
@@ -304,6 +307,7 @@ namespace WordPress
         {
             EditPostRPC rpc = sender as EditPostRPC;
             rpc.Completed -= OnEditPostRPCCompleted;
+            ApplicationBar.IsVisible = true;
 
             if (null == args.Error)
             {
@@ -322,6 +326,7 @@ namespace WordPress
         {
             NewPostRPC rpc = sender as NewPostRPC;
             rpc.Completed -= OnNewPostRPCCompleted;
+            ApplicationBar.IsVisible = true;
 
             if (null == args.Error)
             {
@@ -558,6 +563,8 @@ namespace WordPress
                 {
                     //uh oh, media upload problem
                     App.WaitIndicationService.KillSpinner();
+                    ApplicationBar.IsVisible = true;
+
                     MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
                     if (result == MessageBoxResult.OK)
                     {
