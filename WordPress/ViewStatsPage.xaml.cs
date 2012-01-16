@@ -42,17 +42,19 @@ namespace WordPress
             _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_SearchTerms);
             _statisticTypeOptions.Add(_localizedStrings.Options.StatisticType_Clicks);
 
-            statisticTypeButton.Content = _localizedStrings.Options.StatisticType_Views;
-
             _statisticPeriodOptions = new List<string>(5);
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastWeek);
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastMonth);
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastQuarter);
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_LastYear);
             _statisticPeriodOptions.Add(_localizedStrings.Options.StatisticPeriod_AllTime);
-
-            statisticPeriodButton.Content = _localizedStrings.Options.StatisticPeriod_LastWeek;
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+	    {
+	        base.OnNavigatedTo(e);
+	        Blog currentBlog = App.MasterViewModel.CurrentBlog;
+	    }
 
         #region properties
 
@@ -100,6 +102,7 @@ namespace WordPress
                 }
                 else
                 {
+                    loadingStatsProgressBar.Opacity = 1.0;
                     GetApiKeyRPC rpc = new GetApiKeyRPC(App.MasterViewModel.CurrentBlog, true);
                     rpc.Completed += OnGetApiKeyRPCCompleted;
                     rpc.ExecuteAsync();
@@ -129,6 +132,7 @@ namespace WordPress
 
         private void OnGetApiKeyRPCCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
         {
+            loadingStatsProgressBar.Opacity = 0.0;
             if (App.MasterViewModel.CurrentBlog.ApiKey != null)
             {
                 RetrieveStats(false);
@@ -183,7 +187,7 @@ namespace WordPress
             rpc.Completed += OnGetViewStatsRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+            loadingStatsProgressBar.Opacity = 1.0;
         }
 
         private void OnGetViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ViewDataPoint> args)
@@ -227,7 +231,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
-            App.WaitIndicationService.HideIndicator();
+            loadingStatsProgressBar.Opacity = 0;
         }
 
         private void HideStatControls()
@@ -275,7 +279,7 @@ namespace WordPress
             rpc.Completed += OnGetPostViewStatsRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+            loadingStatsProgressBar.Opacity = 1.0;
         }
 
         private void OnGetPostViewStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<PostViewDataPoint> args)
@@ -298,7 +302,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
-            App.WaitIndicationService.HideIndicator();
+            loadingStatsProgressBar.Opacity = 0.0;
         }
 
         private void RetrieveReferrers()
@@ -308,7 +312,7 @@ namespace WordPress
             rpc.Completed += OnGetReferrerStatsRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+            loadingStatsProgressBar.Opacity = 1.0;
         }
 
         private void OnGetReferrerStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ReferrerDataPoint> args)
@@ -331,7 +335,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
-            App.WaitIndicationService.HideIndicator();
+            loadingStatsProgressBar.Opacity = 0.0;
         }
 
         private void RetrieveSearchTerms()
@@ -341,7 +345,7 @@ namespace WordPress
             rpc.Completed += OnGetSearchTermStatsRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+            loadingStatsProgressBar.Opacity = 1.0;
         }
 
         private void OnGetSearchTermStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<SearchTermDataPoint> args)
@@ -364,7 +368,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
-            App.WaitIndicationService.HideIndicator();
+            loadingStatsProgressBar.Opacity = 0.0;
         }
 
         private void RetrieveClicks()
@@ -374,7 +378,7 @@ namespace WordPress
             rpc.Completed += OnGetClickStatsRPCCompleted;
             rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DownloadingStatistics);
+            loadingStatsProgressBar.Opacity = 1.0;
         }
 
         private void OnGetClickStatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<ClickDataPoint> args)
@@ -397,7 +401,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
-            App.WaitIndicationService.HideIndicator();
+            loadingStatsProgressBar.Opacity = 0.0;
         }
 
         private void OnStatisticPeriodButtonClick(object sender, RoutedEventArgs args)
