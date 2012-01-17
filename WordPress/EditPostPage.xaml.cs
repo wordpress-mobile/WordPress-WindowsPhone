@@ -178,12 +178,12 @@ namespace WordPress
             else
             {
                 Post post = new Post();
-                DataContext = post;
                 App.MasterViewModel.CurrentPost = post;
                 post.DateCreated = DateTime.Now;
                 post.DateCreatedGMT = DateTime.Now.ToUniversalTime();
-                postTimePicker.Value = post.DateCreated;
-                postDatePicker.Value = post.DateCreated;
+                DataContext = post;
+                /*postTimePicker.Value = post.DateCreated;
+                postDatePicker.Value = post.DateCreated;*/
                 if (isSharingPhoto)
                 {
                     MediaLibrary library = new MediaLibrary();
