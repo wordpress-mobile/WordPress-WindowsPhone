@@ -74,6 +74,14 @@
               </array>
             </value>
           </member>
+          <member>
+            <name>date_created_gmt</name>
+            <value>
+              <dateTime.iso8601>
+                {11}
+              </dateTime.iso8601>
+            </value>
+          </member>
         </struct>
       </value>
     </param>

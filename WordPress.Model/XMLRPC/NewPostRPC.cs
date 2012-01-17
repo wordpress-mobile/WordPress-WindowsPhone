@@ -123,8 +123,8 @@ namespace WordPress.Model
                 PostType.ToString(),
                 status,
                 FormatCustomFields(),
-                String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated));
-
+                String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
+                );
             return result;
         }
 

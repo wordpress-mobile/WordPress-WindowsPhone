@@ -173,17 +173,17 @@ namespace WordPress.Model
                         throw new FormatException("Unable to parse given date-time");
                     }
                 }
-                else if (DATECREATEDGMT_VALUE.Equals(memberName))
+                else if (DATECREATEDGMT_VALUE.Equals(memberName)) //DATE CREATED GMT isn't available in the blogger.getRecentPosts, so the date in the posts list could be wrong when people are working on different timezone in the same blog
                 {
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        _dateCreated = tempDate.ToLocalTime();
+                        _dateCreatedGMT = tempDate;
                     }
                     else
                     {
-                        throw new FormatException("Unable to parse given date-time");
+                        throw new FormatException("Unable to parse given GMT-date-time");
                     }
                 }
                 else if (CONTENT_VALUE.Equals(memberName))

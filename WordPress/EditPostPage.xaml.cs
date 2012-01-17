@@ -711,8 +711,8 @@ namespace WordPress
                     postDatePicker.Value = e.NewDateTime;
                 }
                 post.DateCreated = (DateTime)e.NewDateTime;
+                post.DateCreatedGMT = ((DateTime)e.NewDateTime).ToUniversalTime();
             }
-
         }
 
         #endregion

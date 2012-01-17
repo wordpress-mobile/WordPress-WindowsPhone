@@ -405,8 +405,8 @@ namespace WordPress
                 {
                     postDatePicker.Value = e.NewDateTime;
                 }
-               // page.DateCreated = ((DateTime)e.NewDateTime).ToUniversalTime(); //Do not set the dateCreated with the UTC time. Use DataCreatedGMT for that.
                 page.DateCreated = (DateTime)e.NewDateTime;
+                page.DateCreatedGMT = ((DateTime)e.NewDateTime).ToUniversalTime();
             }
         }
 

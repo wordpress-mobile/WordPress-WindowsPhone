@@ -380,7 +380,7 @@ namespace WordPress.Model
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        _dateCreated = tempDate.ToLocalTime();
+                        _dateCreated = tempDate; //This value will be replaced with the correct value obtained from the GMT -> local time conversion (later in this method).
                     }
                     else
                     {
@@ -497,7 +497,8 @@ namespace WordPress.Model
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        _dateCreatedGMT = tempDate.ToLocalTime();
+                        _dateCreatedGMT = tempDate;
+                        _dateCreated = tempDate.ToLocalTime(); //set the post's local time by using the device timezone offset.
                     }
                     else
                     {
