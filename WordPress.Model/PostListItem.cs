@@ -16,12 +16,14 @@ namespace WordPress.Model
         private DateTime _dateCreatedGMT;
         private string _title;
         private string _postId;
+        private string _status;
 
         private const string USERID_VALUE = "userid";
         private const string DATECREATED_VALUE = "dateCreated";
         private const string DATECREATEDGMT_VALUE = "date_created_gmt";
         private const string TITLE_VALUE = "title";
         private const string POSTID_VALUE = "postid";
+        private const string POST_STATUS__VALUE = "post_status";
 
 
         #endregion
@@ -84,6 +86,18 @@ namespace WordPress.Model
             }
         }
 
+        public String Status
+        {
+            get { return _status; }
+            set
+            {
+                if (value != _status)
+                {
+                    _status = value;
+                    NotifyPropertyChanged("Status");
+                }
+            }
+        }
  
         public string PostId
         {
@@ -113,10 +127,8 @@ namespace WordPress.Model
             }
             set
             {
-
                 _title = value;
-                NotifyPropertyChanged("Title");
-                
+                NotifyPropertyChanged("Title");      
             }
         }
         #endregion
@@ -183,6 +195,11 @@ namespace WordPress.Model
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     _title = value.HtmlDecode();
+                }
+                else if (POST_STATUS__VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    _status = value.HtmlDecode();
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {

@@ -106,6 +106,7 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\NegativeValueConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
+    <Compile Include="Converters\PostStatusInListConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
     <Compile Include="ReaderBrowserPage.xaml.cs">

@@ -121,6 +121,7 @@
         <Converters:DateToShortDateStringConverter x:Key="DateToShortDateStringConverter"/>
         <Converters:BooleanToVisibilityConverter x:Key="LoadingContentConverter"/>
         <Converters:ItemTitleInListConverter x:Key="ItemTitleInListConverter"/>
+        <Converters:PostStatusInListConverter x:Key="PostStatusInListConverter"/>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -270,14 +271,19 @@
                                     <DataTemplate>
                                         <StackPanel Margin="0,0,0,17" Width="432">
                                             <TextBlock x:Name="postTitleTextBlock" Text="{Binding Title, Converter={StaticResource ItemTitleInListConverter}}" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="35" Margin="0">
-            							<TextBlock.Foreground>
-            								<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
-            							</TextBlock.Foreground>
+            							        <TextBlock.Foreground>
+            								        <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+            							        </TextBlock.Foreground>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding Status, Converter={StaticResource PostStatusInListConverter}}" Margin="0"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+            							        <TextBlock.Foreground>
+            								        <SolidColorBrush Color="{StaticResource WordPressOrange}"/>
+            							        </TextBlock.Foreground>
                                             </TextBlock>
                                             <TextBlock x:Name="postDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
-            							<TextBlock.Foreground>
-            								<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-            							</TextBlock.Foreground>
+            							        <TextBlock.Foreground>
+            								        <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+            							        </TextBlock.Foreground>
                                             </TextBlock>
                                         </StackPanel>
                                     </DataTemplate>
