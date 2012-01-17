@@ -110,7 +110,10 @@ namespace WordPress
             }
             else
             {
-                DataContext = new Post();
+                Post page = new Post();
+                page.DateCreated = DateTime.Now;
+                page.DateCreatedGMT = DateTime.Now.ToUniversalTime();
+                DataContext = page;
             }
         }
 
@@ -386,6 +389,25 @@ namespace WordPress
             string linkMarkup = addLinkControl.CreateLinkMarkup();
             contentTextBox.SelectedText = linkMarkup;
             contentTextBox.Focus();
+        }
+
+        private void OnDatePickerChanged(object sender, DateTimeValueChangedEventArgs e)
+        {
+            Post page = DataContext as Post;
+
+            if (e.NewDateTime != null)
+            {
+                if (sender == postDatePicker)
+                {
+                    postTimePicker.Value = e.NewDateTime;
+                }
+                else if (sender == postTimePicker)
+                {
+                    postDatePicker.Value = e.NewDateTime;
+                }
+                page.DateCreated = ((DateTime)e.NewDateTime).ToUniversalTime();
+            }
+
         }
 
         #endregion

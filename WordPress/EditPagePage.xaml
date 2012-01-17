@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="clr-namespace:WordPress.Converters"
-    xmlns:local="clr-namespace:WordPress" 
-	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:local="clr-namespace:WordPress"
     x:Class="WordPress.EditPagePage"
     x:Name="phoneApplicationPage"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
@@ -123,6 +123,18 @@
                                   Margin="-5,0,0,0"/>
                 </StackPanel>
                 <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="6" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}" />
+                <StackPanel Grid.Row="7">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="240" />
+                        </Grid.ColumnDefinitions>
+
+                        <toolkit:DatePicker x:Name="postDatePicker" Grid.Column="0" DataContext="{Binding}" Value="{Binding DateCreatedGMT}" ValueChanged="OnDatePickerChanged" />
+                        <toolkit:TimePicker x:Name="postTimePicker" Grid.Column="1" DataContext="{Binding}" Value="{Binding DateCreatedGMT}" ValueChanged="OnDatePickerChanged" />
+                    </Grid>
+                </StackPanel>
             </Grid>
         </ScrollViewer>
         <local:AddLinkControl x:Name="addLinkControl" 

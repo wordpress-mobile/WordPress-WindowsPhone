@@ -122,7 +122,8 @@ namespace WordPress.Model
                 Post.Description.HtmlEncode(),
                 PostType.ToString(),
                 status,
-                FormatCustomFields());
+                FormatCustomFields(),
+                String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated));
 
             return result;
         }

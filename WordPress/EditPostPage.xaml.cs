@@ -180,7 +180,10 @@ namespace WordPress
                 Post post = new Post();
                 DataContext = post;
                 App.MasterViewModel.CurrentPost = post;
-
+                post.DateCreated = DateTime.Now;
+                post.DateCreatedGMT = DateTime.Now.ToUniversalTime();
+                postTimePicker.Value = post.DateCreated;
+                postDatePicker.Value = post.DateCreated;
                 if (isSharingPhoto)
                 {
                     MediaLibrary library = new MediaLibrary();
@@ -690,6 +693,28 @@ namespace WordPress
             contentTextBox.SelectedText = linkMarkup;
             contentTextBox.Focus();
         }
+
+        private void OnDatePickerChanged(object sender, DateTimeValueChangedEventArgs e)
+        {
+            Post post = (Post) App.MasterViewModel.CurrentPost;
+            System.Diagnostics.Debug.WriteLine("Is there a post?");
+            System.Diagnostics.Debug.WriteLine(post);
+
+            if (e.NewDateTime != null)
+            {
+                if (sender == postDatePicker)
+                {
+                    postTimePicker.Value = e.NewDateTime;
+                }
+                else if (sender == postTimePicker)
+                {
+                    postDatePicker.Value = e.NewDateTime;
+                }
+                post.DateCreated = (DateTime)e.NewDateTime;
+            }
+
+        }
+
         #endregion
     }
 }

@@ -305,6 +305,8 @@
     <Resource Include="Images\wp-logo.png" />
     <Content Include="Images\appbar.unpin.png" />
     <Content Include="Images\appbar.upload.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="wp-tile.png" />
     <Resource Include="Images\background.jpg" />
     <Resource Include="Images\actionsEdit.png" />

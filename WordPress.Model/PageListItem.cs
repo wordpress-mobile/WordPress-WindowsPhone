@@ -190,7 +190,7 @@ namespace WordPress.Model
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        _dateCreated = tempDate.ToLocalTime();
+                        _dateCreated = tempDate;
                     }
                     else
                     {

@@ -13,11 +13,13 @@ namespace WordPress.Model
 
         private int _userId;
         private DateTime _dateCreated;
+        private DateTime _dateCreatedGMT;
         private string _content;
         private string _postId;
 
         private const string USERID_VALUE = "userid";
         private const string DATECREATED_VALUE = "dateCreated";
+        private const string DATECREATEDGMT_VALUE = "date_created_gmt";
         private const string CONTENT_VALUE = "content";
         private const string POSTID_VALUE = "postid";
         private const string TITLE_OPENING_TAG = "<title>";
@@ -66,6 +68,19 @@ namespace WordPress.Model
                 {
                     _dateCreated = value;
                     NotifyPropertyChanged("DateCreated");
+                }
+            }
+        }
+
+        public DateTime DateCreatedGMT
+        {
+            get { return _dateCreatedGMT; }
+            set
+            {
+                if (value != _dateCreatedGMT)
+                {
+                    _dateCreatedGMT = value;
+                    NotifyPropertyChanged("DateCreatedGMT");
                 }
             }
         }
@@ -146,6 +161,19 @@ namespace WordPress.Model
                     }
                 }
                 else if (DATECREATED_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
+                    DateTime tempDate;
+                    if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
+                    {
+                        _dateCreated = tempDate;
+                    }
+                    else
+                    {
+                        throw new FormatException("Unable to parse given date-time");
+                    }
+                }
+                else if (DATECREATEDGMT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
                     DateTime tempDate;

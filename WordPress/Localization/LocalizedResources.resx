@@ -762,4 +762,12 @@
   <data name="ControlText_ViewStats" xml:space="preserve">
     <value>view stats</value>
   </data>
+  <data name="ControlText_PostStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>title for the post and page status control</comment>
+  </data>
+  <data name="ControlText_PublishDate" xml:space="preserve">
+    <value>publish date</value>
+    <comment>title for control to change the publish date</comment>
+  </data>
 </root>

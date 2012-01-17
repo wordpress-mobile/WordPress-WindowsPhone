@@ -655,6 +655,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string ControlText_PostStatus {
+            get {
+                return ResourceManager.GetString("ControlText_PostStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post Title.
         /// </summary>
         internal static string ControlText_PostTitle {
@@ -678,6 +687,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Publish {
             get {
                 return ResourceManager.GetString("ControlText_Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to publish date.
+        /// </summary>
+        internal static string ControlText_PublishDate {
+            get {
+                return ResourceManager.GetString("ControlText_PublishDate", resourceCulture);
             }
         }
         

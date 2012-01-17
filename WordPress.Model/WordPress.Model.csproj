@@ -110,7 +110,9 @@
   <ItemGroup>
     <Content Include="XMLRPC\blogger_deletePost.xml" />
     <Content Include="XMLRPC\blogger_getRecentPosts.xml" />
-    <Content Include="XMLRPC\metaWeblog_editPost.xml" />
+    <Content Include="XMLRPC\metaWeblog_editPost.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="XMLRPC\metaWeblog_getPost.xml" />
     <Content Include="XMLRPC\metaWeblog_newPost.xml" />
     <Content Include="XMLRPC\test.xml" />

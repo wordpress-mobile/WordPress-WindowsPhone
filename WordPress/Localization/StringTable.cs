@@ -173,6 +173,8 @@ namespace WordPress.Localization
             public string Pin { get { return LocalizedResources.ControlText_Pin; } }
             public string Unpin { get { return LocalizedResources.ControlText_Unpin; } }
             public string ViewStats { get { return LocalizedResources.ControlText_ViewStats; } }
+            public string PostStatus { get { return LocalizedResources.ControlText_PostStatus; } }
+            public string PublishDate { get { return LocalizedResources.ControlText_PublishDate; } }
         }
 
         #endregion

@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:local="clr-namespace:WordPress" 
     xmlns:Converters="clr-namespace:WordPress.Converters"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -137,6 +137,18 @@
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
                 <Rectangle Grid.Row="12" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="12" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}" />
+                <StackPanel Grid.Row="13">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="240" />
+                        </Grid.ColumnDefinitions>
+
+                        <toolkit:DatePicker x:Name="postDatePicker" Grid.Column="0" DataContext="{Binding}" Value="{Binding DateCreatedGMT}" ValueChanged="OnDatePickerChanged" />
+                        <toolkit:TimePicker x:Name="postTimePicker" Grid.Column="1" DataContext="{Binding}" Value="{Binding DateCreatedGMT}" ValueChanged="OnDatePickerChanged" />
+                    </Grid>
+                </StackPanel>
             </Grid>
         </ScrollViewer>
 

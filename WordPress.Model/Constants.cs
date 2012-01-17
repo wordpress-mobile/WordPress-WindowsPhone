@@ -18,6 +18,7 @@
     {
         public const string POST = "post";
         public const string CONTENTTYPE = "text/xml";
+        public const string DATETIMEFORMATSTRING = "{0:yyyyMMdd}T{0:HH}:{0:mm}:{0:ss}";
     }
 
     public class XmlRPCResponseConstants

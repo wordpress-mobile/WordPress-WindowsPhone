@@ -87,6 +87,7 @@ namespace WordPress.Model
             {
                 status = "draft";
             }
+            
             string result = string.Format(_content,
                 Post.PostId,
                 Credentials.UserName.HtmlEncode(),
@@ -96,7 +97,8 @@ namespace WordPress.Model
                 Post.Title.HtmlEncode(),
                 Post.Description.HtmlEncode(),
                 PostType.ToString(),
-                status);
+                status,
+                String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated.ToUniversalTime()));
 
             return result;
         }
