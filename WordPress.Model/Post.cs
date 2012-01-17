@@ -532,8 +532,7 @@ namespace WordPress.Model
                         _sticky = false;
                     }
                 }
-            }
-
+            } // end for-each
             IsNew = false;
         }
 

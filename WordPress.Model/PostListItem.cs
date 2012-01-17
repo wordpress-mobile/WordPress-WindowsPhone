@@ -139,6 +139,7 @@ namespace WordPress.Model
             }
 
             string value = null;
+            DateTime _tmpDateCreated = DateTime.Now;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
                 value = null;
@@ -157,7 +158,7 @@ namespace WordPress.Model
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        _dateCreated = tempDate;
+                        _tmpDateCreated = tempDate;
                     }
                     else
                     {
@@ -207,6 +208,11 @@ namespace WordPress.Model
                     _postId = value;
                     
                 }
+            } //End for-each
+
+            if (_dateCreated == null && _tmpDateCreated != null)
+            {
+                _dateCreated = _tmpDateCreated; //make sure dateCreated is initializated
             }
         }
 

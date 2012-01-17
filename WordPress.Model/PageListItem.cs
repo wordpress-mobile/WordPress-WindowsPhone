@@ -128,7 +128,8 @@ namespace WordPress.Model
             {
                 throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
-
+            
+            DateTime _tmpDateCreated = DateTime.Now;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
                 string value = null;
@@ -190,7 +191,7 @@ namespace WordPress.Model
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        _dateCreated = tempDate;
+                        _tmpDateCreated = tempDate;
                     }
                     else
                     {
@@ -200,11 +201,22 @@ namespace WordPress.Model
                 else if (DATECREATEDGMT_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
-                    if (!DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out _dateCreatedGMT))
+                    DateTime tempDate;
+                    if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
-                        throw new FormatException("Unable to parse given date-time");                        
+                        _dateCreatedGMT = tempDate;
+                        _dateCreated = tempDate.ToLocalTime();                     
+                    }
+                    else
+                    {
+                        throw new FormatException("Unable to parse given date-time"); 
                     }
                 }
+            }//end for-each
+
+            if (_dateCreated == null && _tmpDateCreated != null )
+            {
+                _dateCreated = _tmpDateCreated; //make sure dateCreated is initializated
             }
         }
 
