@@ -14,16 +14,15 @@ namespace WordPress.Model
         private int _userId;
         private DateTime _dateCreated;
         private DateTime _dateCreatedGMT;
-        private string _content;
+        private string _title;
         private string _postId;
 
         private const string USERID_VALUE = "userid";
         private const string DATECREATED_VALUE = "dateCreated";
         private const string DATECREATEDGMT_VALUE = "date_created_gmt";
-        private const string CONTENT_VALUE = "content";
+        private const string TITLE_VALUE = "title";
         private const string POSTID_VALUE = "postid";
-        private const string TITLE_OPENING_TAG = "<title>";
-        private const string TITLE_CLOSING_TAG = "</title>";
+
 
         #endregion
 
@@ -85,19 +84,7 @@ namespace WordPress.Model
             }
         }
 
-        public string Content
-        {
-            get { return _content; }
-            set
-            {
-                if (value != _content)
-                {
-                    _content = value;
-                    NotifyPropertyChanged("Content");
-                }
-            }
-        }
-
+ 
         public string PostId
         {
             get { return _postId; }
@@ -115,17 +102,21 @@ namespace WordPress.Model
         {
             get
             {
-                if (string.IsNullOrEmpty(_content))
+                if (string.IsNullOrEmpty(_title))
                 {
                     return string.Empty;
                 }
                 else
                 {
-
-                    int startIndex = _content.IndexOf(TITLE_OPENING_TAG) + TITLE_OPENING_TAG.Length;
-                    int endIndex = _content.IndexOf(TITLE_CLOSING_TAG);
-                    return _content.Substring(startIndex, endIndex - startIndex);
+                    return _title;
                 }
+            }
+            set
+            {
+
+                _title = value;
+                NotifyPropertyChanged("Title");
+                
             }
         }
         #endregion
@@ -173,23 +164,24 @@ namespace WordPress.Model
                         throw new FormatException("Unable to parse given date-time");
                     }
                 }
-                else if (DATECREATEDGMT_VALUE.Equals(memberName)) //DATE CREATED GMT isn't available in the blogger.getRecentPosts, so the date in the posts list could be wrong when people are working on different timezone in the same blog
+                else if (DATECREATEDGMT_VALUE.Equals(memberName)) 
                 {
                     value = member.Descendants(XmlRPCResponseConstants.DATETIMEISO8601).First().Value;
                     DateTime tempDate;
                     if (DateTime.TryParseExact(value, Constants.WORDPRESS_DATEFORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, out tempDate))
                     {
                         _dateCreatedGMT = tempDate;
+                        _dateCreated = tempDate.ToLocalTime();
                     }
                     else
                     {
                         throw new FormatException("Unable to parse given GMT-date-time");
                     }
                 }
-                else if (CONTENT_VALUE.Equals(memberName))
+                else if (TITLE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _content = value.HtmlDecode();
+                    _title = value.HtmlDecode();
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {

@@ -10,7 +10,7 @@ namespace WordPress.Model
 
         private readonly string _content;
 
-        private const string METHODNAME_VALUE = "blogger.getRecentPosts";
+        private const string METHODNAME_VALUE = "mt_getRecentPostTitles";
 
         #endregion
 
@@ -19,14 +19,14 @@ namespace WordPress.Model
         public GetRecentPostsRPC()
             : base()
         {
-            _content = XMLRPCTable.blogger_getRecentPosts;
+            _content = XMLRPCTable.mt_getRecentPostTitles;
             MethodName = METHODNAME_VALUE;
         }
 
         public GetRecentPostsRPC(Blog blog)
             : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
         {
-            _content = XMLRPCTable.blogger_getRecentPosts;
+            _content = XMLRPCTable.mt_getRecentPostTitles;
             BlogId = blog.BlogId;
         }
 
@@ -56,7 +56,6 @@ namespace WordPress.Model
         protected override string BuildPostContentString()
         {
             string result = string.Format(_content, 
-                string.Empty, 
                 BlogId,
                 Credentials.UserName.HtmlEncode(),
                 Credentials.Password.HtmlEncode(), 

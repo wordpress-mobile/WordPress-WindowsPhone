@@ -121,9 +121,6 @@
   <data name="blogger_deletePost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\blogger_deletePost.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
   </data>
-  <data name="blogger_getRecentPosts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>XMLRPC\blogger_getRecentPosts.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
-  </data>
   <data name="metaWeblog_editPost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\metaWeblog_editPost.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
   </data>
@@ -132,6 +129,9 @@
   </data>
   <data name="metaWeblog_newPost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\metaWeblog_newPost.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
+  </data>
+  <data name="mt_getRecentPostTitles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>xmlrpc\mt_getrecentposttitles.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
   </data>
   <data name="wp_deleteComment" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\wp_deleteComment.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>

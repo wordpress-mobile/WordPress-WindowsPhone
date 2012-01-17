@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0"?>
 <methodCall>
-  <methodName>blogger.getRecentPosts</methodName>
+  <methodName>mt.getRecentPostTitles</methodName>
   <params>
     <param>
       <value>
-        <string>{0}</string>
+        <int>{0}</int>
       </value>
     </param>
     <param>
       <value>
-        <int>{1}</int>
+        <string>{1}</string>
       </value>
     </param>
     <param>
@@ -19,12 +19,7 @@
     </param>
     <param>
       <value>
-        <string>{3}</string>
-      </value>
-    </param>
-    <param>
-      <value>
-        <int>{4}</int>
+        <int>{3}</int>
       </value>
     </param>
   </params>
