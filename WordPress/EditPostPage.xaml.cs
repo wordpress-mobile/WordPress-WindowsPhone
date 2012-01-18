@@ -648,14 +648,14 @@ namespace WordPress
 
             if (!currentBlog.CreateLinkToFullImage)
             {
-                return imageNode.ToString();
+                return "<br /><br />" + imageNode.ToString();
             }
 
             XElement anchorNode = new XElement("a");                        
             anchorNode.SetAttributeValue("href", info.Url);
             anchorNode.Add(imageNode);
             
-            return anchorNode.ToString();
+            return "<br /><br />" + anchorNode.ToString();
         }
 
         private void OnLinkButtonClick(object sender, RoutedEventArgs e)
