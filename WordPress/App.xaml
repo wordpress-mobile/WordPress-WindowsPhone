@@ -8,6 +8,7 @@
     xmlns:System="clr-namespace:System;assembly=mscorlib" 
     xmlns:UriMapper="clr-namespace:System.Windows.Navigation;assembly=Microsoft.Phone"
     xmlns:WordPress="clr-namespace:WordPress" 
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:Model="clr-namespace:WordPress.Model;assembly=WordPress.Model"
     xmlns:Converters="clr-namespace:WordPress.Converters" 
     mc:Ignorable="d" 
@@ -517,6 +518,41 @@
                                         </VisualState>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="DateTimePickerStyles" TargetType="toolkit:DateTimePickerBase">
+                <Setter Property="Background" Value="#BFFFFFFF"/>
+                <Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
+                <Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+            </Style>
+
+            <Style TargetType="toolkit:DatePicker" BasedOn="{StaticResource DateTimePickerStyles}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="toolkit:DatePicker">
+                            <StackPanel>
+                                <ContentControl ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Foreground="{StaticResource PhoneSubtleBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,12,-4"/>
+                                <Button x:Name="DateTimeButton" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Content="{TemplateBinding ValueString}" Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Height="72" FontSize="{TemplateBinding FontSize}"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="toolkit:TimePicker" BasedOn="{StaticResource DateTimePickerStyles}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="toolkit:TimePicker">
+                            <StackPanel>
+                                <ContentControl ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Foreground="{StaticResource PhoneSubtleBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="12,0,12,-4"/>
+                                <Button x:Name="DateTimeButton" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Content="{TemplateBinding ValueString}" Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Height="72" FontSize="{TemplateBinding FontSize}"/>
                             </StackPanel>
                         </ControlTemplate>
                     </Setter.Value>

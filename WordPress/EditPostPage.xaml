@@ -144,7 +144,6 @@
                             <ColumnDefinition Width="240" />
                             <ColumnDefinition Width="240" />
                         </Grid.ColumnDefinitions>
-
                         <toolkit:DatePicker x:Name="postDatePicker" Grid.Column="0" DataContext="{Binding}" Value="{Binding DateCreated}" ValueChanged="OnDatePickerChanged" />
                         <toolkit:TimePicker x:Name="postTimePicker" Grid.Column="1" DataContext="{Binding}" Value="{Binding DateCreated}" ValueChanged="OnDatePickerChanged" />
                     </Grid>

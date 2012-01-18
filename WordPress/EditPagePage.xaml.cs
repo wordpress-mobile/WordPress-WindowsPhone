@@ -395,7 +395,7 @@ namespace WordPress
         {
             Post page = DataContext as Post;
 
-            if (e.NewDateTime != null)
+            if (page != null && e.NewDateTime != null)
             {
                 if (sender == postDatePicker)
                 {

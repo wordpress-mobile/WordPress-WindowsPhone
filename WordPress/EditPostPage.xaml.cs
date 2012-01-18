@@ -697,10 +697,7 @@ namespace WordPress
         private void OnDatePickerChanged(object sender, DateTimeValueChangedEventArgs e)
         {
             Post post = (Post) App.MasterViewModel.CurrentPost;
-            System.Diagnostics.Debug.WriteLine("Is there a post?");
-            System.Diagnostics.Debug.WriteLine(post);
-
-            if (e.NewDateTime != null)
+            if (post != null && e.NewDateTime != null)
             {
                 if (sender == postDatePicker)
                 {
