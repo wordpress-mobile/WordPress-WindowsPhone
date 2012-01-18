@@ -77,6 +77,12 @@ namespace WordPress.Model
                 }
             }
         }
+        
+        [XmlIgnore]
+        public DateTime DateCreated
+        {
+            get { return _dateCreatedGMT.ToLocalTime(); }
+        }
 
         public int UserId
         {

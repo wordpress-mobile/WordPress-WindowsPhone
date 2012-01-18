@@ -68,7 +68,7 @@
                     <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="32" TextWrapping="NoWrap"/>
                     <TextBlock Margin="12,-5,0,0" x:Name="authorURLTextBlock" Text="{Binding AuthorUrl}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
                     <TextBlock Margin="12,-4,0,0" x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
-                    <TextBlock Margin="12,-4,0,0" x:Name="dateCreatedTextBlock" Text="{Binding DateCreatedGMT}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap"/>
+                    <TextBlock Margin="12,-4,0,0" x:Name="dateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap"/>
                 </StackPanel>
                 <ScrollViewer  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
                     <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource LabelTextBlockStyle}" 
