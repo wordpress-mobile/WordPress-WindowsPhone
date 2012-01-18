@@ -32,6 +32,12 @@ namespace WordPress.Converters
             string postStatus = value as string;
             if (postStatus.Equals("publish")) 
                 return string.Empty;
+            else if (postStatus.Equals("future"))
+                return _localizedStrings.ControlsText.Scheduled;
+            else if (postStatus.Equals("draft"))
+                return _localizedStrings.ControlsText.Draft;
+            else if (postStatus.Equals("pending"))
+                return _localizedStrings.ControlsText.PendingReview;
             else
                 return postStatus;
         }

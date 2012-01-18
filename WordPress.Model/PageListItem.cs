@@ -195,7 +195,7 @@ namespace WordPress.Model
                     }
                     else
                     {
-                        throw new FormatException("Unable to parse given date-time");
+                        throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, new FormatException("Unable to parse given date-time"));
                     }
                 }
                 else if (DATECREATEDGMT_VALUE.Equals(memberName))
@@ -209,7 +209,9 @@ namespace WordPress.Model
                     }
                     else
                     {
-                        throw new FormatException("Unable to parse given date-time"); 
+                        //Pending pages don't have a valid date set.                       
+                        _dateCreated = DateTime.Now;
+                        _dateCreatedGMT = _dateCreated.ToUniversalTime();
                     }
                 }
             }//end for-each

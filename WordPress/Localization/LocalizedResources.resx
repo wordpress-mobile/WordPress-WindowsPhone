@@ -770,4 +770,13 @@
     <value>publish date</value>
     <comment>title for control to change the publish date</comment>
   </data>
+  <data name="ControlText_Draft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="ControlText_PendingReview" xml:space="preserve">
+    <value>Pending Review</value>
+  </data>
+  <data name="ControlText_Scheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
 </root>

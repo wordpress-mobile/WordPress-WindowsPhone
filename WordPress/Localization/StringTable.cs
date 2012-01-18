@@ -175,6 +175,9 @@ namespace WordPress.Localization
             public string ViewStats { get { return LocalizedResources.ControlText_ViewStats; } }
             public string PostStatus { get { return LocalizedResources.ControlText_PostStatus; } }
             public string PublishDate { get { return LocalizedResources.ControlText_PublishDate; } }
+            public string Scheduled { get { return LocalizedResources.ControlText_Scheduled; } }
+            public string Draft { get { return LocalizedResources.ControlText_Draft; } }
+            public string PendingReview { get { return LocalizedResources.ControlText_PendingReview; } }
         }
 
         #endregion
