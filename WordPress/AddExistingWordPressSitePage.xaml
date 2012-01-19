@@ -69,11 +69,11 @@
         <ScrollViewer x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
                 <TextBlock Text="{Binding Path=ControlsText.BlogUrl, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox x:Name="urlTextBox" Text="http://" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" InputScope="Url" />
+                <TextBox x:Name="urlTextBox" Text="http://" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" InputScope="Url" KeyUp="Input_KeyUp"/>
                 <TextBlock Text="{Binding Path=ControlsText.Username, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox x:Name="usernameTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
+                <TextBox x:Name="usernameTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" KeyUp="Input_KeyUp" />
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" />
+                <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" KeyUp="Input_KeyUp"/>
                 <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="12,20,12,0"/>
                 <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Background="#BDFFFFFF"
                         Click="OnCreateNewBlogButtonClick"/>

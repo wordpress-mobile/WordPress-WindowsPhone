@@ -70,9 +70,9 @@
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <!--<StackPanel>-->
                 <TextBlock Text="{Binding ControlsText.Username, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox x:Name="usernameTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" />
+            <TextBox x:Name="usernameTextBox" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}"  KeyUp="Input_KeyUp"/>
                 <TextBlock Text="{Binding ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" />
+            <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}"  KeyUp="Input_KeyUp"/>
                 <TextBlock TextAlignment="Center" Text="{Binding ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="0,20,0,0"/>
                 <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}"
                         Click="OnCreateNewBlogButtonClick"

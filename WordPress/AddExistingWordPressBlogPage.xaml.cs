@@ -11,6 +11,7 @@ using Microsoft.Phone.Tasks;
 using WordPress.Commands;
 using WordPress.Localization;
 using WordPress.Model;
+using System.Windows.Input;
 
 namespace WordPress
 {
@@ -52,6 +53,19 @@ namespace WordPress
 
         #region methods
 
+        private void Input_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (sender == usernameTextBox)
+                    passwordPasswordBox.Focus();
+                else if (sender == passwordPasswordBox)
+                {
+                    AttemptToLoginAsync();
+                }
+            }
+        }
+
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
             AttemptToLoginAsync();
@@ -59,6 +73,8 @@ namespace WordPress
 
         private void AttemptToLoginAsync()
         {
+            this.Focus();
+
             if (!ValidateUserName())
             {
                 PromptUserForInput(_localizedStrings.Prompts.MissingUserName, usernameTextBox);
