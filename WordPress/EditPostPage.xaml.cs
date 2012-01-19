@@ -227,6 +227,7 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
+            _mediaDialogPresented = false;
             Post post = App.MasterViewModel.CurrentPost;
             if (sender == _publishIconButton)
                 post.PostStatus = "publish";
