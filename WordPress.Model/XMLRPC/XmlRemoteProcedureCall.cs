@@ -23,7 +23,7 @@ namespace WordPress.Model
 
         private static object _syncRoot = new object();
 
-        private SendOrPostCallback onProgressReportDelegate;
+        protected SendOrPostCallback onProgressReportDelegate;
         private SendOrPostCallback onCompletedDelegate;
         private Dictionary<object, object> userStateToLifetime = new Dictionary<object, object>();
 
@@ -58,7 +58,7 @@ namespace WordPress.Model
         /// <summary>
         /// Utility class passed to async methods
         /// </summary>
-        private class State
+        protected class State
         {
             public AsyncOperation Operation { get; set; }
             public HttpWebRequest Request { get; set; }
@@ -165,7 +165,7 @@ namespace WordPress.Model
 
         //invoke the AsyncOperation.PostOperationCompleted method to signal that the task 
         //has completed.
-        private void CompletionMethod(List<T> items, Exception exception, bool canceled, AsyncOperation asyncOp)
+        protected void CompletionMethod(List<T> items, Exception exception, bool canceled, AsyncOperation asyncOp)
         {
             if (!canceled)
             {
@@ -259,7 +259,7 @@ namespace WordPress.Model
         }
 
 
-        private void OnBeginGetResponseCompleted(IAsyncResult result)
+        protected void OnBeginGetResponseCompleted(IAsyncResult result)
         {
             State state = result.AsyncState as State;
             HttpWebRequest request = state.Request;

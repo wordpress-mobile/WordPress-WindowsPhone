@@ -496,13 +496,7 @@ namespace WordPress
             Image imageElement = BuildImageElement(image);
             imageWrapPanel.Children.Add(imageElement);
 
-            //build out upload rpcs
-            int length = (int)bitmapStream.Length;
-            bitmapStream.Position = 0;
-            byte[] payload = new byte[length];
-            bitmapStream.Read(payload, 0, length);
-
-            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, originalFileName, payload, true);
+            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, originalFileName, bitmapStream, true);
             rpc.Completed += OnUploadMediaRPCCompleted;
 
             //store this for later--we'll upload the files once the user hits save

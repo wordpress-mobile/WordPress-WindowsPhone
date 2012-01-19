@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Net;
+using System.Text;
+using System.Threading;
 using System.Xml.Linq;
+
 
 namespace WordPress.Model
 {
-    public class UploadFileRPC: XmlRemoteProcedureCall<UploadedFileInfo>
+    public class UploadFileRPC : XmlRemoteProcedureCall<UploadedFileInfo>
     {
         #region member variables
 
@@ -14,14 +19,16 @@ namespace WordPress.Model
         private const string JPEG_EXTENSION = ".jpg";
         private const string PNG_EXTENSION = ".png";
         private const string BMP_EXTENSION = ".bmp";
-        
+
         /// <summary>
         /// Holds a format string with the XMLRPC post content
         /// </summary>
         private readonly string _content;
 
         private string _fileName;
-        
+
+        private Stream _bitmapStream;
+
         #endregion
 
         #region constructors
@@ -33,14 +40,14 @@ namespace WordPress.Model
             MethodName = METHODNAME_VALUE;
         }
 
-        public UploadFileRPC(Blog blog, string fileName, byte[] payload, bool overwrite)
+        public UploadFileRPC(Blog blog, string fileName, Stream bitmapStream, bool overwrite)
             : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
         {
             _content = XMLRPCTable.wp_uploadFile;
 
             Blog = blog;
             TranslateFileName(fileName);
-            Payload = payload;
+            _bitmapStream = bitmapStream;
             Overwrite = overwrite;
         }
 
@@ -50,7 +57,8 @@ namespace WordPress.Model
 
         public Blog Blog { get; private set; }
 
-        public string FileName {
+        public string FileName
+        {
             get { return _fileName; }
             private set
             {
@@ -58,12 +66,10 @@ namespace WordPress.Model
                 TranslateMimeType();
             }
         }
-        
-        public string MimeType { get; private set;}
-        
+
+        public string MimeType { get; private set; }
+
         public bool Overwrite { get; private set; }
-        
-        public byte[] Payload { get; private set; }
 
         #endregion
 
@@ -85,30 +91,174 @@ namespace WordPress.Model
             {
                 throw new ArgumentException("Type may not be null or an empty string", "Type");
             }
-            if (null == Payload)
+            if (null == _bitmapStream)
             {
                 throw new ArgumentException("Payload may not be null", "Payload");
-            }            
+            }
         }
 
         protected override string BuildPostContentString()
         {
-            string content = string.Format(_content,
-                Blog.BlogId,
-                Credentials.UserName.HtmlEncode(),
-                Credentials.Password.HtmlEncode(),
-                FileName.HtmlEncode(),
-                MimeType.HtmlEncode(),
-                EncodePayload(),
-                Convert.ToInt32(Overwrite));
-            return content;
+            throw new NotSupportedException("BuildPostContentString should not be called on image");
+            /*
+            string content = "<?xml version=\"1.0\"?><methodCall><methodName>wp.uploadFile</methodName><params>" +
+                "<param><value><int>" + Blog.BlogId + "</int></value></param>" +
+                "<param><value><string>" + Credentials.UserName.HtmlEncode() + "</string></value></param>" +
+                "<param><value><string>" + Credentials.Password.HtmlEncode() + "</string></value></param>" +
+                "<param><struct><member><name>name</name><value><string>" + FileName.HtmlEncode() + "</string></value></member>" +
+                "<member><name>type</name><value><string>" + MimeType.HtmlEncode() + "</string></value></member>" +
+                "<member><name>bits</name><value><base64>";
+
+            byte[] chunk = new byte[3600];
+            _bitmapStream.Position = 0;
+
+            int count = 0;
+            while ((count = _bitmapStream.Read(chunk, 0, chunk.Length)) > 0)
+            {
+                string result = Convert.ToBase64String(chunk);
+                result = result.Trim();
+                content += result;
+            }
+
+            content += "</base64></value></member>" +
+                "<member><name>overwrite</name><value><bool>" + Convert.ToInt32(Overwrite) + "</bool></value></member>" +
+                "</struct></param></params></methodCall>";
+            return content;*/
+        }
+        
+        /* Another way of reading a file by chunks
+         *             bool readCompleted = false;
+               while ( readCompleted == false )
+               {
+                   int index = 0;
+                   //we're trying to keep reading into our chunk until either we reach the end of the stream, or we've read everything we need.
+                   while (index < chunk.Length)
+                   {
+                       int bytesRead = _bitmapStream.Read(chunk, index, chunk.Length - index);
+                       this.DebugLog("Read the following noof bytes: " + bytesRead);
+                       if (bytesRead == 0)
+                       {
+                           break;
+                       }
+                       index += bytesRead;
+                   }
+                   if (index != 0) // Our previous chunk may have been the last one
+                   {
+                       string result = Convert.ToBase64String(chunk);
+                       result = result.Trim();
+                       content += result;
+                   }
+                   if (index != chunk.Length) // We didn't read a full chunk: we're done
+                   {
+                       readCompleted = true;
+                       this.DebugLog("No more bytes to read");
+                   }
+               }
+               */
+
+
+
+        /* Read the whole file into the byte array. Do not use this method.
+        int length = (int)_bitmapStream.Length;
+        _bitmapStream.Position = 0;
+        byte[] payload = new byte[length];
+        _bitmapStream.Read(payload, 0, length);
+        string result = Convert.ToBase64String(payload);
+        result = result.Trim();
+        */
+
+        /* Override methods defined in the base class since we are uploading the content of the image by chunk */
+        public override void ExecuteAsync()
+        {
+            ExecuteAsync(Guid.NewGuid());
+        }
+        
+        public override void ExecuteAsync(object taskId)
+        {
+            ValidateValues();
+
+            AsyncOperation operation = AsyncOperationManager.CreateOperation(taskId);
+
+            //start the async op
+            ThreadPool.QueueUserWorkItem((object state) =>
+            {
+                BeginBuildingHttpWebRequest(operation);
+            });
         }
 
-        private string EncodePayload()
+        private void BeginBuildingHttpWebRequest(AsyncOperation asyncOp)
         {
-            string result = Convert.ToBase64String(Payload);
-            return result.Trim();
+            HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
+            request.AllowAutoRedirect = true;
+            request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
+            request.Method = XmlRPCRequestConstants.POST;
+            request.UserAgent = Constants.WORDPRESS_USERAGENT;
+
+            State state = new State { Operation = asyncOp, Request = request };
+
+            request.BeginGetRequestStream(OnBeginGetRequestStreamCompleted, state);
+
+            asyncOp.Post(onProgressReportDelegate, new ProgressChangedEventArgs(20, asyncOp.UserSuppliedState));
         }
+
+        private void OnBeginGetRequestStreamCompleted(IAsyncResult result)
+        {
+            State state = result.AsyncState as State;
+
+            HttpWebRequest request = state.Request;
+            Stream contentStream = null;
+
+            try
+            {
+                contentStream = request.EndGetRequestStream(result);
+            }
+            catch (Exception ex)
+            {
+                CompletionMethod(null, ex, false, state.Operation);
+                return;
+            }
+
+            
+            using (contentStream)
+            {
+
+                string content = "<?xml version=\"1.0\"?><methodCall><methodName>wp.uploadFile</methodName><params>" +
+                "<param><value><int>" + Blog.BlogId + "</int></value></param>" +
+                "<param><value><string>" + Credentials.UserName.HtmlEncode() + "</string></value></param>" +
+                "<param><value><string>" + Credentials.Password.HtmlEncode() + "</string></value></param>" +
+                "<param><struct><member><name>name</name><value><string>" + FileName.HtmlEncode() + "</string></value></member>" +
+                "<member><name>type</name><value><string>" + MimeType.HtmlEncode() + "</string></value></member>" +
+                "<member><name>bits</name><value><base64>";
+
+                //Write the first chunk of data
+                byte[] payload = Encoding.UTF8.GetBytes(content);
+                contentStream.Write(payload, 0, payload.Length);
+                
+                //Write the chunks of the image
+                byte[] chunk = new byte[3600];
+                _bitmapStream.Position = 0;
+                int count = 0;
+                while ((count = _bitmapStream.Read(chunk, 0, chunk.Length)) > 0)
+                {
+                    payload = Encoding.UTF8.GetBytes(Convert.ToBase64String(chunk).Trim());
+                    contentStream.Write(payload, 0, payload.Length);
+                }
+
+                //Write the last chunk of data
+                content = "</base64></value></member>" +
+                    "<member><name>overwrite</name><value><bool>" + Convert.ToInt32(Overwrite) + "</bool></value></member>" +
+                    "</struct></param></params></methodCall>";
+
+                payload = Encoding.UTF8.GetBytes(content);
+                contentStream.Write(payload, 0, payload.Length);           
+            }
+
+            request.BeginGetResponse(OnBeginGetResponseCompleted, state);
+
+            state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(40, state.Operation.UserSuppliedState));
+        }
+
+        /* END of the overrided methods */
 
         protected override List<UploadedFileInfo> ParseResponseContent(XDocument xDoc)
         {
@@ -135,7 +285,7 @@ namespace WordPress.Model
             else
             {
                 MimeType = MimeTypes.UNKNOWN;
-            }            
+            }
         }
 
         public void TranslateFileName(string originalFileName)
