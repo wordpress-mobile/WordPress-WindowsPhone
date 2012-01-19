@@ -391,7 +391,7 @@ namespace WordPress.Model
             }
         }
 
-        private Exception ParseFailureInfo(XElement element)
+        public Exception ParseFailureInfo(XElement element)
         {
             int faultCode = -1;
             string message = string.Empty;

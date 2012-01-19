@@ -42,6 +42,8 @@ namespace WordPress
         private Dictionary<UploadFileRPC, Size> _rpcToImageSizeMap;
         private Dictionary<UploadedFileInfo, UploadFileRPC> _infoToRpcMap;
         private List<UploadedFileInfo> _uploadInfo;
+
+        private bool _mediaDialogPresented = false;
         
         #endregion
 
@@ -562,20 +564,25 @@ namespace WordPress
                     App.WaitIndicationService.KillSpinner();
                     ApplicationBar.IsVisible = true;
 
-                    MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
-                    if (result == MessageBoxResult.OK)
+                    if (!_mediaDialogPresented)
                     {
-                        UpdatePostContent();
-                        SavePost();
-                        return;
+                        _mediaDialogPresented = true;
+                        MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                        if (result == MessageBoxResult.OK)
+                        {
+                            UpdatePostContent();
+                            SavePost();
+                            return;
+                        }
+                        else
+                        {
+                            //add the object back since the user wants to have another go at uploading
+                            rpc.Completed += OnUploadMediaRPCCompleted;
+                            _mediaUploadRPCs.Add(rpc);
+                            return;
+                        }
                     }
-                    else
-                    {
-                        //add the object back since the user wants to have another go at uploading
-                        rpc.Completed += OnUploadMediaRPCCompleted;
-                        _mediaUploadRPCs.Add(rpc);
-                        return;
-                    }
+                    
                 }
             }
 
