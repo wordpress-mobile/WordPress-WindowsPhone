@@ -279,8 +279,6 @@ namespace WordPress.Model
 
             Stream responseStream = response.GetResponseStream();
             string responseContent = null;
-            string originalServerResponse = null; //Keep copy of the server response "as-is", without cleaning it.
-
             try
             {
                 using (StreamReader reader = new StreamReader(responseStream))
@@ -295,73 +293,16 @@ namespace WordPress.Model
             }
 
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(80, state.Operation.UserSuppliedState));
-                      
-            if (!String.IsNullOrEmpty(responseContent))
-            {
-                originalServerResponse = String.Copy(responseContent);
-                //responseContent += "<<";
-                //this.DebugLog("XML-RPC response: " + responseContent);
-                //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
-                string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
-                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-                if (regex.IsMatch(responseContent))
-                {
-                    this.DebugLog("found characters that must not appear in the XML-RPC response");
-                    responseContent = regex.Replace(responseContent, String.Empty);
-                }
-                
-                if (!responseContent.StartsWith("<"))
-                {
-                    //clean the junk b4 the xml preamble
-                    this.DebugLog("cleaning the junk before the xml preamble");
-                    int indexOfFirstLt = responseContent.IndexOf("<");
-                    responseContent = responseContent.Substring(indexOfFirstLt);
-                }
-            }
-            //search for fault code/fault string
+
             XDocument xDoc = null;
             try
             {
-                xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+                xDoc = this.cleanAndParseServerResponse(responseContent);
             }
-            catch (Exception ex)
+            catch (Exception ex2)
             {
-                //something went wrong during the parsing process we'd like to recover the error.
-
-                this.DebugLog("Parser error: " + ex.Message); //this is the original error, that should not be shown to the user.
-                //Keep track of the original exception by adding the response from the server. If the recovery fails we should throw this exception.
-                if ( !String.IsNullOrEmpty( originalServerResponse ) )
-                {
-                    ex = new Exception("\n Server Response --> " + originalServerResponse, ex);
-                }
-                
-                //we are crazy
-                if (responseContent.Contains( "<fault>") )
-                {
-                    int startIndex = responseContent.IndexOf("<struct>");
-                    int lastIndex = responseContent.LastIndexOf("</struct>");
-                    responseContent = "<methodResponse><fault><value>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</struct></value></fault</methodResponse>";
-                }
-                else
-                {
-                    int startIndex = responseContent.IndexOf("<value>");
-                    int lastIndex = responseContent.LastIndexOf("</value>");
-                    responseContent = "<methodResponse><params><param>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</value></param></params></methodResponse>";
-                }
-                //Try to re-parse the content once again
-                xDoc = null;
-                try
-                {
-                    xDoc = XDocument.Parse(responseContent, LoadOptions.None);
-                }
-                catch (Exception ex2)
-                {
-                    //Error recovery failed!!
-                    //Original Exception should be thrown when the error recovery fails...
-                    Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
-                    CompletionMethod(null, exception, false, state.Operation);
-                    return;
-                }
+                CompletionMethod(null, ex2, false, state.Operation);
+                return;
             }
 
             var fault = xDoc.Descendants().Where(element => XmlRPCResponseConstants.NAME == element.Name && XmlRPCResponseConstants.FAULTCODE_VALUE == element.Value);
@@ -391,7 +332,80 @@ namespace WordPress.Model
             }
         }
 
-        public Exception ParseFailureInfo(XElement element)
+
+        protected XDocument cleanAndParseServerResponse(String responseContent)
+        {
+            string originalServerResponse = null; //Keep copy of the server response "as-is", without cleaning it.
+            if (!String.IsNullOrEmpty(responseContent))
+            {
+                originalServerResponse = String.Copy(responseContent);
+                //responseContent += "<<";
+                //this.DebugLog("XML-RPC response: " + responseContent);
+                //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
+                string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
+                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                if (regex.IsMatch(responseContent))
+                {
+                    this.DebugLog("found characters that must not appear in the XML-RPC response");
+                    responseContent = regex.Replace(responseContent, String.Empty);
+                }
+
+                if (!responseContent.StartsWith("<"))
+                {
+                    //clean the junk b4 the xml preamble
+                    this.DebugLog("cleaning the junk before the xml preamble");
+                    int indexOfFirstLt = responseContent.IndexOf("<");
+                    responseContent = responseContent.Substring(indexOfFirstLt);
+                }
+            }
+            //search for fault code/fault string
+            XDocument xDoc = null;
+            try
+            {
+                xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+            }
+            catch (Exception ex)
+            {
+                //something went wrong during the parsing process we'd like to recover the error.
+
+                this.DebugLog("Parser error: " + ex.Message); //this is the original error, that should not be shown to the user.
+                //Keep track of the original exception by adding the response from the server. If the recovery fails we should throw this exception.
+                if (!String.IsNullOrEmpty(originalServerResponse))
+                {
+                    ex = new Exception("\n Server Response --> " + originalServerResponse, ex);
+                }
+
+                //we are crazy <-- so true!
+                if (responseContent.Contains("<fault>"))
+                {
+                    int startIndex = responseContent.IndexOf("<struct>");
+                    int lastIndex = responseContent.LastIndexOf("</struct>");
+                    responseContent = "<methodResponse><fault><value>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</struct></value></fault</methodResponse>";
+                }
+                else
+                {
+                    int startIndex = responseContent.IndexOf("<value>");
+                    int lastIndex = responseContent.LastIndexOf("</value>");
+                    responseContent = "<methodResponse><params><param>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</value></param></params></methodResponse>";
+                }
+                //Try to re-parse the content once again
+                xDoc = null;
+                try
+                {
+                    xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+                }
+                catch (Exception ex2)
+                {
+                    //Error recovery failed!!
+                    //Original Exception should be thrown when the error recovery fails...
+                    Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
+                    throw exception;
+                }
+            }
+            return xDoc;
+        }
+
+        protected Exception ParseFailureInfo(XElement element)
         {
             int faultCode = -1;
             string message = string.Empty;
