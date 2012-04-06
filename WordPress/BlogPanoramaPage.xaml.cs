@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Utils;
 using System.Windows.Navigation;
 using Microsoft.Phone.Shell;
 using System.Windows.Media;
@@ -199,6 +200,7 @@ namespace WordPress
 
         private void RefreshAppBar()
         {
+            Tools.LogMemoryUsage();
             // Set the app bar based on which pivot item is visible
             ApplicationBar.Buttons.Clear();
 

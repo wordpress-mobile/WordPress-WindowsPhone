@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,5 +43,23 @@ namespace WordPress.Utils
                 }
             }
         }
+        
+
+        public static void LogMemoryUsage()
+        {
+            Debug.WriteLine(" ----- ");
+            Debug.WriteLine("CurrentMemoryUsage " + Tools.convertMemory(DeviceStatus.ApplicationCurrentMemoryUsage));
+            Debug.WriteLine("ApplicationPeakMemoryUsage " + Tools.convertMemory(DeviceStatus.ApplicationPeakMemoryUsage));
+            Debug.WriteLine("ApplicationMemoryUsageLimit " + Tools.convertMemory(DeviceStatus.ApplicationMemoryUsageLimit));
+            Debug.WriteLine("DeviceTotalMemory " + Tools.convertMemory(DeviceStatus.DeviceTotalMemory));
+        }
+
+        private static String convertMemory ( long size ) {
+            string[] unit = { "b", "kb", "mb", "gb", "tb", "pb" };
+            int floor1 = (int) Math.Floor(  Math.Log ( size, 1024) );
+            return Math.Round( size / Math.Pow( 1024, floor1 ), 2 ) + " " + unit[floor1];
+        }
+
     }
+
 }
