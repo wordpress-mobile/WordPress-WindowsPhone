@@ -350,12 +350,13 @@ namespace WordPress.Model
                     responseContent = regex.Replace(responseContent, String.Empty);
                 }
 
-                if (!responseContent.StartsWith("<"))
+                if (!responseContent.StartsWith("<?xml"))
                 {
                     //clean the junk b4 the xml preamble
                     this.DebugLog("cleaning the junk before the xml preamble");
-                    int indexOfFirstLt = responseContent.IndexOf("<");
-                    responseContent = responseContent.Substring(indexOfFirstLt);
+                    int indexOfFirstLt = responseContent.IndexOf("<?xml");
+                    if( indexOfFirstLt > -1 )
+                        responseContent = responseContent.Substring(indexOfFirstLt);
                 }
             }
             //search for fault code/fault string
