@@ -22,6 +22,7 @@ namespace WordPress.Model
         // have a weird PHP/libxml2 combination that ignores regular entities
         public static string XmlEscape(this string value)
         {
+            if (value == null) return null;
             value = value.Replace("&", "&#38;");
             value = value.Replace(">", "&#62;");
             value = value.Replace("<", "&#60;");
