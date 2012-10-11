@@ -55,8 +55,6 @@ namespace WordPress.Model
             {
                 status = "draft";
             }
-            string uno = PostType.ToString();
-            string due = base.PostType.ToString();
             
             string result = string.Format(_content,
                 Post.PostId,
