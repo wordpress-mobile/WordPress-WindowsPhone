@@ -55,12 +55,15 @@ namespace WordPress.Model
             {
                 status = "draft";
             }
+            string uno = PostType.ToString();
+            string due = base.PostType.ToString();
             
             string result = string.Format(_content,
                 Post.PostId,
                 Credentials.UserName.HtmlEncode(),
                 Credentials.Password.HtmlEncode(),
                 Post.MtKeyWords.XmlEscape(),
+                PostType.ToString(),
                 FormatCategories(),
                 Post.Title.XmlEscape(),
                 Post.Description.HtmlEncode(),

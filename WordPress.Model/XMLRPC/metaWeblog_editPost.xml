@@ -29,7 +29,7 @@
           <member>
             <name>post_type</name>
             <value>
-              <string>post</string>
+              <string>{4}</string>
             </value>
           </member>
           <member>
@@ -37,7 +37,7 @@
             <value>
               <array>
                 <data>
-                  {4}
+                  {5}
                 </data>
               </array>
             </value>
@@ -45,26 +45,26 @@
           <member>
             <name>title</name>
             <value>
-              <string>{5}</string>
+              <string>{6}</string>
             </value>
           </member>
           <member>
             <name>description</name>
             <value>
-              <string>{6}</string>
+              <string>{7}</string>
             </value>
           </member>
           <member>
-            <name>{7}_status</name>
+            <name>{8}_status</name>
             <value>
-              <string>{8}</string>
+              <string>{9}</string>
             </value>
           </member>
           <member>
             <name>date_created_gmt</name>
             <value>
               <dateTime.iso8601>
-                {9}
+                {10}
               </dateTime.iso8601>
             </value>
           </member>

@@ -183,6 +183,7 @@ namespace WordPress
                     rpc.Publish = true;
                 else
                     rpc.Publish = false;
+                rpc.PostType = ePostType.page;
                 rpc.Completed += OnEditPostRPCCompleted;
 
                 rpc.ExecuteAsync();
