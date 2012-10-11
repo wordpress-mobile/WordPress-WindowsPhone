@@ -56,7 +56,7 @@ namespace WordPress.Model
 
             foreach (string category in Post.Categories)
             {
-                data = string.Format(dataFormatString, StringUtils.escapeCategory(category));
+                data = string.Format(dataFormatString, category.XmlEscape().Replace("&#38;", "&#38;amp;"));
                 categoryBuilder.Append(data);
             }
             return categoryBuilder.ToString();

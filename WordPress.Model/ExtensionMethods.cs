@@ -23,9 +23,7 @@ namespace WordPress.Model
         public static string XmlEscape(this string value)
         {
             if (value == null) return null;
-            value = value.Replace("&", "&#38;");
-            value = value.Replace(">", "&#62;");
-            value = value.Replace("<", "&#60;");
+            value = value.Replace("&", "&#38;").Replace(">", "&#62;").Replace("<", "&#60;").Replace("\"", "&quot;").Replace("'", "&apos;");
             return value;
         }
 

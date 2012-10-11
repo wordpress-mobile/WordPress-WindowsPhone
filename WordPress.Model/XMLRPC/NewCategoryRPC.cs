@@ -68,7 +68,8 @@ namespace WordPress.Model
                 Category.Description.HtmlEncode(),
                 Category.CategorySlug.HtmlEncode(),
                 Category.ParentId,
-                StringUtils.escapeCategory(Category.CategoryName));
+                Category.CategoryName.XmlEscape().Replace("&#38;", "&#38;amp;")
+                );
             return result;
         }
 
