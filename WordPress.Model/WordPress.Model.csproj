@@ -70,12 +70,14 @@
     <Compile Include="Stats\ReferrerDataPoint.cs" />
     <Compile Include="Stats\SearchTermDataPoint.cs" />
     <Compile Include="Stats\ViewDataPoint.cs" />
+    <Compile Include="StringUtils.cs" />
     <Compile Include="UploadedFileInfo.cs" />
     <Compile Include="XMLRPCTable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>XMLRPCTable.resx</DependentUpon>
     </Compile>
+    <Compile Include="XMLRPC\AbstractPostRPC.cs" />
     <Compile Include="XMLRPC\DeleteCommentRPC.cs" />
     <Compile Include="XMLRPC\DeleteCommentsRPC.cs" />
     <Compile Include="XMLRPC\DeletePageRPC.cs" />

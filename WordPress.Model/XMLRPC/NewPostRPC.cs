@@ -10,15 +10,8 @@ namespace WordPress.Model
     /// <summary>
     /// Used to edit both posts and pages
     /// </summary>
-    public class NewPostRPC : XmlRemoteProcedureCall<Post>
+    public class NewPostRPC : AbstractPostRPC
     {
-        #region member variables
-
-        private readonly string _content;
-
-        private const string METHODNAME_VALUE = "metaWeblog.newPost";
-
-        #endregion
 
         #region constructors
 
@@ -30,7 +23,7 @@ namespace WordPress.Model
         }
 
         public NewPostRPC(Blog blog, Post post)
-            : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
+            : base(blog.Xmlrpc, "metaWeblog.newPost", blog.Username, blog.Password)
         {
             _content = XMLRPCTable.metaWeblog_newPost;
             Post = post;
@@ -42,31 +35,9 @@ namespace WordPress.Model
 
         public int BlogId { get; set; }
 
-        public Post Post { get; set; }
-
-        public ePostType PostType { get; set; }
-
-        public bool Publish { get; set; }
-
         #endregion
 
         #region methods
-
-        private string FormatCategories()
-        {
-            string dataFormatString = "<value><string>{0}</string></value>";
-
-            StringBuilder categoryBuilder = new StringBuilder();
-            string data = string.Empty;
-
-            foreach (string category in Post.Categories)
-            {
-                data = string.Format(dataFormatString, category.HtmlEncode());
-                categoryBuilder.Append(data);
-            }
-
-            return categoryBuilder.ToString();
-        }
 
         private string FormatCustomFields()
         {
@@ -115,10 +86,10 @@ namespace WordPress.Model
                 Post.PostId,
                 Credentials.UserName.HtmlEncode(),
                 Credentials.Password.HtmlEncode(),
-                Post.MtKeyWords.HtmlEncode(),
+                Post.MtKeyWords.XmlEscape(),
                 PostType.ToString(),
                 FormatCategories(),
-                Post.Title.HtmlEncode(),
+                Post.Title.XmlEscape(),
                 Post.Description.HtmlEncode(),
                 PostType.ToString(),
                 status,

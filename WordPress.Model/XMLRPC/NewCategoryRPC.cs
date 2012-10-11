@@ -68,7 +68,7 @@ namespace WordPress.Model
                 Category.Description.HtmlEncode(),
                 Category.CategorySlug.HtmlEncode(),
                 Category.ParentId,
-                Category.CategoryName.HtmlEncode());
+                StringUtils.escapeCategory(Category.CategoryName));
             return result;
         }
 
