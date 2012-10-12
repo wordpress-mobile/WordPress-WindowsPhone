@@ -535,6 +535,8 @@ namespace WordPress
                 //The file is now encoded in the IsolatedStorage
                 // Create a new stream from isolated storage
                 bitmapStream = myStore.OpenFile(tempJPEG, FileMode.Open, FileAccess.Read);//change the stream reference for uploading
+            } else {
+                bitmapStream.Seek(0, 0); // necessary to initiate the stream correctly before save
             }
 
             //Save the picture to the picture library if it's a new picture           
