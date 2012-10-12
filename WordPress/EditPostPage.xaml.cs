@@ -20,6 +20,8 @@ using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
 using System.Windows.Input;
+using System.IO.IsolatedStorage;
+using System.Windows.Resources;
 
 namespace WordPress
 {
@@ -499,14 +501,68 @@ namespace WordPress
             Image imageElement = BuildImageElement(image);
             imageWrapPanel.Children.Add(imageElement);
 
-            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, originalFileName, bitmapStream, true);
-            rpc.Completed += OnUploadMediaRPCCompleted;
+            // 1.Resize the picture and save the output to the isolated storage if 'PreserveBandwidth' is enabled and dimensions are > 800 px.
+            if (App.MasterViewModel.CurrentBlog.PreserveBandwidth && (image.PixelWidth > 800 || image.PixelHeight > 800))
+            {
+                // Create a file name for the JPEG file in isolated storage.
+                String tempJPEG = "TempJPEG";
 
+                // Create a virtual store and file stream. Check for duplicate tempJPEG files.
+                var myStore = IsolatedStorageFile.GetUserStoreForApplication();
+                if (myStore.FileExists(tempJPEG))
+                {
+                    myStore.DeleteFile(tempJPEG);
+                }
+
+                IsolatedStorageFileStream myFileStream = myStore.CreateFile(tempJPEG);
+
+                /* BitmapImage bitmap = new BitmapImage();
+                 bitmap.CreateOptions = BitmapCreateOptions.None;
+                 bitmap.SetSource(bitmapStream);
+                 WriteableBitmap wb = new WriteableBitmap(bitmap);*/
+                WriteableBitmap wb = new WriteableBitmap(image);
+
+                float wRatio = image.PixelWidth / 800F;
+                float hRatio = image.PixelHeight / 800F;
+                float currentRatio = Math.Max(wRatio, hRatio);
+                int resizedWidth = (int)(image.PixelWidth / currentRatio);
+                int resizedHeight = (int)(image.PixelHeight / currentRatio);
+
+                // Encode the WriteableBitmap object to a JPEG stream.
+                wb.SaveJpeg(myFileStream, resizedWidth, resizedHeight, 0, 85);
+                myFileStream.Close();
+
+                //The file is now encoded in the IsolatedStorage
+                // Create a new stream from isolated storage
+                bitmapStream = myStore.OpenFile(tempJPEG, FileMode.Open, FileAccess.Read);//change the stream reference for uploading
+            }
+
+            //Save the picture to the picture library if it's a new picture           
+            DateTime capture = DateTime.Now;
+            string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
+            string fileName = string.Format(fileNameFormat,
+                capture.Year,
+                capture.Month,
+                capture.Day,
+                capture.Hour,
+                capture.Minute,
+                capture.Second,
+                Path.GetExtension(originalFileName));
+
+            // Save the image to the camera roll or saved pictures album.
+            MediaLibrary library = new MediaLibrary();
+            // Save the image to the saved pictures album.
+            Picture pic = library.SavePicture(fileName, bitmapStream);
+            bitmapStream.Close();
+
+            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, originalFileName, fileName, true);
+            rpc.Completed += OnUploadMediaRPCCompleted;
+       
             //store this for later--we'll upload the files once the user hits save
             _mediaUploadRPCs.Add(rpc);
 
             //we also need the original dimensions for the thumbnail calculations
-            _rpcToImageSizeMap.Add(rpc, new Size(image.PixelWidth, image.PixelHeight));
+            _rpcToImageSizeMap.Add(rpc, new Size(image.PixelWidth, image.PixelHeight)); //this is not needed
         }
 
         private BitmapImage BuildBitmap(Stream bitmapStream)
@@ -632,22 +688,19 @@ namespace WordPress
 
             XElement imageNode = new XElement("img");
             imageNode.SetAttributeValue("src", info.Url);
-
-            StringBuilder styleBuilder = new StringBuilder();
-            string dimensionFormatString = "height:{0}px; width:{1}px;";
-
-            int width = 0 == currentBlog.ThumbnailPixelWidth ? (int)originalImageSize.Width : currentBlog.ThumbnailPixelWidth;
-            int height = (int)(width / originalImageSize.Width * originalImageSize.Height);            
-
-            styleBuilder.Append(string.Format(dimensionFormatString, height, width));
-
+                       
             if (currentBlog.AlignThumbnailToCenter)
             {
+                StringBuilder styleBuilder = new StringBuilder();
                 styleBuilder.Append("display:block; margin-right:auto; margin-left:auto;");
+                imageNode.SetAttributeValue("style", styleBuilder.ToString());
+                imageNode.SetAttributeValue("class", "size-full;");
             }
-
-            imageNode.SetAttributeValue("style", styleBuilder.ToString());
-
+            else
+            {
+                imageNode.SetAttributeValue("class", "alignnone size-full;");
+            }
+           
             if (!currentBlog.CreateLinkToFullImage)
             {
                 return "<br /><br />" + imageNode.ToString();

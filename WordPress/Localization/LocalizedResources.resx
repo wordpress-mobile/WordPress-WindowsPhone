@@ -203,9 +203,6 @@
   <data name="ControlText_Location" xml:space="preserve">
     <value>location</value>
   </data>
-  <data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-    <value>maximum thumbnail pixel width</value>
-  </data>
   <data name="ControlText_Media" xml:space="preserve">
     <value>media</value>
   </data>
@@ -778,5 +775,8 @@
   </data>
   <data name="ControlText_Scheduled" xml:space="preserve">
     <value>Scheduled</value>
+  </data>
+  <data name="ControlText_PreserveBandwidth" xml:space="preserve">
+    <value>Preserve Bandwidth Usage</value>
   </data>
 </root>

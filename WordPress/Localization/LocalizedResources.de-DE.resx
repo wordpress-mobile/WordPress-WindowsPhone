@@ -489,9 +489,6 @@
   <data name="ControlText_Reply" xml:space="preserve">
     <value>Antwort</value>
   </data>
-  <data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-    <value>maximale Vorschau-Pixelbreite</value>
-  </data>
   <data name="ControlText_Italic" xml:space="preserve">
     <value>I</value>
   </data>

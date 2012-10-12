@@ -5,9 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
+using Microsoft.Xna.Framework.Media;
+
 
 
 namespace WordPress.Model
@@ -30,7 +31,7 @@ namespace WordPress.Model
 
         private string _fileName;
 
-        private Stream _bitmapStream;
+        private string _fileNameInMediaLibrary;
 
         private State originalState;
 
@@ -45,14 +46,14 @@ namespace WordPress.Model
             MethodName = METHODNAME_VALUE;
         }
 
-        public UploadFileRPC(Blog blog, string fileName, Stream bitmapStream, bool overwrite)
+        public UploadFileRPC(Blog blog, string fileName, String fileNameInMediaLibrary, bool overwrite)
             : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
         {
             _content = XMLRPCTable.wp_uploadFile;
 
             Blog = blog;
             TranslateFileName(fileName);
-            _bitmapStream = bitmapStream;
+            _fileNameInMediaLibrary = fileNameInMediaLibrary;
             Overwrite = overwrite;
         }
 
@@ -96,7 +97,7 @@ namespace WordPress.Model
             {
                 throw new ArgumentException("Type may not be null or an empty string", "Type");
             }
-            if (null == _bitmapStream)
+            if (null == _fileNameInMediaLibrary)
             {
                 throw new ArgumentException("Payload may not be null", "Payload");
             }
@@ -187,7 +188,7 @@ namespace WordPress.Model
         }
 
         private void BeginBuildingHttpWebRequest(AsyncOperation asyncOp)
-        {
+        {   
             HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
@@ -218,6 +219,17 @@ namespace WordPress.Model
                 return;
             }
 
+
+            //load the picture: Ugly but works.
+            Stream _bitmapStream = null;
+            MediaLibrary m = new MediaLibrary();
+            foreach (var r in m.Pictures)
+            {
+                if( r.Name.Equals( _fileNameInMediaLibrary ) ) {
+                    _bitmapStream = r.GetImage();
+                }
+                if ( _bitmapStream != null ) break;
+            }
             
             using (contentStream)
             {
@@ -235,14 +247,14 @@ namespace WordPress.Model
                 
                 //Write the chunks of the image
                 byte[] chunk = new byte[3600];
-                _bitmapStream.Position = 0;
                 int count = 0;
                 while ((count = _bitmapStream.Read(chunk, 0, chunk.Length)) > 0)
                 {
                     payload = Encoding.UTF8.GetBytes(Convert.ToBase64String(chunk).Trim());
                     contentStream.Write(payload, 0, payload.Length);
                 }
-                
+                _bitmapStream.Close();
+
                 //Write the last chunk of data
                 content = "</base64></value></member>" +
                     "<member><name>overwrite</name><value><bool>" + Convert.ToInt32(Overwrite) + "</bool></value></member>" +

@@ -91,7 +91,7 @@ namespace WordPress.Localization
             public string PlaceImage { get { return LocalizedResources.ControlText_PlaceImage; } }
             public string AboveText { get { return LocalizedResources.ControlText_AboveText; } }
             public string BelowText { get { return LocalizedResources.ControlText_BelowText; } }
-            public string MaximumThumbnailPixelWidth { get { return LocalizedResources.ControlText_MaximumThumbnailPixelWidth; } }
+            public string PreserveBandwidth { get { return LocalizedResources.ControlText_PreserveBandwidth; } }
             public string AlignThumbnailToCenter { get { return LocalizedResources.ControlText_AlignThumbnailToCenter; } }
             public string UploadAndLinkToFullImage { get { return LocalizedResources.ControlText_UploadAndLinkToFullImage; } }
             public string Location { get { return LocalizedResources.ControlText_Location; } }

@@ -63,7 +63,7 @@ namespace WordPress
         {
             if (App.PopupSelectionService.IsPopupOpen)
             {
-                HidePopupSelectionService();
+              //  HidePopupSelectionService();
                 e.Cancel = true;
             }
             else
@@ -160,7 +160,7 @@ namespace WordPress
             }
             NavigationService.GoBack();
         }
-
+        /*
         private void OnThumbnailPixelWidthButtonClick(object sender, RoutedEventArgs args)
         {
             ShowThumbnailSizeSelections();
@@ -194,13 +194,13 @@ namespace WordPress
             currentBlog.ThumbnailPixelWidth = width;
             HidePopupSelectionService();
         }
-
+        
         private void HidePopupSelectionService()
         {
             App.PopupSelectionService.SelectionChanged -= OnPopupSelectionServiceSelectionChanged;
             App.PopupSelectionService.HidePopup();
         }
-
+        */
         #endregion
     }
 }

@@ -7,7 +7,6 @@ namespace WordPress.Model
     public static class Extensions
     {
 
-        //Despite the name this function does the XML encoding.
         public static string HtmlEncode(this string value)
         {  
             return HttpUtility.HtmlEncode(value);

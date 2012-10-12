@@ -573,9 +573,6 @@
   <data name="ControlText_Reply" xml:space="preserve">
     <value>svara</value>
   </data>
-  <data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-    <value>maximal miniatyrbredd i pixlar</value>
-  </data>
   <data name="Title_Preferences" xml:space="preserve">
     <value>alternativ</value>
   </data>

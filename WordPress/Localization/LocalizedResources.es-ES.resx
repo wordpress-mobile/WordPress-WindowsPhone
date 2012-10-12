@@ -669,9 +669,6 @@
   <data name="ControlText_GeoTagPosts" xml:space="preserve">
     <value>publicaciones con etiqueta geográfica</value>
   </data>
-  <data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-    <value>ancho máximo de píxel de la miniatura</value>
-  </data>
   <data name="Messages_NoStatsAvailable" xml:space="preserve">
     <value>No hay estadísticas disponibles para la consulta actual.</value>
   </data>

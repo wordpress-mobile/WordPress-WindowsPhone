@@ -645,9 +645,6 @@
   <data name="Messages_CreatingNewCategory" xml:space="preserve">
     <value>création d'une nouvelle catégorie...</value>
   </data>
-  <data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-    <value>largeur maximale de la vignette en pixel</value>
-  </data>
   <data name="ControlText_BlogUrl" xml:space="preserve">
     <value>blog url</value>
   </data>

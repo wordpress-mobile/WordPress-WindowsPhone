@@ -244,6 +244,13 @@
 								Foreground="{StaticResource WordPressBlueBrush}"
 								FontSize="{StaticResource SectionHeaderFontSize}"/>
                 </Border>
+                <CheckBox x:Name="preserveBandwidthCheckBox" 
+                          Content="{Binding ControlsText.PreserveBandwidth, Source={StaticResource StringTable}}" 
+                          FontSize="{StaticResource ControlFontSize}"
+                          IsChecked="{Binding PreserveBandwidth, Mode=TwoWay}"
+                          Foreground="{StaticResource WordPressGreyBrush}" 
+                          Style="{StaticResource RightAlignedCheckbox}"
+                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="0,10"/>
                 <TextBlock Text="{Binding ControlsText.PlaceImage, Source={StaticResource StringTable}}"
 								Foreground="{StaticResource WordPressGreyBrush}"
 								FontSize="{StaticResource ControlFontSize}"/>
@@ -265,30 +272,6 @@
 								 Foreground="{StaticResource WordPressGreyBrush}"
 								 Background="{StaticResource SectionHeaderBackgroundBrush}"/>					
                 </StackPanel>
-                <Grid>
-                	<Grid.ColumnDefinitions>
-                		<ColumnDefinition/>
-                		<ColumnDefinition Width="Auto"/>
-                	</Grid.ColumnDefinitions>
-                	<TextBlock TextWrapping="Wrap" 
-                		    Text="{Binding ControlsText.MaximumThumbnailPixelWidth, Source={StaticResource StringTable}}"
-                		    FontSize="{StaticResource ControlFontSize}"
-                		    Foreground="{StaticResource WordPressGreyBrush}" 
-                            Margin="0" 
-                            VerticalAlignment="Center" />
-                	<Button x:Name="thumbnailPixelWidthButton"
-                		    FontSize="{StaticResource ControlFontSize}"
-                		    Content="{Binding ThumbnailPixelWidth, Converter={StaticResource ThumbnailSizeToStringConverter}}"
-                		    Style="{StaticResource BasicButtonStyle}"
-                		    Click="OnThumbnailPixelWidthButtonClick" 
-                            Margin="0,0,-10,0" 
-                            HorizontalAlignment="Right" 
-                            Grid.Column="2" 
-                            MinWidth="100" 
-                            MinHeight="36" 
-                            VerticalAlignment="Center" 
-                            Padding="10,0" />
-                </Grid>
 				<CheckBox x:Name="alignThumbnailCheckBox" 
                           Content="{Binding ControlsText.AlignThumbnailToCenter, Source={StaticResource StringTable}}" 
                           FontSize="{StaticResource ControlFontSize}"

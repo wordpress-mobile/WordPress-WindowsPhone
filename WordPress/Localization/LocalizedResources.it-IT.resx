@@ -546,9 +546,6 @@
   <data name="ControlText_Reply" xml:space="preserve">
     <value>risposta</value>
   </data>
-  <data name="ControlText_MaximumThumbnailPixelWidth" xml:space="preserve">
-    <value>larghezza massima in pixel della miniatura</value>
-  </data>
   <data name="ControlText_Italic" xml:space="preserve">
     <value>I</value>
   </data>

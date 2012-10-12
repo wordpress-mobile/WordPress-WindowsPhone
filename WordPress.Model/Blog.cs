@@ -20,8 +20,8 @@ namespace WordPress.Model
         private string _blogName;
         private string _xmlrpc;
 
+        private bool _preserveBandwidth;
         private bool _placeImageAboveText;
-        private int _thumbnailPixelWidth;
         private bool _alignThumbnailToCenter;
         private bool _createLinkToFullImage;
         private bool _geotagPosts;
@@ -52,8 +52,6 @@ namespace WordPress.Model
 
         public Blog() 
         {
-            _thumbnailPixelWidth = 500;
-
             Comments = new ObservableCollection<Comment>();
             PostListItems = new ObservableCollection<PostListItem>();
             PageListItems = new ObservableCollection<PageListItem>();
@@ -181,6 +179,19 @@ namespace WordPress.Model
 
         public ObservableCollection<Category> Categories { get; private set; }
 
+        public bool PreserveBandwidth
+        {
+            get { return _preserveBandwidth; }
+            set
+            {
+                if (value != _preserveBandwidth)
+                {
+                    _preserveBandwidth = value;
+                    NotifyPropertyChanged("PreserveBandwidth");
+                }
+            }
+        }
+
         public bool PlaceImageAboveText 
         {
             get { return _placeImageAboveText; }
@@ -190,21 +201,6 @@ namespace WordPress.Model
                 {
                     _placeImageAboveText = value;
                     NotifyPropertyChanged("PlaceImageAboveText");
-                }
-            }
-        }
-
-        public int ThumbnailPixelWidth
-        {
-            //DEV NOTE: a value of zero should be used to indicate the image should
-            //be displayed with its original dimensions
-            get { return _thumbnailPixelWidth; }
-            set 
-            {
-                if (value != _thumbnailPixelWidth)
-                {
-                    _thumbnailPixelWidth = value;
-                    NotifyPropertyChanged("ThumbnailPixelWidth");
                 }
             }
         }
