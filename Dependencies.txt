@@ -1,4 +1,4 @@
-WordPress for Windows Phone 7 Dependencies
+WordPress for Windows Phone 7/8 Dependencies
 --------------------------------------------------------------
 
 The following SDKs should be installed in the development environment prior to building the source:
@@ -10,4 +10,17 @@ Silverlight 3 Toolkit November 2009: http://silverlight.codeplex.com/releases/vi
 Silverlight for Windows Phone Toolkit - Nov 2010.msi: http://silverlight.codeplex.com/releases/view/55034#DownloadId=163011
 
 
-Silverlight for Windows Phone Toolkit - Feb 2011 http://silverlight.codeplex.com/releases/view/60291	
+Silverlight for Windows Phone Toolkit - Feb 2011 - http://silverlight.codeplex.com/releases/view/60291
+
+
+Silverlight for Windows Phone Toolkit Aug 2011. - http://silverlight.codeplex.com/releases/view/71550
+
+
+Open Visual Studio, load the solution, and check if there are references with the yellow signal. If so:
+- Right click on 'references'
+- Click 'Add references...'
+- Choose 'Assemblies -> Framework'
+- Click 'Browser' on the bottom-right and select the .ddl there are missing in your project.
+
+(On my installation there were located in C:\Program Files (x86)\Microsoft SDKs\Silverlight\v4.0\Libraries\Client\System.Windows.Controls.dll and 
+C:\Program Files (x86)\Microsoft SDKs\Silverlight\v3.0\Toolkit\Nov09\Bin\System.Windows.Controls.DataVisualization.Toolkit.dll )
