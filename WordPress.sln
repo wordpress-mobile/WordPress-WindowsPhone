@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Phone
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPress", "WordPress\WordPress.csproj", "{FC0222C1-C0E4-4A76-88AE-C9B83EE50DE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordPress.Model", "WordPress.Model\WordPress.Model.csproj", "{8B46577B-52DE-4B96-A525-57F7BECE8D96}"
