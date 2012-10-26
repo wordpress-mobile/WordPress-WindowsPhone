@@ -28,11 +28,45 @@ namespace WordPress.Utils
             }
         }
 
-        //Is low memory device? - To take advantage of devices that have more than 256 Mb of RAM available.
+        /* 
+         * Is low memory device? - To take advantage of devices that have more than 256 Mb of RAM available.
+         * 
+         * If ApplicationWorkingSetLimit is not found, then you’re not running on 7.1.1, which means there is no system paging,
+         * which in turn means that the app’s working set limit is the same as its commit limit. 
+         * See: http://blogs.windows.com/windows_phone/b/wpdev/archive/2012/09/12/future-proofing-your-apps.aspx
+         * 
+         */
         public bool IsLowMemoryDevice
         {
             get
             {
+
+                if (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator)
+                {
+                    return _emulatorIsLowMemory;
+                }
+
+                long ninety = 90 * 1024 * 1024;
+                long workingSetLimit;
+                object ws;
+                if( DeviceExtendedProperties.TryGetValue("ApplicationWorkingSetLimit", out ws) ) 
+                {
+                    workingSetLimit = Convert.ToInt64(ws);
+                    Debug.WriteLine("Memory WorkingSetLimit " + Tools.convertMemory(workingSetLimit));
+                }
+                else 
+                {
+                     workingSetLimit = DeviceStatus.ApplicationMemoryUsageLimit; //tells you the maximum amount of memory that your application can allocate
+                }
+
+                if( workingSetLimit < ninety ) 
+                {
+                    return true;
+                }
+                
+                return false;
+            }
+                /*
                 if (Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator)
                 {
                     return _emulatorIsLowMemory;
@@ -41,7 +75,7 @@ namespace WordPress.Utils
                 {
                     return (long)DeviceExtendedProperties.GetValue("DeviceTotalMemory") <= 268435456;
                 }
-            }
+                 * */
         }
         
 
