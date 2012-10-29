@@ -111,6 +111,9 @@
     <Compile Include="Converters\PostStatusInListConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
+    <Compile Include="ImageDetailsPage.xaml.cs">
+      <DependentUpon>ImageDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReaderBrowserPage.xaml.cs">
       <DependentUpon>ReaderBrowserPage.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="BrowserShellPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

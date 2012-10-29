@@ -66,6 +66,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MD5.cs" />
+    <Compile Include="Media.cs" />
     <Compile Include="Momento.cs" />
     <Compile Include="PageListItem.cs" />
     <Compile Include="Post.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Stats\ReferrerDataPoint.cs" />
     <Compile Include="Stats\SearchTermDataPoint.cs" />
     <Compile Include="Stats\ViewDataPoint.cs" />
-    <Compile Include="UploadedFileInfo.cs" />
     <Compile Include="XMLRPCTable.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

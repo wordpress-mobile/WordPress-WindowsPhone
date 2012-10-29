@@ -13,26 +13,23 @@ using Microsoft.Xna.Framework.Media;
 
 namespace WordPress.Model
 {
-    public class UploadFileRPC : XmlRemoteProcedureCall<UploadedFileInfo>
+    public class UploadFileRPC : XmlRemoteProcedureCall<Media>
     {
         #region member variables
 
         private const string METHODNAME_VALUE = "wp.uploadFile";
         private const string PHOTOCHOOSER_VALUE = "PhotoChooser";
-        private const string JPEG_EXTENSION = ".jpg";
-        private const string PNG_EXTENSION = ".png";
-        private const string BMP_EXTENSION = ".bmp";
         private int retryCount = 0;
+
+        private const string FILE_VALUE = "file";
+        private const string URL_VALUE = "url";
+        private const string TYPE_VALUE = "type";
+
 
         /// <summary>
         /// Holds a format string with the XMLRPC post content
         /// </summary>
         private readonly string _content;
-
-        private string _fileName;
-
-        private string _fileNameInMediaLibrary;
-
         private State originalState;
 
         #endregion
@@ -46,14 +43,13 @@ namespace WordPress.Model
             MethodName = METHODNAME_VALUE;
         }
 
-        public UploadFileRPC(Blog blog, string fileName, String fileNameInMediaLibrary, bool overwrite)
+        public UploadFileRPC(Blog blog, Media currentMedia, bool overwrite)
             : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
         {
             _content = XMLRPCTable.wp_uploadFile;
 
             Blog = blog;
-            TranslateFileName(fileName);
-            _fileNameInMediaLibrary = fileNameInMediaLibrary;
+            CurrentMedia = currentMedia;
             Overwrite = overwrite;
         }
 
@@ -63,17 +59,7 @@ namespace WordPress.Model
 
         public Blog Blog { get; private set; }
 
-        public string FileName
-        {
-            get { return _fileName; }
-            private set
-            {
-                _fileName = value;
-                TranslateMimeType();
-            }
-        }
-
-        public string MimeType { get; private set; }
+        public Media CurrentMedia { get; private set; }
 
         public bool Overwrite { get; private set; }
 
@@ -89,17 +75,17 @@ namespace WordPress.Model
             {
                 throw new ArgumentException("Blog may not be null", "Blog");
             }
-            if (string.IsNullOrEmpty(FileName))
+            if (string.IsNullOrEmpty(CurrentMedia.FileName))
             {
                 throw new ArgumentException("Name may not be null or an empty string.", "Name");
             }
-            if (string.IsNullOrEmpty(MimeType))
+            if (string.IsNullOrEmpty(CurrentMedia.MimeType))
             {
                 throw new ArgumentException("Type may not be null or an empty string", "Type");
             }
-            if (null == _fileNameInMediaLibrary)
+            if (null == CurrentMedia.LocalPath)
             {
-                throw new ArgumentException("Payload may not be null", "Payload");
+                throw new ArgumentException("Location of the file may not be null", "Data");
             }
         }
 
@@ -225,7 +211,7 @@ namespace WordPress.Model
             MediaLibrary m = new MediaLibrary();
             foreach (var r in m.Pictures)
             {
-                if( r.Name.Equals( _fileNameInMediaLibrary ) ) {
+                if( r.Name.Equals( CurrentMedia.LocalPath ) ) {
                     _bitmapStream = r.GetImage();
                 }
                 if ( _bitmapStream != null ) break;
@@ -238,8 +224,8 @@ namespace WordPress.Model
                 "<param><value><int>" + Blog.BlogId + "</int></value></param>" +
                 "<param><value><string>" + Credentials.UserName.HtmlEncode() + "</string></value></param>" +
                 "<param><value><string>" + Credentials.Password.HtmlEncode() + "</string></value></param>" +
-                "<param><struct><member><name>name</name><value><string>" + FileName.HtmlEncode() + "</string></value></member>" +
-                "<member><name>type</name><value><string>" + MimeType.HtmlEncode() + "</string></value></member>" +
+                "<param><struct><member><name>name</name><value><string>" + (translateFileName(CurrentMedia.FileName)) + "</string></value></member>" +
+                "<member><name>type</name><value><string>" + CurrentMedia.MimeType.HtmlEncode() + "</string></value></member>" +
                 "<member><name>bits</name><value><base64>";
 
                 byte[] payload = Encoding.UTF8.GetBytes(content);
@@ -339,7 +325,7 @@ namespace WordPress.Model
             }
             else
             {
-                List<UploadedFileInfo> items = null;
+                List<Media> items = null;
                 Exception exception = null;
                 try
                 {
@@ -360,35 +346,48 @@ namespace WordPress.Model
    
         /* END of the overrided methods */
 
-        protected override List<UploadedFileInfo> ParseResponseContent(XDocument xDoc)
+        protected override List<Media> ParseResponseContent(XDocument xDoc)
         {
-            List<UploadedFileInfo> result = new List<UploadedFileInfo>();
+            List<Media> result = new List<Media>();
             foreach (XElement structElement in xDoc.Descendants(XmlRPCResponseConstants.STRUCT))
             {
-                UploadedFileInfo info = new UploadedFileInfo(structElement);
-                result.Add(info);
+                this.ParseResponseElement(structElement);
+                result.Add(CurrentMedia);
             }
             return result;
         }
-
-        private void TranslateMimeType()
+        
+        //parse the response from the server
+        private void ParseResponseElement(XElement element)
         {
-            //DEV NOTE: PhotoChooserTask only seems to allow pictures, no video.
-            //capture everything else (if that is even possible) as
-            //application/octet-stream
-            string extension = Path.GetExtension(FileName);
-
-            if (JPEG_EXTENSION.Equals(extension))
+            if (!element.HasElements)
             {
-                MimeType = MimeTypes.JPEG;
+                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
-            else
+
+            string value = null;
+            foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
-                MimeType = MimeTypes.UNKNOWN;
+                string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
+                if (FILE_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    CurrentMedia.FileName = value;
+                }
+                else if (URL_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    CurrentMedia.Url = value;
+                }
+                else if (TYPE_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    CurrentMedia.MimeType = value;
+                }
             }
         }
 
-        public void TranslateFileName(string originalFileName)
+        public string translateFileName(string originalFileName)
         {
             //DEV NOTE: the original file name from the PhotoChooserTask is pretty gross.
             //The plan is to nab the extension and use a timestamp for the file name so
@@ -406,13 +405,12 @@ namespace WordPress.Model
                     capture.Minute,
                     capture.Second,
                     Path.GetExtension(originalFileName));
-                FileName = fileName;
-                return;
+                return  fileName;
             }
 
             //if we're at this point, the file name should be reasonably readable so we'll
             //leave it alone
-            FileName = Path.GetFileName(originalFileName);
+            return Path.GetFileName(originalFileName);
         }
 
         #endregion

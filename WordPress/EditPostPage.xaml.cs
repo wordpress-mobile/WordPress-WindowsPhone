@@ -40,10 +40,8 @@ namespace WordPress
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
         private ApplicationBarIconButton _publishIconButton;
+        private List<Media> _media; //media attached to this post
         private List<UploadFileRPC> _mediaUploadRPCs;
-        private Dictionary<UploadFileRPC, Size> _rpcToImageSizeMap;
-        private Dictionary<UploadedFileInfo, UploadFileRPC> _infoToRpcMap;
-        private List<UploadedFileInfo> _uploadInfo;
 
         private bool _mediaDialogPresented = false;
         
@@ -72,10 +70,7 @@ namespace WordPress
             ApplicationBar.Buttons.Add(_publishIconButton);
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
-            _rpcToImageSizeMap = new Dictionary<UploadFileRPC, Size>();
-            _infoToRpcMap = new Dictionary<UploadedFileInfo, UploadFileRPC>();
-
-            _uploadInfo = new List<UploadedFileInfo>();
+            _media = new List<Media>();
 
             Loaded += OnPageLoaded;
         }
@@ -236,8 +231,17 @@ namespace WordPress
             else
                 post.PostStatus = "draft";
 
-            if (0 < _mediaUploadRPCs.Count)
+            if (0 < _media.Count)
             {
+                _media.ForEach(currentMedia =>
+                    {
+                        UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
+                        rpc.Completed += OnUploadMediaRPCCompleted;
+                        //store this for later--we'll upload the files once the user hits save
+                        _mediaUploadRPCs.Add(rpc);
+                    }
+                );
+
                 UploadImagesAndSavePost();
                 return;
             }
@@ -250,9 +254,6 @@ namespace WordPress
             this.Focus(); //hide the keyboard
             ApplicationBar.IsVisible = false; //hide the application bar
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingMedia);
-            
-            //make sure nothing is in our results collection
-            _uploadInfo.Clear();
 
             //fire off the worker rpcs
             _mediaUploadRPCs.ForEach(rpc => rpc.ExecuteAsync());
@@ -515,11 +516,6 @@ namespace WordPress
                 }
 
                 IsolatedStorageFileStream myFileStream = myStore.CreateFile(tempJPEG);
-
-                /* BitmapImage bitmap = new BitmapImage();
-                 bitmap.CreateOptions = BitmapCreateOptions.None;
-                 bitmap.SetSource(bitmapStream);
-                 WriteableBitmap wb = new WriteableBitmap(bitmap);*/
                 WriteableBitmap wb = new WriteableBitmap(image);
 
                 float wRatio = image.PixelWidth / 800F;
@@ -542,7 +538,7 @@ namespace WordPress
             //Save the picture to the picture library if it's a new picture           
             DateTime capture = DateTime.Now;
             string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
-            string fileName = string.Format(fileNameFormat,
+            string mediaFileLocationOnDevice = string.Format(fileNameFormat,
                 capture.Year,
                 capture.Month,
                 capture.Day,
@@ -554,17 +550,11 @@ namespace WordPress
             // Save the image to the camera roll or saved pictures album.
             MediaLibrary library = new MediaLibrary();
             // Save the image to the saved pictures album.
-            Picture pic = library.SavePicture(fileName, bitmapStream);
+            Picture pic = library.SavePicture(mediaFileLocationOnDevice, bitmapStream);
             bitmapStream.Close();
 
-            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, originalFileName, fileName, true);
-            rpc.Completed += OnUploadMediaRPCCompleted;
-       
-            //store this for later--we'll upload the files once the user hits save
-            _mediaUploadRPCs.Add(rpc);
-
-            //we also need the original dimensions for the thumbnail calculations
-            _rpcToImageSizeMap.Add(rpc, new Size(image.PixelWidth, image.PixelHeight)); //this is not needed
+            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, originalFileName, mediaFileLocationOnDevice);
+            _media.Add(currentMedia);
         }
 
         private BitmapImage BuildBitmap(Stream bitmapStream)
@@ -598,10 +588,10 @@ namespace WordPress
             imageWrapPanel.Children.Clear();
             _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
             _mediaUploadRPCs.Clear();
-            _rpcToImageSizeMap.Clear();
+            _media.Clear();
         }
 
-        private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<UploadedFileInfo> args)
+        private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<Media> args)
         {
             UploadFileRPC rpc = sender as UploadFileRPC;
             rpc.Completed -= OnUploadMediaRPCCompleted;
@@ -611,11 +601,11 @@ namespace WordPress
                 _mediaUploadRPCs.Remove(rpc);
                 if (null == args.Error)
                 {
-                    _uploadInfo.Add(args.Items[0]);
+                    //Image uploaded correctly
                 }
                 if (args.Items.Count > 0)
                 {
-                    _infoToRpcMap.Add(args.Items[0], rpc);
+                   // _infoToRpcMap.Add(args.Items[0], rpc);
                 }
                 else
                 {
@@ -657,9 +647,9 @@ namespace WordPress
         {
             StringBuilder builder = new StringBuilder();
 
-            _uploadInfo.ForEach(info =>
+            _media.ForEach( currentMedia =>
             {
-                builder.Append(BuildImgMarkup(info));
+                builder.Append(currentMedia.getHTML());
             });
 
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
@@ -676,44 +666,6 @@ namespace WordPress
             contentTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
-        private string BuildImgMarkup(UploadedFileInfo info)
-        {
-            if (!_infoToRpcMap.ContainsKey(info))
-            {
-                return string.Empty;
-            }
-
-            UploadFileRPC rpc = _infoToRpcMap[info];
-            Size originalImageSize = _rpcToImageSizeMap[rpc];
-
-            Blog currentBlog = App.MasterViewModel.CurrentBlog;
-
-            XElement imageNode = new XElement("img");
-            imageNode.SetAttributeValue("src", info.Url);
-                       
-            if (currentBlog.AlignThumbnailToCenter)
-            {
-                StringBuilder styleBuilder = new StringBuilder();
-                styleBuilder.Append("display:block; margin-right:auto; margin-left:auto;");
-                imageNode.SetAttributeValue("style", styleBuilder.ToString());
-                imageNode.SetAttributeValue("class", "size-full;");
-            }
-            else
-            {
-                imageNode.SetAttributeValue("class", "alignnone size-full;");
-            }
-           
-            if (!currentBlog.CreateLinkToFullImage)
-            {
-                return "<br /><br />" + imageNode.ToString();
-            }
-
-            XElement anchorNode = new XElement("a");                        
-            anchorNode.SetAttributeValue("href", info.Url);
-            anchorNode.Add(imageNode);
-            
-            return "<br /><br />" + anchorNode.ToString();
-        }
 
         private void OnLinkButtonClick(object sender, RoutedEventArgs e)
         {
