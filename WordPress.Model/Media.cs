@@ -144,6 +144,14 @@ namespace WordPress.Model
             {
                 MimeType = MimeTypes.JPEG;
             }
+            else if( PNG_EXTENSION.Equals(extension) )
+            {
+                MimeType = MimeTypes.PNG;
+            }
+            else if (BMP_EXTENSION.Equals(extension))
+            {
+                MimeType = MimeTypes.BMP;
+            }
             else
             {
                 MimeType = MimeTypes.UNKNOWN;
