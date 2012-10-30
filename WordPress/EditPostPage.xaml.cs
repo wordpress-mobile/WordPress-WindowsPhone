@@ -42,6 +42,7 @@ namespace WordPress
         private ApplicationBarIconButton _publishIconButton;
         private List<Media> _media; //media attached to this post
         private List<UploadFileRPC> _mediaUploadRPCs;
+        public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
         private bool _mediaDialogPresented = false;
         
@@ -430,8 +431,13 @@ namespace WordPress
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            base.OnNavigatedFrom(e);
+            if (e.Content is ImageDetailsPage)
+            {
+                (e.Content as ImageDetailsPage).TappedImage = _lastTappedMedia;
+                _lastTappedMedia = null;
+            }
 
+            base.OnNavigatedFrom(e);
             //store transient data in the State dictionary
             SavePageState();
         }
@@ -495,13 +501,11 @@ namespace WordPress
             AddNewMediaStream(chosenPhoto, e.OriginalFileName);
         }
 
-        private void AddNewMediaStream(Stream bitmapStream, string originalFileName)
+        private void AddNewMediaStream(Stream bitmapStream, string originalFilePath)
         {
-            //build out ui updates
-            BitmapImage image = BuildBitmap(bitmapStream);
-            Image imageElement = BuildImageElement(image);
-            imageWrapPanel.Children.Add(imageElement);
-
+            BitmapImage image = new BitmapImage();
+            image.SetSource(bitmapStream);
+          
             // 1.Resize the picture and save the output to the isolated storage if 'PreserveBandwidth' is enabled and dimensions are > 800 px.
             if (App.MasterViewModel.CurrentBlog.PreserveBandwidth && (image.PixelWidth > 800 || image.PixelHeight > 800))
             {
@@ -538,44 +542,92 @@ namespace WordPress
             //Save the picture to the picture library if it's a new picture           
             DateTime capture = DateTime.Now;
             string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
-            string mediaFileLocationOnDevice = string.Format(fileNameFormat,
+            string savedFileName = string.Format(fileNameFormat,
                 capture.Year,
                 capture.Month,
                 capture.Day,
                 capture.Hour,
                 capture.Minute,
                 capture.Second,
-                Path.GetExtension(originalFileName));
+                Path.GetExtension(originalFilePath));
 
             // Save the image to the camera roll or saved pictures album.
             MediaLibrary library = new MediaLibrary();
             // Save the image to the saved pictures album.
-            Picture pic = library.SavePicture(mediaFileLocationOnDevice, bitmapStream);
+            Picture pic = library.SavePicture(savedFileName, bitmapStream);
             bitmapStream.Close();
 
-            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, originalFileName, mediaFileLocationOnDevice);
+            string translateFileName = this.translateFileName( originalFilePath ); //Read and sanitize the file name from the original path for now. In the next release we can give the possibility to set an arbitraty file name                                                        
+            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, translateFileName, savedFileName);
             _media.Add(currentMedia);
+
+            //update the UI
+            imageWrapPanel.Children.Add( BuildTappableImageElement( image, currentMedia ) );
         }
 
-        private BitmapImage BuildBitmap(Stream bitmapStream)
+        private string translateFileName(string originalFileName)
         {
-            BitmapImage image = new BitmapImage();
-            image.SetSource(bitmapStream);
-            return image;
+            //DEV NOTE: the original file name from the PhotoChooserTask is pretty gross.
+            //The plan is to nab the extension and use a timestamp for the file name so
+            //there's something that doesn't seem crazy when the user checks what media
+            //has been uploaded.
+            const string PHOTOCHOOSER_VALUE = "PhotoChooser";
+
+            if (originalFileName.Contains(PHOTOCHOOSER_VALUE))
+            {
+                DateTime capture = DateTime.Now;
+                string fileNameFormat = "{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
+                string fileName = string.Format(fileNameFormat,
+                    capture.Year,
+                    capture.Month,
+                    capture.Day,
+                    capture.Hour,
+                    capture.Minute,
+                    capture.Second,
+                    Path.GetExtension(originalFileName));
+                return fileName;
+            }
+
+            //if we're at this point, the file name should be reasonably readable so we'll
+            //leave it alone
+            return Path.GetFileName(originalFileName);
         }
 
-        private Image BuildImageElement(BitmapImage image)
+
+        private StackPanel BuildTappableImageElement(BitmapImage image, Media currentMedia)
         {
+
+            StackPanel sp = new StackPanel();
+            sp.Tag = currentMedia;
+            sp.Tap += sp_Tap;
+            
             Image imageElement = new Image();
             imageElement.Source = image;
-
-            float width = 100F;
+            float width = 200F;
             int height = (int)(width / image.PixelWidth * image.PixelHeight);
             imageElement.Width = width;
             imageElement.Height = height;
+            imageElement.Margin = new Thickness(3);
 
-            imageElement.Margin = new Thickness(10);
-            return imageElement;
+            var b = new Border
+            {
+                BorderBrush = App.Current.Resources["WordPressGreyBrush"] as SolidColorBrush,
+                BorderThickness = new Thickness(5),
+                Margin = new Thickness(10),
+            };
+
+            b.Child = imageElement;
+
+            sp.Children.Add(b);
+            return sp;
+        }
+
+        private void sp_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            StackPanel tappedObj = (StackPanel)sender;
+            Media currentMedia = (Media) tappedObj.Tag;
+            _lastTappedMedia = currentMedia;
+            NavigationService.Navigate(new Uri("/ImageDetailsPage.xaml", UriKind.Relative));
         }
 
         private void OnClearMediaButtonClick(object sender, RoutedEventArgs e)
@@ -589,6 +641,19 @@ namespace WordPress
             _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
             _mediaUploadRPCs.Clear();
             _media.Clear();
+        }
+
+        public void removeImage(Media imageToRemove)
+        {
+            _media.Remove(imageToRemove);
+            foreach (var el in imageWrapPanel.Children)
+            {
+                if ((el as StackPanel).Tag == imageToRemove)
+                {
+                    imageWrapPanel.Children.Remove(el);
+                    break;
+                }
+            }
         }
 
         private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<Media> args)

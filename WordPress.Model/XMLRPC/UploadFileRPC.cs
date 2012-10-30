@@ -18,7 +18,6 @@ namespace WordPress.Model
         #region member variables
 
         private const string METHODNAME_VALUE = "wp.uploadFile";
-        private const string PHOTOCHOOSER_VALUE = "PhotoChooser";
         private int retryCount = 0;
 
         private const string FILE_VALUE = "file";
@@ -206,17 +205,8 @@ namespace WordPress.Model
             }
 
 
-            //load the picture: Ugly but works.
-            Stream _bitmapStream = null;
-            MediaLibrary m = new MediaLibrary();
-            foreach (var r in m.Pictures)
-            {
-                if( r.Name.Equals( CurrentMedia.LocalPath ) ) {
-                    _bitmapStream = r.GetImage();
-                }
-                if ( _bitmapStream != null ) break;
-            }
-            
+            Stream _bitmapStream = CurrentMedia.getPicture().GetImage();
+
             using (contentStream)
             {
                 //Write the first chunk of data
@@ -224,7 +214,7 @@ namespace WordPress.Model
                 "<param><value><int>" + Blog.BlogId + "</int></value></param>" +
                 "<param><value><string>" + Credentials.UserName.HtmlEncode() + "</string></value></param>" +
                 "<param><value><string>" + Credentials.Password.HtmlEncode() + "</string></value></param>" +
-                "<param><struct><member><name>name</name><value><string>" + (translateFileName(CurrentMedia.FileName)) + "</string></value></member>" +
+                "<param><struct><member><name>name</name><value><string>" + CurrentMedia.FileName + "</string></value></member>" +
                 "<member><name>type</name><value><string>" + CurrentMedia.MimeType.HtmlEncode() + "</string></value></member>" +
                 "<member><name>bits</name><value><base64>";
 
@@ -351,14 +341,13 @@ namespace WordPress.Model
             List<Media> result = new List<Media>();
             foreach (XElement structElement in xDoc.Descendants(XmlRPCResponseConstants.STRUCT))
             {
-                this.ParseResponseElement(structElement);
+                this.ParseImageResponseElement(structElement);
                 result.Add(CurrentMedia);
             }
             return result;
         }
         
-        //parse the response from the server
-        private void ParseResponseElement(XElement element)
+        private void ParseImageResponseElement(XElement element)
         {
             if (!element.HasElements)
             {
@@ -385,32 +374,6 @@ namespace WordPress.Model
                     CurrentMedia.MimeType = value;
                 }
             }
-        }
-
-        public string translateFileName(string originalFileName)
-        {
-            //DEV NOTE: the original file name from the PhotoChooserTask is pretty gross.
-            //The plan is to nab the extension and use a timestamp for the file name so
-            //there's something that doesn't seem crazy when the user checks what media
-            //has been uploaded.
-            if (originalFileName.Contains(PHOTOCHOOSER_VALUE))
-            {
-                DateTime capture = DateTime.Now;
-                string fileNameFormat = "{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
-                string fileName = string.Format(fileNameFormat,
-                    capture.Year,
-                    capture.Month,
-                    capture.Day,
-                    capture.Hour,
-                    capture.Minute,
-                    capture.Second,
-                    Path.GetExtension(originalFileName));
-                return  fileName;
-            }
-
-            //if we're at this point, the file name should be reasonably readable so we'll
-            //leave it alone
-            return Path.GetFileName(originalFileName);
         }
 
         #endregion

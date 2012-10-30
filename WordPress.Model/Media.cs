@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Text;
 using System.IO;
+using Microsoft.Xna.Framework.Media;
 
 namespace WordPress.Model
 {
@@ -102,6 +103,19 @@ namespace WordPress.Model
 
         #region methods
 
+        public Picture getPicture()
+        {
+            //load the picture: Ugly but works.
+            MediaLibrary m = new MediaLibrary();
+            foreach (var r in m.Pictures)
+            {
+                if (r.Name.Equals(LocalPath))
+                    return r;
+            }
+
+            return null;
+        }
+
         public string getHTML()
         {
            
@@ -148,7 +162,7 @@ namespace WordPress.Model
             {
                 MimeType = MimeTypes.PNG;
             }
-            else if (BMP_EXTENSION.Equals(extension))
+            else if ( BMP_EXTENSION.Equals(extension) )
             {
                 MimeType = MimeTypes.BMP;
             }

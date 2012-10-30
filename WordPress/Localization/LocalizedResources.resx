@@ -779,4 +779,7 @@
   <data name="ControlText_PreserveBandwidth" xml:space="preserve">
     <value>Preserve Bandwidth Usage</value>
   </data>
+  <data name="ControlText_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>

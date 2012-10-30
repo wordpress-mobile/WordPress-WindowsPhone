@@ -178,6 +178,7 @@ namespace WordPress.Localization
             public string Scheduled { get { return LocalizedResources.ControlText_Scheduled; } }
             public string Draft { get { return LocalizedResources.ControlText_Draft; } }
             public string PendingReview { get { return LocalizedResources.ControlText_PendingReview; } }
+            public string Remove { get { return LocalizedResources.ControlText_Remove; } }
         }
 
         #endregion
