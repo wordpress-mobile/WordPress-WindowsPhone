@@ -204,8 +204,7 @@ namespace WordPress.Model
                 return;
             }
 
-
-            Stream _bitmapStream = CurrentMedia.getPicture().GetImage();
+            Stream _bitmapStream = CurrentMedia.getImageStream();
 
             using (contentStream)
             {

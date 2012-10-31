@@ -555,10 +555,11 @@ namespace WordPress
             MediaLibrary library = new MediaLibrary();
             // Save the image to the saved pictures album.
             Picture pic = library.SavePicture(savedFileName, bitmapStream);
+            string sanitizedFileName = this.translateFileName(originalFilePath); //Read and sanitize the file name from the original path for now. In the next release we can give the possibility to set an arbitraty file name                                                        
+            DateTime pictureDateTime = pic.Date;
             bitmapStream.Close();
 
-            string translateFileName = this.translateFileName( originalFilePath ); //Read and sanitize the file name from the original path for now. In the next release we can give the possibility to set an arbitraty file name                                                        
-            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, translateFileName, savedFileName);
+            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, sanitizedFileName, savedFileName, pictureDateTime);
             _media.Add(currentMedia);
 
             //update the UI
@@ -603,7 +604,7 @@ namespace WordPress
             
             Image imageElement = new Image();
             imageElement.Source = image;
-            float width = 200F;
+            float width = 150F;
             int height = (int)(width / image.PixelWidth * image.PixelHeight);
             imageElement.Width = width;
             imageElement.Height = height;

@@ -41,7 +41,7 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
             BitmapImage tn = new BitmapImage();
-            tn.SetSource(TappedImage.getPicture().GetImage());
+            tn.SetSource(TappedImage.getImageStream());
             ImageObeject.Source = tn;
             ApplicationBar.IsVisible = true;
         }

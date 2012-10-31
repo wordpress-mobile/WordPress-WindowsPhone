@@ -17,9 +17,12 @@ namespace WordPress.Model
         private const string BMP_EXTENSION = ".bmp";
 
         private string _localPath; //location of the media on the device
+        private DateTime _datetime;
+
         private string _url;       //once uploaded it contains the URL of the image on the server   
         private string _mimetype;  //mime type
         private string _fileName;  //preferred file name to set when upload the image on disk. It's the same of the filename on the device for now.
+        
 
         #endregion
 
@@ -31,10 +34,11 @@ namespace WordPress.Model
 
         #region constructors
 
-        public Media(Blog blog, string fileName, string fileLocationInMediaLibrary) {
+        public Media(Blog blog, string fileName, string fileLocationInMediaLibrary, DateTime date) {
             Blog = blog;
             _fileName = fileName;
             _localPath = fileLocationInMediaLibrary;
+            _datetime = date;
             TranslateMimeType();
         }
 
@@ -103,14 +107,14 @@ namespace WordPress.Model
 
         #region methods
 
-        public Picture getPicture()
+        public Stream getImageStream()
         {
             //load the picture: Ugly but works.
             MediaLibrary m = new MediaLibrary();
             foreach (var r in m.Pictures)
             {
-                if (r.Name.Equals(LocalPath))
-                    return r;
+                if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
+                    return r.GetImage();
             }
 
             return null;
