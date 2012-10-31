@@ -103,6 +103,9 @@ namespace WordPress
                 MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)
                 {
+                    //remove the media
+                    _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
+                    _mediaUploadRPCs.Clear();
                     base.OnBackKeyPress(e);
                 }
                 else

@@ -49,12 +49,19 @@ namespace WordPress
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (e.Content is EditPostPage && isMarkedForRemoval)
+            if (isMarkedForRemoval)
             {
-                (e.Content as EditPostPage).removeImage(TappedImage);
+                if (e.Content is EditPostPage)
+                {
+                    (e.Content as EditPostPage).removeImage(TappedImage);
+                }
+                else if (e.Content is EditPagePage)
+                {
+                    (e.Content as EditPagePage).removeImage(TappedImage);
+                }
             }
-
             base.OnNavigatedFrom(e);
         }
+
     }
 }

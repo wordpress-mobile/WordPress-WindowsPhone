@@ -1,16 +1,23 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Microsoft.Phone.Tasks;
+using Microsoft.Xna.Framework.Media;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
+using System.IO.IsolatedStorage;
+using System.Text;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-
+using System.Windows.Media.Imaging;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
-using System.Windows.Input;
 
 namespace WordPress
 {
@@ -20,6 +27,8 @@ namespace WordPress
         //between a post and a page, so we use the "post" rpcs
         #region member variables
 
+        private static object _syncRoot = new object();
+
         private const string DATACONTEXT_VALUE = "dataContext";
         private const string TITLEKEY_VALUE = "title";
         private const string CONTENTKEY_VALUE = "content";
@@ -28,6 +37,12 @@ namespace WordPress
         private ApplicationBarIconButton _saveIconButton;
         private ApplicationBarIconButton _publishIconButton;
         private StringTable _localizedStrings;
+
+        private List<Media> _media; //media attached to this post
+        private List<UploadFileRPC> _mediaUploadRPCs;
+        public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
+
+        private bool _mediaDialogPresented = false;
 
         #endregion
 
@@ -52,6 +67,9 @@ namespace WordPress
             _publishIconButton.Text = _localizedStrings.ControlsText.Publish;
             _publishIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_publishIconButton);
+
+            _mediaUploadRPCs = new List<UploadFileRPC>();
+            _media = new List<Media>();
 
             Loaded += OnPageLoaded;
         }
@@ -83,6 +101,9 @@ namespace WordPress
                 MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)
                 {
+                   //remove the media
+                    _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
+                    _mediaUploadRPCs.Clear();
                     base.OnBackKeyPress(e);
                 }
                 else
@@ -154,6 +175,7 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
+            _mediaDialogPresented = false;
             Post post = DataContext as Post;
             if (sender == _publishIconButton)
                 post.PostStatus = "publish";
@@ -165,32 +187,32 @@ namespace WordPress
             post.Title = titleTextBox.Text;
             post.Description = contentTextBox.Text;
 
-            if (post.IsNew)
+            if (0 < _media.Count)
             {
-                NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                if (post.PostStatus == "publish")
-                    rpc.Publish = true;
-                else
-                    rpc.Publish = false;
-                rpc.PostType = ePostType.page;
-                rpc.Completed += OnNewPostRPCCompleted;
-                rpc.ExecuteAsync();
-            }
-            else
-            {
-                EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                if (post.PostStatus == "publish")
-                    rpc.Publish = true;
-                else
-                    rpc.Publish = false;
-                rpc.PostType = ePostType.page;
-                rpc.Completed += OnEditPostRPCCompleted;
+                _media.ForEach(currentMedia =>
+                {
+                    UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
+                    rpc.Completed += OnUploadMediaRPCCompleted;
+                    //store this for later--we'll upload the files once the user hits save
+                    _mediaUploadRPCs.Add(rpc);
+                }
+                );
 
-                rpc.ExecuteAsync();
+                UploadImagesAndSavePost();
+                return;
             }
-            this.Focus();
-            ApplicationBar.IsVisible = false;
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
+
+            SavePost();
+        }
+
+        private void UploadImagesAndSavePost()
+        {
+            this.Focus(); //hide the keyboard
+            ApplicationBar.IsVisible = false; //hide the application bar
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingMedia);
+
+            //fire off the worker rpcs
+            _mediaUploadRPCs.ForEach(rpc => rpc.ExecuteAsync());
         }
 
         private void OnEditPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -310,6 +332,13 @@ namespace WordPress
         }
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
+
+            if (e.Content is ImageDetailsPage)
+            {
+                (e.Content as ImageDetailsPage).TappedImage = _lastTappedMedia;
+                _lastTappedMedia = null;
+            }
+
             base.OnNavigatedFrom(e);
 
             SavePageState();
@@ -413,5 +442,297 @@ namespace WordPress
 
         #endregion
 
+
+        #region media_methods
+        /* media methods copied from the Post Class. We need to find a way to abstract them in a common class.*/
+        private void OnAddNewMediaButtonClick(object sender, RoutedEventArgs e)
+        {
+            AddNewMedia();
+        }
+
+        private void AddNewMedia()
+        {
+            PhotoChooserTask task = new PhotoChooserTask();
+            task.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
+            task.ShowCamera = true;
+            task.Show();
+        }
+
+        private void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
+        {
+            PhotoChooserTask task = sender as PhotoChooserTask;
+            task.Completed -= OnChoosePhotoTaskCompleted;
+
+            if (TaskResult.OK != e.TaskResult) return;
+
+            Stream chosenPhoto = e.ChosenPhoto;
+            AddNewMediaStream(chosenPhoto, e.OriginalFileName);
+        }
+
+        private void AddNewMediaStream(Stream bitmapStream, string originalFilePath)
+        {
+            BitmapImage image = new BitmapImage();
+            image.SetSource(bitmapStream);
+
+            // 1.Resize the picture and save the output to the isolated storage if 'PreserveBandwidth' is enabled and dimensions are > 800 px.
+            if (App.MasterViewModel.CurrentBlog.PreserveBandwidth && (image.PixelWidth > 800 || image.PixelHeight > 800))
+            {
+                // Create a file name for the JPEG file in isolated storage.
+                String tempJPEG = "TempJPEG";
+
+                // Create a virtual store and file stream. Check for duplicate tempJPEG files.
+                var myStore = IsolatedStorageFile.GetUserStoreForApplication();
+                if (myStore.FileExists(tempJPEG))
+                {
+                    myStore.DeleteFile(tempJPEG);
+                }
+
+                IsolatedStorageFileStream myFileStream = myStore.CreateFile(tempJPEG);
+                WriteableBitmap wb = new WriteableBitmap(image);
+
+                float wRatio = image.PixelWidth / 800F;
+                float hRatio = image.PixelHeight / 800F;
+                float currentRatio = Math.Max(wRatio, hRatio);
+                int resizedWidth = (int)(image.PixelWidth / currentRatio);
+                int resizedHeight = (int)(image.PixelHeight / currentRatio);
+
+                // Encode the WriteableBitmap object to a JPEG stream.
+                wb.SaveJpeg(myFileStream, resizedWidth, resizedHeight, 0, 85);
+                myFileStream.Close();
+
+                //The file is now encoded in the IsolatedStorage
+                // Create a new stream from isolated storage
+                bitmapStream = myStore.OpenFile(tempJPEG, FileMode.Open, FileAccess.Read);//change the stream reference for uploading
+            }
+            else
+            {
+                bitmapStream.Seek(0, 0); // necessary to initiate the stream correctly before save
+            }
+
+            //Save the picture to the picture library if it's a new picture           
+            DateTime capture = DateTime.Now;
+            string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
+            string savedFileName = string.Format(fileNameFormat,
+                capture.Year,
+                capture.Month,
+                capture.Day,
+                capture.Hour,
+                capture.Minute,
+                capture.Second,
+                Path.GetExtension(originalFilePath));
+
+            // Save the image to the camera roll or saved pictures album.
+            MediaLibrary library = new MediaLibrary();
+            // Save the image to the saved pictures album.
+            Picture pic = library.SavePicture(savedFileName, bitmapStream);
+            string sanitizedFileName = this.translateFileName(originalFilePath); //Read and sanitize the file name from the original path for now. In the next release we can give the possibility to set an arbitraty file name                                                        
+            DateTime pictureDateTime = pic.Date;
+            bitmapStream.Close();
+
+            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, sanitizedFileName, savedFileName, pictureDateTime);
+            _media.Add(currentMedia);
+
+            //update the UI
+            imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+        }
+
+        private string translateFileName(string originalFileName)
+        {
+            //DEV NOTE: the original file name from the PhotoChooserTask is pretty gross.
+            //The plan is to nab the extension and use a timestamp for the file name so
+            //there's something that doesn't seem crazy when the user checks what media
+            //has been uploaded.
+            const string PHOTOCHOOSER_VALUE = "PhotoChooser";
+
+            if (originalFileName.Contains(PHOTOCHOOSER_VALUE))
+            {
+                DateTime capture = DateTime.Now;
+                string fileNameFormat = "{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
+                string fileName = string.Format(fileNameFormat,
+                    capture.Year,
+                    capture.Month,
+                    capture.Day,
+                    capture.Hour,
+                    capture.Minute,
+                    capture.Second,
+                    Path.GetExtension(originalFileName));
+                return fileName;
+            }
+
+            //if we're at this point, the file name should be reasonably readable so we'll
+            //leave it alone
+            return Path.GetFileName(originalFileName);
+        }
+
+
+        private StackPanel BuildTappableImageElement(BitmapImage image, Media currentMedia)
+        {
+
+            StackPanel sp = new StackPanel();
+            sp.Tag = currentMedia;
+            sp.Tap += sp_Tap;
+
+            Image imageElement = new Image();
+            imageElement.Source = image;
+            float width = 150F;
+            int height = (int)(width / image.PixelWidth * image.PixelHeight);
+            imageElement.Width = width;
+            imageElement.Height = height;
+            imageElement.Margin = new Thickness(3);
+
+            var b = new Border
+            {
+                BorderBrush = App.Current.Resources["WordPressGreyBrush"] as SolidColorBrush,
+                BorderThickness = new Thickness(5),
+                Margin = new Thickness(10),
+            };
+
+            b.Child = imageElement;
+
+            sp.Children.Add(b);
+            return sp;
+        }
+
+        private void sp_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            StackPanel tappedObj = (StackPanel)sender;
+            Media currentMedia = (Media)tappedObj.Tag;
+            _lastTappedMedia = currentMedia;
+            NavigationService.Navigate(new Uri("/ImageDetailsPage.xaml", UriKind.Relative));
+        }
+
+        private void OnClearMediaButtonClick(object sender, RoutedEventArgs e)
+        {
+            ClearMedia();
+        }
+
+        private void ClearMedia()
+        {
+            imageWrapPanel.Children.Clear();
+            _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
+            _mediaUploadRPCs.Clear();
+            _media.Clear();
+        }
+
+
+        public void removeImage(Media imageToRemove)
+        {
+            _media.Remove(imageToRemove);
+            foreach (var el in imageWrapPanel.Children)
+            {
+                if ((el as StackPanel).Tag == imageToRemove)
+                {
+                    imageWrapPanel.Children.Remove(el);
+                    break;
+                }
+            }
+        }
+
+        private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<Media> args)
+        {
+            UploadFileRPC rpc = sender as UploadFileRPC;
+            rpc.Completed -= OnUploadMediaRPCCompleted;
+
+            lock (_syncRoot)
+            {
+                _mediaUploadRPCs.Remove(rpc);
+                if (null == args.Error)
+                {
+                    //Image uploaded correctly
+                }
+                if (args.Items.Count > 0)
+                {
+                    // _infoToRpcMap.Add(args.Items[0], rpc);
+                }
+                else
+                {
+                    //uh oh, media upload problem
+                    App.WaitIndicationService.KillSpinner();
+                    ApplicationBar.IsVisible = true;
+
+                    if (!_mediaDialogPresented)
+                    {
+                        _mediaDialogPresented = true;
+                        MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                        if (result == MessageBoxResult.OK)
+                        {
+                            UpdatePostContent();
+                            SavePost();
+                            return;
+                        }
+                        else
+                        {
+                            //add the object back since the user wants to have another go at uploading
+                            rpc.Completed += OnUploadMediaRPCCompleted;
+                            _mediaUploadRPCs.Add(rpc);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            //if we're not done, bail
+            if (0 < _mediaUploadRPCs.Count) return;
+
+            UpdatePostContent();
+            App.WaitIndicationService.KillSpinner();
+            SavePost();
+        }
+
+
+        private void UpdatePostContent()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            _media.ForEach(currentMedia =>
+            {
+                builder.Append(currentMedia.getHTML());
+            });
+
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
+
+            if (currentBlog.PlaceImageAboveText)
+            {
+                contentTextBox.Text = builder.ToString() + contentTextBox.Text;
+            }
+            else
+            {
+                contentTextBox.Text += builder.ToString();
+            }
+
+            contentTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+        }
+
+        private void SavePost()
+        {
+             Post post = DataContext as Post;
+             if (post.IsNew)
+             {
+                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
+                 if (post.PostStatus == "publish")
+                     rpc.Publish = true;
+                 else
+                     rpc.Publish = false;
+                 rpc.PostType = ePostType.page;
+                 rpc.Completed += OnNewPostRPCCompleted;
+                 rpc.ExecuteAsync();
+             }
+             else
+             {
+                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
+                 if (post.PostStatus == "publish")
+                     rpc.Publish = true;
+                 else
+                     rpc.Publish = false;
+                 rpc.PostType = ePostType.page;
+                 rpc.Completed += OnEditPostRPCCompleted;
+
+                 rpc.ExecuteAsync();
+             }
+             this.Focus();
+             ApplicationBar.IsVisible = false;
+             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
+        }
+        #endregion media_methods
     }
 }

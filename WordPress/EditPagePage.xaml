@@ -67,6 +67,9 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -135,6 +138,15 @@
                         <toolkit:TimePicker x:Name="postTimePicker" Grid.Column="1" DataContext="{Binding}" Value="{Binding DateCreated}" ValueChanged="OnDatePickerChanged" />
                     </Grid>
                 </StackPanel>
+
+                <Rectangle Grid.Row="8" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="8" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <StackPanel Grid.Row="9" Orientation="Horizontal">
+                    <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
+                    <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
+                </StackPanel>
+                <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="10" />
+
             </Grid>
         </ScrollViewer>
         <local:AddLinkControl x:Name="addLinkControl" 
