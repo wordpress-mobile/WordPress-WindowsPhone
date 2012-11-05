@@ -102,7 +102,10 @@ namespace WordPress
                 if (result == MessageBoxResult.OK)
                 {
                    //remove the media
-                    _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
+                    _mediaUploadRPCs.ForEach(rpc => {
+                        rpc.Completed -= OnUploadMediaRPCCompleted;
+                        rpc.IsCancelled = true;
+                    });
                     _mediaUploadRPCs.Clear();
                     base.OnBackKeyPress(e);
                 }

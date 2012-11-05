@@ -26,6 +26,7 @@ namespace WordPress.Model
         protected SendOrPostCallback onProgressReportDelegate;
         private SendOrPostCallback onCompletedDelegate;
         private Dictionary<object, object> userStateToLifetime = new Dictionary<object, object>();
+        public bool IsCancelled { get; set; }
 
         #endregion
 
@@ -204,6 +205,8 @@ namespace WordPress.Model
         {
             ValidateValues();
 
+            if (IsCancelled == true) return;
+
             AsyncOperation operation = AsyncOperationManager.CreateOperation(taskId);
 
             //start the async op
@@ -213,7 +216,8 @@ namespace WordPress.Model
             });
         }
 
-        private void BeginBuildingHttpWebRequest(AsyncOperation asyncOp)
+
+        internal void BeginBuildingHttpWebRequest(AsyncOperation asyncOp)
         {
             HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
@@ -228,7 +232,7 @@ namespace WordPress.Model
             asyncOp.Post(onProgressReportDelegate, new ProgressChangedEventArgs(20, asyncOp.UserSuppliedState));            
         }
 
-        private void OnBeginGetRequestStreamCompleted(IAsyncResult result)
+        internal virtual void OnBeginGetRequestStreamCompleted(IAsyncResult result)
         {
             State state = result.AsyncState as State;
 

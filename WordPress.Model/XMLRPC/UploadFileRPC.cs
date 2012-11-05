@@ -158,36 +158,7 @@ namespace WordPress.Model
         result = result.Trim();
         */
 
-        /* Override methods defined in the base class since we are uploading the content of the image by chunk */       
-        public override void ExecuteAsync(object taskId)
-        {
-            ValidateValues();
-
-            AsyncOperation operation = AsyncOperationManager.CreateOperation(taskId);
-
-            //start the async op
-            ThreadPool.QueueUserWorkItem((object state) =>
-            {
-                BeginBuildingHttpWebRequest(operation);
-            });
-        }
-
-        private void BeginBuildingHttpWebRequest(AsyncOperation asyncOp)
-        {   
-            HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
-            request.AllowAutoRedirect = true;
-            request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
-            request.Method = XmlRPCRequestConstants.POST;
-            request.UserAgent = Constants.WORDPRESS_USERAGENT;
-
-            State state = new State { Operation = asyncOp, Request = request };
-
-            request.BeginGetRequestStream(OnBeginGetRequestStreamCompleted, state);
-
-            asyncOp.Post(onProgressReportDelegate, new ProgressChangedEventArgs(20, asyncOp.UserSuppliedState));
-        }
-
-        private void OnBeginGetRequestStreamCompleted(IAsyncResult result)
+        internal override void OnBeginGetRequestStreamCompleted(IAsyncResult result)
         {
             State state = result.AsyncState as State;
 
@@ -223,13 +194,16 @@ namespace WordPress.Model
                 //Write the chunks of the image
                 byte[] chunk = new byte[3600];
                 int count = 0;
-                while ((count = _bitmapStream.Read(chunk, 0, chunk.Length)) > 0)
+                while ((count = _bitmapStream.Read(chunk, 0, chunk.Length)) > 0 && !IsCancelled)
                 {
                     payload = Encoding.UTF8.GetBytes(Convert.ToBase64String(chunk).Trim());
                     contentStream.Write(payload, 0, payload.Length);
                 }
                 _bitmapStream.Close();
-
+                if (IsCancelled)
+                {
+                    return;
+                }
                 //Write the last chunk of data
                 content = "</base64></value></member>" +
                     "<member><name>overwrite</name><value><bool>" + Convert.ToInt32(Overwrite) + "</bool></value></member>" +
@@ -246,6 +220,11 @@ namespace WordPress.Model
 
         private void OnBeginFileResponseCompleted(IAsyncResult result)
         {
+            if (IsCancelled)
+            {
+                return;
+            }
+
             State state = result.AsyncState as State;
             if (retryCount == 0)
             {

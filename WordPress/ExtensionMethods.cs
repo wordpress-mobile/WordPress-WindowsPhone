@@ -58,6 +58,8 @@ namespace WordPress
             Debug.WriteLine(separator);
             Debug.WriteLine(titleFormat, DateTime.Now);
             Debug.WriteLine(messageFormat, message);
+            if (exception == null) return;
+
             Debug.WriteLine(exceptionMessageFormat, exception.Message);
             if (null != exception.Data && 0 < exception.Data.Count)
             {
