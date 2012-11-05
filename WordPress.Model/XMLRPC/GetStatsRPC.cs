@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml;
+using System.Net.NetworkInformation;
 
 namespace WordPress.Model
 {
@@ -441,6 +442,15 @@ namespace WordPress.Model
 
         private void FetchStats(AsyncOperation operation)
         {
+
+            bool hasNetworkConnection = NetworkInterface.GetIsNetworkAvailable();
+            if (!hasNetworkConnection)
+            {
+                Exception connErr = new NoConnectionException();
+                CompletionMethod(null, connErr, false, operation);
+                return;
+            }
+
             HttpWebRequest request = HttpWebRequest.Create(Uri) as HttpWebRequest;
             request.AllowAutoRedirect = true;
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;

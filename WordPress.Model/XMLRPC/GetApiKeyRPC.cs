@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -99,6 +100,15 @@ namespace WordPress.Model
 
         private void RequestKey(AsyncOperation operation)
         {
+
+            bool hasNetworkConnection = NetworkInterface.GetIsNetworkAvailable();
+            if (!hasNetworkConnection)
+            {
+                Exception connErr = new NoConnectionException();
+                CompletionMethod(null, connErr, false, operation);
+                return;
+            }
+
             HttpWebRequest request = HttpWebRequest.Create(Constants.WORDPRESS_APIKEY_URL) as HttpWebRequest;
             request.AllowAutoRedirect = true;
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
