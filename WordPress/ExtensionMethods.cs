@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using Microsoft.Phone.Controls;
 using WordPress.Utils;
+using WordPress.Localization;
 
 namespace WordPress
 {
@@ -16,6 +17,11 @@ namespace WordPress
             {
                 MessageBox.Show(message, title, MessageBoxButton.OK);
             }
+            else if (exception is WordPress.Model.NoConnectionException)
+            {
+                StringTable _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
+                MessageBox.Show(_localizedStrings.Prompts.NoConnectionErrorContent, _localizedStrings.PageTitles.Error, MessageBoxButton.OK);
+            }
             else
             {
                 if (exception is WordPress.Model.XmlRPCParserException) //cannot parse the XML-RPC response document
@@ -27,11 +33,11 @@ namespace WordPress
                     });
                 }
                 else if (exception is WordPress.Model.XmlRPCException) //the XML-RPC document contains a fault error
-                {                    
+                {
                     MessageBox.Show(exception.Message);
-                   // ErrorPage.Exception = exception;
-                   // (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
-                } 
+                    // ErrorPage.Exception = exception;
+                    // (App.Current.RootVisual as Microsoft.Phone.Controls.PhoneApplicationFrame).Source = new Uri("/ErrorPage.xaml", UriKind.Relative);
+                }
                 else
                 {
                     //MessageBox.Show(exception.Message);

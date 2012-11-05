@@ -1716,6 +1716,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Internet connection appears to be offline.
+        /// </summary>
+        internal static string Prompts_NoConnectionError {
+            get {
+                return ResourceManager.GetString("Prompts_NoConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to page.
         /// </summary>
         internal static string Prompts_Page {
@@ -1910,6 +1919,15 @@ namespace WordPress.Localization {
         internal static string Title_EditPost {
             get {
                 return ResourceManager.GetString("Title_EditPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Title_Error {
+            get {
+                return ResourceManager.GetString("Title_Error", resourceCulture);
             }
         }
         

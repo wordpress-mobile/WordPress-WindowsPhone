@@ -805,4 +805,10 @@
     <value>Are you sure you want to mark as spam {0} {1}?</value>
     <comment>Bulk comments moderation confirm message</comment>
   </data>
+  <data name="Prompts_NoConnectionError" xml:space="preserve">
+    <value>The Internet connection appears to be offline</value>
+  </data>
+  <data name="Title_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
 </root>

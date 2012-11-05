@@ -65,6 +65,7 @@ namespace WordPress.Localization
             public string NewPage { get { return LocalizedResources.Title_NewPage; } }
             public string CheckTheUrl { get { return LocalizedResources.Title_CheckTheUrl; } }
             public string ConfirmDelete { get { return LocalizedResources.Title_ConfirmDelete; } }
+            public string Error { get { return LocalizedResources.Title_Error; } }
         }
 
         #endregion
@@ -302,6 +303,7 @@ namespace WordPress.Localization
             public string XeElementMissing { get { return LocalizedResources.Prompts_XeElementMissing; } }
             public string MediaError { get { return LocalizedResources.Prompts_MediaError; } }
             public string MediaErrorContent { get { return LocalizedResources.Prompts_MediaErrorContent; } }
+            public string NoConnectionErrorContent { get { return LocalizedResources.Prompts_NoConnectionError; } }
         }
 
         #endregion

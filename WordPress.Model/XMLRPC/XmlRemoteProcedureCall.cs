@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -219,6 +220,15 @@ namespace WordPress.Model
 
         internal void BeginBuildingHttpWebRequest(AsyncOperation asyncOp)
         {
+
+            bool hasNetworkConnection = NetworkInterface.GetIsNetworkAvailable();
+            if ( !hasNetworkConnection )
+            {
+                Exception connErr = new NoConnectionException();
+                CompletionMethod(null, connErr, false, asyncOp);
+                return;
+            }
+
             HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;

@@ -265,11 +265,10 @@ namespace WordPress.Model
             GetAllCommentsRPC rpc = sender as GetAllCommentsRPC;
             rpc.Completed -= OnFetchCurrentBlogCommentsCompleted;
 
-            int prevCommentsCount = CurrentBlog.Comments.Count;
-            CurrentBlog.Comments.Clear();
-
             if (null == args.Error)
             {
+                int prevCommentsCount = CurrentBlog.Comments.Count;
+                CurrentBlog.Comments.Clear();
 
                 // If we asked for more and we got what we had, there are no more posts to load
                 if (rpc.Number > CHUNK_SIZE && (args.Items.Count <= prevCommentsCount))
@@ -344,11 +343,11 @@ namespace WordPress.Model
             GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
             rpc.Completed -= OnFetchCurrentBlogPostsCompleted;
 
-            int prevPostsCount = CurrentBlog.PostListItems.Count;
-            CurrentBlog.PostListItems.Clear();
-
             if (null == args.Error)
             {
+                int prevPostsCount = CurrentBlog.PostListItems.Count;
+                CurrentBlog.PostListItems.Clear();
+
                 // If we asked for more and we got what we had, there are no more posts to load
                 if (rpc.NumberOfPosts > CHUNK_SIZE && (args.Items.Count <= prevPostsCount))
                 {
@@ -399,10 +398,10 @@ namespace WordPress.Model
             GetPageListRPC rpc = sender as GetPageListRPC;
             rpc.Completed -= OnFetchCurrentBlogPagesCompleted;
      
-            CurrentBlog.PageListItems.Clear();
-
             if (null == args.Error)
             {
+                CurrentBlog.PageListItems.Clear();
+
                 foreach (PageListItem item in args.Items)
                 {
                     CurrentBlog.PageListItems.Add(item);

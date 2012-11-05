@@ -32,6 +32,15 @@ namespace WordPress.Model
 
     #region event arg subclasses
 
+
+    
+    /// <summary>
+    /// Used to wrap a fault code returned by the WordPress system when the connection is not available
+    /// </summary>
+    public class NoConnectionException : Exception{
+        public NoConnectionException() : base() { }
+    }
+
     /// <summary>
     /// Used to wrap a fault code returned by the WordPress system when a remote procedure
     /// call fails.
