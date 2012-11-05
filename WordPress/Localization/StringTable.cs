@@ -283,11 +283,18 @@ namespace WordPress.Localization
             public string MissingApikey { get { return LocalizedResources.Prompts_MissingApikey; } }
             public string ConfirmDeletePageFormat { get { return LocalizedResources.Prompt_ConfirmDeletePageFormat; } }
             public string ConfirmDeletePostFormat { get { return LocalizedResources.Prompt_ConfirmDeletePostFormat; } }
+            public string ConfirmDeleteComment { get { return LocalizedResources.Prompt_ConfirmDeleteComment; } }
+            public string ConfirmMarkSpamComment { get { return LocalizedResources.Prompt_ConfirmMarkSpamComment; } }
+            public string ConfirmDeleteCommentsFormat { get { return LocalizedResources.Prompt_ConfirmDeleteCommentsFormat; } }
+            public string ConfirmMarkSpamCommentsFormat { get { return LocalizedResources.Prompt_ConfirmMarkSpamCommentsFormat; } }
             public string SelectBlogToDelete { get { return LocalizedResources.Prompts_SelectBlogToDelete; } }
             public string SureCancel { get { return LocalizedResources.Prompts_SureCancel; } }
             public string CancelEditing { get { return LocalizedResources.Prompts_CancelEditing; } }
+            public string Confirm { get { return LocalizedResources.Prompts_Confirm; } }
             public string Page { get { return LocalizedResources.Prompts_Page; } }
             public string Post { get { return LocalizedResources.Prompts_Post; } }
+            public string Comment { get { return LocalizedResources.Prompts_Comment; } }
+            public string Comments { get { return LocalizedResources.Prompts_Comments; } }
         
             /*Error String*/
             public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }

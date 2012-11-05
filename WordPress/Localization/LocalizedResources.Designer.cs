@@ -1536,6 +1536,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this comment?.
+        /// </summary>
+        internal static string Prompt_ConfirmDeleteComment {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmDeleteComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0} {1}?.
+        /// </summary>
+        internal static string Prompt_ConfirmDeleteCommentsFormat {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmDeleteCommentsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete page &apos;{0}&apos;?.
         /// </summary>
         internal static string Prompt_ConfirmDeletePageFormat {
@@ -1550,6 +1568,24 @@ namespace WordPress.Localization {
         internal static string Prompt_ConfirmDeletePostFormat {
             get {
                 return ResourceManager.GetString("Prompt_ConfirmDeletePostFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to mark this comment as spam?.
+        /// </summary>
+        internal static string Prompt_ConfirmMarkSpamComment {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmMarkSpamComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to mark as spam {0} {1}?.
+        /// </summary>
+        internal static string Prompt_ConfirmMarkSpamCommentsFormat {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmMarkSpamCommentsFormat", resourceCulture);
             }
         }
         
@@ -1586,6 +1622,33 @@ namespace WordPress.Localization {
         internal static string Prompts_CancelEditing {
             get {
                 return ResourceManager.GetString("Prompts_CancelEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to comment.
+        /// </summary>
+        internal static string Prompts_Comment {
+            get {
+                return ResourceManager.GetString("Prompts_Comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to comments.
+        /// </summary>
+        internal static string Prompts_Comments {
+            get {
+                return ResourceManager.GetString("Prompts_Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Prompts_Confirm {
+            get {
+                return ResourceManager.GetString("Prompts_Confirm", resourceCulture);
             }
         }
         

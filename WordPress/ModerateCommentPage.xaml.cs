@@ -139,14 +139,23 @@ namespace WordPress
 
         private void OnSpamIconButtonClick(object sender, EventArgs e)
         {
-            Comment comment = DataContext as Comment;
-            comment.CommentStatus = eCommentStatus.spam;
+            string prompt = _localizedStrings.Prompts.ConfirmMarkSpamComment;
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                Comment comment = DataContext as Comment;
+                comment.CommentStatus = eCommentStatus.spam;
 
-            EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
-            rpc.Completed += OnEditCommentRPCCompleted;
-            rpc.ExecuteAsync();
+                EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+                rpc.Completed += OnEditCommentRPCCompleted;
+                rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingAsSpam);
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingAsSpam);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void OnUnapproveIconButtonClick(object sender, EventArgs e)
@@ -259,13 +268,22 @@ namespace WordPress
 
         private void OnDeleteIconButtonClick(object sender, EventArgs e)
         {
-            Comment comment = DataContext as Comment;
-            
-            DeleteCommentRPC rpc = new DeleteCommentRPC(App.MasterViewModel.CurrentBlog, comment);
-            rpc.Completed += OnDeleteCommentRPCCompleted;
-            rpc.ExecuteAsync();
+            string prompt = _localizedStrings.Prompts.ConfirmDeleteComment;
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                Comment comment = DataContext as Comment;
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComment);
+                DeleteCommentRPC rpc = new DeleteCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+                rpc.Completed += OnDeleteCommentRPCCompleted;
+                rpc.ExecuteAsync();
+
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComment);
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void OnDeleteCommentRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)

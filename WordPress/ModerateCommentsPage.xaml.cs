@@ -174,12 +174,18 @@ namespace WordPress
         {
             if (null == comments || 0 == comments.Count) return;
 
-            DeleteCommentsRPC rpc = new DeleteCommentsRPC();
-            rpc.Comments = ConvertList(comments);
-            rpc.Completed += OnBatchDeleteXmlRPCCompleted;
-            rpc.ExecuteAsync();
+            string comment_label = (1 == comments.Count) ? _localizedStrings.Prompts.Comment : _localizedStrings.Prompts.Comments;
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmDeleteCommentsFormat, comments.Count, comment_label);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                DeleteCommentsRPC rpc = new DeleteCommentsRPC();
+                rpc.Comments = ConvertList(comments);
+                rpc.Completed += OnBatchDeleteXmlRPCCompleted;
+                rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
+            }
         }
 
         private void BatchApproveComments(IList comments)
@@ -218,13 +224,19 @@ namespace WordPress
             IList<Comment> list = ConvertList(comments, eCommentStatus.spam);
             if (0 == list.Count) return;
 
-            EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
-            rpc.CommentStatus = eCommentStatus.spam;
-            rpc.Comments = list;
-            rpc.Completed += OnBatchEditXmlRPCCompleted;
-            rpc.ExecuteAsync();
+            string comment_label = (1 == comments.Count) ? _localizedStrings.Prompts.Comment : _localizedStrings.Prompts.Comments;
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmMarkSpamCommentsFormat, comments.Count, comment_label);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+                rpc.CommentStatus = eCommentStatus.spam;
+                rpc.Comments = list;
+                rpc.Completed += OnBatchEditXmlRPCCompleted;
+                rpc.ExecuteAsync();
 
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
+            }
         }
 
         private IList<Comment> ConvertList(IList comments)
