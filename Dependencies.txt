@@ -16,6 +16,9 @@ Silverlight for Windows Phone Toolkit - Feb 2011 - http://silverlight.codeplex.c
 Silverlight for Windows Phone Toolkit Aug 2011. - http://silverlight.codeplex.com/releases/view/71550
 
 
+Silverlight for Windows Phone Toolkit - Nov 2011 - http://silverlight.codeplex.com/releases/view/75888
+
+
 Open Visual Studio, load the solution, and check if there are references with the yellow signal. If so:
 - Right click on 'references'
 - Click 'Add references...'
