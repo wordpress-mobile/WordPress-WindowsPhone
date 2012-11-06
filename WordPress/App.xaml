@@ -38,6 +38,7 @@
 
     		<SolidColorBrush x:Key="WordPressGreyBrush" Color="#FF464646"/>
             <SolidColorBrush x:Key="WordPressBlueBrush" Color="#FF21759b"/>
+            <SolidColorBrush x:Key="WordPressDarkBlueBrush" Color="#FF1B6282"/>
     		<SolidColorBrush x:Key="WordPressOrangeBrush" Color="#FFD54E21"/>
     		<SolidColorBrush x:Key="SectionHeaderBackgroundBrush" Color="#FFD4D4D4"/>
 
@@ -82,16 +83,58 @@
     		</Style>
 
     		<Style x:Key="BasicButtonStyle" TargetType="Button">
-    			<Setter Property="Background" Value="#BFFFFFFF"/>
-    			<Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
-    			<Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>   
+                <Setter Property="Background" Value="{StaticResource WordPressBlueBrush}"/>
+    			<Setter Property="BorderBrush" Value="{StaticResource WordPressBlueBrush}"/>
+                <Setter Property="Foreground" Value="#FFFFFFFF"/>   
     			<Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
-    		</Style>
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid Background="Transparent">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentContainer" 
+                                       Storyboard.TargetProperty="Foreground">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="#FFFFFFFF" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedHighlightBackground" 
+                                       Storyboard.TargetProperty="Background">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource WordPressDarkBlueBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonBackground" 
+                                       Storyboard.TargetProperty="BorderBrush">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource WordPressDarkBlueBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}"  
+            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0" 
+            Background="{TemplateBinding Background}" Margin="{StaticResource PhoneTouchTargetOverhang}" >
+                                    <Border x:Name="PressedHighlightBackground" Background="Transparent">
+                                        <ContentControl x:Name="ContentContainer" Foreground="{TemplateBinding Foreground}" 
+                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Padding="{TemplateBinding Padding}" 
+                      Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
     		<Style x:Key="BasicToggleButtonStyle" TargetType="ToggleButton">
-    			<Setter Property="Background" Value="#BFFFFFFF"/>
-    			<Setter Property="BorderBrush" Value="{StaticResource WordPressGreyBrush}"/>
-    			<Setter Property="Foreground" Value="{StaticResource WordPressGreyBrush}"/>
+                <Setter Property="Background" Value="{StaticResource WordPressBlueBrush}"/>
+    			<Setter Property="BorderBrush" Value="{StaticResource WordPressBlueBrush}"/>
+    			<Setter Property="Foreground" Value="#FFFFFFFF"/>
     			<Setter Property="FontSize" Value="{StaticResource ControlFontSize}"/>
     		</Style>
 
@@ -558,6 +601,74 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style TargetType="toolkit:ListPickerItem">
+                <Setter Property="Background" Value="{StaticResource TextBoxBackgroundColor}"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="Padding" Value="8 6"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="toolkit:ListPickerItem">
+                            <Grid x:Name="grid" Background="{TemplateBinding Background}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="SelectionStates">
+                                        <VisualState x:Name="Unselected">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ContentContainer"
+                                        Storyboard.TargetProperty="Foreground"
+                                        Duration="0">
+                                                    <DiscreteObjectKeyFrame  KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <!-- Normal color -->
+                                                            <SolidColorBrush Color="Black"/>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="ContentContainer"
+                                        Storyboard.TargetProperty="Foreground"
+                                        Duration="0">
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <!-- Selected color -->
+                                                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <!-- Optionally - background selected color -->
+                                                <!--<ObjectAnimationUsingKeyFrames
+                                        Storyboard.TargetName="grid"
+                                        Storyboard.TargetProperty="Background"
+                                        Duration="0">
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <SolidColorBrush Color="Gray"/>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>-->
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentControl
+                        x:Name="ContentContainer"
+                        Content="{TemplateBinding Content}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        Foreground="{TemplateBinding Foreground}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Margin="{TemplateBinding Padding}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
 
     </Application.Resources>

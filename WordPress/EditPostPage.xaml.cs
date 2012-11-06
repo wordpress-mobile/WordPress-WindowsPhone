@@ -39,12 +39,12 @@ namespace WordPress
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
-        private ApplicationBarIconButton _publishIconButton;
         private List<Media> _media; //media attached to this post
         private List<UploadFileRPC> _mediaUploadRPCs;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
         private bool _mediaDialogPresented = false;
+        private bool isEditingLocalDraft = false;
         
         #endregion
 
@@ -61,17 +61,20 @@ namespace WordPress
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
             _saveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.save.png", UriKind.Relative));
-            _saveIconButton.Text = _localizedStrings.ControlsText.SaveDraft;
+            _saveIconButton.Text = _localizedStrings.ControlsText.Save;
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
 
-            _publishIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.upload.png", UriKind.Relative));
-            _publishIconButton.Text = _localizedStrings.ControlsText.Publish;
-            _publishIconButton.Click += OnSaveButtonClick;
-            ApplicationBar.Buttons.Add(_publishIconButton);
-
             _mediaUploadRPCs = new List<UploadFileRPC>();
             _media = new List<Media>();
+
+            this.statusPicker.ItemsSource = new List<string>() { 
+                _localizedStrings.ControlsText.Publish, 
+                _localizedStrings.ControlsText.Draft, 
+                _localizedStrings.ControlsText.PendingReview, 
+                _localizedStrings.ControlsText.Private, 
+                _localizedStrings.ControlsText.LocalDraft 
+            }; 
 
             Loaded += OnPageLoaded;
         }
@@ -88,6 +91,7 @@ namespace WordPress
             {
                 LoadBlog();
             }
+
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
@@ -176,11 +180,24 @@ namespace WordPress
             {
                 string postId = App.MasterViewModel.CurrentPostListItem.PostId;
 
-                GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
-                rpc.Completed += OnGetPostRPCCompleted;
-                rpc.ExecuteAsync();
+                if (App.MasterViewModel.CurrentPostListItem.DraftIndex > -1)
+                {
+                    // Post is a local draft
+                    DataContext = App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
+                    setStatus();
+                    this.isEditingLocalDraft = true;
+                }
+                else
+                {
+                    // Uploaded post, let's download it
+                    GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
+                    rpc.Completed += OnGetPostRPCCompleted;
+                    rpc.ExecuteAsync();
 
-                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
+                }
+
+                
             }
             else
             {
@@ -207,6 +224,24 @@ namespace WordPress
             }
         }
 
+        private void setStatus()
+        {
+            if (DataContext != null)
+            {
+                Post post = DataContext as Post;
+                if (post.PostStatus.Equals("publish"))
+                    statusPicker.SelectedIndex = 0;
+                else if (post.PostStatus.Equals("draft"))
+                    statusPicker.SelectedIndex = 1;
+                else if (post.PostStatus.Equals("pending"))
+                    statusPicker.SelectedIndex = 2;
+                else if (post.PostStatus.Equals("private"))
+                    statusPicker.SelectedIndex = 3;
+                else if (post.PostStatus.Equals("localdraft"))
+                    statusPicker.SelectedIndex = 4;
+            }
+        }
+
         private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {            
             GetPostRPC rpc = sender as GetPostRPC;
@@ -216,6 +251,7 @@ namespace WordPress
             {
                 Post post = args.Items[0];
                 DataContext = post;
+                setStatus();
                 App.MasterViewModel.CurrentPost = post;
                 if (post.MtKeyWords != "")
                 {
@@ -234,24 +270,43 @@ namespace WordPress
         {
             _mediaDialogPresented = false;
             Post post = App.MasterViewModel.CurrentPost;
-            if (sender == _publishIconButton)
-                post.PostStatus = "publish";
-            else
-                post.PostStatus = "draft";
+
+            switch (this.statusPicker.SelectedIndex)
+            {
+                case 0:
+                    post.PostStatus = "publish";
+                    break;
+                case 1:
+                    post.PostStatus = "draft";
+                    break;
+                case 2:
+                    post.PostStatus = "pending";
+                    break;
+                case 3:
+                    post.PostStatus = "private";
+                    break;
+                case 4:
+                    post.PostStatus = "localdraft";
+                    break;
+            }
 
             if (0 < _media.Count)
             {
-                _media.ForEach(currentMedia =>
-                    {
-                        UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
-                        rpc.Completed += OnUploadMediaRPCCompleted;
-                        //store this for later--we'll upload the files once the user hits save
-                        _mediaUploadRPCs.Add(rpc);
-                    }
-                );
+                post.MediaUploadRPCs = _mediaUploadRPCs;
+                if (!post.PostStatus.Equals("localdraft"))
+                {
+                    _media.ForEach(currentMedia =>
+                        {
+                            UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
+                            rpc.Completed += OnUploadMediaRPCCompleted;
+                            //store this for later--we'll upload the files once the user hits save
+                            _mediaUploadRPCs.Add(rpc);
+                        }
+                    );
 
-                UploadImagesAndSavePost();
-                return;
+                    UploadImagesAndSavePost();
+                    return;
+                }
             }
 
             SavePost();
@@ -290,19 +345,35 @@ namespace WordPress
 
             if (post.IsNew)
             {
-                UserSettings settings = new UserSettings();
-                if (settings.UseTaglineForNewPosts)
-                {
-                    post.Description = post.Description + "\r\n<p class=\"post-sig\">" + settings.Tagline + "</p>";
+                if (!post.PostStatus.Equals("localdraft")) {
+                    // Anything but local draft status gets uploaded
+                    UserSettings settings = new UserSettings();
+                    if (settings.UseTaglineForNewPosts)
+                    {
+                        post.Description = post.Description + "\r\n<p class=\"post-sig\">" + settings.Tagline + "</p>";
+                    }
+                    NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
+                    rpc.PostType = ePostType.post;
+                    if (post.PostStatus == "publish")
+                        rpc.Publish = true;
+                    else
+                        rpc.Publish = false;
+                    rpc.Completed += OnNewPostRPCCompleted;
+                    rpc.ExecuteAsync();
+                } else {
+                    // Create or update a local draft
+                    if (App.MasterViewModel.CurrentPostListItem != null)
+                    {
+                        if (App.MasterViewModel.CurrentPostListItem.DraftIndex > -1)
+                            App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex] = post;
+                    }
+                    else
+                    {
+                        blog.LocalDrafts.Add(post);
+                    }
+                    // Exit post editor
+                    NavigationService.GoBack();
                 }
-                NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                rpc.PostType = ePostType.post;
-                if (post.PostStatus == "publish")
-                    rpc.Publish = true;
-                else
-                    rpc.Publish = false;
-                rpc.Completed += OnNewPostRPCCompleted;
-                rpc.ExecuteAsync();
             }
             else
             {
@@ -313,11 +384,11 @@ namespace WordPress
                     rpc.Publish = false;
                 rpc.Completed += OnEditPostRPCCompleted;
                 rpc.ExecuteAsync();
-            }
 
-            this.Focus();
-            ApplicationBar.IsVisible = false;
-            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
+                this.Focus();
+                ApplicationBar.IsVisible = false;
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
+            } 
         }
 
         private void OnEditPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)

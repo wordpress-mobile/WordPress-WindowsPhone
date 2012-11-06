@@ -364,6 +364,8 @@ namespace WordPress.Model
                     CurrentBlog.PostListItems.Add(item);
                 }
 
+                CurrentBlog.addLocalDraftsToPostList();
+
                 NotifyFetchComplete();
             }
             else

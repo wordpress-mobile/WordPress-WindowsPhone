@@ -38,6 +38,10 @@ namespace WordPress.Converters
                 return _localizedStrings.ControlsText.Draft;
             else if (postStatus.Equals("pending"))
                 return _localizedStrings.ControlsText.PendingReview;
+            else if (postStatus.Equals("private"))
+                return _localizedStrings.ControlsText.Private;
+            else if (postStatus.Equals("localdraft"))
+                return _localizedStrings.ControlsText.LocalDraft;
             else
                 return postStatus;
         }

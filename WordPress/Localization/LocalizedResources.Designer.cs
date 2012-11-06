@@ -529,6 +529,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Local Draft.
+        /// </summary>
+        internal static string ControlText_LocalDraft {
+            get {
+                return ResourceManager.GetString("ControlText_LocalDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to location.
         /// </summary>
         internal static string ControlText_Location {
@@ -709,7 +718,16 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to publish.
+        ///   Looks up a localized string similar to Private.
+        /// </summary>
+        internal static string ControlText_Private {
+            get {
+                return ResourceManager.GetString("ControlText_Private", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Publish.
         /// </summary>
         internal static string ControlText_Publish {
             get {
@@ -862,7 +880,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start blogging from Windows Phone 7 in seconds.
+        ///   Looks up a localized string similar to Create beautiful blogs and websites that can be updated on the go..
         /// </summary>
         internal static string ControlText_StartBloggingInSeconds {
             get {

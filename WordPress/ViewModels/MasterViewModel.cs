@@ -94,6 +94,17 @@ namespace WordPress
                 {
                     return null; 
                 }
+
+                if (null != CurrentBlog.LocalDrafts)
+                {
+                    for (int i = 0; i < CurrentBlog.LocalDrafts.Count; i++)
+                    {
+                        CurrentBlog.PostListItems.RemoveAt(i);
+                    }
+                }
+
+                CurrentBlog.addLocalDraftsToPostList();
+
                 return CurrentBlog.PostListItems;
             }
         }

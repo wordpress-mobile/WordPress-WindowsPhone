@@ -56,6 +56,7 @@ namespace WordPress.Model
             PostListItems = new ObservableCollection<PostListItem>();
             PageListItems = new ObservableCollection<PageListItem>();
             Categories = new ObservableCollection<Category>();
+            LocalDrafts = new ObservableCollection<Post>();
         }
 
         public Blog(XElement structElement) 
@@ -178,6 +179,9 @@ namespace WordPress.Model
         public ObservableCollection<PageListItem> PageListItems { get; private set; }
 
         public ObservableCollection<Category> Categories { get; private set; }
+
+
+        public ObservableCollection<Post> LocalDrafts { get; private set; }
 
         public bool PreserveBandwidth
         {
@@ -436,7 +440,23 @@ namespace WordPress.Model
             return this.BlogName;
         }
 
-        #endregion
+        public void addLocalDraftsToPostList()
+        {
+            if (null != this.LocalDrafts)
+            {
+                foreach (Post post in this.LocalDrafts)
+                {
+                    PostListItem draftListItem = new PostListItem();
+                    draftListItem.DateCreated = post.DateCreated;
+                    draftListItem.DateCreatedGMT = post.DateCreatedGMT;
+                    draftListItem.PostId = "-1";
+                    draftListItem.Status = post.PostStatus;
+                    draftListItem.Title = post.Title;
+                    this.PostListItems.Insert(0, draftListItem);
+                }
+            }
+        }
 
+        #endregion
     }
 }

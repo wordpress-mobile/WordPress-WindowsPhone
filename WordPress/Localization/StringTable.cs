@@ -182,6 +182,8 @@ namespace WordPress.Localization
             public string Draft { get { return LocalizedResources.ControlText_Draft; } }
             public string PendingReview { get { return LocalizedResources.ControlText_PendingReview; } }
             public string Remove { get { return LocalizedResources.ControlText_Remove; } }
+            public string LocalDraft { get { return LocalizedResources.ControlText_LocalDraft; } }
+            public string Private { get { return LocalizedResources.ControlText_Private; } }
         }
 
         #endregion

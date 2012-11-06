@@ -17,6 +17,7 @@ namespace WordPress.Model
         private string _title;
         private string _postId;
         private string _status;
+        private int _draftIndex = -1;
 
         private const string USERID_VALUE = "userid";
         private const string DATECREATED_VALUE = "dateCreated";
@@ -24,7 +25,6 @@ namespace WordPress.Model
         private const string TITLE_VALUE = "title";
         private const string POSTID_VALUE = "postid";
         private const string POST_STATUS__VALUE = "post_status";
-
 
         #endregion
 
@@ -95,6 +95,18 @@ namespace WordPress.Model
                 {
                     _status = value;
                     NotifyPropertyChanged("Status");
+                }
+            }
+        }
+
+        public int DraftIndex
+        {
+            get { return _draftIndex; }
+            set
+            {
+                if (value != _draftIndex)
+                {
+                    _draftIndex = value;
                 }
             }
         }

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace WordPress.Model
 {
@@ -34,6 +35,7 @@ namespace WordPress.Model
         private ObservableCollection<CustomField> _customFields;
         private bool _sticky;
         private bool _isNew;
+        private List<UploadFileRPC> _mediaUploadRPCs;
 
         private const string DATECREATED_VALUE = "dateCreated";
         private const string USERID_VALUE = "userid";
@@ -348,6 +350,12 @@ namespace WordPress.Model
         {
             get { return _isNew; }
             set { _isNew = value; }
+        }
+
+        public List<UploadFileRPC> MediaUploadRPCs
+        {
+            get { return _mediaUploadRPCs; }
+            set { _mediaUploadRPCs = value; }
         }
 
         #endregion

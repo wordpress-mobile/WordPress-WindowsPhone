@@ -13,7 +13,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
-    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
+    mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
 
     <toolkit:TransitionService.NavigationInTransition>
@@ -69,6 +69,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -124,27 +128,27 @@
                                   Style="{StaticResource BasicToggleButtonStyle}" 
                                   Margin="-5,0,0,0"/>
                 </StackPanel>
-                <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="6" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="6" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
                 </StackPanel>
                 <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
-                <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="9" Text="{Binding Path=ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
+
                 <TextBox Grid.Row="10" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
                 <TextBlock Grid.Row="11" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
                 
-                <Rectangle Grid.Row="12" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="12" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <Button Grid.Row="13" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
-                <Rectangle Grid.Row="14" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="14" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}" />
-                <StackPanel Grid.Row="15">
+                <TextBlock Grid.Row="14" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
+                <toolkit:ListPicker Grid.Row="15" Header="{Binding Path=ControlsText.Status, Source={StaticResource StringTable}}" x:Name="statusPicker" Margin="10,-20,10,0"/>
+                <TextBlock Grid.Row="16" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
+
+                <StackPanel Grid.Row="17" Margin="0,30,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />
@@ -154,6 +158,7 @@
                         <toolkit:TimePicker x:Name="postTimePicker" Grid.Column="1" DataContext="{Binding}" Value="{Binding DateCreated}" ValueChanged="OnDatePickerChanged" />
                     </Grid>
                 </StackPanel>
+                
             </Grid>
         </ScrollViewer>
 

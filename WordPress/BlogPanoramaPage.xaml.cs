@@ -27,6 +27,7 @@ namespace WordPress
         private List<string> _refreshListOptions;
         private List<string> _postListOptions;
         private List<string> _pageListOptions;
+        private List<string> _draftListOptions;
 
         private int _multiFetchTaskCount;
         private bool _blogIsPinned = false;
@@ -64,6 +65,10 @@ namespace WordPress
             _postListOptions.Add(_localizedStrings.Options.PostOptions_ViewComments);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_EditPost);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_DeletePost);
+
+            _draftListOptions = new List<string>(2);
+            _draftListOptions.Add("Edit Draft");
+            _draftListOptions.Add("Delete Draft");
 
             _pageListOptions = new List<string>(4);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_ViewPage);
@@ -308,17 +313,33 @@ namespace WordPress
         private void OnPostsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (null == postsListBox.SelectedItem) return;
-            PresentPostOptions();
+            ListBox postListBox = (ListBox)sender;
+            PostListItem postListItem = (PostListItem)postListBox.SelectedItem;
+            if (postListItem.PostId.Equals("-1", StringComparison.Ordinal))
+                PresentPostOptions(true);
+            else
+                PresentPostOptions(false);
         }
 
-        private void PresentPostOptions()
+        private void PresentPostOptions(bool isLocalDraft)
         {
             App.PopupSelectionService.Title = _localizedStrings.Prompts.PostActions;
-            App.PopupSelectionService.ItemsSource = _postListOptions;
-            App.PopupSelectionService.SelectionChanged += OnPostOptionSelected;
+            if (isLocalDraft)
+            {
+                App.PopupSelectionService.ItemsSource = _draftListOptions;
+                _popupServiceSelectionChangedHandler = OnDraftOptionSelected;
+                App.PopupSelectionService.SelectionChanged += OnDraftOptionSelected;
+            }
+            else
+            {
+                App.PopupSelectionService.ItemsSource = _postListOptions;
+                _popupServiceSelectionChangedHandler = OnPostOptionSelected;
+                App.PopupSelectionService.SelectionChanged += OnPostOptionSelected;
+            }
+            
             App.PopupSelectionService.ShowPopup();
 
-            _popupServiceSelectionChangedHandler = OnPostOptionSelected;
+            
         }
 
         private void OnPostOptionSelected(object sender, SelectionChangedEventArgs args)
@@ -346,6 +367,40 @@ namespace WordPress
 
             //reset selected index so we can re-select the original list item if we want to
             postsListBox.SelectedIndex = -1;
+        }
+
+        private void OnDraftOptionSelected(object sender, SelectionChangedEventArgs args)
+        {
+            App.PopupSelectionService.SelectionChanged -= OnDraftOptionSelected;
+            _popupServiceSelectionChangedHandler = null;
+
+            int index = _draftListOptions.IndexOf(args.AddedItems[0] as string);
+
+            switch (index)
+            {
+                case 0:         //edit draft
+                    EditPost();
+                    break;
+                case 1:         //delete draft
+                    DeleteDraft();
+                    break;
+            }
+
+            //reset selected index so we can re-select the original list item if we want to
+            postsListBox.SelectedIndex = -1;
+        }
+
+        private void DeleteDraft()
+        {
+            PostListItem postItem = postsListBox.SelectedItem as PostListItem;
+            if (null == postItem) return;
+
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmDeletePostFormat, postItem.Title);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
+            if (MessageBoxResult.Cancel == result) return;
+
+            App.MasterViewModel.CurrentBlog.LocalDrafts.RemoveAt(postsListBox.SelectedIndex);
+            App.MasterViewModel.CurrentBlog.PostListItems.RemoveAt(postsListBox.SelectedIndex);
         }
 
         private void ViewPost()
@@ -403,6 +458,12 @@ namespace WordPress
             if (-1 == index) return;
 
             App.MasterViewModel.CurrentPostListItem = App.MasterViewModel.Posts[index];
+
+            if (App.MasterViewModel.CurrentPostListItem.PostId.Equals("-1", StringComparison.Ordinal))
+            {
+                // Local draft, set current post so post editor knows what to load
+                App.MasterViewModel.CurrentPostListItem.DraftIndex = index;
+            }
 
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }

@@ -6,8 +6,7 @@
 	xmlns:localization="clr-namespace:WordPress.Localization"
 	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	mc:Ignorable="d"
-	x:Class="WordPress.EulaControl"
-	d:DesignWidth="480" d:DesignHeight="800">
+	x:Class="WordPress.EulaControl">
 
     <UserControl.Resources>
         <localization:StringTable x:Key="StringTable"/>        

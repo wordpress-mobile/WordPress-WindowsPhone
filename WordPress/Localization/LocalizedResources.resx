@@ -234,7 +234,7 @@
     <value>preferences</value>
   </data>
   <data name="ControlText_Publish" xml:space="preserve">
-    <value>publish</value>
+    <value>Publish</value>
   </data>
   <data name="ControlText_Refresh" xml:space="preserve">
     <value>refresh</value>
@@ -253,7 +253,7 @@
     <value>spam</value>
   </data>
   <data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-    <value>Start blogging from Windows Phone 7 in seconds</value>
+    <value>Create beautiful blogs and websites that can be updated on the go.</value>
   </data>
   <data name="ControlText_StartNewBlog" xml:space="preserve">
     <value>Start a new blog at WordPress.com</value>
@@ -816,5 +816,11 @@
   </data>
   <data name="ControlText_TagsHelpText" xml:space="preserve">
     <value>Separate tags with commas</value>
+  </data>
+  <data name="ControlText_LocalDraft" xml:space="preserve">
+    <value>Local Draft</value>
+  </data>
+  <data name="ControlText_Private" xml:space="preserve">
+    <value>Private</value>
   </data>
 </root>
