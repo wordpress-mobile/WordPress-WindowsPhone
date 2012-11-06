@@ -360,6 +360,10 @@ namespace WordPress
                         rpc.Publish = false;
                     rpc.Completed += OnNewPostRPCCompleted;
                     rpc.ExecuteAsync();
+
+                    this.Focus();
+                    ApplicationBar.IsVisible = false;
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
                 } else {
                     // Create or update a local draft
                     if (App.MasterViewModel.CurrentPostListItem != null)
@@ -412,6 +416,12 @@ namespace WordPress
 
         private void OnNewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
+            if (this.isEditingLocalDraft)
+            {
+                // Local Draft was published
+                App.MasterViewModel.CurrentBlog.LocalDrafts.Remove(App.MasterViewModel.CurrentPost);
+            }
+
             NewPostRPC rpc = sender as NewPostRPC;
             rpc.Completed -= OnNewPostRPCCompleted;
             ApplicationBar.IsVisible = true;
