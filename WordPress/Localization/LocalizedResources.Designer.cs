@@ -277,6 +277,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to categories.
+        /// </summary>
+        internal static string ControlText_Categories {
+            get {
+                return ResourceManager.GetString("ControlText_Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to category description (optional).
         /// </summary>
         internal static string ControlText_CategoryDescription {
@@ -889,11 +898,20 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tags &amp; categories.
+        ///   Looks up a localized string similar to tags.
         /// </summary>
-        internal static string ControlText_TagsAndCategories {
+        internal static string ControlText_Tags {
             get {
-                return ResourceManager.GetString("ControlText_TagsAndCategories", resourceCulture);
+                return ResourceManager.GetString("ControlText_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Separate tags with commas.
+        /// </summary>
+        internal static string ControlText_TagsHelpText {
+            get {
+                return ResourceManager.GetString("ControlText_TagsHelpText", resourceCulture);
             }
         }
         

@@ -568,37 +568,24 @@ namespace WordPress
         }
 
 
-        private StackPanel BuildTappableImageElement(BitmapImage image, Media currentMedia)
+        private Button BuildTappableImageElement(BitmapImage image, Media currentMedia)
         {
-
-            StackPanel sp = new StackPanel();
-            sp.Tag = currentMedia;
-            sp.Tap += sp_Tap;
-
-            Image imageElement = new Image();
-            imageElement.Source = image;
-            float width = 150F;
+            Button imageOuterButton = new Button();
+            imageOuterButton.Tag = currentMedia;
+            imageOuterButton.Tap += sp_Tap;
+            float width = 180F;
             int height = (int)(width / image.PixelWidth * image.PixelHeight);
-            imageElement.Width = width;
-            imageElement.Height = height;
-            imageElement.Margin = new Thickness(3);
-
-            var b = new Border
-            {
-                BorderBrush = App.Current.Resources["WordPressGreyBrush"] as SolidColorBrush,
-                BorderThickness = new Thickness(5),
-                Margin = new Thickness(10),
-            };
-
-            b.Child = imageElement;
-
-            sp.Children.Add(b);
-            return sp;
+            imageOuterButton.Width = width;
+            imageOuterButton.Height = height;
+            Style btnStyle = App.Current.Resources["BasicButtonStyle"] as Style;
+            imageOuterButton.Style = btnStyle;
+            imageOuterButton.Background = new ImageBrush { ImageSource = image };
+            return imageOuterButton;
         }
 
         private void sp_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            StackPanel tappedObj = (StackPanel)sender;
+            Control tappedObj = (Control)sender;
             Media currentMedia = (Media)tappedObj.Tag;
             _lastTappedMedia = currentMedia;
             NavigationService.Navigate(new Uri("/ImageDetailsPage.xaml", UriKind.Relative));
@@ -623,7 +610,7 @@ namespace WordPress
             _media.Remove(imageToRemove);
             foreach (var el in imageWrapPanel.Children)
             {
-                if ((el as StackPanel).Tag == imageToRemove)
+                if ((el as Control).Tag == imageToRemove)
                 {
                     imageWrapPanel.Children.Remove(el);
                     break;

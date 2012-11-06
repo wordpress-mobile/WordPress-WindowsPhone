@@ -106,7 +106,9 @@ namespace WordPress.Localization
             public string BlockQuote { get { return LocalizedResources.ControlText_BlockQuote; } }
             public string Publish { get { return LocalizedResources.ControlText_Publish; } }
             public string UploadChanges { get { return LocalizedResources.ControlText_UploadChanges; } }
-            public string TagsAndCategories { get { return LocalizedResources.ControlText_TagsAndCategories; } }
+            public string Tags { get { return LocalizedResources.ControlText_Tags; } }            
+            public string TagsHelpText { get { return LocalizedResources.ControlText_TagsHelpText; } }
+            public string Categories { get { return LocalizedResources.ControlText_Categories; } }
             public string SelectCategories { get { return LocalizedResources.ControlText_SelectCategories; } }
             public string Status { get { return LocalizedResources.ControlText_Status; } }
             public string PostContent { get { return LocalizedResources.ControlText_PostContent; } }

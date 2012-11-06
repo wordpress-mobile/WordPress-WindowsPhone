@@ -264,8 +264,8 @@
   <data name="ControlText_StrikeThrough" xml:space="preserve">
     <value>ABC</value>
   </data>
-  <data name="ControlText_TagsAndCategories" xml:space="preserve">
-    <value>tags &amp; categories</value>
+  <data name="ControlText_Tags" xml:space="preserve">
+    <value>tags</value>
   </data>
   <data name="ControlText_Unapprove" xml:space="preserve">
     <value>unapprove</value>
@@ -810,5 +810,11 @@
   </data>
   <data name="Title_Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="ControlText_Categories" xml:space="preserve">
+    <value>categories</value>
+  </data>
+  <data name="ControlText_TagsHelpText" xml:space="preserve">
+    <value>Separate tags with commas</value>
   </data>
 </root>
