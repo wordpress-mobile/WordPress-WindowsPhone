@@ -127,14 +127,15 @@
                 </StackPanel>
 
                 <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="6" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="6" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
                 </StackPanel>
                 <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
+                
                 <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="9" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}" />
+                <TextBlock Grid.Row="9" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
                 <StackPanel Grid.Row="10">
                     <Grid>
                         <Grid.ColumnDefinitions>

@@ -72,7 +72,11 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -128,27 +132,39 @@
                                   Style="{StaticResource BasicToggleButtonStyle}" 
                                   Margin="-5,0,0,0"/>
                 </StackPanel>
-                <TextBlock Grid.Row="6" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <StackPanel Grid.Row="7" Orientation="Horizontal">
+
+                <Rectangle Grid.Row="6" Margin="10,5"/>
+                <Rectangle Grid.Row="7" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="7" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <StackPanel Grid.Row="8" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
                 </StackPanel>
-                <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
-                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
+                <toolkit:WrapPanel Grid.Row="9" x:Name="imageWrapPanel"/>
 
-                <TextBox Grid.Row="10" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
-                <TextBlock Grid.Row="11" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
-                
-                <TextBlock Grid.Row="12" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <Button Grid.Row="13" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
+                <Rectangle Grid.Row="10" Margin="10,5"/>
+                <Rectangle Grid.Row="11" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="11" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <TextBox Grid.Row="12" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
+                <TextBlock Grid.Row="13" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
+
+                <Rectangle Grid.Row="14" Margin="10,5"/>
+                <Rectangle Grid.Row="15" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="15" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
+                <Button Grid.Row="16" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
-                <TextBlock Grid.Row="14" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <toolkit:ListPicker Grid.Row="15" Header="{Binding Path=ControlsText.Status, Source={StaticResource StringTable}}" x:Name="statusPicker" Margin="10,-20,10,0"/>
-                <TextBlock Grid.Row="16" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
 
-                <StackPanel Grid.Row="17" Margin="0,30,0,10">
+                <Rectangle Grid.Row="17" Margin="10,5"/>
+                <Rectangle Grid.Row="18" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="18" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="19" x:Name="statusPicker" Margin="10,0,10,10"/>
+
+                <Rectangle Grid.Row="20" Margin="10,5"/>
+                <Rectangle Grid.Row="21" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="21" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <StackPanel Grid.Row="22">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />
