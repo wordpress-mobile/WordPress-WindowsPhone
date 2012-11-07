@@ -35,7 +35,7 @@ namespace WordPress.Model
         private ObservableCollection<CustomField> _customFields;
         private bool _sticky;
         private bool _isNew;
-        private List<UploadFileRPC> _mediaUploadRPCs;
+        private List<Media> _media;
 
         private const string DATECREATED_VALUE = "dateCreated";
         private const string USERID_VALUE = "userid";
@@ -75,6 +75,7 @@ namespace WordPress.Model
             _categories = new ObservableCollection<string>();
             _categories.CollectionChanged += OnCategoriesChanged;
             _customFields = new ObservableCollection<CustomField>();
+            _media = new List<Media>();
         }
 
         public Post(XElement structElement)
@@ -352,10 +353,10 @@ namespace WordPress.Model
             set { _isNew = value; }
         }
 
-        public List<UploadFileRPC> MediaUploadRPCs
+        public List<Media> Media
         {
-            get { return _mediaUploadRPCs; }
-            set { _mediaUploadRPCs = value; }
+            get { return _media; }
+            set { _media = value; }
         }
 
         #endregion

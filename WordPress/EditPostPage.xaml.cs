@@ -292,7 +292,7 @@ namespace WordPress
 
             if (0 < _media.Count)
             {
-                post.MediaUploadRPCs = _mediaUploadRPCs;
+                post.Media = _media;
                 if (!post.PostStatus.Equals("localdraft"))
                 {
                     _media.ForEach(currentMedia =>

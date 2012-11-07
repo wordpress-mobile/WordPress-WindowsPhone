@@ -22,7 +22,9 @@ namespace WordPress.Model
         private string _url;       //once uploaded it contains the URL of the image on the server   
         private string _mimetype;  //mime type
         private string _fileName;  //preferred file name to set when upload the image on disk. It's the same of the filename on the device for now.
-        
+
+        private bool _alignThumbnailToCenter = false;
+        private bool _createLinkToFullImage = false;
 
         #endregion
 
@@ -35,7 +37,8 @@ namespace WordPress.Model
         #region constructors
 
         public Media(Blog blog, string fileName, string fileLocationInMediaLibrary, DateTime date) {
-            Blog = blog;
+            _alignThumbnailToCenter = blog.AlignThumbnailToCenter;
+            _createLinkToFullImage = blog.CreateLinkToFullImage;
             _fileName = fileName;
             _localPath = fileLocationInMediaLibrary;
             _datetime = date;
@@ -46,8 +49,6 @@ namespace WordPress.Model
 
 
         #region properties
-
-        public Blog Blog { get; private set; }
 
         public string FileName
         {
@@ -126,7 +127,7 @@ namespace WordPress.Model
             XElement imageNode = new XElement("img");
             imageNode.SetAttributeValue("src", this.Url);
 
-            if (Blog.AlignThumbnailToCenter)
+            if (_alignThumbnailToCenter)
             {
                 StringBuilder styleBuilder = new StringBuilder();
                 styleBuilder.Append("display:block; margin-right:auto; margin-left:auto;");
@@ -138,7 +139,7 @@ namespace WordPress.Model
                 imageNode.SetAttributeValue("class", "alignnone size-full;");
             }
 
-            if (!Blog.CreateLinkToFullImage)
+            if (!_createLinkToFullImage)
             {
                 return "<br /><br />" + imageNode.ToString();
             }
