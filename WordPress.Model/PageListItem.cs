@@ -25,6 +25,7 @@ namespace WordPress.Model
         private const string PAGEPARENTID_VALUE = "page_parent_id";
         private const string DATECREATED_VALUE = "dateCreated";
         private const string DATECREATEDGMT_VALUE = "date_created_gmt";
+        private const string POST_STATUS__VALUE = "post_status";
 
         #endregion
 
@@ -240,6 +241,11 @@ namespace WordPress.Model
                         _dateCreated = DateTime.Now;
                         _dateCreatedGMT = _dateCreated.ToUniversalTime();
                     }
+                }
+                else if (POST_STATUS__VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    _status = value.HtmlDecode();
                 }
             }//end for-each
 

@@ -314,7 +314,12 @@
                             						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             					</TextBlock.Foreground>
                             				</TextBlock>
-                            				<TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                                            <TextBlock Text="{Binding Status, Converter={StaticResource PostStatusInListConverter}}" Margin="0"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                                                <TextBlock.Foreground>
+                                                    <SolidColorBrush Color="{StaticResource WordPressOrange}"/>
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                            <TextBlock x:Name="pageDateCreatedTextBlock" Text="{Binding DateCreated}" Margin="0" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
                             					<TextBlock.Foreground>
                             						<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                             					</TextBlock.Foreground>
