@@ -136,6 +136,8 @@
                 </StackPanel>
                 <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
 
+
+                <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
                 <TextBlock Grid.Row="9" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
                 <toolkit:ListPicker Grid.Row="10" x:Name="statusPicker" Margin="10,0,10,10"/>
 
