@@ -185,6 +185,15 @@ namespace WordPress
                     App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     setStatus();
                     this.isEditingLocalDraft = true;
+
+                    //update the Media UI
+                    foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.SetSource(currentMedia.getImageStream());
+                        imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+                    }
+
                 }
                 else
                 {
