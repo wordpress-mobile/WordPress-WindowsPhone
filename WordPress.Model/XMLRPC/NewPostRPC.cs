@@ -73,15 +73,6 @@ namespace WordPress.Model
         protected override string BuildPostContentString()
         {
 
-            string status = "";
-            if (Publish)
-            {
-                status = "publish";
-            }
-            else
-            {
-                status = "draft";
-            }
             string result = string.Format(_content,
                 Post.PostId,
                 Credentials.UserName.HtmlEncode(),
@@ -92,7 +83,7 @@ namespace WordPress.Model
                 Post.Title.XmlEscape(),
                 Post.Description.HtmlEncode(),
                 PostType.ToString(),
-                status,
+                Post.PostStatus,
                 FormatCustomFields(),
                 String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
                 );

@@ -70,6 +70,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -133,10 +135,13 @@
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
                 </StackPanel>
                 <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
-                
-                <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="9" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
-                <StackPanel Grid.Row="10">
+
+                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="10" x:Name="statusPicker" Margin="10,0,10,10"/>
+
+                <Rectangle Grid.Row="11" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="11" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
+                <StackPanel Grid.Row="12">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />

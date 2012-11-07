@@ -17,6 +17,8 @@ namespace WordPress.Model
         private string _pageParentId;
         private DateTime _dateCreated;
         private DateTime _dateCreatedGMT;
+        private string _status;
+        private int _draftIndex = -1;
 
         private const string PAGEID_VALUE = "page_id";
         private const string PAGETITLE_VALUE = "page_title";
@@ -106,6 +108,31 @@ namespace WordPress.Model
                 {
                     _dateCreatedGMT = value;
                     NotifyPropertyChanged("DateCreatedGMT");
+                }
+            }
+        }
+
+        public String Status
+        {
+            get { return _status; }
+            set
+            {
+                if (value != _status)
+                {
+                    _status = value;
+                    NotifyPropertyChanged("Status");
+                }
+            }
+        }
+
+        public int DraftIndex
+        {
+            get { return _draftIndex; }
+            set
+            {
+                if (value != _draftIndex)
+                {
+                    _draftIndex = value;
                 }
             }
         }

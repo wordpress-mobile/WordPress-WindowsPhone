@@ -95,15 +95,15 @@ namespace WordPress
                     return null; 
                 }
 
-                if (null != CurrentBlog.LocalDrafts)
+                if (null != CurrentBlog.LocalPostDrafts)
                 {
-                    for (int i = 0; i < CurrentBlog.LocalDrafts.Count; i++)
+                    for (int i = 0; i < CurrentBlog.LocalPostDrafts.Count; i++)
                     {
                         CurrentBlog.PostListItems.RemoveAt(i);
                     }
                 }
 
-                CurrentBlog.addLocalDraftsToPostList();
+                CurrentBlog.addLocalPostDraftsToPostList();
 
                 return CurrentBlog.PostListItems;
             }
@@ -130,6 +130,17 @@ namespace WordPress
                 {
                     return null;
                 }
+
+                if (null != CurrentBlog.LocalPageDrafts)
+                {
+                    for (int i = 0; i < CurrentBlog.LocalPageDrafts.Count; i++)
+                    {
+                        CurrentBlog.PageListItems.RemoveAt(i);
+                    }
+                }
+
+                CurrentBlog.addLocalPageDraftsToPostList();
+
                 return CurrentBlog.PageListItems;
             }
         }

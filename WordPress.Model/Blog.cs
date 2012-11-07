@@ -56,7 +56,8 @@ namespace WordPress.Model
             PostListItems = new ObservableCollection<PostListItem>();
             PageListItems = new ObservableCollection<PageListItem>();
             Categories = new ObservableCollection<Category>();
-            LocalDrafts = new ObservableCollection<Post>();
+            LocalPostDrafts = new ObservableCollection<Post>();
+            LocalPageDrafts = new ObservableCollection<Post>();
         }
 
         public Blog(XElement structElement) 
@@ -180,8 +181,9 @@ namespace WordPress.Model
 
         public ObservableCollection<Category> Categories { get; private set; }
 
+        public ObservableCollection<Post> LocalPostDrafts { get; private set; }
 
-        public ObservableCollection<Post> LocalDrafts { get; private set; }
+        public ObservableCollection<Post> LocalPageDrafts { get; private set; }
 
         public bool PreserveBandwidth
         {
@@ -440,11 +442,11 @@ namespace WordPress.Model
             return this.BlogName;
         }
 
-        public void addLocalDraftsToPostList()
+        public void addLocalPostDraftsToPostList()
         {
-            if (null != this.LocalDrafts)
+            if (null != this.LocalPostDrafts)
             {
-                foreach (Post post in this.LocalDrafts)
+                foreach (Post post in this.LocalPostDrafts)
                 {
                     PostListItem draftListItem = new PostListItem();
                     draftListItem.DateCreated = post.DateCreated;
@@ -453,6 +455,23 @@ namespace WordPress.Model
                     draftListItem.Status = post.PostStatus;
                     draftListItem.Title = post.Title;
                     this.PostListItems.Insert(0, draftListItem);
+                }
+            }
+        }
+
+        public void addLocalPageDraftsToPostList()
+        {
+            if (null != this.LocalPageDrafts)
+            {
+                foreach (Post post in this.LocalPageDrafts)
+                {
+                    PageListItem draftListItem = new PageListItem();
+                    draftListItem.DateCreated = post.DateCreated;
+                    draftListItem.DateCreatedGMT = post.DateCreatedGMT;
+                    draftListItem.PageId = "-1";
+                    draftListItem.Status = post.PostStatus;
+                    draftListItem.PageTitle = post.Title;
+                    this.PageListItems.Insert(0, draftListItem);
                 }
             }
         }

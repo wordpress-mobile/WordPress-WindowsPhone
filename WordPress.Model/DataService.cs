@@ -364,7 +364,7 @@ namespace WordPress.Model
                     CurrentBlog.PostListItems.Add(item);
                 }
 
-                CurrentBlog.addLocalDraftsToPostList();
+                CurrentBlog.addLocalPostDraftsToPostList();
 
                 NotifyFetchComplete();
             }
@@ -408,6 +408,7 @@ namespace WordPress.Model
                 {
                     CurrentBlog.PageListItems.Add(item);
                 }
+                CurrentBlog.addLocalPageDraftsToPostList();
                 NotifyFetchComplete();
             }
             else

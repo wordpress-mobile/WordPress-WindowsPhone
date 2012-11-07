@@ -181,8 +181,8 @@ namespace WordPress
                 if (App.MasterViewModel.CurrentPostListItem.DraftIndex > -1)
                 {
                     // Post is a local draft
-                    DataContext = App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
-                    App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
+                    DataContext = App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
+                    App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     setStatus();
                     this.isEditingLocalDraft = true;
 
@@ -232,20 +232,18 @@ namespace WordPress
 
         private void setStatus()
         {
-            if (DataContext != null)
-            {
-                Post post = DataContext as Post;
-                if (post.PostStatus.Equals("publish"))
-                    statusPicker.SelectedIndex = 0;
-                else if (post.PostStatus.Equals("draft"))
-                    statusPicker.SelectedIndex = 1;
-                else if (post.PostStatus.Equals("pending"))
-                    statusPicker.SelectedIndex = 2;
-                else if (post.PostStatus.Equals("private"))
-                    statusPicker.SelectedIndex = 3;
-                else if (post.PostStatus.Equals("localdraft"))
-                    statusPicker.SelectedIndex = 4;
-            }
+            
+            Post post = App.MasterViewModel.CurrentPost;
+            if (post.PostStatus.Equals("publish"))
+                statusPicker.SelectedIndex = 0;
+            else if (post.PostStatus.Equals("draft"))
+                statusPicker.SelectedIndex = 1;
+            else if (post.PostStatus.Equals("pending"))
+                statusPicker.SelectedIndex = 2;
+            else if (post.PostStatus.Equals("private"))
+                statusPicker.SelectedIndex = 3;
+            else if (post.PostStatus.Equals("localdraft"))
+                statusPicker.SelectedIndex = 4;
         }
 
         private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -256,9 +254,9 @@ namespace WordPress
             if (null == args.Error)
             {
                 Post post = args.Items[0];
+                App.MasterViewModel.CurrentPost = post;
                 DataContext = post;
                 setStatus();
-                App.MasterViewModel.CurrentPost = post;
                 if (post.MtKeyWords != "")
                 {
                     tagsTextBox.Text = post.MtKeyWords;
@@ -358,10 +356,6 @@ namespace WordPress
                     }
                     NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
                     rpc.PostType = ePostType.post;
-                    if (post.PostStatus == "publish")
-                        rpc.Publish = true;
-                    else
-                        rpc.Publish = false;
                     rpc.Completed += OnNewPostRPCCompleted;
                     rpc.ExecuteAsync();
 
@@ -373,11 +367,11 @@ namespace WordPress
                     if (App.MasterViewModel.CurrentPostListItem != null)
                     {
                         if (App.MasterViewModel.CurrentPostListItem.DraftIndex > -1)
-                            App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex] = post;
+                            App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex] = post;
                     }
                     else
                     {
-                        blog.LocalDrafts.Add(post);
+                        blog.LocalPostDrafts.Add(post);
                     }
                     // Exit post editor
                     NavigationService.GoBack();
@@ -386,10 +380,6 @@ namespace WordPress
             else
             {
                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                if (post.PostStatus == "publish")
-                    rpc.Publish = true;
-                else
-                    rpc.Publish = false;
                 rpc.Completed += OnEditPostRPCCompleted;
                 rpc.ExecuteAsync();
 
@@ -423,7 +413,7 @@ namespace WordPress
             if (this.isEditingLocalDraft)
             {
                 // Local Draft was published
-                App.MasterViewModel.CurrentBlog.LocalDrafts.Remove(App.MasterViewModel.CurrentPost);
+                App.MasterViewModel.CurrentBlog.LocalPostDrafts.Remove(App.MasterViewModel.CurrentPost);
             }
 
             NewPostRPC rpc = sender as NewPostRPC;

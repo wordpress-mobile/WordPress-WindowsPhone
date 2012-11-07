@@ -35,13 +35,13 @@ namespace WordPress
         private const string PUBLISHKEY_VALUE = "publish";
 
         private ApplicationBarIconButton _saveIconButton;
-        private ApplicationBarIconButton _publishIconButton;
         private StringTable _localizedStrings;
 
         private List<UploadFileRPC> _mediaUploadRPCs;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
         private bool _mediaDialogPresented = false;
+        private bool isEditingLocalDraft = false;
 
         #endregion
 
@@ -62,10 +62,13 @@ namespace WordPress
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
 
-            _publishIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.upload.png", UriKind.Relative));
-            _publishIconButton.Text = _localizedStrings.ControlsText.Publish;
-            _publishIconButton.Click += OnSaveButtonClick;
-            ApplicationBar.Buttons.Add(_publishIconButton);
+            this.statusPicker.ItemsSource = new List<string>() { 
+                _localizedStrings.ControlsText.Publish, 
+                _localizedStrings.ControlsText.Draft, 
+                _localizedStrings.ControlsText.PendingReview, 
+                _localizedStrings.ControlsText.Private, 
+                _localizedStrings.ControlsText.LocalDraft 
+            }; 
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
 
@@ -122,21 +125,56 @@ namespace WordPress
 
             if (null != App.MasterViewModel.CurrentPageListItem)
             {
-                string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();
+                if (App.MasterViewModel.CurrentPageListItem.DraftIndex > -1)
+                {
+                    // Page is a local draft
+                    DataContext = App.MasterViewModel.CurrentBlog.LocalPageDrafts[App.MasterViewModel.CurrentPageListItem.DraftIndex];
+                    App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalPageDrafts[App.MasterViewModel.CurrentPageListItem.DraftIndex];
+                    setStatus();
+                    this.isEditingLocalDraft = true;
 
-                GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
-                rpc.Completed += OnGetPostRPCCompleted;
-                rpc.ExecuteAsync();
+                    //update the Media UI
+                    foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.SetSource(currentMedia.getImageStream());
+                        imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+                    }
+                }
+                else
+                {
+                    string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();
 
-                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
+                    GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
+                    rpc.Completed += OnGetPostRPCCompleted;
+                    rpc.ExecuteAsync();
+
+                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
+                }
             }
             else
             {
                 Post page = new Post();
+                App.MasterViewModel.CurrentPost = page;
                 page.DateCreated = DateTime.Now;
                 page.DateCreatedGMT = DateTime.Now.ToUniversalTime();
                 DataContext = page;
             }
+        }
+
+        private void setStatus()
+        {
+            Post page = App.MasterViewModel.CurrentPost;
+            if (page.PostStatus.Equals("publish"))
+                statusPicker.SelectedIndex = 0;
+            else if (page.PostStatus.Equals("draft"))
+                statusPicker.SelectedIndex = 1;
+            else if (page.PostStatus.Equals("pending"))
+                statusPicker.SelectedIndex = 2;
+            else if (page.PostStatus.Equals("private"))
+                statusPicker.SelectedIndex = 3;
+            else if (page.PostStatus.Equals("localdraft"))
+                statusPicker.SelectedIndex = 4;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -154,6 +192,8 @@ namespace WordPress
             if (null == args.Error)
             {
                 Post post = args.Items[0];
+                App.MasterViewModel.CurrentPost = post;
+                setStatus();
                 DataContext = post;
             }
             else
@@ -178,10 +218,25 @@ namespace WordPress
         {
             _mediaDialogPresented = false;
             Post post = DataContext as Post;
-            if (sender == _publishIconButton)
-                post.PostStatus = "publish";
-            else
-                post.PostStatus = "draft";
+
+            switch (this.statusPicker.SelectedIndex)
+            {
+                case 0:
+                    post.PostStatus = "publish";
+                    break;
+                case 1:
+                    post.PostStatus = "draft";
+                    break;
+                case 2:
+                    post.PostStatus = "pending";
+                    break;
+                case 3:
+                    post.PostStatus = "private";
+                    break;
+                case 4:
+                    post.PostStatus = "localdraft";
+                    break;
+            }
 
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
             //which doesn't force focus to change
@@ -190,16 +245,19 @@ namespace WordPress
 
             if (0 < post.Media.Count)
             {
-                foreach (Media currentMedia in post.Media)
+                if (!post.PostStatus.Equals("localdraft"))
                 {
-                    UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
-                    rpc.Completed += OnUploadMediaRPCCompleted;
-                    //store this for later--we'll upload the files once the user hits save
-                    _mediaUploadRPCs.Add(rpc);
+                    foreach (Media currentMedia in post.Media)
+                    {
+                        UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
+                        rpc.Completed += OnUploadMediaRPCCompleted;
+                        //store this for later--we'll upload the files once the user hits save
+                        _mediaUploadRPCs.Add(rpc);
+                    }
+
+                    UploadImagesAndSavePost();
+                    return;
                 }
-            
-                UploadImagesAndSavePost();
-                return;
             }
 
             SavePost();
@@ -695,33 +753,52 @@ namespace WordPress
 
         private void SavePost()
         {
-             Post post = DataContext as Post;
-             if (post.IsNew)
-             {
-                 NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
-                 if (post.PostStatus == "publish")
-                     rpc.Publish = true;
-                 else
-                     rpc.Publish = false;
-                 rpc.PostType = ePostType.page;
-                 rpc.Completed += OnNewPostRPCCompleted;
-                 rpc.ExecuteAsync();
-             }
-             else
-             {
-                 EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
-                 if (post.PostStatus == "publish")
-                     rpc.Publish = true;
-                 else
-                     rpc.Publish = false;
-                 rpc.PostType = ePostType.page;
-                 rpc.Completed += OnEditPostRPCCompleted;
+            Post post = App.MasterViewModel.CurrentPost;
+            Blog blog = App.MasterViewModel.CurrentBlog;
+            //make sure the post has the latest UI data--the Save button is a ToolbarButton
+            //which doesn't force focus to change
+            post.Title = titleTextBox.Text;
+            post.Description = contentTextBox.Text;
+            if (post.IsNew)
+            {
+                if (!post.PostStatus.Equals("localdraft"))
+                {
+                    NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
+                    rpc.PostType = ePostType.page;
+                    rpc.Completed += OnNewPostRPCCompleted;
+                    rpc.ExecuteAsync();
+                }
+                else
+                {
+                    // Create or update a local draft
+                    if (App.MasterViewModel.CurrentPageListItem != null)
+                    {
+                        if (App.MasterViewModel.CurrentPageListItem.DraftIndex > -1)
+                            App.MasterViewModel.CurrentBlog.LocalPageDrafts[App.MasterViewModel.CurrentPageListItem.DraftIndex] = post;
+                    }
+                    else
+                    {
+                        blog.LocalPageDrafts.Add(post);
+                    }
+                    // Exit post editor
+                    NavigationService.GoBack();
+                }
+            }
+            else
+            {
+                EditPostRPC rpc = new EditPostRPC(App.MasterViewModel.CurrentBlog, post);
+                if (post.PostStatus == "publish")
+                    rpc.Publish = true;
+                else
+                    rpc.Publish = false;
+                rpc.PostType = ePostType.page;
+                rpc.Completed += OnEditPostRPCCompleted;
 
-                 rpc.ExecuteAsync();
-             }
-             this.Focus();
-             ApplicationBar.IsVisible = false;
-             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
+                rpc.ExecuteAsync();
+            }
+            this.Focus();
+            ApplicationBar.IsVisible = false;
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
         #endregion media_methods
     }
