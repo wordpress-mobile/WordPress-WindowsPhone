@@ -38,7 +38,6 @@ namespace WordPress
         private ApplicationBarIconButton _publishIconButton;
         private StringTable _localizedStrings;
 
-        private List<Media> _media; //media attached to this post
         private List<UploadFileRPC> _mediaUploadRPCs;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
@@ -69,7 +68,6 @@ namespace WordPress
             ApplicationBar.Buttons.Add(_publishIconButton);
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
-            _media = new List<Media>();
 
             Loaded += OnPageLoaded;
         }
@@ -190,17 +188,16 @@ namespace WordPress
             post.Title = titleTextBox.Text;
             post.Description = contentTextBox.Text;
 
-            if (0 < _media.Count)
+            if (0 < post.Media.Count)
             {
-                _media.ForEach(currentMedia =>
+                foreach (Media currentMedia in post.Media)
                 {
                     UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
                     rpc.Completed += OnUploadMediaRPCCompleted;
                     //store this for later--we'll upload the files once the user hits save
                     _mediaUploadRPCs.Add(rpc);
                 }
-                );
-
+            
                 UploadImagesAndSavePost();
                 return;
             }
@@ -533,7 +530,8 @@ namespace WordPress
             bitmapStream.Close();
 
             Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, sanitizedFileName, savedFileName, pictureDateTime);
-            _media.Add(currentMedia);
+            Post post = DataContext as Post;
+            post.Media.Add(currentMedia);
 
             //update the UI
             imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
@@ -601,13 +599,15 @@ namespace WordPress
             imageWrapPanel.Children.Clear();
             _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
             _mediaUploadRPCs.Clear();
-            _media.Clear();
+            Post post = DataContext as Post;
+            post.Media.Clear();
         }
 
 
         public void removeImage(Media imageToRemove)
         {
-            _media.Remove(imageToRemove);
+            Post post = DataContext as Post;
+            post.Media.Remove(imageToRemove);
             foreach (var el in imageWrapPanel.Children)
             {
                 if ((el as Control).Tag == imageToRemove)
@@ -673,11 +673,11 @@ namespace WordPress
         private void UpdatePostContent()
         {
             StringBuilder builder = new StringBuilder();
-
-            _media.ForEach(currentMedia =>
+            Post post = DataContext as Post;
+            foreach (Media currentMedia in post.Media)
             {
                 builder.Append(currentMedia.getHTML());
-            });
+            }
 
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
 

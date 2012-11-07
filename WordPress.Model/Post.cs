@@ -35,7 +35,7 @@ namespace WordPress.Model
         private ObservableCollection<CustomField> _customFields;
         private bool _sticky;
         private bool _isNew;
-        private List<Media> _media;
+        private ObservableCollection<Media> _media;
 
         private const string DATECREATED_VALUE = "dateCreated";
         private const string USERID_VALUE = "userid";
@@ -75,13 +75,14 @@ namespace WordPress.Model
             _categories = new ObservableCollection<string>();
             _categories.CollectionChanged += OnCategoriesChanged;
             _customFields = new ObservableCollection<CustomField>();
-            _media = new List<Media>();
+            _media = new ObservableCollection<Media>();
         }
 
         public Post(XElement structElement)
             :this()
         {
             ParseElement(structElement);
+            _media = new ObservableCollection<Media>();
         }
 
         #endregion
@@ -353,7 +354,7 @@ namespace WordPress.Model
             set { _isNew = value; }
         }
 
-        public List<Media> Media
+        public ObservableCollection<Media> Media
         {
             get { return _media; }
             set { _media = value; }

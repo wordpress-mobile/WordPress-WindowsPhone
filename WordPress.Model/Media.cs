@@ -35,6 +35,8 @@ namespace WordPress.Model
         #endregion
 
         #region constructors
+        
+        public Media() { } //used to de-serialize the Media
 
         public Media(Blog blog, string fileName, string fileLocationInMediaLibrary, DateTime date) {
             _alignThumbnailToCenter = blog.AlignThumbnailToCenter;
@@ -49,6 +51,33 @@ namespace WordPress.Model
 
 
         #region properties
+
+
+        public bool AlignThumbnailToCenter
+        {
+            get { return _alignThumbnailToCenter; }
+            set
+            {
+                if (value != _alignThumbnailToCenter)
+                {
+                    _alignThumbnailToCenter = value;
+                    NotifyPropertyChanged("AlignThumbnailToCenter");
+                }
+            }
+        }
+
+        public bool CreateLinkToFullImage
+        {
+            get { return _createLinkToFullImage; }
+            set
+            {
+                if (value != _createLinkToFullImage)
+                {
+                    _createLinkToFullImage = value;
+                    NotifyPropertyChanged("CreateLinkToFullImage");
+                }
+            }
+        }
 
         public string FileName
         {
@@ -73,6 +102,19 @@ namespace WordPress.Model
                 {
                     _localPath = value;
                     NotifyPropertyChanged("LocalPath");
+                }
+            }
+        }
+
+        public DateTime DateTime
+        {
+            get { return _datetime; }
+            set
+            {
+                if (value != _datetime)
+                {
+                    _datetime = value;
+                    NotifyPropertyChanged("DateTime");
                 }
             }
         }
