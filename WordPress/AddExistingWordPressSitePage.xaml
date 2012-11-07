@@ -75,7 +75,7 @@
                 <TextBlock Text="{Binding Path=ControlsText.Password, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <PasswordBox x:Name="passwordPasswordBox" Style="{StaticResource PasswordBoxStyle}" Template="{StaticResource FocusedPasswordBoxTemplate}" KeyUp="Input_KeyUp"/>
                 <TextBlock TextAlignment="Center" Text="{Binding Path=ControlsText.NeedBlog, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="12,20,12,0"/>
-                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Background="#BDFFFFFF"
+                <Button x:Name="createNewBlogButton" HorizontalAlignment="Center" Content="{Binding Path=ControlsText.GetBlog, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}"
                         Click="OnCreateNewBlogButtonClick"/>
             </StackPanel>
         </ScrollViewer>
