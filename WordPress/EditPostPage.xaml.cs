@@ -182,6 +182,7 @@ namespace WordPress
                 {
                     // Post is a local draft
                     DataContext = App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
+                    App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     setStatus();
                     this.isEditingLocalDraft = true;
                 }
@@ -642,7 +643,7 @@ namespace WordPress
             bitmapStream.Close();
 
             Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, sanitizedFileName, savedFileName, pictureDateTime);
-            Post post = DataContext as Post;
+            Post post = App.MasterViewModel.CurrentPost;
             post.Media.Add(currentMedia);
 
             //update the UI
@@ -711,13 +712,13 @@ namespace WordPress
             imageWrapPanel.Children.Clear();
             _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
             _mediaUploadRPCs.Clear();
-            Post post = DataContext as Post;
+            Post post = App.MasterViewModel.CurrentPost;
             post.Media.Clear();
         }
 
         public void removeImage(Media imageToRemove)
         {
-            Post post = DataContext as Post;
+            Post post = App.MasterViewModel.CurrentPost;
             post.Media.Remove(imageToRemove);
             foreach (var el in imageWrapPanel.Children)
             {
@@ -785,7 +786,7 @@ namespace WordPress
         {
             StringBuilder builder = new StringBuilder();
 
-            Post post = DataContext as Post;
+            Post post = App.MasterViewModel.CurrentPost;
             foreach (Media currentMedia in post.Media)
             {
                 builder.Append(currentMedia.getHTML());
