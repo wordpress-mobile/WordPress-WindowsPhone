@@ -437,11 +437,11 @@
     <comment>title for the 'edit post' page</comment>
   </data>
   <data name="Title_ModerateComment" xml:space="preserve">
-    <value>moderate comment</value>
+    <value>comment</value>
     <comment>title for the 'moderate comment' page</comment>
   </data>
   <data name="Title_ModerateComments" xml:space="preserve">
-    <value>moderate comments</value>
+    <value>comments</value>
     <comment>title for the 'moderate comments' page</comment>
   </data>
   <data name="Title_Pages" xml:space="preserve">
