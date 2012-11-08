@@ -342,7 +342,7 @@ namespace WordPress.Model
         {
             GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
             rpc.Completed -= OnFetchCurrentBlogPostsCompleted;
-
+            CurrentBlog.IsLoadingContent = false;
             if (null == args.Error)
             {
                 int prevPostsCount = CurrentBlog.PostListItems.Count;
@@ -372,8 +372,6 @@ namespace WordPress.Model
             {
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
-
-            CurrentBlog.IsLoadingContent = false;
         }
 
         public void FetchCurrentBlogPagesAsync()
@@ -451,23 +449,30 @@ namespace WordPress.Model
             }
         }
 
-        public void FetchCurrentBlogPostFormatsAsync()
+        public void FetchCurrentBlogAdditionalDataAsync()
         {
             if (null == CurrentBlog)
             {
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
 
+            CurrentBlog.IsLoadingContent = true;
+
+            //Firing 2 async operations at the same time. Why wait?
             GetPostFormatsRPC rpc = new GetPostFormatsRPC(CurrentBlog);
             rpc.Completed += OnFetchPostFormatsRPCCompleted;
             rpc.ExecuteAsync();
+
+            GetOptionsRPC rpcOption = new GetOptionsRPC(CurrentBlog);
+            rpcOption.Completed += OnFetchOptionsRPCCompleted;
+            rpcOption.ExecuteAsync();
         }
 
         private void OnFetchPostFormatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<PostFormat> args)
         {
             GetPostFormatsRPC rpc = sender as GetPostFormatsRPC;
             rpc.Completed -= OnFetchPostFormatsRPCCompleted;
-
+            CurrentBlog.IsLoadingContent = false;
             if (null == args.Error)
             {
                 CurrentBlog.PostFormats.Clear();
@@ -475,6 +480,27 @@ namespace WordPress.Model
                 {
                     CurrentBlog.PostFormats.Add(postFormat);
                 });
+                NotifyFetchComplete();
+            }
+            else
+            {
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+        }
+
+        private void OnFetchOptionsRPCCompleted(object sender, XMLRPCCompletedEventArgs<Option> args)
+        {
+            GetOptionsRPC rpc = sender as GetOptionsRPC;
+            rpc.Completed -= OnFetchOptionsRPCCompleted;
+            CurrentBlog.IsLoadingContent = false;
+            if (null == args.Error)
+            {
+                CurrentBlog.Options.Clear();
+                args.Items.ForEach(option =>
+                {
+                    CurrentBlog.Options.Add(option);
+                });
+
                 NotifyFetchComplete();
             }
             else
@@ -687,13 +713,49 @@ namespace WordPress.Model
                 NotifyFetchComplete();
             }
                  
+            //get the options for the new blog
+            GetOptionsRPC pageListRPC = new GetOptionsRPC(newBlog);
+            pageListRPC.Completed += OnGetNewBlogOptionsCompleted;
+            pageListRPC.ExecuteAsync();
+        }
+
+        private void OnGetNewBlogOptionsCompleted(object sender, XMLRPCCompletedEventArgs<Option> args)
+        {
+            GetOptionsRPC rpc = sender as GetOptionsRPC;
+            rpc.Completed -= OnGetNewBlogOptionsCompleted;
+
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null == newBlog) return;
+
+            //report the error, but keep trying to get data
+            if (null != args.Error)
+            {
+                this.DebugLog("OnGetNewBlogOptionsCompleted: Exception occurred (" + newBlog.BlogName + ")");
+                this.DebugLog(args.Error.ToString());
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+            else
+            {
+                newBlog.Options.Clear();
+                args.Items.ForEach(option =>
+                {
+                    newBlog.Options.Add(option);
+                });
+            }
+
+            this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading Optijons.");
+
+            if (newBlog == CurrentBlog)
+            {
+                NotifyFetchComplete();
+            }
+
             //get the pages for the new blog
             GetPageListRPC pageListRPC = new GetPageListRPC(newBlog);
             pageListRPC.Completed += OnGetNewBlogPagesCompleted;
             pageListRPC.ProgressChanged += OnGetNewBlogPagesProgressChanged;
             pageListRPC.ExecuteAsync();
         }
-
 
         private void OnGetNewBlogPagesProgressChanged(object sender, ProgressChangedEventArgs args)
         {

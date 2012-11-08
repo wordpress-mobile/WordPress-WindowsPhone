@@ -59,6 +59,7 @@ namespace WordPress.Model
             LocalPostDrafts = new ObservableCollection<Post>();
             LocalPageDrafts = new ObservableCollection<Post>();
             PostFormats = new ObservableCollection<PostFormat>();
+            Options = new ObservableCollection<Option>();
         }
 
         public Blog(XElement structElement) 
@@ -187,6 +188,8 @@ namespace WordPress.Model
         public ObservableCollection<Post> LocalPageDrafts { get; private set; }
 
         public ObservableCollection<PostFormat> PostFormats { get; private set; }
+
+        public ObservableCollection<Option> Options { get; private set; }
 
         public bool PreserveBandwidth
         {

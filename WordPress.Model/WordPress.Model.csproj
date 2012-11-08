@@ -68,6 +68,7 @@
     <Compile Include="MD5.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="Momento.cs" />
+    <Compile Include="Option.cs" />
     <Compile Include="PageListItem.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="PostFormat.cs" />
@@ -84,6 +85,7 @@
       <DependentUpon>XMLRPCTable.resx</DependentUpon>
     </Compile>
     <Compile Include="XMLRPC\AbstractPostRPC.cs" />
+    <Compile Include="XMLRPC\GetOptionsRPC.cs" />
     <Compile Include="XMLRPC\GetPostFormatsRPC.cs" />
     <Compile Include="XMLRPC\DeleteCommentRPC.cs" />
     <Compile Include="XMLRPC\DeleteCommentsRPC.cs" />
@@ -131,6 +133,7 @@
     <Content Include="XMLRPC\wp_getCategories.xml" />
     <Content Include="XMLRPC\wp_getCommentCount.xml" />
     <Content Include="XMLRPC\wp_getComments.xml" />
+    <None Include="XMLRPC\wp_getOptions.xml" />
     <Content Include="XMLRPC\wp_getPageList.xml" />
     <None Include="XMLRPC\wp_getPostFormats.xml">
       <SubType>Designer</SubType>
