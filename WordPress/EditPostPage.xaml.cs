@@ -783,26 +783,40 @@ namespace WordPress
 
         private void UpdatePostContent()
         {
-            StringBuilder builder = new StringBuilder();
+            StringBuilder prependBuilder = new StringBuilder();
+            StringBuilder appendBuilder = new StringBuilder();
 
+            Blog currentBlog = App.MasterViewModel.CurrentBlog;
             Post post = App.MasterViewModel.CurrentPost;
             foreach (Media currentMedia in post.Media)
             {
-                builder.Append(currentMedia.getHTML());
+                if (currentMedia.placement != null)
+                {
+                    if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
+                    {
+                        prependBuilder.Append(currentMedia.getHTML());
+                    }
+                    else
+                    {
+                        appendBuilder.Append(currentMedia.getHTML());
+                    }
+                }
+                else
+                {
+                    if (currentBlog.PlaceImageAboveText)
+                    {
+                        prependBuilder.Append(currentMedia.getHTML());
+                    }
+                    else
+                    {
+                        appendBuilder.Append(currentMedia.getHTML());
+                    }
+                }
             }
 
-            Blog currentBlog = App.MasterViewModel.CurrentBlog;
-
-            if (currentBlog.PlaceImageAboveText)
-            {
-                contentTextBox.Text = builder.ToString() + contentTextBox.Text;
-            }
-            else
-            {
-                contentTextBox.Text += builder.ToString();
-            }
-
+            contentTextBox.Text = prependBuilder.ToString() + contentTextBox.Text + appendBuilder.ToString();
             contentTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+
         }
 
 

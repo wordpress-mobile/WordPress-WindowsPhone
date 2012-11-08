@@ -823,4 +823,13 @@
   <data name="ControlText_Private" xml:space="preserve">
     <value>Private</value>
   </data>
+  <data name="Prompts_MediaPlacement" xml:space="preserve">
+    <value>Image Placement</value>
+  </data>
+  <data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
+    <value>after content</value>
+  </data>
+  <data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
+    <value>before content</value>
+  </data>
 </root>

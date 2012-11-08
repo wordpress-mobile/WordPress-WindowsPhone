@@ -1374,6 +1374,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to after content.
+        /// </summary>
+        internal static string Options_MediaOptions_PlaceAfter {
+            get {
+                return ResourceManager.GetString("Options_MediaOptions_PlaceAfter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to before content.
+        /// </summary>
+        internal static string Options_MediaOptions_PlaceBefore {
+            get {
+                return ResourceManager.GetString("Options_MediaOptions_PlaceBefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to delete page.
         /// </summary>
         internal static string Options_PageActions_DeletePage {
@@ -1703,6 +1721,15 @@ namespace WordPress.Localization {
         internal static string Prompts_MediaErrorContent {
             get {
                 return ResourceManager.GetString("Prompts_MediaErrorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image Placement.
+        /// </summary>
+        internal static string Prompts_MediaPlacement {
+            get {
+                return ResourceManager.GetString("Prompts_MediaPlacement", resourceCulture);
             }
         }
         

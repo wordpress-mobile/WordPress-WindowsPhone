@@ -8,6 +8,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace WordPress.Model
 {
+
+    public enum eMediaPlacement
+    {
+        BlogPreference, // Default (0) should use the blog level preference. 
+        Before,
+        After
+    }
+
     public class Media : INotifyPropertyChanged
     {
         #region member variables
@@ -22,6 +30,7 @@ namespace WordPress.Model
         private string _url;       //once uploaded it contains the URL of the image on the server   
         private string _mimetype;  //mime type
         private string _fileName;  //preferred file name to set when upload the image on disk. It's the same of the filename on the device for now.
+        private eMediaPlacement _placement; // User specified placement of the image before or after the post/page content.
 
         private bool _alignThumbnailToCenter = false;
         private bool _createLinkToFullImage = false;
@@ -52,6 +61,21 @@ namespace WordPress.Model
 
         #region properties
 
+        public eMediaPlacement placement
+        {
+
+            get { return _placement; }
+            set
+            {
+                if (value != _placement)
+                {
+                    _placement = value;
+                    NotifyPropertyChanged("Placement");
+                }
+            }
+        }
+
+        public Blog Blog { get; private set; }
 
         public bool AlignThumbnailToCenter
         {

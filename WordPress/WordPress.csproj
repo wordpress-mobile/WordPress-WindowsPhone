@@ -305,6 +305,7 @@
     </Content>
     <Resource Include="Images\actionsStats.png" />
     <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.positionMedia.png" />
     <Content Include="Images\appbar.approve.png" />
     <Content Include="Images\appbar.back.png" />
     <Content Include="Images\appbar.cancel.png" />

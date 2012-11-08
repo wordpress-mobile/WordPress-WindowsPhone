@@ -264,6 +264,9 @@ namespace WordPress.Localization
             public string StatisticPeriod_LastQuarter { get { return LocalizedResources.Options_StatisticPeriod_LastQuarter; } }
             public string StatisticPeriod_LastYear { get { return LocalizedResources.Options_StatisticPeriod_LastYear; } }
             public string StatisticPeriod_AllTime { get { return LocalizedResources.Options_StatisticPeriod_AllTime; } }
+
+            public string MediaOptions_PlaceBefore { get { return LocalizedResources.Options_MediaOptions_PlaceBefore; } }
+            public string MediaOptions_PlaceAfter { get { return LocalizedResources.Options_MediaOptions_PlaceAfter; } }
         }
 
         #endregion
@@ -300,6 +303,7 @@ namespace WordPress.Localization
             public string Post { get { return LocalizedResources.Prompts_Post; } }
             public string Comment { get { return LocalizedResources.Prompts_Comment; } }
             public string Comments { get { return LocalizedResources.Prompts_Comments; } }
+            public string MediaPlacement { get { return LocalizedResources.Prompts_MediaPlacement; } }
         
             /*Error String*/
             public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }
