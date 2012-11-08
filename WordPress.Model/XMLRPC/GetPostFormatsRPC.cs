@@ -68,7 +68,7 @@ namespace WordPress.Model
             List<PostFormat> returnObj = new List<PostFormat>();
 
             XElement structElement = xDoc.Descendants(XmlRPCResponseConstants.STRUCT).First(); //the outer struct
-            foreach (XElement member in structElement.Descendants(XmlRPCResponseConstants.MEMBER))
+            foreach (XElement member in structElement.Elements(XmlRPCResponseConstants.MEMBER))
             {
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
                 if ("all".Equals(memberName))
@@ -81,13 +81,35 @@ namespace WordPress.Model
                 }
             }
 
+            bool isStandarAvailable = false;
+            
+            //the site/theme doesn't support the 'show-supported' option
             if (supportedPostFormat == null || supportedPostFormat.Count < 1 || supportedPostFormatsKeys == null || supportedPostFormatsKeys.Count < 1)
             {
-                throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
+                Dictionary<string, string> allPostFormat = parseAllPostFormats(structElement);
+                foreach( string ckey in allPostFormat.Keys) {
+                    string value = null;
+                    allPostFormat.TryGetValue(ckey, out value);
+                    if (ckey.Equals("standard") && value != null)
+                        isStandarAvailable = true;
+                    if (value != null)
+                    {
+                        returnObj.Add(new PostFormat(ckey, value));
+                    }
+                }
+              /*  foreach (XElement currentStructMember in structElement.Descendants(XmlRPCResponseConstants.MEMBER))
+                {
+                    string value = string.Empty;
+                    string key = string.Empty;
+                    key = currentStructMember.Element(XmlRPCResponseConstants.NAME).Value;
+                    value = currentStructMember.Element(XmlRPCResponseConstants.VALUE).Value;
+                    returnObj.Add(new PostFormat(key, value));
+                    if (key.Equals("standard") && value != null)
+                        isStandarAvailable = true;
+                } */
             }
             else
-            {
-                bool isStandarAvailable = false;
+            {          
                 supportedPostFormatsKeys.ForEach(element =>
                 {
                     string value = null;
@@ -98,11 +120,11 @@ namespace WordPress.Model
                     {
                         returnObj.Add(new PostFormat(element, value));
                     }
-                });
-
-                if(!isStandarAvailable)
-                    returnObj.Add(new PostFormat("standard", "Standard"));
+                });    
             }
+
+            if (!isStandarAvailable)
+                returnObj.Add(new PostFormat("standard", "Standard"));
             return returnObj;
         }
 
