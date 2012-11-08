@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<methodCall>
+  <methodName>wp.getPostFormats</methodName>
+  <params>
+    <param>
+      <value>
+        <int>{0}</int>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{1}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{2}</string>
+      </value>
+    </param>
+    <param>
+      <struct>
+        <member>
+          <name>show-supported</name>
+          <value>
+            <boolean>true</boolean>
+          </value>
+        </member>
+      </struct>
+    </param>
+  </params>
+</methodCall>

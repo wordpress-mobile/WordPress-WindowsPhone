@@ -83,6 +83,7 @@
       <DependentUpon>XMLRPCTable.resx</DependentUpon>
     </Compile>
     <Compile Include="XMLRPC\AbstractPostRPC.cs" />
+    <Compile Include="XMLRPC\GetPostFormatsRPC.cs" />
     <Compile Include="XMLRPC\DeleteCommentRPC.cs" />
     <Compile Include="XMLRPC\DeleteCommentsRPC.cs" />
     <Compile Include="XMLRPC\DeletePageRPC.cs" />
@@ -130,6 +131,7 @@
     <Content Include="XMLRPC\wp_getCommentCount.xml" />
     <Content Include="XMLRPC\wp_getComments.xml" />
     <Content Include="XMLRPC\wp_getPageList.xml" />
+    <None Include="XMLRPC\wp_getPostFormats.xml" />
     <Content Include="XMLRPC\wp_getUsersBlogs.xml" />
     <Content Include="XMLRPC\wp_newCategory.xml" />
     <Content Include="XMLRPC\wp_newComment.xml" />

@@ -290,6 +290,7 @@ namespace WordPress
             else if (blogPanorama.SelectedItem == postsPanoramaItem)
             {
                 FetchPosts(false);
+                DataService.Current.FetchCurrentBlogPostFormats();    
             }
             else if (blogPanorama.SelectedItem == pagesPanoramaItem)
             {

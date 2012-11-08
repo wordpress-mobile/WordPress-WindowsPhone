@@ -451,6 +451,38 @@ namespace WordPress.Model
             }
         }
 
+        public void FetchCurrentBlogPostFormats()
+        {
+            if (null == CurrentBlog)
+            {
+                throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
+            }
+
+            GetPostFormatsRPC rpc = new GetPostFormatsRPC(CurrentBlog);
+            rpc.Completed += OnGetPostFormatsRPCCompleted;
+            rpc.ExecuteAsync();
+        }
+
+        private void OnGetPostFormatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<Category> args)
+        {
+            GetPostFormatsRPC rpc = sender as GetPostFormatsRPC;
+            rpc.Completed -= OnGetPostFormatsRPCCompleted;
+
+            if (null == args.Error)
+            {
+             /*   CurrentBlog.Categories.Clear();
+                args.Items.ForEach(category =>
+                {
+                    CurrentBlog.Categories.Add(category);
+                });*/
+                NotifyFetchComplete();
+            }
+            else
+            {
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+        }
+
         public void StartService(ApplicationServiceContext context)
         {
             Current = this;
