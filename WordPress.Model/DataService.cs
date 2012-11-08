@@ -462,10 +462,10 @@ namespace WordPress.Model
             GetPostFormatsRPC rpc = new GetPostFormatsRPC(CurrentBlog);
             rpc.Completed += OnFetchPostFormatsRPCCompleted;
             rpc.ExecuteAsync();
-
+            /*
             GetOptionsRPC rpcOption = new GetOptionsRPC(CurrentBlog);
             rpcOption.Completed += OnFetchOptionsRPCCompleted;
-            rpcOption.ExecuteAsync();
+            rpcOption.ExecuteAsync();*/
         }
 
         private void OnFetchPostFormatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<PostFormat> args)
@@ -712,10 +712,18 @@ namespace WordPress.Model
             {
                 NotifyFetchComplete();
             }
-                 
-            //get the options for the new blog
+             
+            /*
+           //get the options for the new blog
             GetOptionsRPC pageListRPC = new GetOptionsRPC(newBlog);
             pageListRPC.Completed += OnGetNewBlogOptionsCompleted;
+            pageListRPC.ExecuteAsync();
+            */
+
+            //get the pages for the new blog
+            GetPageListRPC pageListRPC = new GetPageListRPC(newBlog);
+            pageListRPC.Completed += OnGetNewBlogPagesCompleted;
+            pageListRPC.ProgressChanged += OnGetNewBlogPagesProgressChanged;
             pageListRPC.ExecuteAsync();
         }
 
@@ -743,7 +751,7 @@ namespace WordPress.Model
                 });
             }
 
-            this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading Optijons.");
+            this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading Options.");
 
             if (newBlog == CurrentBlog)
             {

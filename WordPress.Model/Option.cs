@@ -22,7 +22,7 @@ namespace WordPress.Model
 
         #region constructor
 
-        public Option() { }
+        public Option() {}
 
         public Option(XElement structElement)
         {
@@ -41,7 +41,7 @@ namespace WordPress.Model
                 if (value != _name)
                 {
                     _name = value;
-                    NotifyPropertyChanged("Key");
+                    NotifyPropertyChanged("Name");
                 }
             }
         }
@@ -109,7 +109,6 @@ namespace WordPress.Model
             _name = name;
             _value = value;
             _readOnly = readOnly;
-
         }
 
         private void NotifyPropertyChanged(string propertyName)
