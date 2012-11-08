@@ -36,6 +36,7 @@ namespace WordPress.Model
         private bool _sticky;
         private bool _isNew;
         private ObservableCollection<Media> _media;
+        private string _postFormat;
 
         private const string DATECREATED_VALUE = "dateCreated";
         private const string USERID_VALUE = "userid";
@@ -58,6 +59,7 @@ namespace WordPress.Model
         private const string POSTSTATUS_VALUE = "post_status";
         private const string CUSTOMFIELDS_VALUE = "custom_fields";
         private const string STICKY_VALUE = "sticky";
+        private const string POSTFORMAT_VALUE = "wp_post_format";
 
         #endregion
 
@@ -76,11 +78,13 @@ namespace WordPress.Model
             _categories.CollectionChanged += OnCategoriesChanged;
             _customFields = new ObservableCollection<CustomField>();
             _media = new ObservableCollection<Media>();
+            _postFormat = "standard";
         }
 
         public Post(XElement structElement)
             :this()
         {
+            _postFormat = "standard";
             ParseElement(structElement);
             _media = new ObservableCollection<Media>();
         }
@@ -360,6 +364,20 @@ namespace WordPress.Model
             set { _media = value; }
         }
 
+
+        public string PostFormat
+        {
+            get { return _postFormat; }
+            set
+            {
+                if (value != _postFormat)
+                {
+                    _postFormat = value;
+                    NotifyPropertyChanged("PostFormat");
+                }
+            }
+        }
+
         #endregion
 
         #region methods
@@ -541,6 +559,11 @@ namespace WordPress.Model
                     {
                         _sticky = false;
                     }
+                }
+                else if (POSTFORMAT_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    _postFormat = value;
                 }
             } // end for-each
             IsNew = false;

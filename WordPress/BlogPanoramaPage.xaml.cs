@@ -289,13 +289,21 @@ namespace WordPress
             }
             else if (blogPanorama.SelectedItem == postsPanoramaItem)
             {
+                //syncs postFormats (and maybe other stuff in the future) after the refresh of the posts list
+                DataService.Current.FetchComplete += OnFetchCurrentBlogPostsComplete;
                 FetchPosts(false);
-                DataService.Current.FetchCurrentBlogPostFormats();    
             }
             else if (blogPanorama.SelectedItem == pagesPanoramaItem)
             {
                 FetchPages();
             }
+        }
+
+        private void OnFetchCurrentBlogPostsComplete(object sender, EventArgs args)
+        {
+            DataService.Current.FetchComplete -= OnFetchCurrentBlogPostsComplete;
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred; //do now show exceptions for this kind of syncs
+            DataService.Current.FetchCurrentBlogPostFormatsAsync();    
         }
 
         private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)

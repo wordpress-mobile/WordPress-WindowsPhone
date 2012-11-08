@@ -58,6 +58,7 @@ namespace WordPress.Model
             Categories = new ObservableCollection<Category>();
             LocalPostDrafts = new ObservableCollection<Post>();
             LocalPageDrafts = new ObservableCollection<Post>();
+            PostFormats = new ObservableCollection<PostFormat>();
         }
 
         public Blog(XElement structElement) 
@@ -172,7 +173,7 @@ namespace WordPress.Model
                 }
             }
         }
-
+        
         public ObservableCollection<Comment> Comments { get; private set; }
 
         public ObservableCollection<PostListItem> PostListItems { get; private set; }
@@ -184,6 +185,8 @@ namespace WordPress.Model
         public ObservableCollection<Post> LocalPostDrafts { get; private set; }
 
         public ObservableCollection<Post> LocalPageDrafts { get; private set; }
+
+        public ObservableCollection<PostFormat> PostFormats { get; private set; }
 
         public bool PreserveBandwidth
         {

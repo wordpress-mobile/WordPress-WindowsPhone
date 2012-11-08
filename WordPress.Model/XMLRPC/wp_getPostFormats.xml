@@ -18,14 +18,16 @@
       </value>
     </param>
     <param>
-      <struct>
-        <member>
-          <name>show-supported</name>
-          <value>
-            <boolean>true</boolean>
-          </value>
-        </member>
-      </struct>
+      <value>
+        <struct>
+          <member>
+            <name>show-supported</name>
+            <value>
+              <boolean>1</boolean>
+            </value>
+          </member>
+        </struct>
+      </value>
     </param>
   </params>
 </methodCall>

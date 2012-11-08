@@ -451,7 +451,7 @@ namespace WordPress.Model
             }
         }
 
-        public void FetchCurrentBlogPostFormats()
+        public void FetchCurrentBlogPostFormatsAsync()
         {
             if (null == CurrentBlog)
             {
@@ -459,22 +459,22 @@ namespace WordPress.Model
             }
 
             GetPostFormatsRPC rpc = new GetPostFormatsRPC(CurrentBlog);
-            rpc.Completed += OnGetPostFormatsRPCCompleted;
+            rpc.Completed += OnFetchPostFormatsRPCCompleted;
             rpc.ExecuteAsync();
         }
 
-        private void OnGetPostFormatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<Category> args)
+        private void OnFetchPostFormatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<PostFormat> args)
         {
             GetPostFormatsRPC rpc = sender as GetPostFormatsRPC;
-            rpc.Completed -= OnGetPostFormatsRPCCompleted;
+            rpc.Completed -= OnFetchPostFormatsRPCCompleted;
 
             if (null == args.Error)
             {
-             /*   CurrentBlog.Categories.Clear();
-                args.Items.ForEach(category =>
+                CurrentBlog.PostFormats.Clear();
+                args.Items.ForEach(postFormat =>
                 {
-                    CurrentBlog.Categories.Add(category);
-                });*/
+                    CurrentBlog.PostFormats.Add(postFormat);
+                });
                 NotifyFetchComplete();
             }
             else
@@ -651,11 +651,49 @@ namespace WordPress.Model
             }
 
             //get the pages for the new blog
+            GetPostFormatsRPC postFormatsRPC = new GetPostFormatsRPC(newBlog);
+            postFormatsRPC.Completed += OnGetNewBlogPostFormatsCompleted;
+            postFormatsRPC.ExecuteAsync();
+        }
+
+        private void OnGetNewBlogPostFormatsCompleted(object sender, XMLRPCCompletedEventArgs<PostFormat> args)
+        {
+            GetPostFormatsRPC rpc = sender as GetPostFormatsRPC;
+            rpc.Completed -= OnGetNewBlogPostFormatsCompleted;
+
+            Blog newBlog = _trackedBlogs.Where(blog => blog.BlogId == rpc.BlogId).FirstOrDefault();
+            if (null == newBlog) return;
+
+            //report the error, but keep trying to get data
+            if (null != args.Error)
+            {
+                this.DebugLog("OnGetNewBlogPostFormatsCompleted: Exception occurred (" + newBlog.BlogName + ")");
+                this.DebugLog(args.Error.ToString());
+                NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
+            }
+            else
+            {
+                newBlog.PostFormats.Clear();
+                args.Items.ForEach(postFormat =>
+                {
+                    newBlog.PostFormats.Add(postFormat);
+                });
+            }
+
+            this.DebugLog("Blog '" + newBlog.BlogName + "' has finished downloading postFormats.");
+
+            if (newBlog == CurrentBlog)
+            {
+                NotifyFetchComplete();
+            }
+                 
+            //get the pages for the new blog
             GetPageListRPC pageListRPC = new GetPageListRPC(newBlog);
             pageListRPC.Completed += OnGetNewBlogPagesCompleted;
             pageListRPC.ProgressChanged += OnGetNewBlogPagesProgressChanged;
             pageListRPC.ExecuteAsync();
         }
+
 
         private void OnGetNewBlogPagesProgressChanged(object sender, ProgressChangedEventArgs args)
         {

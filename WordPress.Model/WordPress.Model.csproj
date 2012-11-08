@@ -70,6 +70,7 @@
     <Compile Include="Momento.cs" />
     <Compile Include="PageListItem.cs" />
     <Compile Include="Post.cs" />
+    <Compile Include="PostFormat.cs" />
     <Compile Include="PostListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stats\ClickDataPoint.cs" />
@@ -131,7 +132,9 @@
     <Content Include="XMLRPC\wp_getCommentCount.xml" />
     <Content Include="XMLRPC\wp_getComments.xml" />
     <Content Include="XMLRPC\wp_getPageList.xml" />
-    <None Include="XMLRPC\wp_getPostFormats.xml" />
+    <None Include="XMLRPC\wp_getPostFormats.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="XMLRPC\wp_getUsersBlogs.xml" />
     <Content Include="XMLRPC\wp_newCategory.xml" />
     <Content Include="XMLRPC\wp_newComment.xml" />
