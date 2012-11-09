@@ -165,6 +165,7 @@ namespace WordPress
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
+            App.PopupSelectionService.SelectionChanged -= OnPopupSelectionServiceSelectionChanged;
             if (App.PopupSelectionService.IsPopupOpen)
             {
                 App.PopupSelectionService.HidePopup();
