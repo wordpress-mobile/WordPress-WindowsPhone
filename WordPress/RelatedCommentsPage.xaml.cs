@@ -56,6 +56,9 @@ namespace WordPress
             App.MasterViewModel.CurrentComment = commentsListBox.SelectedItem as Comment;
 
             NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
+
+            commentsListBox.SelectedIndex = -1;
+
         }
 
         #endregion
