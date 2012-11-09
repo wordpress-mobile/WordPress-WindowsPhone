@@ -85,6 +85,7 @@ namespace WordPress.Model
                 PostType.ToString(),
                 Post.PostStatus,
                 FormatCustomFields(),
+                Post.PostFormat,
                 String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
                 );
             return result;

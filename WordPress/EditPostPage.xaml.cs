@@ -72,8 +72,10 @@ namespace WordPress
                 _localizedStrings.ControlsText.PendingReview, 
                 _localizedStrings.ControlsText.Private, 
                 _localizedStrings.ControlsText.LocalDraft 
-            }; 
+            };
 
+            this.postFormatsPicker.ItemsSource = App.MasterViewModel.CurrentBlog.PostFormats;
+            
             Loaded += OnPageLoaded;
         }
 
@@ -184,6 +186,7 @@ namespace WordPress
                     DataContext = App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     setStatus();
+                    initPostFormatUI(App.MasterViewModel.CurrentPost.PostFormat);
                     this.isEditingLocalDraft = true;
 
                     //update the Media UI
@@ -212,6 +215,7 @@ namespace WordPress
                 post.DateCreated = DateTime.Now;
                 post.DateCreatedGMT = DateTime.Now.ToUniversalTime();
                 DataContext = post;
+                initPostFormatUI("standard");
                 /*postTimePicker.Value = post.DateCreated;
                 postDatePicker.Value = post.DateCreated;*/
                 if (isSharingPhoto)
@@ -246,6 +250,23 @@ namespace WordPress
                 statusPicker.SelectedIndex = 4;
         }
 
+        private void initPostFormatUI(string currentPostFormatKey)
+        {
+            int i = 0;
+            if (string.IsNullOrEmpty(currentPostFormatKey)) currentPostFormatKey = "standard";
+            foreach (PostFormat pf in App.MasterViewModel.CurrentBlog.PostFormats)
+            {
+                if (currentPostFormatKey.Equals(pf.Key))
+                {
+                    postFormatsPicker.SelectedIndex = i;
+                    postFormatsPicker.SelectionChanged += new SelectionChangedEventHandler(listPicker_SelectionChanged);
+                    return;
+                }
+                i++;
+            }
+            postFormatsPicker.SelectionChanged += new SelectionChangedEventHandler(listPicker_SelectionChanged);
+        }
+
         private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {            
             GetPostRPC rpc = sender as GetPostRPC;
@@ -257,6 +278,7 @@ namespace WordPress
                 App.MasterViewModel.CurrentPost = post;
                 DataContext = post;
                 setStatus();
+                initPostFormatUI(post.PostFormat);
                 if (post.MtKeyWords != "")
                 {
                     tagsTextBox.Text = post.MtKeyWords;
@@ -819,7 +841,6 @@ namespace WordPress
 
         }
 
-
         private void OnLinkButtonClick(object sender, RoutedEventArgs e)
         {
             ShowLinkControl();
@@ -873,6 +894,18 @@ namespace WordPress
                 post.DateCreatedGMT = ((DateTime)e.NewDateTime).ToUniversalTime();
             }
         }
+
+        private void listPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Post post = (Post)App.MasterViewModel.CurrentPost;
+            if (sender == postFormatsPicker)
+            {
+                int newIndex = postFormatsPicker.SelectedIndex;
+                PostFormat newPostFormat = App.MasterViewModel.CurrentBlog.PostFormats[newIndex];
+                post.PostFormat = newPostFormat.Key;
+            }
+        }
+
 
         #endregion
     }

@@ -61,10 +61,16 @@
             </value>
           </member>
           <member>
+            <name>wp_post_format</name>
+            <value>
+              <string>{10}</string>
+            </value>
+          </member>
+          <member>
             <name>date_created_gmt</name>
             <value>
               <dateTime.iso8601>
-                {10}
+                {11}
               </dateTime.iso8601>
             </value>
           </member>

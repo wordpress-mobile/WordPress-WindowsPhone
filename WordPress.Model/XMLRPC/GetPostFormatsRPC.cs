@@ -97,16 +97,6 @@ namespace WordPress.Model
                         returnObj.Add(new PostFormat(ckey, value));
                     }
                 }
-              /*  foreach (XElement currentStructMember in structElement.Descendants(XmlRPCResponseConstants.MEMBER))
-                {
-                    string value = string.Empty;
-                    string key = string.Empty;
-                    key = currentStructMember.Element(XmlRPCResponseConstants.NAME).Value;
-                    value = currentStructMember.Element(XmlRPCResponseConstants.VALUE).Value;
-                    returnObj.Add(new PostFormat(key, value));
-                    if (key.Equals("standard") && value != null)
-                        isStandarAvailable = true;
-                } */
             }
             else
             {          

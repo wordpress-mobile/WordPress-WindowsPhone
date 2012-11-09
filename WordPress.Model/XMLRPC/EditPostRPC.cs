@@ -57,6 +57,7 @@ namespace WordPress.Model
                 Post.Description.HtmlEncode(),
                 PostType.ToString(),
                 Post.PostStatus,
+                Post.PostFormat,
                 String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated.ToUniversalTime()));
 
             return result;

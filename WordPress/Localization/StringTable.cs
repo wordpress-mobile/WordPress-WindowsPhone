@@ -111,6 +111,7 @@ namespace WordPress.Localization
             public string Categories { get { return LocalizedResources.ControlText_Categories; } }
             public string SelectCategories { get { return LocalizedResources.ControlText_SelectCategories; } }
             public string Status { get { return LocalizedResources.ControlText_Status; } }
+            public string PostFormat { get { return LocalizedResources.ControlText_PostFormat; } }
             public string PostContent { get { return LocalizedResources.ControlText_PostContent; } }
             public string StartNewBlog { get { return LocalizedResources.ControlText_StartNewBlog; } }
             public string AddExistingWPBlog { get { return LocalizedResources.ControlText_AddExistingWPBlog; } }

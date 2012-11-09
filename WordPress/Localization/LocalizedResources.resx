@@ -832,4 +832,7 @@
   <data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
     <value>before content</value>
   </data>
+  <data name="ControlText_PostFormat" xml:space="preserve">
+    <value>Post Format</value>
+  </data>
 </root>
