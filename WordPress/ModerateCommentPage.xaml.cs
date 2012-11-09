@@ -360,6 +360,10 @@ namespace WordPress
         private void authorEmailTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Comment comment = DataContext as Comment;
+            if (comment.AuthorEmail.Equals(""))
+            {
+                return; // No email address so don't show the compose task.
+            }
             EmailComposeTask emailcomposer = new EmailComposeTask();
             emailcomposer.To = comment.AuthorEmail;
             emailcomposer.Subject = String.Format("Re: {0}", comment.PostTitle);
