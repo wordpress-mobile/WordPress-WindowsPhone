@@ -112,6 +112,7 @@
     <Compile Include="Converters\PageTitleConverter.cs" />
     <Compile Include="Converters\PostStatusInListConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
     <Compile Include="ImageDetailsPage.xaml.cs">
       <DependentUpon>ImageDetailsPage.xaml</DependentUpon>
