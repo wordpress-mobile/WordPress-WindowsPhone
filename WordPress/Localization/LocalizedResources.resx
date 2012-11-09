@@ -612,7 +612,7 @@
     <value>Please select the blog or blogs you'd like to import.</value>
   </data>
   <data name="ControlText_EULA" xml:space="preserve">
-    <value>End User License Agreement</value>
+    <value>GNU General Public License</value>
   </data>
   <data name="ControlText_Accept" xml:space="preserve">
     <value>Accept</value>
