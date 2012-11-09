@@ -125,7 +125,6 @@ namespace WordPress
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             InitializeUriMapper();
-            checkStats();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -206,68 +205,6 @@ namespace WordPress
 
         #endregion
 
-        void checkStats()
-        {
-            UserSettings settings = new UserSettings();
-
-            DateTime lastRefresh = settings.LastStatsUpload;
-
-            DateTime now = DateTime.Now;
-            TimeSpan timeDifference = now.Subtract(lastRefresh);
-            if (timeDifference.Days > 7)
-            {
-                settings.LastStatsUpload = now;
-                settings.Save();
-                //upload stats
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://api.wordpress.org/windowsphoneapp/update-check/1.0/");
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.Method = "POST";
-                request.BeginGetRequestStream(new AsyncCallback(GetRequestStreamCallback), request);
-            }
-
-        }
-
-        private static void GetRequestStreamCallback(IAsyncResult asynchronousResult)
-        {
-            HttpWebRequest webRequest = (HttpWebRequest)asynchronousResult.AsyncState;
-            Stream postStream = webRequest.EndGetRequestStream(asynchronousResult);
-            
-            //gather stats data
-            string device_uuid = "";
-            try
-            {
-                // In some cases the ANID property might be unavailable and will throw an exception.
-                device_uuid = (string)Microsoft.Phone.Info.UserExtendedProperties.GetValue("ANID");
-            } 
-            catch(Exception e) 
-            {
-                // Fail silently
-            }
-            string app_version = System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0];
-            string device_language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-            string mobile_network_type = NetworkInterface.NetworkInterfaceType.ToString();
-            string device_version = System.Environment.OSVersion.ToString().Replace("Microsoft Windows CE ", "");
-            string postData = String.Format("device_uuid={0}&app_version={1}&device_language={2}&mobile_network_type={3}&device_version={4}", HttpUtility.UrlEncode(device_uuid), HttpUtility.UrlEncode(app_version), HttpUtility.UrlEncode(device_language), HttpUtility.UrlEncode(mobile_network_type), HttpUtility.UrlEncode(device_version));
-            
-            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-            postStream.Write(byteArray, 0, byteArray.Length);
-            postStream.Close();
-            webRequest.BeginGetResponse(new AsyncCallback(GetResponseCallback), webRequest);
-        }
-
-        private static void GetResponseCallback(IAsyncResult asynchronousResult)
-        {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)asynchronousResult.AsyncState;
-                HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
-                response.Close();
-            }
-            catch (WebException e)
-            {
-                //moving on
-            }
-        }
     }
 
 
