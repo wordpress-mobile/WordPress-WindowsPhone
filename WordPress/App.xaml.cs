@@ -233,7 +233,16 @@ namespace WordPress
             Stream postStream = webRequest.EndGetRequestStream(asynchronousResult);
             
             //gather stats data
-            string device_uuid = (string)Microsoft.Phone.Info.UserExtendedProperties.GetValue("ANID");
+            string device_uuid = "";
+            try
+            {
+                // In some cases the ANID property might be unavailable and will throw an exception.
+                device_uuid = (string)Microsoft.Phone.Info.UserExtendedProperties.GetValue("ANID");
+            } 
+            catch(Exception e) 
+            {
+                // Fail silently
+            }
             string app_version = System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0];
             string device_language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
             string mobile_network_type = NetworkInterface.NetworkInterfaceType.ToString();
