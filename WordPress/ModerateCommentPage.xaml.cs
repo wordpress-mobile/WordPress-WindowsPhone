@@ -369,10 +369,25 @@ namespace WordPress
 
         private void authorURLTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
             Comment comment = DataContext as Comment;
+
+            if (comment.AuthorUrl.Equals(""))
+            {
+                return; // do nothing.
+            }
+
             WebBrowserTask wbTask = new WebBrowserTask();
-            wbTask.Uri = new Uri(comment.AuthorUrl);
-            wbTask.Show();
+            try
+            {
+                // A url that is not a good URI will throw an exception.
+                wbTask.Uri = new Uri(comment.AuthorUrl);
+                wbTask.Show();
+            }
+            catch (Exception ex)
+            {
+                // Fail silently
+            }
         }
 
         #endregion
