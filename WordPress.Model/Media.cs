@@ -75,8 +75,6 @@ namespace WordPress.Model
             }
         }
 
-        public Blog Blog { get; private set; }
-
         public bool AlignThumbnailToCenter
         {
             get { return _alignThumbnailToCenter; }
