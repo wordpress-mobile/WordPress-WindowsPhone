@@ -122,6 +122,7 @@
         <Converters:BooleanToVisibilityConverter x:Key="LoadingContentConverter"/>
         <Converters:ItemTitleInListConverter x:Key="ItemTitleInListConverter"/>
         <Converters:PostStatusInListConverter x:Key="PostStatusInListConverter"/>
+        <Converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -275,7 +276,7 @@
             								        <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
             							        </TextBlock.Foreground>
                                             </TextBlock>
-                                            <TextBlock Text="{Binding Status, Converter={StaticResource PostStatusInListConverter}}" Margin="0"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                                            <TextBlock Text="{Binding Status, Converter={StaticResource PostStatusInListConverter}}" Margin="0" Visibility="{Binding Status, Converter={StaticResource StringToVisibilityConverter}}" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
             							        <TextBlock.Foreground>
             								        <SolidColorBrush Color="{StaticResource WordPressOrange}"/>
             							        </TextBlock.Foreground>
@@ -314,7 +315,7 @@
                             						<SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                             					</TextBlock.Foreground>
                             				</TextBlock>
-                                            <TextBlock Text="{Binding Status, Converter={StaticResource PostStatusInListConverter}}" Margin="0"  Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
+                                            <TextBlock Text="{Binding Status, Converter={StaticResource PostStatusInListConverter}}" Margin="0" Visibility="{Binding Status, Converter={StaticResource StringToVisibilityConverter}}" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="21.333">
                                                 <TextBlock.Foreground>
                                                     <SolidColorBrush Color="{StaticResource WordPressOrange}"/>
                                                 </TextBlock.Foreground>
