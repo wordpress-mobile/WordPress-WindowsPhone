@@ -88,12 +88,19 @@ namespace WordPress.Utils
             Debug.WriteLine("DeviceTotalMemory " + Tools.convertMemory(DeviceStatus.DeviceTotalMemory));
         }
 
-        private static String convertMemory ( long size ) {
-            string[] unit = { "b", "kb", "mb", "gb", "tb", "pb" };
-            int floor1 = (int) Math.Floor(  Math.Log ( size, 1024) );
-            return Math.Round( size / Math.Pow( 1024, floor1 ), 2 ) + " " + unit[floor1];
+        private static String convertMemory(long size)
+        {
+            try
+            {
+                string[] unit = { "b", "kb", "mb", "gb", "tb", "pb" };
+                int floor1 = (int)Math.Floor(Math.Log(size, 1024));
+                return Math.Round(size / Math.Pow(1024, floor1), 2) + " " + unit[floor1];
+            }
+            catch (Exception e)
+            {
+                // Fail silently
+            }
+            return "n/a;";
         }
-
     }
-
 }
