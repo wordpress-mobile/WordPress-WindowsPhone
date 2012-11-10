@@ -135,7 +135,7 @@
                 <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
             </controls:Panorama.Foreground>
             <controls:Panorama.Title>
-                <StackPanel Margin="0,50,0,0" x:Name="panoramaBlogTitle">
+                <StackPanel Margin="0,50,0,0" x:Name="panoramaBlogTitle"> <!-- Margin property changed in the .cs for Win8 see #123 -->
                         <TextBlock Margin="2,6,0,0" Foreground="White" FontSize="88" x:Name="BlogTitle" Text="{Binding CurrentBlog.BlogNameLower, Mode=OneWay}" />
                     </StackPanel>
             </controls:Panorama.Title>
@@ -245,8 +245,12 @@
                 </controls:PanoramaItem.Foreground>
 				<Grid Margin="0,0,0,0">
                     <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,72">
-                    <StackPanel>                     
-                   		<TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,25" Height="92" />                     
+                    <StackPanel>                  
+                        <!-- Margin property changed in the .cs for Win8 see #123 -->
+                   		<TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
+                                   FontSize="72" FontFamily="Segoe WP SemiLight" 
+                                   Margin="0,-25,0,25" 
+                                   Height="92" />                    
                    		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3"
                              SelectionChanged="OnCommentsListBoxSelectionChanged"
                              ItemContainerStyle="{StaticResource CommentListItemStyle}" Margin="5,0,12,65" 
@@ -264,6 +268,7 @@
                 <Grid>
                     <ScrollViewer x:Name="postsScrollerView" Margin="0,0,0,72">
                         <StackPanel>
+                            <!-- Margin property changed in the .cs for Win8 see #123 -->
                             <TextBlock x:Name="postsTitle" Text="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="postsListBox" Grid.Row="0"
             			             SelectionChanged="OnPostsListBoxSelectionChanged" Margin="4,14,12,0"
@@ -303,6 +308,7 @@
                 <Grid>
                     <ScrollViewer x:Name="pagesScrollerView" Margin="0,0,0,72">
                         <StackPanel>
+                            <!-- Margin property changed in the .cs for Win8 see #123 -->
                             <TextBlock x:Name="pagesTitle" Text="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
                             <ListBox x:Name="pagesListBox"
                             	SelectionChanged="OnPagesListBoxSelectionChanged" Margin="4,14,12,0"
