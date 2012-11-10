@@ -162,7 +162,8 @@ namespace WordPress
             CategoryContentConverter converter = Resources["CategoryContentConverter"] as CategoryContentConverter;
             if (null == converter) return;
 
-            categoriesTextBlock.Text = converter.Convert(App.MasterViewModel.CurrentPost.Categories, typeof(string), null, null) as string;
+            if(App.MasterViewModel.CurrentPost != null)
+                categoriesTextBlock.Text = converter.Convert(App.MasterViewModel.CurrentPost.Categories, typeof(string), null, null) as string;
         }
 
         /// <summary>
