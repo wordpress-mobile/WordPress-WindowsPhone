@@ -167,6 +167,12 @@ namespace WordPress
                 // sharing a photo
                 App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
             }
+
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
+
         }
         #endregion
 
