@@ -133,11 +133,11 @@ namespace WordPress.Model
                 StoreData data = new StoreData();
                 if (null != CurrentBlog)
                 {
-                    data.BlogId = CurrentBlog.BlogId;
+                    data.Xmlrpc = CurrentBlog.Xmlrpc;
                 }
                 else
                 {
-                    data.BlogId = -1;
+                    data.Xmlrpc = "";
                 }
                 data.Comment = CurrentComment;
                 data.PostListItem = CurrentPostListItem;
@@ -186,11 +186,11 @@ namespace WordPress.Model
                 XmlSerializer serializer = new XmlSerializer(typeof(StoreData));
                 StoreData result = serializer.Deserialize(isoStream) as StoreData;
 
-                if (-1 != result.BlogId)
+                if ("" != result.Xmlrpc)
                 {
                     if (null != Blogs && 0 < Blogs.Count)
                     {
-                        CurrentBlog = Blogs.Single(b => b.BlogId == result.BlogId);
+                        CurrentBlog = Blogs.Single(b => b.Xmlrpc == result.Xmlrpc);
                     }
                 }
                 CurrentComment = result.Comment;
@@ -818,7 +818,7 @@ namespace WordPress.Model
         {
             //DEV NOTE: using a simple momento pattern here to capture the DataStore's state--
             //serializing a singleton won't work with the reflection constraints
-            public int BlogId { get; set; }
+            public string Xmlrpc { get; set; }
             public Comment Comment { get; set; }
             public PostListItem PostListItem { get; set; }
             public PageListItem PageListItem { get; set; }
