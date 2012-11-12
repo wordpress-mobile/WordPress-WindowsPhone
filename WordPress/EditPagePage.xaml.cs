@@ -62,13 +62,19 @@ namespace WordPress
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
 
-            this.statusPicker.ItemsSource = new List<string>() { 
+            List<string> statusList = new List<string>() { 
                 _localizedStrings.ControlsText.Publish, 
                 _localizedStrings.ControlsText.Draft, 
                 _localizedStrings.ControlsText.PendingReview, 
-                _localizedStrings.ControlsText.Private, 
-                _localizedStrings.ControlsText.LocalDraft 
-            }; 
+                _localizedStrings.ControlsText.Private
+            };
+
+            if (App.MasterViewModel.CurrentPost == null || App.MasterViewModel.CurrentPost.IsNew)
+            {
+                statusList.Add(_localizedStrings.ControlsText.LocalDraft);
+            }
+            this.statusPicker.ItemsSource = statusList;
+
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
 
