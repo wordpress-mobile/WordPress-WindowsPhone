@@ -541,6 +541,11 @@ namespace WordPress
                 (e.Content as ImageDetailsPage).TappedImage = _lastTappedMedia;
                 _lastTappedMedia = null;
             }
+            else if (e.Content is BlogPanoramaPage)
+            {
+                //remove the listers!
+                postFormatsPicker.SelectionChanged -= listPicker_SelectionChanged;
+            }
 
             base.OnNavigatedFrom(e);
             //store transient data in the State dictionary
