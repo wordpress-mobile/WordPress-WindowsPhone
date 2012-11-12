@@ -66,19 +66,6 @@ namespace WordPress
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
 
-            List<string> statusList = new List<string>() { 
-                _localizedStrings.ControlsText.Publish, 
-                _localizedStrings.ControlsText.Draft, 
-                _localizedStrings.ControlsText.PendingReview, 
-                _localizedStrings.ControlsText.Private
-            };
-
-            if (App.MasterViewModel.CurrentPost == null || App.MasterViewModel.CurrentPost.IsNew)
-            {
-                statusList.Add(_localizedStrings.ControlsText.LocalDraft);
-            }
-            this.statusPicker.ItemsSource = statusList;
-
             this.postFormatsPicker.ItemsSource = App.MasterViewModel.CurrentBlog.PostFormats;
             
             Loaded += OnPageLoaded;
@@ -189,11 +176,11 @@ namespace WordPress
                 if (App.MasterViewModel.CurrentPostListItem.DraftIndex > -1)
                 {
                     // Post is a local draft
+                    this.isEditingLocalDraft = true;
                     DataContext = App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalPostDrafts[App.MasterViewModel.CurrentPostListItem.DraftIndex];
                     setStatus();
                     initPostFormatUI(App.MasterViewModel.CurrentPost.PostFormat);
-                    this.isEditingLocalDraft = true;
 
                     //update the Media UI
                     foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
@@ -222,6 +209,8 @@ namespace WordPress
                 post.DateCreatedGMT = DateTime.Now.ToUniversalTime();
                 DataContext = post;
                 initPostFormatUI("standard");
+                post.PostStatus = "publish";
+                setStatus();
                 /*postTimePicker.Value = post.DateCreated;
                 postDatePicker.Value = post.DateCreated;*/
                 if (isSharingPhoto)
@@ -242,6 +231,17 @@ namespace WordPress
 
         private void setStatus()
         {
+            List<string> statusList = new List<string>() { 
+                _localizedStrings.ControlsText.Publish, 
+                _localizedStrings.ControlsText.Draft, 
+                _localizedStrings.ControlsText.PendingReview, 
+                _localizedStrings.ControlsText.Private
+            };
+
+            if (App.MasterViewModel.CurrentPost.IsNew || this.isEditingLocalDraft)
+                statusList.Add(_localizedStrings.ControlsText.LocalDraft);
+
+            this.statusPicker.ItemsSource = statusList;
             
             Post post = App.MasterViewModel.CurrentPost;
             if (post.PostStatus.Equals("publish"))

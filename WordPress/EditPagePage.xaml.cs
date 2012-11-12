@@ -62,20 +62,6 @@ namespace WordPress
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
 
-            List<string> statusList = new List<string>() { 
-                _localizedStrings.ControlsText.Publish, 
-                _localizedStrings.ControlsText.Draft, 
-                _localizedStrings.ControlsText.PendingReview, 
-                _localizedStrings.ControlsText.Private
-            };
-
-            if (App.MasterViewModel.CurrentPost == null || App.MasterViewModel.CurrentPost.IsNew)
-            {
-                statusList.Add(_localizedStrings.ControlsText.LocalDraft);
-            }
-            this.statusPicker.ItemsSource = statusList;
-
-
             _mediaUploadRPCs = new List<UploadFileRPC>();
 
             Loaded += OnPageLoaded;
@@ -134,10 +120,10 @@ namespace WordPress
                 if (App.MasterViewModel.CurrentPageListItem.DraftIndex > -1)
                 {
                     // Page is a local draft
+                    this.isEditingLocalDraft = true;
                     DataContext = App.MasterViewModel.CurrentBlog.LocalPageDrafts[App.MasterViewModel.CurrentPageListItem.DraftIndex];
                     App.MasterViewModel.CurrentPost = App.MasterViewModel.CurrentBlog.LocalPageDrafts[App.MasterViewModel.CurrentPageListItem.DraftIndex];
                     setStatus();
-                    this.isEditingLocalDraft = true;
 
                     //update the Media UI
                     foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
@@ -161,15 +147,28 @@ namespace WordPress
             else
             {
                 Post page = new Post();
+                page.PostStatus = "publish";
                 App.MasterViewModel.CurrentPost = page;
                 page.DateCreated = DateTime.Now;
                 page.DateCreatedGMT = DateTime.Now.ToUniversalTime();
                 DataContext = page;
+                setStatus();
             }
         }
 
         private void setStatus()
         {
+            List<string> statusList = new List<string>() { 
+                _localizedStrings.ControlsText.Publish, 
+                _localizedStrings.ControlsText.Draft, 
+                _localizedStrings.ControlsText.PendingReview, 
+                _localizedStrings.ControlsText.Private
+            };
+
+            if (App.MasterViewModel.CurrentPost.IsNew || this.isEditingLocalDraft)
+                statusList.Add(_localizedStrings.ControlsText.LocalDraft);
+
+            this.statusPicker.ItemsSource = statusList;
             Post page = App.MasterViewModel.CurrentPost;
             if (page.PostStatus.Equals("publish"))
                 statusPicker.SelectedIndex = 0;
