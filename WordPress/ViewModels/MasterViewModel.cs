@@ -95,11 +95,12 @@ namespace WordPress
                     return null; 
                 }
 
-                if (null != CurrentBlog.LocalPostDrafts)
+                if (null != CurrentBlog.LocalPostDrafts )
                 {
                     for (int i = 0; i < CurrentBlog.LocalPostDrafts.Count; i++)
                     {
-                        CurrentBlog.PostListItems.RemoveAt(i);
+                        if (CurrentBlog.PostListItems.Count() >= i + 1)
+                            CurrentBlog.PostListItems.RemoveAt(i);
                     }
                 }
 
@@ -135,7 +136,8 @@ namespace WordPress
                 {
                     for (int i = 0; i < CurrentBlog.LocalPageDrafts.Count; i++)
                     {
-                        CurrentBlog.PageListItems.RemoveAt(i);
+                        if (CurrentBlog.PageListItems.Count() >= i + 1)
+                            CurrentBlog.PageListItems.RemoveAt(i);
                     }
                 }
 
