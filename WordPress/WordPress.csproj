@@ -16,7 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>de-DE;it-IT;fr-FR;es-ES;sv-SE</SupportedCultures>
+    <SupportedCultures>de-DE%3bit-IT%3bfr-FR%3bes-ES%3bsv-SE%3bzh%3bid%3bid-ID%3bit%3bja%3bja-JP%3bpl%3bpl-PL%3bpt%3bpt-BR%3bpt-PT</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>WordPress.xap</XapFilename>
