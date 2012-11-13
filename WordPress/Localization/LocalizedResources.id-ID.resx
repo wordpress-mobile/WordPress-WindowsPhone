@@ -225,568 +225,568 @@
 		<value></value>
 	</data>
 	<data name="ControlText_Back" xml:space="preserve">
-		<value></value>
+		<value>kembali</value>
 	</data>
 	<data name="ControlText_Pin" xml:space="preserve">
-		<value>anclar a inicio</value>
+		<value>tempel</value>
 	</data>
 	<data name="ControlText_Unpin" xml:space="preserve">
-		<value>desanclar de inicio</value>
+		<value>lepas</value>
 	</data>
 	<data name="Messages_MarketDescription" xml:space="preserve">
-		<value>Wordpress para Windows Phone es una aplicación de Código abierto que te permite escribir nuevas entradas, editar contenido, ver estadísticas y gestionar los comentarios de tu Sitio Wordpress.</value>
+		<value>WordPress untuk Windows Phone adalah sebuah aplikasi Open Source yang memberdayakan Anda untuk menulis tulisan baru, menyunting konten, melihat statistik, dan mengelola komentar untuk situs WordPress Anda.</value>
 	</data>
 	<data name="ControlText_NoTitle" xml:space="preserve">
-		<value>No hay título para este artículo</value>
+		<value>Tidak ada Judul untuk Item ini</value>
 	</data>
 	<data name="ControlText_ReleaseToRefresh" xml:space="preserve">
-		<value>Suelta para refrescar</value>
+		<value>Lepas untuk menyegarkan</value>
 	</data>
 	<data name="ControlText_PullDownToRefresh" xml:space="preserve">
-		<value>Presiona para actualizar</value>
+		<value>Tarik ke bawah untuk menyegarkan</value>
 	</data>
 	<data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
-		<value>Lo sentimos, la acción solicitada falló. Por favor, prueba de nuevo.</value>
+		<value>Maaf, aksi yang diminta gagal. Silakan coba lagi.</value>
 	</data>
 	<data name="Prompts_XeElementMissing" xml:space="preserve">
-		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo. </value>
+		<value>Maaf, server mengembalikan data yang tidak sah. Silakan coba lagi.</value>
 	</data>
 	<data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
-		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo.</value>
+		<value>Maaf, server mengembalikan data yang tidak sah. Silakan coba lagi.</value>
 	</data>
 	<data name="Messages_Hello" xml:space="preserve">
-		<value>Hola</value>
+		<value>Halo</value>
 	</data>
 	<data name="ControlText_SaveDraft" xml:space="preserve">
-		<value>guardar borrador</value>
+		<value>simpan naskah</value>
 	</data>
 	<data name="ControlText_LoadingContent" xml:space="preserve">
-		<value>cargando contenido</value>
+		<value>memuat konten</value>
 	</data>
 	<data name="ControlText_FAQ" xml:space="preserve">
-		<value>Visitar Preguntas Frecuentes</value>
+		<value>Kunjungi FAQ</value>
 	</data>
 	<data name="ControlText_Forums" xml:space="preserve">
-		<value>Visita los foros</value>
+		<value>Kunjungi Forum</value>
 	</data>
 	<data name="Prompts_MediaError" xml:space="preserve">
-		<value>Error de subida de archivos</value>
+		<value>Galat Unggah Media</value>
 	</data>
 	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>Lo siento, ha ocurrido un error subiendo el archivo multimeda. ¿Quieres seguir con la subida a la entrada?</value>
+		<value>Maaf, ada masalah saat mengunggah media. Apakah Anda masih ingin mengunggah tulisan tadi?</value>
 	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
-		<value>insertar vínculo</value>
+		<value>sisipkan taut</value>
 	</data>
 	<data name="ControlText_EnterURL" xml:space="preserve">
-		<value>Por favor inserta la url del vínculo que desees insertar.</value>
+		<value>Tolong masukkan url untuk taut yang ingin Anda sisipkan.</value>
 	</data>
 	<data name="Prompts_SureCancel" xml:space="preserve">
-		<value>¿Estás seguro que deseas cancelar la edición de este {0}?</value>
+		<value>Apakah Anda yakin ingin batalkan menyunting ini {0}?</value>
 	</data>
 	<data name="Prompts_Post" xml:space="preserve">
-		<value>publicación</value>
+		<value>tulisan</value>
 	</data>
 	<data name="Prompts_Page" xml:space="preserve">
-		<value>página</value>
+		<value>halaman</value>
 	</data>
 	<data name="Prompts_CancelEditing" xml:space="preserve">
-		<value>Cancelar Edición</value>
+		<value>Batalkan Penyuntingan</value>
 	</data>
 	<data name="ControlText_DefaultTagLine" xml:space="preserve">
-		<value>Publicado desde WordPress para Windows Phone</value>
+		<value>Dikirim dari WordPress for Windows Phone</value>
 	</data>
 	<data name="ControlText_EnterLinkText" xml:space="preserve">
-		<value>[opcional] escribe el texto que debe aparecer para el enlace.</value>
+		<value>[opsional] masukkan teks yang akan dimunculkan untuk taut tersebut.</value>
 	</data>
 	<data name="ControlText_Username" xml:space="preserve">
-		<value>usuario</value>
+		<value>nama pengguna</value>
 	</data>
 	<data name="Title_Approve" xml:space="preserve">
-		<value>APROBADO</value>
+		<value>DISETUJUI</value>
 	</data>
 	<data name="Title_Unapprove" xml:space="preserve">
-		<value>RECHAZADO</value>
+		<value>TAK DISETUJUI</value>
 	</data>
 	<data name="ControlText_Apikey" xml:space="preserve">
-		<value>clave api</value>
+		<value>kunci api</value>
 	</data>
 	<data name="Prompts_MissingApikey" xml:space="preserve">
-		<value>El blog actual no posee una clave api. Introduzca una en la página de configuraciones.</value>
+		<value>Blog ini tidak memiliki kunci api. Silakan masukkan kodenya pada halaman pengaturan.</value>
 	</data>
 	<data name="Options_StatisticType_Views" xml:space="preserve">
-		<value>Vistas</value>
+		<value>Tampilan</value>
 	</data>
 	<data name="ControlText_Clicks" xml:space="preserve">
-		<value>Clics</value>
+		<value>Klik</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
-		<value>Última semana</value>
+		<value>Minggu Lalu</value>
 	</data>
 	<data name="ControlText_Underline" xml:space="preserve">
-		<value>S</value>
+		<value>U</value>
 	</data>
 	<data name="ControlText_Status" xml:space="preserve">
-		<value>estado</value>
+		<value>status</value>
 	</data>
 	<data name="ControlText_StrikeThrough" xml:space="preserve">
 		<value>ABC</value>
 	</data>
 	<data name="ControlText_Unapprove" xml:space="preserve">
-		<value>no aprobar</value>
+		<value>tolak</value>
 	</data>
 	<data name="ControlText_Preferences" xml:space="preserve">
-		<value>preferencias</value>
+		<value>preferensi</value>
 	</data>
 	<data name="ControlText_Spam" xml:space="preserve">
 		<value>spam</value>
 	</data>
 	<data name="ControlText_SearchTerms" xml:space="preserve">
-		<value>Términos de búsqueda</value>
+		<value>Istilah Pencarian</value>
 	</data>
 	<data name="Message_CheckTheUrl" xml:space="preserve">
-		<value>Hay un problema con el url que se introdujo. ¿El url iniciaba con http://, o terminaba con xmlrpc.php? El url predeterminado del sitio de Wordpress, por ejemplo, es https://wordpress.com/xmlrpc.php.</value>
+		<value>Sepertinya ada masalah dengan url yang dimasukkan. Apakah url dimulai dengan http://, atau xmlrpc.php dibagian akhir? Default untuk situs WordPress.com, misalnya, adalah https://wordpress.com/xmlrpc.php.</value>
 	</data>
 	<data name="ControlText_Decline" xml:space="preserve">
-		<value>Declinar</value>
+		<value>Tolak</value>
 	</data>
 	<data name="Prompts_SelectStatisticType" xml:space="preserve">
-		<value>¿Sobre qué estadísticas quiere datos?</value>
+		<value>Statistik mana yang Anda inginkan untuk didata?</value>
 	</data>
 	<data name="Messages_NoStatsAvailable" xml:space="preserve">
-		<value>No hay estadísticas disponibles para la consulta actual.</value>
+		<value>Tidak ada statistik yang tersedia untuk permintaan sekarang.</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
-		<value>Último año</value>
+		<value>Tahun Lalu</value>
 	</data>
 	<data name="ControlText_Title" xml:space="preserve">
-		<value>título</value>
+		<value>judul</value>
 	</data>
 	<data name="ControlText_Content" xml:space="preserve">
-		<value>contenido</value>
+		<value>isi</value>
 	</data>
 	<data name="ControlText_Views" xml:space="preserve">
-		<value>Vistas</value>
+		<value>Tampilan</value>
 	</data>
 	<data name="Title_NewPage" xml:space="preserve">
-		<value>página nueva</value>
+		<value>halaman baru</value>
 	</data>
 	<data name="ControlText_AddAll" xml:space="preserve">
-		<value>añadir todo</value>
+		<value>tambahkan semua</value>
 	</data>
 	<data name="ControlText_AddSelected" xml:space="preserve">
-		<value>añadir seleccionados</value>
+		<value>tambahkan yang dipilih</value>
 	</data>
 	<data name="ControlText_SelectBlogs" xml:space="preserve">
-		<value>Seleccione el blog o blogs que quiere importar.</value>
+		<value>Silakan pilih blog atau blog-blog yang ingin Anda impor.</value>
 	</data>
 	<data name="ControlText_None" xml:space="preserve">
-		<value>[ninguno]</value>
+		<value>[none]</value>
 	</data>
 	<data name="ControlText_PostContent" xml:space="preserve">
-		<value>publicar contenido</value>
+		<value>memposkan konten</value>
 	</data>
 	<data name="Messages_ApprovingComment" xml:space="preserve">
-		<value>aprobando comentario...</value>
+		<value>menyetujui komentar...</value>
 	</data>
 	<data name="ControlText_Vibrate" xml:space="preserve">
-		<value>vibrar</value>
+		<value>bergetar</value>
 	</data>
 	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
-		<value>TO</value>
+		<value>OG</value>
 	</data>
 	<data name="Title_NewPost" xml:space="preserve">
-		<value>publicación nueva</value>
+		<value>tulisan baru</value>
 	</data>
 	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
-		<value>Seleccione un tamaño de miniatura.</value>
+		<value>Silakan pilih ukuran miniatur.</value>
 	</data>
 	<data name="ControlText_Accept" xml:space="preserve">
-		<value>Aceptar</value>
+		<value>Terima</value>
 	</data>
 	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
-		<value>marcando comentarios como spam...</value>
+		<value>tandai komentar-komentar sebagai spam...</value>
 	</data>
 	<data name="Messages_MarkingAsSpam" xml:space="preserve">
-		<value>marcando comentario como spam...</value>
+		<value>tandai komentar sebagai spam...</value>
 	</data>
 	<data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
-		<value>¿Cuántos datos quiere ver?</value>
+		<value>Berapa banyak data yang ingin Anda lihat?</value>
 	</data>
 	<data name="Title_Pages" xml:space="preserve">
-		<value>páginas</value>
+		<value>halaman</value>
 	</data>
 	<data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
-		<value>crear vínculo a la imagen completa</value>
+		<value>ciptakan taut ke gambar ukuran penuh</value>
 	</data>
 	<data name="ControlText_UpdateInterval" xml:space="preserve">
-		<value>intervalo de actualización</value>
+		<value>interval pembaruan</value>
 	</data>
 	<data name="Title_CheckTheUrl" xml:space="preserve">
-		<value>¿El url es válido?</value>
+		<value>Apakah url ini sah?</value>
 	</data>
 	<data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
-		<value>¿Está seguro de querer eliminar la página '{0}'?</value>
+		<value>Apakah Anda yakin ingin menghapus halaman '{0}'?</value>
 	</data>
 	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
-		<value>¿Está seguro de querer eliminar la publicación '{0}'?</value>
+		<value>Apakah Anda yakin ingin menghapus tulisan '{0}'?</value>
 	</data>
 	<data name="Title_ConfirmDelete" xml:space="preserve">
-		<value>Confirmar eliminación</value>
+		<value>Konfirmasi penghapusan</value>
 	</data>
 	<data name="ControlText_DeleteBlog" xml:space="preserve">
-		<value>eliminar blog</value>
+		<value>hapus blog</value>
 	</data>
 	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
-		<value>Seleccione el blog que quiere eliminar.</value>
+		<value>Silakan pilih blog yang ingin Anda hapus.</value>
 	</data>
 	<data name="ControlText_Clear" xml:space="preserve">
-		<value>limpiar</value>
+		<value>kosongkan</value>
 	</data>
 	<data name="Messages_UploadingMedia" xml:space="preserve">
-		<value>cargando medios...</value>
+		<value>sedang mengunggah media...</value>
 	</data>
 	<data name="ControlText_OriginalSize" xml:space="preserve">
-		<value>tamaño original</value>
+		<value>ukuran asli</value>
 	</data>
 	<data name="ControlText_CategorySlug" xml:space="preserve">
-		<value>slug de la categoría (opcional)</value>
+		<value>slug kategori (opsional)</value>
 	</data>
 	<data name="Title_Preferences" xml:space="preserve">
-		<value>preferencias</value>
+		<value>preferensi</value>
 	</data>
 	<data name="ControlText_UploadChanges" xml:space="preserve">
-		<value>cargar cambios</value>
+		<value>unggah perubahan</value>
 	</data>
 	<data name="Messages_MissingReply" xml:space="preserve">
-		<value>Introduzca una respuesta.</value>
+		<value>Silahkan masukkan sebuah balasan.</value>
 	</data>
 	<data name="Message_DownloadingStatistics" xml:space="preserve">
-		<value>descargando estadísticas...</value>
+		<value>mengunduh statistik...</value>
 	</data>
 	<data name="ControlText_PlayNotificationSound" xml:space="preserve">
-		<value>reproducir sonido de notificación</value>
+		<value>putar suara pemberitahuan</value>
 	</data>
 	<data name="ControlText_PlaceImage" xml:space="preserve">
-		<value>incluir imagen</value>
+		<value>tempatkan gambar</value>
 	</data>
 	<data name="ControlText_PageContent" xml:space="preserve">
-		<value>contenido de página</value>
+		<value>konten halaman</value>
 	</data>
 	<data name="Options_StatisticType_Clicks" xml:space="preserve">
-		<value>Clics</value>
+		<value>Klik</value>
 	</data>
 	<data name="ControlText_Save" xml:space="preserve">
-		<value>guardar</value>
+		<value>simpan</value>
 	</data>
 	<data name="ControlText_StartNewBlog" xml:space="preserve">
-		<value>Iniciar un blog nuevo en WordPress.com</value>
+		<value>Memulai sebuah blog baru di WordPress.com</value>
 	</data>
 	<data name="ControlText_Referrers" xml:space="preserve">
-		<value>Referidos</value>
+		<value>Perujuk</value>
 	</data>
 	<data name="ControlText_PostTitle" xml:space="preserve">
-		<value>Título de la publicación</value>
+		<value>Judul Tulisan</value>
 	</data>
 	<data name="ControlText_Date" xml:space="preserve">
-		<value>Fecha</value>
+		<value>Tanggal</value>
 	</data>
 	<data name="ControlText_CategoryName" xml:space="preserve">
-		<value>nombre de categoría</value>
+		<value>nama kategori</value>
 	</data>
 	<data name="ControlText_CategoryParent" xml:space="preserve">
-		<value>categoría padre (opcional)</value>
+		<value>kategori induk (opsional)</value>
 	</data>
 	<data name="ControlText_Refresh" xml:space="preserve">
-		<value>actualizar</value>
+		<value>segarkan</value>
 	</data>
 	<data name="Prompts_MissingUserName" xml:space="preserve">
-		<value>Introduzca un nombre de usuario.</value>
+		<value>Silakan masukkan sebuah nama pengguna.</value>
 	</data>
 	<data name="Prompts_MissingUrl" xml:space="preserve">
-		<value>Introduzca un url válido.</value>
+		<value>Harap masukkan sebuah url yang sah.</value>
 	</data>
 	<data name="ControlText_Password" xml:space="preserve">
-		<value>contraseña</value>
+		<value>kata sandi</value>
 	</data>
 	<data name="ControlText_ModerateComments" xml:space="preserve">
-		<value>moderar comentarios</value>
+		<value>moderasi komentar</value>
 	</data>
 	<data name="ControlText_NeedBlog" xml:space="preserve">
-		<value>¿aún no tiene un blog?</value>
+		<value>belum punya blog?</value>
 	</data>
 	<data name="Prompts_RefreshEntity" xml:space="preserve">
-		<value>¿Qué le gustaría actualizar?</value>
+		<value>Apa yang ingin Anda segarkan?</value>
 	</data>
 	<data name="ControlText_PostSignature" xml:space="preserve">
-		<value>publicar firma</value>
+		<value>tanda tangan tulisan</value>
 	</data>
 	<data name="ControlText_Write" xml:space="preserve">
-		<value>añadir publicación</value>
+		<value>tambah sebuah tulisan</value>
 	</data>
 	<data name="ControlText_SelectedCategories" xml:space="preserve">
-		<value>categorías seleccionadas</value>
+		<value>kategori yang dipilih</value>
 	</data>
 	<data name="ControlText_CategoryDescription" xml:space="preserve">
-		<value>descripción de categoría (opcional)</value>
+		<value>deskripsi kategori (opsional)</value>
 	</data>
 	<data name="Title_Posts" xml:space="preserve">
-		<value>publicaciones</value>
+		<value>tulisan-tulisan</value>
 	</data>
 	<data name="Options_StatisticType_PostViews" xml:space="preserve">
-		<value>Vistas de publicación</value>
+		<value>Tampilan Tulisan</value>
 	</data>
 	<data name="Options_StatisticType_Referrers" xml:space="preserve">
-		<value>Referidos</value>
+		<value>Perujuk</value>
 	</data>
 	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
-		<value>Términos de búsqueda</value>
+		<value>Istilah Pencarian</value>
 	</data>
 	<data name="ControlText_Location" xml:space="preserve">
-		<value>ubicación</value>
+		<value>lokasi</value>
 	</data>
 	<data name="ControlText_CommentNotifications" xml:space="preserve">
-		<value>notificaciones de comentarios</value>
+		<value>pemberitahuan komentar</value>
 	</data>
 	<data name="ControlText_Edit" xml:space="preserve">
-		<value>editar</value>
+		<value>sunting</value>
 	</data>
 	<data name="ControlText_GeoTagPosts" xml:space="preserve">
-		<value>publicaciones con etiqueta geográfica</value>
+		<value>geotag tulisan</value>
 	</data>
 	<data name="ControlText_Media" xml:space="preserve">
-		<value>medios</value>
+		<value>media</value>
 	</data>
 	<data name="ControlText_SelectCategories" xml:space="preserve">
-		<value>seleccionar categorías</value>
+		<value>pilih kategori</value>
 	</data>
 	<data name="Messages_LoggingIn" xml:space="preserve">
-		<value>iniciando sesión...</value>
+		<value>log masuk...</value>
 	</data>
 	<data name="Messages_ApprovingComments" xml:space="preserve">
-		<value>aprobando comentarios...</value>
+		<value>menyetujui komentar...</value>
 	</data>
 	<data name="Messages_DeletingComment" xml:space="preserve">
-		<value>eliminando comentario...</value>
+		<value>menghapus komentar...</value>
 	</data>
 	<data name="Messages_DeletingComments" xml:space="preserve">
-		<value>eliminando comentarios...</value>
+		<value>menghapus komentar-komentar...</value>
 	</data>
 	<data name="Prompts_MissingPassword" xml:space="preserve">
-		<value>Introduzca una contraseña.</value>
+		<value>Silakan masukkan sebuah kata sandi.</value>
 	</data>
 	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
-		<value>publicaciones</value>
+		<value>tulisan-tulisan</value>
 	</data>
 	<data name="Options_RefreshEntity_Everything" xml:space="preserve">
-		<value>todo</value>
+		<value>semuanya</value>
 	</data>
 	<data name="Options_RefreshEntity_Pages" xml:space="preserve">
-		<value>páginas</value>
+		<value>halaman</value>
 	</data>
 	<data name="Messages_ReplyingToComment" xml:space="preserve">
-		<value>respondiendo al comentario...</value>
+		<value>membalas komentar...</value>
 	</data>
 	<data name="Messages_RetrievingComments" xml:space="preserve">
-		<value>obteniendo comentarios...</value>
+		<value>mengambil komentar...</value>
 	</data>
 	<data name="Messages_RetrievingEverything" xml:space="preserve">
-		<value>obteniendo todo...</value>
+		<value>mengambil semuanya...</value>
 	</data>
 	<data name="Messages_UploadingChanges" xml:space="preserve">
-		<value>cargando cambios...</value>
+		<value>mengunggah perubahan...</value>
 	</data>
 	<data name="Messages_UnapprovingComments" xml:space="preserve">
-		<value>desaprobando comentarios...</value>
+		<value>menolak komentar-komentar...</value>
 	</data>
 	<data name="Messages_UnapprovingComment" xml:space="preserve">
-		<value>desaprobando comentario...</value>
+		<value>menolak komentar...</value>
 	</data>
 	<data name="Messages_RetrievingPosts" xml:space="preserve">
-		<value>obteniendo publicaciones...</value>
+		<value>mengambil tulisan-tulisan...</value>
 	</data>
 	<data name="Messages_RetrievingPost" xml:space="preserve">
-		<value>obteniendo publicación...</value>
+		<value>mengambil tulisan...</value>
 	</data>
 	<data name="Options_RefreshEntity_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>komentar-komentar</value>
 	</data>
 	<data name="Options_PostActions_ViewPost" xml:space="preserve">
-		<value>ver publicación</value>
+		<value>lihat tulisan</value>
 	</data>
 	<data name="Options_PostActions_ViewComments" xml:space="preserve">
-		<value>ver comentarios</value>
+		<value>lihat komentar</value>
 	</data>
 	<data name="Options_PostActions_EditPost" xml:space="preserve">
-		<value>editar publicación</value>
+		<value>sunting tulisan</value>
 	</data>
 	<data name="Options_PostActions_DeletePost" xml:space="preserve">
-		<value>eliminar publicación</value>
+		<value>hapus tulisan</value>
 	</data>
 	<data name="Options_PageActions_ViewPage" xml:space="preserve">
-		<value>ver página</value>
+		<value>lihat halaman</value>
 	</data>
 	<data name="Options_PageActions_ViewComments" xml:space="preserve">
-		<value>ver comentarios</value>
+		<value>lihat komentar-komentar</value>
 	</data>
 	<data name="Options_PageActions_EditPage" xml:space="preserve">
-		<value>editar página</value>
+		<value>sunting halaman</value>
 	</data>
 	<data name="Options_PageActions_DeletePage" xml:space="preserve">
-		<value>eliminar página</value>
+		<value>hapus halaman</value>
 	</data>
 	<data name="Title_EditPost" xml:space="preserve">
-		<value>editar publicación</value>
+		<value>sunting tulisan</value>
 	</data>
 	<data name="Title_EditPage" xml:space="preserve">
-		<value>editar página</value>
+		<value>edit halaman</value>
 	</data>
 	<data name="Title_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>komentar-komentar</value>
 	</data>
 	<data name="Title_Blogs" xml:space="preserve">
-		<value>blogs</value>
+		<value>blog-blog</value>
 	</data>
 	<data name="Title_All" xml:space="preserve">
-		<value>TODO</value>
+		<value>SEMUA</value>
 	</data>
 	<data name="Title_AddAccount" xml:space="preserve">
-		<value>añadir cuenta</value>
+		<value>tambah akun</value>
 	</data>
 	<data name="Title_Actions" xml:space="preserve">
-		<value>acciones</value>
+		<value>tindakan-tindakan</value>
 	</data>
 	<data name="Prompt_PostActions" xml:space="preserve">
-		<value>Publicar acciones</value>
+		<value>Tindakan Tulisan</value>
 	</data>
 	<data name="Prompt_PageActions" xml:space="preserve">
-		<value>Acciones de página</value>
+		<value>Tindakan Halaman</value>
 	</data>
 	<data name="Title_SelectCategories" xml:space="preserve">
-		<value>seleccionar categorías</value>
+		<value>pilih kategori</value>
 	</data>
 	<data name="Messages_DeletingPost" xml:space="preserve">
-		<value>eliminando publicación...</value>
+		<value>menghapus tulisan...</value>
 	</data>
 	<data name="Title_Stats" xml:space="preserve">
-		<value>estadísticas</value>
+		<value>statistik</value>
 	</data>
 	<data name="Title_Spam" xml:space="preserve">
 		<value>SPAM</value>
 	</data>
 	<data name="Messages_DeletingPage" xml:space="preserve">
-		<value>eliminando página...</value>
+		<value>menghapus halaman...</value>
 	</data>
 	<data name="Title_Settings" xml:space="preserve">
-		<value>opciones</value>
+		<value>pengaturan</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
-		<value>Último trimestre</value>
+		<value>Triwulan Terakhir</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
-		<value>Último mes</value>
+		<value>Bulan Lalu</value>
 	</data>
 	<data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
-		<value>Todo el tiempo</value>
+		<value>Semua Periode</value>
 	</data>
 	<data name="Messages_Loading" xml:space="preserve">
-		<value>cargando...</value>
+		<value>memuat...</value>
 	</data>
 	<data name="Messages_AcquiringPermalink" xml:space="preserve">
-		<value>adquiriendo enlace permanente...</value>
+		<value>memperoleh permalink...</value>
 	</data>
 	<data name="Messages_RetrievingPage" xml:space="preserve">
-		<value>obteniendo página...</value>
+		<value>mengambil halaman...</value>
 	</data>
 	<data name="Messages_CreatingNewCategory" xml:space="preserve">
-		<value>creando nueva categoría...</value>
+		<value>membuat kategori baru...</value>
 	</data>
 	<data name="Prompts_MissingCategoryName" xml:space="preserve">
-		<value>Introduzca un nombre de categoría.</value>
+		<value>Silahkan masukkan nama kategori.</value>
 	</data>
 	<data name="Prompts_SelectCategory" xml:space="preserve">
-		<value>Seleccione una categoría.</value>
+		<value>Silahkan pilih sebuah kategori.</value>
 	</data>
 	<data name="Title_AddNewCategory" xml:space="preserve">
-		<value>categoría nueva</value>
+		<value>kategori baru</value>
 	</data>
 	<data name="Messages_RetrievingCategories" xml:space="preserve">
-		<value>obteniendo categorías...</value>
+		<value>mengambil kategori-kategori...</value>
 	</data>
 	<data name="Messages_RetrievingPages" xml:space="preserve">
-		<value>obteniendo páginas...</value>
+		<value>mengambil halaman-halaman...</value>
 	</data>
 	<data name="ControlText_Reply" xml:space="preserve">
-		<value>responder</value>
+		<value>balas</value>
 	</data>
 	<data name="ControlText_Italic" xml:space="preserve">
-		<value>K</value>
+		<value>I</value>
 	</data>
 	<data name="ControlText_Link" xml:space="preserve">
-		<value>enlace</value>
+		<value>taut</value>
 	</data>
 	<data name="ControlText_GetBlog" xml:space="preserve">
-		<value>Obtener un blog gratuito en WordPress.com</value>
+		<value>Dapatkan blog gratis di WordPress.com</value>
 	</data>
 	<data name="ControlText_BlogSettings" xml:space="preserve">
-		<value>opciones de blog</value>
+		<value>pengaturan blog</value>
 	</data>
 	<data name="ControlText_BlogUrl" xml:space="preserve">
-		<value>url de blog</value>
+		<value>url blog</value>
 	</data>
 	<data name="ControlText_Bold" xml:space="preserve">
-		<value>N</value>
+		<value>B</value>
 	</data>
 	<data name="ControlText_Cancel" xml:space="preserve">
-		<value>cancelar</value>
+		<value>batal</value>
 	</data>
 	<data name="ControlText_Delete" xml:space="preserve">
-		<value>eliminar</value>
+		<value>hapus</value>
 	</data>
 	<data name="ControlText_BlinkNotificationLight" xml:space="preserve">
-		<value>parpadeo luz de notificación</value>
+		<value>lampu pemberitahuan berkedip</value>
 	</data>
 	<data name="ControlText_BlockQuote" xml:space="preserve">
-		<value>citar</value>
+		<value>b-quote</value>
 	</data>
 	<data name="ControlText_BelowText" xml:space="preserve">
-		<value>bajo el texto</value>
+		<value>bawah teks</value>
 	</data>
 	<data name="ControlText_Approve" xml:space="preserve">
-		<value>aprobar</value>
+		<value>setuju</value>
 	</data>
 	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
-		<value>alinear miniatura al centro</value>
+		<value>sejajarkan miniatur ke tengah</value>
 	</data>
 	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-		<value>agrega una etiqueta a nuevas publicaciones</value>
+		<value>tambahkan sebuah baris tag untuk tulisan-tulisan baru</value>
 	</data>
 	<data name="ControlText_AddMedia" xml:space="preserve">
-		<value>añadir</value>
+		<value>tambah</value>
 	</data>
 	<data name="ApplicationTitle" xml:space="preserve">
 		<value>WordPress</value>
 	</data>
 	<data name="ControlText_AboveText" xml:space="preserve">
-		<value>sobre el texto</value>
+		<value>di atas teks</value>
 	</data>
 	<data name="ControlText_AccountDetails" xml:space="preserve">
-		<value>detalles de cuenta</value>
+		<value>detil akun</value>
 	</data>
 	<data name="ControlText_Add" xml:space="preserve">
-		<value>añadir nuevo</value>
+		<value>tambahkan baru</value>
 	</data>
 	<data name="ControlText_AddAPage" xml:space="preserve">
-		<value>añadir una página</value>
+		<value>tambah sebuah halaman</value>
 	</data>
 	<data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-		<value>Añadir blog alojado en WordPress.com</value>
+		<value>Tambahkan blog yang di-host pada WordPress.com</value>
 	</data>
 	<data name="ControlText_AddExistingSite" xml:space="preserve">
-		<value>Añadir blog de WordPress.com en alojamiento propio</value>
+		<value>Tambahkan blog WordPress.org</value>
 	</data>
 	<data name="ControlText_AddBlog" xml:space="preserve">
-		<value>añadir blog</value>
+		<value>tambah blog</value>
 	</data>
 	<data name="ControlText_Reader" xml:space="preserve">
 		<value></value>

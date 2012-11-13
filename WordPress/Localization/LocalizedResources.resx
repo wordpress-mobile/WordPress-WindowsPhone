@@ -777,7 +777,7 @@
     <value>Scheduled</value>
   </data>
   <data name="ControlText_PreserveBandwidth" xml:space="preserve">
-    <value>Preserve Bandwidth Usage</value>
+    <value>preserve bandwidth usage</value>
   </data>
   <data name="ControlText_Remove" xml:space="preserve">
     <value>Remove</value>

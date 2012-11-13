@@ -361,7 +361,19 @@
     <EmbeddedResource Include="Localization\LocalizedResources.fr-FR.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.id-ID.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizedResources.it-IT.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.ja-JP.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.pl-PL.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.pt-PT.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizedResources.resx">
@@ -370,6 +382,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizedResources.sv-SE.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.zn-CN.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

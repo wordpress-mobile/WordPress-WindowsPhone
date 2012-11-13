@@ -116,679 +116,680 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-	<data name="ControlText_Publish" xml:space="preserve">
-		<value></value>
+
+  <data name="ControlText_Publish" xml:space="preserve">
+		<value>公開</value>
 	</data>
 	<data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-		<value></value>
+		<value>外出先からでも更新できる美しいブログやサイトを作成しましょう。</value>
 	</data>
 	<data name="ControlText_Tags" xml:space="preserve">
-		<value></value>
+		<value>タグ</value>
 	</data>
 	<data name="Title_ModerateComment" xml:space="preserve">
-		<value></value>
+		<value>コメント</value>
 	</data>
 	<data name="Title_ModerateComments" xml:space="preserve">
-		<value></value>
+		<value>コメント</value>
 	</data>
 	<data name="ControlText_EULA" xml:space="preserve">
-		<value></value>
+		<value>GNU 一般公衆利用許諾契約書</value>
 	</data>
 	<data name="ControlText_CopyErrorMessage" xml:space="preserve">
-		<value></value>
+		<value>エラーメッセージをコピー</value>
 	</data>
 	<data name="Messages_ContentCopied" xml:space="preserve">
-		<value></value>
+		<value>コンテンツをコピーしました</value>
 	</data>
 	<data name="Messages_Info" xml:space="preserve">
-		<value></value>
+		<value>情報</value>
 	</data>
 	<data name="Messages_InvalidCredentials" xml:space="preserve">
-		<value></value>
+		<value>WordPress.com ログイン情報が誤っています</value>
 	</data>
 	<data name="Messages_MissingFields" xml:space="preserve">
-		<value></value>
+		<value>すべての欄に記入してください</value>
 	</data>
 	<data name="ControlText_ViewStats" xml:space="preserve">
-		<value></value>
+		<value>統計情報を表示</value>
 	</data>
 	<data name="ControlText_PostStatus" xml:space="preserve">
-		<value></value>
+		<value>ステータス</value>
 	</data>
 	<data name="ControlText_PublishDate" xml:space="preserve">
-		<value></value>
+		<value>公開日</value>
 	</data>
 	<data name="ControlText_Draft" xml:space="preserve">
-		<value></value>
+		<value>下書き</value>
 	</data>
 	<data name="ControlText_PendingReview" xml:space="preserve">
-		<value></value>
+		<value>レビュー待ち</value>
 	</data>
 	<data name="ControlText_Scheduled" xml:space="preserve">
-		<value></value>
+		<value>予約済み</value>
 	</data>
 	<data name="ControlText_PreserveBandwidth" xml:space="preserve">
-		<value></value>
+		<value>帯域幅利用を維持する</value>
 	</data>
 	<data name="ControlText_Remove" xml:space="preserve">
-		<value></value>
+		<value>削除</value>
 	</data>
 	<data name="Prompts_Comment" xml:space="preserve">
-		<value></value>
+		<value>コメント</value>
 	</data>
 	<data name="Prompts_Comments" xml:space="preserve">
-		<value></value>
+		<value>コメント</value>
 	</data>
 	<data name="Prompts_Confirm" xml:space="preserve">
-		<value></value>
+		<value>確認</value>
 	</data>
 	<data name="Prompt_ConfirmDeleteComment" xml:space="preserve">
-		<value></value>
+		<value>このコメントを本当に削除しますか ?</value>
 	</data>
 	<data name="Prompt_ConfirmDeleteCommentsFormat" xml:space="preserve">
-		<value></value>
+		<value>本当に「{0} {1}」を削除しますか ?</value>
 	</data>
 	<data name="Prompt_ConfirmMarkSpamComment" xml:space="preserve">
-		<value></value>
+		<value>本当にこのコメントをスパムとしてマークしますか ?</value>
 	</data>
 	<data name="Prompt_ConfirmMarkSpamCommentsFormat" xml:space="preserve">
-		<value></value>
+		<value>本当に{0} {1}をスパムとしてマークしますか ?</value>
 	</data>
 	<data name="Prompts_NoConnectionError" xml:space="preserve">
-		<value></value>
+		<value>インターネットに接続していないようです。</value>
 	</data>
 	<data name="Title_Error" xml:space="preserve">
-		<value></value>
+		<value>エラー</value>
 	</data>
 	<data name="ControlText_Categories" xml:space="preserve">
-		<value></value>
+		<value>カテゴリー</value>
 	</data>
 	<data name="ControlText_TagsHelpText" xml:space="preserve">
-		<value></value>
+		<value>複数タグはコンマで区切ってください</value>
 	</data>
 	<data name="ControlText_LocalDraft" xml:space="preserve">
-		<value></value>
+		<value>ローカルの下書き</value>
 	</data>
 	<data name="ControlText_Private" xml:space="preserve">
-		<value></value>
+		<value>非公開</value>
 	</data>
 	<data name="Prompts_MediaPlacement" xml:space="preserve">
-		<value></value>
+		<value>画像配置</value>
 	</data>
 	<data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
-		<value></value>
+		<value>本文の後</value>
 	</data>
 	<data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
-		<value></value>
+		<value>本文の前</value>
 	</data>
 	<data name="ControlText_PostFormat" xml:space="preserve">
-		<value></value>
+		<value>投稿フォーマット</value>
 	</data>
 	<data name="ControlText_Back" xml:space="preserve">
-		<value></value>
+		<value>戻る</value>
 	</data>
 	<data name="ControlText_Pin" xml:space="preserve">
-		<value>anclar a inicio</value>
+		<value>ピン</value>
 	</data>
 	<data name="ControlText_Unpin" xml:space="preserve">
-		<value>desanclar de inicio</value>
+		<value>ピン解除</value>
 	</data>
 	<data name="Messages_MarketDescription" xml:space="preserve">
-		<value>Wordpress para Windows Phone es una aplicación de Código abierto que te permite escribir nuevas entradas, editar contenido, ver estadísticas y gestionar los comentarios de tu Sitio Wordpress.</value>
+		<value>WordPress for Windows Phone はオープンソースのアプリケーションで、あなたの WordPress サイトで新規投稿を作成したり、コンテンツを編集したり、ステータスを見たり、コメントを管理したりできます。</value>
 	</data>
 	<data name="ControlText_NoTitle" xml:space="preserve">
-		<value>No hay título para este artículo</value>
+		<value>この項目にはタイトルがありません</value>
 	</data>
 	<data name="ControlText_ReleaseToRefresh" xml:space="preserve">
-		<value>Suelta para refrescar</value>
+		<value>手を離して更新</value>
 	</data>
 	<data name="ControlText_PullDownToRefresh" xml:space="preserve">
-		<value>Presiona para actualizar</value>
+		<value>引き下げて更新</value>
 	</data>
 	<data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
-		<value>Lo sentimos, la acción solicitada falló. Por favor, prueba de nuevo.</value>
+		<value>操作を完了できませんでした。もう一度お試しください。</value>
 	</data>
 	<data name="Prompts_XeElementMissing" xml:space="preserve">
-		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo. </value>
+		<value>サーバが不正なデータを返しました。もう一度お試しください。</value>
 	</data>
 	<data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
-		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo.</value>
+		<value>サーバが不正なデータを返しました。もう一度お試しください。</value>
 	</data>
 	<data name="Messages_Hello" xml:space="preserve">
-		<value>Hola</value>
+		<value>こんにちは</value>
 	</data>
 	<data name="ControlText_SaveDraft" xml:space="preserve">
-		<value>guardar borrador</value>
+		<value>下書きとして保存</value>
 	</data>
 	<data name="ControlText_LoadingContent" xml:space="preserve">
-		<value>cargando contenido</value>
+		<value>コンテンツを読み込み中…</value>
 	</data>
 	<data name="ControlText_FAQ" xml:space="preserve">
-		<value>Visitar Preguntas Frecuentes</value>
+		<value>よくある質問を読む</value>
 	</data>
 	<data name="ControlText_Forums" xml:space="preserve">
-		<value>Visita los foros</value>
+		<value>フォーラムへ移動</value>
 	</data>
 	<data name="Prompts_MediaError" xml:space="preserve">
-		<value>Error de subida de archivos</value>
+		<value>メディアのアップロードエラー</value>
 	</data>
 	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>Lo siento, ha ocurrido un error subiendo el archivo multimeda. ¿Quieres seguir con la subida a la entrada?</value>
+		<value>メディアのアップロードに失敗しました。アップロードを続けますか ?</value>
 	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
-		<value>insertar vínculo</value>
+		<value>リンクを挿入</value>
 	</data>
 	<data name="ControlText_EnterURL" xml:space="preserve">
-		<value>Por favor inserta la url del vínculo que desees insertar.</value>
+		<value>挿入したいリンクの URL を入力してください。</value>
 	</data>
 	<data name="Prompts_SureCancel" xml:space="preserve">
-		<value>¿Estás seguro que deseas cancelar la edición de este {0}?</value>
+		<value>この '{0}' の編集を取り消してよいですか ?</value>
 	</data>
 	<data name="Prompts_Post" xml:space="preserve">
-		<value>publicación</value>
+		<value>投稿</value>
 	</data>
 	<data name="Prompts_Page" xml:space="preserve">
-		<value>página</value>
+		<value>固定ページ</value>
 	</data>
 	<data name="Prompts_CancelEditing" xml:space="preserve">
-		<value>Cancelar Edición</value>
+		<value>編集をキャンセル</value>
 	</data>
 	<data name="ControlText_DefaultTagLine" xml:space="preserve">
-		<value>Publicado desde WordPress para Windows Phone</value>
+		<value>WordPress for Windows Phone で投稿</value>
 	</data>
 	<data name="ControlText_EnterLinkText" xml:space="preserve">
-		<value>[opcional] escribe el texto que debe aparecer para el enlace.</value>
+		<value>[オプション] リンクを表わすテキストを入力してください。</value>
 	</data>
 	<data name="ControlText_Username" xml:space="preserve">
-		<value>usuario</value>
+		<value>ユーザー名</value>
 	</data>
 	<data name="Title_Approve" xml:space="preserve">
-		<value>APROBADO</value>
+		<value>承認済み</value>
 	</data>
 	<data name="Title_Unapprove" xml:space="preserve">
-		<value>RECHAZADO</value>
+		<value>非承認</value>
 	</data>
 	<data name="ControlText_Apikey" xml:space="preserve">
-		<value>clave api</value>
+		<value>API キー</value>
 	</data>
 	<data name="Prompts_MissingApikey" xml:space="preserve">
-		<value>El blog actual no posee una clave api. Introduzca una en la página de configuraciones.</value>
+		<value>このブログには API キーがありません。設定ページから入力してください。</value>
 	</data>
 	<data name="Options_StatisticType_Views" xml:space="preserve">
-		<value>Vistas</value>
+		<value>表示</value>
 	</data>
 	<data name="ControlText_Clicks" xml:space="preserve">
-		<value>Clics</value>
+		<value>クリック数</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
-		<value>Última semana</value>
+		<value>先週</value>
 	</data>
 	<data name="ControlText_Underline" xml:space="preserve">
-		<value>S</value>
+		<value>下</value>
 	</data>
 	<data name="ControlText_Status" xml:space="preserve">
-		<value>estado</value>
+		<value>状態</value>
 	</data>
 	<data name="ControlText_StrikeThrough" xml:space="preserve">
-		<value>ABC</value>
+		<value>取消</value>
 	</data>
 	<data name="ControlText_Unapprove" xml:space="preserve">
-		<value>no aprobar</value>
+		<value>承認を解除</value>
 	</data>
 	<data name="ControlText_Preferences" xml:space="preserve">
-		<value>preferencias</value>
+		<value>設定</value>
 	</data>
 	<data name="ControlText_Spam" xml:space="preserve">
-		<value>spam</value>
+		<value>スパム</value>
 	</data>
 	<data name="ControlText_SearchTerms" xml:space="preserve">
-		<value>Términos de búsqueda</value>
+		<value>検索キーワード</value>
 	</data>
 	<data name="Message_CheckTheUrl" xml:space="preserve">
-		<value>Hay un problema con el url que se introdujo. ¿El url iniciaba con http://, o terminaba con xmlrpc.php? El url predeterminado del sitio de Wordpress, por ejemplo, es https://wordpress.com/xmlrpc.php.</value>
+		<value>入力した URL に問題があります。URL は http:// で始まっていますか ? もしくは、xmlrpc.php が末尾に付いていますか ? 標準的な WordPress.com サイトでは、例えば https://wordpress.com/xmlrpc.php となります。</value>
 	</data>
 	<data name="ControlText_Decline" xml:space="preserve">
-		<value>Declinar</value>
+		<value>拒否</value>
 	</data>
 	<data name="Prompts_SelectStatisticType" xml:space="preserve">
-		<value>¿Sobre qué estadísticas quiere datos?</value>
+		<value>どの統計データを取得しますか ?</value>
 	</data>
 	<data name="Messages_NoStatsAvailable" xml:space="preserve">
-		<value>No hay estadísticas disponibles para la consulta actual.</value>
+		<value>現在の条件に一致する統計はありません。</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
-		<value>Último año</value>
+		<value>昨年</value>
 	</data>
 	<data name="ControlText_Title" xml:space="preserve">
-		<value>título</value>
+		<value>タイトル</value>
 	</data>
 	<data name="ControlText_Content" xml:space="preserve">
-		<value>contenido</value>
+		<value>コンテンツ</value>
 	</data>
 	<data name="ControlText_Views" xml:space="preserve">
-		<value>Vistas</value>
+		<value>表示数</value>
 	</data>
 	<data name="Title_NewPage" xml:space="preserve">
-		<value>página nueva</value>
+		<value>新規固定ページ</value>
 	</data>
 	<data name="ControlText_AddAll" xml:space="preserve">
-		<value>añadir todo</value>
+		<value>すべて追加</value>
 	</data>
 	<data name="ControlText_AddSelected" xml:space="preserve">
-		<value>añadir seleccionados</value>
+		<value>選択を追加</value>
 	</data>
 	<data name="ControlText_SelectBlogs" xml:space="preserve">
-		<value>Seleccione el blog o blogs que quiere importar.</value>
+		<value>インポートしたいブログを選択してください。</value>
 	</data>
 	<data name="ControlText_None" xml:space="preserve">
-		<value>[ninguno]</value>
+		<value>[なし]</value>
 	</data>
 	<data name="ControlText_PostContent" xml:space="preserve">
-		<value>publicar contenido</value>
+		<value>投稿本文</value>
 	</data>
 	<data name="Messages_ApprovingComment" xml:space="preserve">
-		<value>aprobando comentario...</value>
+		<value>コメントを承認しています…</value>
 	</data>
 	<data name="ControlText_Vibrate" xml:space="preserve">
-		<value>vibrar</value>
+		<value>バイブレーション</value>
 	</data>
 	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
-		<value>TO</value>
+		<value>元</value>
 	</data>
 	<data name="Title_NewPost" xml:space="preserve">
-		<value>publicación nueva</value>
+		<value>新規投稿</value>
 	</data>
 	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
-		<value>Seleccione un tamaño de miniatura.</value>
+		<value>サムネイルのサイズを選択してください。</value>
 	</data>
 	<data name="ControlText_Accept" xml:space="preserve">
-		<value>Aceptar</value>
+		<value>承認</value>
 	</data>
 	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
-		<value>marcando comentarios como spam...</value>
+		<value>コメントをスパムとしてマークしています…</value>
 	</data>
 	<data name="Messages_MarkingAsSpam" xml:space="preserve">
-		<value>marcando comentario como spam...</value>
+		<value>コメントをスパムとしてマークしています…</value>
 	</data>
 	<data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
-		<value>¿Cuántos datos quiere ver?</value>
+		<value>どの期間のデータを表示しますか ?</value>
 	</data>
 	<data name="Title_Pages" xml:space="preserve">
-		<value>páginas</value>
+		<value>固定ページ</value>
 	</data>
 	<data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
-		<value>crear vínculo a la imagen completa</value>
+		<value>フルサイズの画像にリンクする</value>
 	</data>
 	<data name="ControlText_UpdateInterval" xml:space="preserve">
-		<value>intervalo de actualización</value>
+		<value>更新間隔</value>
 	</data>
 	<data name="Title_CheckTheUrl" xml:space="preserve">
-		<value>¿El url es válido?</value>
+		<value>正しい URL ですか?</value>
 	</data>
 	<data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
-		<value>¿Está seguro de querer eliminar la página '{0}'?</value>
+		<value>固定ページ '{0}' を削除してもよいですか ?</value>
 	</data>
 	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
-		<value>¿Está seguro de querer eliminar la publicación '{0}'?</value>
+		<value>投稿 '{0}' を削除してよいですか ?</value>
 	</data>
 	<data name="Title_ConfirmDelete" xml:space="preserve">
-		<value>Confirmar eliminación</value>
+		<value>削除を確認</value>
 	</data>
 	<data name="ControlText_DeleteBlog" xml:space="preserve">
-		<value>eliminar blog</value>
+		<value>ブログを削除</value>
 	</data>
 	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
-		<value>Seleccione el blog que quiere eliminar.</value>
+		<value>削除したいブログを選択してください。</value>
 	</data>
 	<data name="ControlText_Clear" xml:space="preserve">
-		<value>limpiar</value>
+		<value>クリア</value>
 	</data>
 	<data name="Messages_UploadingMedia" xml:space="preserve">
-		<value>cargando medios...</value>
+		<value>メディアをアップロード中…</value>
 	</data>
 	<data name="ControlText_OriginalSize" xml:space="preserve">
-		<value>tamaño original</value>
+		<value>元のサイズ</value>
 	</data>
 	<data name="ControlText_CategorySlug" xml:space="preserve">
-		<value>slug de la categoría (opcional)</value>
+		<value>カテゴリースラッグ (オプション)</value>
 	</data>
 	<data name="Title_Preferences" xml:space="preserve">
-		<value>preferencias</value>
+		<value>設定</value>
 	</data>
 	<data name="ControlText_UploadChanges" xml:space="preserve">
-		<value>cargar cambios</value>
+		<value>変更をアップロード</value>
 	</data>
 	<data name="Messages_MissingReply" xml:space="preserve">
-		<value>Introduzca una respuesta.</value>
+		<value>返信を入力してください。</value>
 	</data>
 	<data name="Message_DownloadingStatistics" xml:space="preserve">
-		<value>descargando estadísticas...</value>
+		<value>統計をダウンロード中…</value>
 	</data>
 	<data name="ControlText_PlayNotificationSound" xml:space="preserve">
-		<value>reproducir sonido de notificación</value>
+		<value>通知音を再生</value>
 	</data>
 	<data name="ControlText_PlaceImage" xml:space="preserve">
-		<value>incluir imagen</value>
+		<value>画像を配置</value>
 	</data>
 	<data name="ControlText_PageContent" xml:space="preserve">
-		<value>contenido de página</value>
+		<value>固定ページのコンテンツ</value>
 	</data>
 	<data name="Options_StatisticType_Clicks" xml:space="preserve">
-		<value>Clics</value>
+		<value>クリック数</value>
 	</data>
 	<data name="ControlText_Save" xml:space="preserve">
-		<value>guardar</value>
+		<value>保存</value>
 	</data>
 	<data name="ControlText_StartNewBlog" xml:space="preserve">
-		<value>Iniciar un blog nuevo en WordPress.com</value>
+		<value>WordPress.com で新しいブログを始める</value>
 	</data>
 	<data name="ControlText_Referrers" xml:space="preserve">
-		<value>Referidos</value>
+		<value>参照元</value>
 	</data>
 	<data name="ControlText_PostTitle" xml:space="preserve">
-		<value>Título de la publicación</value>
+		<value>投稿タイトル</value>
 	</data>
 	<data name="ControlText_Date" xml:space="preserve">
-		<value>Fecha</value>
+		<value>日付</value>
 	</data>
 	<data name="ControlText_CategoryName" xml:space="preserve">
-		<value>nombre de categoría</value>
+		<value>カテゴリー名</value>
 	</data>
 	<data name="ControlText_CategoryParent" xml:space="preserve">
-		<value>categoría padre (opcional)</value>
+		<value>親カテゴリー (オプション)</value>
 	</data>
 	<data name="ControlText_Refresh" xml:space="preserve">
-		<value>actualizar</value>
+		<value>更新</value>
 	</data>
 	<data name="Prompts_MissingUserName" xml:space="preserve">
-		<value>Introduzca un nombre de usuario.</value>
+		<value>ユーザー名を入力してください。</value>
 	</data>
 	<data name="Prompts_MissingUrl" xml:space="preserve">
-		<value>Introduzca un url válido.</value>
+		<value>正しい URL を入力してください。</value>
 	</data>
 	<data name="ControlText_Password" xml:space="preserve">
-		<value>contraseña</value>
+		<value>パスワード</value>
 	</data>
 	<data name="ControlText_ModerateComments" xml:space="preserve">
-		<value>moderar comentarios</value>
+		<value>コメントの承認</value>
 	</data>
 	<data name="ControlText_NeedBlog" xml:space="preserve">
-		<value>¿aún no tiene un blog?</value>
+		<value>まだブログを持っていませんか ?</value>
 	</data>
 	<data name="Prompts_RefreshEntity" xml:space="preserve">
-		<value>¿Qué le gustaría actualizar?</value>
+		<value>何を更新しますか ?</value>
 	</data>
 	<data name="ControlText_PostSignature" xml:space="preserve">
-		<value>publicar firma</value>
+		<value>投稿の署名</value>
 	</data>
 	<data name="ControlText_Write" xml:space="preserve">
-		<value>añadir publicación</value>
+		<value>投稿を追加</value>
 	</data>
 	<data name="ControlText_SelectedCategories" xml:space="preserve">
-		<value>categorías seleccionadas</value>
+		<value>選択したカテゴリー</value>
 	</data>
 	<data name="ControlText_CategoryDescription" xml:space="preserve">
-		<value>descripción de categoría (opcional)</value>
+		<value>カテゴリーの説明 (オプション)</value>
 	</data>
 	<data name="Title_Posts" xml:space="preserve">
-		<value>publicaciones</value>
+		<value>投稿</value>
 	</data>
 	<data name="Options_StatisticType_PostViews" xml:space="preserve">
-		<value>Vistas de publicación</value>
+		<value>投稿の表示数</value>
 	</data>
 	<data name="Options_StatisticType_Referrers" xml:space="preserve">
-		<value>Referidos</value>
+		<value>参照元</value>
 	</data>
 	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
-		<value>Términos de búsqueda</value>
+		<value>検索キーワード</value>
 	</data>
 	<data name="ControlText_Location" xml:space="preserve">
-		<value>ubicación</value>
+		<value>位置</value>
 	</data>
 	<data name="ControlText_CommentNotifications" xml:space="preserve">
-		<value>notificaciones de comentarios</value>
+		<value>コメント通知</value>
 	</data>
 	<data name="ControlText_Edit" xml:space="preserve">
-		<value>editar</value>
+		<value>編集</value>
 	</data>
 	<data name="ControlText_GeoTagPosts" xml:space="preserve">
-		<value>publicaciones con etiqueta geográfica</value>
+		<value>投稿に位置情報を追加</value>
 	</data>
 	<data name="ControlText_Media" xml:space="preserve">
-		<value>medios</value>
+		<value>メディア</value>
 	</data>
 	<data name="ControlText_SelectCategories" xml:space="preserve">
-		<value>seleccionar categorías</value>
+		<value>カテゴリーを選択</value>
 	</data>
 	<data name="Messages_LoggingIn" xml:space="preserve">
-		<value>iniciando sesión...</value>
+		<value>ログイン中…</value>
 	</data>
 	<data name="Messages_ApprovingComments" xml:space="preserve">
-		<value>aprobando comentarios...</value>
+		<value>コメントを承認中…</value>
 	</data>
 	<data name="Messages_DeletingComment" xml:space="preserve">
-		<value>eliminando comentario...</value>
+		<value>コメントを削除中…</value>
 	</data>
 	<data name="Messages_DeletingComments" xml:space="preserve">
-		<value>eliminando comentarios...</value>
+		<value>コメントを削除中…</value>
 	</data>
 	<data name="Prompts_MissingPassword" xml:space="preserve">
-		<value>Introduzca una contraseña.</value>
+		<value>パスワードを入力してください。</value>
 	</data>
 	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
-		<value>publicaciones</value>
+		<value>投稿</value>
 	</data>
 	<data name="Options_RefreshEntity_Everything" xml:space="preserve">
-		<value>todo</value>
+		<value>すべて</value>
 	</data>
 	<data name="Options_RefreshEntity_Pages" xml:space="preserve">
-		<value>páginas</value>
+		<value>固定ページ</value>
 	</data>
 	<data name="Messages_ReplyingToComment" xml:space="preserve">
-		<value>respondiendo al comentario...</value>
+		<value>コメントに返信中…</value>
 	</data>
 	<data name="Messages_RetrievingComments" xml:space="preserve">
-		<value>obteniendo comentarios...</value>
+		<value>コメントを取得中…</value>
 	</data>
 	<data name="Messages_RetrievingEverything" xml:space="preserve">
-		<value>obteniendo todo...</value>
+		<value>すべてを取得中…</value>
 	</data>
 	<data name="Messages_UploadingChanges" xml:space="preserve">
-		<value>cargando cambios...</value>
+		<value>変更を送信中…</value>
 	</data>
 	<data name="Messages_UnapprovingComments" xml:space="preserve">
-		<value>desaprobando comentarios...</value>
+		<value>コメントの承認解除中…</value>
 	</data>
 	<data name="Messages_UnapprovingComment" xml:space="preserve">
-		<value>desaprobando comentario...</value>
+		<value>コメントの承認解除中…</value>
 	</data>
 	<data name="Messages_RetrievingPosts" xml:space="preserve">
-		<value>obteniendo publicaciones...</value>
+		<value>投稿を取得中…</value>
 	</data>
 	<data name="Messages_RetrievingPost" xml:space="preserve">
-		<value>obteniendo publicación...</value>
+		<value>投稿を取得中…</value>
 	</data>
 	<data name="Options_RefreshEntity_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>コメント</value>
 	</data>
 	<data name="Options_PostActions_ViewPost" xml:space="preserve">
-		<value>ver publicación</value>
+		<value>投稿を表示</value>
 	</data>
 	<data name="Options_PostActions_ViewComments" xml:space="preserve">
-		<value>ver comentarios</value>
+		<value>コメントを表示</value>
 	</data>
 	<data name="Options_PostActions_EditPost" xml:space="preserve">
-		<value>editar publicación</value>
+		<value>投稿を編集</value>
 	</data>
 	<data name="Options_PostActions_DeletePost" xml:space="preserve">
-		<value>eliminar publicación</value>
+		<value>投稿を削除</value>
 	</data>
 	<data name="Options_PageActions_ViewPage" xml:space="preserve">
-		<value>ver página</value>
+		<value>固定ページを表示</value>
 	</data>
 	<data name="Options_PageActions_ViewComments" xml:space="preserve">
-		<value>ver comentarios</value>
+		<value>コメントを表示</value>
 	</data>
 	<data name="Options_PageActions_EditPage" xml:space="preserve">
-		<value>editar página</value>
+		<value>ページを編集</value>
 	</data>
 	<data name="Options_PageActions_DeletePage" xml:space="preserve">
-		<value>eliminar página</value>
+		<value>固定ページを削除</value>
 	</data>
 	<data name="Title_EditPost" xml:space="preserve">
-		<value>editar publicación</value>
+		<value>投稿の編集</value>
 	</data>
 	<data name="Title_EditPage" xml:space="preserve">
-		<value>editar página</value>
+		<value>固定ページの編集</value>
 	</data>
 	<data name="Title_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>コメント</value>
 	</data>
 	<data name="Title_Blogs" xml:space="preserve">
-		<value>blogs</value>
+		<value>ブログ</value>
 	</data>
 	<data name="Title_All" xml:space="preserve">
-		<value>TODO</value>
+		<value>すべて</value>
 	</data>
 	<data name="Title_AddAccount" xml:space="preserve">
-		<value>añadir cuenta</value>
+		<value>アカウントを追加</value>
 	</data>
 	<data name="Title_Actions" xml:space="preserve">
-		<value>acciones</value>
+		<value>操作</value>
 	</data>
 	<data name="Prompt_PostActions" xml:space="preserve">
-		<value>Publicar acciones</value>
+		<value>投稿の操作</value>
 	</data>
 	<data name="Prompt_PageActions" xml:space="preserve">
-		<value>Acciones de página</value>
+		<value>固定ページの操作</value>
 	</data>
 	<data name="Title_SelectCategories" xml:space="preserve">
-		<value>seleccionar categorías</value>
+		<value>カテゴリーを選択</value>
 	</data>
 	<data name="Messages_DeletingPost" xml:space="preserve">
-		<value>eliminando publicación...</value>
+		<value>投稿を削除中…</value>
 	</data>
 	<data name="Title_Stats" xml:space="preserve">
-		<value>estadísticas</value>
+		<value>統計</value>
 	</data>
 	<data name="Title_Spam" xml:space="preserve">
-		<value>SPAM</value>
+		<value>スパム</value>
 	</data>
 	<data name="Messages_DeletingPage" xml:space="preserve">
-		<value>eliminando página...</value>
+		<value>固定ページを削除中…</value>
 	</data>
 	<data name="Title_Settings" xml:space="preserve">
-		<value>opciones</value>
+		<value>設定</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
-		<value>Último trimestre</value>
+		<value>前四半期</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
-		<value>Último mes</value>
+		<value>先月</value>
 	</data>
 	<data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
-		<value>Todo el tiempo</value>
+		<value>全期間</value>
 	</data>
 	<data name="Messages_Loading" xml:space="preserve">
-		<value>cargando...</value>
+		<value>読み込み中…</value>
 	</data>
 	<data name="Messages_AcquiringPermalink" xml:space="preserve">
-		<value>adquiriendo enlace permanente...</value>
+		<value>パーマリンクを取得中…</value>
 	</data>
 	<data name="Messages_RetrievingPage" xml:space="preserve">
-		<value>obteniendo página...</value>
+		<value>固定ページを取得中…</value>
 	</data>
 	<data name="Messages_CreatingNewCategory" xml:space="preserve">
-		<value>creando nueva categoría...</value>
+		<value>新規カテゴリーを作成中…</value>
 	</data>
 	<data name="Prompts_MissingCategoryName" xml:space="preserve">
-		<value>Introduzca un nombre de categoría.</value>
+		<value>カテゴリー名を入力してください。</value>
 	</data>
 	<data name="Prompts_SelectCategory" xml:space="preserve">
-		<value>Seleccione una categoría.</value>
+		<value>カテゴリーを選択してください。</value>
 	</data>
 	<data name="Title_AddNewCategory" xml:space="preserve">
-		<value>categoría nueva</value>
+		<value>新規カテゴリー</value>
 	</data>
 	<data name="Messages_RetrievingCategories" xml:space="preserve">
-		<value>obteniendo categorías...</value>
+		<value>カテゴリーを取得中…</value>
 	</data>
 	<data name="Messages_RetrievingPages" xml:space="preserve">
-		<value>obteniendo páginas...</value>
+		<value>固定ページを取得中…</value>
 	</data>
 	<data name="ControlText_Reply" xml:space="preserve">
-		<value>responder</value>
+		<value>返信</value>
 	</data>
 	<data name="ControlText_Italic" xml:space="preserve">
-		<value>K</value>
+		<value>斜</value>
 	</data>
 	<data name="ControlText_Link" xml:space="preserve">
-		<value>enlace</value>
+		<value>リンク</value>
 	</data>
 	<data name="ControlText_GetBlog" xml:space="preserve">
-		<value>Obtener un blog gratuito en WordPress.com</value>
+		<value>WordPress.com で無料ブログを始める</value>
 	</data>
 	<data name="ControlText_BlogSettings" xml:space="preserve">
-		<value>opciones de blog</value>
+		<value>ブログ設定</value>
 	</data>
 	<data name="ControlText_BlogUrl" xml:space="preserve">
-		<value>url de blog</value>
+		<value>ブログの URL</value>
 	</data>
 	<data name="ControlText_Bold" xml:space="preserve">
-		<value>N</value>
+		<value>太</value>
 	</data>
 	<data name="ControlText_Cancel" xml:space="preserve">
-		<value>cancelar</value>
+		<value>キャンセル</value>
 	</data>
 	<data name="ControlText_Delete" xml:space="preserve">
-		<value>eliminar</value>
+		<value>削除</value>
 	</data>
 	<data name="ControlText_BlinkNotificationLight" xml:space="preserve">
-		<value>parpadeo luz de notificación</value>
+		<value>通知ライトを点滅</value>
 	</data>
 	<data name="ControlText_BlockQuote" xml:space="preserve">
-		<value>citar</value>
+		<value>引用</value>
 	</data>
 	<data name="ControlText_BelowText" xml:space="preserve">
-		<value>bajo el texto</value>
+		<value>本文の下</value>
 	</data>
 	<data name="ControlText_Approve" xml:space="preserve">
-		<value>aprobar</value>
+		<value>承認</value>
 	</data>
 	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
-		<value>alinear miniatura al centro</value>
+		<value>サムネイルを中央揃え</value>
 	</data>
 	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-		<value>agrega una etiqueta a nuevas publicaciones</value>
+		<value>新規投稿にタグラインを追加</value>
 	</data>
 	<data name="ControlText_AddMedia" xml:space="preserve">
-		<value>añadir</value>
+		<value>追加</value>
 	</data>
 	<data name="ApplicationTitle" xml:space="preserve">
 		<value>WordPress</value>
 	</data>
 	<data name="ControlText_AboveText" xml:space="preserve">
-		<value>sobre el texto</value>
+		<value>本文の上</value>
 	</data>
 	<data name="ControlText_AccountDetails" xml:space="preserve">
-		<value>detalles de cuenta</value>
+		<value>アカウント詳細</value>
 	</data>
 	<data name="ControlText_Add" xml:space="preserve">
-		<value>añadir nuevo</value>
+		<value>新規追加</value>
 	</data>
 	<data name="ControlText_AddAPage" xml:space="preserve">
-		<value>añadir una página</value>
+		<value>固定ページを追加</value>
 	</data>
 	<data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-		<value>Añadir blog alojado en WordPress.com</value>
+		<value>WordPress.com のブログを追加</value>
 	</data>
 	<data name="ControlText_AddExistingSite" xml:space="preserve">
-		<value>Añadir blog de WordPress.com en alojamiento propio</value>
+		<value>インストール型 WordPress ブログを追加</value>
 	</data>
 	<data name="ControlText_AddBlog" xml:space="preserve">
-		<value>añadir blog</value>
+		<value>ブログを追加</value>
 	</data>
 	<data name="ControlText_Reader" xml:space="preserve">
-		<value></value>
+		<value>Reader</value>
 	</data>
 </root>

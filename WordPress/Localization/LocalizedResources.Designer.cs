@@ -448,7 +448,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End User License Agreement.
+        ///   Looks up a localized string similar to GNU General Public License.
         /// </summary>
         internal static string ControlText_EULA {
             get {
@@ -718,7 +718,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Preserve Bandwidth Usage.
+        ///   Looks up a localized string similar to preserve bandwidth usage.
         /// </summary>
         internal static string ControlText_PreserveBandwidth {
             get {
@@ -1051,8 +1051,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+        ///   Looks up a localized string similar to &lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
         ///
         ///&lt;head&gt;
         ///&lt;meta content=&quot;text/html; charset=utf-8&quot; http-equiv=&quot;Content-Type&quot; /&gt;
@@ -1068,7 +1067,13 @@ namespace WordPress.Localization {
         ///Version 2, June 1991
         ///&lt;/p&gt;
         ///&lt;p&gt;
-        ///Copyright (C) 1989, 1991 F [rest of string was truncated]&quot;;.
+        ///Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+        ///&lt;/p&gt;
+        ///&lt;p&gt;
+        ///675 Mass Ave, Cambridge, MA 02139, USA
+        ///&lt;/p&gt;
+        ///&lt;p&gt;
+        ///Everyone is permitted to copy  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Eula {
             get {
