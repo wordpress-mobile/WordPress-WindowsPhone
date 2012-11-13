@@ -105,6 +105,7 @@
       <DependentUpon>BrowserShellPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\LaunchWebBrowserCommand.cs" />
+    <Compile Include="Converters\AnonymousAuthorConverter.cs" />
     <Compile Include="Converters\ItemTitleInListConverter.cs" />
     <Compile Include="Converters\DateToShortDateStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
