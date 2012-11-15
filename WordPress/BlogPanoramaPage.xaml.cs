@@ -1,22 +1,17 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.DataVisualization.Charting;
-using Microsoft.Phone.Controls;
-
+using System.Windows.Media;
+using System.Windows.Navigation;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Utils;
-using System.Windows.Navigation;
-using Microsoft.Phone.Shell;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Collections;
-using System.Windows.Input;
-using System.Windows.Controls.Primitives;
 
 namespace WordPress
 {
@@ -41,9 +36,11 @@ namespace WordPress
 
         #endregion
 
+
         #region events
 
         #endregion
+
 
         #region constructors
 
@@ -117,6 +114,7 @@ namespace WordPress
 
         #endregion
 
+
         #region methods
 
         private void enableInfiniteScrolling(object sender, RoutedEventArgs args)
@@ -173,7 +171,7 @@ namespace WordPress
             }
         }
 
-       private VisualStateGroup FindVisualState(FrameworkElement element, string name)
+        private VisualStateGroup FindVisualState(FrameworkElement element, string name)
         {
             if (element == null)
                 return null;
@@ -292,6 +290,13 @@ namespace WordPress
 
         private void OnRefreshIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+
             if (blogPanorama.SelectedItem == commentsPanoramaItem)
             {
                 FetchComments(false);
@@ -315,18 +320,15 @@ namespace WordPress
             DataService.Current.FetchCurrentBlogAdditionalDataAsync();    
         }
 
+        #endregion
 
-        private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        #region Posts methods
+
+        private void FetchPosts(bool more)
         {
-            int index = commentsListBox.SelectedIndex;
-            if (-1 == index) return;
-
-            App.MasterViewModel.CurrentComment = App.MasterViewModel.Comments[index];
-
-            NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
-
-            //reset selected index so we can re-select the original list item if we want to
-            commentsListBox.SelectedIndex = -1;
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
+            DataService.Current.FetchCurrentBlogPostsAsync(more);
         }
 
         private void OnPostsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -351,6 +353,14 @@ namespace WordPress
             }
             else
             {
+                //No local draft, check the connection status first
+                if (!App.isNetworkAvailable())
+                {
+                    Exception connErr = new NoConnectionException();
+                    this.HandleException(connErr);
+                    return;
+                }
+
                 App.PopupSelectionService.ItemsSource = _postListOptions;
                 _popupServiceSelectionChangedHandler = OnPostOptionSelected;
                 App.PopupSelectionService.SelectionChanged += OnPostOptionSelected;
@@ -361,8 +371,17 @@ namespace WordPress
 
         private void OnPostOptionSelected(object sender, SelectionChangedEventArgs args)
         {
+                    
             App.PopupSelectionService.SelectionChanged -= OnPostOptionSelected;
             _popupServiceSelectionChangedHandler = null;
+
+            //recheck the connection status
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
 
             int index = _postListOptions.IndexOf(args.AddedItems[0] as string);
 
@@ -458,17 +477,6 @@ namespace WordPress
             }
         }
          
-        private void ViewPostComments()
-        {
-            int index = postsListBox.SelectedIndex;
-            if (-1 == index) return;
-
-            PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
-            string queryStringFormat = "?{0}={1}";
-            string queryString = string.Format(queryStringFormat, RelatedCommentsPage.IDKEY_VALUE, postListItem.PostId);
-            NavigationService.Navigate(new Uri("/RelatedCommentsPage.xaml" + queryString, UriKind.Relative));
-        }
-
         private void EditPost()
         {
             int index = postsListBox.SelectedIndex;
@@ -523,6 +531,69 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
         }
 
+        private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
+        {
+            App.MasterViewModel.CurrentPostListItem = null;
+            NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
+        }
+
+        #endregion
+
+
+        #region Comments methods
+
+        private void FetchComments(bool more)
+        {
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
+            DataService.Current.FetchCurrentBlogCommentsAsync(more);
+        }
+
+        private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = commentsListBox.SelectedIndex;
+            if (-1 == index) return;
+
+            App.MasterViewModel.CurrentComment = App.MasterViewModel.Comments[index];
+
+            NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
+
+            //reset selected index so we can re-select the original list item if we want to
+            commentsListBox.SelectedIndex = -1;
+        }
+
+        private void ViewPostComments()
+        {
+            int index = postsListBox.SelectedIndex;
+            if (-1 == index) return;
+
+            PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
+            string queryStringFormat = "?{0}={1}";
+            string queryString = string.Format(queryStringFormat, RelatedCommentsPage.IDKEY_VALUE, postListItem.PostId);
+            NavigationService.Navigate(new Uri("/RelatedCommentsPage.xaml" + queryString, UriKind.Relative));
+        }
+
+        private void OnModerateCommentsButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+            NavigationService.Navigate(new Uri("/ModerateCommentsPage.xaml", UriKind.Relative));
+        }
+
+        #endregion
+
+
+        #region Pages methods
+
+        private void FetchPages()
+        {
+            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
+            DataService.Current.FetchCurrentBlogPagesAsync();
+        }
+
         private void OnPagesListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (null == pagesListBox.SelectedItem) return;
@@ -546,6 +617,12 @@ namespace WordPress
             }
             else
             {
+                if (!App.isNetworkAvailable())
+                {
+                    Exception connErr = new NoConnectionException();
+                    this.HandleException(connErr);
+                    return;
+                }
                 App.PopupSelectionService.ItemsSource = _pageListOptions;
                 _popupServiceSelectionChangedHandler = OnPageOptionSelected;
                 App.PopupSelectionService.SelectionChanged += OnPageOptionSelected;
@@ -553,6 +630,41 @@ namespace WordPress
 
             App.PopupSelectionService.ShowPopup();
         }
+
+        private void OnPageOptionSelected(object sender, SelectionChangedEventArgs args)
+        {
+            App.PopupSelectionService.SelectionChanged -= OnPageOptionSelected;
+            _popupServiceSelectionChangedHandler = null;
+
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+
+            int index = _pageListOptions.IndexOf(args.AddedItems[0] as string);
+
+            switch (index)
+            {
+                case 0:         //view page
+                    ViewPage();
+                    break;
+                case 1:         //view page comments
+                    ViewPageComments();
+                    break;
+                case 2:         //edit page
+                    EditPage();
+                    break;
+                case 3:         //delete page
+                    DeletePage();
+                    break;
+            }
+
+            //reset selected index so we can re-select the original list item if we want to
+            pagesListBox.SelectedIndex = -1;
+        }
+
 
         private void OnPageDraftOptionSelected(object sender, SelectionChangedEventArgs args)
         {
@@ -586,33 +698,6 @@ namespace WordPress
 
             App.MasterViewModel.CurrentBlog.LocalPageDrafts.RemoveAt(pagesListBox.SelectedIndex);
             App.MasterViewModel.CurrentBlog.PageListItems.RemoveAt(pagesListBox.SelectedIndex);
-        }
-
-        private void OnPageOptionSelected(object sender, SelectionChangedEventArgs args)
-        {
-            App.PopupSelectionService.SelectionChanged -= OnPageOptionSelected;
-            _popupServiceSelectionChangedHandler = null;
-
-            int index = _pageListOptions.IndexOf(args.AddedItems[0] as string);
-
-            switch (index)
-            {
-                case 0:         //view page
-                    ViewPage();
-                    break;
-                case 1:         //view page comments
-                    ViewPageComments();
-                    break;
-                case 2:         //edit page
-                    EditPage();
-                    break;
-                case 3:         //delete page
-                    DeletePage();
-                    break;
-            }
-
-            //reset selected index so we can re-select the original list item if we want to
-            pagesListBox.SelectedIndex = -1;
         }
 
         private void EditPage()
@@ -720,22 +805,16 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
         }
 
-        private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
-        {
-            App.MasterViewModel.CurrentPostListItem = null;
-            NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
-        }
-
         private void OnCreatePageButtonClick(object sender, RoutedEventArgs e)
         {
             App.MasterViewModel.CurrentPageListItem = null;
             NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
         }
 
-        private void OnStatsButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
-        }
+        #endregion
+
+        
+        #region Navigation methods
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -788,25 +867,13 @@ namespace WordPress
                 base.OnBackKeyPress(e);
             }
         }
+        
+        #endregion
 
-        private void FetchPages()
-        {
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
-            DataService.Current.FetchCurrentBlogPagesAsync();
-        }
 
-        private void FetchPosts(bool more)
-        {
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
-            DataService.Current.FetchCurrentBlogPostsAsync(more);            
-        }
+        #region Other methods
 
-        private void FetchComments(bool more)
-        {
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
-            DataService.Current.FetchCurrentBlogCommentsAsync(more);            
-        }
-
+ 
         private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
         {
             App.WaitIndicationService.HideIndicator();
@@ -815,14 +882,22 @@ namespace WordPress
             this.HandleException(args.Exception);
         }
 
-        private void OnModerateCommentsButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/ModerateCommentsPage.xaml", UriKind.Relative));
-        }
-
         private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
+        }
+
+        private void OnStatsButtonClick(object sender, RoutedEventArgs e)
+        {
+           
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            } 
+            else
+                NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
         }
 
         #endregion

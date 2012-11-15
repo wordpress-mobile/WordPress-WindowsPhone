@@ -97,6 +97,12 @@ namespace WordPress
 
         private void OnAddAccountIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             NavigationService.Navigate(new Uri("/LocateBlogPage.xaml", UriKind.Relative));
         }
 

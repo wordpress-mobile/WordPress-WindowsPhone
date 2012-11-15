@@ -107,6 +107,12 @@ namespace WordPress
 
         private void OnReplyIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             ShowReplyPanel();
         }
 
@@ -139,6 +145,12 @@ namespace WordPress
 
         private void OnSpamIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             string prompt = _localizedStrings.Prompts.ConfirmMarkSpamComment;
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
@@ -160,6 +172,12 @@ namespace WordPress
 
         private void OnUnapproveIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.hold;
 
@@ -172,6 +190,12 @@ namespace WordPress
 
         private void OnApproveIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.approve;
 
@@ -268,6 +292,12 @@ namespace WordPress
 
         private void OnDeleteIconButtonClick(object sender, EventArgs e)
         {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             string prompt = _localizedStrings.Prompts.ConfirmDeleteComment;
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.OK)
