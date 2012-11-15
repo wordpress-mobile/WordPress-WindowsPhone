@@ -442,21 +442,20 @@ namespace WordPress
         private void ViewPost()
         {
             //use the GetPostRPC to get the Post.PermaLink value, then transmit that Uri to the shell
-
             PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
             if (null == postListItem) return;
         
             GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
-            rpc.Completed += OnGetPostRPCCompleted;
+            rpc.Completed += OnViewPostRPCCompleted;
             rpc.ExecuteAsync();
 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
-        private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        private void OnViewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
             GetPostRPC rpc = sender as GetPostRPC;
-            rpc.Completed -= OnGetPostRPCCompleted;
+            rpc.Completed -= OnViewPostRPCCompleted;
 
             App.WaitIndicationService.KillSpinner();
 
@@ -488,9 +487,37 @@ namespace WordPress
             {
                 // Local draft, set current post so post editor knows what to load
                 App.MasterViewModel.CurrentPostListItem.DraftIndex = index;
+                NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
             }
+            else
+            {
+                //not a local draft, download the content from the server
+                PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
+                if (null == postListItem) return;
+                GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
+                rpc.Completed += OnGetPostRPCCompleted;
+                rpc.ExecuteAsync();
 
-            NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
+            }
+        }
+
+        private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        {
+            GetPostRPC rpc = sender as GetPostRPC;
+            rpc.Completed -= OnGetPostRPCCompleted;
+            App.WaitIndicationService.HideIndicator();
+
+            if (null == args.Error)
+            {
+                Post post = args.Items[0];
+                App.MasterViewModel.CurrentPost = post;
+                NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
         }
 
         private void DeletePost()
@@ -665,7 +692,6 @@ namespace WordPress
             pagesListBox.SelectedIndex = -1;
         }
 
-
         private void OnPageDraftOptionSelected(object sender, SelectionChangedEventArgs args)
         {
             App.PopupSelectionService.SelectionChanged -= OnPageDraftOptionSelected;
@@ -711,10 +737,41 @@ namespace WordPress
             {
                 // Local draft, set current page DraftIndex so editor knows what to load
                 App.MasterViewModel.CurrentPageListItem.DraftIndex = index;
+                NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
             }
+            else
+            {
+                //not a local draft, download the content from the server
+                PageListItem pageListItem = pagesListBox.SelectedItem as PageListItem;
+                if (null == pageListItem) return;
 
-            NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
+                GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, pageListItem.PageId.ToString());
+                rpc.Completed += OnGetPageRPCCompleted;
+                rpc.ExecuteAsync();
+
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
+            }
         }
+
+        private void OnGetPageRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        {
+            GetPostRPC rpc = sender as GetPostRPC;
+            rpc.Completed -= OnGetPageRPCCompleted;
+
+            App.WaitIndicationService.KillSpinner();
+
+            if (null == args.Error)
+            {
+                Post post = args.Items[0];
+                App.MasterViewModel.CurrentPost = post;
+                NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
+        }
+
 
         private void ViewPage()
         {
@@ -724,16 +781,16 @@ namespace WordPress
             if (null == pageListItem) return;
 
             GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, pageListItem.PageId.ToString());
-            rpc.Completed += OnGetPageRPCCompleted;
+            rpc.Completed += OnViewPageRPCCompleted;
             rpc.ExecuteAsync();
 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
-        private void OnGetPageRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        private void OnViewPageRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
             GetPostRPC rpc = sender as GetPostRPC;
-            rpc.Completed -= OnGetPageRPCCompleted;
+            rpc.Completed -= OnViewPageRPCCompleted;
 
             App.WaitIndicationService.KillSpinner();
 

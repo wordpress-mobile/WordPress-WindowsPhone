@@ -195,9 +195,8 @@ namespace WordPress
         #region Custom methods
         public static bool isNetworkAvailable()
         {
-            bool hasNetworkConnection = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-            return false;
-           // return hasNetworkConnection;
+           bool hasNetworkConnection = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+           return hasNetworkConnection;
         }
         #endregion
 

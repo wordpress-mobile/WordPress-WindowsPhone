@@ -193,16 +193,18 @@ namespace WordPress
                 }
                 else
                 {
-                    // Uploaded post, let's download it
-                    GetPostRPC rpc = new GetPostRPC(currentBlog, postId);
-                    rpc.Completed += OnGetPostRPCCompleted;
-                    rpc.ExecuteAsync();
-
-                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
+                    Post post = App.MasterViewModel.CurrentPost;
+                    DataContext = post;
+                    setStatus();
+                    initPostFormatUI(post.PostFormat);
+                    if (post.MtKeyWords != "")
+                    {
+                        tagsTextBox.Text = post.MtKeyWords;
+                    }
                 }
             }
             else
-            {
+            {   //New post
                 Post post = new Post();
                 App.MasterViewModel.CurrentPost = post;
                 post.DateCreated = DateTime.Now;
@@ -271,31 +273,6 @@ namespace WordPress
                 i++;
             }
             postFormatsPicker.SelectionChanged += new SelectionChangedEventHandler(listPicker_SelectionChanged);
-        }
-
-        private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
-        {            
-            GetPostRPC rpc = sender as GetPostRPC;
-            rpc.Completed -= OnGetPostRPCCompleted;
-
-            if (null == args.Error)
-            {
-                Post post = args.Items[0];
-                App.MasterViewModel.CurrentPost = post;
-                DataContext = post;
-                setStatus();
-                initPostFormatUI(post.PostFormat);
-                if (post.MtKeyWords != "")
-                {
-                    tagsTextBox.Text = post.MtKeyWords;
-                }
-            }
-            else
-            {
-                this.HandleException(args.Error);
-            }
-
-            App.WaitIndicationService.HideIndicator();
         }
 
         private void OnSaveButtonClick(object sender, EventArgs e)

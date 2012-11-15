@@ -134,18 +134,14 @@ namespace WordPress
                     }
                 }
                 else
-                {
-                    string pageId = App.MasterViewModel.CurrentPageListItem.PageId.ToString();
-
-                    GetPostRPC rpc = new GetPostRPC(currentBlog, pageId);
-                    rpc.Completed += OnGetPostRPCCompleted;
-                    rpc.ExecuteAsync();
-
-                    App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
+                {  
+                    Post post = App.MasterViewModel.CurrentPost;
+                    setStatus();
+                    DataContext = post;
                 }
             }
             else
-            {
+            {   //New Page
                 Post page = new Post();
                 page.PostStatus = "publish";
                 App.MasterViewModel.CurrentPost = page;
@@ -188,27 +184,6 @@ namespace WordPress
 
             RestorePageState();
         }
-
-        private void OnGetPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
-        {
-            GetPostRPC rpc = sender as GetPostRPC;
-            rpc.Completed -= OnGetPostRPCCompleted;
-
-            if (null == args.Error)
-            {
-                Post post = args.Items[0];
-                App.MasterViewModel.CurrentPost = post;
-                setStatus();
-                DataContext = post;
-            }
-            else
-            {
-                this.HandleException(args.Error);
-            }
-
-            App.WaitIndicationService.HideIndicator();
-        }
-
 
         //Title text field KeyUp event handler: Dismiss the keyboard by focusing the main control if the Key pressed is the Enter key
         private void Input_KeyUp(object sender, KeyEventArgs e)
