@@ -6,6 +6,7 @@ using Microsoft.Phone.Shell;
 
 using WordPress.Localization;
 using WordPress.Model;
+using System.Diagnostics;
 using System.Windows.Controls;
 
 namespace WordPress
@@ -14,6 +15,7 @@ namespace WordPress
     {
         #region member variables
 
+        private const string PREV_SELECTED_CATEGORIES_KEY = "prev_selected_categories_key";
         private ApplicationBarIconButton _refreshIconButton;
         private ApplicationBarIconButton _addIconButton;
         private ApplicationBarIconButton _saveIconButton;
@@ -58,16 +60,51 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            if (State.ContainsKey(PREV_SELECTED_CATEGORIES_KEY))
+            {
+                string[] selectedCategories = State[PREV_SELECTED_CATEGORIES_KEY] as string[];
+                categoriesListBox.SelectedItems.Clear();
+                foreach (string categoryName in selectedCategories)
+                {
+                    foreach (Category category in App.MasterViewModel.CurrentBlog.Categories)
+                    {
+                        if (categoryName.Equals(category.Description))
+                        {
+                            //Debug.WriteLine("Match found: " + categoryName);
+                            categoriesListBox.SelectedItems.Add(category);
+                        }
+                    }
+                }
+                State.Remove(PREV_SELECTED_CATEGORIES_KEY);
+            }
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
+            if (e.Content is AddNewCategoryPage)
+            {
+                if (State.ContainsKey(PREV_SELECTED_CATEGORIES_KEY))
+                {
+                    State.Remove(PREV_SELECTED_CATEGORIES_KEY);
+                }
+                
+	            string[] selectedCategories = new string[categoriesListBox.SelectedItems.Count];
+                int i = 0;
+                foreach (Category category in categoriesListBox.SelectedItems)
+                {
+                    selectedCategories[i] = category.Description;
+                    i++;
+                }
+                State.Add(PREV_SELECTED_CATEGORIES_KEY, selectedCategories);
+            }
+          
             base.OnNavigatedFrom(e);
             DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
+            Loaded -= OnPageLoaded;
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
             BlogName.Text = App.MasterViewModel.CurrentBlog.BlogNameUpper;
             categoriesListBox.SelectedItems.Clear();
