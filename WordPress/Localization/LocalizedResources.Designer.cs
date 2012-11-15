@@ -1271,6 +1271,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You do not seem to have any blogs at {0}..
+        /// </summary>
+        internal static string Messages_NoBlogFoundAtThisURL {
+            get {
+                return ResourceManager.GetString("Messages_NoBlogFoundAtThisURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No stats are available for the current query..
         /// </summary>
         internal static string Messages_NoStatsAvailable {

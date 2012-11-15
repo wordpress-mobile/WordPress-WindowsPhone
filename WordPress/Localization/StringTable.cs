@@ -229,6 +229,7 @@ namespace WordPress.Localization
             public string ContentCopied { get { return LocalizedResources.Messages_ContentCopied; } }
             public string InvalidCredentials { get { return LocalizedResources.Messages_InvalidCredentials; } }
             public string MissingFields { get { return LocalizedResources.Messages_MissingFields; } }
+            public string NoBlogsFoundAtThisURL { get { return LocalizedResources.Messages_NoBlogFoundAtThisURL; } }
         }
 
         #endregion

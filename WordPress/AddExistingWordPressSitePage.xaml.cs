@@ -160,7 +160,11 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                if (1 == args.Items.Count)
+                if (0 == args.Items.Count)
+                {
+                    this.HandleException(null, _localizedStrings.PageTitles.CheckTheUrl, string.Format(_localizedStrings.Messages.NoBlogsFoundAtThisURL, rpc.Url));
+                }
+                else if (1 == args.Items.Count)
                 {
                     if (!(DataService.Current.Blogs.Any(b => b.Xmlrpc == args.Items[0].Xmlrpc)))
                     {
@@ -175,7 +179,7 @@ namespace WordPress
             }
             else
             {
-                if (args.Error is NotSupportedException)
+                if (args.Error is NotSupportedException || args.Error is XmlRPCParserException)
                 {
                     this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
                     urlTextBox.Focus();
