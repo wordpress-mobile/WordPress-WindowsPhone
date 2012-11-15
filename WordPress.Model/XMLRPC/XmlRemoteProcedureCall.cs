@@ -395,13 +395,15 @@ namespace WordPress.Model
                 {
                     int startIndex = responseContent.IndexOf("<struct>");
                     int lastIndex = responseContent.LastIndexOf("</struct>");
-                    responseContent = "<methodResponse><fault><value>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</struct></value></fault</methodResponse>";
+                    if( startIndex != -1 && lastIndex != -1 && startIndex > lastIndex )
+                        responseContent = "<methodResponse><fault><value>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</struct></value></fault</methodResponse>";
                 }
                 else
                 {
                     int startIndex = responseContent.IndexOf("<value>");
                     int lastIndex = responseContent.LastIndexOf("</value>");
-                    responseContent = "<methodResponse><params><param>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</value></param></params></methodResponse>";
+                    if (startIndex != -1 && lastIndex != -1 && startIndex > lastIndex)
+                        responseContent = "<methodResponse><params><param>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</value></param></params></methodResponse>";
                 }
                 //Try to re-parse the content once again
                 xDoc = null;
