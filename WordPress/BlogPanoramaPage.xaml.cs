@@ -158,7 +158,8 @@ namespace WordPress
             if (currScroller.Name == "postsScrollerView")
             {
                 this.DebugLog("LoadingMorePosts");
-                FetchPosts(true);
+                DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
+                DataService.Current.FetchCurrentBlogPostsAsync(true);
             }
             else if (currScroller.Name == "pagesScrollerView")
             {
@@ -305,7 +306,8 @@ namespace WordPress
             {
                 //syncs postFormats, options (and maybe other stuff in the future) after the refresh of the posts list
                 DataService.Current.FetchComplete += OnFetchCurrentBlogPostsComplete;
-                FetchPosts(false);
+                DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
+                DataService.Current.FetchCurrentBlogPostsAsync(false);
             }
             else if (blogPanorama.SelectedItem == pagesPanoramaItem)
             {
@@ -316,7 +318,7 @@ namespace WordPress
         private void OnFetchCurrentBlogPostsComplete(object sender, EventArgs args)
         {
             DataService.Current.FetchComplete -= OnFetchCurrentBlogPostsComplete;
-            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred; //do now show exceptions for this kind of syncs
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred; //do now show exceptions for these XML-RPCS
             DataService.Current.FetchCurrentBlogAdditionalDataAsync();    
         }
 
@@ -324,12 +326,6 @@ namespace WordPress
 
 
         #region Posts methods
-
-        private void FetchPosts(bool more)
-        {
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
-            DataService.Current.FetchCurrentBlogPostsAsync(more);
-        }
 
         private void OnPostsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

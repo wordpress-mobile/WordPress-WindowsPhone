@@ -456,24 +456,16 @@ namespace WordPress.Model
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
 
-           
-            //Firing 2 async operations at the same time. Why wait?
             GetPostFormatsRPC rpc = new GetPostFormatsRPC(CurrentBlog);
             CurrentBlog.showLoadingIndicator();
             rpc.Completed += OnFetchPostFormatsRPCCompleted;
             rpc.ExecuteAsync();
-         /*   
-            GetOptionsRPC rpcOption = new GetOptionsRPC(CurrentBlog);
-            CurrentBlog.showLoadingIndicator();
-            rpcOption.Completed += OnFetchOptionsRPCCompleted;
-            rpcOption.ExecuteAsync();*/
         }
 
         private void OnFetchPostFormatsRPCCompleted(object sender, XMLRPCCompletedEventArgs<PostFormat> args)
         {
             GetPostFormatsRPC rpc = sender as GetPostFormatsRPC;
             rpc.Completed -= OnFetchPostFormatsRPCCompleted;
-            CurrentBlog.hideLoadingIndicator();
             if (null == args.Error)
             {
                 CurrentBlog.PostFormats.Clear();
@@ -481,12 +473,16 @@ namespace WordPress.Model
                 {
                     CurrentBlog.PostFormats.Add(postFormat);
                 });
-                NotifyFetchComplete();
+               // NotifyFetchComplete(); do not notify here
             }
             else
             {
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
+
+            GetOptionsRPC rpcOption = new GetOptionsRPC(CurrentBlog);
+            rpcOption.Completed += OnFetchOptionsRPCCompleted;
+            rpcOption.ExecuteAsync();
         }
 
         private void OnFetchOptionsRPCCompleted(object sender, XMLRPCCompletedEventArgs<Option> args)
@@ -502,7 +498,7 @@ namespace WordPress.Model
                     CurrentBlog.Options.Add(option);
                 });
 
-                NotifyFetchComplete();
+                NotifyFetchComplete(); //Notify here the end of the synch
             }
             else
             {
@@ -713,19 +709,11 @@ namespace WordPress.Model
             {
                 NotifyFetchComplete();
             }
-             
-            /*
+                  
            //get the options for the new blog
-            GetOptionsRPC pageListRPC = new GetOptionsRPC(newBlog);
-            pageListRPC.Completed += OnGetNewBlogOptionsCompleted;
-            pageListRPC.ExecuteAsync();
-            */
-
-            //get the pages for the new blog
-            GetPageListRPC pageListRPC = new GetPageListRPC(newBlog);
-            pageListRPC.Completed += OnGetNewBlogPagesCompleted;
-            pageListRPC.ProgressChanged += OnGetNewBlogPagesProgressChanged;
-            pageListRPC.ExecuteAsync();
+            GetOptionsRPC optionRPC = new GetOptionsRPC(newBlog);
+            optionRPC.Completed += OnGetNewBlogOptionsCompleted;
+            optionRPC.ExecuteAsync();
         }
 
         private void OnGetNewBlogOptionsCompleted(object sender, XMLRPCCompletedEventArgs<Option> args)

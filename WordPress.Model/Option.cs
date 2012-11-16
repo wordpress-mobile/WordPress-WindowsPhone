@@ -66,7 +66,7 @@ namespace WordPress.Model
             {
                 if (value != _readOnly)
                 {
-                    ReadOnly = value;
+                    _readOnly = value;
                     NotifyPropertyChanged("ReadOnly");
                 }
             }
