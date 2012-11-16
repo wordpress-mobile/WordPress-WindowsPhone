@@ -36,9 +36,11 @@ namespace WordPress.Model
         private const string XMLRPC_VALUE = "xmlrpc";
         private const string NOBLOGTITLE_VALUE = "__(_No Blog Title_)__";
 
-        private bool _isLoadingContent;
         private bool _hasOlderPosts = true;
         private bool _hasOlderComments = true;
+
+        private int _loadingIndicatorCounter = 0;
+        private static object _syncRoot = new object();
 
         #endregion
 
@@ -308,13 +310,7 @@ namespace WordPress.Model
         [XmlIgnore]
         public bool IsLoadingContent
         {
-            get { return _isLoadingContent; }
-            
-            internal set 
-            {
-                _isLoadingContent = value; 
-                NotifyPropertyChanged("IsLoadingContent");
-            }
+            get { return _loadingIndicatorCounter > 0 ? true : false; }
         }
 
         [XmlIgnore]
@@ -480,6 +476,46 @@ namespace WordPress.Model
                     this.PageListItems.Insert(0, draftListItem);
                 }
             }
+        }
+
+        /// <summary>
+        /// sets the loading counter to zero, and hides the loading indicator
+        /// </summary>
+        public void hideForceLoadingIndicator()
+        {
+             lock (_syncRoot)
+             {
+                 _loadingIndicatorCounter = 0;
+             }
+             NotifyPropertyChanged("IsLoadingContent");
+        }
+
+        /// <summary>
+        /// subtracts 1 from the loading indicator counter and if it is equal to zero hides the loading indicator
+        /// </summary>
+        public void hideLoadingIndicator()
+        {
+            lock (_syncRoot)
+            {
+                _loadingIndicatorCounter--;
+                if (_loadingIndicatorCounter <= 0)
+                {
+                    _loadingIndicatorCounter = 0;
+                }
+            }
+            NotifyPropertyChanged("IsLoadingContent");
+        }
+
+        /// <summary>
+        /// Adds 1 to the loading indicator couter and if it is > 1 shows the loading indicator
+        /// </summary>
+        public void showLoadingIndicator()
+        {
+            lock (_syncRoot)
+            {
+                _loadingIndicatorCounter++;
+            }
+            NotifyPropertyChanged("IsLoadingContent");
         }
 
         #endregion

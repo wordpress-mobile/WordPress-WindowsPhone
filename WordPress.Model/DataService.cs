@@ -227,7 +227,7 @@ namespace WordPress.Model
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
 
-            CurrentBlog.IsLoadingContent = true;
+            CurrentBlog.showLoadingIndicator();
 
             int numerberOfComments = 0;
             if (more)
@@ -238,7 +238,7 @@ namespace WordPress.Model
                 else
                 {
                     //removing this block you will enable the refresh of comments when reached the end of the list and no more comments are available
-                    CurrentBlog.IsLoadingContent = false;
+                    CurrentBlog.hideLoadingIndicator();
                     return;
                 }
             }
@@ -292,7 +292,7 @@ namespace WordPress.Model
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
 
-            CurrentBlog.IsLoadingContent = false;
+            CurrentBlog.hideLoadingIndicator();
         }
 
         public void FetchCurrentBlogPostsAsync()
@@ -311,7 +311,7 @@ namespace WordPress.Model
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
 
-            CurrentBlog.IsLoadingContent = true;
+            CurrentBlog.showLoadingIndicator();
 
             int numerberOfPosts = 0;
             if (more)
@@ -322,7 +322,7 @@ namespace WordPress.Model
                 else 
                 {
                     //removing this block you will enable the refresh of posts when reached the end of the list and no more posts are available
-                    CurrentBlog.IsLoadingContent = false;
+                    CurrentBlog.hideLoadingIndicator();
                     return;
                 }
             }
@@ -342,7 +342,7 @@ namespace WordPress.Model
         {
             GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
             rpc.Completed -= OnFetchCurrentBlogPostsCompleted;
-            CurrentBlog.IsLoadingContent = false;
+            CurrentBlog.hideLoadingIndicator();
             if (null == args.Error)
             {
                 int prevPostsCount = CurrentBlog.PostListItems.Count;
@@ -385,7 +385,7 @@ namespace WordPress.Model
             //kicking off another download
             if (_trackedBlogs.Contains(CurrentBlog)) return;
 
-            CurrentBlog.IsLoadingContent = true;
+            CurrentBlog.showLoadingIndicator();
 
             GetPageListRPC rpc = new GetPageListRPC(CurrentBlog);
             rpc.Completed += OnFetchCurrentBlogPagesCompleted;
@@ -414,7 +414,7 @@ namespace WordPress.Model
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
 
-            CurrentBlog.IsLoadingContent = false;
+            CurrentBlog.hideLoadingIndicator();
         }
 
         public void FetchCurrentBlogCategories()
@@ -456,14 +456,15 @@ namespace WordPress.Model
                 throw new ArgumentException("CurrentBlog may not be null", "CurrentBlog");
             }
 
-            CurrentBlog.IsLoadingContent = true;
-
+           
             //Firing 2 async operations at the same time. Why wait?
             GetPostFormatsRPC rpc = new GetPostFormatsRPC(CurrentBlog);
+            CurrentBlog.showLoadingIndicator();
             rpc.Completed += OnFetchPostFormatsRPCCompleted;
             rpc.ExecuteAsync();
-            /*
+         /*   
             GetOptionsRPC rpcOption = new GetOptionsRPC(CurrentBlog);
+            CurrentBlog.showLoadingIndicator();
             rpcOption.Completed += OnFetchOptionsRPCCompleted;
             rpcOption.ExecuteAsync();*/
         }
@@ -472,7 +473,7 @@ namespace WordPress.Model
         {
             GetPostFormatsRPC rpc = sender as GetPostFormatsRPC;
             rpc.Completed -= OnFetchPostFormatsRPCCompleted;
-            CurrentBlog.IsLoadingContent = false;
+            CurrentBlog.hideLoadingIndicator();
             if (null == args.Error)
             {
                 CurrentBlog.PostFormats.Clear();
@@ -492,7 +493,7 @@ namespace WordPress.Model
         {
             GetOptionsRPC rpc = sender as GetOptionsRPC;
             rpc.Completed -= OnFetchOptionsRPCCompleted;
-            CurrentBlog.IsLoadingContent = false;
+            CurrentBlog.hideLoadingIndicator();
             if (null == args.Error)
             {
                 CurrentBlog.Options.Clear();
@@ -548,7 +549,7 @@ namespace WordPress.Model
 
             if (string.IsNullOrEmpty(newBlog.ApiKey))
             {
-                newBlog.IsLoadingContent = true;
+                newBlog.showLoadingIndicator();
                 GetApiKeyRPC rpc = new GetApiKeyRPC(newBlog, false);
                 rpc.Completed += OnGetApiKeyRPCCompleted;
                 rpc.ExecuteAsync();
@@ -802,7 +803,7 @@ namespace WordPress.Model
 
             _trackedBlogs.Remove(newBlog);
 
-            newBlog.IsLoadingContent = false;
+            newBlog.hideLoadingIndicator();
 
             if (newBlog == CurrentBlog)
             {
