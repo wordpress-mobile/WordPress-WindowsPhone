@@ -185,6 +185,10 @@ namespace WordPress.Localization
             public string Remove { get { return LocalizedResources.ControlText_Remove; } }
             public string LocalDraft { get { return LocalizedResources.ControlText_LocalDraft; } }
             public string Private { get { return LocalizedResources.ControlText_Private; } }
+            public string ReplyToComment { get { return LocalizedResources.ControlText_ReplyToComment; } }
+            public string EditComment { get { return LocalizedResources.ControlText_EditComment; } }
+            public string Send { get { return LocalizedResources.ControlText_Send; } }
+            
         }
 
         #endregion
@@ -203,6 +207,7 @@ namespace WordPress.Localization
             public string UnapprovingComments { get { return LocalizedResources.Messages_UnapprovingComments; } }
             public string DeletingComment { get { return LocalizedResources.Messages_DeletingComment; } }
             public string DeletingComments { get { return LocalizedResources.Messages_DeletingComments; } }
+            public string EditingComment { get { return LocalizedResources.Messages_EditingComment; } }
             public string MissingReply { get { return LocalizedResources.Messages_MissingReply; } }
             public string ReplyingToComment { get { return LocalizedResources.Messages_ReplyingToComment; } }
             public string RetrievingComments { get { return LocalizedResources.Messages_RetrievingComments; } }

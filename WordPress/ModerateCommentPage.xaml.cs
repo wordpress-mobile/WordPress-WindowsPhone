@@ -17,8 +17,9 @@ namespace WordPress
         #region member variables
 
         private string COMMENTKEY_VALUE = "comment";
-        private string REPLYPANELVISIBLE_VALUE = "replyPanelVisible";
-        private string REPLYTEXTBOXTEXT_VALUE = "replyTextBoxText";
+        private string REPLYEDITPANELVISIBLE_VALUE = "replyEditPanelVisible";
+        private string REPLYEDITTEXTBOXTEXT_VALUE = "replyEditTextBoxText";
+        private string REPLYEDITPANELMODE_VALUE = "replyEditPanelMode";
 
         private ApplicationBarIconButton _deleteIconButton;
         private ApplicationBarIconButton _replyIconButton;
@@ -26,6 +27,8 @@ namespace WordPress
         private ApplicationBarIconButton _approveIconButton;
         private ApplicationBarIconButton _unapproveIconButton;
         private StringTable _localizedStrings;
+
+        private bool _isEditing = false;
 
         #endregion
 
@@ -37,7 +40,7 @@ namespace WordPress
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
-            replyPanel.Visibility = Visibility.Collapsed;
+            replyEditPanel.Visibility = Visibility.Collapsed;
 
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
@@ -63,6 +66,11 @@ namespace WordPress
             _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
             _unapproveIconButton.Click += OnUnapproveIconButtonClick;
 
+            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem();
+            menuItem.Text = _localizedStrings.ControlsText.EditComment;
+            menuItem.Click += OnEditCommentMenuItemClick;
+            ApplicationBar.MenuItems.Add(menuItem);
+
             authorEmailTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(authorEmailTextBlock_MouseLeftButtonDown);
             authorURLTextBlock.MouseLeftButtonDown += new MouseButtonEventHandler(authorURLTextBlock_MouseLeftButtonDown);
             Loaded += OnPageLoaded;
@@ -82,27 +90,45 @@ namespace WordPress
 
             //now that the application bar is in the right visual state, check for any
             //stored data for a reply
-            if (State.ContainsKey(REPLYPANELVISIBLE_VALUE))
+            if (State.ContainsKey(REPLYEDITPANELVISIBLE_VALUE))
             {
-                if (State.ContainsKey(REPLYTEXTBOXTEXT_VALUE))
+                if (State.ContainsKey(REPLYEDITTEXTBOXTEXT_VALUE))
                 {
-                    replyTextBox.Text = State[REPLYTEXTBOXTEXT_VALUE] as string;
+                    replyEditTextBox.Text = State[REPLYEDITTEXTBOXTEXT_VALUE] as string;
+                    _isEditing =  Convert.ToBoolean(State[REPLYEDITPANELMODE_VALUE] as string);
                 }
-                ShowReplyPanel();
+                ShowReplyEditPanel(_isEditing);
             }
+
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (Visibility.Visible == replyPanel.Visibility)
+            if (Visibility.Visible == replyEditPanel.Visibility)
             {
-                HideReplyPanel();
+                HideReplyEditPanel();
                 e.Cancel = true;
             }
             else
             {
                 base.OnBackKeyPress(e);
             }
+        }
+
+        private void OnEditCommentMenuItemClick(object sender, EventArgs e)
+        {
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+
+            // Set the textbox text here and not in ShowReplyEditPanel so 
+            // changes are not overwritten when resuming from the background.
+            Comment comment = DataContext as Comment;
+            replyEditTextBox.Text = comment.Content;
+            ShowReplyEditPanel(true);
         }
 
         private void OnReplyIconButtonClick(object sender, EventArgs e)
@@ -113,21 +139,33 @@ namespace WordPress
                 this.HandleException(connErr);
                 return;
             }
-            ShowReplyPanel();
+
+            replyEditTextBox.Text = "";
+            ShowReplyEditPanel(false);
         }
 
-        private void ShowReplyPanel()
+        private void ShowReplyEditPanel(bool forEditing)
         {
-            replyPanel.Visibility = Visibility.Visible;
+            _isEditing = forEditing;
+            if (_isEditing)
+            {
+                replyEditLabel.Text = _localizedStrings.ControlsText.EditComment;
+            }
+            else
+            {
+                replyEditLabel.Text = _localizedStrings.ControlsText.ReplyToComment;
+            }
+
+            replyEditPanel.Visibility = Visibility.Visible;
             ApplicationBar.IsVisible = false;
 
-            Storyboard fadeInStoryboard = AnimationHelper.CreateEaseInAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.0, 0.97, TimeSpan.FromMilliseconds(250));
+            Storyboard fadeInStoryboard = AnimationHelper.CreateEaseInAnimationStoryBoard(replyEditPanel, Grid.OpacityProperty, 0.0, 0.97, TimeSpan.FromMilliseconds(250));
             fadeInStoryboard.Begin();
         }
 
-        private void HideReplyPanel()
+        private void HideReplyEditPanel()
         {
-            Storyboard fadeOutStoryboard = AnimationHelper.CreateEaseOutAnimationStoryBoard(replyPanel, Grid.OpacityProperty, 0.97, 0, TimeSpan.FromMilliseconds(250));
+            Storyboard fadeOutStoryboard = AnimationHelper.CreateEaseOutAnimationStoryBoard(replyEditPanel, Grid.OpacityProperty, 0.97, 0, TimeSpan.FromMilliseconds(250));
             fadeOutStoryboard.BeginTime = TimeSpan.FromMilliseconds(250);
             fadeOutStoryboard.Completed += OnFadeOutStoryboardCompleted;
             fadeOutStoryboard.Begin();
@@ -136,8 +174,8 @@ namespace WordPress
         private void OnFadeOutStoryboardCompleted(object sender, EventArgs e)
         {
             ApplicationBar.IsVisible = true;
-            replyPanel.Visibility = Visibility.Collapsed;
-            replyTextBox.Text = string.Empty;
+            replyEditPanel.Visibility = Visibility.Collapsed;
+            replyEditTextBox.Text = string.Empty;
 
             Storyboard storyboard = sender as Storyboard;
             storyboard.Completed -= OnFadeOutStoryboardCompleted;
@@ -238,10 +276,11 @@ namespace WordPress
             State.Add(COMMENTKEY_VALUE, comment);
 
             //save reply data if it is active
-            if (Visibility.Visible == replyPanel.Visibility)
+            if (Visibility.Visible == replyEditPanel.Visibility)
             {
-                State.Add(REPLYPANELVISIBLE_VALUE, Visibility.Visible);
-                State.Add(REPLYTEXTBOXTEXT_VALUE, replyTextBox.Text);
+                State.Add(REPLYEDITPANELVISIBLE_VALUE, Visibility.Visible);
+                State.Add(REPLYEDITTEXTBOXTEXT_VALUE, replyEditTextBox.Text);
+                State.Add(REPLYEDITPANELMODE_VALUE, Convert.ToString(_isEditing));
             }
         }
 
@@ -336,20 +375,59 @@ namespace WordPress
             App.WaitIndicationService.HideIndicator();
         }
         
-        private void OnReplyButtonClick(object sender, RoutedEventArgs e)
+        private void OnReplyEditButtonClick(object sender, RoutedEventArgs e)
         {
-            ReplyToComment();
+            if (_isEditing)
+            {
+                EditComment();
+            }
+            else
+            {
+                ReplyToComment();
+            }
+        }
+
+        private void EditComment()
+        {
+            if (string.IsNullOrEmpty(replyEditTextBox.Text))
+            {
+                MessageBox.Show(_localizedStrings.Messages.MissingFields);
+                replyEditTextBox.Focus();
+                return;
+            }
+            
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+
+            Comment comment = DataContext as Comment;
+            comment.Content = replyEditTextBox.Text;
+
+            EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+            rpc.Completed += OnEditCommentRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.EditingComment);
         }
 
         private void ReplyToComment()
         {
-            if (string.IsNullOrEmpty(replyTextBox.Text))
+            if (string.IsNullOrEmpty(replyEditTextBox.Text))
             {
                 MessageBox.Show(_localizedStrings.Messages.MissingReply);
-                replyTextBox.Focus();
+                replyEditTextBox.Focus();
                 return;
             }
 
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
             Comment comment = DataContext as Comment;
@@ -358,7 +436,7 @@ namespace WordPress
             {
                 Author = currentBlog.Username,
                 Parent = comment.CommentId,                
-                Content = replyTextBox.Text
+                Content = replyEditTextBox.Text
             };
 
             NewCommentRPC rpc = new NewCommentRPC(currentBlog, comment, reply);

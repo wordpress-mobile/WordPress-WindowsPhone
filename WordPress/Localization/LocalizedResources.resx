@@ -838,4 +838,20 @@
   <data name="Messages_NoBlogFoundAtThisURL" xml:space="preserve">
     <value>You do not seem to have any blogs at {0}.</value>
   </data>
+  <data name="ControlText_EditComment" xml:space="preserve">
+    <value>edit comment</value>
+    <comment>title for the 'edit comment' form</comment>
+  </data>
+  <data name="ControlText_ReplyToComment" xml:space="preserve">
+    <value>reply to comment</value>
+    <comment>title for the 'reply to comment' form</comment>
+  </data>
+  <data name="ControlText_Send" xml:space="preserve">
+    <value>send</value>
+    <comment>title for the 'send' button on the edit comment and reply to comment forms</comment>
+  </data>
+  <data name="Messages_EditingComment" xml:space="preserve">
+    <value>editing comment...</value>
+    <comment>title for the 'editing comment' status message</comment>
+  </data>
 </root>

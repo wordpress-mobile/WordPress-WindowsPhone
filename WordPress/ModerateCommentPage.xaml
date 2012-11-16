@@ -70,7 +70,7 @@
                     <TextBlock Margin="12,-4,0,0" x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
                     <TextBlock Margin="12,-4,0,0" x:Name="dateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap"/>
                 </StackPanel>
-                <ScrollViewer  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
                     <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource LabelTextBlockStyle}" 
                            Margin="12,0" VerticalAlignment="Top" FontSize="32">
         		<TextBlock.Foreground>
@@ -81,18 +81,18 @@
             </Grid>
         </Grid>
 
-        <Grid x:Name="replyPanel" Background="Black" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Opacity="0.97" VerticalAlignment="Center" Height="768" d:IsHidden="True">
+        <Grid x:Name="replyEditPanel" Background="Black" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Opacity="0.97" VerticalAlignment="Center" Height="768" d:IsHidden="True">
             <StackPanel VerticalAlignment="Center">
                 <Border BorderThickness="5" CornerRadius="20" VerticalAlignment="Center" >
                     <Border.BorderBrush>
                         <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                     </Border.BorderBrush>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="reply to comment" VerticalAlignment="Top" Width="440" FontSize="32" Margin="0,0,0,25"/>
-                        <TextBox x:Name="replyTextBox" Width="436" Template="{StaticResource FocusedTextBoxTemplate}" Style="{StaticResource TextBoxStyle}" 
+                        <TextBlock x:Name="replyEditLabel" Text="" VerticalAlignment="Top" Width="440" FontSize="32" Margin="0,0,0,25"/>
+                        <TextBox x:Name="replyEditTextBox" Width="436" Template="{StaticResource FocusedTextBoxTemplate}" Style="{StaticResource TextBoxStyle}" 
                                  AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
-                        <Button x:Name="replyButton" Content="send" VerticalAlignment="Top" Style="{StaticResource BasicButtonStyle}" 
-                                HorizontalAlignment="Right" Margin="0,0,17,0" Click="OnReplyButtonClick"/>
+                        <Button x:Name="replyEditButton" Content="{Binding Path=ControlsText.Send, Source={StaticResource StringTable}}" VerticalAlignment="Top" Style="{StaticResource BasicButtonStyle}" 
+                                HorizontalAlignment="Right" Margin="0,0,17,0" Click="OnReplyEditButtonClick"/>
                     </StackPanel>
                 </Border>
             </StackPanel>
