@@ -502,7 +502,7 @@ namespace WordPress
         {
             GetPostRPC rpc = sender as GetPostRPC;
             rpc.Completed -= OnGetPostRPCCompleted;
-            App.WaitIndicationService.HideIndicator();
+            App.WaitIndicationService.KillSpinner();
 
             if (null == args.Error)
             {
