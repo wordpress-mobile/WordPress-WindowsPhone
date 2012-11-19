@@ -66,6 +66,7 @@ namespace WordPress
             }
 
             _currentWaitElement = waitElement;
+            _rootVisual.SizeChanged += new SizeChangedEventHandler(OnSizeChanged);
             Waiting = true;
         }
 
@@ -130,14 +131,26 @@ namespace WordPress
             _rootVisual.Dispatcher.BeginInvoke(() =>
             {
                 _rootVisual.Children.Remove(_currentWaitElement);
+                _rootVisual.SizeChanged -= OnSizeChanged;
                 _currentWaitElement = null;                
             });
 
             Waiting = false;
         }
 
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs args)
+        {
+            if (_currentWaitElement != null)
+            {
+                (_currentWaitElement as Grid).Width = _rootVisual.ActualWidth;
+                (_currentWaitElement as Grid).Height = _rootVisual.ActualHeight;
+            }
+        }
+
         private UIElement CreateWaitElement(string message = "Doing work...")
         {
+   
             var root = new Grid()
             {
                 Background = new SolidColorBrush(Colors.Black),
@@ -203,6 +216,7 @@ namespace WordPress
             if (null != _rootVisual && null != _currentWaitElement)
             {
                 _rootVisual.Children.Remove(_currentWaitElement);
+                _rootVisual.SizeChanged -= OnSizeChanged;
                 _currentWaitElement = null;
             }
             Waiting = false;
