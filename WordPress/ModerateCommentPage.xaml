@@ -6,7 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                            xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:Converters="clr-namespace:WordPress.Converters"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -34,7 +35,7 @@
             </toolkit:NavigationOutTransition.Forward>
         </toolkit:NavigationOutTransition>
     </toolkit:TransitionService.NavigationOutTransition>
-
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
@@ -65,10 +66,10 @@
                 </Grid.ColumnDefinitions>
                 <Image x:Name="gravatarImage" Grid.Row="0" Grid.Column="0" Source="{Binding GravatarUrl}" Width="100" Height="100" Margin="12,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <StackPanel Margin="0,-12,0,0" Orientation="Vertical" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1">
-                    <TextBlock x:Name="authorTextBlock" Text="{Binding Author}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="32" TextWrapping="NoWrap"/>
-                    <TextBlock Margin="12,-5,0,0" x:Name="authorURLTextBlock" Text="{Binding AuthorUrl}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
-                    <TextBlock Margin="12,-4,0,0" x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
-                    <TextBlock Margin="12,-4,0,0" x:Name="dateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" TextWrapping="NoWrap"/>
+                    <TextBlock x:Name="authorTextBlock" Text="{Binding Author, Converter={StaticResource AnonymousAuthorConverter}}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="32" TextWrapping="NoWrap"/>
+                    <TextBlock Margin="12,-5,0,0" x:Name="authorURLTextBlock" Text="{Binding AuthorUrl}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" MinHeight="26"  TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
+                    <TextBlock Margin="12,-4,0,0" x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" MinHeight="26" TextWrapping="NoWrap" Foreground="{StaticResource WordPressBlueBrush}"/>
+                    <TextBlock Margin="12,-4,0,0" x:Name="dateCreatedTextBlock" Text="{Binding DateCreated}" Style="{StaticResource LabelTextBlockStyle}" VerticalAlignment="Top" FontSize="21.333" MinHeight="26" TextWrapping="NoWrap"/>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
                     <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" TextWrapping="Wrap" Style="{StaticResource LabelTextBlockStyle}" 
