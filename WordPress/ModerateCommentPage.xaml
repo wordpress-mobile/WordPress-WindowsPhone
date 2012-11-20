@@ -90,7 +90,7 @@
                     </Border.BorderBrush>
                     <StackPanel Orientation="Vertical">
                         <TextBlock x:Name="replyEditLabel" Text="" VerticalAlignment="Top" Width="440" FontSize="32" Margin="0,0,0,25"/>
-                        <TextBox x:Name="replyEditTextBox" Width="436" Template="{StaticResource FocusedTextBoxTemplate}" Style="{StaticResource TextBoxStyle}" 
+                        <TextBox x:Name="replyEditTextBox" Width="436"  Height="200" Template="{StaticResource FocusedTextBoxTemplate}" Style="{StaticResource TextBoxStyle}" 
                                  AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="300" ScrollViewer.VerticalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
                         <Button x:Name="replyEditButton" Content="{Binding Path=ControlsText.Send, Source={StaticResource StringTable}}" VerticalAlignment="Top" Style="{StaticResource BasicButtonStyle}" 
                                 HorizontalAlignment="Right" Margin="0,0,17,0" Click="OnReplyEditButtonClick"/>

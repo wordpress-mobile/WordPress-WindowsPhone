@@ -160,7 +160,15 @@ namespace WordPress
             ApplicationBar.IsVisible = false;
 
             Storyboard fadeInStoryboard = AnimationHelper.CreateEaseInAnimationStoryBoard(replyEditPanel, Grid.OpacityProperty, 0.0, 0.97, TimeSpan.FromMilliseconds(250));
+            fadeInStoryboard.Completed += OnFadeInCommentReplyStoryboardCompleted;
             fadeInStoryboard.Begin();
+        }
+
+        private void OnFadeInCommentReplyStoryboardCompleted(object sender, EventArgs e)
+        {
+            replyEditTextBox.Focus();
+            Storyboard storyboard = sender as Storyboard;
+            storyboard.Completed -= OnFadeInCommentReplyStoryboardCompleted;
         }
 
         private void HideReplyEditPanel()
