@@ -275,6 +275,15 @@ namespace WordPress
             postFormatsPicker.SelectionChanged += new SelectionChangedEventHandler(listPicker_SelectionChanged);
         }
 
+        private void OnPageContentLostFocus(object sender, RoutedEventArgs e)
+        {
+            ApplicationBar.IsVisible = true;
+        }
+        private void OnPageContentGotFocus(object sender, RoutedEventArgs e)
+        {
+            ApplicationBar.IsVisible = false; //hide the application bar
+        }
+
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
             _mediaDialogPresented = false;
