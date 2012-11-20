@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -55,6 +56,22 @@ namespace WordPress
 	        base.OnNavigatedTo(e);
 	        Blog currentBlog = App.MasterViewModel.CurrentBlog;
 	    }
+
+
+        protected override void OnBackKeyPress(CancelEventArgs e)
+        {
+            if ( App.PopupSelectionService.IsPopupOpen )
+            {
+                App.PopupSelectionService.SelectionChanged -= _popupServiceSelectionChangedHandler;
+                App.PopupSelectionService.HidePopup();
+                e.Cancel = true;
+            }
+            else
+            {
+                 base.OnBackKeyPress(e);
+            }
+        }
+
 
         #region properties
 
