@@ -199,6 +199,20 @@ namespace WordPress
             _mediaDialogPresented = false;
             Post post = DataContext as Post;
 
+            //Do not publish pages with no title or content.
+            if (0 >= post.Media.Count)
+            {
+                //check the content
+                if (titleTextBox.Text.Trim() == "" && contentTextBox.Text.Trim() == "")
+                {
+                    MessageBox.Show(
+                        string.Format(_localizedStrings.Messages.TitleAndContentEmpty, _localizedStrings.Prompts.Page),
+                        _localizedStrings.PageTitles.Error,
+                        MessageBoxButton.OK);
+                    return;
+                }
+            }
+
             switch (this.statusPicker.SelectedIndex)
             {
                 case 0:

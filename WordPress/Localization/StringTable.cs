@@ -235,6 +235,7 @@ namespace WordPress.Localization
             public string InvalidCredentials { get { return LocalizedResources.Messages_InvalidCredentials; } }
             public string MissingFields { get { return LocalizedResources.Messages_MissingFields; } }
             public string NoBlogsFoundAtThisURL { get { return LocalizedResources.Messages_NoBlogFoundAtThisURL; } }
+            public string TitleAndContentEmpty { get { return LocalizedResources.Messages_TitleAndContentEmpty; } }
         }
 
         #endregion

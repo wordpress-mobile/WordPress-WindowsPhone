@@ -854,4 +854,7 @@
     <value>editing comment...</value>
     <comment>title for the 'editing comment' status message</comment>
   </data>
+  <data name="Messages_TitleAndContentEmpty" xml:space="preserve">
+    <value>Sorry, can't save this {0}. Title and Content are both empty.</value>
+  </data>
 </root>

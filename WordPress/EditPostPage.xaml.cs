@@ -280,6 +280,20 @@ namespace WordPress
             _mediaDialogPresented = false;
             Post post = App.MasterViewModel.CurrentPost;
 
+            //Do not publish posts with no title or content.
+            if (0 >= post.Media.Count)
+            {
+                //check the content
+                if (titleTextBox.Text.Trim() == "" && contentTextBox.Text.Trim() == "")
+                {
+                    MessageBox.Show(
+                        string.Format(_localizedStrings.Messages.TitleAndContentEmpty, _localizedStrings.Prompts.Post),
+                        _localizedStrings.PageTitles.Error,
+                        MessageBoxButton.OK);
+                    return;
+                }
+            }
+
             switch (this.statusPicker.SelectedIndex)
             {
                 case 0:
