@@ -99,17 +99,20 @@
     <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,10">
             <TextBlock x:Name="BlogName" Text="{Binding CurrentBlog.BlogNameUpper, Mode=OneWay}" Foreground="{StaticResource WordPressBlueBrush}" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="{Binding ControlsText.ViewStats, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressGreyBrush}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
-
+        <StackPanel x:Name="loadingContentStackPanel" Grid.Row="1" Canvas.ZIndex="1000" Margin="0,0,0,0">
+            <toolkit:PerformanceProgressBar x:Name="loadingStatsProgressBar" Height="10" IsIndeterminate="True" Opacity="0" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
+        </StackPanel>
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -133,9 +136,7 @@
 
                 <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Grid.Column="2" Margin="-4,0,0,0"/>
             </Grid>
-            <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,60,0,-60">
-                <toolkit:PerformanceProgressBar x:Name="loadingStatsProgressBar" Height="10" IsIndeterminate="True" Opacity="0" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
-            </StackPanel>
+
             <ScrollViewer x:Name="viewsStatsScrollViewer" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,0" d:IsHidden="True">
                 <StackPanel>
 
