@@ -19,6 +19,7 @@ namespace WordPress
         private ApplicationBarIconButton _positionIconButton;
         private List<string> _positionListOptions;
         private bool isMarkedForRemoval = false;
+        private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
 
         public ImageDetailsPage()
         {
@@ -59,6 +60,7 @@ namespace WordPress
             App.PopupSelectionService.Title = _localizedStrings.Prompts.MediaPlacement;
             App.PopupSelectionService.ItemsSource = _positionListOptions;
             App.PopupSelectionService.SelectionChanged += OnPositionOptionSelected;
+            _popupServiceSelectionChangedHandler = OnPositionOptionSelected; //Keep a reference to the changes handler. It's only one for now, but preparing the code for future upgrade.
 
             App.PopupSelectionService.ShowPopup();
         }
@@ -75,6 +77,17 @@ namespace WordPress
             NavigationService.GoBack();
         }
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (App.PopupSelectionService.IsPopupOpen)
+            {
+                App.PopupSelectionService.SelectionChanged -= _popupServiceSelectionChangedHandler;
+                e.Cancel = true;
+                App.PopupSelectionService.HidePopup();
+                return;
+            }
+            base.OnBackKeyPress(e);
+        }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
