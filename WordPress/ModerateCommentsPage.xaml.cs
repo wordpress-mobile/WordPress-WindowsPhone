@@ -184,6 +184,7 @@ namespace WordPress
                 rpc.Completed += OnBatchDeleteXmlRPCCompleted;
                 rpc.ExecuteAsync();
 
+                ApplicationBar.IsVisible = false; //hide the application bar
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
             }
         }
@@ -200,6 +201,7 @@ namespace WordPress
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComments);
         }
 
@@ -215,6 +217,7 @@ namespace WordPress
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComments);
         }
 
@@ -234,7 +237,8 @@ namespace WordPress
                 rpc.Comments = list;
                 rpc.Completed += OnBatchEditXmlRPCCompleted;
                 rpc.ExecuteAsync();
-
+                
+                ApplicationBar.IsVisible = false; //hide the application bar
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
             }
         }
@@ -267,6 +271,7 @@ namespace WordPress
             EditCommentsStatusRPC rpc = sender as EditCommentsStatusRPC;
             rpc.Completed -= OnBatchEditXmlRPCCompleted;
 
+            ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
 
             UpdateDisplay();
@@ -277,6 +282,7 @@ namespace WordPress
             DeleteCommentsRPC rpc = sender as DeleteCommentsRPC;
             rpc.Completed -= OnBatchDeleteXmlRPCCompleted;
 
+            ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
 
             UpdateDisplay();
