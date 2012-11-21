@@ -25,6 +25,7 @@ namespace WordPress
 
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
+        private GetUsersBlogsRPC rpc;
 
         #endregion
 
@@ -106,10 +107,11 @@ namespace WordPress
 
             this.DebugLog("XML-RPC URL: " + url);
 
-            GetUsersBlogsRPC rpc = new GetUsersBlogsRPC(url, username, password);
+            rpc = new GetUsersBlogsRPC(url, username, password);
             rpc.Completed += OnGetUsersBlogsCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.LoggingIn);
         }
 
@@ -135,7 +137,7 @@ namespace WordPress
 
         private bool ValidateUrl()
         {
-            Uri testUri;            
+            Uri testUri;
             bool result = Uri.TryCreate(urlTextBox.Text, UriKind.Absolute, out testUri);
             return result;            
         }
@@ -153,6 +155,7 @@ namespace WordPress
 
         private void OnGetUsersBlogsCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
         {
+            ApplicationBar.IsVisible = true;
             GetUsersBlogsRPC rpc = sender as GetUsersBlogsRPC;
             rpc.Completed -= OnGetUsersBlogsCompleted;
 
@@ -275,6 +278,16 @@ namespace WordPress
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
+            if(App.WaitIndicationService.Waiting){
+                if (rpc != null)
+                {
+                    rpc.Completed -= OnGetUsersBlogsCompleted;
+                }
+                App.WaitIndicationService.KillSpinner();
+                HideBlogSelectionControl();
+                e.Cancel = true;
+            }
+
             if (Visibility.Visible == blogSelectionControl.Visibility)
             {
                 HideBlogSelectionControl();

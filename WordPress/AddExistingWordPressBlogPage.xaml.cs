@@ -24,6 +24,7 @@ namespace WordPress
 
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
+        private GetUsersBlogsRPC rpc;
 
         #endregion
 
@@ -90,10 +91,11 @@ namespace WordPress
             string password = passwordPasswordBox.Password;
             string url = Constants.WORDPRESS_XMLRPC_URL;
 
-            GetUsersBlogsRPC rpc = new GetUsersBlogsRPC(url, username, password);
+            rpc = new GetUsersBlogsRPC(url, username, password);
             rpc.Completed += OnGetUsersBlogsCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.LoggingIn);
         }
 
@@ -127,7 +129,7 @@ namespace WordPress
         {
             GetUsersBlogsRPC rpc = sender as GetUsersBlogsRPC;
             rpc.Completed -= OnGetUsersBlogsCompleted;
-
+            ApplicationBar.IsVisible = true;
             App.WaitIndicationService.KillSpinner();
 
             if (null == args.Error)
@@ -226,6 +228,17 @@ namespace WordPress
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
+            if (App.WaitIndicationService.Waiting)
+            {
+                if (rpc != null)
+                {
+                    rpc.Completed -= OnGetUsersBlogsCompleted;
+                }
+                App.WaitIndicationService.KillSpinner();
+                HideBlogSelectionControl();
+                e.Cancel = true;
+            }
+            
             if (Visibility.Visible == blogSelectionControl.Visibility)
             {
                 HideBlogSelectionControl();
