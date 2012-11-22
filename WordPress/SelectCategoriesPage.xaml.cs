@@ -145,11 +145,27 @@ namespace WordPress
                 //on long list the container could be null since the list is not fully rendered on the screen, so we can't select items at the end of the list
                 categoriesListBox.SelectedItems.Add(category);
             }
-        } 
+        }
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            if (App.WaitIndicationService.Waiting)
+            {
+                DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+                App.WaitIndicationService.HideIndicator();
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
+            }
+            else
+            {
+                base.OnBackKeyPress(e);
+            }
+        }
 
         private void FetchCategories()
         {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+            ApplicationBar.IsVisible = false; 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingCategories);
             DataService.Current.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
             DataService.Current.FetchCurrentBlogCategories();
@@ -159,6 +175,7 @@ namespace WordPress
         {
             DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
+            ApplicationBar.IsVisible = true; 
             //update the list
             categoriesListBox.SelectedItems.Clear();
             categoriesListBox.IsSelectionEnabled = true;

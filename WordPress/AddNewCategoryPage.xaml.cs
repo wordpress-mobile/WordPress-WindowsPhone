@@ -24,6 +24,9 @@ namespace WordPress
         ApplicationBarIconButton _saveIconButton;
         StringTable _localizedStrings;
 
+        private NewCategoryRPC newCategoryRPC;
+
+
         #endregion
 
         #region constructors
@@ -69,17 +72,20 @@ namespace WordPress
                 categoryNameTextBox.Focus();
                 return;
             }
-            
+
+            this.Focus(); //hide the keyboard
+
             //force updates to the data context
             categoryNameTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             categorySlugTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             categoryDescriptionTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
 
             Category newCategory = DataContext as Category;
-            NewCategoryRPC rpc = new NewCategoryRPC(App.MasterViewModel.CurrentBlog, newCategory);
-            rpc.Completed += OnNewCategoryRPCCompleted;
-            rpc.ExecuteAsync();
+            newCategoryRPC = new NewCategoryRPC(App.MasterViewModel.CurrentBlog, newCategory);
+            newCategoryRPC.Completed += OnNewCategoryRPCCompleted;
+            newCategoryRPC.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.CreatingNewCategory);
         }
 
@@ -90,11 +96,13 @@ namespace WordPress
             
             if (null == args.Error)
             {
-                DataService.Current.FetchCurrentBlogCategories();
                 DataService.Current.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
+                DataService.Current.FetchCurrentBlogCategories();
             }
             else
             {
+                ApplicationBar.IsVisible = true;
+                App.WaitIndicationService.HideIndicator();
                 this.HandleException(args.Error);
             }
         }
@@ -103,6 +111,7 @@ namespace WordPress
         {
             DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
             App.WaitIndicationService.HideIndicator();
+            ApplicationBar.IsVisible = true; 
             NavigationService.GoBack();            
         }
         
@@ -169,6 +178,17 @@ namespace WordPress
             if (App.PopupSelectionService.IsPopupOpen)
             {
                 App.PopupSelectionService.HidePopup();
+                e.Cancel = true;
+            }
+            else if (App.WaitIndicationService.Waiting)
+            {
+                //remove al of the listener when the back btn is pressed
+                if(newCategoryRPC != null)
+                    newCategoryRPC.Completed -= OnNewCategoryRPCCompleted;
+                DataService.Current.FetchComplete -= OnFetchCurrentBlogCategoriesComplete;
+                
+                ApplicationBar.IsVisible = true; 
+                App.WaitIndicationService.HideIndicator();
                 e.Cancel = true;
             }
             else
