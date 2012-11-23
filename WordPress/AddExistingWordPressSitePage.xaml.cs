@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Microsoft.Phone.Tasks;
-
+using System.Xml.Linq;
 using WordPress.Commands;
 using WordPress.Localization;
 using WordPress.Model;
-using System.Windows.Input;
 
 namespace WordPress
 {
@@ -26,6 +27,8 @@ namespace WordPress
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
         private GetUsersBlogsRPC rpc;
+        private WebClient rsdWebClient;
+        private bool useRecoveryFunctions = true;
 
         #endregion
 
@@ -111,6 +114,7 @@ namespace WordPress
             rpc.Completed += OnGetUsersBlogsCompleted;
             rpc.ExecuteAsync();
 
+            useRecoveryFunctions = true;
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.LoggingIn);
         }
@@ -155,14 +159,14 @@ namespace WordPress
 
         private void OnGetUsersBlogsCompleted(object sender, XMLRPCCompletedEventArgs<Blog> args)
         {
-            ApplicationBar.IsVisible = true;
             GetUsersBlogsRPC rpc = sender as GetUsersBlogsRPC;
             rpc.Completed -= OnGetUsersBlogsCompleted;
 
-            App.WaitIndicationService.KillSpinner();
-
-            if (null == args.Error)
+            if (null == args.Error && (5+1) == 6)
             {
+                App.WaitIndicationService.KillSpinner();
+                ApplicationBar.IsVisible = true;
+
                 if (0 == args.Items.Count)
                 {
                     this.HandleException(null, _localizedStrings.PageTitles.CheckTheUrl, string.Format(_localizedStrings.Messages.NoBlogsFoundAtThisURL, rpc.Url));
@@ -182,13 +186,26 @@ namespace WordPress
             }
             else
             {
-                if (args.Error is NotSupportedException || args.Error is XmlRPCParserException)
+
+                if (useRecoveryFunctions)
                 {
-                    this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
-                    urlTextBox.Focus();
-                    return;
+                    useRecoveryFunctions = false; //set this to false, since the recovery functions will be used only once.
+                    startRecoveryfunctions();
                 }
-                this.HandleException(args.Error);
+                else
+                {
+                    App.WaitIndicationService.KillSpinner();
+                    ApplicationBar.IsVisible = true;
+
+                    if (args.Error is NotSupportedException || args.Error is XmlRPCParserException)
+                    {
+                        this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
+                        urlTextBox.Focus();
+                        return;
+                    }
+                    else
+                        this.HandleException(args.Error);
+                }
             }
         }
 
@@ -283,6 +300,11 @@ namespace WordPress
                 {
                     rpc.Completed -= OnGetUsersBlogsCompleted;
                 }
+                if (rsdWebClient != null)
+                {
+                    rsdWebClient.DownloadStringCompleted -= downloadRSDdocumentCompleted;
+                    rsdWebClient.DownloadStringCompleted -= downloadUserURLContentCompleted;
+                }
                 App.WaitIndicationService.KillSpinner();
                 HideBlogSelectionControl();
                 e.Cancel = true;
@@ -299,6 +321,145 @@ namespace WordPress
             }
         }
         #endregion
+
+        #region Discover Endpoint methods
+
+        private void startRecoveryfunctions()
+        {
+            string url = urlTextBox.Text.Trim();
+            rsdWebClient = new WebClient();
+            rsdWebClient.DownloadStringAsync(new Uri(url));
+            rsdWebClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(downloadUserURLContentCompleted);
+        }
+
+        void downloadUserURLContentCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            rsdWebClient.DownloadStringCompleted -= downloadUserURLContentCompleted;
+            if (e.Error == null)
+            {
+                try
+                {
+                    string s = e.Result;
+                    //parse the HTML document and find the RSD endpoint here
+                    string pattern = "<link\\s*?rel=\"EditURI\"\\s*?type=\"application/rsd\\+xml\"\\s*?title=\"RSD\"\\s*?href=\"(.*?)\"";
+                    Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                    if (regex.IsMatch(s))
+                    {
+                        Match firstMatch = regex.Match(s);
+                        s = s.Substring(firstMatch.Index, firstMatch.Length);
+                        s = s.Substring(s.IndexOf("href=\""));
+                        s = s.Replace("href=\"", "");
+                        s = s.Substring(0, s.IndexOf("\""));
+                        this.downloadRSDdocument(s);
+                    }
+                    else
+                    {
+                        //No RSD found, show the "no WP site found at this URL..."
+                        this.showErrorMsgOnRecovery(null);
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    //Error while parsing the doc, show the "no WP site found at this URL..."
+                    this.showErrorMsgOnRecovery(null);
+                    return;
+                }
+            }
+            else //Connection error, show the real message error.  
+            {
+                this.showErrorMsgOnRecovery(e.Error);
+                return;
+            }
+        }
+
+        private void downloadRSDdocument(string rsdURL)
+        {
+            rsdWebClient = new WebClient();
+            rsdWebClient.DownloadStringAsync(new Uri(rsdURL));
+            rsdWebClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(downloadRSDdocumentCompleted);
+        }
+
+        void downloadRSDdocumentCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            rsdWebClient.DownloadStringCompleted -= downloadRSDdocumentCompleted;
+
+            if (e.Error == null)
+            {
+                try
+                {
+                    string rsdDocumentString = e.Result;
+                    //clean the junk b4 the xml preamble.
+                    if (!rsdDocumentString.StartsWith("<?xml"))
+                    {
+                        //clean the junk b4 the xml preamble
+                        this.DebugLog("cleaning the junk before the xml preamble");
+                        int indexOfFirstLt = rsdDocumentString.IndexOf("<?xml");
+                        if (indexOfFirstLt > -1)
+                            rsdDocumentString = rsdDocumentString.Substring(indexOfFirstLt);
+                    }
+                    string apiLink = null;
+                    XDocument xDoc = XDocument.Parse(rsdDocumentString, LoadOptions.None);
+                    foreach (XElement apiElement in xDoc.Descendants())
+                    {
+                        if (apiElement.Name.LocalName == "api")
+                            if (apiElement.Attribute("name").Value == "WordPress")
+                            {
+                                apiLink = apiElement.Attribute("apiLink").Value;
+                            }
+                    }
+
+                    if (apiLink == null)
+                    {
+                        //No XML-RPC Endpoint found, show the "no WP site found at this URL..."
+                        this.showErrorMsgOnRecovery(null);
+                        return;
+                    }
+                    else
+                    {
+                        //restart getUserBlogs with this URL
+                        string username = usernameTextBox.Text;
+                        string password = passwordPasswordBox.Password;
+                        rpc = new GetUsersBlogsRPC(apiLink, username, password);
+                        rpc.Completed += OnGetUsersBlogsCompleted;
+                        rpc.ExecuteAsync();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    //Error while parsing the doc, show the "no WP site found at this URL..."
+                    this.showErrorMsgOnRecovery(null);
+                    return;
+                }
+            }
+            else //Connection error, show the real message error.  
+            {
+                this.showErrorMsgOnRecovery(e.Error);
+                return;
+            }
+
+        }
+
+        private void showErrorMsgOnRecovery(Exception ex)
+        {
+
+            App.WaitIndicationService.KillSpinner();
+            ApplicationBar.IsVisible = true;
+
+            if (null == ex)
+            {
+                this.HandleException(null, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
+            }
+            else
+            {
+                this.HandleException(ex);
+            }
+            return;
+        }
+
+        #endregion
+
 
     }
 }
