@@ -395,6 +395,9 @@ namespace WordPress
             }
             else if (blogPanorama.SelectedItem == postsPanoramaItem)
             {
+                //The blog is already loading posts.
+                if (App.MasterViewModel.CurrentBlog.IsLoadingPosts == true) return;
+
                 //syncs postFormats, options (and maybe other stuff in the future) after the refresh of the posts list
                 DataService.Current.FetchComplete += OnFetchCurrentBlogPostsComplete;
                 DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
@@ -402,7 +405,7 @@ namespace WordPress
             }
             else if (blogPanorama.SelectedItem == pagesPanoramaItem)
             {
-                //The blog is already loading comments.
+                //The blog is already loading pages.
                 if (App.MasterViewModel.CurrentBlog.IsLoadingPages == true) return;
 
                 if (DataService.Current.FetchCurrentBlogPagesAsync())
