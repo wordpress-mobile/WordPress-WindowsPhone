@@ -208,7 +208,7 @@ namespace WordPress
                     this.DebugLog(ctrl.Name + "->ScrollableHeight: " + currScroller.ScrollableHeight);
 
                     // The vertical offset of the multiselectlist mightnot match the scrollableheight. Give it a little extra room.
-                    if (currScroller.ScrollableHeight > 0 && (currScroller.ScrollableHeight >= (currScroller.VerticalOffset -1)))
+                    if (currScroller.ScrollableHeight > 0 && (currScroller.VerticalOffset == currScroller.ScrollableHeight ))
                         loadMoreItems(currScroller);
                 }
             }
