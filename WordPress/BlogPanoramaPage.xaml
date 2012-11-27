@@ -275,7 +275,7 @@
                 </controls:PanoramaItem.Foreground>
 
                 <Grid>
-                    <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,72">
+                    <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,0">
                         <StackPanel>
 
                             <TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
@@ -333,7 +333,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ScrollViewer x:Name="postsScrollerView" Margin="0,0,0,72">
+                    <ScrollViewer x:Name="postsScrollerView" Margin="0,0,0,0">
                         <StackPanel>
                             <!-- Margin property changed in the .cs for Win8 see #123 -->
                             <TextBlock x:Name="postsTitle" Text="{Binding PageTitles.Posts, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />
@@ -373,7 +373,7 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
                 <Grid>
-                    <ScrollViewer x:Name="pagesScrollerView" Margin="0,0,0,72">
+                    <ScrollViewer x:Name="pagesScrollerView" Margin="0,0,0,0">
                         <StackPanel>
                             <!-- Margin property changed in the .cs for Win8 see #123 -->
                             <TextBlock x:Name="pagesTitle" Text="{Binding PageTitles.Pages, Source={StaticResource StringTable}}" FontSize="72" FontFamily="Segoe WP SemiLight" Margin="0,-25,0,0" />

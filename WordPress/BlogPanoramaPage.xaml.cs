@@ -107,7 +107,7 @@ namespace WordPress
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
-            ApplicationBar.Opacity = 0.5;
+          //  ApplicationBar.Opacity = 0.5;
 
             _pinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.pin.png", UriKind.Relative)); // todo: icon
             _pinBlogIconButton.Text =_localizedStrings.ControlsText.Pin;
