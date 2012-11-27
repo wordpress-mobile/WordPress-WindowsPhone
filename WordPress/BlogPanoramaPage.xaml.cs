@@ -33,7 +33,6 @@ namespace WordPress
         private List<string> _pageListOptions;
         private List<string> _draftListOptions;
 
-        private int _multiFetchTaskCount;
         private bool _blogIsPinned = false;
         private bool _isModeratingComments;
         private CommentsListFilter _currentCommentFilter;
@@ -219,8 +218,11 @@ namespace WordPress
             if (currScroller.Name == "postsScrollerView")
             {
                 this.DebugLog("LoadingMorePosts");
-                DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
-                DataService.Current.FetchCurrentBlogPostsAsync(true);
+
+                if (App.MasterViewModel.CurrentBlog.IsLoadingPosts == true) return;
+
+                if (DataService.Current.FetchCurrentBlogPostsAsync(true))
+                    DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
             }
             else if (currScroller.Name == "pagesScrollerView")
             {
@@ -400,7 +402,11 @@ namespace WordPress
             }
             else if (blogPanorama.SelectedItem == pagesPanoramaItem)
             {
-                FetchPages();
+                //The blog is already loading comments.
+                if (App.MasterViewModel.CurrentBlog.IsLoadingPages == true) return;
+
+                if (DataService.Current.FetchCurrentBlogPagesAsync())
+                    DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
             }
         }
 
@@ -656,8 +662,11 @@ namespace WordPress
 
         private void FetchComments(bool more)
         {
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
-            DataService.Current.FetchCurrentBlogCommentsAsync(more);
+            //The blog is already loading comments.
+            if (App.MasterViewModel.CurrentBlog.IsLoadingComments == true) return;
+
+            if(DataService.Current.FetchCurrentBlogCommentsAsync(more))
+                DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
         }
 
         private void ViewPostComments()
@@ -923,12 +932,6 @@ namespace WordPress
 
 
         #region Pages methods
-
-        private void FetchPages()
-        {
-            DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred; 
-            DataService.Current.FetchCurrentBlogPagesAsync();
-        }
 
         private void OnPagesListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

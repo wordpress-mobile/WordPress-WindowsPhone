@@ -425,7 +425,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                DataService.Current.FetchCurrentBlogPostsAsync();
+                DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
             }
             else
@@ -450,7 +450,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
-                DataService.Current.FetchCurrentBlogPostsAsync();
+                DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
             }
             else

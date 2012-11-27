@@ -463,7 +463,7 @@ namespace WordPress
             {
                 //fire off a request for the latest comment so we can get our comment updated
                 //with the latest from the server.
-                DataService.Current.FetchCurrentBlogCommentsAsync();
+                DataService.Current.FetchCurrentBlogCommentsAsync(false);
 
                 NavigationService.GoBack();
             }

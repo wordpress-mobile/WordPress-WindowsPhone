@@ -216,7 +216,7 @@ namespace WordPress.Model
             }
         }
 
-        public void FetchCurrentBlogCommentsAsync(bool more)
+        public bool FetchCurrentBlogCommentsAsync(bool more)
         {
             if (null == CurrentBlog)
             {
@@ -225,8 +225,8 @@ namespace WordPress.Model
 
             //we're already downloading data here--don't allow scenarios where we could be
             //kicking off another download
-            if (_trackedBlogs.Contains(CurrentBlog)) return;
-
+            if (_trackedBlogs.Contains(CurrentBlog)) return false;
+           
             CurrentBlog.showLoadingIndicator();
 
             int numerberOfComments = 0;
@@ -234,36 +234,36 @@ namespace WordPress.Model
             {
                 numerberOfComments = Math.Max(CurrentBlog.Comments.Count, CHUNK_SIZE);
                 if (CurrentBlog.HasOlderComments)
+                {
                     numerberOfComments += CHUNK_SIZE;
+                }
                 else
                 {
                     //removing this block you will enable the refresh of comments when reached the end of the list and no more comments are available
                     CurrentBlog.hideLoadingIndicator();
-                    return;
+                    return false;
                 }
             }
             else
             {
                 numerberOfComments = CHUNK_SIZE;
             }
-            
+
+            CurrentBlog.IsLoadingComments = true;
             GetAllCommentsRPC rpc = new GetAllCommentsRPC(CurrentBlog);
             rpc.Number = numerberOfComments;
             rpc.Offset = 0;
             rpc.Completed += OnFetchCurrentBlogCommentsCompleted;
 
             rpc.ExecuteAsync();
-        }
-
-        public void FetchCurrentBlogCommentsAsync()
-        {
-            this.FetchCurrentBlogCommentsAsync(false);
+            return true;
         }
 
         private void OnFetchCurrentBlogCommentsCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
         {
             GetAllCommentsRPC rpc = sender as GetAllCommentsRPC;
             rpc.Completed -= OnFetchCurrentBlogCommentsCompleted;
+            CurrentBlog.IsLoadingComments = false;
 
             if (null == args.Error)
             {
@@ -295,12 +295,7 @@ namespace WordPress.Model
             CurrentBlog.hideLoadingIndicator();
         }
 
-        public void FetchCurrentBlogPostsAsync()
-        {
-            this.FetchCurrentBlogPostsAsync(false);
-        }
-
-        public void FetchCurrentBlogPostsAsync(bool more)
+        public bool FetchCurrentBlogPostsAsync(bool more)
         {
             if (null == CurrentBlog)
             {
@@ -309,7 +304,7 @@ namespace WordPress.Model
                         
             //we're already downloading data here--don't allow scenarios where we could be
             //kicking off another download
-            if (_trackedBlogs.Contains(CurrentBlog)) return;
+            if (_trackedBlogs.Contains(CurrentBlog)) return false;
 
             CurrentBlog.showLoadingIndicator();
 
@@ -323,7 +318,7 @@ namespace WordPress.Model
                 {
                     //removing this block you will enable the refresh of posts when reached the end of the list and no more posts are available
                     CurrentBlog.hideLoadingIndicator();
-                    return;
+                    return false;
                 }
             }
             else
@@ -334,15 +329,21 @@ namespace WordPress.Model
             GetRecentPostsRPC rpc = new GetRecentPostsRPC(CurrentBlog);
             rpc.NumberOfPosts = numerberOfPosts;
             rpc.Completed += OnFetchCurrentBlogPostsCompleted;
-
+        
+            CurrentBlog.IsLoadingPosts = true;
+            
             rpc.ExecuteAsync();
+            return true;
         }
 
         private void OnFetchCurrentBlogPostsCompleted(object sender, XMLRPCCompletedEventArgs<PostListItem> args)
         {
+            CurrentBlog.hideLoadingIndicator();
+            CurrentBlog.IsLoadingPosts = false;
+
             GetRecentPostsRPC rpc = sender as GetRecentPostsRPC;
             rpc.Completed -= OnFetchCurrentBlogPostsCompleted;
-            CurrentBlog.hideLoadingIndicator();
+
             if (null == args.Error)
             {
                 int prevPostsCount = CurrentBlog.PostListItems.Count;
@@ -374,7 +375,7 @@ namespace WordPress.Model
             }
         }
 
-        public void FetchCurrentBlogPagesAsync()
+        public bool FetchCurrentBlogPagesAsync()
         {
             if (null == CurrentBlog)
             {
@@ -383,21 +384,25 @@ namespace WordPress.Model
 
             //we're already downloading data here--don't allow scenarios where we could be
             //kicking off another download
-            if (_trackedBlogs.Contains(CurrentBlog)) return;
+            if (_trackedBlogs.Contains(CurrentBlog)) return false;
 
             CurrentBlog.showLoadingIndicator();
-
+            CurrentBlog.IsLoadingPages = true;
+            
             GetPageListRPC rpc = new GetPageListRPC(CurrentBlog);
             rpc.Completed += OnFetchCurrentBlogPagesCompleted;
-
             rpc.ExecuteAsync();
+            return true;
         }
 
         private void OnFetchCurrentBlogPagesCompleted(object sender, XMLRPCCompletedEventArgs<PageListItem> args)
         {
+            CurrentBlog.IsLoadingPages = false;
+            CurrentBlog.hideLoadingIndicator();
+
             GetPageListRPC rpc = sender as GetPageListRPC;
             rpc.Completed -= OnFetchCurrentBlogPagesCompleted;
-     
+
             if (null == args.Error)
             {
                 CurrentBlog.PageListItems.Clear();
@@ -413,8 +418,6 @@ namespace WordPress.Model
             {
                 NotifyExceptionOccurred(new ExceptionEventArgs(args.Error));
             }
-
-            CurrentBlog.hideLoadingIndicator();
         }
 
         public void FetchCurrentBlogCategories()

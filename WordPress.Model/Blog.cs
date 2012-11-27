@@ -325,6 +325,15 @@ namespace WordPress.Model
         }
 
         [XmlIgnore]
+        public bool IsLoadingPosts { set; get; }
+
+        [XmlIgnore]
+        public bool IsLoadingComments { set; get; }
+
+        [XmlIgnore]
+        public bool IsLoadingPages { set; get; }
+       
+        [XmlIgnore]
         public bool HasOlderComments
         {
             get { return _hasOlderComments; }
