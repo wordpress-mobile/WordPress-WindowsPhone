@@ -740,6 +740,13 @@ namespace WordPress
 
         private void multiselectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!_isModeratingComments && commentsListBox.SelectedItems.Count > 0)
+            {
+                // Treat this like any other tap.
+                App.MasterViewModel.CurrentComment = (Comment)commentsListBox.SelectedItems[0];
+                NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
+            }
+
             // when all items are unselected the selection mode automatically turns off
             commentsListBox.IsSelectionEnabled = _isModeratingComments;
         }
