@@ -857,4 +857,23 @@
   <data name="Messages_TitleAndContentEmpty" xml:space="preserve">
     <value>Sorry, can't save this {0}. Title and Content are both empty.</value>
   </data>
+  <data name="ControlText_FilterAll" xml:space="preserve">
+    <value>Show all</value>
+  </data>
+  <data name="ControlText_FilterApproved" xml:space="preserve">
+    <value>Show approved</value>
+  </data>
+  <data name="ControlText_FilterSpam" xml:space="preserve">
+    <value>Show spam</value>
+  </data>
+  <data name="ControlText_FilterUnapproved" xml:space="preserve">
+    <value>Show unapproved</value>
+  </data>
+  <data name="ControlText_Moderate" xml:space="preserve">
+    <value>moderate</value>
+  </data>
+  <data name="ControlText_DeleteSelected" xml:space="preserve">
+    <value>delete selected</value>
+    <comment>title for the delete selected menu item</comment>
+  </data>
 </root>

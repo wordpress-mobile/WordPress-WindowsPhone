@@ -117,6 +117,7 @@ namespace WordPress.Localization
             public string AddExistingWPBlog { get { return LocalizedResources.ControlText_AddExistingWPBlog; } }
             public string AddExistingWPSite { get { return LocalizedResources.ControlText_AddExistingSite; } }
             public string Delete { get { return LocalizedResources.ControlText_Delete; } }
+            public string DeleteSelected { get { return LocalizedResources.ControlText_DeleteSelected; } }
             public string Reply { get { return LocalizedResources.ControlText_Reply; } }
             public string Approve { get { return LocalizedResources.ControlText_Approve; } }
             public string Unapprove { get { return LocalizedResources.ControlText_Unapprove; } }
@@ -188,7 +189,14 @@ namespace WordPress.Localization
             public string ReplyToComment { get { return LocalizedResources.ControlText_ReplyToComment; } }
             public string EditComment { get { return LocalizedResources.ControlText_EditComment; } }
             public string Send { get { return LocalizedResources.ControlText_Send; } }
+            public string Moderate { get { return LocalizedResources.ControlText_Moderate; } }
             
+            public string FilterAll { get { return LocalizedResources.ControlText_FilterAll; } }
+            public string FilterApproved { get { return LocalizedResources.ControlText_FilterApproved; } }
+            public string FilterUnapproved { get { return LocalizedResources.ControlText_FilterUnapproved; } }
+            public string FilterSpam { get { return LocalizedResources.ControlText_FilterSpam; } }
+            
+
         }
 
         #endregion

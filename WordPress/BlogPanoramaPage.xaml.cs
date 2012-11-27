@@ -3,18 +3,27 @@ using Microsoft.Phone.Shell;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Utils;
 
 namespace WordPress
 {
+    enum CommentsListFilter {
+        All,
+        Approved,
+        Unapproved,
+        Spam
+    };
+
     public partial class BlogPanoramaPage : PhoneApplicationPage
     {
         #region member variables
@@ -26,6 +35,8 @@ namespace WordPress
 
         private int _multiFetchTaskCount;
         private bool _blogIsPinned = false;
+        private bool _isModeratingComments;
+        private CommentsListFilter _currentCommentFilter;
         private StringTable _localizedStrings;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
 
@@ -33,6 +44,17 @@ namespace WordPress
         private ApplicationBarIconButton _unpinBlogIconButton;
         private ApplicationBarIconButton _addIconButton;
         private ApplicationBarIconButton _refreshIconButton;
+
+        private ApplicationBarIconButton _moderateIconButton;
+        private ApplicationBarIconButton _spamIconButton;
+        private ApplicationBarIconButton _approveIconButton;
+        private ApplicationBarIconButton _unapproveIconButton;
+
+        private ApplicationBarMenuItem _delMenuItem;
+        private ApplicationBarMenuItem _filterAllMenuItem;
+        private ApplicationBarMenuItem _filterApprovedMenuItem;
+        private ApplicationBarMenuItem _filterUnapprovedMenuItem;
+        private ApplicationBarMenuItem _filterSpamMenuItem;
 
         #endregion
 
@@ -103,6 +125,43 @@ namespace WordPress
             _refreshIconButton.Text = _localizedStrings.ControlsText.Refresh;
             _refreshIconButton.Click += OnRefreshIconButtonClick;
 
+            // comment moderation
+            _moderateIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.reader.png", UriKind.Relative));
+            _moderateIconButton.Text = _localizedStrings.ControlsText.Moderate;
+            _moderateIconButton.Click += OnModerateIconButtonClick;
+
+            _spamIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.spam.png", UriKind.Relative));
+            _spamIconButton.Text = _localizedStrings.ControlsText.Spam;
+            _spamIconButton.Click += OnSpamIconButtonClick;
+
+            _approveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.approve.png", UriKind.Relative));
+            _approveIconButton.Text = _localizedStrings.ControlsText.Approve;
+            _approveIconButton.Click += OnApproveIconButtonClick;
+
+            _unapproveIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unapprove.png", UriKind.Relative));
+            _unapproveIconButton.Text = _localizedStrings.ControlsText.Unapprove;
+            _unapproveIconButton.Click += OnUnapproveIconButtonClick;
+
+            _delMenuItem = new ApplicationBarMenuItem();
+            _delMenuItem.Text = _localizedStrings.ControlsText.DeleteSelected;
+            _delMenuItem.Click += OnDeleteMenuItemClick;
+
+            _filterAllMenuItem = new ApplicationBarMenuItem();
+            _filterAllMenuItem.Text = _localizedStrings.ControlsText.FilterAll;
+            _filterAllMenuItem.Click += OnFilterAllMenuItemClick;
+
+            _filterApprovedMenuItem = new ApplicationBarMenuItem();
+            _filterApprovedMenuItem.Text = _localizedStrings.ControlsText.FilterApproved;
+            _filterApprovedMenuItem.Click += OnFilterApprovedMenuItemClick;
+
+            _filterUnapprovedMenuItem = new ApplicationBarMenuItem();
+            _filterUnapprovedMenuItem.Text = _localizedStrings.ControlsText.FilterUnapproved;
+            _filterUnapprovedMenuItem.Click += OnFilterUnapprovedMenuItemClick;
+
+            _filterSpamMenuItem = new ApplicationBarMenuItem();
+            _filterSpamMenuItem.Text = _localizedStrings.ControlsText.FilterSpam;
+            _filterSpamMenuItem.Click += OnFilterSpamMenuItemClick;
+
             blogPanorama.SelectionChanged += OnBlogPanoramaSelectionChanged;
 
             Loaded += OnPageLoaded;
@@ -147,7 +206,9 @@ namespace WordPress
                     ScrollViewer currScroller = (ScrollViewer)ctrl;
                     this.DebugLog(ctrl.Name + "->VerticalOffset: " + currScroller.VerticalOffset);
                     this.DebugLog(ctrl.Name + "->ScrollableHeight: " + currScroller.ScrollableHeight);
-                    if (currScroller.ScrollableHeight > 0 && currScroller.ScrollableHeight == currScroller.VerticalOffset)
+
+                    // The vertical offset of the multiselectlist mightnot match the scrollableheight. Give it a little extra room.
+                    if (currScroller.ScrollableHeight > 0 && (currScroller.ScrollableHeight >= (currScroller.VerticalOffset -1)))
                         loadMoreItems(currScroller);
                 }
             }
@@ -206,7 +267,7 @@ namespace WordPress
 
         private void SetPanoramaListDataBindings()
         {
-            commentsListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
+            commentsListBox.SetBinding(MultiselectList.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
             postsListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Posts"));
             pagesListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Pages"));
         }
@@ -216,6 +277,7 @@ namespace WordPress
             Tools.LogMemoryUsage();
             // Set the app bar based on which pivot item is visible
             ApplicationBar.Buttons.Clear();
+            ApplicationBar.MenuItems.Clear();
 
             if (blogPanorama.SelectedItem == pagesPanoramaItem || blogPanorama.SelectedItem == postsPanoramaItem)
             {
@@ -224,7 +286,34 @@ namespace WordPress
             }
             else if (blogPanorama.SelectedItem == commentsPanoramaItem)
             {
-                ApplicationBar.Buttons.Add(_refreshIconButton);
+                if (_isModeratingComments)
+                {
+                    ApplicationBar.Buttons.Add(_moderateIconButton);
+                    ApplicationBar.Buttons.Add(_approveIconButton);
+                    ApplicationBar.Buttons.Add(_unapproveIconButton);
+                    ApplicationBar.Buttons.Add(_spamIconButton);
+
+                    // Don't show the current filter to conserve space.
+                    ApplicationBar.MenuItems.Add(_delMenuItem);
+
+                    if(_currentCommentFilter != CommentsListFilter.All)
+                        ApplicationBar.MenuItems.Add(_filterAllMenuItem);
+
+                    if (_currentCommentFilter != CommentsListFilter.Approved)
+                        ApplicationBar.MenuItems.Add(_filterApprovedMenuItem);
+
+                    if (_currentCommentFilter != CommentsListFilter.Unapproved) 
+                        ApplicationBar.MenuItems.Add(_filterUnapprovedMenuItem);
+
+                    if (_currentCommentFilter != CommentsListFilter.Spam) 
+                        ApplicationBar.MenuItems.Add(_filterSpamMenuItem);
+                }
+                else
+                {
+                    ApplicationBar.Buttons.Add(_moderateIconButton);
+                    ApplicationBar.Buttons.Add(_refreshIconButton);
+                }
+
             }
             else if (blogPanorama.SelectedItem == actionsPanoramaItem)
             {
@@ -571,19 +660,6 @@ namespace WordPress
             DataService.Current.FetchCurrentBlogCommentsAsync(more);
         }
 
-        private void OnCommentsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int index = commentsListBox.SelectedIndex;
-            if (-1 == index) return;
-
-            App.MasterViewModel.CurrentComment = App.MasterViewModel.Comments[index];
-
-            NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
-
-            //reset selected index so we can re-select the original list item if we want to
-            commentsListBox.SelectedIndex = -1;
-        }
-
         private void ViewPostComments()
         {
             int index = postsListBox.SelectedIndex;
@@ -605,6 +681,236 @@ namespace WordPress
             }
             NavigationService.Navigate(new Uri("/ModerateCommentsPage.xaml", UriKind.Relative));
         }
+
+        // -------
+
+        private void UpdateDisplay()
+        {
+            //TODO: figure out how to bind this in the xaml.  The lists dont refresh
+            //properly when comments change their CommentStatus value, most likely due to the 
+            //new collection created by the converter.  
+            ObservableCollection<Comment> comments = App.MasterViewModel.CurrentBlog.Comments;
+
+            switch (_currentCommentFilter)
+            {
+                case CommentsListFilter.Approved:
+                    CommentStatusGroupingConverter approvedCommentConverter = Resources["ApprovedCommentConverter"] as CommentStatusGroupingConverter;
+                    commentsListBox.ItemsSource = approvedCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
+
+                    break;
+                case CommentsListFilter.Unapproved:
+                    CommentStatusGroupingConverter unapprovedCommentConverter = Resources["UnapprovedCommentConverter"] as CommentStatusGroupingConverter;
+                    commentsListBox.ItemsSource = unapprovedCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
+
+                    break;
+                case CommentsListFilter.Spam:
+                    CommentStatusGroupingConverter spamCommentConverter = Resources["SpamCommentConverter"] as CommentStatusGroupingConverter;
+                    commentsListBox.ItemsSource = spamCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
+
+                    break;
+                default:
+                    commentsListBox.ItemsSource = comments;
+                    break;
+            }
+            RefreshAppBar();
+        }
+
+        private void CommentListItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
+            if (commentsListBox.IsSelectionEnabled)
+            {
+
+                MultiselectItem container = commentsListBox.ItemContainerGenerator.ContainerFromItem(((FrameworkElement)sender).DataContext) as MultiselectItem;
+                if (null != container)
+                {
+                    container.IsSelected = !container.IsSelected;
+                }
+                // When the last item is unchecked the list disables its selection state automatically. :/
+                commentsListBox.IsSelectionEnabled = _isModeratingComments;
+            }
+            else
+            {
+                App.MasterViewModel.CurrentComment = (Comment)((FrameworkElement)sender).DataContext;
+                NavigationService.Navigate(new Uri("/ModerateCommentPage.xaml", UriKind.Relative));
+
+            }
+            return;
+        }
+
+        private void multiselectList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // when all items are unselected the selection mode automatically turns off
+            commentsListBox.IsSelectionEnabled = _isModeratingComments;
+        }
+
+        private void OnModerateIconButtonClick(object sender, EventArgs e)
+        {
+            _isModeratingComments = !_isModeratingComments;
+            commentsListBox.IsSelectionEnabled = _isModeratingComments;
+
+            RefreshAppBar();
+        }
+
+        // Filters
+        private void OnFilterAllMenuItemClick(object sender, EventArgs e)
+        {
+            _currentCommentFilter = CommentsListFilter.All;
+            UpdateDisplay();
+        }
+
+        private void OnFilterApprovedMenuItemClick(object sender, EventArgs e)
+        {
+            _currentCommentFilter = CommentsListFilter.Approved;
+            UpdateDisplay();
+        }
+
+        private void OnFilterUnapprovedMenuItemClick(object sender, EventArgs e)
+        {
+            _currentCommentFilter = CommentsListFilter.Unapproved;
+            UpdateDisplay();
+        }
+
+        private void OnFilterSpamMenuItemClick(object sender, EventArgs e)
+        {
+            _currentCommentFilter = CommentsListFilter.Spam;
+            UpdateDisplay();
+        }
+
+        // Moderation Actions
+        private void OnApproveIconButtonClick(object sender, EventArgs e)
+        {
+            BatchApproveComments(commentsListBox.SelectedItems);
+        }
+
+        private void OnUnapproveIconButtonClick(object sender, EventArgs e)
+        {
+            BatchUnapproveComments(commentsListBox.SelectedItems);
+        }
+
+        private void OnSpamIconButtonClick(object sender, EventArgs e)
+        {
+            BatchSpamComments(commentsListBox.SelectedItems);
+        }
+
+        private void OnDeleteMenuItemClick(object sender, EventArgs e)
+        {
+            BatchDeleteComments(commentsListBox.SelectedItems);
+        }
+
+        // XMLRPC Actions
+        private void BatchApproveComments(IList comments)
+        {
+            if (null == comments || 0 == comments.Count) return;
+            IList<Comment> list = ConvertList(comments, eCommentStatus.approve);
+            if (0 == list.Count) return;
+
+            EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+            rpc.CommentStatus = eCommentStatus.approve;
+            rpc.Comments = list;
+            rpc.Completed += OnBatchEditXmlRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComments);
+        }
+
+        private void BatchUnapproveComments(IList comments)
+        {
+            if (null == comments || 0 == comments.Count) return;
+            IList<Comment> list = ConvertList(comments, eCommentStatus.hold);
+            if (0 == list.Count) return;
+
+            EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+            rpc.CommentStatus = eCommentStatus.hold;
+            rpc.Comments = list;
+            rpc.Completed += OnBatchEditXmlRPCCompleted;
+            rpc.ExecuteAsync();
+
+            App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComments);
+        }
+
+        private void BatchSpamComments(IList comments)
+        {
+            if (null == comments || 0 == comments.Count) return;
+            IList<Comment> list = ConvertList(comments, eCommentStatus.spam);
+            if (0 == list.Count) return;
+
+            string comment_label = (1 == comments.Count) ? _localizedStrings.Prompts.Comment : _localizedStrings.Prompts.Comments;
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmMarkSpamCommentsFormat, comments.Count, comment_label);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                EditCommentsStatusRPC rpc = new EditCommentsStatusRPC();
+                rpc.CommentStatus = eCommentStatus.spam;
+                rpc.Comments = list;
+                rpc.Completed += OnBatchEditXmlRPCCompleted;
+                rpc.ExecuteAsync();
+
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
+            }
+        }
+
+        private void BatchDeleteComments(IList comments)
+        {
+            if (null == comments || 0 == comments.Count) return;
+
+            string comment_label = (1 == comments.Count) ? _localizedStrings.Prompts.Comment : _localizedStrings.Prompts.Comments;
+            string prompt = string.Format(_localizedStrings.Prompts.ConfirmDeleteCommentsFormat, comments.Count, comment_label);
+            MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            if (result == MessageBoxResult.OK)
+            {
+                DeleteCommentsRPC rpc = new DeleteCommentsRPC();
+                rpc.Comments = ConvertList(comments);
+                rpc.Completed += OnBatchDeleteXmlRPCCompleted;
+                rpc.ExecuteAsync();
+
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
+            }
+        }
+
+        private IList<Comment> ConvertList(IList comments)
+        {
+            List<Comment> result = new List<Comment>();
+            foreach (Comment c in comments)
+            {
+                result.Add(c);
+            }
+            return result;
+        }
+
+        private IList<Comment> ConvertList(IList comments, eCommentStatus statusToExclude)
+        {
+            List<Comment> result = new List<Comment>();
+            foreach (Comment c in comments)
+            {
+                if (statusToExclude != c.CommentStatus)
+                {
+                    result.Add(c);
+                }
+            }
+            return result;
+        }
+
+        private void OnBatchEditXmlRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
+        {
+            EditCommentsStatusRPC rpc = sender as EditCommentsStatusRPC;
+            rpc.Completed -= OnBatchEditXmlRPCCompleted;
+
+            App.WaitIndicationService.HideIndicator();
+
+            UpdateDisplay();
+        }
+
+        private void OnBatchDeleteXmlRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
+        {
+            DeleteCommentsRPC rpc = sender as DeleteCommentsRPC;
+            rpc.Completed -= OnBatchDeleteXmlRPCCompleted;
+
+            App.WaitIndicationService.HideIndicator();
+
+            UpdateDisplay();
+        }
+
 
         #endregion
 
@@ -909,7 +1215,8 @@ namespace WordPress
 
                 //make sure none of the list items are selected, allowing the user to re-select
                 //an item in the list.  This will trigger the SelectionChanged event
-                commentsListBox.SelectedIndex = -1;
+                //commentsListBox.SelectedIndex = -1;
+                // TODO: Deselect the comment list box
                 postsListBox.SelectedIndex = -1;
                 pagesListBox.SelectedIndex = -1;
 
@@ -954,5 +1261,6 @@ namespace WordPress
         }
 
         #endregion
+
     }
 }

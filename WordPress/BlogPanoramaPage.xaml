@@ -118,11 +118,55 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Key="CommentListItemTemplate">
+            <Grid Width="340" Tap="CommentListItem_Tap">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Margin="0,0,10,10" Width="80" Height="80" Source="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80" />
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,-6,0,0" >
+                    <TextBlock x:Name="authorTextBlock" Text="{Binding Author, Converter={StaticResource AnonymousAuthorConverter}}" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="#FF111111"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock x:Name="authorEmailTextBlock" Text="{Binding AuthorEmail}" FontSize="20" >
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="20">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0">
+                    <TextBlock x:Name="contentTextBlock" Text="{Binding Content}" FontSize="22" MaxHeight="60" Margin="0,-8,0,0" TextWrapping="Wrap">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock x:Name="statusTextBlock" FontSize="17" Text="{Binding CommentStatus}" Margin="0,0,0,20"
+    						Foreground="{Binding CommentStatus, Converter={StaticResource CommentStatusToBrushConverter}}"
+								/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        
         <Converters:DateToShortDateStringConverter x:Key="DateToShortDateStringConverter"/>
         <Converters:BooleanToVisibilityConverter x:Key="LoadingContentConverter"/>
         <Converters:ItemTitleInListConverter x:Key="ItemTitleInListConverter"/>
         <Converters:PostStatusInListConverter x:Key="PostStatusInListConverter"/>
         <Converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+        <Converters:CommentStatusGroupingConverter x:Key="ApprovedCommentConverter" Status="approve"/>
+        <Converters:CommentStatusGroupingConverter x:Key="UnapprovedCommentConverter" Status="hold"/>
+        <Converters:CommentStatusGroupingConverter x:Key="SpamCommentConverter" Status="spam"/>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
@@ -172,18 +216,18 @@
                         </StackPanel>
                     </Button>
 
-                    <Button x:Name="moderateCommentsButton" Height="200" Margin="0" 
-                            VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
-                            Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                            Style="{StaticResource TileButtonTemplate}" Width="200" 
-                            Click="OnModerateCommentsButtonClick">
+                    <Button x:Name="viewStatsButton" Height="200" Margin="0" 
+                    	VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
+                    	Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
+                    	Style="{StaticResource TileButtonTemplate}" Width="200"
+                    	Click="OnStatsButtonClick" d:LayoutOverrides="VerticalAlignment">
                         <Button.Background>
                             <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
                         </Button.Background>
                         <StackPanel Height="186" Width="188" >
-                            <Image Source="Images/actionsModerate.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBlock Text="{Binding ControlsText.ModerateComments, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
-                    			VerticalAlignment="Bottom" Margin="0,52,10,0" HorizontalAlignment="Right" 
+                            <Image Source="Images/actionsStats.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/>
+                            <TextBlock Text="{Binding ControlsText.ViewStats, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                    			VerticalAlignment="Bottom" Margin="0,85,10,0" HorizontalAlignment="Right" 
                     			TextAlignment="Right" Foreground="White"/>
                         </StackPanel>
                     </Button>
@@ -219,21 +263,7 @@
                     			TextAlignment="Right" Foreground="White"/>
                     	</StackPanel>
                     </Button>
-                    <Button x:Name="viewStatsButton" Height="80" Margin="0" 
-                    	VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
-                    	Grid.Row="2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
-                    	Style="{StaticResource TileButtonTemplate}" Width="400"
-                    	Click="OnStatsButtonClick" Grid.ColumnSpan="2" d:LayoutOverrides="VerticalAlignment">
-                    	<Button.Background>
-                    		<SolidColorBrush Color="{StaticResource WordPressBlue}"/>
-                    	</Button.Background>
-                    	<StackPanel Height="70" Width="390" RenderTransformOrigin="0.715,0.478" >
-                    		<Image Source="Images/actionsStats.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/>
-                    		<TextBlock Text="{Binding ControlsText.ViewStats, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
-                    			VerticalAlignment="Bottom" Margin="0,-38,10,0" HorizontalAlignment="Right" 
-                    			TextAlignment="Right" Foreground="White"/>
-                    	</StackPanel>
-                    </Button>
+                    
                 </Grid>
 
             </controls:PanoramaItem>
@@ -243,21 +273,58 @@
                 <controls:PanoramaItem.Foreground>
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
-				<Grid Margin="0,0,0,0">
+
+                <Grid>
                     <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,72">
-                    <StackPanel>                  
-                        <!-- Margin property changed in the .cs for Win8 see #123 -->
-                   		<TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
-                                   FontSize="72" FontFamily="Segoe WP SemiLight" 
-                                   Margin="0,-25,0,25" 
-                                   Height="92" />                    
-                   		<ListBox x:Name="commentsListBox" Grid.Row="0" Grid.ColumnSpan="3"
-                             SelectionChanged="OnCommentsListBoxSelectionChanged"
-                             ItemContainerStyle="{StaticResource CommentListItemStyle}" Margin="5,0,12,65" 
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
-				   </StackPanel>
-               </ScrollViewer>
-			   </Grid>
+                        <StackPanel>
+
+                            <TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
+                               FontSize="72" FontFamily="Segoe WP SemiLight" 
+                               Margin="0,-25,0,25" 
+                               Grid.Row="0" Grid.Column="0"
+                               Height="92" />
+                            <Grid>
+                                <toolkit:MultiselectList x:Name="commentsListBox" 
+                                    SelectionChanged="multiselectList_SelectionChanged" Margin="5,0,0,72"
+                                    ItemInfoTemplate="{StaticResource CommentListItemTemplate}">
+                                    
+                                    <toolkit:MultiselectList.Template>
+                                        <ControlTemplate TargetType="toolkit:MultiselectList">
+                                            <ItemsPresenter/>
+                                        </ControlTemplate>
+                                    </toolkit:MultiselectList.Template>
+                                    
+                                </toolkit:MultiselectList>
+                            </Grid>
+                            
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+<!--
+                <Grid Margin="0" Width="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="92"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <!- - Margin property changed in the .cs for Win8 see #123 - ->
+                    <TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
+                               FontSize="72" FontFamily="Segoe WP SemiLight" 
+                               Margin="0,-25,0,25" 
+                               Grid.Row="0" Grid.Column="0"
+                               Height="92" />
+
+                    <toolkit:MultiselectList x:Name="commentsListBox" 
+                                Grid.Row="1"
+                                SelectionChanged="multiselectList_SelectionChanged" Margin="5,0,0,72"
+                                ItemInfoTemplate="{StaticResource CommentListItemTemplate}"
+                                ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                </Grid>
+-->
             </controls:PanoramaItem>
 
             <!--posts Panorama item-->
