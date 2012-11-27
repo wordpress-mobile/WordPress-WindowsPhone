@@ -740,7 +740,7 @@ namespace WordPress
             Post post = DataContext as Post;
             foreach (Media currentMedia in post.Media)
             {
-                if (currentMedia.placement != null)
+                if (currentMedia.placement != eMediaPlacement.BlogPreference)
                 {
                     if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
                     {

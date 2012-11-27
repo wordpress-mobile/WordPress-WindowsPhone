@@ -823,7 +823,7 @@ namespace WordPress
             Post post = App.MasterViewModel.CurrentPost;
             foreach (Media currentMedia in post.Media)
             {
-                if (currentMedia.placement != null)
+                if (currentMedia.placement != eMediaPlacement.BlogPreference)
                 {
                     if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
                     {
