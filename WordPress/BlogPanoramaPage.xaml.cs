@@ -126,7 +126,7 @@ namespace WordPress
             _refreshIconButton.Click += OnRefreshIconButtonClick;
 
             // comment moderation
-            _moderateIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.reader.png", UriKind.Relative));
+            _moderateIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.moderate.list.png", UriKind.Relative));
             _moderateIconButton.Text = _localizedStrings.ControlsText.Moderate;
             _moderateIconButton.Click += OnModerateIconButtonClick;
 
