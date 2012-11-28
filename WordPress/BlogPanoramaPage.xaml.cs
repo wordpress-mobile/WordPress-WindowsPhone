@@ -302,6 +302,8 @@ namespace WordPress
                     ApplicationBar.Buttons.Add(_approveIconButton);
                     ApplicationBar.Buttons.Add(_unapproveIconButton);
                     ApplicationBar.Buttons.Add(_spamIconButton);
+
+                    ApplicationBar.MenuItems.Add(_delMenuItem);
                 }
                 else
                 {
@@ -310,8 +312,6 @@ namespace WordPress
                 }
 
                 // Don't show the current filter to conserve space.
-                ApplicationBar.MenuItems.Add(_delMenuItem);
-
                 if (_currentCommentFilter != CommentsListFilter.All)
                     ApplicationBar.MenuItems.Add(_filterAllMenuItem);
 
