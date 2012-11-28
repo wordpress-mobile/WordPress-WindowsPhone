@@ -93,6 +93,19 @@ namespace WordPress
                 HideAddLinkControl();
                 e.Cancel = true;
             }
+            if (App.WaitIndicationService.Waiting)
+            {
+                App.WaitIndicationService.HideIndicator();
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
+                
+                _mediaUploadRPCs.ForEach(rpc =>
+                {
+                    rpc.Completed -= OnUploadMediaRPCCompleted;
+                    rpc.IsCancelled = true;
+                });
+                _mediaUploadRPCs.Clear();
+            }
             else
             {
                 string prompt = string.Format(_localizedStrings.Prompts.SureCancel, _localizedStrings.Prompts.Post);
@@ -422,8 +435,12 @@ namespace WordPress
             EditPostRPC rpc = sender as EditPostRPC;
             rpc.Completed -= OnEditPostRPCCompleted;
             ApplicationBar.IsVisible = true;
+            App.WaitIndicationService.HideIndicator();
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
@@ -432,8 +449,6 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
-
-            App.WaitIndicationService.HideIndicator();
         }
 
         private void OnNewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -448,7 +463,10 @@ namespace WordPress
             rpc.Completed -= OnNewPostRPCCompleted;
             ApplicationBar.IsVisible = true;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            { 
+            } 
+            else if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
@@ -770,10 +788,14 @@ namespace WordPress
             lock (_syncRoot)
             {
                 _mediaUploadRPCs.Remove(rpc);
-                if (null == args.Error)
+                if (args.Cancelled)
+                {
+                }
+                else if (null == args.Error)
                 {
                     //Image uploaded correctly
                 }
+                
                 if (args.Items.Count > 0)
                 {
                    // _infoToRpcMap.Add(args.Items[0], rpc);

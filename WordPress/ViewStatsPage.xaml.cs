@@ -215,7 +215,10 @@ namespace WordPress
             GetViewStatsRPC rpc = sender as GetViewStatsRPC;
             rpc.Completed -= OnGetViewStatsRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 if (null == args.Items) return;
 
@@ -337,7 +340,10 @@ namespace WordPress
             GetReferrerStatsRPC rpc = sender as GetReferrerStatsRPC;
             rpc.Completed -= OnGetReferrerStatsRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 HideStatControls();
 
@@ -370,7 +376,10 @@ namespace WordPress
             GetSearchTermStatsRPC rpc = sender as GetSearchTermStatsRPC;
             rpc.Completed -= OnGetSearchTermStatsRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 HideStatControls();
 
@@ -403,7 +412,10 @@ namespace WordPress
             GetClickStatsRPC rpc = sender as GetClickStatsRPC;
             rpc.Completed -= OnGetClickStatsRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 HideStatControls();
 

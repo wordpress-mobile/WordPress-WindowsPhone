@@ -229,6 +229,12 @@ namespace WordPress.Model
                 return;
             }
 
+            if ( IsCancelled )
+            {
+                CompletionMethod(null, null, true, asyncOp);
+                return;
+            }
+
             HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
             request.AllowAutoRedirect = true;
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
@@ -249,6 +255,12 @@ namespace WordPress.Model
             HttpWebRequest request = state.Request;
             Stream contentStream = null;
 
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, state.Operation);
+                return;
+            }
+            
             try
             {
                 contentStream = request.EndGetRequestStream(result);
@@ -261,6 +273,12 @@ namespace WordPress.Model
 
             string postContent = BuildPostContentString();
             byte[] payload = Encoding.UTF8.GetBytes(postContent);
+
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, state.Operation);
+                return;
+            }
 
             using (contentStream)
             {
@@ -278,6 +296,12 @@ namespace WordPress.Model
             State state = result.AsyncState as State;
             HttpWebRequest request = state.Request;
             HttpWebResponse response = null;
+
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, state.Operation);
+                return;
+            }
 
             try
             {
@@ -303,6 +327,12 @@ namespace WordPress.Model
             catch (Exception ex)
             {
                 CompletionMethod(null, ex, false, state.Operation);
+                return;
+            }
+
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, state.Operation);
                 return;
             }
 

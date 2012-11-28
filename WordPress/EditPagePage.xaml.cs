@@ -282,7 +282,10 @@ namespace WordPress
             rpc.Completed -= OnEditPostRPCCompleted;
             ApplicationBar.IsVisible = true;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 NavigationService.GoBack();
@@ -301,7 +304,10 @@ namespace WordPress
             rpc.Completed -= OnNewPostRPCCompleted;
             ApplicationBar.IsVisible = true;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 NavigationService.GoBack();
@@ -691,6 +697,9 @@ namespace WordPress
                 {
                     //Image uploaded correctly
                 }
+                else if (args.Cancelled)
+                { }
+                
                 if (args.Items.Count > 0)
                 {
                     // _infoToRpcMap.Add(args.Items[0], rpc);

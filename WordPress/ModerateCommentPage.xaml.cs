@@ -261,18 +261,22 @@ namespace WordPress
             EditCommentRPC rpc = sender as EditCommentRPC;
             rpc.Completed -= OnEditCommentRPCCompleted;
 
-            if (null == args.Error)
+            ApplicationBar.IsVisible = true;
+            App.WaitIndicationService.HideIndicator();
+           
+            if (args.Cancelled)
+            {
+                ChangeApplicationBarAppearance();
+            }
+            else if (null == args.Error)
             {
                 NavigationService.GoBack();
             }
             else
             {
                 this.HandleException(args.Error);
+                ChangeApplicationBarAppearance();
             }
-
-            ApplicationBar.IsVisible = true;
-            App.WaitIndicationService.HideIndicator();
-            ChangeApplicationBarAppearance();
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -373,7 +377,10 @@ namespace WordPress
             DeleteCommentRPC rpc = sender as DeleteCommentRPC;
             rpc.Completed -= OnDeleteCommentRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 //remove the comment from the store--saves us a web call
                 App.MasterViewModel.Comments.Remove(args.Items[0]);
@@ -467,7 +474,10 @@ namespace WordPress
             NewCommentRPC rpc = sender as NewCommentRPC;
             rpc.Completed -= OnNewCommentRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 //fire off a request for the latest comment so we can get our comment updated
                 //with the latest from the server.

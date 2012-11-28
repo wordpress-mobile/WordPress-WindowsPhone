@@ -94,7 +94,12 @@ namespace WordPress
             NewCategoryRPC rpc = sender as NewCategoryRPC;
             rpc.Completed -= OnNewCategoryRPCCompleted;
             
-            if (null == args.Error)
+            if(args.Cancelled)
+            {
+                ApplicationBar.IsVisible = true;
+                App.WaitIndicationService.HideIndicator();
+            }
+            else if (null == args.Error)
             {
                 DataService.Current.FetchComplete += OnFetchCurrentBlogCategoriesComplete;
                 DataService.Current.FetchCurrentBlogCategories();

@@ -27,6 +27,7 @@ namespace WordPress
 
     public partial class BlogPanoramaPage : PhoneApplicationPage
     {
+
         #region member variables
 
         private List<string> _refreshListOptions;
@@ -34,12 +35,15 @@ namespace WordPress
         private List<string> _pageListOptions;
         private List<string> _draftListOptions;
 
+        private object currentXMLRPCConnection = null; //keeps a reference to the latest 'blocking' XML-RPC connection
+
         private bool _blogIsPinned = false;
         private System.Windows.Data.CollectionViewSource commentsCollectionViewSource;
         private bool _isModeratingComments;
         private CommentsListFilter _currentCommentFilter;
         private StringTable _localizedStrings;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
+        
 
         private ApplicationBarIconButton _pinBlogIconButton;
         private ApplicationBarIconButton _unpinBlogIconButton;
@@ -108,7 +112,6 @@ namespace WordPress
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
-          //  ApplicationBar.Opacity = 0.5;
 
             _pinBlogIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.pin.png", UriKind.Relative)); // todo: icon
             _pinBlogIconButton.Text =_localizedStrings.ControlsText.Pin;
@@ -418,17 +421,45 @@ namespace WordPress
             }
         }
 
-        private void OnFetchCurrentBlogPostsComplete(object sender, EventArgs args)
+        private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
         {
-            DataService.Current.FetchComplete -= OnFetchCurrentBlogPostsComplete;
-            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred; //do now show exceptions for these XML-RPCS
-            DataService.Current.FetchCurrentBlogAdditionalDataAsync();    
+            App.WaitIndicationService.HideIndicator();
+            ApplicationBar.IsVisible = true;
+            currentXMLRPCConnection = null;
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
+
+            this.HandleException(args.Exception);
+        }
+
+        private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
+        }
+
+        private void OnStatsButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+            else
+                NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
         }
 
         #endregion
 
 
         #region Posts methods
+
+        private void OnFetchCurrentBlogPostsComplete(object sender, EventArgs args)
+        {
+            DataService.Current.FetchComplete -= OnFetchCurrentBlogPostsComplete;
+            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred; //do now show exceptions for these XML-RPCS
+            DataService.Current.FetchCurrentBlogAdditionalDataAsync();
+        }
 
         private void OnPostsListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -548,6 +579,7 @@ namespace WordPress
             rpc.Completed += OnViewPostRPCCompleted;
             rpc.ExecuteAsync();
 
+            currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
@@ -556,11 +588,15 @@ namespace WordPress
         {
             GetPostRPC rpc = sender as GetPostRPC;
             rpc.Completed -= OnViewPostRPCCompleted;
-
+            
+            currentXMLRPCConnection = null;
             App.WaitIndicationService.KillSpinner();
-            ApplicationBar.IsVisible = true; 
+            ApplicationBar.IsVisible = true;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            { 
+            } 
+            else if (null == args.Error)
             {
                 //DEV NOTE: We could fire off a WebBrowserTask here but in testing with the emulator
                 //the browser acts a bit odd if there are already tabs open.  The WebBrowserTask 
@@ -602,6 +638,8 @@ namespace WordPress
                 GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
                 rpc.Completed += OnGetPostRPCCompleted;
                 rpc.ExecuteAsync();
+
+                currentXMLRPCConnection = rpc;
             }
         }
 
@@ -610,9 +648,13 @@ namespace WordPress
             GetPostRPC rpc = sender as GetPostRPC;
             rpc.Completed -= OnGetPostRPCCompleted;
             App.WaitIndicationService.KillSpinner();
-            ApplicationBar.IsVisible = true; 
-
-            if (null == args.Error)
+            ApplicationBar.IsVisible = true;
+            currentXMLRPCConnection = null;
+            
+            if (args.Cancelled)
+            { 
+            } 
+            else if (null == args.Error)
             {
                 Post post = args.Items[0];
                 App.MasterViewModel.CurrentPost = post;
@@ -642,17 +684,22 @@ namespace WordPress
 
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingPost);
+            currentXMLRPCConnection = rpc;
         }
 
         private void OnDeletePostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
             ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
+            currentXMLRPCConnection = null;
 
             DeletePostRPC rpc = sender as DeletePostRPC;
             rpc.Completed -= OnDeletePostRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 string postId = args.Items[0].PostId;
                 var postListItem = App.MasterViewModel.CurrentBlog.PostListItems.Single(item => postId.Equals(item.PostId));
@@ -851,6 +898,7 @@ namespace WordPress
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
+            currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComments);
         }
@@ -867,6 +915,7 @@ namespace WordPress
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
+            currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComments);
         }
@@ -888,6 +937,7 @@ namespace WordPress
                 rpc.Completed += OnBatchEditXmlRPCCompleted;
                 rpc.ExecuteAsync();
 
+                currentXMLRPCConnection = rpc;
                 ApplicationBar.IsVisible = false; //hide the application bar 
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
             }
@@ -907,6 +957,7 @@ namespace WordPress
                 rpc.Completed += OnBatchDeleteXmlRPCCompleted;
                 rpc.ExecuteAsync();
 
+                currentXMLRPCConnection = rpc;
                 ApplicationBar.IsVisible = false; //hide the application bar 
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
             }
@@ -940,6 +991,7 @@ namespace WordPress
             EditCommentsStatusRPC rpc = sender as EditCommentsStatusRPC;
             rpc.Completed -= OnBatchEditXmlRPCCompleted;
 
+            currentXMLRPCConnection = null;
             App.WaitIndicationService.HideIndicator();
             ApplicationBar.IsVisible = true;
             RefreshAppBar();
@@ -950,6 +1002,7 @@ namespace WordPress
             DeleteCommentsRPC rpc = sender as DeleteCommentsRPC;
             rpc.Completed -= OnBatchDeleteXmlRPCCompleted;
 
+            currentXMLRPCConnection = null;
             App.WaitIndicationService.HideIndicator();
             ApplicationBar.IsVisible = true;
             RefreshAppBar();
@@ -1089,6 +1142,7 @@ namespace WordPress
                 rpc.Completed += OnGetPageRPCCompleted;
                 rpc.ExecuteAsync();
 
+                currentXMLRPCConnection = rpc;
                 ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
             }
@@ -1101,7 +1155,10 @@ namespace WordPress
 
             App.WaitIndicationService.KillSpinner();
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 Post post = args.Items[0];
                 App.MasterViewModel.CurrentPost = post;
@@ -1125,6 +1182,7 @@ namespace WordPress
             rpc.Completed += OnViewPageRPCCompleted;
             rpc.ExecuteAsync();
 
+            currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
@@ -1135,8 +1193,13 @@ namespace WordPress
             rpc.Completed -= OnViewPageRPCCompleted;
 
             App.WaitIndicationService.KillSpinner();
+            ApplicationBar.IsVisible = true;
+            currentXMLRPCConnection = null;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 //DEV NOTE: We could fire off a WebBrowserTask here but in testing with the emulator
                 //the browser acts a bit odd if there are already tabs open.  The WebBrowserTask 
@@ -1182,6 +1245,7 @@ namespace WordPress
             rpc.Completed += OnDeletePageRPCCompleted;
             rpc.ExecuteAsync();
 
+            currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingPage);
         }
@@ -1191,8 +1255,11 @@ namespace WordPress
             DeletePageRPC rpc = sender as DeletePageRPC;
             rpc.Completed -= OnDeletePageRPCCompleted;
 
-            if (null == args.Error)
-            {                
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
+            {              
                 string pageId = args.Items[0].PostId;
                 var pageListItem = App.MasterViewModel.CurrentBlog.PageListItems.Single(item => pageId.Equals(item.PageId));
                 App.MasterViewModel.CurrentBlog.PageListItems.Remove(pageListItem);
@@ -1202,6 +1269,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
+            currentXMLRPCConnection = null;
             ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
         }
@@ -1252,10 +1320,38 @@ namespace WordPress
         {
             if (App.WaitIndicationService.Waiting)
             {
-                //TODO: we need to remove the lister on the active connection!!
                 App.WaitIndicationService.HideIndicator();
                 ApplicationBar.IsVisible = true;
                 e.Cancel = true;
+
+                if (currentXMLRPCConnection != null) //Really ugly, I know. But don't want change the XML-RPC class in this release.
+                {
+                    if (currentXMLRPCConnection is GetPostRPC)
+                    {
+                        (currentXMLRPCConnection as GetPostRPC).IsCancelled = true;
+                /*        (currentXMLRPCConnection as GetPostRPC).Completed -= OnViewPostRPCCompleted;
+                        (currentXMLRPCConnection as GetPostRPC).Completed -= OnViewPageRPCCompleted;
+                        (currentXMLRPCConnection as GetPostRPC).Completed -= OnGetPostRPCCompleted;*/
+                    }
+                    else if (currentXMLRPCConnection is DeletePostRPC)
+                    {
+                        (currentXMLRPCConnection as DeletePostRPC).IsCancelled = true;
+                    }
+                    else if (currentXMLRPCConnection is DeletePageRPC)
+                    {
+                        (currentXMLRPCConnection as DeletePageRPC).IsCancelled = true;
+                    }
+                    else if (currentXMLRPCConnection is EditCommentsStatusRPC)
+                    {
+                        (currentXMLRPCConnection as EditCommentsStatusRPC).Completed -= OnBatchEditXmlRPCCompleted;
+                    }
+                    else if (currentXMLRPCConnection is DeleteCommentsRPC)
+                    {
+                        (currentXMLRPCConnection as DeleteCommentsRPC).Completed -= OnBatchDeleteXmlRPCCompleted;
+                    }
+
+                    currentXMLRPCConnection = null;
+                }       
             } else if (App.PopupSelectionService.IsPopupOpen)
             {
                 App.PopupSelectionService.HidePopup();
@@ -1276,39 +1372,6 @@ namespace WordPress
             }
         }
         
-        #endregion
-
-
-        #region Other methods
-
- 
-        private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
-        {
-            App.WaitIndicationService.HideIndicator();
-            ApplicationBar.IsVisible = true;
-            DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
-            
-            this.HandleException(args.Exception);
-        }
-
-        private void OnSettingsButtonClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
-        }
-
-        private void OnStatsButtonClick(object sender, RoutedEventArgs e)
-        {
-           
-            if (!App.isNetworkAvailable())
-            {
-                Exception connErr = new NoConnectionException();
-                this.HandleException(connErr);
-                return;
-            } 
-            else
-                NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
-        }
-
         #endregion
 
     }
