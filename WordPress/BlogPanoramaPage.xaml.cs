@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using WordPress.Converters;
@@ -34,6 +35,7 @@ namespace WordPress
         private List<string> _draftListOptions;
 
         private bool _blogIsPinned = false;
+        private System.Windows.Data.CollectionViewSource commentsCollectionViewSource;
         private bool _isModeratingComments;
         private CommentsListFilter _currentCommentFilter;
         private StringTable _localizedStrings;
@@ -269,7 +271,10 @@ namespace WordPress
 
         private void SetPanoramaListDataBindings()
         {
-            commentsListBox.SetBinding(MultiselectList.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
+            commentsCollectionViewSource = new System.Windows.Data.CollectionViewSource();
+            commentsCollectionViewSource.Source = App.MasterViewModel.CurrentBlog.Comments;
+            commentsListBox.ItemsSource = commentsCollectionViewSource.View;
+            //commentsListBox.SetBinding(MultiselectList.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
             postsListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Posts"));
             pagesListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Pages"));
         }
@@ -294,27 +299,27 @@ namespace WordPress
                     ApplicationBar.Buttons.Add(_approveIconButton);
                     ApplicationBar.Buttons.Add(_unapproveIconButton);
                     ApplicationBar.Buttons.Add(_spamIconButton);
-
-                    // Don't show the current filter to conserve space.
-                    ApplicationBar.MenuItems.Add(_delMenuItem);
-
-                    if(_currentCommentFilter != CommentsListFilter.All)
-                        ApplicationBar.MenuItems.Add(_filterAllMenuItem);
-
-                    if (_currentCommentFilter != CommentsListFilter.Approved)
-                        ApplicationBar.MenuItems.Add(_filterApprovedMenuItem);
-
-                    if (_currentCommentFilter != CommentsListFilter.Unapproved) 
-                        ApplicationBar.MenuItems.Add(_filterUnapprovedMenuItem);
-
-                    if (_currentCommentFilter != CommentsListFilter.Spam) 
-                        ApplicationBar.MenuItems.Add(_filterSpamMenuItem);
                 }
                 else
                 {
                     ApplicationBar.Buttons.Add(_moderateIconButton);
                     ApplicationBar.Buttons.Add(_refreshIconButton);
                 }
+
+                // Don't show the current filter to conserve space.
+                ApplicationBar.MenuItems.Add(_delMenuItem);
+
+                if (_currentCommentFilter != CommentsListFilter.All)
+                    ApplicationBar.MenuItems.Add(_filterAllMenuItem);
+
+                if (_currentCommentFilter != CommentsListFilter.Approved)
+                    ApplicationBar.MenuItems.Add(_filterApprovedMenuItem);
+
+                if (_currentCommentFilter != CommentsListFilter.Unapproved)
+                    ApplicationBar.MenuItems.Add(_filterUnapprovedMenuItem);
+
+                if (_currentCommentFilter != CommentsListFilter.Spam)
+                    ApplicationBar.MenuItems.Add(_filterSpamMenuItem);
 
             }
             else if (blogPanorama.SelectedItem == actionsPanoramaItem)
@@ -543,6 +548,7 @@ namespace WordPress
             rpc.Completed += OnViewPostRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
@@ -552,6 +558,7 @@ namespace WordPress
             rpc.Completed -= OnViewPostRPCCompleted;
 
             App.WaitIndicationService.KillSpinner();
+            ApplicationBar.IsVisible = true; 
 
             if (null == args.Error)
             {
@@ -588,11 +595,13 @@ namespace WordPress
                 //not a local draft, download the content from the server
                 PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
                 if (null == postListItem) return;
+                
+                ApplicationBar.IsVisible = false; //hide the application bar 
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
+                
                 GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
                 rpc.Completed += OnGetPostRPCCompleted;
                 rpc.ExecuteAsync();
-
-                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
             }
         }
 
@@ -601,6 +610,7 @@ namespace WordPress
             GetPostRPC rpc = sender as GetPostRPC;
             rpc.Completed -= OnGetPostRPCCompleted;
             App.WaitIndicationService.KillSpinner();
+            ApplicationBar.IsVisible = true; 
 
             if (null == args.Error)
             {
@@ -630,11 +640,15 @@ namespace WordPress
             rpc.Completed += OnDeletePostRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingPost);
         }
 
         private void OnDeletePostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
+            ApplicationBar.IsVisible = true;
+            App.WaitIndicationService.HideIndicator();
+
             DeletePostRPC rpc = sender as DeletePostRPC;
             rpc.Completed -= OnDeletePostRPCCompleted;
 
@@ -648,8 +662,6 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
-
-            App.WaitIndicationService.HideIndicator();
         }
 
         private void OnCreatePostButtonClick(object sender, RoutedEventArgs e)
@@ -692,39 +704,6 @@ namespace WordPress
                 return;
             }
             NavigationService.Navigate(new Uri("/ModerateCommentsPage.xaml", UriKind.Relative));
-        }
-
-        // -------
-
-        private void UpdateDisplay()
-        {
-            //TODO: figure out how to bind this in the xaml.  The lists dont refresh
-            //properly when comments change their CommentStatus value, most likely due to the 
-            //new collection created by the converter.  
-            ObservableCollection<Comment> comments = App.MasterViewModel.CurrentBlog.Comments;
-
-            switch (_currentCommentFilter)
-            {
-                case CommentsListFilter.Approved:
-                    CommentStatusGroupingConverter approvedCommentConverter = Resources["ApprovedCommentConverter"] as CommentStatusGroupingConverter;
-                    commentsListBox.ItemsSource = approvedCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
-
-                    break;
-                case CommentsListFilter.Unapproved:
-                    CommentStatusGroupingConverter unapprovedCommentConverter = Resources["UnapprovedCommentConverter"] as CommentStatusGroupingConverter;
-                    commentsListBox.ItemsSource = unapprovedCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
-
-                    break;
-                case CommentsListFilter.Spam:
-                    CommentStatusGroupingConverter spamCommentConverter = Resources["SpamCommentConverter"] as CommentStatusGroupingConverter;
-                    commentsListBox.ItemsSource = spamCommentConverter.Convert(comments, typeof(IEnumerable<Comment>), null, null) as IEnumerable;
-
-                    break;
-                default:
-                    commentsListBox.ItemsSource = comments;
-                    break;
-            }
-            RefreshAppBar();
         }
 
         private void CommentListItem_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -771,30 +750,72 @@ namespace WordPress
             RefreshAppBar();
         }
 
-        // Filters
         private void OnFilterAllMenuItemClick(object sender, EventArgs e)
         {
             _currentCommentFilter = CommentsListFilter.All;
-            UpdateDisplay();
+            removeAllcommentsFilters();
+            RefreshAppBar();
         }
-
+        
         private void OnFilterApprovedMenuItemClick(object sender, EventArgs e)
         {
             _currentCommentFilter = CommentsListFilter.Approved;
-            UpdateDisplay();
+            removeAllcommentsFilters();
+            commentsCollectionViewSource.Filter += new System.Windows.Data.FilterEventHandler(FilterApproved);
+            RefreshAppBar();
         }
 
         private void OnFilterUnapprovedMenuItemClick(object sender, EventArgs e)
         {
             _currentCommentFilter = CommentsListFilter.Unapproved;
-            UpdateDisplay();
+            removeAllcommentsFilters();
+            commentsCollectionViewSource.Filter += new System.Windows.Data.FilterEventHandler(FilterUnapproved);
+            RefreshAppBar();
         }
 
         private void OnFilterSpamMenuItemClick(object sender, EventArgs e)
         {
             _currentCommentFilter = CommentsListFilter.Spam;
-            UpdateDisplay();
+            removeAllcommentsFilters();
+            commentsCollectionViewSource.Filter += new System.Windows.Data.FilterEventHandler(FilterSpam);
+            RefreshAppBar();
         }
+
+        // Comments Filters
+        private void FilterApproved(object sender, FilterEventArgs e)
+        {
+            Comment comment = e.Item as Comment;
+            if (comment.Status != "approve")
+            {
+                e.Accepted = false;
+            }
+        }
+
+        private void FilterUnapproved(object sender, FilterEventArgs e)
+        {
+            Comment comment = e.Item as Comment;
+            if (comment.Status != "hold")
+            {
+                e.Accepted = false;
+            }
+        }
+
+        private void FilterSpam(object sender, FilterEventArgs e)
+        {
+            Comment comment = e.Item as Comment;
+            if (comment.Status != "spam")
+            {
+                e.Accepted = false;
+            }
+        }
+
+        private void removeAllcommentsFilters()
+        {
+            commentsCollectionViewSource.Filter -= new System.Windows.Data.FilterEventHandler(FilterApproved);
+            commentsCollectionViewSource.Filter -= new System.Windows.Data.FilterEventHandler(FilterUnapproved);
+            commentsCollectionViewSource.Filter -= new System.Windows.Data.FilterEventHandler(FilterSpam);
+        }
+
 
         // Moderation Actions
         private void OnApproveIconButtonClick(object sender, EventArgs e)
@@ -830,6 +851,7 @@ namespace WordPress
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComments);
         }
 
@@ -845,6 +867,7 @@ namespace WordPress
             rpc.Completed += OnBatchEditXmlRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComments);
         }
 
@@ -865,6 +888,7 @@ namespace WordPress
                 rpc.Completed += OnBatchEditXmlRPCCompleted;
                 rpc.ExecuteAsync();
 
+                ApplicationBar.IsVisible = false; //hide the application bar 
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingCommentsAsSpam);
             }
         }
@@ -883,6 +907,7 @@ namespace WordPress
                 rpc.Completed += OnBatchDeleteXmlRPCCompleted;
                 rpc.ExecuteAsync();
 
+                ApplicationBar.IsVisible = false; //hide the application bar 
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComments);
             }
         }
@@ -916,8 +941,8 @@ namespace WordPress
             rpc.Completed -= OnBatchEditXmlRPCCompleted;
 
             App.WaitIndicationService.HideIndicator();
-
-            UpdateDisplay();
+            ApplicationBar.IsVisible = true;
+            RefreshAppBar();
         }
 
         private void OnBatchDeleteXmlRPCCompleted(object sender, XMLRPCCompletedEventArgs<Comment> args)
@@ -926,8 +951,8 @@ namespace WordPress
             rpc.Completed -= OnBatchDeleteXmlRPCCompleted;
 
             App.WaitIndicationService.HideIndicator();
-
-            UpdateDisplay();
+            ApplicationBar.IsVisible = true;
+            RefreshAppBar();
         }
 
 
@@ -1064,6 +1089,7 @@ namespace WordPress
                 rpc.Completed += OnGetPageRPCCompleted;
                 rpc.ExecuteAsync();
 
+                ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
             }
         }
@@ -1099,6 +1125,7 @@ namespace WordPress
             rpc.Completed += OnViewPageRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
@@ -1155,6 +1182,7 @@ namespace WordPress
             rpc.Completed += OnDeletePageRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingPage);
         }
 
@@ -1174,6 +1202,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
+            ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
         }
 
@@ -1221,7 +1250,13 @@ namespace WordPress
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (App.PopupSelectionService.IsPopupOpen)
+            if (App.WaitIndicationService.Waiting)
+            {
+                //TODO: we need to remove the lister on the active connection!!
+                App.WaitIndicationService.HideIndicator();
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
+            } else if (App.PopupSelectionService.IsPopupOpen)
             {
                 App.PopupSelectionService.HidePopup();
                 App.PopupSelectionService.SelectionChanged -= _popupServiceSelectionChangedHandler;
@@ -1250,6 +1285,7 @@ namespace WordPress
         private void OnDataStoreFetchExceptionOccurred(object sender, ExceptionEventArgs args)
         {
             App.WaitIndicationService.HideIndicator();
+            ApplicationBar.IsVisible = true;
             DataService.Current.ExceptionOccurred -= OnDataStoreFetchExceptionOccurred;
             
             this.HandleException(args.Exception);

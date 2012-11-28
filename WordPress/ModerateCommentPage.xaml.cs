@@ -208,6 +208,7 @@ namespace WordPress
                 rpc.Completed += OnEditCommentRPCCompleted;
                 rpc.ExecuteAsync();
 
+                ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingAsSpam);
             }
             else
@@ -231,6 +232,7 @@ namespace WordPress
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComment);
         }
 
@@ -249,6 +251,7 @@ namespace WordPress
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComment);
         }
 
@@ -267,6 +270,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
+            ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
             ChangeApplicationBarAppearance();
         }
@@ -355,6 +359,7 @@ namespace WordPress
                 rpc.Completed += OnDeleteCommentRPCCompleted;
                 rpc.ExecuteAsync();
 
+                ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComment);
             }
             else
@@ -381,6 +386,7 @@ namespace WordPress
             }
 
             App.WaitIndicationService.HideIndicator();
+            ApplicationBar.IsVisible = true;
         }
         
         private void OnReplyEditButtonClick(object sender, RoutedEventArgs e)
@@ -418,6 +424,7 @@ namespace WordPress
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.EditingComment);
         }
 
@@ -451,6 +458,7 @@ namespace WordPress
             rpc.Completed += new XMLRPCCompletedEventHandler<Comment>(OnNewCommentRPCCompleted);
             rpc.ExecuteAsync();
 
+            ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ReplyingToComment);
         }
 

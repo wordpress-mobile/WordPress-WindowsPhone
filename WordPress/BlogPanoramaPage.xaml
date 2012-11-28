@@ -164,9 +164,6 @@
         <Converters:ItemTitleInListConverter x:Key="ItemTitleInListConverter"/>
         <Converters:PostStatusInListConverter x:Key="PostStatusInListConverter"/>
         <Converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
-        <Converters:CommentStatusGroupingConverter x:Key="ApprovedCommentConverter" Status="approve"/>
-        <Converters:CommentStatusGroupingConverter x:Key="UnapprovedCommentConverter" Status="hold"/>
-        <Converters:CommentStatusGroupingConverter x:Key="SpamCommentConverter" Status="spam"/>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot contains the root grid where all other page content is placed-->
