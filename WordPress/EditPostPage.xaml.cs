@@ -40,6 +40,7 @@ namespace WordPress
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
         private List<UploadFileRPC> _mediaUploadRPCs;
+        private AbstractPostRPC currentXmlRpcConnection;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
         private bool _mediaDialogPresented = false;
@@ -93,12 +94,18 @@ namespace WordPress
                 HideAddLinkControl();
                 e.Cancel = true;
             }
-            if (App.WaitIndicationService.Waiting)
+            else if (App.WaitIndicationService.Waiting)
             {
                 App.WaitIndicationService.HideIndicator();
                 ApplicationBar.IsVisible = true;
                 e.Cancel = true;
-                
+
+                if (null != currentXmlRpcConnection)
+                {
+                    currentXmlRpcConnection.IsCancelled = true;
+                    currentXmlRpcConnection = null;
+                }
+                   
                 _mediaUploadRPCs.ForEach(rpc =>
                 {
                     rpc.Completed -= OnUploadMediaRPCCompleted;
@@ -400,6 +407,7 @@ namespace WordPress
                     rpc.Completed += OnNewPostRPCCompleted;
                     rpc.ExecuteAsync();
 
+                    currentXmlRpcConnection = rpc;
                     this.Focus();
                     ApplicationBar.IsVisible = false;
                     App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
@@ -424,6 +432,7 @@ namespace WordPress
                 rpc.Completed += OnEditPostRPCCompleted;
                 rpc.ExecuteAsync();
 
+                currentXmlRpcConnection = rpc;
                 this.Focus();
                 ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
@@ -436,7 +445,7 @@ namespace WordPress
             rpc.Completed -= OnEditPostRPCCompleted;
             ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
-
+            
             if (args.Cancelled)
             {
             }
@@ -464,7 +473,8 @@ namespace WordPress
             ApplicationBar.IsVisible = true;
 
             if (args.Cancelled)
-            { 
+            {
+                //do not set the connection to null here
             } 
             else if (null == args.Error)
             {
@@ -790,6 +800,7 @@ namespace WordPress
                 _mediaUploadRPCs.Remove(rpc);
                 if (args.Cancelled)
                 {
+                    return;
                 }
                 else if (null == args.Error)
                 {

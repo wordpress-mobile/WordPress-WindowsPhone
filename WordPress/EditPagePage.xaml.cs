@@ -38,6 +38,7 @@ namespace WordPress
         private StringTable _localizedStrings;
 
         private List<UploadFileRPC> _mediaUploadRPCs;
+        private AbstractPostRPC currentXmlRpcConnection;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
         private bool _mediaDialogPresented = false;
@@ -88,14 +89,34 @@ namespace WordPress
                 HideAddLinkControl();
                 e.Cancel = true;
             }
+            else if (App.WaitIndicationService.Waiting)
+            {
+                App.WaitIndicationService.HideIndicator();
+                ApplicationBar.IsVisible = true;
+                e.Cancel = true;
+
+                if (null != currentXmlRpcConnection)
+                {
+                    currentXmlRpcConnection.IsCancelled = true;
+                    currentXmlRpcConnection = null;
+                }
+
+                _mediaUploadRPCs.ForEach(rpc =>
+                {
+                    rpc.Completed -= OnUploadMediaRPCCompleted;
+                    rpc.IsCancelled = true;
+                });
+                _mediaUploadRPCs.Clear();
+            }
             else
             {
                 string prompt = string.Format(_localizedStrings.Prompts.SureCancel, _localizedStrings.Prompts.Page);
                 MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)
                 {
-                   //remove the media
-                    _mediaUploadRPCs.ForEach(rpc => {
+                    //remove the media
+                    _mediaUploadRPCs.ForEach(rpc =>
+                    {
                         rpc.Completed -= OnUploadMediaRPCCompleted;
                         rpc.IsCancelled = true;
                     });
@@ -284,6 +305,7 @@ namespace WordPress
 
             if (args.Cancelled)
             {
+                return;
             }
             else if (null == args.Error)
             {
@@ -306,6 +328,7 @@ namespace WordPress
 
             if (args.Cancelled)
             {
+                return;
             }
             else if (null == args.Error)
             {
@@ -693,12 +716,14 @@ namespace WordPress
             lock (_syncRoot)
             {
                 _mediaUploadRPCs.Remove(rpc);
+                if (args.Cancelled)
+                {
+                    return;
+                }
                 if (null == args.Error)
                 {
                     //Image uploaded correctly
                 }
-                else if (args.Cancelled)
-                { }
                 
                 if (args.Items.Count > 0)
                 {
@@ -793,6 +818,7 @@ namespace WordPress
                     rpc.PostType = ePostType.page;
                     rpc.Completed += OnNewPostRPCCompleted;
                     rpc.ExecuteAsync();
+                    currentXmlRpcConnection = rpc;
                 }
                 else
                 {
@@ -820,6 +846,7 @@ namespace WordPress
                 rpc.PostType = ePostType.page;
                 rpc.Completed += OnEditPostRPCCompleted;
 
+                currentXmlRpcConnection = rpc;
                 rpc.ExecuteAsync();
             }
             this.Focus();
