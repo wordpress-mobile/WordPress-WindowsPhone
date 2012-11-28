@@ -132,7 +132,10 @@ namespace WordPress
             ApplicationBar.IsVisible = true;
             App.WaitIndicationService.KillSpinner();
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            } 
+            else if (null == args.Error)
             {
                 if (1 == args.Items.Count)
                 {

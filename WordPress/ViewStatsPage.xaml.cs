@@ -307,7 +307,10 @@ namespace WordPress
             GetPostViewStatsRPC rpc = sender as GetPostViewStatsRPC;
             rpc.Completed -= OnGetPostViewStatsRPCCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
             {
                 HideStatControls();
 

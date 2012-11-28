@@ -162,7 +162,10 @@ namespace WordPress
             GetUsersBlogsRPC rpc = sender as GetUsersBlogsRPC;
             rpc.Completed -= OnGetUsersBlogsCompleted;
 
-            if (null == args.Error)
+            if (args.Cancelled)
+            {
+            } 
+            else if (null == args.Error)
             {
                 App.WaitIndicationService.KillSpinner();
                 ApplicationBar.IsVisible = true;
