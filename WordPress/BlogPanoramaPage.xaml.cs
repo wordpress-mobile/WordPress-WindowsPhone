@@ -990,10 +990,13 @@ namespace WordPress
         {
             EditCommentsStatusRPC rpc = sender as EditCommentsStatusRPC;
             rpc.Completed -= OnBatchEditXmlRPCCompleted;
-
             currentXMLRPCConnection = null;
             App.WaitIndicationService.HideIndicator();
             ApplicationBar.IsVisible = true;
+
+            //switch back to 'single mode'. 
+            _isModeratingComments = false;
+            commentsListBox.IsSelectionEnabled = _isModeratingComments;
             RefreshAppBar();
         }
 
@@ -1005,9 +1008,12 @@ namespace WordPress
             currentXMLRPCConnection = null;
             App.WaitIndicationService.HideIndicator();
             ApplicationBar.IsVisible = true;
+
+            //switch back to 'single mode'. 
+            _isModeratingComments = false;
+            commentsListBox.IsSelectionEnabled = _isModeratingComments;
             RefreshAppBar();
         }
-
 
         #endregion
 
