@@ -443,13 +443,16 @@ namespace WordPress
         {
             EditPostRPC rpc = sender as EditPostRPC;
             rpc.Completed -= OnEditPostRPCCompleted;
-            ApplicationBar.IsVisible = true;
-            App.WaitIndicationService.HideIndicator();
             
             if (args.Cancelled)
             {
+                return;
             }
-            else if (null == args.Error)
+
+            ApplicationBar.IsVisible = true;
+            App.WaitIndicationService.HideIndicator();
+
+            if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
@@ -462,21 +465,24 @@ namespace WordPress
 
         private void OnNewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
+            NewPostRPC rpc = sender as NewPostRPC;
+            rpc.Completed -= OnNewPostRPCCompleted;
+            
+            if (args.Cancelled)
+            {
+                //do not set the connection to null here
+                return;
+            } 
+
             if (this.isEditingLocalDraft)
             {
                 // Local Draft was published
                 App.MasterViewModel.CurrentBlog.LocalPostDrafts.Remove(App.MasterViewModel.CurrentPost);
             }
-
-            NewPostRPC rpc = sender as NewPostRPC;
-            rpc.Completed -= OnNewPostRPCCompleted;
             ApplicationBar.IsVisible = true;
+            App.WaitIndicationService.HideIndicator();
 
-            if (args.Cancelled)
-            {
-                //do not set the connection to null here
-            } 
-            else if (null == args.Error)
+            if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
@@ -486,7 +492,7 @@ namespace WordPress
                 this.HandleException(args.Error);
             }
 
-            App.WaitIndicationService.HideIndicator();
+           
         }
 
         private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)

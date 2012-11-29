@@ -301,13 +301,17 @@ namespace WordPress
         {
             EditPostRPC rpc = sender as EditPostRPC;
             rpc.Completed -= OnEditPostRPCCompleted;
-            ApplicationBar.IsVisible = true;
-
+         
             if (args.Cancelled)
             {
                 return;
             }
-            else if (null == args.Error)
+
+            //Do not change the UI if the connection is cancelled. The user could have started another connection...
+            ApplicationBar.IsVisible = true;
+            App.WaitIndicationService.HideIndicator();
+            
+            if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 NavigationService.GoBack();
@@ -316,21 +320,22 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
-            
-            App.WaitIndicationService.HideIndicator();
         }
 
         private void OnNewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
             NewPostRPC rpc = sender as NewPostRPC;
             rpc.Completed -= OnNewPostRPCCompleted;
-            ApplicationBar.IsVisible = true;
 
             if (args.Cancelled)
             {
                 return;
             }
-            else if (null == args.Error)
+
+            App.WaitIndicationService.HideIndicator();
+            ApplicationBar.IsVisible = true;
+
+            if (null == args.Error)
             {
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 NavigationService.GoBack();
@@ -339,8 +344,6 @@ namespace WordPress
             {
                 this.HandleException(args.Error);
             }
-            
-            App.WaitIndicationService.HideIndicator();
         }
         
         private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)
