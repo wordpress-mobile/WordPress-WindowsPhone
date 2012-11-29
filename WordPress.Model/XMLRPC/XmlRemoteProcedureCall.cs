@@ -12,7 +12,7 @@ using System.Xml.Linq;
 
 namespace WordPress.Model
 {
-    public abstract class XmlRemoteProcedureCall<T> where T : INotifyPropertyChanged
+    public abstract class XmlRemoteProcedureCall<T> : IXmlRemoteProcedureCall where T : INotifyPropertyChanged
     {
         //DEV NOTE:implement the event-based Asynchronous Pattern here so we can
         //create these objects on threads (specifically the main/UI thread)
@@ -28,7 +28,6 @@ namespace WordPress.Model
         private SendOrPostCallback onCompletedDelegate;
         private Dictionary<object, object> userStateToLifetime = new Dictionary<object, object>();
         public bool IsCancelled { get; set; }
-
         #endregion
 
         #region events

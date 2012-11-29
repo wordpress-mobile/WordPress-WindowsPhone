@@ -140,10 +140,10 @@ namespace WordPress.Delay
                 var count = pendingRequests.Count;
                 for (var i = 0; (0 < count) && (i < WorkItemQuantum); i++)
                 {
-                    
+
+                    //DEV NOTE: Download always the first item in the list.
+
                     /*
-                     * Download always the first item in the list
-                     * 
                     // Choose a random item to behave reasonably at both extremes (FIFO/FILO)
                     var index =  rand.Next(count);
                     var pendingRequest = pendingRequests[index];

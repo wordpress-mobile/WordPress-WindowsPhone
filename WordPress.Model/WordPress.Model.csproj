@@ -110,6 +110,7 @@
     <Compile Include="XMLRPC\GetStatsRPC.cs" />
     <Compile Include="XMLRPC\GetUsersBlogsRPC.cs" />
     <Compile Include="XMLRPC\GetViewStatsRPC.cs" />
+    <Compile Include="XMLRPC\IXmlRemoteProcedureCall.cs" />
     <Compile Include="XMLRPC\NewCategoryRPC.cs" />
     <Compile Include="XMLRPC\NewCommentRPC.cs" />
     <Compile Include="XMLRPC\NewPostRPC.cs" />
