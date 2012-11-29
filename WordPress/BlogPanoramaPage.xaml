@@ -120,7 +120,7 @@
             </Setter>
         </Style>
         <DataTemplate x:Key="CommentListItemTemplate">
-            <Grid Width="340" Tap="CommentListItem_Tap">
+            <Grid Margin="0,0,30,0" Tap="CommentListItem_Tap">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -142,7 +142,7 @@
                             <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="20">
+                    <TextBlock x:Name="postTextBlock" Text="{Binding PostTitle}" FontSize="20" TextTrimming="WordEllipsis">
                         <TextBlock.Foreground>
                             <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                         </TextBlock.Foreground>
@@ -273,57 +273,33 @@
                     <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
                 </controls:PanoramaItem.Foreground>
 
-                <Grid>
-                    <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,0">
-                        <StackPanel>
+                <ScrollViewer x:Name="commentsScrollerView" Margin="0,0,0,0">
+                    <StackPanel>
 
-                            <TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
+                        <TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
                                FontSize="72" FontFamily="Segoe WP SemiLight" 
                                Margin="0,-25,0,25" 
                                Grid.Row="0" Grid.Column="0"
                                Height="92" />
-                            <Grid>
-                                <toolkit:MultiselectList x:Name="commentsListBox" 
-                                    SelectionChanged="multiselectList_SelectionChanged" Margin="5,0,0,72"
-                                    ItemInfoTemplate="{StaticResource CommentListItemTemplate}">
-                                    
-                                    <toolkit:MultiselectList.Template>
-                                        <ControlTemplate TargetType="toolkit:MultiselectList">
-                                            <ItemsPresenter/>
-                                        </ControlTemplate>
-                                    </toolkit:MultiselectList.Template>
-                                    
-                                </toolkit:MultiselectList>
-                            </Grid>
                             
+                        <toolkit:MultiselectList x:Name="commentsListBox" 
+                                SelectionChanged="multiselectList_SelectionChanged" Margin="-15,0,0,72"
+                                ItemTemplate="{StaticResource CommentListItemTemplate}" 
+                                                 HorizontalAlignment="Left" 
+                                                 VerticalAlignment="Top" 
+                                                 HorizontalContentAlignment="Left">
+                                    
+                            <toolkit:MultiselectList.Template>
+                                <ControlTemplate TargetType="toolkit:MultiselectList">
+                                    <ItemsPresenter/>
+                                </ControlTemplate>
+                            </toolkit:MultiselectList.Template>
+                                   
+                        </toolkit:MultiselectList>
                             
-                        </StackPanel>
-                    </ScrollViewer>
-                </Grid>
-<!--
-                <Grid Margin="0" Width="400">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="92"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <!- - Margin property changed in the .cs for Win8 see #123 - ->
-                    <TextBlock x:Name="commentsTitle" Text="{Binding PageTitles.Comments, Source={StaticResource StringTable}}" 
-                               FontSize="72" FontFamily="Segoe WP SemiLight" 
-                               Margin="0,-25,0,25" 
-                               Grid.Row="0" Grid.Column="0"
-                               Height="92" />
-
-                    <toolkit:MultiselectList x:Name="commentsListBox" 
-                                Grid.Row="1"
-                                SelectionChanged="multiselectList_SelectionChanged" Margin="5,0,0,72"
-                                ItemInfoTemplate="{StaticResource CommentListItemTemplate}"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled" />
-                </Grid>
--->
+                    </StackPanel>
+                </ScrollViewer>
+                
             </controls:PanoramaItem>
 
             <!--posts Panorama item-->
