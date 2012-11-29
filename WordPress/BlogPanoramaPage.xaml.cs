@@ -262,7 +262,7 @@ namespace WordPress
             worker.DoWork += (workSender, e) =>
             {
                 _blogIsPinned = (App.MasterViewModel.FindBlogTile() != null);
-            };
+            }; 
             worker.RunWorkerCompleted += (completeSender, e) => RefreshAppBar();
             worker.RunWorkerAsync();
 

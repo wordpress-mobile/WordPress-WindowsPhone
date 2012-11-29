@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:local="clr-namespace:WordPress"
     xmlns:Converters="clr-namespace:WordPress.Converters"
+    xmlns:Delay="clr-namespace:WordPress.Delay"  
     xmlns:model="clr-namespace:WordPress.Model;assembly=WordPress.Model"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
@@ -128,7 +129,8 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Image Margin="0,0,10,10" Width="80" Height="80" Source="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80" />
+                <Image Margin="0,0,10,10" Width="80" Height="80" 
+                       Delay:LowProfileImageLoader.UriSource="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80" />
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,-6,0,0" >
                     <TextBlock x:Name="authorTextBlock" Text="{Binding Author, Converter={StaticResource AnonymousAuthorConverter}}" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
                         <TextBlock.Foreground>
