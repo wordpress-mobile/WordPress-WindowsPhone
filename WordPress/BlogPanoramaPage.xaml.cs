@@ -75,15 +75,12 @@ namespace WordPress
         {
             InitializeComponent();
 
-            /* Fix some layout properties on Windows 8, see trac #123
-            if (Environment.OSVersion.Version.Major >= 8)
-            {
-                panoramaBlogTitle.Margin = new Thickness(0, 12, 0, 0);
-                commentsTitle.Margin = new Thickness(0, -36, 0, 25);
-                postsTitle.Margin = new Thickness(0, -36, 0, 25);
-                pagesTitle.Margin = new Thickness(0, -36, 0, 25);
-            }
-            */
+#if WINPHONE8
+            panoramaBlogTitle.Margin = new Thickness(0, 12, 0, 0);
+            commentsTitle.Margin = new Thickness(0, -36, 0, 25);
+            postsTitle.Margin = new Thickness(0, -36, 0, 25);
+            pagesTitle.Margin = new Thickness(0, -36, 0, 25);
+#endif
             DataContext = App.MasterViewModel;
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
