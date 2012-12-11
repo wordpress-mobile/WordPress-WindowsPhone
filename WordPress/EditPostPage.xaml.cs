@@ -354,13 +354,23 @@ namespace WordPress
                 {
                     foreach (Media currentMedia in post.Media)
                     {
+                        // If there is an error posting the user may try again.
+                        // Media that has already been uploaded will have a good URL. 
+                        // Check for this and don't upload media a second time. 
+                        if (currentMedia.Url != null && currentMedia.Url.Length > 0) 
+                            continue;
+                        
                         UploadFileRPC rpc = new UploadFileRPC(App.MasterViewModel.CurrentBlog, currentMedia, true);
                         rpc.Completed += OnUploadMediaRPCCompleted;
                         //store this for later--we'll upload the files once the user hits save
                         _mediaUploadRPCs.Add(rpc);
                     }
-                    UploadImagesAndSavePost();
-                    return;
+
+                    if (_mediaUploadRPCs.Count > 0)
+                    {
+                        UploadImagesAndSavePost();
+                        return;
+                    }
                 }
             }
 
