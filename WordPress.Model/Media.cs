@@ -174,12 +174,22 @@ namespace WordPress.Model
 
         public Stream getImageStream()
         {
-            //load the picture: Ugly but works.
+            // Load the picture: Ugly but works.
             MediaLibrary m = new MediaLibrary();
             foreach (var r in m.Pictures)
             {
-                if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
-                    return r.GetImage();
+                try
+                {
+                    if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
+                        return r.GetImage();
+                }
+                catch (Exception e)
+                {
+                    // See trac #170. 
+                    // If the enumerator throws an error getting the image catch it and continue through the list. 
+                    // This assumes that a corrupted file could cause the enumerator to throw an invalid operation exception.
+                    continue;
+                }
             }
 
             return null;
