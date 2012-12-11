@@ -45,7 +45,8 @@ namespace WordPress
 
         private bool _mediaDialogPresented = false;
         private bool isEditingLocalDraft = false;
-        
+
+        private PhotoChooserTask photoChooserTask;
         #endregion
 
         #region constructors
@@ -70,6 +71,10 @@ namespace WordPress
             this.postFormatsPicker.ItemsSource = App.MasterViewModel.CurrentBlog.PostFormats;
             
             Loaded += OnPageLoaded;
+
+            photoChooserTask = new PhotoChooserTask();
+            photoChooserTask.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
+            photoChooserTask.ShowCamera = true;
         }
 
         #endregion
@@ -633,17 +638,11 @@ namespace WordPress
 
         private void AddNewMedia()
         {
-            PhotoChooserTask task = new PhotoChooserTask();            
-            task.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
-            task.ShowCamera = true;
-            task.Show();
+            photoChooserTask.Show();
         }
 
         private void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
         {
-            PhotoChooserTask task = sender as PhotoChooserTask;
-            task.Completed -= OnChoosePhotoTaskCompleted;
-
             if (TaskResult.OK != e.TaskResult) return;
 
             Stream chosenPhoto = e.ChosenPhoto;
