@@ -176,10 +176,13 @@ namespace WordPress.Model
         {
             // Load the picture: Ugly but works.
             MediaLibrary m = new MediaLibrary();
-            foreach (var r in m.Pictures)
+            
+            int len = m.Pictures.Count;
+            for (int i = 0; i < len; i++)
             {
                 try
                 {
+                    var r = m.Pictures[i];
                     if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
                         return r.GetImage();
                 }
@@ -191,7 +194,6 @@ namespace WordPress.Model
                     continue;
                 }
             }
-
             return null;
         }
 
