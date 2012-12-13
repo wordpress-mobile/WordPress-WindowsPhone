@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -116,679 +117,679 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-	<data name="ControlText_Publish" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Tags" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Title_ModerateComment" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Title_ModerateComments" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_EULA" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_CopyErrorMessage" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Messages_ContentCopied" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Messages_Info" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Messages_InvalidCredentials" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Messages_MissingFields" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_ViewStats" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_PostStatus" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_PublishDate" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Draft" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_PendingReview" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Scheduled" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_PreserveBandwidth" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Remove" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompts_Comment" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompts_Comments" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompts_Confirm" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompt_ConfirmDeleteComment" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompt_ConfirmDeleteCommentsFormat" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompt_ConfirmMarkSpamComment" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompt_ConfirmMarkSpamCommentsFormat" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompts_NoConnectionError" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Title_Error" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Categories" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_TagsHelpText" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_LocalDraft" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Private" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Prompts_MediaPlacement" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_PostFormat" xml:space="preserve">
-		<value></value>
-	</data>
-	<data name="ControlText_Back" xml:space="preserve">
-		<value>返回</value>
-	</data>
-	<data name="ControlText_Pin" xml:space="preserve">
-		<value>固定</value>
-	</data>
-	<data name="ControlText_Unpin" xml:space="preserve">
-		<value>取消固顶</value>
-	</data>
-	<data name="Messages_MarketDescription" xml:space="preserve">
-		<value>WordPress for Windows Phone 开源应用允许您在您的WordPress站点发布文章、编辑内容、查看数据以及管理评论。</value>
-	</data>
-	<data name="ControlText_NoTitle" xml:space="preserve">
-		<value>未命名项目</value>
-	</data>
-	<data name="ControlText_ReleaseToRefresh" xml:space="preserve">
-		<value>松开即可刷新</value>
-	</data>
-	<data name="ControlText_PullDownToRefresh" xml:space="preserve">
-		<value>下拉刷新</value>
-	</data>
-	<data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
-		<value>抱歉，请求操作失败。请稍后重试。</value>
-	</data>
-	<data name="Prompts_XeElementMissing" xml:space="preserve">
-		<value>抱歉，服务器返回的数据有误。请稍后重试。</value>
-	</data>
-	<data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
-		<value>抱歉，服务器返回的数据有误。请稍后重试。</value>
-	</data>
-	<data name="Messages_Hello" xml:space="preserve">
-		<value>您好</value>
-	</data>
-	<data name="ControlText_SaveDraft" xml:space="preserve">
-		<value>保存草稿</value>
-	</data>
-	<data name="ControlText_LoadingContent" xml:space="preserve">
-		<value>正在读取内容</value>
-	</data>
-	<data name="ControlText_FAQ" xml:space="preserve">
-		<value>查看常见问题</value>
-	</data>
-	<data name="ControlText_Forums" xml:space="preserve">
-		<value>访问论坛</value>
-	</data>
-	<data name="Prompts_MediaError" xml:space="preserve">
-		<value>媒体上传失败</value>
-	</data>
-	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>抱歉，媒体上传时出现错误。您想继续上传该文章吗？</value>
-	</data>
-	<data name="ControlText_InsertLink" xml:space="preserve">
-		<value>插入链接</value>
-	</data>
-	<data name="ControlText_EnterURL" xml:space="preserve">
-		<value>请输入您要插入的链接地址。</value>
-	</data>
-	<data name="Prompts_SureCancel" xml:space="preserve">
-		<value>您确定要取消编辑{0}？</value>
-	</data>
-	<data name="Prompts_Post" xml:space="preserve">
-		<value>文章</value>
-	</data>
-	<data name="Prompts_Page" xml:space="preserve">
-		<value>页面</value>
-	</data>
-	<data name="Prompts_CancelEditing" xml:space="preserve">
-		<value>取消编辑</value>
-	</data>
-	<data name="ControlText_DefaultTagLine" xml:space="preserve">
-		<value>使用 WordPress for Windows Phone 发布</value>
-	</data>
-	<data name="ControlText_EnterLinkText" xml:space="preserve">
-		<value>[可选]输入链接的显示文本。</value>
-	</data>
-	<data name="ControlText_Username" xml:space="preserve">
-		<value>用户名</value>
-	</data>
-	<data name="Title_Approve" xml:space="preserve">
-		<value>已审核</value>
-	</data>
-	<data name="Title_Unapprove" xml:space="preserve">
-		<value>未审核</value>
-	</data>
-	<data name="ControlText_Apikey" xml:space="preserve">
-		<value>api 密钥</value>
-	</data>
-	<data name="Prompts_MissingApikey" xml:space="preserve">
-		<value>当前的博客没有 api key。请在设置页面中输入一个。</value>
-	</data>
-	<data name="Options_StatisticType_Views" xml:space="preserve">
-		<value>查看数</value>
-	</data>
-	<data name="ControlText_Clicks" xml:space="preserve">
-		<value>点击数</value>
-	</data>
-	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
-		<value>上周</value>
-	</data>
-	<data name="ControlText_Underline" xml:space="preserve">
-		<value>下划线</value>
-	</data>
-	<data name="ControlText_Status" xml:space="preserve">
-		<value>状态</value>
-	</data>
-	<data name="ControlText_StrikeThrough" xml:space="preserve">
-		<value>删除线</value>
-	</data>
-	<data name="ControlText_Unapprove" xml:space="preserve">
-		<value>驳回</value>
-	</data>
-	<data name="ControlText_Preferences" xml:space="preserve">
-		<value>首选项</value>
-	</data>
-	<data name="ControlText_Spam" xml:space="preserve">
-		<value>垃圾邮件</value>
-	</data>
-	<data name="ControlText_SearchTerms" xml:space="preserve">
-		<value>搜索条款</value>
-	</data>
-	<data name="Message_CheckTheUrl" xml:space="preserve">
-		<value>您输入的 URL 可能有问题。 这个 URL 是以 http:// 开始，或以 xmlrpc.php 结尾的吗？例如，WordPress.com 站点的默认值是 https://wordpress.com/xmlrpc.php。</value>
-	</data>
-	<data name="ControlText_Decline" xml:space="preserve">
-		<value>拒绝</value>
-	</data>
-	<data name="Prompts_SelectStatisticType" xml:space="preserve">
-		<value>您想统计什么数据？</value>
-	</data>
-	<data name="Messages_NoStatsAvailable" xml:space="preserve">
-		<value>无可用数据响应当前查询。</value>
-	</data>
-	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
-		<value>去年</value>
-	</data>
-	<data name="ControlText_Title" xml:space="preserve">
-		<value>标题</value>
-	</data>
-	<data name="ControlText_Content" xml:space="preserve">
-		<value>内容</value>
-	</data>
-	<data name="ControlText_Views" xml:space="preserve">
-		<value>查看数</value>
-	</data>
-	<data name="Title_NewPage" xml:space="preserve">
-		<value>新页面</value>
-	</data>
-	<data name="ControlText_AddAll" xml:space="preserve">
-		<value>添加所有</value>
-	</data>
-	<data name="ControlText_AddSelected" xml:space="preserve">
-		<value>添加所选内容</value>
-	</data>
-	<data name="ControlText_SelectBlogs" xml:space="preserve">
-		<value>请选择您想要导入的博客。</value>
-	</data>
-	<data name="ControlText_None" xml:space="preserve">
-		<value>[无]</value>
-	</data>
-	<data name="ControlText_PostContent" xml:space="preserve">
-		<value>发布内容</value>
-	</data>
-	<data name="Messages_ApprovingComment" xml:space="preserve">
-		<value>正在批准评论...</value>
-	</data>
-	<data name="ControlText_Vibrate" xml:space="preserve">
-		<value>震动</value>
-	</data>
-	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
-		<value>原大小</value>
-	</data>
-	<data name="Title_NewPost" xml:space="preserve">
-		<value>新日志</value>
-	</data>
-	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
-		<value>请选择缩略图大小</value>
-	</data>
-	<data name="ControlText_Accept" xml:space="preserve">
-		<value>接受</value>
-	</data>
-	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
-		<value>正在标记为垃圾评论...</value>
-	</data>
-	<data name="Messages_MarkingAsSpam" xml:space="preserve">
-		<value>正在标记为垃圾评论...</value>
-	</data>
-	<data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
-		<value>想看哪些数据？</value>
-	</data>
-	<data name="Title_Pages" xml:space="preserve">
-		<value>页</value>
-	</data>
-	<data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
-		<value>新建完整图像的链接</value>
-	</data>
-	<data name="ControlText_UpdateInterval" xml:space="preserve">
-		<value>更新间隔</value>
-	</data>
-	<data name="Title_CheckTheUrl" xml:space="preserve">
-		<value>链接是否有效？</value>
-	</data>
-	<data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
-		<value>您确定要删除页面“{0}”吗？</value>
-	</data>
-	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
-		<value>确定要删除 '{0}' 这篇日志吗？</value>
-	</data>
-	<data name="Title_ConfirmDelete" xml:space="preserve">
-		<value>確認刪除</value>
-	</data>
-	<data name="ControlText_DeleteBlog" xml:space="preserve">
-		<value>刪除網誌</value>
-	</data>
-	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
-		<value>請選擇要刪除的網誌</value>
-	</data>
-	<data name="ControlText_Clear" xml:space="preserve">
-		<value>清除</value>
-	</data>
-	<data name="Messages_UploadingMedia" xml:space="preserve">
-		<value>媒體上傳中</value>
-	</data>
-	<data name="ControlText_OriginalSize" xml:space="preserve">
-		<value>原始大小</value>
-	</data>
-	<data name="ControlText_CategorySlug" xml:space="preserve">
-		<value>目录链接名（可选）</value>
-	</data>
-	<data name="Title_Preferences" xml:space="preserve">
-		<value>首选项</value>
-	</data>
-	<data name="ControlText_UploadChanges" xml:space="preserve">
-		<value>保存更改</value>
-	</data>
-	<data name="Messages_MissingReply" xml:space="preserve">
-		<value>请填写回复</value>
-	</data>
-	<data name="Message_DownloadingStatistics" xml:space="preserve">
-		<value>正在下载统计数据……</value>
-	</data>
-	<data name="ControlText_PlayNotificationSound" xml:space="preserve">
-		<value>播放提示音</value>
-	</data>
-	<data name="ControlText_PlaceImage" xml:space="preserve">
-		<value>插入图片</value>
-	</data>
-	<data name="ControlText_PageContent" xml:space="preserve">
-		<value>页面内容</value>
-	</data>
-	<data name="Options_StatisticType_Clicks" xml:space="preserve">
-		<value>点击</value>
-	</data>
-	<data name="ControlText_Save" xml:space="preserve">
-		<value>保存</value>
-	</data>
-	<data name="ControlText_StartNewBlog" xml:space="preserve">
-		<value>在WordPress.com建立新博客</value>
-	</data>
-	<data name="ControlText_Referrers" xml:space="preserve">
-		<value>来自</value>
-	</data>
-	<data name="ControlText_PostTitle" xml:space="preserve">
-		<value>日志标题</value>
-	</data>
-	<data name="ControlText_Date" xml:space="preserve">
-		<value>日期</value>
-	</data>
-	<data name="ControlText_CategoryName" xml:space="preserve">
-		<value>分类名称</value>
-	</data>
-	<data name="ControlText_CategoryParent" xml:space="preserve">
-		<value>上级分类 (可选)</value>
-	</data>
-	<data name="ControlText_Refresh" xml:space="preserve">
-		<value>刷新</value>
-	</data>
-	<data name="Prompts_MissingUserName" xml:space="preserve">
-		<value>请输入用户名。</value>
-	</data>
-	<data name="Prompts_MissingUrl" xml:space="preserve">
-		<value>请输入有效的链接</value>
-	</data>
-	<data name="ControlText_Password" xml:space="preserve">
-		<value>密码</value>
-	</data>
-	<data name="ControlText_ModerateComments" xml:space="preserve">
-		<value>审核评论</value>
-	</data>
-	<data name="ControlText_NeedBlog" xml:space="preserve">
-		<value>还没有博客？</value>
-	</data>
-	<data name="Prompts_RefreshEntity" xml:space="preserve">
-		<value>想要刷新哪个？</value>
-	</data>
-	<data name="ControlText_PostSignature" xml:space="preserve">
-		<value>日志签名</value>
-	</data>
-	<data name="ControlText_Write" xml:space="preserve">
-		<value>新建日志</value>
-	</data>
-	<data name="ControlText_SelectedCategories" xml:space="preserve">
-		<value>选中的目录</value>
-	</data>
-	<data name="ControlText_CategoryDescription" xml:space="preserve">
-		<value>目录描述（可选）</value>
-	</data>
-	<data name="Title_Posts" xml:space="preserve">
-		<value>日志</value>
-	</data>
-	<data name="Options_StatisticType_PostViews" xml:space="preserve">
-		<value>次浏览</value>
-	</data>
-	<data name="Options_StatisticType_Referrers" xml:space="preserve">
-		<value>来自</value>
-	</data>
-	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
-		<value>搜索条款</value>
-	</data>
-	<data name="ControlText_Location" xml:space="preserve">
-		<value>位置</value>
-	</data>
-	<data name="ControlText_CommentNotifications" xml:space="preserve">
-		<value>评论通知</value>
-	</data>
-	<data name="ControlText_Edit" xml:space="preserve">
-		<value>编辑</value>
-	</data>
-	<data name="ControlText_GeoTagPosts" xml:space="preserve">
-		<value>带地理标记的文章</value>
-	</data>
-	<data name="ControlText_Media" xml:space="preserve">
-		<value>多媒体</value>
-	</data>
-	<data name="ControlText_SelectCategories" xml:space="preserve">
-		<value>选择类别</value>
-	</data>
-	<data name="Messages_LoggingIn" xml:space="preserve">
-		<value>登陆中...</value>
-	</data>
-	<data name="Messages_ApprovingComments" xml:space="preserve">
-		<value>正在通过审核评论</value>
-	</data>
-	<data name="Messages_DeletingComment" xml:space="preserve">
-		<value>删除评论……</value>
-	</data>
-	<data name="Messages_DeletingComments" xml:space="preserve">
-		<value>删除评论……</value>
-	</data>
-	<data name="Prompts_MissingPassword" xml:space="preserve">
-		<value>请输入密码。</value>
-	</data>
-	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
-		<value>日志</value>
-	</data>
-	<data name="Options_RefreshEntity_Everything" xml:space="preserve">
-		<value>全部</value>
-	</data>
-	<data name="Options_RefreshEntity_Pages" xml:space="preserve">
-		<value>页面</value>
-	</data>
-	<data name="Messages_ReplyingToComment" xml:space="preserve">
-		<value>回复评论中……</value>
-	</data>
-	<data name="Messages_RetrievingComments" xml:space="preserve">
-		<value>正在获取评论……</value>
-	</data>
-	<data name="Messages_RetrievingEverything" xml:space="preserve">
-		<value>正在获取……</value>
-	</data>
-	<data name="Messages_UploadingChanges" xml:space="preserve">
-		<value>保存更改...</value>
-	</data>
-	<data name="Messages_UnapprovingComments" xml:space="preserve">
-		<value>审核未通过的评论……</value>
-	</data>
-	<data name="Messages_UnapprovingComment" xml:space="preserve">
-		<value>审核未通过的评论……</value>
-	</data>
-	<data name="Messages_RetrievingPosts" xml:space="preserve">
-		<value>正在获取日志……</value>
-	</data>
-	<data name="Messages_RetrievingPost" xml:space="preserve">
-		<value>正在获取日志……</value>
-	</data>
-	<data name="Options_RefreshEntity_Comments" xml:space="preserve">
-		<value>评论</value>
-	</data>
-	<data name="Options_PostActions_ViewPost" xml:space="preserve">
-		<value>查看日志</value>
-	</data>
-	<data name="Options_PostActions_ViewComments" xml:space="preserve">
-		<value>查看评论</value>
-	</data>
-	<data name="Options_PostActions_EditPost" xml:space="preserve">
-		<value>修改日志</value>
-	</data>
-	<data name="Options_PostActions_DeletePost" xml:space="preserve">
-		<value>删除日志</value>
-	</data>
-	<data name="Options_PageActions_ViewPage" xml:space="preserve">
-		<value>浏览页面</value>
-	</data>
-	<data name="Options_PageActions_ViewComments" xml:space="preserve">
-		<value>查看评论</value>
-	</data>
-	<data name="Options_PageActions_EditPage" xml:space="preserve">
-		<value>修改页面</value>
-	</data>
-	<data name="Options_PageActions_DeletePage" xml:space="preserve">
-		<value>删除页面</value>
-	</data>
-	<data name="Title_EditPost" xml:space="preserve">
-		<value>修改日志</value>
-	</data>
-	<data name="Title_EditPage" xml:space="preserve">
-		<value>修改页面</value>
-	</data>
-	<data name="Title_Comments" xml:space="preserve">
-		<value>评论</value>
-	</data>
-	<data name="Title_Blogs" xml:space="preserve">
-		<value>博客</value>
-	</data>
-	<data name="Title_All" xml:space="preserve">
-		<value>全部</value>
-	</data>
-	<data name="Title_AddAccount" xml:space="preserve">
-		<value>新增账户</value>
-	</data>
-	<data name="Title_Actions" xml:space="preserve">
-		<value>操作</value>
-	</data>
-	<data name="Prompt_PostActions" xml:space="preserve">
-		<value>文章操作</value>
-	</data>
-	<data name="Prompt_PageActions" xml:space="preserve">
-		<value>页面操作</value>
-	</data>
-	<data name="Title_SelectCategories" xml:space="preserve">
-		<value>选择分类</value>
-	</data>
-	<data name="Messages_DeletingPost" xml:space="preserve">
-		<value>正在删除日志……</value>
-	</data>
-	<data name="Title_Stats" xml:space="preserve">
-		<value>统计数据</value>
-	</data>
-	<data name="Title_Spam" xml:space="preserve">
-		<value>垃圾评论</value>
-	</data>
-	<data name="Messages_DeletingPage" xml:space="preserve">
-		<value>正在删除页面……</value>
-	</data>
-	<data name="Title_Settings" xml:space="preserve">
-		<value>设置</value>
-	</data>
-	<data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
-		<value>上季度</value>
-	</data>
-	<data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
-		<value>上个月</value>
-	</data>
-	<data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
-		<value>所有时间</value>
-	</data>
-	<data name="Messages_Loading" xml:space="preserve">
-		<value>加载中...</value>
-	</data>
-	<data name="Messages_AcquiringPermalink" xml:space="preserve">
-		<value>正在获取永久链接……</value>
-	</data>
-	<data name="Messages_RetrievingPage" xml:space="preserve">
-		<value>正在获取页面……</value>
-	</data>
-	<data name="Messages_CreatingNewCategory" xml:space="preserve">
-		<value>正在创建新目录……</value>
-	</data>
-	<data name="Prompts_MissingCategoryName" xml:space="preserve">
-		<value>请填写目录名</value>
-	</data>
-	<data name="Prompts_SelectCategory" xml:space="preserve">
-		<value>请选择目录</value>
-	</data>
-	<data name="Title_AddNewCategory" xml:space="preserve">
-		<value>新建目录</value>
-	</data>
-	<data name="Messages_RetrievingCategories" xml:space="preserve">
-		<value>正在获取目录……</value>
-	</data>
-	<data name="Messages_RetrievingPages" xml:space="preserve">
-		<value>正在获取页面……</value>
-	</data>
-	<data name="ControlText_Reply" xml:space="preserve">
-		<value>回复</value>
-	</data>
-	<data name="ControlText_Italic" xml:space="preserve">
-		<value>斜体</value>
-	</data>
-	<data name="ControlText_Link" xml:space="preserve">
-		<value>连接</value>
-	</data>
-	<data name="ControlText_GetBlog" xml:space="preserve">
-		<value>去WordPress.com开个免费的博客</value>
-	</data>
-	<data name="ControlText_BlogSettings" xml:space="preserve">
-		<value>博客设置</value>
-	</data>
-	<data name="ControlText_BlogUrl" xml:space="preserve">
-		<value>博客地址</value>
-	</data>
-	<data name="ControlText_Bold" xml:space="preserve">
-		<value>粗体</value>
-	</data>
-	<data name="ControlText_Cancel" xml:space="preserve">
-		<value>取消</value>
-	</data>
-	<data name="ControlText_Delete" xml:space="preserve">
-		<value>删除</value>
-	</data>
-	<data name="ControlText_BlinkNotificationLight" xml:space="preserve">
-		<value>闪烁通知指示灯</value>
-	</data>
-	<data name="ControlText_BlockQuote" xml:space="preserve">
-		<value>块引用</value>
-	</data>
-	<data name="ControlText_BelowText" xml:space="preserve">
-		<value>文字下方</value>
-	</data>
-	<data name="ControlText_Approve" xml:space="preserve">
-		<value>允许</value>
-	</data>
-	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
-		<value>缩略图居中</value>
-	</data>
-	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-		<value>在新文章中添加标记行</value>
-	</data>
-	<data name="ControlText_AddMedia" xml:space="preserve">
-		<value>添加</value>
-	</data>
-	<data name="ApplicationTitle" xml:space="preserve">
-		<value>WordPress</value>
-	</data>
-	<data name="ControlText_AboveText" xml:space="preserve">
-		<value>文字上方</value>
-	</data>
-	<data name="ControlText_AccountDetails" xml:space="preserve">
-		<value>账户详细信息</value>
-	</data>
-	<data name="ControlText_Add" xml:space="preserve">
-		<value>新增</value>
-	</data>
-	<data name="ControlText_AddAPage" xml:space="preserve">
-		<value>新增页面</value>
-	</data>
-	<data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-		<value>添加由WordPress.com托管的博客</value>
-	</data>
-	<data name="ControlText_AddExistingSite" xml:space="preserve">
-		<value>添加自建的WordPress博客</value>
-	</data>
-	<data name="ControlText_AddBlog" xml:space="preserve">
-		<value>添加博客</value>
-	</data>
-	<data name="ControlText_Reader" xml:space="preserve">
-		<value></value>
-	</data>
+  <data name="ControlText_Publish" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Tags" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Title_ModerateComment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Title_ModerateComments" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_EULA" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_CopyErrorMessage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Messages_ContentCopied" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Messages_Info" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Messages_InvalidCredentials" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Messages_MissingFields" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_ViewStats" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_PostStatus" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_PublishDate" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Draft" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_PendingReview" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Scheduled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_PreserveBandwidth" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Remove" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompts_Comment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompts_Comments" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompts_Confirm" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompt_ConfirmDeleteComment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompt_ConfirmDeleteCommentsFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompt_ConfirmMarkSpamComment" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompt_ConfirmMarkSpamCommentsFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompts_NoConnectionError" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Title_Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Categories" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_TagsHelpText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_LocalDraft" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Private" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Prompts_MediaPlacement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_PostFormat" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ControlText_Back" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="ControlText_Pin" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="ControlText_Unpin" xml:space="preserve">
+    <value>取消固顶</value>
+  </data>
+  <data name="Messages_MarketDescription" xml:space="preserve">
+    <value>WordPress for Windows Phone 开源应用允许您在您的WordPress站点发布文章、编辑内容、查看数据以及管理评论。</value>
+  </data>
+  <data name="ControlText_NoTitle" xml:space="preserve">
+    <value>未命名项目</value>
+  </data>
+  <data name="ControlText_ReleaseToRefresh" xml:space="preserve">
+    <value>松开即可刷新</value>
+  </data>
+  <data name="ControlText_PullDownToRefresh" xml:space="preserve">
+    <value>下拉刷新</value>
+  </data>
+  <data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
+    <value>抱歉，请求操作失败。请稍后重试。</value>
+  </data>
+  <data name="Prompts_XeElementMissing" xml:space="preserve">
+    <value>抱歉，服务器返回的数据有误。请稍后重试。</value>
+  </data>
+  <data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
+    <value>抱歉，服务器返回的数据有误。请稍后重试。</value>
+  </data>
+  <data name="Messages_Hello" xml:space="preserve">
+    <value>您好</value>
+  </data>
+  <data name="ControlText_SaveDraft" xml:space="preserve">
+    <value>保存草稿</value>
+  </data>
+  <data name="ControlText_LoadingContent" xml:space="preserve">
+    <value>正在读取内容</value>
+  </data>
+  <data name="ControlText_FAQ" xml:space="preserve">
+    <value>查看常见问题</value>
+  </data>
+  <data name="ControlText_Forums" xml:space="preserve">
+    <value>访问论坛</value>
+  </data>
+  <data name="Prompts_MediaError" xml:space="preserve">
+    <value>媒体上传失败</value>
+  </data>
+  <data name="Prompts_MediaErrorContent" xml:space="preserve">
+    <value>抱歉，媒体上传时出现错误。您想继续上传该文章吗？</value>
+  </data>
+  <data name="ControlText_InsertLink" xml:space="preserve">
+    <value>插入链接</value>
+  </data>
+  <data name="ControlText_EnterURL" xml:space="preserve">
+    <value>请输入您要插入的链接地址。</value>
+  </data>
+  <data name="Prompts_SureCancel" xml:space="preserve">
+    <value>您确定要取消编辑{0}？</value>
+  </data>
+  <data name="Prompts_Post" xml:space="preserve">
+    <value>文章</value>
+  </data>
+  <data name="Prompts_Page" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="Prompts_CancelEditing" xml:space="preserve">
+    <value>取消编辑</value>
+  </data>
+  <data name="ControlText_DefaultTagLine" xml:space="preserve">
+    <value>使用 WordPress for Windows Phone 发布</value>
+  </data>
+  <data name="ControlText_EnterLinkText" xml:space="preserve">
+    <value>[可选]输入链接的显示文本。</value>
+  </data>
+  <data name="ControlText_Username" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="Title_Approve" xml:space="preserve">
+    <value>已审核</value>
+  </data>
+  <data name="Title_Unapprove" xml:space="preserve">
+    <value>未审核</value>
+  </data>
+  <data name="ControlText_Apikey" xml:space="preserve">
+    <value>api 密钥</value>
+  </data>
+  <data name="Prompts_MissingApikey" xml:space="preserve">
+    <value>当前的博客没有 api key。请在设置页面中输入一个。</value>
+  </data>
+  <data name="Options_StatisticType_Views" xml:space="preserve">
+    <value>查看数</value>
+  </data>
+  <data name="ControlText_Clicks" xml:space="preserve">
+    <value>点击数</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
+    <value>上周</value>
+  </data>
+  <data name="ControlText_Underline" xml:space="preserve">
+    <value>下划线</value>
+  </data>
+  <data name="ControlText_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="ControlText_StrikeThrough" xml:space="preserve">
+    <value>删除线</value>
+  </data>
+  <data name="ControlText_Unapprove" xml:space="preserve">
+    <value>驳回</value>
+  </data>
+  <data name="ControlText_Preferences" xml:space="preserve">
+    <value>首选项</value>
+  </data>
+  <data name="ControlText_Spam" xml:space="preserve">
+    <value>垃圾邮件</value>
+  </data>
+  <data name="ControlText_SearchTerms" xml:space="preserve">
+    <value>搜索条款</value>
+  </data>
+  <data name="Message_CheckTheUrl" xml:space="preserve">
+    <value>您输入的 URL 可能有问题。 这个 URL 是以 http:// 开始，或以 xmlrpc.php 结尾的吗？例如，WordPress.com 站点的默认值是 https://wordpress.com/xmlrpc.php。</value>
+  </data>
+  <data name="ControlText_Decline" xml:space="preserve">
+    <value>拒绝</value>
+  </data>
+  <data name="Prompts_SelectStatisticType" xml:space="preserve">
+    <value>您想统计什么数据？</value>
+  </data>
+  <data name="Messages_NoStatsAvailable" xml:space="preserve">
+    <value>无可用数据响应当前查询。</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
+    <value>去年</value>
+  </data>
+  <data name="ControlText_Title" xml:space="preserve">
+    <value>标题</value>
+  </data>
+  <data name="ControlText_Content" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="ControlText_Views" xml:space="preserve">
+    <value>查看数</value>
+  </data>
+  <data name="Title_NewPage" xml:space="preserve">
+    <value>新页面</value>
+  </data>
+  <data name="ControlText_AddAll" xml:space="preserve">
+    <value>添加所有</value>
+  </data>
+  <data name="ControlText_AddSelected" xml:space="preserve">
+    <value>添加所选内容</value>
+  </data>
+  <data name="ControlText_SelectBlogs" xml:space="preserve">
+    <value>请选择您想要导入的博客。</value>
+  </data>
+  <data name="ControlText_None" xml:space="preserve">
+    <value>[无]</value>
+  </data>
+  <data name="ControlText_PostContent" xml:space="preserve">
+    <value>发布内容</value>
+  </data>
+  <data name="Messages_ApprovingComment" xml:space="preserve">
+    <value>正在批准评论...</value>
+  </data>
+  <data name="ControlText_Vibrate" xml:space="preserve">
+    <value>震动</value>
+  </data>
+  <data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
+    <value>原大小</value>
+  </data>
+  <data name="Title_NewPost" xml:space="preserve">
+    <value>新日志</value>
+  </data>
+  <data name="Prompt_SelectThumbnailSize" xml:space="preserve">
+    <value>请选择缩略图大小</value>
+  </data>
+  <data name="ControlText_Accept" xml:space="preserve">
+    <value>接受</value>
+  </data>
+  <data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
+    <value>正在标记为垃圾评论...</value>
+  </data>
+  <data name="Messages_MarkingAsSpam" xml:space="preserve">
+    <value>正在标记为垃圾评论...</value>
+  </data>
+  <data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
+    <value>想看哪些数据？</value>
+  </data>
+  <data name="Title_Pages" xml:space="preserve">
+    <value>页</value>
+  </data>
+  <data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
+    <value>新建完整图像的链接</value>
+  </data>
+  <data name="ControlText_UpdateInterval" xml:space="preserve">
+    <value>更新间隔</value>
+  </data>
+  <data name="Title_CheckTheUrl" xml:space="preserve">
+    <value>链接是否有效？</value>
+  </data>
+  <data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
+    <value>您确定要删除页面“{0}”吗？</value>
+  </data>
+  <data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
+    <value>确定要删除 '{0}' 这篇日志吗？</value>
+  </data>
+  <data name="Title_ConfirmDelete" xml:space="preserve">
+    <value>確認刪除</value>
+  </data>
+  <data name="ControlText_DeleteBlog" xml:space="preserve">
+    <value>刪除網誌</value>
+  </data>
+  <data name="Prompts_SelectBlogToDelete" xml:space="preserve">
+    <value>請選擇要刪除的網誌</value>
+  </data>
+  <data name="ControlText_Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
+  <data name="Messages_UploadingMedia" xml:space="preserve">
+    <value>媒體上傳中</value>
+  </data>
+  <data name="ControlText_OriginalSize" xml:space="preserve">
+    <value>原始大小</value>
+  </data>
+  <data name="ControlText_CategorySlug" xml:space="preserve">
+    <value>目录链接名（可选）</value>
+  </data>
+  <data name="Title_Preferences" xml:space="preserve">
+    <value>首选项</value>
+  </data>
+  <data name="ControlText_UploadChanges" xml:space="preserve">
+    <value>保存更改</value>
+  </data>
+  <data name="Messages_MissingReply" xml:space="preserve">
+    <value>请填写回复</value>
+  </data>
+  <data name="Message_DownloadingStatistics" xml:space="preserve">
+    <value>正在下载统计数据……</value>
+  </data>
+  <data name="ControlText_PlayNotificationSound" xml:space="preserve">
+    <value>播放提示音</value>
+  </data>
+  <data name="ControlText_PlaceImage" xml:space="preserve">
+    <value>插入图片</value>
+  </data>
+  <data name="ControlText_PageContent" xml:space="preserve">
+    <value>页面内容</value>
+  </data>
+  <data name="Options_StatisticType_Clicks" xml:space="preserve">
+    <value>点击</value>
+  </data>
+  <data name="ControlText_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="ControlText_StartNewBlog" xml:space="preserve">
+    <value>在WordPress.com建立新博客</value>
+  </data>
+  <data name="ControlText_Referrers" xml:space="preserve">
+    <value>来自</value>
+  </data>
+  <data name="ControlText_PostTitle" xml:space="preserve">
+    <value>日志标题</value>
+  </data>
+  <data name="ControlText_Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="ControlText_CategoryName" xml:space="preserve">
+    <value>分类名称</value>
+  </data>
+  <data name="ControlText_CategoryParent" xml:space="preserve">
+    <value>上级分类 (可选)</value>
+  </data>
+  <data name="ControlText_Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Prompts_MissingUserName" xml:space="preserve">
+    <value>请输入用户名。</value>
+  </data>
+  <data name="Prompts_MissingUrl" xml:space="preserve">
+    <value>请输入有效的链接</value>
+  </data>
+  <data name="ControlText_Password" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="ControlText_ModerateComments" xml:space="preserve">
+    <value>审核评论</value>
+  </data>
+  <data name="ControlText_NeedBlog" xml:space="preserve">
+    <value>还没有博客？</value>
+  </data>
+  <data name="Prompts_RefreshEntity" xml:space="preserve">
+    <value>想要刷新哪个？</value>
+  </data>
+  <data name="ControlText_PostSignature" xml:space="preserve">
+    <value>日志签名</value>
+  </data>
+  <data name="ControlText_Write" xml:space="preserve">
+    <value>新建日志</value>
+  </data>
+  <data name="ControlText_SelectedCategories" xml:space="preserve">
+    <value>选中的目录</value>
+  </data>
+  <data name="ControlText_CategoryDescription" xml:space="preserve">
+    <value>目录描述（可选）</value>
+  </data>
+  <data name="Title_Posts" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Options_StatisticType_PostViews" xml:space="preserve">
+    <value>次浏览</value>
+  </data>
+  <data name="Options_StatisticType_Referrers" xml:space="preserve">
+    <value>来自</value>
+  </data>
+  <data name="Options_StatisticType_SearchTerms" xml:space="preserve">
+    <value>搜索条款</value>
+  </data>
+  <data name="ControlText_Location" xml:space="preserve">
+    <value>位置</value>
+  </data>
+  <data name="ControlText_CommentNotifications" xml:space="preserve">
+    <value>评论通知</value>
+  </data>
+  <data name="ControlText_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="ControlText_GeoTagPosts" xml:space="preserve">
+    <value>带地理标记的文章</value>
+  </data>
+  <data name="ControlText_Media" xml:space="preserve">
+    <value>多媒体</value>
+  </data>
+  <data name="ControlText_SelectCategories" xml:space="preserve">
+    <value>选择类别</value>
+  </data>
+  <data name="Messages_LoggingIn" xml:space="preserve">
+    <value>登陆中...</value>
+  </data>
+  <data name="Messages_ApprovingComments" xml:space="preserve">
+    <value>正在通过审核评论</value>
+  </data>
+  <data name="Messages_DeletingComment" xml:space="preserve">
+    <value>删除评论……</value>
+  </data>
+  <data name="Messages_DeletingComments" xml:space="preserve">
+    <value>删除评论……</value>
+  </data>
+  <data name="Prompts_MissingPassword" xml:space="preserve">
+    <value>请输入密码。</value>
+  </data>
+  <data name="Options_RefreshEntity_Posts" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Options_RefreshEntity_Everything" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Options_RefreshEntity_Pages" xml:space="preserve">
+    <value>页面</value>
+  </data>
+  <data name="Messages_ReplyingToComment" xml:space="preserve">
+    <value>回复评论中……</value>
+  </data>
+  <data name="Messages_RetrievingComments" xml:space="preserve">
+    <value>正在获取评论……</value>
+  </data>
+  <data name="Messages_RetrievingEverything" xml:space="preserve">
+    <value>正在获取……</value>
+  </data>
+  <data name="Messages_UploadingChanges" xml:space="preserve">
+    <value>保存更改...</value>
+  </data>
+  <data name="Messages_UnapprovingComments" xml:space="preserve">
+    <value>审核未通过的评论……</value>
+  </data>
+  <data name="Messages_UnapprovingComment" xml:space="preserve">
+    <value>审核未通过的评论……</value>
+  </data>
+  <data name="Messages_RetrievingPosts" xml:space="preserve">
+    <value>正在获取日志……</value>
+  </data>
+  <data name="Messages_RetrievingPost" xml:space="preserve">
+    <value>正在获取日志……</value>
+  </data>
+  <data name="Options_RefreshEntity_Comments" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="Options_PostActions_ViewPost" xml:space="preserve">
+    <value>查看日志</value>
+  </data>
+  <data name="Options_PostActions_ViewComments" xml:space="preserve">
+    <value>查看评论</value>
+  </data>
+  <data name="Options_PostActions_EditPost" xml:space="preserve">
+    <value>修改日志</value>
+  </data>
+  <data name="Options_PostActions_DeletePost" xml:space="preserve">
+    <value>删除日志</value>
+  </data>
+  <data name="Options_PageActions_ViewPage" xml:space="preserve">
+    <value>浏览页面</value>
+  </data>
+  <data name="Options_PageActions_ViewComments" xml:space="preserve">
+    <value>查看评论</value>
+  </data>
+  <data name="Options_PageActions_EditPage" xml:space="preserve">
+    <value>修改页面</value>
+  </data>
+  <data name="Options_PageActions_DeletePage" xml:space="preserve">
+    <value>删除页面</value>
+  </data>
+  <data name="Title_EditPost" xml:space="preserve">
+    <value>修改日志</value>
+  </data>
+  <data name="Title_EditPage" xml:space="preserve">
+    <value>修改页面</value>
+  </data>
+  <data name="Title_Comments" xml:space="preserve">
+    <value>评论</value>
+  </data>
+  <data name="Title_Blogs" xml:space="preserve">
+    <value>博客</value>
+  </data>
+  <data name="Title_All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Title_AddAccount" xml:space="preserve">
+    <value>新增账户</value>
+  </data>
+  <data name="Title_Actions" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Prompt_PostActions" xml:space="preserve">
+    <value>文章操作</value>
+  </data>
+  <data name="Prompt_PageActions" xml:space="preserve">
+    <value>页面操作</value>
+  </data>
+  <data name="Title_SelectCategories" xml:space="preserve">
+    <value>选择分类</value>
+  </data>
+  <data name="Messages_DeletingPost" xml:space="preserve">
+    <value>正在删除日志……</value>
+  </data>
+  <data name="Title_Stats" xml:space="preserve">
+    <value>统计数据</value>
+  </data>
+  <data name="Title_Spam" xml:space="preserve">
+    <value>垃圾评论</value>
+  </data>
+  <data name="Messages_DeletingPage" xml:space="preserve">
+    <value>正在删除页面……</value>
+  </data>
+  <data name="Title_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
+    <value>上季度</value>
+  </data>
+  <data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
+    <value>上个月</value>
+  </data>
+  <data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
+    <value>所有时间</value>
+  </data>
+  <data name="Messages_Loading" xml:space="preserve">
+    <value>加载中...</value>
+  </data>
+  <data name="Messages_AcquiringPermalink" xml:space="preserve">
+    <value>正在获取永久链接……</value>
+  </data>
+  <data name="Messages_RetrievingPage" xml:space="preserve">
+    <value>正在获取页面……</value>
+  </data>
+  <data name="Messages_CreatingNewCategory" xml:space="preserve">
+    <value>正在创建新目录……</value>
+  </data>
+  <data name="Prompts_MissingCategoryName" xml:space="preserve">
+    <value>请填写目录名</value>
+  </data>
+  <data name="Prompts_SelectCategory" xml:space="preserve">
+    <value>请选择目录</value>
+  </data>
+  <data name="Title_AddNewCategory" xml:space="preserve">
+    <value>新建目录</value>
+  </data>
+  <data name="Messages_RetrievingCategories" xml:space="preserve">
+    <value>正在获取目录……</value>
+  </data>
+  <data name="Messages_RetrievingPages" xml:space="preserve">
+    <value>正在获取页面……</value>
+  </data>
+  <data name="ControlText_Reply" xml:space="preserve">
+    <value>回复</value>
+  </data>
+  <data name="ControlText_Italic" xml:space="preserve">
+    <value>斜体</value>
+  </data>
+  <data name="ControlText_Link" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="ControlText_GetBlog" xml:space="preserve">
+    <value>去WordPress.com开个免费的博客</value>
+  </data>
+  <data name="ControlText_BlogSettings" xml:space="preserve">
+    <value>博客设置</value>
+  </data>
+  <data name="ControlText_BlogUrl" xml:space="preserve">
+    <value>博客地址</value>
+  </data>
+  <data name="ControlText_Bold" xml:space="preserve">
+    <value>粗体</value>
+  </data>
+  <data name="ControlText_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="ControlText_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="ControlText_BlinkNotificationLight" xml:space="preserve">
+    <value>闪烁通知指示灯</value>
+  </data>
+  <data name="ControlText_BlockQuote" xml:space="preserve">
+    <value>块引用</value>
+  </data>
+  <data name="ControlText_BelowText" xml:space="preserve">
+    <value>文字下方</value>
+  </data>
+  <data name="ControlText_Approve" xml:space="preserve">
+    <value>允许</value>
+  </data>
+  <data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
+    <value>缩略图居中</value>
+  </data>
+  <data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
+    <value>在新文章中添加标记行</value>
+  </data>
+  <data name="ControlText_AddMedia" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
+  <data name="ControlText_AboveText" xml:space="preserve">
+    <value>文字上方</value>
+  </data>
+  <data name="ControlText_AccountDetails" xml:space="preserve">
+    <value>账户详细信息</value>
+  </data>
+  <data name="ControlText_Add" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="ControlText_AddAPage" xml:space="preserve">
+    <value>新增页面</value>
+  </data>
+  <data name="ControlText_AddExistingWPBlog" xml:space="preserve">
+    <value>添加由WordPress.com托管的博客</value>
+  </data>
+  <data name="ControlText_AddExistingSite" xml:space="preserve">
+    <value>添加自建的WordPress博客</value>
+  </data>
+  <data name="ControlText_AddBlog" xml:space="preserve">
+    <value>添加博客</value>
+  </data>
+  <data name="ControlText_Reader" xml:space="preserve">
+    <value />
+  </data>
 </root>
