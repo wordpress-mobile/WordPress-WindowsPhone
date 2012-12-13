@@ -6,6 +6,7 @@ using Microsoft.Phone.Tasks;
 using WordPress.Commands;
 using WordPress.Model;
 using WordPress.Settings;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -25,8 +26,8 @@ namespace WordPress
 
         private void OnCreateNewBlogButtonClick(object sender, RoutedEventArgs e)
         {
-            LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
-            command.Execute(Constants.WORDPRESS_SIGNUP_URL);
+           LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
+           command.Execute(Constants.WORDPRESS_SIGNUP_URL); 
         }
 
         private void OnExistingWPBlogButtonClick(object sender, RoutedEventArgs e)
@@ -41,6 +42,8 @@ namespace WordPress
 
         private void OnPageLoaded(object sender, RoutedEventArgs args)
         {
+            CrashReporter.CheckForPreviousException();
+            
             UserSettings settings = new UserSettings();
             if (!settings.AcceptedEula)
             {

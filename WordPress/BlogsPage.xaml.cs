@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -69,6 +70,8 @@ namespace WordPress
                 _readerIconButton.Click += OnReaderIconButtonClick;
               //  ApplicationBar.Buttons.Add(_readerIconButton);
             }
+
+            CrashReporter.CheckForPreviousException();
         }
 
         #endregion
@@ -178,7 +181,6 @@ namespace WordPress
             {
                 NavigationService.RemoveBackEntry();
             }
-
         }
         #endregion
 

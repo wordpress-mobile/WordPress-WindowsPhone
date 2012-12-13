@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="PullDownToRefreshPanel.cs" />
     <Compile Include="Utils\AnimationHelper.cs" />
+    <Compile Include="Utils\CrashReporter.cs" />
     <Compile Include="Utils\ObservableObjectCollection.cs" />
     <Compile Include="Converters\BooleanInversionConverter.cs" />
     <Compile Include="Converters\CategoryContentConverter.cs" />
