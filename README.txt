@@ -13,10 +13,12 @@ The following SDKs should be installed in the development environment prior to b
 --------------------------------------------------------------
 RELEASE INSTRUCTIONS
 
-- Upload the English resx file to GlotPress http://translate.wordpress.org/projects/wordpress-for-windows-phone 
+- Upload the English resx file to GlotPress http://translate.wordpress.org/projects/wordpress-for-windows-phone/development/
+(Note: upload the resx file to the development branch, otherwise you will not see new strings).
 - Ping translators on http://make.wordpress.org/polyglots/
 - Download the translated strings from GlotPress, rename each files with the correct name.
-- Open each file, do a small edit, and re-save it.
+- Open each file with Notepad++ (no Word, WordPad or derivates) and add the 'resheader' tag just below '<root>' (it's a big blog of text).
+- Open each file in VS, do a small edit, and re-save it.
 - Verify that there're not instances of :
 <value></value>
 - Change the configuration to Release and build for Win7

@@ -117,6 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ControlText_Send" xml:space="preserve">
+    <value>invia</value>
+  </data>
+  <data name="ControlText_ReplyToComment" xml:space="preserve">
+    <value>rispondi al commento</value>
+  </data>
+  <data name="ControlText_EditComment" xml:space="preserve">
+    <value>modifica il commento</value>
+  </data>
+  <data name="Messages_NoBlogFoundAtThisURL" xml:space="preserve">
+    <value>Sembra che non hai blogs all'indirizzo {0}.</value>
+  </data>
+  <data name="ControlText_PreserveBandwidth" xml:space="preserve">
+    <value>risparmia utilizzo banda</value>
+  </data>
+  <data name="Messages_EditingComment" xml:space="preserve">
+    <value>modificando il commento...</value>
+  </data>
+  <data name="Messages_TitleAndContentEmpty" xml:space="preserve">
+    <value>Non posso salvare le modifiche perché titolo e contenuto sono entrambi vuoti.</value>
+  </data>
+  <data name="ControlText_FilterAll" xml:space="preserve">
+    <value>Mostra tutti</value>
+  </data>
+  <data name="ControlText_FilterApproved" xml:space="preserve">
+    <value>Mostra approvati</value>
+  </data>
+  <data name="ControlText_FilterSpam" xml:space="preserve">
+    <value>Mostra spam</value>
+  </data>
+  <data name="ControlText_FilterUnapproved" xml:space="preserve">
+    <value>Mostra in moderazione</value>
+  </data>
+  <data name="ControlText_Moderate" xml:space="preserve">
+    <value>modera</value>
+  </data>
+  <data name="ControlText_DeleteSelected" xml:space="preserve">
+    <value>elimina i selezionati</value>
+  </data>
   <data name="ControlText_Publish" xml:space="preserve">
     <value>Pubblica</value>
   </data>
@@ -151,7 +190,7 @@
     <value>Compila tutti i campi</value>
   </data>
   <data name="ControlText_ViewStats" xml:space="preserve">
-    <value>vedi le statistiche</value>
+    <value>statistiche</value>
   </data>
   <data name="ControlText_PostStatus" xml:space="preserve">
     <value>Stato</value>
@@ -167,9 +206,6 @@
   </data>
   <data name="ControlText_Scheduled" xml:space="preserve">
     <value>Programmato</value>
-  </data>
-  <data name="ControlText_PreserveBandwidth" xml:space="preserve">
-    <value>risparmia utilizzo banda</value>
   </data>
   <data name="ControlText_Remove" xml:space="preserve">
     <value>Rimuovi</value>
@@ -229,10 +265,10 @@
     <value>indietro</value>
   </data>
   <data name="ControlText_Pin" xml:space="preserve">
-    <value>attacca</value>
+    <value>aggiungi a start</value>
   </data>
   <data name="ControlText_Unpin" xml:space="preserve">
-    <value>stacca</value>
+    <value>rimuovi da start</value>
   </data>
   <data name="Messages_MarketDescription" xml:space="preserve">
     <value>WordPress per Windows Phone è un'applicazione Open Source che consente di scrivere nuovi articoli, modificare i contenuti, visualizzare le statistiche e gestire i commenti del vostro sito WordPress.</value>
@@ -435,7 +471,7 @@
   <data name="Title_ConfirmDelete" xml:space="preserve">
     <value>Conferma la cancellazione</value>
   </data>
-  <data name="forma" xml:space="preserve">
+  <data name="ControlText_DeleteBlog" xml:space="preserve">
     <value>rimuovi blog</value>
   </data>
   <data name="Prompts_SelectBlogToDelete" xml:space="preserve">
@@ -727,7 +763,7 @@
     <value>link</value>
   </data>
   <data name="ControlText_GetBlog" xml:space="preserve">
-    <value>Apri un blog gratuitamente su WordPress.com</value>
+    <value>Apri un blog su WordPress.com</value>
   </data>
   <data name="ControlText_BlogSettings" xml:space="preserve">
     <value>impostazioni del blog</value>
@@ -781,10 +817,10 @@
     <value>nuova pagina</value>
   </data>
   <data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-    <value>Aggiungi un sito ospitato su WordPress.com</value>
+    <value>Aggiungi un blog da WordPress.com</value>
   </data>
   <data name="ControlText_AddExistingSite" xml:space="preserve">
-    <value>Aggiungi un sito WordPress ospitato su host autonomo</value>
+    <value>Aggiungi un self-hosted blog</value>
   </data>
   <data name="ControlText_AddBlog" xml:space="preserve">
     <value>aggiungi sito</value>
