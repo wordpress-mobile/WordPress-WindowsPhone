@@ -21,6 +21,7 @@ RELEASE INSTRUCTIONS
 - Open each file in VS, do a small edit, and re-save it.
 - Verify that there're not instances of :
 <value></value>
+- Update the release number in AssemblyInfo.cs
 - Change the configuration to Release and build for Win7
 
 
