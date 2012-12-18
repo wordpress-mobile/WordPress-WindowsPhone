@@ -111,11 +111,15 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\NegativeValueConverter.cs" />
     <Compile Include="Converters\PageTitleConverter.cs" />
+    <Compile Include="Converters\PostContentConverter.cs" />
     <Compile Include="Converters\PostStatusInListConverter.cs" />
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
     <Compile Include="Delay\LowProfileImageLoader.cs" />
+    <Compile Include="EditContent.xaml.cs">
+      <DependentUpon>EditContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImageDetailsPage.xaml.cs">
       <DependentUpon>ImageDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -230,6 +234,9 @@
     <Page Include="BrowserShellPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditContent.xaml">
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ImageDetailsPage.xaml">
       <SubType>Designer</SubType>

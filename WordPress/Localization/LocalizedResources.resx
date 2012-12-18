@@ -876,4 +876,7 @@
     <value>delete selected</value>
     <comment>title for the delete selected menu item</comment>
   </data>
+  <data name="ControlText_TapToEdit" xml:space="preserve">
+    <value>&lt;Tap to edit&gt;</value>
+  </data>
 </root>

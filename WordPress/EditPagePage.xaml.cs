@@ -8,16 +8,13 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Text;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WordPress.Localization;
 using WordPress.Model;
-using WordPress.Settings;
 
 namespace WordPress
 {
@@ -29,9 +26,7 @@ namespace WordPress
 
         private static object _syncRoot = new object();
 
-        private const string DATACONTEXT_VALUE = "dataContext";
         private const string TITLEKEY_VALUE = "title";
-        private const string CONTENTKEY_VALUE = "content";
         private const string PUBLISHKEY_VALUE = "publish";
 
         private ApplicationBarIconButton _saveIconButton;
@@ -84,12 +79,7 @@ namespace WordPress
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            if (Visibility.Visible == addLinkControl.Visibility)
-            {
-                HideAddLinkControl();
-                e.Cancel = true;
-            }
-            else if (App.WaitIndicationService.Waiting)
+            if (App.WaitIndicationService.Waiting)
             {
                 App.WaitIndicationService.HideIndicator();
                 ApplicationBar.IsVisible = true;
@@ -206,6 +196,11 @@ namespace WordPress
             RestorePageState();
         }
 
+        private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/EditContent.xaml", UriKind.Relative));
+        }
+
         //Title text field KeyUp event handler: Dismiss the keyboard by focusing the main control if the Key pressed is the Enter key
         private void Input_KeyUp(object sender, KeyEventArgs e)
         {
@@ -219,6 +214,7 @@ namespace WordPress
         {
             ApplicationBar.IsVisible = true;
         }
+
         private void OnPageContentGotFocus(object sender, RoutedEventArgs e)
         {
             ApplicationBar.IsVisible = false; //hide the application bar
@@ -355,83 +351,6 @@ namespace WordPress
             }
         }
         
-        private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)
-        {
-            InsertMarkupTagIntoContent(boldToggleButton, WordPressMarkupTags.BOLD_OPENING_TAG, WordPressMarkupTags.BOLD_CLOSING_TAG);
-        }
-
-        private void OnItalicToggleButtonClick(object sender, RoutedEventArgs e)
-        {
-            InsertMarkupTagIntoContent(italicToggleButton, WordPressMarkupTags.ITALICS_OPENING_TAG, WordPressMarkupTags.ITALICS_CLOSING_TAG);
-        }
-
-        private void OnUnderlineToggleButtonClick(object sender, RoutedEventArgs e)
-        {
-            InsertMarkupTagIntoContent(underlineToggleButton, WordPressMarkupTags.UNDERLINE_OPENING_TAG, WordPressMarkupTags.UNDERLINE_CLOSING_TAG);
-        }
-
-        private void OnStrikethroughToggleButtonClick(object sender, RoutedEventArgs e)
-        {
-            InsertMarkupTagIntoContent(strikethroughToggleButton, WordPressMarkupTags.STRIKETHROUGH_OPENING_TAG, WordPressMarkupTags.STRIKETHROUGH_CLOSING_TAG);
-        }
-
-        private void OnBlockquoteToggleButtonClick(object sender, RoutedEventArgs e)
-        {
-            InsertMarkupTagIntoContent(blockquoteToggleButton, WordPressMarkupTags.BLOCKQUOTE_OPENING_TAG, WordPressMarkupTags.BLOCKQUOTE_CLOSING_TAG);
-        }
-
-        private void InsertMarkupTagIntoContent(ToggleButton toggleButton, string openingTag, string closingTag)
-        {
-            Post post = DataContext as Post;
-            string description = contentTextBox.Text;
-
-            int startIndex = contentTextBox.SelectionStart;
-            if (description.Length <= startIndex)
-            {
-                startIndex = description.Length;
-            }
-
-            string tag;
-            int selectionLength = contentTextBox.SelectionLength;
-            if (selectionLength > 0)
-            {
-                tag = openingTag;
-
-                description = description.Insert(startIndex, openingTag);
-                description = description.Insert(startIndex + openingTag.Length + selectionLength, closingTag);
-
-                // cancel toggle switch
-                toggleButton.IsChecked = !toggleButton.IsChecked;
-            }
-            else
-            {
-                if (toggleButton.IsChecked.Value)
-                {
-                    tag = openingTag;
-                }
-                else
-                {
-                    tag = closingTag;
-                }
-
-                description = description.Insert(startIndex, tag);
-            }
-
-            post.Description = description;
-
-            ThreadPool.QueueUserWorkItem((state) =>
-            {
-                //yield long enough for the button to take focus away from the text box,
-                //then reset focus to the text box
-                Thread.Sleep(200);
-                Dispatcher.BeginInvoke(() =>
-                {
-                    contentTextBox.Focus();
-                    contentTextBox.SelectionStart = startIndex + tag.Length;
-                    contentTextBox.SelectionLength = selectionLength;
-                });
-            });
-        }
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
 
@@ -449,78 +368,21 @@ namespace WordPress
         private void SavePageState()
         {
             //store transient data in the State dictionary
-            if (State.ContainsKey(DATACONTEXT_VALUE))
-            {
-                State.Remove(DATACONTEXT_VALUE);
-            }
-            State.Add(DATACONTEXT_VALUE, DataContext);
-
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 State.Remove(TITLEKEY_VALUE);
             }
             State.Add(TITLEKEY_VALUE, titleTextBox.Text);
 
-            if (State.ContainsKey(CONTENTKEY_VALUE))
-            {
-                State.Remove(CONTENTKEY_VALUE);
-            }
-            State.Add(CONTENTKEY_VALUE, contentTextBox.Text);
         }
 
         private void RestorePageState()
         {
             //look for transient data stored in the State dictionary
-            if (State.ContainsKey(DATACONTEXT_VALUE))
-            {
-                DataContext = State[DATACONTEXT_VALUE];
-            }
-
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 titleTextBox.Text = State[TITLEKEY_VALUE] as string;
             }
-
-            if (State.ContainsKey(CONTENTKEY_VALUE))
-            {
-                contentTextBox.Text = State[CONTENTKEY_VALUE] as string;
-            }
-        }
-
-        private void OnLinkButtonClick(object sender, RoutedEventArgs e)
-        {
-            ShowLinkControl();
-        }
-
-        private void ShowLinkControl()
-        {
-            ApplicationBar.IsVisible = false;
-            addLinkControl.Show();
-
-            // if content text is selected, pre-populate the dialog's fields
-            if (contentTextBox.SelectionLength > 0)
-            {
-                addLinkControl.LinkText = contentTextBox.SelectedText;
-
-                if (Uri.IsWellFormedUriString(contentTextBox.SelectedText, UriKind.Absolute))
-                {
-                    addLinkControl.Url = contentTextBox.SelectedText;
-                }
-            }
-        }
-
-        private void HideAddLinkControl()
-        {
-            addLinkControl.Hide();
-            ApplicationBar.IsVisible = true;
-        }
-
-        private void OnLinkChosen(object sender, EventArgs e)
-        {
-            HideAddLinkControl();
-            string linkMarkup = addLinkControl.CreateLinkMarkup();
-            contentTextBox.SelectedText = linkMarkup;
-            contentTextBox.Focus();
         }
 
         private void OnDatePickerChanged(object sender, DateTimeValueChangedEventArgs e)
@@ -753,7 +615,6 @@ namespace WordPress
                         MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
                         if (result == MessageBoxResult.OK)
                         {
-                            UpdatePostContent();
                             SavePost();
                             return;
                         }
@@ -771,57 +632,53 @@ namespace WordPress
             //if we're not done, bail
             if (0 < _mediaUploadRPCs.Count) return;
 
-            UpdatePostContent();
             App.WaitIndicationService.KillSpinner();
             SavePost();
-        }
-
-
-        private void UpdatePostContent()
-        {
-            StringBuilder prependBuilder = new StringBuilder();
-            StringBuilder appendBuilder = new StringBuilder();
-
-            Blog currentBlog = App.MasterViewModel.CurrentBlog;
-            Post post = DataContext as Post;
-            foreach (Media currentMedia in post.Media)
-            {
-                if (currentMedia.placement != eMediaPlacement.BlogPreference)
-                {
-                    if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
-                    {
-                        prependBuilder.Append(currentMedia.getHTML());
-                    }
-                    else
-                    {
-                        appendBuilder.Append(currentMedia.getHTML());
-                    }
-                }
-                else
-                {
-                    if (currentBlog.PlaceImageAboveText)
-                    {
-                        prependBuilder.Append(currentMedia.getHTML());
-                    }
-                    else
-                    {
-                        appendBuilder.Append(currentMedia.getHTML());
-                    }
-                }
-            }
-
-            contentTextBox.Text = prependBuilder.ToString() + contentTextBox.Text + appendBuilder.ToString();
-            contentTextBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
         }
 
         private void SavePost()
         {
             Post post = App.MasterViewModel.CurrentPost;
             Blog blog = App.MasterViewModel.CurrentBlog;
+
+            if (post.Media != null && post.Media.Count > 0 && !post.PostStatus.Equals("localdraft"))
+            {
+                StringBuilder prependBuilder = new StringBuilder();
+                StringBuilder appendBuilder = new StringBuilder();
+                foreach (Media currentMedia in post.Media)
+                {
+                    if (currentMedia.placement != eMediaPlacement.BlogPreference)
+                    {
+                        if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
+                        {
+                            prependBuilder.Append(currentMedia.getHTML());
+                        }
+                        else
+                        {
+                            appendBuilder.Append(currentMedia.getHTML());
+                        }
+                    }
+                    else
+                    {
+                        if (blog.PlaceImageAboveText)
+                        {
+                            prependBuilder.Append(currentMedia.getHTML());
+                        }
+                        else
+                        {
+                            appendBuilder.Append(currentMedia.getHTML());
+                        }
+                    }
+                }
+
+                String newContent = prependBuilder.ToString() + post.Description + appendBuilder.ToString();
+                post.Description = newContent;
+            }
+
+
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
             //which doesn't force focus to change
             post.Title = titleTextBox.Text;
-            post.Description = contentTextBox.Text;
             if (post.IsNew)
             {
                 if (!post.PostStatus.Equals("localdraft"))

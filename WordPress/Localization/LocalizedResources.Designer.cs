@@ -1024,6 +1024,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;Tap to edit&gt;.
+        /// </summary>
+        internal static string ControlText_TapToEdit {
+            get {
+                return ResourceManager.GetString("ControlText_TapToEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to title.
         /// </summary>
         internal static string ControlText_Title {

@@ -113,6 +113,7 @@ namespace WordPress.Localization
             public string Status { get { return LocalizedResources.ControlText_Status; } }
             public string PostFormat { get { return LocalizedResources.ControlText_PostFormat; } }
             public string PostContent { get { return LocalizedResources.ControlText_PostContent; } }
+            public string TapToEdit { get { return LocalizedResources.ControlText_TapToEdit; } }
             public string StartNewBlog { get { return LocalizedResources.ControlText_StartNewBlog; } }
             public string AddExistingWPBlog { get { return LocalizedResources.ControlText_AddExistingWPBlog; } }
             public string AddExistingWPSite { get { return LocalizedResources.ControlText_AddExistingSite; } }

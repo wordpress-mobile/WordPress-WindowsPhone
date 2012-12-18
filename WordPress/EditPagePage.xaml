@@ -37,6 +37,7 @@
 
     <phone:PhoneApplicationPage.Resources>
         <Converters:PageTitleConverter x:Key="PageTitleConverter"/>
+        <Converters:PostContentConverter x:Key="PostContentConverter"/>
     </phone:PhoneApplicationPage.Resources>
 
     <phone:PhoneApplicationPage.FontFamily>
@@ -71,7 +72,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -87,63 +87,24 @@
                 <TextBlock Grid.Row="1" Text="{Binding ControlsText.Title, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" InputScope="Text" KeyUp="Input_KeyUp" GotFocus="OnPageContentGotFocus" LostFocus="OnPageContentLostFocus"/>
                 <TextBlock Grid.Row="3" Text="{Binding ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=TwoWay}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" GotFocus="OnPageContentGotFocus" LostFocus="OnPageContentLostFocus"/>
-                <StackPanel Grid.Row="5" Orientation="Horizontal">
-                    <ToggleButton x:Name="boldToggleButton" 
-                                  Content="{Binding ControlsText.Bold, Source={StaticResource StringTable}}" 
-                                  ClickMode="Press" 
-                                  Click="OnBoldToggleButtonClick" 
-                                  Style="{StaticResource BasicToggleButtonStyle}" 
-                                  FontWeight="Bold"/>
-                    <ToggleButton x:Name="italicToggleButton" 
-                                  Content="{Binding ControlsText.Italic, Source={StaticResource StringTable}}" 
-                                  ClickMode="Press"
-                                  Click="OnItalicToggleButtonClick"
-                                  FontStyle="Italic" 
-                                  Style="{StaticResource BasicToggleButtonStyle}"                                   
-                                  Margin="-5,0,0,0"/>
-                    <ToggleButton x:Name="underlineToggleButton" 
-                                  ClickMode="Press"
-                                  Click="OnUnderlineToggleButtonClick"
-                                  Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0" >
-                        <TextBlock Text="{Binding ControlsText.Underline, Source={StaticResource StringTable}}" TextDecorations="Underline"/>
-                    </ToggleButton>
-                    <ToggleButton x:Name="strikethroughToggleButton" 
-                                  Content="{Binding ControlsText.StrikeThrough, Source={StaticResource StringTable}}" 
-                                  ClickMode="Press"
-                                  Click="OnStrikethroughToggleButtonClick"
-                                  Style="{StaticResource BasicToggleButtonStyle}" 
-                                  Margin="-5,0,0,0" 
-                                  Template="{StaticResource StrikethroughToggleButtonStyle}"/>
-                    <Button x:Name="linkButton" 
-                            Click="OnLinkButtonClick"
-                            Content="{Binding ControlsText.Link, Source={StaticResource StringTable}}" 
-                            Style="{StaticResource BasicButtonStyle}" 
-                            Margin="-5,0,0,0"/>
-                    <ToggleButton x:Name="blockquoteToggleButton" 
-                                  ClickMode="Press"
-                                  Click="OnBlockquoteToggleButtonClick"
-                                  Content="{Binding ControlsText.BlockQuote, Source={StaticResource StringTable}}" 
-                                  Style="{StaticResource BasicToggleButtonStyle}" 
-                                  Margin="-5,0,0,0"/>
-                </StackPanel>
+                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=OneWay, Converter={StaticResource PostContentConverter}}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" Tap="OnContentTextBoxTap"/>
 
-                <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="6" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
-                <StackPanel Grid.Row="7" Orientation="Horizontal">
+                <Rectangle Grid.Row="5" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="5" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
                 </StackPanel>
-                <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
+                <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="7" />
 
 
-                <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="10" x:Name="statusPicker" Margin="10,0,10,10"/>
+                <Rectangle Grid.Row="8" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="8" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="9" x:Name="statusPicker" Margin="10,0,10,10"/>
 
-                <Rectangle Grid.Row="11" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="11" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
-                <StackPanel Grid.Row="12">
+                <Rectangle Grid.Row="10" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="10" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
+                <StackPanel Grid.Row="11">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />
@@ -156,16 +117,5 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <local:AddLinkControl x:Name="addLinkControl" 
-                              Margin="0" 
-                              VerticalAlignment="Center" 
-                              HorizontalAlignment="Center" 
-                              Height="768" 
-                              Width="480"
-                              Canvas.ZIndex="1" 
-                              Grid.RowSpan="2" 
-                              Visibility="Collapsed"
-                              LinkChosen="OnLinkChosen"/>
     </Grid>
-
 </phone:PhoneApplicationPage>
