@@ -43,7 +43,6 @@ namespace WordPress
 
         private void ShowLinkControl()
         {
-            ApplicationBar.IsVisible = false;
             addLinkControl.Show();
 
             // if content text is selected, pre-populate the dialog's fields
@@ -61,7 +60,6 @@ namespace WordPress
         private void HideAddLinkControl()
         {
             addLinkControl.Hide();
-            ApplicationBar.IsVisible = true;
         }
 
         private void OnLinkChosen(object sender, EventArgs e)

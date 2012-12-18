@@ -288,6 +288,7 @@ namespace WordPress
         {
             ApplicationBar.IsVisible = true;
         }
+
         private void OnPageContentGotFocus(object sender, RoutedEventArgs e)
         {
             ApplicationBar.IsVisible = false; //hide the application bar
