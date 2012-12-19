@@ -268,6 +268,8 @@ namespace WordPress.Localization
             public string PostOptions_ViewComments { get { return LocalizedResources.Options_PostActions_ViewComments; } }
             public string PostOptions_EditPost { get { return LocalizedResources.Options_PostActions_EditPost; } }
             public string PostOptions_DeletePost { get { return LocalizedResources.Options_PostActions_DeletePost; } }
+            public string PostOptions_EditDraft { get { return LocalizedResources.Options_Actions_EditDraft; } }
+            public string PostOptions_DeleteDraft { get { return LocalizedResources.Options_Actions_DeleteDraft; } }
 
             public string PageOptions_ViewPage { get { return LocalizedResources.Options_PageActions_ViewPage; } }
             public string PageOptions_ViewComments { get { return LocalizedResources.Options_PageActions_ViewComments; } }

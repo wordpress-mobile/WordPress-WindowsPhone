@@ -97,8 +97,8 @@ namespace WordPress
             _postListOptions.Add(_localizedStrings.Options.PostOptions_DeletePost);
 
             _draftListOptions = new List<string>(2);
-            _draftListOptions.Add("Edit Draft");
-            _draftListOptions.Add("Delete Draft");
+            _draftListOptions.Add(_localizedStrings.Options.PostOptions_EditDraft);
+            _draftListOptions.Add(_localizedStrings.Options.PostOptions_DeleteDraft);
 
             _pageListOptions = new List<string>(4);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_ViewPage);
@@ -562,7 +562,13 @@ namespace WordPress
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
             if (MessageBoxResult.Cancel == result) return;
 
-            App.MasterViewModel.CurrentBlog.LocalPostDrafts.RemoveAt(postsListBox.SelectedIndex);
+            //Make sure the post is available in the LocalPostDrafts list.
+            if (App.MasterViewModel.CurrentBlog.LocalPostDrafts.Count > 0 &&
+                App.MasterViewModel.CurrentBlog.LocalPostDrafts.Count > postsListBox.SelectedIndex)
+            {
+                App.MasterViewModel.CurrentBlog.LocalPostDrafts.RemoveAt(postsListBox.SelectedIndex);
+            }
+            
             App.MasterViewModel.CurrentBlog.PostListItems.RemoveAt(postsListBox.SelectedIndex);
         }
 
@@ -620,6 +626,15 @@ namespace WordPress
             if (App.MasterViewModel.CurrentPostListItem.PostId.Equals("-1", StringComparison.Ordinal))
             {
                 // Local draft, set current post so post editor knows what to load
+
+                //Make sure the post is available in the LocalPostDrafts list.
+                if (App.MasterViewModel.CurrentBlog.LocalPostDrafts.Count <= 0 ||
+                    App.MasterViewModel.CurrentBlog.LocalPostDrafts.Count <= index)
+                {
+                    MessageBox.Show("Sorry, local draft could not be loaded!");
+                    return;
+                }
+             
                 App.MasterViewModel.CurrentPostListItem.DraftIndex = index;
                 NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
             }
@@ -1118,7 +1133,13 @@ namespace WordPress
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.PageTitles.ConfirmDelete, MessageBoxButton.OKCancel);
             if (MessageBoxResult.Cancel == result) return;
 
-            App.MasterViewModel.CurrentBlog.LocalPageDrafts.RemoveAt(pagesListBox.SelectedIndex);
+            //Make sure the page is available in the LocalPageDrafts list.
+            if (App.MasterViewModel.CurrentBlog.LocalPageDrafts.Count > 0 &&
+                App.MasterViewModel.CurrentBlog.LocalPageDrafts.Count > pagesListBox.SelectedIndex)
+            {
+                App.MasterViewModel.CurrentBlog.LocalPageDrafts.RemoveAt(pagesListBox.SelectedIndex);
+            }
+
             App.MasterViewModel.CurrentBlog.PageListItems.RemoveAt(pagesListBox.SelectedIndex);
         }
 
@@ -1132,6 +1153,15 @@ namespace WordPress
             if (App.MasterViewModel.CurrentPageListItem.PageId.Equals("-1", StringComparison.Ordinal))
             {
                 // Local draft, set current page DraftIndex so editor knows what to load
+
+                //Make sure the page is available in the LocalPostDrafts list.
+                if (App.MasterViewModel.CurrentBlog.LocalPageDrafts.Count <= 0 ||
+                    App.MasterViewModel.CurrentBlog.LocalPageDrafts.Count <= index)
+                {
+                    MessageBox.Show("Sorry, local draft could not be loaded!");
+                    return;
+                }
+
                 App.MasterViewModel.CurrentPageListItem.DraftIndex = index;
                 NavigationService.Navigate(new Uri("/EditPagePage.xaml", UriKind.Relative));
             }

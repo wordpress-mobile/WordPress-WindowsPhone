@@ -1541,6 +1541,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to delete draft.
+        /// </summary>
+        internal static string Options_Actions_DeleteDraft {
+            get {
+                return ResourceManager.GetString("Options_Actions_DeleteDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit draft.
+        /// </summary>
+        internal static string Options_Actions_EditDraft {
+            get {
+                return ResourceManager.GetString("Options_Actions_EditDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to after content.
         /// </summary>
         internal static string Options_MediaOptions_PlaceAfter {

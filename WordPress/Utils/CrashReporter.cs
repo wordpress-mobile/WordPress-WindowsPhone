@@ -30,19 +30,19 @@ namespace WordPress.Utils
                         {
                             output.WriteLine("Extra Info: \n");
                             output.WriteLine(extra);
-                            output.WriteLine("--------------\n");
+                            output.WriteLine("--------------\n\n");
                         }
                         if (ex != null && ex.Message != null)
                         {
                             output.WriteLine("Message: \n");
                             output.WriteLine(ex.Message);
-                            output.WriteLine("--------------\n");
+                            output.WriteLine("--------------\n\n");
                         }
                         if (ex != null && ex.StackTrace != null)
                         {
                             output.WriteLine("Stack Trace: \n");
                             output.WriteLine(ex.StackTrace);
-                            output.WriteLine("--------------\n");
+                            output.WriteLine("--------------\n\n");
                         }
                     }
                 }

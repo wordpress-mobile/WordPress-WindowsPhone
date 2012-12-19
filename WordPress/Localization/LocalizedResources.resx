@@ -891,4 +891,10 @@
   <data name="ControlText_UnorderedList" xml:space="preserve">
     <value>ul</value>
   </data>
+  <data name="Options_Actions_DeleteDraft" xml:space="preserve">
+    <value>delete draft</value>
+  </data>
+  <data name="Options_Actions_EditDraft" xml:space="preserve">
+    <value>edit draft</value>
+  </data>
 </root>
