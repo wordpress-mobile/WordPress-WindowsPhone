@@ -4,6 +4,8 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Text;
 using System.IO;
+using System.IO.IsolatedStorage;
+using System.Windows.Media.Imaging;
 using Microsoft.Xna.Framework.Media;
 
 namespace WordPress.Model
@@ -56,6 +58,27 @@ namespace WordPress.Model
             TranslateMimeType();
         }
 
+        public Media(Blog blog, string filename, string localfilename, Stream stream, bool preserveBandwidth)
+        {
+            _alignThumbnailToCenter = blog.AlignThumbnailToCenter;
+            _createLinkToFullImage = blog.CreateLinkToFullImage;
+            _fileName = filename;
+            _localPath = localfilename;
+            SaveImageStream(stream, preserveBandwidth);
+            TranslateMimeType();
+        }
+
+        #endregion
+
+        #region destructor
+        ~Media()
+        {
+            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+            if (isoStore.FileExists(_localPath))
+            {
+                isoStore.DeleteFile(_localPath);
+            }   
+        }
         #endregion
 
 
@@ -172,26 +195,69 @@ namespace WordPress.Model
 
         #region methods
 
+        private void SaveImageStream(Stream stream, bool preserveBandwidth)
+        {
+            BitmapImage image = new BitmapImage();
+            image.SetSource(stream);
+
+            int pixelWidth = image.PixelWidth;
+            int pixelHeight = image.PixelHeight;
+             
+            // Resize the image if we need to preserve bandwidth
+            if (preserveBandwidth && (pixelWidth > 800 || pixelHeight > 800))
+            {
+                float wRatio = image.PixelWidth / 800F;
+                float hRatio = image.PixelHeight / 800F;
+                float currentRatio = Math.Max(wRatio, hRatio);
+                pixelWidth = (int)(image.PixelWidth / currentRatio);
+                pixelHeight = (int)(image.PixelHeight / currentRatio);
+            }
+
+            // Save to isolated storage.
+            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+            if (isoStore.FileExists(_localPath))
+            {
+                // Just in case of collisions.
+                isoStore.DeleteFile(_localPath);
+            }
+
+            IsolatedStorageFileStream filestream = isoStore.CreateFile(_localPath);
+            WriteableBitmap wb = new WriteableBitmap(image);
+            wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 85);
+            filestream.Close();
+        }
+
         public Stream getImageStream()
         {
-            // Load the picture: Ugly but works.
-            MediaLibrary m = new MediaLibrary();
-            
-            int len = m.Pictures.Count;
-            for (int i = 0; i < len; i++)
+            // Check if the image was saved in IsolatedStorage or if we're retriving 
+            // an Picture from the MediaLibrary.
+            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+            if (isoStore.FileExists(_localPath))
             {
-                try
+                IsolatedStorageFileStream filestream = isoStore.OpenFile(this.LocalPath, FileMode.Open);
+                return filestream;
+            }            
+            else
+            {
+                // Load the picture: Ugly but works.
+                MediaLibrary m = new MediaLibrary();
+
+                int len = m.Pictures.Count;
+                for (int i = 0; i < len; i++)
                 {
-                    var r = m.Pictures[i];
-                    if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
-                        return r.GetImage();
-                }
-                catch (Exception e)
-                {
-                    // See trac #170. 
-                    // If the enumerator throws an error getting the image catch it and continue through the list. 
-                    // This assumes that a corrupted file could cause the enumerator to throw an invalid operation exception.
-                    continue;
+                    try
+                    {
+                        var r = m.Pictures[i];
+                        if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
+                            return r.GetImage();
+                    }
+                    catch (Exception e)
+                    {
+                        // See trac #170. 
+                        // If the enumerator throws an error getting the image catch it and continue through the list. 
+                        // This assumes that a corrupted file could cause the enumerator to throw an invalid operation exception.
+                        continue;
+                    }
                 }
             }
             return null;

@@ -39,6 +39,8 @@ namespace WordPress
         private bool _mediaDialogPresented = false;
         private bool isEditingLocalDraft = false;
 
+        private PhotoChooserTask photoChooserTask;
+
         #endregion
 
         #region constructors
@@ -61,6 +63,10 @@ namespace WordPress
             _mediaUploadRPCs = new List<UploadFileRPC>();
 
             Loaded += OnPageLoaded;
+
+            photoChooserTask = new PhotoChooserTask();
+            photoChooserTask.ShowCamera = true;
+            photoChooserTask.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
         }
 
         #endregion
@@ -411,26 +417,14 @@ namespace WordPress
         /* media methods copied from the Post Class. We need to find a way to abstract them in a common class.*/
         private void OnAddNewMediaButtonClick(object sender, RoutedEventArgs e)
         {
-            AddNewMedia();
-        }
-
-        private void AddNewMedia()
-        {
-            PhotoChooserTask task = new PhotoChooserTask();
-            task.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
-            task.ShowCamera = true;
-            task.Show();
+            photoChooserTask.Show();
         }
 
         private void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
         {
-            PhotoChooserTask task = sender as PhotoChooserTask;
-            task.Completed -= OnChoosePhotoTaskCompleted;
-
             if (TaskResult.OK != e.TaskResult) return;
 
-            Stream chosenPhoto = e.ChosenPhoto;
-            AddNewMediaStream(chosenPhoto, e.OriginalFileName);
+            AddNewMediaStream(e.ChosenPhoto, e.OriginalFileName);
         }
 
         private void AddNewMediaStream(Stream bitmapStream, string originalFilePath)
@@ -438,45 +432,12 @@ namespace WordPress
             BitmapImage image = new BitmapImage();
             image.SetSource(bitmapStream);
 
-            // 1.Resize the picture and save the output to the isolated storage if 'PreserveBandwidth' is enabled and dimensions are > 800 px.
-            if (App.MasterViewModel.CurrentBlog.PreserveBandwidth && (image.PixelWidth > 800 || image.PixelHeight > 800))
-            {
-                // Create a file name for the JPEG file in isolated storage.
-                String tempJPEG = "TempJPEG";
-
-                // Create a virtual store and file stream. Check for duplicate tempJPEG files.
-                var myStore = IsolatedStorageFile.GetUserStoreForApplication();
-                if (myStore.FileExists(tempJPEG))
-                {
-                    myStore.DeleteFile(tempJPEG);
-                }
-
-                IsolatedStorageFileStream myFileStream = myStore.CreateFile(tempJPEG);
-                WriteableBitmap wb = new WriteableBitmap(image);
-
-                float wRatio = image.PixelWidth / 800F;
-                float hRatio = image.PixelHeight / 800F;
-                float currentRatio = Math.Max(wRatio, hRatio);
-                int resizedWidth = (int)(image.PixelWidth / currentRatio);
-                int resizedHeight = (int)(image.PixelHeight / currentRatio);
-
-                // Encode the WriteableBitmap object to a JPEG stream.
-                wb.SaveJpeg(myFileStream, resizedWidth, resizedHeight, 0, 85);
-                myFileStream.Close();
-
-                //The file is now encoded in the IsolatedStorage
-                // Create a new stream from isolated storage
-                bitmapStream = myStore.OpenFile(tempJPEG, FileMode.Open, FileAccess.Read);//change the stream reference for uploading
-            }
-            else
-            {
-                bitmapStream.Seek(0, 0); // necessary to initiate the stream correctly before save
-            }
-
-            //Save the picture to the picture library if it's a new picture           
+            // Save to isolated storage. 
+            // The OriginalFilename is a GUID.  Since we're saving to IsolatedStorage, use this as a filename to avoid collisions.
+            string localfilename = Path.GetFileName(originalFilePath);
             DateTime capture = DateTime.Now;
             string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
-            string savedFileName = string.Format(fileNameFormat,
+            string filename = string.Format(fileNameFormat,
                 capture.Year,
                 capture.Month,
                 capture.Day,
@@ -485,50 +446,13 @@ namespace WordPress
                 capture.Second,
                 Path.GetExtension(originalFilePath));
 
-            // Save the image to the camera roll or saved pictures album.
-            MediaLibrary library = new MediaLibrary();
-            // Save the image to the saved pictures album.
-            Picture pic = library.SavePicture(savedFileName, bitmapStream);
-            string sanitizedFileName = this.translateFileName(originalFilePath); //Read and sanitize the file name from the original path for now. In the next release we can give the possibility to set an arbitraty file name                                                        
-            DateTime pictureDateTime = pic.Date;
-            bitmapStream.Close();
-
-            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, sanitizedFileName, savedFileName, pictureDateTime);
-            Post post = DataContext as Post;
+            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, filename, localfilename, bitmapStream, App.MasterViewModel.CurrentBlog.PreserveBandwidth);
+            Post post = App.MasterViewModel.CurrentPost;
             post.Media.Add(currentMedia);
 
             //update the UI
             imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
         }
-
-        private string translateFileName(string originalFileName)
-        {
-            //DEV NOTE: the original file name from the PhotoChooserTask is pretty gross.
-            //The plan is to nab the extension and use a timestamp for the file name so
-            //there's something that doesn't seem crazy when the user checks what media
-            //has been uploaded.
-            const string PHOTOCHOOSER_VALUE = "PhotoChooser";
-
-            if (originalFileName.Contains(PHOTOCHOOSER_VALUE))
-            {
-                DateTime capture = DateTime.Now;
-                string fileNameFormat = "{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
-                string fileName = string.Format(fileNameFormat,
-                    capture.Year,
-                    capture.Month,
-                    capture.Day,
-                    capture.Hour,
-                    capture.Minute,
-                    capture.Second,
-                    Path.GetExtension(originalFileName));
-                return fileName;
-            }
-
-            //if we're at this point, the file name should be reasonably readable so we'll
-            //leave it alone
-            return Path.GetFileName(originalFileName);
-        }
-
 
         private Button BuildTappableImageElement(BitmapImage image, Media currentMedia)
         {
