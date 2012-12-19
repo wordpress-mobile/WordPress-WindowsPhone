@@ -340,6 +340,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to code.
+        /// </summary>
+        internal static string ControlText_Code {
+            get {
+                return ResourceManager.GetString("ControlText_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to comment notifications.
         /// </summary>
         internal static string ControlText_CommentNotifications {
@@ -574,6 +583,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to li.
+        /// </summary>
+        internal static string ControlText_ListItem {
+            get {
+                return ResourceManager.GetString("ControlText_ListItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to loading content.
         /// </summary>
         internal static string ControlText_LoadingContent {
@@ -628,6 +646,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to more.
+        /// </summary>
+        internal static string ControlText_MoreTag {
+            get {
+                return ResourceManager.GetString("ControlText_MoreTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to don&apos;t yet have a blog?.
         /// </summary>
         internal static string ControlText_NeedBlog {
@@ -651,6 +678,15 @@ namespace WordPress.Localization {
         internal static string ControlText_NoTitle {
             get {
                 return ResourceManager.GetString("ControlText_NoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ol.
+        /// </summary>
+        internal static string ControlText_OrderedList {
+            get {
+                return ResourceManager.GetString("ControlText_OrderedList", resourceCulture);
             }
         }
         
@@ -1024,15 +1060,6 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;Tap to edit&gt;.
-        /// </summary>
-        internal static string ControlText_TapToEdit {
-            get {
-                return ResourceManager.GetString("ControlText_TapToEdit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to title.
         /// </summary>
         internal static string ControlText_Title {
@@ -1056,6 +1083,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Underline {
             get {
                 return ResourceManager.GetString("ControlText_Underline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ul.
+        /// </summary>
+        internal static string ControlText_UnorderedList {
+            get {
+                return ResourceManager.GetString("ControlText_UnorderedList", resourceCulture);
             }
         }
         

@@ -21,8 +21,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Center" MinHeight="100" Grid.Row="0" VerticalAlignment="Top" Height="680" Grid.RowSpan="1" >
+        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Center" MinHeight="100" Grid.Row="0" VerticalAlignment="Top" Height="612" Grid.RowSpan="1" >
             <TextBox x:Name="contentTextBox"
                      TextWrapping="Wrap" 
                      Text="{Binding Description, Mode=TwoWay}" 
@@ -48,7 +49,7 @@
 				</toolkit:ContextMenuService.ContextMenu>-->
             </TextBox>
         </ScrollViewer>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <ToggleButton x:Name="boldToggleButton" 
                                   Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" 
                                   ClickMode="Press" 
@@ -80,13 +81,46 @@
                             Content="{Binding Path=ControlsText.Link, Source={StaticResource StringTable}}" 
                             Style="{StaticResource BasicButtonStyle}" 
                             Margin="-5,0,0,0"/>
+            <Button x:Name="moreButton" 
+                            Click="OnMoreButtonClick"
+                            Content="{Binding Path=ControlsText.MoreTag, Source={StaticResource StringTable}}" 
+                            Style="{StaticResource BasicButtonStyle}" 
+                            Margin="-5,0,0,0"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" >
             <ToggleButton x:Name="blockquoteToggleButton" 
                                   ClickMode="Press"
                                   Click="OnBlockquoteToggleButtonClick"
                                   Content="{Binding Path=ControlsText.BlockQuote, Source={StaticResource StringTable}}" 
                                   Style="{StaticResource BasicToggleButtonStyle}" 
                                   Margin="-5,0,0,0"/>
+            <ToggleButton x:Name="ulToggleButton"
+                                Content="{Binding Path=ControlsText.UnorderedList, Source={StaticResource StringTable}}" 
+                                ClickMode="Press" 
+                                Click="OnUnorderedListToggleButtonClick" 
+                                Style="{StaticResource BasicToggleButtonStyle}" 
+                                FontWeight="Bold"/>
+            <ToggleButton x:Name="olToggleButton"
+                                Content="{Binding Path=ControlsText.OrderedList, Source={StaticResource StringTable}}" 
+                                ClickMode="Press" 
+                                Click="OrderedListToggleButtonClick" 
+                                Style="{StaticResource BasicToggleButtonStyle}" 
+                                FontWeight="Bold"/>
+            <ToggleButton x:Name="liToggleButton"
+                                Content="{Binding Path=ControlsText.ListItem, Source={StaticResource StringTable}}" 
+                                ClickMode="Press" 
+                                Click="ListItemToggleButtonClick" 
+                                Style="{StaticResource BasicToggleButtonStyle}" 
+                                FontWeight="Bold"/>
+            <ToggleButton x:Name="codeToggleButton"
+                                Content="{Binding Path=ControlsText.Code, Source={StaticResource StringTable}}" 
+                                ClickMode="Press" 
+                                Click="CodeToggleButtonClick" 
+                                Style="{StaticResource BasicToggleButtonStyle}" 
+                                FontWeight="Bold"/>
         </StackPanel>
+
+
         <local:AddLinkControl x:Name="addLinkControl" 
                               Margin="0" 
                               VerticalAlignment="Center" 

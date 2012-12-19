@@ -70,6 +70,14 @@ namespace WordPress
             contentTextBox.Focus();
         }
 
+        private void OnMoreButtonClick(object sender, RoutedEventArgs e)
+        {
+            var insertText = "<!--more-->";
+            var selectionIndex = contentTextBox.SelectionStart;
+            contentTextBox.Text = contentTextBox.Text.Insert(selectionIndex, insertText);
+            contentTextBox.SelectionStart = selectionIndex + insertText.Length;
+        }
+        
         private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)
         {
             InsertMarkupTagIntoContent(boldToggleButton, WordPressMarkupTags.BOLD_OPENING_TAG, WordPressMarkupTags.BOLD_CLOSING_TAG);
@@ -93,6 +101,26 @@ namespace WordPress
         private void OnBlockquoteToggleButtonClick(object sender, RoutedEventArgs e)
         {
             InsertMarkupTagIntoContent(blockquoteToggleButton, WordPressMarkupTags.BLOCKQUOTE_OPENING_TAG, WordPressMarkupTags.BLOCKQUOTE_CLOSING_TAG);
+        }
+
+        private void OnUnorderedListToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(ulToggleButton, WordPressMarkupTags.UL_OPENING_TAG, WordPressMarkupTags.UL_CLOSING_TAG);
+        }
+
+        private void OrderedListToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(olToggleButton, WordPressMarkupTags.OL_OPENING_TAG, WordPressMarkupTags.OL_CLOSING_TAG);
+        }
+
+        private void ListItemToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(liToggleButton, WordPressMarkupTags.LI_OPENING_TAG, WordPressMarkupTags.LI_CLOSING_TAG);
+        }
+
+        private void CodeToggleButtonClick(object sender, RoutedEventArgs e)
+        {
+            InsertMarkupTagIntoContent(codeToggleButton, WordPressMarkupTags.CODE_OPENING_TAG, WordPressMarkupTags.CODE_CLOSING_TAG);
         }
 
         private void InsertMarkupTagIntoContent(ToggleButton toggleButton, string openingTag, string closingTag)

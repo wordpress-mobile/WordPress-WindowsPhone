@@ -104,6 +104,11 @@ namespace WordPress.Localization
             public string StrikeThrough { get { return LocalizedResources.ControlText_StrikeThrough; } }
             public string Link { get { return LocalizedResources.ControlText_Link; } }
             public string BlockQuote { get { return LocalizedResources.ControlText_BlockQuote; } }
+            public string UnorderedList { get { return LocalizedResources.ControlText_UnorderedList; } }
+            public string OrderedList { get { return LocalizedResources.ControlText_OrderedList; } }
+            public string ListItem { get { return LocalizedResources.ControlText_ListItem; } }
+            public string Code { get { return LocalizedResources.ControlText_Code; } }
+            public string MoreTag { get { return LocalizedResources.ControlText_MoreTag; } }
             public string Publish { get { return LocalizedResources.ControlText_Publish; } }
             public string UploadChanges { get { return LocalizedResources.ControlText_UploadChanges; } }
             public string Tags { get { return LocalizedResources.ControlText_Tags; } }            
@@ -113,7 +118,6 @@ namespace WordPress.Localization
             public string Status { get { return LocalizedResources.ControlText_Status; } }
             public string PostFormat { get { return LocalizedResources.ControlText_PostFormat; } }
             public string PostContent { get { return LocalizedResources.ControlText_PostContent; } }
-            public string TapToEdit { get { return LocalizedResources.ControlText_TapToEdit; } }
             public string StartNewBlog { get { return LocalizedResources.ControlText_StartNewBlog; } }
             public string AddExistingWPBlog { get { return LocalizedResources.ControlText_AddExistingWPBlog; } }
             public string AddExistingWPSite { get { return LocalizedResources.ControlText_AddExistingSite; } }

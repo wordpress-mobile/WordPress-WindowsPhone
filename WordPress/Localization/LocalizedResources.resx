@@ -876,7 +876,19 @@
     <value>delete selected</value>
     <comment>title for the delete selected menu item</comment>
   </data>
-  <data name="ControlText_TapToEdit" xml:space="preserve">
-    <value>&lt;Tap to edit&gt;</value>
+  <data name="ControlText_Code" xml:space="preserve">
+    <value>code</value>
+  </data>
+  <data name="ControlText_ListItem" xml:space="preserve">
+    <value>li</value>
+  </data>
+  <data name="ControlText_MoreTag" xml:space="preserve">
+    <value>more</value>
+  </data>
+  <data name="ControlText_OrderedList" xml:space="preserve">
+    <value>ol</value>
+  </data>
+  <data name="ControlText_UnorderedList" xml:space="preserve">
+    <value>ul</value>
   </data>
 </root>

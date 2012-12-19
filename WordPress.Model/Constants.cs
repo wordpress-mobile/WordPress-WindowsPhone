@@ -63,6 +63,15 @@
         public const string STRIKETHROUGH_CLOSING_TAG = "</strike>";
         public const string BLOCKQUOTE_OPENING_TAG = "<blockquote>";
         public const string BLOCKQUOTE_CLOSING_TAG = "</blockquote>";
+        public const string UL_OPENING_TAG = "<ul>";
+        public const string UL_CLOSING_TAG = "</ul>";
+        public const string OL_OPENING_TAG = "<ol>";
+        public const string OL_CLOSING_TAG = "</ol>";
+        public const string LI_OPENING_TAG = "<li>";
+        public const string LI_CLOSING_TAG = "</li>";
+        public const string CODE_OPENING_TAG = "<code>";
+        public const string CODE_CLOSING_TAG = "</code>";
+
     }
 
     public class MimeTypes

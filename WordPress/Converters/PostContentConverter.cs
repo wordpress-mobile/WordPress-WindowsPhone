@@ -36,7 +36,7 @@ namespace WordPress.Converters
 
             String stringValue = (string)value;
             if (stringValue.Length > 150)
-                return stringValue.Substring(0, 147) + "...\n..." + _localizedStrings.ControlsText.TapToEdit;
+                return stringValue.Substring(0, 147) + "...\n...";
 
             else
                 return stringValue;// +"\n" + _localizedStrings.ControlsText.TapToEdit; ;
