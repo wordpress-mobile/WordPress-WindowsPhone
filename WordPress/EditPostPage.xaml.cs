@@ -208,9 +208,11 @@ namespace WordPress
                     //update the Media UI
                     foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
                     {
+                        Stream stream = currentMedia.getImageStream();
                         BitmapImage image = new BitmapImage();
-                        image.SetSource(currentMedia.getImageStream());
+                        image.SetSource(stream);
                         imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+                        stream.Close();
                     }
 
                 }
