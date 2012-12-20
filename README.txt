@@ -9,6 +9,8 @@ The following SDKs should be installed in the development environment prior to b
 
 - Install "Windows Phone toolkit" package (ID: WPtoolkit).
 
+- Install November 2009 Silverlight 3 Control Toolkit (http://silverlight.codeplex.com/releases/view/36060#DownloadId=93512).
+
 
 --------------------------------------------------------------
 RELEASE INSTRUCTIONS
