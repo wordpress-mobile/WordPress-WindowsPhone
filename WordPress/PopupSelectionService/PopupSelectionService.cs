@@ -173,6 +173,7 @@ namespace WordPress
 
         private void OnListBoxSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
+            RestoreApplicationBar();
             NotifySelectionChanged(args);
             HidePopup();
         }
@@ -208,8 +209,6 @@ namespace WordPress
             }
 
             _popup.IsOpen = false;
-
-            RestoreApplicationBar();
         }
 
         private void RestoreApplicationBar()
