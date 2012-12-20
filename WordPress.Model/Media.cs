@@ -229,7 +229,13 @@ namespace WordPress.Model
             // Delete the remaining orphans.
             foreach (string image in orphanedImages)
             {
-                isoStore.DeleteFile(Path.Combine(mediaDir, image));
+                try
+                {
+                    isoStore.DeleteFile(Path.Combine(mediaDir, image));
+                }
+                catch (Exception)
+                {
+                }
             }
 
         }

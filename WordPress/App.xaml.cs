@@ -1,6 +1,7 @@
 ﻿using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Navigation;
@@ -113,7 +114,13 @@ namespace WordPress
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             InitializeUriMapper();
-            Media.CleanupOrphanedImages();
+            var worker = new BackgroundWorker();
+            worker.DoWork += (workSender, e2) =>
+            {
+                Media.CleanupOrphanedImages();
+            };
+            worker.RunWorkerAsync();
+
         }
 
         // Code to execute when the application is activated (brought to foreground)

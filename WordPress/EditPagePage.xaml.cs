@@ -104,7 +104,6 @@ namespace WordPress
                 });
                 _mediaUploadRPCs.Clear();
 
-                cleanupPostMedia();
             }
             else
             {
