@@ -584,8 +584,6 @@ namespace WordPress
 
             currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false; //hide the application bar 
-            ApplicationBar.Buttons.Clear();
-            ApplicationBar.MenuItems.Clear();
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
 
@@ -647,8 +645,6 @@ namespace WordPress
                 if (null == postListItem) return;
                 
                 ApplicationBar.IsVisible = false; //hide the application bar 
-                ApplicationBar.Buttons.Clear();
-                ApplicationBar.MenuItems.Clear();
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPost);
                 
                 GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
@@ -698,9 +694,7 @@ namespace WordPress
             rpc.Completed += OnDeletePostRPCCompleted;
             rpc.ExecuteAsync();
 
-            ApplicationBar.IsVisible = false; //hide the application bar
-            ApplicationBar.Buttons.Clear();
-            ApplicationBar.MenuItems.Clear();
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingPost);
             currentXMLRPCConnection = rpc;
         }
@@ -708,7 +702,6 @@ namespace WordPress
         private void OnDeletePostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
         {
             ApplicationBar.IsVisible = true;
-            RefreshAppBar();
             App.WaitIndicationService.HideIndicator();
             currentXMLRPCConnection = null;
 
@@ -1184,8 +1177,6 @@ namespace WordPress
 
                 currentXMLRPCConnection = rpc;
                 ApplicationBar.IsVisible = false;
-                ApplicationBar.Buttons.Clear();
-                ApplicationBar.MenuItems.Clear();
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.RetrievingPage);
             }
         }
@@ -1225,8 +1216,6 @@ namespace WordPress
             rpc.ExecuteAsync();
 
             currentXMLRPCConnection = rpc;
-            ApplicationBar.Buttons.Clear();
-            ApplicationBar.MenuItems.Clear();
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
         }
@@ -1290,9 +1279,7 @@ namespace WordPress
             rpc.ExecuteAsync();
 
             currentXMLRPCConnection = rpc;
-            ApplicationBar.IsVisible = false; //hide the application bar
-            ApplicationBar.Buttons.Clear();
-            ApplicationBar.MenuItems.Clear();
+            ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingPage);
         }
 
@@ -1317,7 +1304,6 @@ namespace WordPress
 
             currentXMLRPCConnection = null;
             ApplicationBar.IsVisible = true;
-            RefreshAppBar();
             App.WaitIndicationService.HideIndicator();
         }
 
@@ -1369,7 +1355,6 @@ namespace WordPress
             {
                 App.WaitIndicationService.HideIndicator();
                 ApplicationBar.IsVisible = true;
-                RefreshAppBar();
                 e.Cancel = true;
 
                 if (currentXMLRPCConnection != null) //Really ugly, I know. But don't want change the XML-RPC class in this release.
