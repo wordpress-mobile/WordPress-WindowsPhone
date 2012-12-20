@@ -41,7 +41,7 @@ namespace WordPress.Model
 
         private bool _alignThumbnailToCenter = false;
         private bool _createLinkToFullImage = false;
-
+        
         #endregion
 
         #region events
@@ -202,7 +202,7 @@ namespace WordPress.Model
                 mediaFiles = isoStore.GetFileNames(searchPath);
             }
 
-            if (mediaFiles.Length == 0)
+            if (mediaFiles == null || mediaFiles.Length == 0)
                 return;
 
             // Remove from the list any media file that belongs to a draft post.
