@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
@@ -20,6 +21,10 @@ namespace WordPress.Model
 
     public class Media : INotifyPropertyChanged
     {
+        #region class constants
+        static public string MEDIA_IMAGE_DIRECTORY = "draft_media";
+        #endregion
+
         #region member variables
 
         private const string JPEG_EXTENSION = ".jpg";
@@ -45,6 +50,7 @@ namespace WordPress.Model
 
         #endregion
 
+
         #region constructors
         
         public Media() { } //used to de-serialize the Media
@@ -68,17 +74,6 @@ namespace WordPress.Model
             TranslateMimeType();
         }
 
-        #endregion
-
-        #region destructor
-        ~Media()
-        {
-            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
-            if (isoStore.FileExists(_localPath))
-            {
-                isoStore.DeleteFile(_localPath);
-            }   
-        }
         #endregion
 
 
@@ -195,6 +190,59 @@ namespace WordPress.Model
 
         #region methods
 
+        static public void CleanupOrphanedImages()
+        {
+            // Get a list of all the draft media images in IsolatedStorage.
+            string mediaDir = Media.MEDIA_IMAGE_DIRECTORY;
+            string[] mediaFiles = null;
+            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+            if (isoStore.DirectoryExists(mediaDir))
+            {
+                string searchPath = Path.Combine(mediaDir, "*");
+                mediaFiles = isoStore.GetFileNames(searchPath);
+            }
+
+            if (mediaFiles.Length == 0)
+                return;
+
+            // Remove from the list any media file that belongs to a draft post.
+            List<string> orphanedImages = new List<string>(mediaFiles);
+            foreach (Blog b in DataService.Current.Blogs)
+            {
+                List<Post> posts = new List<Post>(b.LocalPostDrafts);
+                posts.AddRange(b.LocalPageDrafts);
+
+                foreach (Post p in posts)
+                {
+                    foreach (Media m in p.Media)
+                    {
+                        string localPath = Path.GetFileName(m.LocalPath);
+                        if (orphanedImages.Contains(localPath))
+                        {
+                            // This image is not an orphan so remove it from our list.
+                            orphanedImages.Remove(localPath);
+                        }
+                    }
+                }
+            }
+
+            // Delete the remaining orphans.
+            foreach (string image in orphanedImages)
+            {
+                isoStore.DeleteFile(Path.Combine(mediaDir, image));
+            }
+
+        }
+
+        public void clearSavedImage()
+        {
+            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+            if (isoStore.FileExists(_localPath))
+            {
+                isoStore.DeleteFile(_localPath);
+            }
+        }
+
         private void SaveImageStream(Stream stream, bool preserveBandwidth)
         {
             BitmapImage image = new BitmapImage();
@@ -221,6 +269,11 @@ namespace WordPress.Model
                 isoStore.DeleteFile(_localPath);
             }
 
+            string dirname = Path.GetDirectoryName(_localPath);
+            if (!isoStore.DirectoryExists(dirname))
+            {
+                isoStore.CreateDirectory(dirname);
+            }
             IsolatedStorageFileStream filestream = isoStore.CreateFile(_localPath);
             WriteableBitmap wb = new WriteableBitmap(image);
             wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 85);

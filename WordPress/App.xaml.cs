@@ -113,6 +113,7 @@ namespace WordPress
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             InitializeUriMapper();
+            Media.CleanupOrphanedImages();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -200,8 +201,8 @@ namespace WordPress
         #region Custom methods
         public static bool isNetworkAvailable()
         {
-           bool hasNetworkConnection = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-           return hasNetworkConnection;
+            bool hasNetworkConnection = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+            return hasNetworkConnection;
         }
         #endregion
 

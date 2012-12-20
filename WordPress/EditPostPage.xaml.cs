@@ -106,6 +106,8 @@ namespace WordPress
                     rpc.IsCancelled = true;
                 });
                 _mediaUploadRPCs.Clear();
+
+                cleanupPostMedia();
             }
             else
             {
@@ -120,12 +122,28 @@ namespace WordPress
                         rpc.IsCancelled = true;
                     });
                     _mediaUploadRPCs.Clear();
+                    cleanupPostMedia();
                     base.OnBackKeyPress(e);
                 }
                 else
                 {
                     e.Cancel = true;
                 }
+            }
+
+        }
+
+        private void cleanupPostMedia()
+        {
+            Post post = App.MasterViewModel.CurrentPost;
+            if (post.PostStatus.Equals("localdraft"))
+            {
+                // Don't clear images from local drafts.
+                return;
+            }
+            foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+            {
+                m.clearSavedImage();
             }
         }
 
@@ -446,6 +464,7 @@ namespace WordPress
                     this.Focus();
                     ApplicationBar.IsVisible = false;
                     App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
+
                 } else {
                     // Create or update a local draft
                     if (App.MasterViewModel.CurrentPostListItem != null)
@@ -478,7 +497,7 @@ namespace WordPress
         {
             EditPostRPC rpc = sender as EditPostRPC;
             rpc.Completed -= OnEditPostRPCCompleted;
-            
+
             if (args.Cancelled)
             {
                 return;
@@ -489,6 +508,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
+                cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
             }
@@ -503,6 +523,7 @@ namespace WordPress
             NewPostRPC rpc = sender as NewPostRPC;
             rpc.Completed -= OnNewPostRPCCompleted;
             
+
             if (args.Cancelled)
             {
                 //do not set the connection to null here
@@ -519,6 +540,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
+                cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 NavigationService.GoBack();
             }
@@ -586,9 +608,9 @@ namespace WordPress
             BitmapImage image = new BitmapImage();
             image.SetSource(bitmapStream);
 
-            // Save to isolated storage. 
+            // Save to isolated storage in the draft_media directory 
             // The OriginalFilename is a GUID.  Since we're saving to IsolatedStorage, use this as a filename to avoid collisions.
-            string localfilename = Path.GetFileName(originalFilePath);
+            string localfilename = Path.Combine(Media.MEDIA_IMAGE_DIRECTORY, Path.GetFileName(originalFilePath));
             DateTime capture = DateTime.Now;
             string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
             string filename = string.Format(fileNameFormat,

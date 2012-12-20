@@ -103,6 +103,8 @@ namespace WordPress
                     rpc.IsCancelled = true;
                 });
                 _mediaUploadRPCs.Clear();
+
+                cleanupPostMedia();
             }
             else
             {
@@ -117,12 +119,27 @@ namespace WordPress
                         rpc.IsCancelled = true;
                     });
                     _mediaUploadRPCs.Clear();
+                    cleanupPostMedia();
                     base.OnBackKeyPress(e);
                 }
                 else
                 {
                     e.Cancel = true;
                 }
+            }
+        }
+
+        private void cleanupPostMedia()
+        {
+            Post post = App.MasterViewModel.CurrentPost;
+            if (post.PostStatus.Equals("localdraft"))
+            {
+                // Don't clear images from local drafts.
+                return;
+            }
+            foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+            {
+                m.clearSavedImage();
             }
         }
 
@@ -324,6 +341,7 @@ namespace WordPress
             
             if (null == args.Error)
             {
+                cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 NavigationService.GoBack();
             }
@@ -348,6 +366,7 @@ namespace WordPress
 
             if (null == args.Error)
             {
+                cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 NavigationService.GoBack();
             }
@@ -434,7 +453,7 @@ namespace WordPress
 
             // Save to isolated storage. 
             // The OriginalFilename is a GUID.  Since we're saving to IsolatedStorage, use this as a filename to avoid collisions.
-            string localfilename = Path.GetFileName(originalFilePath);
+            string localfilename = Path.Combine(Media.MEDIA_IMAGE_DIRECTORY, Path.GetFileName(originalFilePath));
             DateTime capture = DateTime.Now;
             string fileNameFormat = "SavedPicture-{0}{1}{2}{3}{4}{5}{6}"; //year, month, day, hours, min, sec, file extension
             string filename = string.Format(fileNameFormat,
