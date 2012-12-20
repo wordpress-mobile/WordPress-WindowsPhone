@@ -33,7 +33,7 @@ namespace WordPress.Model
 
         private string _localPath; //location of the media on the device
         private DateTime _datetime;
-
+        private string _id;
         private string _url;       //once uploaded it contains the URL of the image on the server   
         private string _mimetype;  //mime type
         private string _fileName;  //preferred file name to set when upload the image on disk. It's the same of the filename on the device for now.
@@ -41,7 +41,9 @@ namespace WordPress.Model
 
         private bool _alignThumbnailToCenter = false;
         private bool _createLinkToFullImage = false;
-        
+        private bool _isfeatured = false; // If the media should be the featured image when uploaded to a post.
+        private bool _canBeFeatured = true; // Whether its possible to feature this media file. When adding to a page this should be set to false. 
+
         #endregion
 
         #region events
@@ -89,6 +91,19 @@ namespace WordPress.Model
                 {
                     _placement = value;
                     NotifyPropertyChanged("Placement");
+                }
+            }
+        }
+
+        public string Id
+        {
+            get { return _id; }
+            set
+            {
+                if (value != _id)
+                {
+                    _id = value;
+                    NotifyPropertyChanged("Id");
                 }
             }
         }
@@ -181,6 +196,32 @@ namespace WordPress.Model
                 {
                     _mimetype = value;
                     NotifyPropertyChanged("MimeType");
+                }
+            }
+        }
+
+        public bool IsFeatured
+        {
+            get { return _isfeatured; }
+            set
+            {
+                if (value != _isfeatured)
+                {
+                    _isfeatured = value;
+                    NotifyPropertyChanged("IsFeatured");
+                }
+            }
+        }
+
+        public bool CanBeFeatured
+        {
+            get { return _canBeFeatured; }
+            set
+            {
+                if (value != _canBeFeatured)
+                {
+                    _canBeFeatured = value;
+                    NotifyPropertyChanged("CanBeFeatured");
                 }
             }
         }

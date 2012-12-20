@@ -1,6 +1,7 @@
 ﻿using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -17,8 +18,11 @@ namespace WordPress
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _deleteIconButton;
         private ApplicationBarIconButton _positionIconButton;
+        private ApplicationBarIconButton _featureIconButton;
+        private ApplicationBarIconButton _unfeatureIconButton;
         private List<string> _positionListOptions;
         private bool isMarkedForRemoval = false;
+        private bool isMarkedFeatured = false;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
 
         public ImageDetailsPage()
@@ -34,17 +38,42 @@ namespace WordPress
             _deleteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.delete.png", UriKind.Relative));
             _deleteIconButton.Text = _localizedStrings.ControlsText.Remove;
             _deleteIconButton.Click += _deleteIconButton_Click;
-            ApplicationBar.Buttons.Add(_deleteIconButton);
 
             _positionIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.positionMedia.png", UriKind.Relative));
             _positionIconButton.Text = _localizedStrings.Prompts.MediaPlacement;
             _positionIconButton.Click += _positionIconButton_Click;
-            ApplicationBar.Buttons.Add(_positionIconButton);
+
+            _featureIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.feature.png", UriKind.Relative));
+            _featureIconButton.Text = _localizedStrings.ControlsText.FeatureImage;
+            _featureIconButton.Click += featureIconButton_Click;
+
+            _unfeatureIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.unfeature.png", UriKind.Relative));
+            _unfeatureIconButton.Text = _localizedStrings.ControlsText.UnfeatureImage;
+            _unfeatureIconButton.Click += unfeatureIconButton_Click;
 
             // Order of the list items should match the order of WordPress.Model.eMediaPlacement
             _positionListOptions = new List<string>(2);
             _positionListOptions.Add(_localizedStrings.Options.MediaOptions_PlaceBefore);
             _positionListOptions.Add(_localizedStrings.Options.MediaOptions_PlaceAfter);
+        }
+
+        void setupApplicationBar()
+        {
+            ApplicationBar.Buttons.Clear();
+
+            ApplicationBar.Buttons.Add(_deleteIconButton);
+            ApplicationBar.Buttons.Add(_positionIconButton);
+            if (App.MasterViewModel.CurrentBlog.SupportsFeaturedImage() && TappedImage.CanBeFeatured)
+            {
+                if (isMarkedFeatured)
+                {
+                    ApplicationBar.Buttons.Add(_unfeatureIconButton);
+                }
+                else
+                {
+                    ApplicationBar.Buttons.Add(_featureIconButton);
+                }
+            }
 
         }
 
@@ -64,6 +93,19 @@ namespace WordPress
 
             App.PopupSelectionService.ShowPopup();
         }
+
+        void featureIconButton_Click(object sender, EventArgs e)
+        {
+            isMarkedFeatured = true;
+            setupApplicationBar();
+        }
+
+        void unfeatureIconButton_Click(object sender, EventArgs e)
+        {
+            isMarkedFeatured = false;
+            setupApplicationBar();
+        }
+
 
         private void OnPositionOptionSelected(object sender, SelectionChangedEventArgs args)
         {
@@ -93,9 +135,13 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
             BitmapImage tn = new BitmapImage();
-            tn.SetSource(TappedImage.getImageStream());
+            Stream stream = TappedImage.getImageStream();
+            isMarkedFeatured = TappedImage.IsFeatured;
+            tn.SetSource(stream);
             ImageObeject.Source = tn;
+            setupApplicationBar();
             ApplicationBar.IsVisible = true;
+            stream.Close();
         }
 
 
@@ -112,6 +158,15 @@ namespace WordPress
                     (e.Content as EditPagePage).removeImage(TappedImage);
                 }
             }
+
+            if (isMarkedFeatured)
+            {
+                if (e.Content is EditPostPage)
+                {
+                    (e.Content as EditPostPage).updateFeaturedImage(TappedImage);
+                }
+            }
+           
             base.OnNavigatedFrom(e);
         }
 

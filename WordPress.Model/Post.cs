@@ -37,6 +37,7 @@ namespace WordPress.Model
         private bool _isNew;
         private ObservableCollection<Media> _media;
         private string _postFormat;
+        private string _postThumbnail = "";
 
         private const string DATECREATED_VALUE = "dateCreated";
         private const string USERID_VALUE = "userid";
@@ -60,6 +61,7 @@ namespace WordPress.Model
         private const string CUSTOMFIELDS_VALUE = "custom_fields";
         private const string STICKY_VALUE = "sticky";
         private const string POSTFORMAT_VALUE = "wp_post_format";
+        private const string POSTTHUMBNAIL_VALUE = "wp_post_thumbnail";
 
         #endregion
 
@@ -378,6 +380,19 @@ namespace WordPress.Model
             }
         }
 
+        public string PostThumbnail
+        {
+            get { return _postThumbnail; }
+            set
+            {
+                if (value != _postThumbnail)
+                {
+                    _postThumbnail = value;
+                    NotifyPropertyChanged("PostThumbnail");
+                }
+            }
+        }
+
         #endregion
 
         #region methods
@@ -564,6 +579,11 @@ namespace WordPress.Model
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     _postFormat = value;
+                }
+                else if (POSTTHUMBNAIL_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    _postThumbnail = value;
                 }
             } // end for-each
             IsNew = false;

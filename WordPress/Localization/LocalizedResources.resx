@@ -897,4 +897,13 @@
   <data name="Options_Actions_EditDraft" xml:space="preserve">
     <value>edit draft</value>
   </data>
+  <data name="ControlText_FeaturedImage" xml:space="preserve">
+    <value>featured image</value>
+  </data>
+  <data name="ControlText_FeatureImage" xml:space="preserve">
+    <value>feature</value>
+  </data>
+  <data name="ControlText_UnfeatureImage" xml:space="preserve">
+    <value>unfeature</value>
+  </data>
 </root>

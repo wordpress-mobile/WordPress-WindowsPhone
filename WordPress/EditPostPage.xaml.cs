@@ -75,6 +75,22 @@ namespace WordPress
 
         #region methods
 
+        private void SetupFeaturedImage()
+        {
+            if (!App.MasterViewModel.CurrentBlog.SupportsFeaturedImage())
+            {
+                // Hide featured image UI.
+                //featuredImageHeader.Visibility = Visibility.Collapsed;
+                //featuredImagePadding.Visibility = Visibility.Collapsed;
+                //featuredImageHeaderBackground.Visibility = Visibility.Collapsed;
+                //featuredImageWrapPanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            // Display featured image.
+            
+        }
+
         private void OnPageLoaded(object sender, EventArgs args)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
@@ -255,6 +271,14 @@ namespace WordPress
             }
         }
 
+        public void updateFeaturedImage(Media featuredImage)
+        {
+            foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+            {
+                m.IsFeatured = m.Equals(featuredImage);
+            }
+        }
+
         private void setStatus()
         {
             List<string> statusList = new List<string>() { 
@@ -414,6 +438,11 @@ namespace WordPress
                 StringBuilder appendBuilder = new StringBuilder();
                 foreach (Media currentMedia in post.Media)
                 {
+                    if (currentMedia.IsFeatured)
+                    {
+                        post.PostThumbnail = currentMedia.Id;
+                    }
+
                     if (currentMedia.placement != eMediaPlacement.BlogPreference)
                     {
                         if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)

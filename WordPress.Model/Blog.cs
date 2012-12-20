@@ -527,6 +527,18 @@ namespace WordPress.Model
             NotifyPropertyChanged("IsLoadingContent");
         }
 
+
+        public bool SupportsFeaturedImage()
+        {
+            foreach (Option o in Options)
+            {
+                if (o.Name.Equals("post_thumbnail"))
+                {
+                    return o.Value.Equals("1");
+                }
+            }
+            return false;
+        }
         #endregion
     }
 }

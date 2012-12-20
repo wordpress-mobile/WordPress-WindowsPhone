@@ -200,8 +200,9 @@ namespace WordPress.Localization
             public string FilterApproved { get { return LocalizedResources.ControlText_FilterApproved; } }
             public string FilterUnapproved { get { return LocalizedResources.ControlText_FilterUnapproved; } }
             public string FilterSpam { get { return LocalizedResources.ControlText_FilterSpam; } }
-            
-
+            public string FeatureImage { get { return LocalizedResources.ControlText_FeatureImage; } }
+            public string UnfeatureImage { get { return LocalizedResources.ControlText_UnfeatureImage; } }
+            public string FeaturedImage { get { return LocalizedResources.ControlText_FeaturedImage; } }
         }
 
         #endregion

@@ -126,8 +126,12 @@
     <Content Include="XMLRPC\metaWeblog_editPost.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="XMLRPC\metaWeblog_editPost2.xml" />
+    <None Include="XMLRPC\metaWeblog_editPost_featuredImage.xml" />
     <Content Include="XMLRPC\metaWeblog_getPost.xml" />
     <Content Include="XMLRPC\metaWeblog_newPost.xml" />
+    <None Include="XMLRPC\metaWeblog_newPost2.xml" />
+    <None Include="XMLRPC\metaWeblog_newPost_featuredImage.xml" />
     <Content Include="XMLRPC\test.xml" />
     <Content Include="XMLRPC\wp_deleteComment.xml" />
     <Content Include="XMLRPC\wp_deletePage.xml" />

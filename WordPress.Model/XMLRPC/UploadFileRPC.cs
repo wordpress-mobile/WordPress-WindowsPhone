@@ -20,6 +20,7 @@ namespace WordPress.Model
         private const string METHODNAME_VALUE = "wp.uploadFile";
         private int retryCount = 0;
 
+        private const string ID_VALUE = "id";
         private const string FILE_VALUE = "file";
         private const string URL_VALUE = "url";
         private const string TYPE_VALUE = "type";
@@ -336,7 +337,12 @@ namespace WordPress.Model
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
-                if (FILE_VALUE.Equals(memberName))
+                if (ID_VALUE.Equals(memberName))
+                {
+                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    CurrentMedia.Id = value;
+                } 
+                else if (FILE_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     CurrentMedia.FileName = value;

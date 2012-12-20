@@ -467,6 +467,7 @@ namespace WordPress
                 Path.GetExtension(originalFilePath));
 
             Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, filename, localfilename, bitmapStream, App.MasterViewModel.CurrentBlog.PreserveBandwidth);
+            currentMedia.CanBeFeatured = false;
             Post post = App.MasterViewModel.CurrentPost;
             post.Media.Add(currentMedia);
 

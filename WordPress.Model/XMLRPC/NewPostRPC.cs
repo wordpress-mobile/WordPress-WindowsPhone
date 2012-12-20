@@ -72,22 +72,47 @@ namespace WordPress.Model
 
         protected override string BuildPostContentString()
         {
-
-            string result = string.Format(_content,
-                Post.PostId,
-                Credentials.UserName.HtmlEncode(),
-                Credentials.Password.HtmlEncode(),
-                Post.MtKeyWords.XmlEscape(),
-                PostType.ToString(),
-                FormatCategories(),
-                Post.Title.XmlEscape(),
-                Post.Description.HtmlEncode(),
-                PostType.ToString(),
-                Post.PostStatus,
-                FormatCustomFields(),
-                Post.PostFormat,
-                String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
-                );
+            string result;
+            // PostThumbnails can not be an empty string when creating new posts. If a featured image wasn't chosen, 
+            // don't use the featured image version of the content payload.
+            if (DataService.Current.CurrentBlog.SupportsFeaturedImage() && PostType == ePostType.post && Post.PostThumbnail.Length > 0)
+            {
+                _content = XMLRPCTable.metaWeblog_newPost_featuredImage;
+                result = string.Format(_content,
+                    Post.PostId,
+                    Credentials.UserName.HtmlEncode(),
+                    Credentials.Password.HtmlEncode(),
+                    Post.MtKeyWords.XmlEscape(),
+                    PostType.ToString(),
+                    FormatCategories(),
+                    Post.Title.XmlEscape(),
+                    Post.Description.HtmlEncode(),
+                    PostType.ToString(),
+                    Post.PostStatus,
+                    FormatCustomFields(),
+                    Post.PostFormat,
+                    Post.PostThumbnail,
+                    String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
+                    );
+            }
+            else
+            {
+                result = string.Format(_content,
+                    Post.PostId,
+                    Credentials.UserName.HtmlEncode(),
+                    Credentials.Password.HtmlEncode(),
+                    Post.MtKeyWords.XmlEscape(),
+                    PostType.ToString(),
+                    FormatCategories(),
+                    Post.Title.XmlEscape(),
+                    Post.Description.HtmlEncode(),
+                    PostType.ToString(),
+                    Post.PostStatus,
+                    FormatCustomFields(),
+                    Post.PostFormat,
+                    String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
+                    );
+            }
             return result;
         }
 

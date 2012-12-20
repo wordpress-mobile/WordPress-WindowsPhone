@@ -46,19 +46,41 @@ namespace WordPress.Model
 
         protected override string BuildPostContentString()
         {
-            string result = string.Format(_content,
-                Post.PostId,
-                Credentials.UserName.HtmlEncode(),
-                Credentials.Password.HtmlEncode(),
-                Post.MtKeyWords.XmlEscape(),
-                PostType.ToString(),
-                FormatCategories(),
-                Post.Title.XmlEscape(),
-                Post.Description.HtmlEncode(),
-                PostType.ToString(),
-                Post.PostStatus,
-                Post.PostFormat,
-                String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated.ToUniversalTime()));
+            string result;
+            if (DataService.Current.CurrentBlog.SupportsFeaturedImage() && PostType == ePostType.post)
+            {
+                _content = XMLRPCTable.metaWeblog_editPost_featuredImage;
+                result = string.Format(_content,
+                    Post.PostId,
+                    Credentials.UserName.HtmlEncode(),
+                    Credentials.Password.HtmlEncode(),
+                    Post.MtKeyWords.XmlEscape(),
+                    PostType.ToString(),
+                    FormatCategories(),
+                    Post.Title.XmlEscape(),
+                    Post.Description.HtmlEncode(),
+                    PostType.ToString(),
+                    Post.PostStatus,
+                    Post.PostFormat,
+                    Post.PostThumbnail,
+                    String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated.ToUniversalTime()));
+            }
+            else
+            {
+                result = string.Format(_content,
+                    Post.PostId,
+                    Credentials.UserName.HtmlEncode(),
+                    Credentials.Password.HtmlEncode(),
+                    Post.MtKeyWords.XmlEscape(),
+                    PostType.ToString(),
+                    FormatCategories(),
+                    Post.Title.XmlEscape(),
+                    Post.Description.HtmlEncode(),
+                    PostType.ToString(),
+                    Post.PostStatus,
+                    Post.PostFormat,
+                    String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreated.ToUniversalTime()));
+            }
 
             return result;
         }
