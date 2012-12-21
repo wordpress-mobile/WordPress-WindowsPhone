@@ -129,8 +129,8 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Image Margin="0,0,10,10" Width="80" Height="80" 
-                       Delay:LowProfileImageLoader.UriSource="{Binding GravatarUrl}" MaxWidth="80" MaxHeight="80" />
+                <Image Margin="0,0,10,10" Width="80" Height="80" Tag="Images/gravatar.png"
+                       Delay:LowProfileImageLoader.UriSource="{Binding GravatarUrlForList}" MaxWidth="80" MaxHeight="80" />
                 <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="0,-6,0,0" >
                     <TextBlock x:Name="authorTextBlock" Text="{Binding Author, Converter={StaticResource AnonymousAuthorConverter}}" FontSize="25" FontWeight="Bold" VerticalAlignment="Top">
                         <TextBlock.Foreground>

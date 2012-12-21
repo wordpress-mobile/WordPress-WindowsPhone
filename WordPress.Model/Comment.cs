@@ -317,6 +317,24 @@ namespace WordPress.Model
             }
         }
 
+        [XmlIgnore]
+        public string GravatarUrlForList
+        {
+            get
+            {
+                string emailAddress = _authorEmail ?? String.Empty;
+
+                Encoder encoder = Encoding.Unicode.GetEncoder();
+                byte[] unicodeText = new byte[emailAddress.Length * 2];
+                encoder.GetBytes(emailAddress.ToCharArray(), 0, emailAddress.Length, unicodeText, 0, true);
+
+                string hash = MD5.GetMd5String(emailAddress.Trim());
+                string uriFormat = "http://gravatar.com/avatar/{0}?s=80&d=404";
+                string result = string.Format(uriFormat, hash);
+                return result;
+            }
+        }
+
         #endregion
 
         #region methods

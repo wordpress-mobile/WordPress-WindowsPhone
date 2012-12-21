@@ -243,6 +243,21 @@ namespace WordPress.Delay
             {
                 // Clear-out the current image because it's now stale (helps when used with virtualization)
                 image.Source = null;
+
+                try
+                {
+                    //TODO: check that the TAG is a valid local image file and not a remote img. 
+                    //Note: set the 'Build Action' to Content for the placeholder image
+                    object tag = (object)image.Tag;
+                    if ( tag is String)
+                    {
+                        image.Source = new BitmapImage(new Uri((string)tag, UriKind.Relative));
+                    }
+                }
+                catch (Exception)
+                {
+                }
+
                 lock (_syncBlock)
                 {
                     // Enqueue the request
