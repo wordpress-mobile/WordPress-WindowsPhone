@@ -271,11 +271,23 @@ namespace WordPress
             }
         }
 
-        public void updateFeaturedImage(Media featuredImage)
+        public void UpdateFeaturedImage(Media featuredImage)
         {
             foreach (Media m in App.MasterViewModel.CurrentPost.Media)
             {
                 m.IsFeatured = m.Equals(featuredImage);
+            }
+            foreach (Canvas c in imageWrapPanel.Children)
+            {
+                Image img = (Image)c.Children[1];
+                if (c.Tag.Equals(featuredImage))
+                {
+                    img.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    img.Visibility = Visibility.Collapsed;
+                }
             }
         }
 
@@ -660,7 +672,7 @@ namespace WordPress
             imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
         }
 
-        private Button BuildTappableImageElement(BitmapImage image, Media currentMedia)
+        private Canvas BuildTappableImageElement(BitmapImage image, Media currentMedia)
         {
             Button imageOuterButton = new Button();
             imageOuterButton.Tag = currentMedia;
@@ -672,7 +684,29 @@ namespace WordPress
             Style btnStyle = App.Current.Resources["BasicButtonStyle"] as Style;
             imageOuterButton.Style = btnStyle;
             imageOuterButton.Background = new ImageBrush { ImageSource = image };
-            return imageOuterButton;
+
+            Image img = new Image();
+            img.Source = new BitmapImage(new Uri("/Images/star.png", UriKind.Relative));
+            img.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            img.VerticalAlignment = System.Windows.VerticalAlignment.Bottom;
+            img.Width = 30;
+            img.Height = 30;
+            if (!currentMedia.IsFeatured)
+            {
+                img.Visibility = Visibility.Collapsed;
+            }
+            
+            Canvas canvas = new Canvas();
+            canvas.Width = width;
+            canvas.Height = height;
+            canvas.Children.Add(imageOuterButton);
+            canvas.Children.Add(img);
+            canvas.Tag = currentMedia;
+
+            Canvas.SetTop(img, (height - 45));
+            Canvas.SetLeft(img, (width - 45));
+
+            return canvas;
         }
 
         private void sp_Tap(object sender, System.Windows.Input.GestureEventArgs e)

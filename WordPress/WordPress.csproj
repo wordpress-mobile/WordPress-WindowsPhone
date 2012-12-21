@@ -333,6 +333,7 @@
     <Content Include="Images\appbar.unfeature.png" />
     <Content Include="Images\appbar.unpin.png" />
     <Content Include="Images\appbar.upload.png" />
+    <Content Include="Images\star.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />

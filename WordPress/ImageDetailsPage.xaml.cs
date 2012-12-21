@@ -163,7 +163,7 @@ namespace WordPress
             {
                 if (e.Content is EditPostPage)
                 {
-                    (e.Content as EditPostPage).updateFeaturedImage(TappedImage);
+                    (e.Content as EditPostPage).UpdateFeaturedImage(TappedImage);
                 }
             }
            
