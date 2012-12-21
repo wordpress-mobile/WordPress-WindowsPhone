@@ -501,6 +501,40 @@ namespace WordPress.Model {
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
         ///&lt;methodCall&gt;
+        ///  &lt;methodName&gt;wp.getMediaItem&lt;/methodName&gt;
+        ///  &lt;params&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;int&gt;{0}&lt;/int&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;string&gt;{1}&lt;/string&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;string&gt;{2}&lt;/string&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///    &lt;param&gt;
+        ///      &lt;value&gt;
+        ///        &lt;int&gt;{3}&lt;/int&gt;
+        ///      &lt;/value&gt;
+        ///    &lt;/param&gt;
+        ///  &lt;/params&gt;
+        ///&lt;/methodCall&gt;.
+        /// </summary>
+        internal static string wp_getMediaItem {
+            get {
+                return ResourceManager.GetString("wp_getMediaItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;methodCall&gt;
         ///  &lt;methodName&gt;wp.getOptions&lt;/methodName&gt;
         ///  &lt;params&gt;
         ///    &lt;param&gt;

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<methodCall>
+  <methodName>wp.getMediaItem</methodName>
+  <params>
+    <param>
+      <value>
+        <int>{0}</int>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{1}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>{2}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <int>{3}</int>
+      </value>
+    </param>
+  </params>
+</methodCall>

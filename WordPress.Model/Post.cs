@@ -38,6 +38,7 @@ namespace WordPress.Model
         private ObservableCollection<Media> _media;
         private string _postFormat;
         private string _postThumbnail = "";
+        private MediaItem _featuredImage;
 
         private const string DATECREATED_VALUE = "dateCreated";
         private const string USERID_VALUE = "userid";
@@ -392,6 +393,20 @@ namespace WordPress.Model
                 }
             }
         }
+
+        public MediaItem FeaturedImage
+        {
+            get { return _featuredImage; }
+            set
+            {
+                if (value != _featuredImage)
+                {
+                    _featuredImage = value;
+                    NotifyPropertyChanged("FeaturedImage");
+                }
+            }
+        }
+
 
         #endregion
 

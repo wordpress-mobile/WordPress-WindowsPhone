@@ -34,6 +34,7 @@ namespace WordPress
         private ApplicationBarIconButton _saveIconButton;
         private List<UploadFileRPC> _mediaUploadRPCs;
         private AbstractPostRPC currentXmlRpcConnection;
+        private GetMediaItemRPC _mediaItemRPC;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
         private bool _mediaDialogPresented = false;
@@ -77,18 +78,59 @@ namespace WordPress
 
         private void SetupFeaturedImage()
         {
-            if (!App.MasterViewModel.CurrentBlog.SupportsFeaturedImage())
+            Post post = App.MasterViewModel.CurrentPost;
+            if (!App.MasterViewModel.CurrentBlog.SupportsFeaturedImage() || post.PostThumbnail.Length == 0)
             {
-                // Hide featured image UI.
-                //featuredImageHeader.Visibility = Visibility.Collapsed;
-                //featuredImagePadding.Visibility = Visibility.Collapsed;
-                //featuredImageHeaderBackground.Visibility = Visibility.Collapsed;
-                //featuredImageWrapPanel.Visibility = Visibility.Collapsed;
+                featuredImagePadding.Visibility = Visibility.Collapsed;
+                featuredImageHeaderBackground.Visibility = Visibility.Collapsed;
+                featuredImageHeader.Visibility = Visibility.Collapsed;
+                featuredImagePanel.Visibility = Visibility.Collapsed;
                 return;
             }
 
-            // Display featured image.
-            
+            if (post.FeaturedImage == null)
+            {
+                // Get the URL for the featured image.
+                _mediaItemRPC = new GetMediaItemRPC(App.MasterViewModel.CurrentBlog, post.PostThumbnail);
+                _mediaItemRPC.Completed += OnGetMediaItemRPCCompleted;
+                _mediaItemRPC.ExecuteAsync();
+                return;
+            }
+
+            // Load the featured image.
+            featuredImage.Source = new BitmapImage(new Uri(post.FeaturedImage.Thumbnail));
+        }
+
+        private void OnFeaturedImageFailed(object sender, EventArgs args)
+        {
+            featuredImage.Visibility = Visibility.Collapsed;
+            featuredImageError.Visibility = Visibility.Visible;
+        }
+
+        private void OnGetMediaItemRPCCompleted(object sender, XMLRPCCompletedEventArgs<MediaItem> args)
+        {
+            _mediaItemRPC.Completed -= OnGetMediaItemRPCCompleted;
+            _mediaItemRPC = null;
+
+            if (args.Cancelled)
+            {
+                return;
+            }
+            if (args.Items.Count > 0)
+            {
+                MediaItem m = args.Items[0] as MediaItem;
+                App.MasterViewModel.CurrentPost.FeaturedImage = m;
+                SetupFeaturedImage();
+            }
+        }
+
+        private void OnRemoveFeaturedImageButtonClicked(object sender, EventArgs args)
+        {
+            Post post = App.MasterViewModel.CurrentPost;
+            post.FeaturedImage = null;
+            post.PostThumbnail = "";
+
+            SetupFeaturedImage();
         }
 
         private void OnPageLoaded(object sender, EventArgs args)
@@ -98,6 +140,7 @@ namespace WordPress
             if (!(State.ContainsKey(TITLEKEY_VALUE)))
             {
                 LoadBlog();
+                SetupFeaturedImage();
             }
 
         }
@@ -130,6 +173,12 @@ namespace WordPress
                 MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
                 if (result == MessageBoxResult.OK)
                 {
+                    if (_mediaItemRPC != null)
+                    {
+                        _mediaItemRPC.Completed -= OnGetMediaItemRPCCompleted;
+                        _mediaItemRPC.IsCancelled = true;
+                    }
+
                     //remove t
                     _mediaUploadRPCs.ForEach(rpc =>
                     {
@@ -155,6 +204,7 @@ namespace WordPress
             {
                 // Don't clear images from local drafts.
                 return;
+            
             }
             foreach (Media m in App.MasterViewModel.CurrentPost.Media)
             {
@@ -454,27 +504,30 @@ namespace WordPress
                     {
                         post.PostThumbnail = currentMedia.Id;
                     }
-
-                    if (currentMedia.placement != eMediaPlacement.BlogPreference)
-                    {
-                        if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
-                        {
-                            prependBuilder.Append(currentMedia.getHTML());
-                        }
-                        else
-                        {
-                            appendBuilder.Append(currentMedia.getHTML());
-                        }
-                    }
                     else
                     {
-                        if (blog.PlaceImageAboveText)
+
+                        if (currentMedia.placement != eMediaPlacement.BlogPreference)
                         {
-                            prependBuilder.Append(currentMedia.getHTML());
+                            if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
+                            {
+                                prependBuilder.Append(currentMedia.getHTML());
+                            }
+                            else
+                            {
+                                appendBuilder.Append(currentMedia.getHTML());
+                            }
                         }
                         else
                         {
-                            appendBuilder.Append(currentMedia.getHTML());
+                            if (blog.PlaceImageAboveText)
+                            {
+                                prependBuilder.Append(currentMedia.getHTML());
+                            }
+                            else
+                            {
+                                appendBuilder.Append(currentMedia.getHTML());
+                            }
                         }
                     }
                 }

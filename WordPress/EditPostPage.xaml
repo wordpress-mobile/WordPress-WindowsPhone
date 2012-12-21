@@ -84,6 +84,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -100,43 +104,56 @@
                 <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" KeyUp="Input_KeyUp" GotFocus="OnPageContentGotFocus" LostFocus="OnPageContentLostFocus"/>
                 <TextBlock Grid.Row="3" Text="{Binding Path=ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=OneWay, Converter={StaticResource PostContentConverter}}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Disabled" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" Tap="OnContentTextBoxTap"/>
+                
+                <!-- Featured Image -->
+                <Rectangle Grid.Row="5" x:Name="featuredImagePadding" Margin="10,5"/>
+                <Rectangle Grid.Row="6" x:Name="featuredImageHeaderBackground" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="6" x:Name="featuredImageHeader" Text="{Binding ControlsText.FeaturedImage, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <StackPanel Grid.Row="7" x:Name="featuredImagePanel" Orientation="Vertical">
+                    <Image x:Name="featuredImage" HorizontalAlignment="Center" ImageFailed="OnFeaturedImageFailed" Margin="10,5" />
+                    <TextBlock x:Name="featuredImageError" Style="{StaticResource LabelTextBlockStyle}" Visibility="Collapsed" Height="30"  HorizontalAlignment="Left" Text="{Binding ControlsText.FeaturedImageError, Source={StaticResource StringTable}}" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="removeFeaturedImageButton" Content="{Binding Path=ControlsText.Remove, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Click="OnRemoveFeaturedImageButtonClicked"/>
+                    </StackPanel>
+                </StackPanel>
+                
                 <!-- Media -->
-                <Rectangle Grid.Row="5" Margin="10,5"/>
-                <Rectangle Grid.Row="6" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="6" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <StackPanel Grid.Row="7" Orientation="Horizontal">
+                <Rectangle Grid.Row="8" Margin="10,5"/>
+                <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <StackPanel Grid.Row="10" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
                 </StackPanel>
-                <toolkit:WrapPanel Grid.Row="8" x:Name="imageWrapPanel"/>
+                <toolkit:WrapPanel Grid.Row="11" x:Name="imageWrapPanel"/>
                 
                 <!-- Tags -->
-                <Rectangle Grid.Row="9" Margin="10,5"/>
-                <Rectangle Grid.Row="10" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="10" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <TextBox Grid.Row="11" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
-                <TextBlock Grid.Row="12" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
+                <Rectangle Grid.Row="12" Margin="10,5"/>
+                <Rectangle Grid.Row="13" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="13" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <TextBox Grid.Row="14" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
+                <TextBlock Grid.Row="15" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
 
                 <!-- Categories -->
-                <Rectangle Grid.Row="13" Margin="10,5"/>
-                <Rectangle Grid.Row="14" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="14" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
-                <Button Grid.Row="15" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
+                <Rectangle Grid.Row="16" Margin="10,5"/>
+                <Rectangle Grid.Row="17" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="17" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
+                <Button Grid.Row="18" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
                 
                 <!-- Post Status -->
-                <Rectangle Grid.Row="16" Margin="10,5"/>
-                <Rectangle Grid.Row="17" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="17" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="18" x:Name="statusPicker" Margin="10,0,10,10"/>
-
-                <!-- Post Format -->
                 <Rectangle Grid.Row="19" Margin="10,5"/>
                 <Rectangle Grid.Row="20" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="20" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="21" 
+                <TextBlock Grid.Row="20" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="21" x:Name="statusPicker" Margin="10,0,10,10"/>
+
+                <!-- Post Format -->
+                <Rectangle Grid.Row="22" Margin="10,5"/>
+                <Rectangle Grid.Row="23" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="23" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="24" 
                                     x:Name="postFormatsPicker" 
                                     Margin="10,0,10,10" 
                                     ItemTemplate="{StaticResource PickerItemTemplate}" 
@@ -145,10 +162,10 @@
                                     />
 
                 <!-- Publish Date -->
-                <Rectangle Grid.Row="22" Margin="10,5"/>
-                <Rectangle Grid.Row="23" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="23" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <StackPanel Grid.Row="24">
+                <Rectangle Grid.Row="25" Margin="10,5"/>
+                <Rectangle Grid.Row="26" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="26" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <StackPanel Grid.Row="27">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />

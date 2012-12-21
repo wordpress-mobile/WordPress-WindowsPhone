@@ -68,6 +68,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Media.cs" />
+    <Compile Include="MediaItem.cs" />
     <Compile Include="Momento.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="PageListItem.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="XMLRPC\GetCommentsRPC.cs" />
     <Compile Include="XMLRPC\GetPageListRPC.cs" />
     <Compile Include="XMLRPC\GetPostRPC.cs" />
+    <Compile Include="XMLRPC\GetMediaItemRPC.cs" />
     <Compile Include="XMLRPC\GetPostViewStatsRPC.cs" />
     <Compile Include="XMLRPC\GetRecentPostsRPC.cs" />
     <Compile Include="XMLRPC\GetReferrerStatsRPC.cs" />
@@ -142,6 +144,7 @@
     <None Include="XMLRPC\wp_getPostFormats.xml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="XMLRPC\wp_getMediaItem.xml" />
     <Content Include="XMLRPC\wp_getUsersBlogs.xml" />
     <Content Include="XMLRPC\wp_newCategory.xml" />
     <Content Include="XMLRPC\wp_newComment.xml" />

@@ -203,6 +203,8 @@ namespace WordPress.Localization
             public string FeatureImage { get { return LocalizedResources.ControlText_FeatureImage; } }
             public string UnfeatureImage { get { return LocalizedResources.ControlText_UnfeatureImage; } }
             public string FeaturedImage { get { return LocalizedResources.ControlText_FeaturedImage; } }
+            public string FeaturedImageError { get { return LocalizedResources.ControlText_FeaturedImageError; } }
+
         }
 
         #endregion

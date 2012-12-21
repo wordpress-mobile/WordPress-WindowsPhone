@@ -906,4 +906,8 @@
   <data name="ControlText_UnfeatureImage" xml:space="preserve">
     <value>unfeature</value>
   </data>
+  <data name="ControlText_FeaturedImageError" xml:space="preserve">
+    <value>could not load image</value>
+    <comment>Default error message for when a posts featured image would not load.</comment>
+  </data>
 </root>

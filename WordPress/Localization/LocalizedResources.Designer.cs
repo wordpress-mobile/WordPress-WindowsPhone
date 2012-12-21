@@ -502,6 +502,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to could not load image.
+        /// </summary>
+        internal static string ControlText_FeaturedImageError {
+            get {
+                return ResourceManager.GetString("ControlText_FeaturedImageError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to feature.
         /// </summary>
         internal static string ControlText_FeatureImage {
