@@ -90,6 +90,8 @@ namespace WordPress
 
             if (post.FeaturedImage == null)
             {
+
+                featuredImage.Source = new BitmapImage(new Uri("Images/gravatar.png", UriKind.Relative)); 
                 // Get the URL for the featured image.
                 _mediaItemRPC = new GetMediaItemRPC(App.MasterViewModel.CurrentBlog, post.PostThumbnail);
                 _mediaItemRPC.Completed += OnGetMediaItemRPCCompleted;
@@ -116,11 +118,22 @@ namespace WordPress
             {
                 return;
             }
-            if (args.Items.Count > 0)
+
+            if (null == args.Error)
             {
-                MediaItem m = args.Items[0] as MediaItem;
-                App.MasterViewModel.CurrentPost.FeaturedImage = m;
-                SetupFeaturedImage();
+                if (args.Items.Count > 0)
+                {
+                    MediaItem m = args.Items[0] as MediaItem;
+                    App.MasterViewModel.CurrentPost.FeaturedImage = m;
+                    SetupFeaturedImage();
+                }
+            }
+            else
+            {
+                //Error!
+                featuredImage.Visibility = Visibility.Collapsed;
+                featuredImageError.Visibility = Visibility.Visible;
+                featuredImageError.Text = args.Error.Message;
             }
         }
 
@@ -157,6 +170,12 @@ namespace WordPress
                 {
                     currentXmlRpcConnection.IsCancelled = true;
                     currentXmlRpcConnection = null;
+                }
+
+                if (null != _mediaItemRPC)
+                {
+                    _mediaItemRPC.IsCancelled = true;
+                    _mediaItemRPC = null;
                 }
                    
                 _mediaUploadRPCs.ForEach(rpc =>
