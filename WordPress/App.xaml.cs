@@ -159,6 +159,10 @@ namespace WordPress
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+
+            if (e.ExceptionObject is ApplicationShouldEndException)
+                return;
+            
             CrashReporter.ReportException(e.ExceptionObject, "Application_UnhandledException");
 
             if (System.Diagnostics.Debugger.IsAttached)

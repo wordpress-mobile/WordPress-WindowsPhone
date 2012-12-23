@@ -344,8 +344,10 @@ namespace WordPress
             {
                 cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPagesAsync();
-                if (NavigationService.CanGoBack)
+                if (NavigationService.CanGoBack) 
                     NavigationService.GoBack();
+                else
+                    throw new ApplicationShouldEndException();
             }
             else
             {
@@ -372,6 +374,8 @@ namespace WordPress
                 DataService.Current.FetchCurrentBlogPagesAsync();
                 if (NavigationService.CanGoBack)
                     NavigationService.GoBack();
+                else
+                    throw new ApplicationShouldEndException();
             }
             else
             {
@@ -650,6 +654,8 @@ namespace WordPress
                     // Exit post editor
                     if (NavigationService.CanGoBack)
                         NavigationService.GoBack();
+                    else
+                        throw new ApplicationShouldEndException();
                 }
             }
             else

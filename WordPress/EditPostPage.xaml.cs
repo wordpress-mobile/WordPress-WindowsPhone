@@ -596,6 +596,8 @@ namespace WordPress
                     // Exit post editor if the app was not lauched from the sharing feature.
                     if(NavigationService.CanGoBack)
                         NavigationService.GoBack();
+                    else
+                        throw new ApplicationShouldEndException();
                 }
             }
             else
@@ -630,6 +632,8 @@ namespace WordPress
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 if (NavigationService.CanGoBack)
                     NavigationService.GoBack();
+                else
+                    throw new ApplicationShouldEndException();
             }
             else
             {
@@ -663,6 +667,8 @@ namespace WordPress
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
                 if (NavigationService.CanGoBack)
                     NavigationService.GoBack();
+                else
+                    throw new ApplicationShouldEndException();
             }
             else
             {
