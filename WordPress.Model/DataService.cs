@@ -169,10 +169,17 @@ namespace WordPress.Model
                 isoStream.Position = 0;
                 */
                 XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Blog>));
-                var result = serializer.Deserialize(isoStream);
-                if (null != result && result is ObservableCollection<Blog>)
+                try
                 {
-                    Blogs = result as ObservableCollection<Blog>;
+                    var result = serializer.Deserialize(isoStream);
+                    if (null != result && result is ObservableCollection<Blog>)
+                    {
+                        Blogs = result as ObservableCollection<Blog>;
+                    }
+                }
+                catch (Exception)
+                {
+                    return;
                 }
             }
         }
