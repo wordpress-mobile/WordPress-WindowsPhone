@@ -344,7 +344,8 @@ namespace WordPress
             {
                 cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPagesAsync();
-                NavigationService.GoBack();
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
             }
             else
             {
@@ -369,7 +370,8 @@ namespace WordPress
             {
                 cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPagesAsync();
-                NavigationService.GoBack();
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
             }
             else
             {
@@ -646,7 +648,8 @@ namespace WordPress
                         blog.LocalPageDrafts.Add(post);
                     }
                     // Exit post editor
-                    NavigationService.GoBack();
+                    if (NavigationService.CanGoBack)
+                        NavigationService.GoBack();
                 }
             }
             else
