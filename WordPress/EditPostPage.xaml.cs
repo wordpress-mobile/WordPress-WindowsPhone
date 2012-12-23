@@ -339,14 +339,20 @@ namespace WordPress
 
         public void UpdateFeaturedImage(Media featuredImage)
         {
-            foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+            if (featuredImage.IsFeatured)
             {
-                m.IsFeatured = m.Equals(featuredImage);
+                foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+                {
+                    m.IsFeatured = m.Equals(featuredImage);
+                }
             }
+
+            //update the UI
             foreach (Canvas c in imageWrapPanel.Children)
             {
                 Image img = (Image)c.Children[1];
-                if (c.Tag.Equals(featuredImage))
+                Media current_media = (Media)c.Tag;
+                if (current_media.IsFeatured)
                 {
                     img.Visibility = Visibility.Visible;
                 }
@@ -771,7 +777,7 @@ namespace WordPress
             canvas.Children.Add(imageOuterButton);
             canvas.Children.Add(img);
             canvas.Tag = currentMedia;
-
+            
             Canvas.SetTop(img, (height - 45));
             Canvas.SetLeft(img, (width - 45));
 

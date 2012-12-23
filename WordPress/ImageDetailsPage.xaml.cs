@@ -22,7 +22,6 @@ namespace WordPress
         private ApplicationBarIconButton _unfeatureIconButton;
         private List<string> _positionListOptions;
         private bool isMarkedForRemoval = false;
-        private bool isMarkedFeatured = false;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
 
         public ImageDetailsPage()
@@ -65,7 +64,7 @@ namespace WordPress
             ApplicationBar.Buttons.Add(_positionIconButton);
             if (App.MasterViewModel.CurrentBlog.SupportsFeaturedImage() && TappedImage.CanBeFeatured)
             {
-                if (isMarkedFeatured)
+                if (TappedImage.IsFeatured)
                 {
                     ApplicationBar.Buttons.Add(_unfeatureIconButton);
                 }
@@ -96,13 +95,13 @@ namespace WordPress
 
         void featureIconButton_Click(object sender, EventArgs e)
         {
-            isMarkedFeatured = true;
+            TappedImage.IsFeatured = true;
             setupApplicationBar();
         }
 
         void unfeatureIconButton_Click(object sender, EventArgs e)
         {
-            isMarkedFeatured = false;
+            TappedImage.IsFeatured = false;
             setupApplicationBar();
         }
 
@@ -136,7 +135,6 @@ namespace WordPress
             base.OnNavigatedTo(e);
             BitmapImage tn = new BitmapImage();
             Stream stream = TappedImage.getImageStream();
-            isMarkedFeatured = TappedImage.IsFeatured;
             tn.SetSource(stream);
             ImageObeject.Source = tn;
             setupApplicationBar();
@@ -158,8 +156,7 @@ namespace WordPress
                     (e.Content as EditPagePage).removeImage(TappedImage);
                 }
             }
-
-            if (isMarkedFeatured)
+            else
             {
                 if (e.Content is EditPostPage)
                 {
