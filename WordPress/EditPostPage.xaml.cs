@@ -103,12 +103,6 @@ namespace WordPress
             featuredImage.Source = new BitmapImage(new Uri(post.FeaturedImage.Thumbnail));
         }
 
-        private void OnFeaturedImageFailed(object sender, EventArgs args)
-        {
-            featuredImage.Visibility = Visibility.Collapsed;
-            featuredImageError.Visibility = Visibility.Visible;
-        }
-
         private void OnGetMediaItemRPCCompleted(object sender, XMLRPCCompletedEventArgs<MediaItem> args)
         {
             _mediaItemRPC.Completed -= OnGetMediaItemRPCCompleted;
@@ -133,7 +127,10 @@ namespace WordPress
                 //Error!
                 featuredImage.Visibility = Visibility.Collapsed;
                 featuredImageError.Visibility = Visibility.Visible;
-                featuredImageError.Text = args.Error.Message;
+                if (args.Error.Message != null)
+                    featuredImageError.Text = args.Error.Message;
+                else
+                    featuredImageError.Text = "Something went wrong while loading the featured image";
             }
         }
 
@@ -809,7 +806,7 @@ namespace WordPress
             post.Media.Remove(imageToRemove);
             foreach (var el in imageWrapPanel.Children)
             {
-                if ((el as Control).Tag == imageToRemove)
+                if ((el as FrameworkElement).Tag == imageToRemove)
                 {
                     imageWrapPanel.Children.Remove(el);
                     break;
