@@ -593,8 +593,9 @@ namespace WordPress
                     {
                         blog.LocalPostDrafts.Add(post);
                     }
-                    // Exit post editor
-                    NavigationService.GoBack();
+                    // Exit post editor if the app was not lauched from the sharing feature.
+                    if(NavigationService.CanGoBack)
+                        NavigationService.GoBack();
                 }
             }
             else
@@ -627,7 +628,8 @@ namespace WordPress
             {
                 cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
-                NavigationService.GoBack();
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
             }
             else
             {
@@ -659,7 +661,8 @@ namespace WordPress
             {
                 cleanupPostMedia();
                 DataService.Current.FetchCurrentBlogPostsAsync(false);
-                NavigationService.GoBack();
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
             }
             else
             {
