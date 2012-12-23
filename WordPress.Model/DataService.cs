@@ -190,7 +190,14 @@ namespace WordPress.Model
                 {
                     if (null != Blogs && 0 < Blogs.Count)
                     {
-                        CurrentBlog = Blogs.Single(b => b.Xmlrpc == result.Xmlrpc);
+                        try
+                        {
+                            CurrentBlog = Blogs.Single(b => b.Xmlrpc == result.Xmlrpc);
+                        }
+                        catch (Exception)
+                        {
+                            return;
+                        }
                     }
                 }
                 CurrentComment = result.Comment;
