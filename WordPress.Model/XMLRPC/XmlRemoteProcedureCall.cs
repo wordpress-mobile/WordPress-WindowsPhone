@@ -28,6 +28,7 @@ namespace WordPress.Model
         private SendOrPostCallback onCompletedDelegate;
         private Dictionary<object, object> userStateToLifetime = new Dictionary<object, object>();
         public bool IsCancelled { get; set; }
+        private bool _isFinished = false;
         #endregion
 
         #region events
@@ -168,17 +169,20 @@ namespace WordPress.Model
         //has completed.
         protected void CompletionMethod(List<T> items, Exception exception, bool canceled, AsyncOperation asyncOp)
         {
-            if (!canceled)
+            lock (_syncRoot)
             {
-                lock (_syncRoot)
+                if (_isFinished == true) return; //Fix for #186
+                _isFinished = true;
+
+                if (!canceled)
                 {
+
                     if (userStateToLifetime.ContainsKey(asyncOp.UserSuppliedState))
                     {
                         userStateToLifetime.Remove(asyncOp.UserSuppliedState);
                     }
                 }
             }
-
             //package the results of the operation in an XMLRPCCompletedEventArgs object
             XMLRPCCompletedEventArgs<T> args = new XMLRPCCompletedEventArgs<T>(items, exception, canceled, asyncOp.UserSuppliedState);
 
