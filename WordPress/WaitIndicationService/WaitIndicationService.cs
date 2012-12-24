@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -213,15 +214,17 @@ namespace WordPress
 
         public void KillSpinner()
         {
-            if (null != _rootVisual && null != _currentWaitElement)
+            UIThread.Invoke(() =>
             {
-                _rootVisual.Children.Remove(_currentWaitElement);
-                _rootVisual.SizeChanged -= OnSizeChanged;
-                _currentWaitElement = null;
-            }
+                if (null != _rootVisual && null != _currentWaitElement)
+                {
+                    _rootVisual.Children.Remove(_currentWaitElement);
+                    _rootVisual.SizeChanged -= OnSizeChanged;
+                    _currentWaitElement = null;
+                }
+            });
             Waiting = false;
         }
-
         #endregion
     }
 }
