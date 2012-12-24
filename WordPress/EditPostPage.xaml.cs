@@ -176,16 +176,16 @@ namespace WordPress
                 {
                     webRequest.BeginGetRequestStream(ar =>
                         {
-                            var requestStream = webRequest.EndGetRequestStream(ar);
-                            // Add the post data to the web request
-                            string postData = "log=" + HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Username)
-                                + "&pwd=" + HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Password)
-                                + "&redirect_to=" + HttpUtility.UrlEncode(url);
-                            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-                            requestStream.Write(byteArray, 0, byteArray.Length);
-                            requestStream.Close();
                             try
                             {
+                                var requestStream = webRequest.EndGetRequestStream(ar);
+                                // Add the post data to the web request
+                                string postData = "log=" + HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Username)
+                                    + "&pwd=" + HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Password)
+                                    + "&redirect_to=" + HttpUtility.UrlEncode(url);
+                                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+                                requestStream.Write(byteArray, 0, byteArray.Length);
+                                requestStream.Close();
                                 webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
                             }
                             catch (Exception ex)
@@ -202,8 +202,15 @@ namespace WordPress
             else
             {
                 System.Uri targetUri = new System.Uri(url);
-                webRequest = (HttpWebRequest)HttpWebRequest.Create(targetUri);
-                webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
+                try
+                {
+                    webRequest = (HttpWebRequest)HttpWebRequest.Create(targetUri);
+                    webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
+                }
+                catch (Exception ex)
+                {
+                    showFeaturedImageLoadingError(ex);
+                }
             }
         }
 
