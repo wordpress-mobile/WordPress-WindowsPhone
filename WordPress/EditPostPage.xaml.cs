@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +18,7 @@ using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Settings;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -74,7 +76,34 @@ namespace WordPress
 
         #endregion
 
-        #region methods
+        #region Featured Image methods
+
+        //called from ImageDetailsPage
+        public void UpdateFeaturedImage(Media featuredImage)
+        {
+            if (featuredImage.IsFeatured)
+            {
+                foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+                {
+                    m.IsFeatured = m.Equals(featuredImage);
+                }
+            }
+
+            //update the UI
+            foreach (Canvas c in imageWrapPanel.Children)
+            {
+                Image img = (Image)c.Children[1];
+                Media current_media = (Media)c.Tag;
+                if (current_media.IsFeatured)
+                {
+                    img.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    img.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
 
         private void SetupFeaturedImage()
         {
@@ -100,9 +129,9 @@ namespace WordPress
             }
 
             // Load the featured image.
-            featuredImage.Source = new BitmapImage(new Uri(post.FeaturedImage.Thumbnail));
+            loadFeaturedImageFromURL(post.FeaturedImage.Thumbnail);
         }
-
+        
         private void OnGetMediaItemRPCCompleted(object sender, XMLRPCCompletedEventArgs<MediaItem> args)
         {
             _mediaItemRPC.Completed -= OnGetMediaItemRPCCompleted;
@@ -125,13 +154,101 @@ namespace WordPress
             else
             {
                 //Error!
+                showFeaturedImageLoadingError(args.Error);
+            }
+        }
+
+        //WP.COM private blog. 
+        private void loadFeaturedImageFromURL(string url)
+        {
+            HttpWebRequest webRequest = null;
+            if (App.MasterViewModel.CurrentBlog.isPrivate())
+            {
+                string loginURL = App.MasterViewModel.CurrentBlog.loginURL();
+                webRequest = (HttpWebRequest)WebRequest.Create(loginURL);
+                webRequest.Method = "POST";
+                webRequest.ContentType = "application/x-www-form-urlencoded";
+                webRequest.Accept = "*/*";
+                webRequest.UserAgent = Constants.WORDPRESS_USERAGENT;
+                webRequest.AllowAutoRedirect = true;
+
+                try
+                {
+                    webRequest.BeginGetRequestStream(ar =>
+                        {
+                            var requestStream = webRequest.EndGetRequestStream(ar);
+                            // Add the post data to the web request
+                            string postData = "log=" + HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Username)
+                                + "&pwd=" + HttpUtility.UrlEncode(App.MasterViewModel.CurrentBlog.Password)
+                                + "&redirect_to=" + HttpUtility.UrlEncode(url);
+                            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+                            requestStream.Write(byteArray, 0, byteArray.Length);
+                            requestStream.Close();
+                            try
+                            {
+                                webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
+                            }
+                            catch (Exception ex)
+                            {
+                                showFeaturedImageLoadingError(ex);
+                            }
+                        }, null);
+                }
+                catch (Exception ex)
+                {
+                    showFeaturedImageLoadingError(ex);
+                }
+            }
+            else
+            {
+                System.Uri targetUri = new System.Uri(url);
+                webRequest = (HttpWebRequest)HttpWebRequest.Create(targetUri);
+                webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
+            }
+        }
+
+        private void loadFeaturedImageFromURLRequestCallback(IAsyncResult callbackResult)
+        {
+            HttpWebRequest myRequest = (HttpWebRequest)callbackResult.AsyncState;
+            HttpWebResponse myResponse = null;
+            try
+            {
+                myResponse = (HttpWebResponse)myRequest.EndGetResponse(callbackResult);
+            }
+            catch (WebException ex)
+            {
+                showFeaturedImageLoadingError(ex);
+                return;
+            }
+
+            UIThread.Invoke(() =>
+            {
+                var bitmap = new BitmapImage();
+                try
+                {
+                    bitmap.SetSource(myResponse.GetResponseStream());
+                    myResponse.Close();
+                }
+                catch(Exception ex)
+                {
+                    showFeaturedImageLoadingError(ex);
+                    return;
+                }
+                featuredImage.Source = bitmap;
+            });
+        }
+
+        private void showFeaturedImageLoadingError(Exception ex)
+        {
+            UIThread.Invoke(() =>
+            {
                 featuredImage.Visibility = Visibility.Collapsed;
                 featuredImageError.Visibility = Visibility.Visible;
-                if (args.Error.Message != null)
-                    featuredImageError.Text = args.Error.Message;
+                if (ex != null && ex.Message != null)
+                    featuredImageError.Text = "Sorry, something went wrong while loading the image.\n"+ex.Message;
                 else
-                    featuredImageError.Text = "Something went wrong while loading the featured image";
-            }
+                    featuredImageError.Text = "Sorry, something went wrong while loading the image.";
+            });
         }
 
         private void OnRemoveFeaturedImageButtonClicked(object sender, EventArgs args)
@@ -142,6 +259,10 @@ namespace WordPress
 
             SetupFeaturedImage();
         }
+
+        #endregion
+
+        #region methods
 
         private void OnPageLoaded(object sender, EventArgs args)
         {
@@ -333,32 +454,6 @@ namespace WordPress
                     // blog selection page will be in the backstack, but if the user hits Back they should leave the app
                     // and return to the photo that they were sharing (e.g., so they can share it on another service)
                     NavigationService.RemoveBackEntry();
-                }
-            }
-        }
-
-        public void UpdateFeaturedImage(Media featuredImage)
-        {
-            if (featuredImage.IsFeatured)
-            {
-                foreach (Media m in App.MasterViewModel.CurrentPost.Media)
-                {
-                    m.IsFeatured = m.Equals(featuredImage);
-                }
-            }
-
-            //update the UI
-            foreach (Canvas c in imageWrapPanel.Children)
-            {
-                Image img = (Image)c.Children[1];
-                Media current_media = (Media)c.Tag;
-                if (current_media.IsFeatured)
-                {
-                    img.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    img.Visibility = Visibility.Collapsed;
                 }
             }
         }

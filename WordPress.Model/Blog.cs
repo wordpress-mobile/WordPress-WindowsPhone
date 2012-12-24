@@ -539,6 +539,38 @@ namespace WordPress.Model
             }
             return false;
         }
+
+        public bool isWPcom()
+        {
+            if (_xmlrpc.Contains("wordpress.com"))
+                return true;
+
+            return false;
+        }
+
+        public bool isPrivate()
+        {
+
+            if (this.isWPcom() == false)
+                return false;
+            
+            bool isPrivateBlog = false;
+            
+            foreach (Option o in Options)
+            {
+                if (o.Name.Equals("blog_public"))
+                {
+                    if (o.Value.Equals("-1"))
+                        isPrivateBlog = true;
+                }
+            }
+
+            return isPrivateBlog;
+        }
+        public string loginURL()
+        {
+            return _xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
+        }
         #endregion
     }
 }

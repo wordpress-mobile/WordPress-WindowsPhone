@@ -24,6 +24,7 @@ RELEASE INSTRUCTIONS
 - Verify that there're not instances of :
 <value></value>
 - Update the release number in AssemblyInfo.cs
+- Update the User Agent String in Constants.cs
 - Change the configuration to Release and build for Win7
 
 

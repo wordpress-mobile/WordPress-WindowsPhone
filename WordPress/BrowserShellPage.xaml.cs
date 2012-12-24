@@ -116,14 +116,14 @@ namespace WordPress
         }
 
         private void startLoadingPostUsingLoginForm() {
-            string xmlrpcURL = App.MasterViewModel.CurrentBlog.Xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
+          
                   
             string responseContent = "<head>"
              + "<script type=\"text/javascript\">"
              + "function submitform(){document.loginform.submit();} </script>"
              + "</head>"
              + "<body onload=\"submitform()\">"
-             + "<form style=\"visibility:hidden;\" name=\"loginform\" id=\"loginform\" action=\"" + xmlrpcURL + "\" method=\"post\">"
+             + "<form style=\"visibility:hidden;\" name=\"loginform\" id=\"loginform\" action=\"" + App.MasterViewModel.CurrentBlog.loginURL() + "\" method=\"post\">"
              + "<input type=\"text\" name=\"log\" id=\"user_login\" value=\"" + App.MasterViewModel.CurrentBlog.Username + "\"/></label>"
              + "<input type=\"password\" name=\"pwd\" id=\"user_pass\" value=\"" + App.MasterViewModel.CurrentBlog.Password + "\" /></label>"
              + "<input type=\"submit\" name=\"wp-submit\" id=\"wp-submit\" value=\"Log In\" />"

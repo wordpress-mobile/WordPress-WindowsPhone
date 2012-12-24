@@ -111,7 +111,7 @@
                 <TextBlock Grid.Row="6" x:Name="featuredImageHeader" Text="{Binding ControlsText.FeaturedImage, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
                 <StackPanel Grid.Row="7" x:Name="featuredImagePanel" Orientation="Vertical">
                     <Image x:Name="featuredImage" HorizontalAlignment="Center" Width="150" Margin="10,5" />
-                    <TextBlock x:Name="featuredImageError" Style="{StaticResource LabelTextBlockStyle}" Visibility="Collapsed" Height="30"  HorizontalAlignment="Left" Text="{Binding ControlsText.FeaturedImageError, Source={StaticResource StringTable}}" />
+                    <TextBox x:Name="featuredImageError" Style="{StaticResource TextBoxStyle}" Visibility="Collapsed" HorizontalAlignment="Left" Text="{Binding ControlsText.FeaturedImageError, Source={StaticResource StringTable}}" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True"/>
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="removeFeaturedImageButton" Content="{Binding Path=ControlsText.Remove, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Click="OnRemoveFeaturedImageButtonClicked"/>
                     </StackPanel>
