@@ -46,11 +46,29 @@ namespace WordPress
         private void OnBrowserLoaded(object sender, RoutedEventArgs e)
         {
             this.DebugLog("OnBrowserLoaded");
-            if ( string.IsNullOrEmpty(_targetURL) ) return; //no target URL defined
+
+            if (string.IsNullOrEmpty(_targetURL)) //no target URL defined
+            {
+                MessageBox.Show("Can't open the page.\nNo target URL defined.");
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
+                return;
+            }
+
+            //Check that _targetURL is a valid URI
+            Uri testUri;
+            bool canExecute = Uri.TryCreate(_targetURL, UriKind.Absolute, out testUri);
+            if(!canExecute)
+            {
+                MessageBox.Show("Can't open the page.\nInvalid address: "+_targetURL);
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
+                return;
+            }
 
             if (string.IsNullOrEmpty(_requireLogin) )
             {
-                browser.Navigate(new Uri(_targetURL, UriKind.Absolute));
+                browser.Navigate(testUri);
             }
             else
             {
