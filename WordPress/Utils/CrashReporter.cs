@@ -1,13 +1,12 @@
 ﻿// See http://blogs.msdn.com/b/andypennell/archive/2010/11/01/error-reporting-on-windows-phone-7.aspx
 using Microsoft.Phone.Tasks;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using WordPress.Model;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace WordPress.Utils
 {
@@ -15,7 +14,7 @@ namespace WordPress.Utils
     {
         const string filename = "CrashReporterLog.txt";
 
-        internal static void ReportException(Exception ex, string extra)
+        internal static void ReportException(Exception ex, string source)
         {
             try
             {
@@ -24,25 +23,45 @@ namespace WordPress.Utils
                     SafeDeleteFile(store);
                     using (TextWriter output = new StreamWriter(store.CreateFile(filename)))
                     {
-                        output.WriteLine("Please describe what you were doing when the app crashed:\n");
-                        output.WriteLine("\n\n");
-                        if (extra != null)
+                        output.WriteLine("Please describe what you were doing when the app crashed:");
+                        output.WriteLine("\n");
+                        
+                        output.WriteLine("\n--------------\n");
+
+                        try
                         {
-                            output.WriteLine("Extra Info: \n");
-                            output.WriteLine(extra);
-                            output.WriteLine("--------------\n\n");
+                            output.WriteLine("Extra Info:");
+                            string app_version = System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0];
+                            output.WriteLine("App Version: " + app_version);
+                            string device_language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+                            output.WriteLine("Device Language: " + device_language);
+                            string mobile_network_type = NetworkInterface.NetworkInterfaceType.ToString();
+                            output.WriteLine("Network Type: " + mobile_network_type);
+                            string device_version = System.Environment.OSVersion.ToString().Replace("Microsoft Windows CE ", "");
+                            output.WriteLine("Device Version: " + device_version);
+                            output.WriteLine("\n--------------\n");
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+                        if (source != null)
+                        {
+                            output.WriteLine("Source Info:");
+                            output.WriteLine(source);
+                            output.WriteLine("\n--------------\n");
                         }
                         if (ex != null && ex.Message != null)
                         {
-                            output.WriteLine("Message: \n");
+                            output.WriteLine("Message:");
                             output.WriteLine(ex.Message);
-                            output.WriteLine("--------------\n\n");
+                            output.WriteLine("\n--------------\n");
                         }
                         if (ex != null && ex.StackTrace != null)
                         {
                             output.WriteLine("Stack Trace: \n");
                             output.WriteLine(ex.StackTrace);
-                            output.WriteLine("--------------\n\n");
+                            output.WriteLine("\n--------------\n");
                         }
                     }
                 }
