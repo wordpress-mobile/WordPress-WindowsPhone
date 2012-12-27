@@ -117,114 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ControlText_Publish" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_Tags" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Title_ModerateComment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Title_ModerateComments" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_EULA" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_CopyErrorMessage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Messages_ContentCopied" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Messages_Info" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Messages_InvalidCredentials" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Messages_MissingFields" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_ViewStats" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_PostStatus" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_PublishDate" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_Draft" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_PendingReview" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_Scheduled" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_PreserveBandwidth" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_Remove" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompts_Comment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompts_Comments" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompts_Confirm" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompt_ConfirmDeleteComment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompt_ConfirmDeleteCommentsFormat" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompt_ConfirmMarkSpamComment" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompt_ConfirmMarkSpamCommentsFormat" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompts_NoConnectionError" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Title_Error" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_Categories" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_TagsHelpText" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_LocalDraft" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_Private" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Prompts_MediaPlacement" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ControlText_PostFormat" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlText_Back" xml:space="preserve">
     <value>retour</value>
   </data>
@@ -788,8 +680,5 @@
   </data>
   <data name="ControlText_AddBlog" xml:space="preserve">
     <value>ajouter un blog</value>
-  </data>
-  <data name="ControlText_Reader" xml:space="preserve">
-    <value />
   </data>
 </root>

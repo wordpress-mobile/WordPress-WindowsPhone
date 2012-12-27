@@ -18,11 +18,13 @@ RELEASE INSTRUCTIONS
 - Upload the English resx file to GlotPress http://translate.wordpress.org/projects/wordpress-for-windows-phone/development/
 (Note: upload the resx file to the development branch, otherwise you will not see new strings).
 - Ping translators on http://make.wordpress.org/polyglots/
-- Download the translated strings from GlotPress, rename each files with the correct name.
+- For each language apply the filter "translated only" and export the file. Do not export untraslated strings.
+- Rename each files with the correct name.
 - Open each file with Notepad++ (no Word, WordPad or derivates) and add the 'resheader' tag just below '<root>' (it's a big blog of text).
-- Open each file in VS, do a small edit, and re-save it.
+- Open each file in VS and remove empty strings.
 - Verify that there're not instances of :
-<value></value>
+<value></value> of <value />
+See #188
 - Update the release number in AssemblyInfo.cs
 - Update the User Agent String in Constants.cs
 - Change the configuration to Release and build for Win7

@@ -171,9 +171,6 @@
   <data name="Title_ModerateComments" xml:space="preserve">
     <value>commenti</value>
   </data>
-  <data name="ControlText_EULA" xml:space="preserve">
-    <value />
-  </data>
   <data name="ControlText_CopyErrorMessage" xml:space="preserve">
     <value>Copia Messaggio di Errore</value>
   </data>
