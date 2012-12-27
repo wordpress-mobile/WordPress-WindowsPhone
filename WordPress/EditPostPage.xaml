@@ -147,7 +147,7 @@
                 <Rectangle Grid.Row="19" Margin="10,5"/>
                 <Rectangle Grid.Row="20" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
                 <TextBlock Grid.Row="20" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="21" x:Name="statusPicker" Margin="10,0,10,10"/>
+                <toolkit:ListPicker Grid.Row="21" x:Name="statusPicker" Margin="8,0,8,10"/>
 
                 <!-- Post Format -->
                 <Rectangle Grid.Row="22" Margin="10,5"/>
@@ -155,7 +155,7 @@
                 <TextBlock Grid.Row="23" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
                 <toolkit:ListPicker Grid.Row="24" 
                                     x:Name="postFormatsPicker" 
-                                    Margin="10,0,10,10" 
+                                    Margin="8,0,8,10" 
                                     ItemTemplate="{StaticResource PickerItemTemplate}" 
                                     FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}"   
                                     FullModeHeader="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}"

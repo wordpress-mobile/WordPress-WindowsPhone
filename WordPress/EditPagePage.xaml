@@ -90,7 +90,7 @@
                 <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=OneWay, Converter={StaticResource PostContentConverter}}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" Tap="OnContentTextBoxTap"/>
 
                 <Rectangle Grid.Row="5" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="5" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
+                <TextBlock Grid.Row="5" Text="{Binding Path=ControlsText.Media, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
                 <StackPanel Grid.Row="6" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
@@ -100,10 +100,10 @@
 
                 <Rectangle Grid.Row="8" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
                 <TextBlock Grid.Row="8" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="9" x:Name="statusPicker" Margin="10,0,10,10"/>
+                <toolkit:ListPicker Grid.Row="9" x:Name="statusPicker" Margin="8,0,8,10"/>
 
                 <Rectangle Grid.Row="10" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="10" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" />
+                <TextBlock Grid.Row="10" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
                 <StackPanel Grid.Row="11">
                     <Grid>
                         <Grid.ColumnDefinitions>
