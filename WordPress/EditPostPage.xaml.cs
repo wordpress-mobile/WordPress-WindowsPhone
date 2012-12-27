@@ -200,10 +200,10 @@ namespace WordPress
                 }
             }
             else
-            {
-                System.Uri targetUri = new System.Uri(url);
+            { //Not a .com private blog
                 try
                 {
+                    System.Uri targetUri = new System.Uri(url);
                     webRequest = (HttpWebRequest)HttpWebRequest.Create(targetUri);
                     webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
                 }
