@@ -119,8 +119,6 @@ namespace WordPress
 
             if (post.FeaturedImage == null)
             {
-
-                featuredImage.Source = new BitmapImage(new Uri("Images/gravatar.png", UriKind.Relative)); 
                 // Get the URL for the featured image.
                 _mediaItemRPC = new GetMediaItemRPC(App.MasterViewModel.CurrentBlog, post.PostThumbnail);
                 _mediaItemRPC.Completed += OnGetMediaItemRPCCompleted;

@@ -56,6 +56,7 @@
       <HintPath>..\packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Phone.Reactive" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -333,6 +334,7 @@
     <Content Include="Images\appbar.unfeature.png" />
     <Content Include="Images\appbar.unpin.png" />
     <Content Include="Images\appbar.upload.png" />
+    <Content Include="Images\featuredPlaceholder.png" />
     <Content Include="Images\gravatar.png" />
     <Content Include="Images\star.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
