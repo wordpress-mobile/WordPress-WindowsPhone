@@ -511,6 +511,7 @@ namespace WordPress
 
         private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            this.Focus();
             NavigationService.Navigate(new Uri("/EditContent.xaml", UriKind.Relative));
         }
 
