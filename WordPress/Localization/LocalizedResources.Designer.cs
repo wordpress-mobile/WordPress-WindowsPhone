@@ -799,7 +799,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Post Format.
+        ///   Looks up a localized string similar to post format.
         /// </summary>
         internal static string ControlText_PostFormat {
             get {

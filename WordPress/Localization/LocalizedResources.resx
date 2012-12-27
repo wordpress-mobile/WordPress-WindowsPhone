@@ -833,7 +833,7 @@
     <value>before content</value>
   </data>
   <data name="ControlText_PostFormat" xml:space="preserve">
-    <value>Post Format</value>
+    <value>post format</value>
   </data>
   <data name="Messages_NoBlogFoundAtThisURL" xml:space="preserve">
     <value>You do not seem to have any blogs at {0}.</value>
