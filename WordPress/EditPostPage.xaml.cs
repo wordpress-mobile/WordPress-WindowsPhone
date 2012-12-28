@@ -532,7 +532,7 @@ namespace WordPress
             if (0 >= post.Media.Count)
             {
                 //check the content
-                if (titleTextBox.Text.Trim() == "" && contentTextBox.Text.Trim() == "")
+                if (titleTextBox.Text.Trim() == "" && post.Description.Trim() == "")
                 {
                     MessageBox.Show(
                         string.Format(_localizedStrings.Messages.TitleAndContentEmpty, _localizedStrings.Prompts.Post),
