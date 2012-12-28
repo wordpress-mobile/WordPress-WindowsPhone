@@ -379,34 +379,26 @@ namespace WordPress.Model
             }
         }
 
-
         protected XDocument cleanAndParseServerResponse(String responseContent)
         {
-            string originalServerResponse = null; //Keep copy of the server response "as-is", without cleaning it.
-            if (!String.IsNullOrEmpty(responseContent))
-            {
-                originalServerResponse = String.Copy(responseContent);
-                //responseContent += "<<";
-                //this.DebugLog("XML-RPC response: " + responseContent);
-                //note: We are not removing 'non-utf-8 characters'. We are removing utf-8 characters that may not appear in well-formed XML documents.
-                string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
-                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-                if (regex.IsMatch(responseContent))
-                {
-                    this.DebugLog("found characters that must not appear in the XML-RPC response");
-                    responseContent = regex.Replace(responseContent, String.Empty);
-                }
+            if (String.IsNullOrEmpty(responseContent))
+                throw new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE);
 
-                if (!responseContent.StartsWith("<?xml"))
-                {
-                    //clean the junk b4 the xml preamble
-                    this.DebugLog("cleaning the junk before the xml preamble");
-                    int indexOfFirstLt = responseContent.IndexOf("<?xml");
-                    if( indexOfFirstLt > -1 )
-                        responseContent = responseContent.Substring(indexOfFirstLt);
-                }
+            //responseContent += "<<";
+            //this.DebugLog("XML-RPC response: " + responseContent);
+
+            string originalServerResponse = String.Copy(responseContent);  //Keep copy of the server response "as-is", without cleaning it.
+            Exception originalException = null;  // If the recovery fails we should throw the original exception.
+           
+            if (!responseContent.StartsWith("<?xml"))
+            {
+                //clean the junk b4 the xml preamble
+                this.DebugLog("cleaning the junk before the xml preamble");
+                int indexOfFirstLt = responseContent.IndexOf("<?xml");
+                if (indexOfFirstLt > -1)
+                    responseContent = responseContent.Substring(indexOfFirstLt);
             }
-            //search for fault code/fault string
+            
             XDocument xDoc = null;
             try
             {
@@ -414,21 +406,41 @@ namespace WordPress.Model
             }
             catch (Exception ex)
             {
-                //something went wrong during the parsing process we'd like to recover the error.
-
+                //something went wrong during the parsing process.
                 this.DebugLog("Parser error: " + ex.Message); //this is the original error, that should not be shown to the user.
-                //Keep track of the original exception by adding the response from the server. If the recovery fails we should throw this exception.
-                if (!String.IsNullOrEmpty(originalServerResponse))
-                {
-                    ex = new Exception("\n Server Response --> " + originalServerResponse, ex);
-                }
+                //Keep track of the original exception by adding the response from the server. If the recovery fails we should throw this exception
+               originalException = new Exception("\n Server Response --> " + originalServerResponse, ex);
+               xDoc = null;
+            }
 
-                //we are crazy <-- so true!
+            if (xDoc != null)
+                return xDoc;
+
+            //Start the recovery process if the parser failed.
+
+            //Remove UTF-8 characters that may not appear in well-formed XML documents
+            string pattern = @"#x((10?|[2-F])FFF[EF]|FDD[0-9A-F]|[19][0-9A-F]|7F|8[0-46-9A-F]|0?[1-8BCEF])";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            if (regex.IsMatch(responseContent))
+            {
+                this.DebugLog("found characters that must not appear in the XML-RPC response");
+                responseContent = regex.Replace(responseContent, String.Empty);
+            }
+
+            //Add here additional cleaning functions
+
+            try
+            {
+                xDoc = XDocument.Parse(responseContent, LoadOptions.None);
+            }
+            catch (Exception)
+            {
+                //If the parser failed again, try to fix the response document.
                 if (responseContent.Contains("<fault>"))
                 {
                     int startIndex = responseContent.IndexOf("<struct>");
                     int lastIndex = responseContent.LastIndexOf("</struct>");
-                    if( startIndex != -1 && lastIndex != -1 && startIndex > lastIndex )
+                    if (startIndex != -1 && lastIndex != -1 && startIndex > lastIndex)
                         responseContent = "<methodResponse><fault><value>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</struct></value></fault</methodResponse>";
                 }
                 else
@@ -438,17 +450,18 @@ namespace WordPress.Model
                     if (startIndex != -1 && lastIndex != -1 && startIndex > lastIndex)
                         responseContent = "<methodResponse><params><param>" + responseContent.Substring(startIndex, lastIndex - startIndex) + "</value></param></params></methodResponse>";
                 }
+
                 //Try to re-parse the content once again
                 xDoc = null;
                 try
                 {
                     xDoc = XDocument.Parse(responseContent, LoadOptions.None);
                 }
-                catch (Exception ex2)
+                catch (Exception)
                 {
-                    //Error recovery failed!!
-                    //Original Exception should be thrown when the error recovery fails...
-                    Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, ex);
+                    //We're sorry but the server replied with a wrong XML-RPC document that the app can't recover
+                    //Original Exception should be thrown here.
+                    Exception exception = new XmlRPCParserException(XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_CODE, XmlRPCResponseConstants.SERVER_RETURNED_INVALID_XML_RPC_MESSAGE, originalException);
                     throw exception;
                 }
             }
