@@ -730,9 +730,11 @@ namespace WordPress
             if (null == args.Error)
             {
                 cleanupPostMedia();
-                DataService.Current.FetchCurrentBlogPostsAsync(false);
                 if (NavigationService.CanGoBack)
+                {
+                    DataService.Current.FetchCurrentBlogPostsAsync(false);
                     NavigationService.GoBack();
+                }
                 else
                     throw new ApplicationShouldEndException();
             }

@@ -38,6 +38,7 @@ namespace WordPress.Model
 
         private bool _hasOlderPosts = true;
         private bool _hasOlderComments = true;
+        private bool _hasOlderPages = true;
 
         private int _loadingIndicatorCounter = 0;
         private static object _syncRoot = new object();
@@ -321,6 +322,17 @@ namespace WordPress.Model
             internal set
             {
                 _hasOlderPosts = value;
+            }
+        }
+
+        [XmlIgnore]
+        public bool HasOlderPages
+        {
+            get { return _hasOlderPages; }
+
+            internal set
+            {
+                _hasOlderPages = value;
             }
         }
 

@@ -389,7 +389,7 @@ namespace WordPress.Model
             }
         }
 
-        public bool FetchCurrentBlogPagesAsync()
+        public bool FetchCurrentBlogPagesAsync(bool more)
         {
             if (null == CurrentBlog)
             {
@@ -401,9 +401,29 @@ namespace WordPress.Model
             if (_trackedBlogs.Contains(CurrentBlog)) return false;
 
             CurrentBlog.showLoadingIndicator();
+
+            int numerberOfPages = 0;
+            if (more)
+            {
+                numerberOfPages = Math.Max(CurrentBlog.PageListItems.Count, CHUNK_SIZE);
+                if (CurrentBlog.HasOlderPages)
+                    numerberOfPages += CHUNK_SIZE;
+                else
+                {
+                    //removing this block you will enable the refresh of pages when reached the end of the list and no more pages are available
+                    CurrentBlog.hideLoadingIndicator();
+                    return false;
+                }
+            }
+            else
+            {
+                numerberOfPages = CHUNK_SIZE;
+            }
+
+
             CurrentBlog.IsLoadingPages = true;
-            
             GetPageListRPC rpc = new GetPageListRPC(CurrentBlog);
+            rpc.NumberOfPages = numerberOfPages;
             rpc.Completed += OnFetchCurrentBlogPagesCompleted;
             rpc.ExecuteAsync();
             return true;
@@ -419,12 +439,26 @@ namespace WordPress.Model
 
             if (null == args.Error)
             {
+
+                int prevPagesCount = CurrentBlog.PageListItems.Count;
                 CurrentBlog.PageListItems.Clear();
 
+                // If we asked for more and we got what we had, there are no more posts to load
+                if (rpc.NumberOfPages > CHUNK_SIZE && (args.Items.Count <= prevPagesCount))
+                {
+                    CurrentBlog.HasOlderPages = false;
+                }
+                else if (rpc.NumberOfPages == CHUNK_SIZE)
+                {
+                    //we should reset the flag otherwise when you refresh this blog you can't get more than CHUNK_SIZE posts
+                    CurrentBlog.HasOlderPages = true;
+                }
+  
                 foreach (PageListItem item in args.Items)
                 {
                     CurrentBlog.PageListItems.Add(item);
                 }
+
                 CurrentBlog.addLocalPageDraftsToPostList();
                 NotifyFetchComplete();
             }

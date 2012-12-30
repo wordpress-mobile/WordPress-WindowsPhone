@@ -163,8 +163,8 @@
   <data name="wp_getOptions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\wp_getOptions.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
   </data>
-  <data name="wp_getPageList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>XMLRPC\wp_getPageList.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
+  <data name="wp_getPages" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>XMLRPC\wp_getPages.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>
   </data>
   <data name="wp_getPostFormats" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>XMLRPC\wp_getPostFormats.xml;System.String, mscorlib, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e;utf-8</value>

@@ -167,8 +167,7 @@ namespace WordPress
 
             Loaded += OnPageLoaded;
             postsScrollerView.Loaded += enableInfiniteScrolling;
-            //we don't need infinite scroll on page, since we are using wp.getPageList and not getPages
-            //pagesScrollerView.Loaded += enableInfiniteScrolling;
+            pagesScrollerView.Loaded += enableInfiniteScrolling;
             commentsScrollerView.Loaded += enableInfiniteScrolling;
         }
 
@@ -229,6 +228,11 @@ namespace WordPress
             else if (currScroller.Name == "pagesScrollerView")
             {
                 this.DebugLog("LoadingMorePages");
+
+                if (App.MasterViewModel.CurrentBlog.IsLoadingPages == true) return;
+
+                if (DataService.Current.FetchCurrentBlogPagesAsync(true))
+                    DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
             }
             else if (currScroller.Name == "commentsScrollerView")
             {
@@ -413,7 +417,7 @@ namespace WordPress
                 //The blog is already loading pages.
                 if (App.MasterViewModel.CurrentBlog.IsLoadingPages == true) return;
 
-                if (DataService.Current.FetchCurrentBlogPagesAsync())
+                if (DataService.Current.FetchCurrentBlogPagesAsync(false))
                     DataService.Current.ExceptionOccurred += OnDataStoreFetchExceptionOccurred;
             }
         }

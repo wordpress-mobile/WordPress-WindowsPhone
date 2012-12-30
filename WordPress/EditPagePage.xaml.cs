@@ -343,9 +343,11 @@ namespace WordPress
             if (null == args.Error)
             {
                 cleanupPostMedia();
-                DataService.Current.FetchCurrentBlogPagesAsync();
-                if (NavigationService.CanGoBack) 
+                if (NavigationService.CanGoBack)
+                {
+                    DataService.Current.FetchCurrentBlogPagesAsync(false);
                     NavigationService.GoBack();
+                }
                 else
                     throw new ApplicationShouldEndException();
             }
@@ -371,9 +373,11 @@ namespace WordPress
             if (null == args.Error)
             {
                 cleanupPostMedia();
-                DataService.Current.FetchCurrentBlogPagesAsync();
                 if (NavigationService.CanGoBack)
+                {
+                    DataService.Current.FetchCurrentBlogPagesAsync(false);
                     NavigationService.GoBack();
+                }
                 else
                     throw new ApplicationShouldEndException();
             }

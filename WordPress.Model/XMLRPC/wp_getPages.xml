@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <methodCall>
-  <methodName>wp.getPageList</methodName>
+  <methodName>wp.getPages</methodName>
   <params>
     <param>
       <value>
@@ -15,6 +15,11 @@
     <param>
       <value>
         <string>{2}</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <int>{3}</int>
       </value>
     </param>
   </params>

@@ -140,11 +140,11 @@
     <Content Include="XMLRPC\wp_getCommentCount.xml" />
     <Content Include="XMLRPC\wp_getComments.xml" />
     <None Include="XMLRPC\wp_getOptions.xml" />
-    <Content Include="XMLRPC\wp_getPageList.xml" />
     <None Include="XMLRPC\wp_getPostFormats.xml">
       <SubType>Designer</SubType>
     </None>
     <Content Include="XMLRPC\wp_getMediaItem.xml" />
+    <Content Include="XMLRPC\wp_getPages.xml" />
     <Content Include="XMLRPC\wp_getUsersBlogs.xml" />
     <Content Include="XMLRPC\wp_newCategory.xml" />
     <Content Include="XMLRPC\wp_newComment.xml" />

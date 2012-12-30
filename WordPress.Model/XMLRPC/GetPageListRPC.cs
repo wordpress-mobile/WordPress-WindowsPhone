@@ -10,23 +10,16 @@ namespace WordPress.Model
 
         private readonly string _content;
 
-        private const string METHODNAME_VALUE = "wp.getPageList";
+        private const string METHODNAME_VALUE = "wp.getPages";
 
         #endregion
 
         #region constructors
 
-        public GetPageListRPC()
-            : base()
-        {
-            _content = XMLRPCTable.wp_getPageList;
-            MethodName = METHODNAME_VALUE;
-        }
-
         public GetPageListRPC(Blog blog)
             : base(blog.Xmlrpc, METHODNAME_VALUE, blog.Username, blog.Password)
         {
-            _content = XMLRPCTable.wp_getPageList;
+            _content = XMLRPCTable.wp_getPages;
             BlogId = blog.BlogId;
         }
 
@@ -35,6 +28,8 @@ namespace WordPress.Model
         #region properties
 
         public int BlogId { get; set; }
+
+        public int NumberOfPages { get; set; }
 
         #endregion
 
@@ -55,7 +50,8 @@ namespace WordPress.Model
             string result = string.Format(_content, 
                 BlogId,
                 Credentials.UserName.HtmlEncode(),
-                Credentials.Password.HtmlEncode());
+                Credentials.Password.HtmlEncode(),
+                NumberOfPages);
             return result;
         }
 

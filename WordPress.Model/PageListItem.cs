@@ -21,11 +21,11 @@ namespace WordPress.Model
         private int _draftIndex = -1;
 
         private const string PAGEID_VALUE = "page_id";
-        private const string PAGETITLE_VALUE = "page_title";
-        private const string PAGEPARENTID_VALUE = "page_parent_id";
+        private const string PAGETITLE_VALUE = "title";
+        private const string PAGEPARENTID_VALUE = "wp_page_parent_id";
         private const string DATECREATED_VALUE = "dateCreated";
         private const string DATECREATEDGMT_VALUE = "date_created_gmt";
-        private const string POST_STATUS__VALUE = "post_status";
+        private const string PAGE_STATUS_VALUE = "page_status";
 
         #endregion
 
@@ -242,7 +242,7 @@ namespace WordPress.Model
                         _dateCreatedGMT = _dateCreated.ToUniversalTime();
                     }
                 }
-                else if (POST_STATUS__VALUE.Equals(memberName))
+                else if (PAGE_STATUS_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
                     _status = value.HtmlDecode();
