@@ -204,14 +204,14 @@
             	</TextBlock.Foreground>
             </TextBlock>
         </StackPanel>
-        <ScrollViewer x:Name="ContentPanel" Margin="12,0" Grid.Row="1" >
-            <StackPanel Orientation="Vertical" Width="456">
+        <ScrollViewer x:Name="ContentPanel" Grid.Row="1" >
+            <StackPanel Orientation="Vertical" >
                 <Border Background="{StaticResource SectionHeaderBackgroundBrush}">
-                    <TextBlock TextWrapping="Wrap" Text="{Binding ControlsText.AccountDetails, Source={StaticResource StringTable}}" 
+                    <TextBlock Margin="10,5" TextWrapping="Wrap" Text="{Binding ControlsText.AccountDetails, Source={StaticResource StringTable}}" 
 								FontSize="{StaticResource SectionHeaderFontSize}"
 								Foreground="{StaticResource WordPressBlueBrush}" />
                 </Border>
-                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+                <TextBlock Margin="10,10,10,0" TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
 							Text="{Binding ControlsText.Username, Source={StaticResource StringTable}}" 
 							Foreground="{StaticResource WordPressGreyBrush}"/>
                 <TextBox x:Name="usernameTextBox" 
@@ -221,7 +221,7 @@
                          Text="{Binding Username, Mode=TwoWay}" 
                          FontSize="{StaticResource ControlFontSize}"                          
                          />
-                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+                <TextBlock Margin="10,0" TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
 						Text="{Binding ControlsText.Password, Source={StaticResource StringTable}}"
 						Foreground="{StaticResource WordPressGreyBrush}"/>
                 <PasswordBox x:Name="passwordTextBox" 
@@ -230,7 +230,7 @@
                              Template="{StaticResource FocusedPasswordBoxTemplate}"
                              Password="{Binding Password, Mode=TwoWay}"
                              />
-                <TextBlock TextWrapping="Wrap" Text="{Binding ControlsText.Apikey, Source={StaticResource StringTable}}"
+                <TextBlock Margin="10,0" TextWrapping="Wrap" Text="{Binding ControlsText.Apikey, Source={StaticResource StringTable}}"
 							FontSize="{StaticResource ControlFontSize}" 
         					Foreground="{StaticResource WordPressGreyBrush}"/>
                 <PasswordBox x:Name="apikeyTextBox" 
@@ -240,7 +240,7 @@
                              Password="{Binding ApiKey, Mode=TwoWay}"
                             />
                 <Border Background="{StaticResource SectionHeaderBackgroundBrush}">
-                    <TextBlock Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" 
+                    <TextBlock Margin="10,5" Text="{Binding ControlsText.Media, Source={StaticResource StringTable}}" 
 								Foreground="{StaticResource WordPressBlueBrush}"
 								FontSize="{StaticResource SectionHeaderFontSize}"/>
                 </Border>
@@ -250,8 +250,8 @@
                           IsChecked="{Binding PreserveBandwidth, Mode=TwoWay}"
                           Foreground="{StaticResource WordPressGreyBrush}" 
                           Style="{StaticResource RightAlignedCheckbox}"
-                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="0,10"/>
-                <TextBlock Text="{Binding ControlsText.PlaceImage, Source={StaticResource StringTable}}"
+                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="10,10"/>
+                <TextBlock Margin="10,0" Text="{Binding ControlsText.PlaceImage, Source={StaticResource StringTable}}"
 								Foreground="{StaticResource WordPressGreyBrush}"
 								FontSize="{StaticResource ControlFontSize}"/>
                 <StackPanel Orientation="Horizontal">
@@ -278,14 +278,14 @@
                           IsChecked="{Binding AlignThumbnailToCenter, Mode=TwoWay}"
                           Foreground="{StaticResource WordPressGreyBrush}" 
                           Style="{StaticResource RightAlignedCheckbox}"
-                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="0,10"/>                
+                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="10,10"/>                
                 <CheckBox x:Name="uploadCheckBox" 
                           Content="{Binding ControlsText.UploadAndLinkToFullImage, Source={StaticResource StringTable}}" 
                           FontSize="{StaticResource ControlFontSize}"
                           IsChecked="{Binding CreateLinkToFullImage, Mode=TwoWay}"
                           Foreground="{StaticResource WordPressGreyBrush}"
                           Style="{StaticResource RightAlignedCheckbox}"
-                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="0,0,0,20"/>
+                          Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="10,0,10,20"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>
