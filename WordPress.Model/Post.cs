@@ -16,7 +16,7 @@ namespace WordPress.Model
         private DateTime _dateCreated;
         private string _userId;
         private string _postId;
-        private string _description;
+        private string _description = "";
         private string _title;
         private string _link;
         private string _permaLink;
