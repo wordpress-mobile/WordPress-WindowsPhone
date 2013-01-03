@@ -11,7 +11,7 @@
         public const string WORDPRESS_FAQ_URL = "http://windowsphone.wordpress.org/faq/";
         public const string WORDPRESS_CRASHREPORT_EMAIL = "windowsphone-crashreport@automattic.com";
         public const string WORDPRESS_DATEFORMAT = "yyyyMMddTH:mm:ss";
-        public const string WORDPRESS_USERAGENT = "wp-windowsphone/1.8.1";
+        public const string WORDPRESS_USERAGENT = "wp-windowsphone/1.9.0";
     }
 
     public class XmlRPCRequestConstants
