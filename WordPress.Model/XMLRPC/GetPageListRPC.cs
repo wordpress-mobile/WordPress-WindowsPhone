@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace WordPress.Model
 {
@@ -58,9 +59,13 @@ namespace WordPress.Model
         protected override List<PageListItem> ParseResponseContent(XDocument xDoc)
         {            
             List<PageListItem> result = new List<PageListItem>();
-            foreach (XElement structElement in xDoc.Descendants(XmlRPCResponseConstants.STRUCT))
+
+            XElement arrayElements = xDoc.Descendants(XmlRPCResponseConstants.ARRAY).First().Element(XmlRPCResponseConstants.DATA);
+
+            foreach (XElement arrayEl in arrayElements.Elements(XmlRPCResponseConstants.VALUE))
             {
-                PageListItem current = new PageListItem(structElement);
+                XElement currentStruct = arrayEl.Element(XmlRPCResponseConstants.STRUCT);
+                PageListItem current = new PageListItem(currentStruct);
                 result.Add(current);
             }
             return result;
