@@ -22,7 +22,6 @@ namespace WordPress.Model
         private string _permaLink;
         private ObservableCollection<string> _categories;
         private string _mtExcerpt;
-        private string _mtTextMore;
         private bool _mtAllowComments;
         private bool _mtAllowPings;
         private string _mtKeyWords;
@@ -202,19 +201,6 @@ namespace WordPress.Model
                 {
                     _mtExcerpt = value;
                     NotifyPropertyChanged("MtExcerpt");
-                }
-            }
-        }
-
-        public string MtTextMore
-        {
-            get { return _mtTextMore; }
-            set
-            {
-                if (value != _mtTextMore)
-                {
-                    _mtTextMore = value;
-                    NotifyPropertyChanged("MtTextMore");
                 }
             }
         }
@@ -427,7 +413,7 @@ namespace WordPress.Model
                 throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
             }
 
-            
+            string _mtTextMore = null;
             foreach (XElement member in element.Descendants(XmlRPCResponseConstants.MEMBER))
             {
                 string value = string.Empty;
@@ -601,6 +587,10 @@ namespace WordPress.Model
                     _postThumbnail = value;
                 }
             } // end for-each
+
+            if (!String.IsNullOrEmpty(_mtTextMore))
+                _description = _description + "\n<!--more-->\n" + _mtTextMore;
+            
             IsNew = false;
         }
 
