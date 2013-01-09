@@ -589,7 +589,7 @@ namespace WordPress.Model
             } // end for-each
 
             if (!String.IsNullOrEmpty(_mtTextMore))
-                _description = _description + "\n<!--more-->\n" + _mtTextMore;
+                _description = _description + "<!--more-->\n" + _mtTextMore;
             
             IsNew = false;
         }
