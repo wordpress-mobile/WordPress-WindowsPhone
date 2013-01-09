@@ -1393,7 +1393,7 @@ namespace WordPress
             {
                 App.PopupSelectionService.HidePopup();
                 App.PopupSelectionService.SelectionChanged -= _popupServiceSelectionChangedHandler;
-
+                ApplicationBar.IsVisible = true;
                 //make sure none of the list items are selected, allowing the user to re-select
                 //an item in the list.  This will trigger the SelectionChanged event
                 //commentsListBox.SelectedIndex = -1;
