@@ -117,7 +117,11 @@ namespace WordPress
             var worker = new BackgroundWorker();
             worker.DoWork += (workSender, e2) =>
             {
-                Media.CleanupOrphanedImages();
+                try
+                {
+                    Media.CleanupOrphanedImages();
+                }
+                catch (Exception){}
             };
             worker.RunWorkerAsync();
 
