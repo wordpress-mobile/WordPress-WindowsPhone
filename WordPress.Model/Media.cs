@@ -335,35 +335,41 @@ namespace WordPress.Model
         {
             // Check if the image was saved in IsolatedStorage or if we're retriving 
             // an Picture from the MediaLibrary.
-            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
-            if (isoStore.FileExists(_localPath))
+            try
             {
-                IsolatedStorageFileStream filestream = isoStore.OpenFile(this.LocalPath, FileMode.Open);
-                return filestream;
-            }            
-            else
-            {
-                // Load the picture: Ugly but works.
-                MediaLibrary m = new MediaLibrary();
-
-                int len = m.Pictures.Count;
-                for (int i = 0; i < len; i++)
+                var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+                if (isoStore.FileExists(_localPath))
                 {
-                    try
-                    {
-                        var r = m.Pictures[i];
-                        if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
-                            return r.GetImage();
-                    }
-                    catch (Exception e)
-                    {
-                        // See trac #170. 
-                        // If the enumerator throws an error getting the image catch it and continue through the list. 
-                        // This assumes that a corrupted file could cause the enumerator to throw an invalid operation exception.
-                        continue;
-                    }
+                    IsolatedStorageFileStream filestream = isoStore.OpenFile(this.LocalPath, FileMode.Open);
+                    return filestream;
                 }
             }
+            catch (Exception)
+            {
+               //Do not return null here, but try to re-load the image from the original path
+            }
+
+            // Load the picture: Ugly but works.
+            MediaLibrary m = new MediaLibrary();
+
+            int len = m.Pictures.Count;
+            for (int i = 0; i < len; i++)
+            {
+                try
+                {
+                    var r = m.Pictures[i];
+                    if (r.Name.Equals(LocalPath) && r.Date.Equals(_datetime))
+                        return r.GetImage();
+                }
+                catch (Exception)
+                {
+                    // See trac #170. 
+                    // If the enumerator throws an error getting the image catch it and continue through the list. 
+                    // This assumes that a corrupted file could cause the enumerator to throw an invalid operation exception.
+                    continue;
+                }
+            }
+
             return null;
         }
 

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WordPress.Localization;
+using System.Windows;
 
 namespace WordPress
 {
@@ -133,13 +134,20 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            BitmapImage tn = new BitmapImage();
-            Stream stream = TappedImage.getImageStream();
-            tn.SetSource(stream);
-            ImageObeject.Source = tn;
             setupApplicationBar();
             ApplicationBar.IsVisible = true;
-            stream.Close();
+            BitmapImage tn = new BitmapImage();
+            Stream stream = TappedImage.getImageStream();
+            if (stream != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Can't read the picture, please try again later.", "Error", MessageBoxButton.OK);
+            }
+            else
+            {
+                tn.SetSource(stream);
+                ImageObeject.Source = tn;
+                stream.Close();
+            }
         }
 
 

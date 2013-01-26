@@ -418,15 +418,28 @@ namespace WordPress
                     initPostFormatUI(App.MasterViewModel.CurrentPost.PostFormat);
 
                     //update the Media UI
+                    List<Media> unavaiblePictures = new List<Media>();
                     foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
                     {
                         Stream stream = currentMedia.getImageStream();
+                        if (stream == null)
+                        {
+                            unavaiblePictures.Add(currentMedia);
+                            continue;
+                        }
                         BitmapImage image = new BitmapImage();
                         image.SetSource(stream);
                         imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
                         stream.Close();
                     }
-
+                    if (unavaiblePictures.Count > 0 )
+                    {
+                        MessageBoxResult result = MessageBox.Show("Can't read a picture attached to this draft, please try to load the draft later.", "Error", MessageBoxButton.OK);
+                        foreach (Media m in unavaiblePictures)
+                        {
+                            App.MasterViewModel.CurrentPost.Media.Remove(m);
+                        }
+                    }
                 }
                 else
                 {
