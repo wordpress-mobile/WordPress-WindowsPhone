@@ -283,11 +283,15 @@ namespace WordPress.Model
 
         public void clearSavedImage()
         {
-            var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
-            if (isoStore.FileExists(_localPath))
+            try
             {
-                isoStore.DeleteFile(_localPath);
+                var isoStore = IsolatedStorageFile.GetUserStoreForApplication();
+                if (isoStore.FileExists(_localPath))
+                {
+                    isoStore.DeleteFile(_localPath);
+                }
             }
+            catch (Exception){}
         }
 
         private void SaveImageStream(Stream stream, bool preserveBandwidth)

@@ -131,14 +131,19 @@ namespace WordPress
         private void cleanupPostMedia()
         {
             Post post = App.MasterViewModel.CurrentPost;
+
+            if (post == null || post.PostStatus == null || post.Media == null)
+                return;
+
             if (post.PostStatus.Equals("localdraft"))
             {
                 // Don't clear images from local drafts.
                 return;
             }
-            foreach (Media m in App.MasterViewModel.CurrentPost.Media)
+            foreach (Media m in post.Media)
             {
-                m.clearSavedImage();
+                if (m != null)
+                    m.clearSavedImage();
             }
         }
 
