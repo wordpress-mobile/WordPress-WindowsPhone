@@ -561,6 +561,10 @@ namespace WordPress
                     break;
             }
 
+            //make sure the post has the latest UI data--the Save button is a ToolbarButton
+            //which doesn't force focus to change
+            post.Title = titleTextBox.Text;
+
             if (0 < post.Media.Count)
             {
                 

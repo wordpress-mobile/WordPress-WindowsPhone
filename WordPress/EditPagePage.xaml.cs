@@ -285,7 +285,6 @@ namespace WordPress
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
             //which doesn't force focus to change
             post.Title = titleTextBox.Text;
-            post.Description = contentTextBox.Text;
 
             if (0 < post.Media.Count)
             {
