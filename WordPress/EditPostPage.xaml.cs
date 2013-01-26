@@ -857,7 +857,15 @@ namespace WordPress
         private void AddNewMediaStream(Stream bitmapStream, string originalFilePath)
         {
             BitmapImage image = new BitmapImage();
-            image.SetSource(bitmapStream);
+            try
+            {
+                image.SetSource(bitmapStream);
+            }
+            catch (Exception)
+            {
+                MessageBoxResult result = MessageBox.Show("The picture is corrupted or cannot be read.", "Error", MessageBoxButton.OK);
+                return;
+            }
 
             // Save to isolated storage in the draft_media directory 
             // The OriginalFilename is a GUID.  Since we're saving to IsolatedStorage, use this as a filename to avoid collisions.
@@ -873,7 +881,17 @@ namespace WordPress
                 capture.Second,
                 Path.GetExtension(originalFilePath));
 
-            Media currentMedia = new Media(App.MasterViewModel.CurrentBlog, filename, localfilename, bitmapStream, App.MasterViewModel.CurrentBlog.PreserveBandwidth);
+            Media currentMedia = null;
+            try
+            {
+                currentMedia = new Media(App.MasterViewModel.CurrentBlog, filename, localfilename, bitmapStream, App.MasterViewModel.CurrentBlog.PreserveBandwidth);
+            }
+            catch (Exception)
+            {
+                MessageBoxResult result = MessageBox.Show("Can't write the picture on the device memory", "Error", MessageBoxButton.OK);
+                return;
+            }
+            
             Post post = App.MasterViewModel.CurrentPost;
             post.Media.Add(currentMedia);
 

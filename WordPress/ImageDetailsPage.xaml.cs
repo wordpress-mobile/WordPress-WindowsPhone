@@ -138,7 +138,7 @@ namespace WordPress
             ApplicationBar.IsVisible = true;
             BitmapImage tn = new BitmapImage();
             Stream stream = TappedImage.getImageStream();
-            if (stream != null)
+            if (stream == null)
             {
                 MessageBoxResult result = MessageBox.Show("Can't read the picture, please try again later.", "Error", MessageBoxButton.OK);
             }

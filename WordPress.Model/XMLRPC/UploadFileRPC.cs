@@ -177,7 +177,7 @@ namespace WordPress.Model
             }
 
             Stream _bitmapStream = CurrentMedia.getImageStream();
-            if (_bitmapStream != null)
+            if (_bitmapStream == null)
             {
                 CompletionMethod(null, new Exception("Can't read the image"), false, state.Operation);
                 return;
