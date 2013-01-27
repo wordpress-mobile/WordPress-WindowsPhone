@@ -82,7 +82,7 @@ namespace WordPress
         {
             this.Focus();
 
-            if (!ValidateUrl())
+            if (!ValidateUrl(urlTextBox.Text))
             {
                 PromptUserForInput(_localizedStrings.Prompts.MissingUrl, urlTextBox);
                 return;
@@ -109,6 +109,12 @@ namespace WordPress
             if (!url.EndsWith("/xmlrpc.php")) url = url + "/xmlrpc.php";
 
             this.DebugLog("XML-RPC URL: " + url);
+
+            if (!ValidateUrl(url))
+            {
+                PromptUserForInput(_localizedStrings.Prompts.MissingUrl, urlTextBox);
+                return;
+            }
 
             rpc = new GetUsersBlogsRPC(url, username, password);
             rpc.Completed += OnGetUsersBlogsCompleted;
@@ -139,10 +145,10 @@ namespace WordPress
             return result;
         }
 
-        private bool ValidateUrl()
+        private bool ValidateUrl(String url)
         {
             Uri testUri;
-            bool result = Uri.TryCreate(urlTextBox.Text, UriKind.Absolute, out testUri);
+            bool result = Uri.TryCreate(url, UriKind.Absolute, out testUri);
             return result;            
         }
 
@@ -353,6 +359,14 @@ namespace WordPress
                         s = s.Substring(s.IndexOf("href=\""));
                         s = s.Replace("href=\"", "");
                         s = s.Substring(0, s.IndexOf("\""));
+
+                        if (!ValidateUrl(s))
+                        {
+                            //No valid RSD found, show the "no WP site found at this URL..."
+                            this.showErrorMsgOnRecovery(null);
+                            return;
+                        }
+                        
                         this.downloadRSDdocument(s);
                     }
                     else
@@ -412,14 +426,14 @@ namespace WordPress
                             }
                     }
 
-                    if (apiLink == null)
+                    if (apiLink == null || !ValidateUrl(apiLink))
                     {
                         //No XML-RPC Endpoint found, show the "no WP site found at this URL..."
                         this.showErrorMsgOnRecovery(null);
                         return;
                     }
                     else
-                    {
+                    {                        
                         //restart getUserBlogs with this URL
                         string username = usernameTextBox.Text;
                         string password = passwordPasswordBox.Password;

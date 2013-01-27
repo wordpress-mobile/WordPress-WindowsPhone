@@ -387,6 +387,11 @@ namespace WordPress.Model
                 else if (URL_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    Uri testUri;
+                    bool result = Uri.TryCreate(value, UriKind.Absolute, out testUri);
+                    if (!result)
+                        throw new ArgumentException("Unable to successfully parse Blog URL from server response");
+
                     _url = value;
                 }
                 else if (BLOGID_VALUE.Equals(memberName))
@@ -418,6 +423,11 @@ namespace WordPress.Model
                 else if (XMLRPC_VALUE.Equals(memberName))
                 {
                     value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    Uri testUri;
+                    bool result = Uri.TryCreate(value, UriKind.Absolute, out testUri);
+                    if(!result)
+                        throw new ArgumentException("Unable to successfully parse Blog XML-RPC URL from server response");
+
                     _xmlrpc = value;
                 }
             }
