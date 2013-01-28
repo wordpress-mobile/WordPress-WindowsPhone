@@ -32,7 +32,13 @@ namespace WordPress.Model
 
     #region event arg subclasses
 
-
+    /// <summary>
+    /// Used to wrap a fault code returned when the picture is not accesible or not available on disk/isolatedStorage
+    /// </summary>
+    public class PictureNotAvailableException : Exception
+    {
+        public PictureNotAvailableException() : base() { }
+    }
     
     /// <summary>
     /// Used to wrap a fault code returned by the WordPress system when the connection is not available

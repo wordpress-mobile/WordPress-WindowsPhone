@@ -337,6 +337,7 @@ namespace WordPress.Localization
             public string XeElementMissing { get { return LocalizedResources.Prompts_XeElementMissing; } }
             public string MediaError { get { return LocalizedResources.Prompts_MediaError; } }
             public string MediaErrorContent { get { return LocalizedResources.Prompts_MediaErrorContent; } }
+            public string MediaErrorNoPicture { get { return LocalizedResources.Prompts_MediaErrorNoPicture; } }
             public string NoConnectionErrorContent { get { return LocalizedResources.Prompts_NoConnectionError; } }
         }
 

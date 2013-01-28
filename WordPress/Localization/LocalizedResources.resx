@@ -910,4 +910,7 @@
     <value>could not load image</value>
     <comment>Default error message for when a posts featured image would not load.</comment>
   </data>
+  <data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
+    <value>Sorry, an error was encountered while reading the picture.  Would you still like to upload the post?</value>
+  </data>
 </root>

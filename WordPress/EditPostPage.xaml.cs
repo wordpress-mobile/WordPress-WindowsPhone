@@ -1001,8 +1001,16 @@ namespace WordPress
 
                     if (!_mediaDialogPresented)
                     {
+                        string errorMessageDescription;
+                        if (null != args.Error && args.Error is PictureNotAvailableException)
+                        {
+                            errorMessageDescription = _localizedStrings.Prompts.MediaErrorNoPicture;
+                        } else {
+                            errorMessageDescription = _localizedStrings.Prompts.MediaErrorContent;
+                        }
+                        
                         _mediaDialogPresented = true;
-                        MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorContent, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                        MessageBoxResult result = MessageBox.Show(errorMessageDescription, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
                         if (result == MessageBoxResult.OK)
                         {
                             SavePost();
@@ -1010,13 +1018,13 @@ namespace WordPress
                         }
                         else
                         {
-                            //add the object back since the user wants to have another go at uploading
+                            //add a new XML-RPC call since the user wants to have another go at uploading
+                            UploadFileRPC newRPCCall = new UploadFileRPC(App.MasterViewModel.CurrentBlog, rpc.CurrentMedia, true);
                             rpc.Completed += OnUploadMediaRPCCompleted;
-                            _mediaUploadRPCs.Add(rpc);
+                            _mediaUploadRPCs.Add(newRPCCall);
                             return;
                         }
                     }
-                    
                 }
             }
 
