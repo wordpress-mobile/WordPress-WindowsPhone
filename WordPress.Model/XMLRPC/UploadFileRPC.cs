@@ -166,6 +166,12 @@ namespace WordPress.Model
             HttpWebRequest request = state.Request;
             Stream contentStream = null;
 
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, state.Operation);
+                return;
+            }
+
             try
             {
                 contentStream = request.EndGetRequestStream(result);
@@ -219,24 +225,35 @@ namespace WordPress.Model
                 contentStream.Write(payload, 0, payload.Length);           
             }
 
-            request.BeginGetResponse(OnBeginFileResponseCompleted, state);
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, state.Operation);
+                return;
+            }
 
+            lock (_syncRoot)
+            {
+                if (_isFinished == true) return; //Tentative idea on how to fix #209
+            }
             state.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(40, state.Operation.UserSuppliedState));
+
+            request.BeginGetResponse(OnBeginFileResponseCompleted, state);
         }
 
         private void OnBeginFileResponseCompleted(IAsyncResult result)
         {
-            if (IsCancelled)
-            {
-                return;
-            }
-
             State state = result.AsyncState as State;
             if (retryCount == 0)
             {
                 originalState = state;
             }
-                
+
+            if (IsCancelled)
+            {
+                CompletionMethod(null, null, true, originalState.Operation);
+                return;
+            }
+    
             HttpWebRequest request = state.Request;
             HttpWebResponse response = null;
 
@@ -260,6 +277,10 @@ namespace WordPress.Model
                 }
             }
 
+            lock (_syncRoot)
+            {
+                if (_isFinished == true) return; //Tentative idea on how to fix #209
+            }
             originalState.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(60, originalState.Operation.UserSuppliedState));
 
             Stream responseStream = response.GetResponseStream();
@@ -278,6 +299,10 @@ namespace WordPress.Model
                 return;
             }
 
+            lock (_syncRoot)
+            {
+                if (_isFinished == true) return; //Tentative idea on how to fix #209
+            }
             originalState.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(80, originalState.Operation.UserSuppliedState));
 
             XDocument xDoc = null;

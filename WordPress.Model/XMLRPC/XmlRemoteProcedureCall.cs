@@ -22,13 +22,13 @@ namespace WordPress.Model
 
         #region member variables
 
-        private static object _syncRoot = new object();
+        protected static object _syncRoot = new object();
 
         protected SendOrPostCallback onProgressReportDelegate;
         private SendOrPostCallback onCompletedDelegate;
         private Dictionary<object, object> userStateToLifetime = new Dictionary<object, object>();
         public bool IsCancelled { get; set; }
-        private bool _isFinished = false;
+        protected bool _isFinished = false;
         #endregion
 
         #region events
