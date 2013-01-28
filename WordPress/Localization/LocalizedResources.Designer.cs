@@ -1937,6 +1937,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t write the picture on the device memory..
+        /// </summary>
+        internal static string Prompts_MediaErrorCannotWritePicture {
+            get {
+                return ResourceManager.GetString("Prompts_MediaErrorCannotWritePicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, an error was encountered when uploading media.  Would you still like to upload the post?.
         /// </summary>
         internal static string Prompts_MediaErrorContent {
@@ -1951,6 +1960,15 @@ namespace WordPress.Localization {
         internal static string Prompts_MediaErrorNoPicture {
             get {
                 return ResourceManager.GetString("Prompts_MediaErrorNoPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The picture is corrupted or cannot be read..
+        /// </summary>
+        internal static string Prompts_MediaErrorPictureCorruptedOrUnreadlable {
+            get {
+                return ResourceManager.GetString("Prompts_MediaErrorPictureCorruptedOrUnreadlable", resourceCulture);
             }
         }
         

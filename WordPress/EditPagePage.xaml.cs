@@ -484,7 +484,7 @@ namespace WordPress
             }
             catch (Exception)
             {
-                MessageBoxResult result = MessageBox.Show("The picture is corrupted or cannot be read.", "Error", MessageBoxButton.OK);
+                MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorPictureCorruptedOrUnreadable, _localizedStrings.PageTitles.Error, MessageBoxButton.OK);
                 return;
             }
 
@@ -509,7 +509,7 @@ namespace WordPress
             }
             catch (Exception)
             {
-                MessageBoxResult result = MessageBox.Show("Can't write the picture on the device memory", "Error", MessageBoxButton.OK);
+                MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.MediaErrorCannotWritePicture, _localizedStrings.PageTitles.Error, MessageBoxButton.OK);
                 return;
             }
             currentMedia.CanBeFeatured = false;

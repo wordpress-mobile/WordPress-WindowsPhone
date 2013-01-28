@@ -913,4 +913,10 @@
   <data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
     <value>Sorry, an error was encountered while reading the picture.  Would you still like to upload the post?</value>
   </data>
+  <data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
+    <value>Can't write the picture on the device memory.</value>
+  </data>
+  <data name="Prompts_MediaErrorPictureCorruptedOrUnreadlable" xml:space="preserve">
+    <value>The picture is corrupted or cannot be read.</value>
+  </data>
 </root>
