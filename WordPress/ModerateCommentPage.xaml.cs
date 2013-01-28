@@ -317,6 +317,7 @@ namespace WordPress
                 DataContext = App.MasterViewModel.CurrentComment;
             }
 
+            State.Clear();
         }
 
         private void ChangeApplicationBarAppearance()
