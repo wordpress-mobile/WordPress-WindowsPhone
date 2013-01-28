@@ -1020,7 +1020,7 @@ namespace WordPress
                         {
                             //add a new XML-RPC call since the user wants to have another go at uploading
                             UploadFileRPC newRPCCall = new UploadFileRPC(App.MasterViewModel.CurrentBlog, rpc.CurrentMedia, true);
-                            rpc.Completed += OnUploadMediaRPCCompleted;
+                            newRPCCall.Completed += OnUploadMediaRPCCompleted;
                             _mediaUploadRPCs.Add(newRPCCall);
                             return;
                         }
