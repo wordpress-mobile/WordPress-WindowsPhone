@@ -477,10 +477,11 @@ namespace WordPress.Model
 
         public void addLocalPostDraftsToPostList()
         {
-            if (null != this.LocalPostDrafts)
+            if (null != this.LocalPostDrafts && 0 < this.LocalPostDrafts.Count )
             {
-                foreach (Post post in this.LocalPostDrafts)
+                for (int i = this.LocalPostDrafts.Count - 1 ; i >= 0 ; i--)
                 {
+                    Post post = this.LocalPostDrafts.ElementAt(i);
                     PostListItem draftListItem = new PostListItem();
                     draftListItem.DateCreated = post.DateCreated;
                     draftListItem.DateCreatedGMT = post.DateCreatedGMT;
@@ -494,10 +495,11 @@ namespace WordPress.Model
 
         public void addLocalPageDraftsToPostList()
         {
-            if (null != this.LocalPageDrafts)
+            if (null != this.LocalPageDrafts && 0 < this.LocalPageDrafts.Count)
             {
-                foreach (Post post in this.LocalPageDrafts)
+                for (int i = this.LocalPageDrafts.Count - 1; i >= 0; i--)
                 {
+                    Post post = this.LocalPageDrafts.ElementAt(i);
                     PageListItem draftListItem = new PageListItem();
                     draftListItem.DateCreated = post.DateCreated;
                     draftListItem.DateCreatedGMT = post.DateCreatedGMT;

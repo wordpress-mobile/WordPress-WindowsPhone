@@ -15,6 +15,7 @@ using System.Linq.Expressions;
 using WordPress.Model;
 using System.ComponentModel;
 using Microsoft.Phone.Shell;
+using System.Collections.Generic;
 
 namespace WordPress
 {
@@ -95,15 +96,20 @@ namespace WordPress
                     return null; 
                 }
 
-                if (null != CurrentBlog.LocalPostDrafts )
+                //1. Mark the drafts to remove from the list
+                List<PostListItem> draftToRemove = new List<PostListItem>();
+                foreach (PostListItem post in CurrentBlog.PostListItems)
                 {
-                    for (int i = 0; i < CurrentBlog.LocalPostDrafts.Count; i++)
-                    {
-                        if (CurrentBlog.PostListItems.Count() >= i + 1)
-                            CurrentBlog.PostListItems.RemoveAt(i);
-                    }
+                    if (post.PostId == "-1") //draft
+                        draftToRemove.Add(post);
                 }
-
+                //2. Remove the drafts
+                foreach (PostListItem post in draftToRemove)
+                {
+                    CurrentBlog.PostListItems.Remove(post);
+                }
+                
+                //3. Re-add the drafts
                 CurrentBlog.addLocalPostDraftsToPostList();
 
                 return CurrentBlog.PostListItems;
@@ -132,15 +138,20 @@ namespace WordPress
                     return null;
                 }
 
-                if (null != CurrentBlog.LocalPageDrafts)
+                //1. Mark the drafts to remove from the list
+                List<PageListItem> draftToRemove = new List<PageListItem>();
+                foreach (PageListItem page in CurrentBlog.PageListItems)
                 {
-                    for (int i = 0; i < CurrentBlog.LocalPageDrafts.Count; i++)
-                    {
-                        if (CurrentBlog.PageListItems.Count() >= i + 1)
-                            CurrentBlog.PageListItems.RemoveAt(i);
-                    }
+                    if (page.PageId == "-1") //draft
+                        draftToRemove.Add(page);
+                }
+                //2. Remove the drafts
+                foreach (PageListItem page in draftToRemove)
+                {
+                    CurrentBlog.PageListItems.Remove(page);
                 }
 
+                //3. Re-add the drafts
                 CurrentBlog.addLocalPageDraftsToPostList();
 
                 return CurrentBlog.PageListItems;

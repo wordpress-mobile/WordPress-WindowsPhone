@@ -385,6 +385,12 @@ namespace WordPress
                 return;
             }
 
+            if (this.isEditingLocalDraft)
+            {
+                // Local Draft was published
+                App.MasterViewModel.CurrentBlog.LocalPageDrafts.Remove(App.MasterViewModel.CurrentPost);
+            }
+
             App.WaitIndicationService.HideIndicator();
             ApplicationBar.IsVisible = true;
 
