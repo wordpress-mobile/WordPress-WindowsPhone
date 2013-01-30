@@ -196,7 +196,7 @@ namespace WordPress
             else
             {
 
-                if (useRecoveryFunctions)
+                if (useRecoveryFunctions && !(args.Error is WordPress.Model.NoConnectionException))//do not use the recovery function if the connection is not available
                 {
                     useRecoveryFunctions = false; //set this to false, since the recovery functions will be used only once.
                     startRecoveryfunctions();
@@ -206,7 +206,7 @@ namespace WordPress
                     App.WaitIndicationService.KillSpinner();
                     ApplicationBar.IsVisible = true;
 
-                    if (args.Error is NotSupportedException || args.Error is XmlRPCParserException)
+                    if (args.Error is NotSupportedException || args.Error is XmlRPCParserException || args.Error is ArgumentNullException)
                     {
                         this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
                         urlTextBox.Focus();
@@ -337,7 +337,15 @@ namespace WordPress
         {
             string url = urlTextBox.Text.Trim();
             rsdWebClient = new WebClient();
-            rsdWebClient.DownloadStringAsync(new Uri(url));
+            try
+            {
+                rsdWebClient.DownloadStringAsync(new Uri(url));
+            }
+            catch (Exception)
+            {
+                this.showErrorMsgOnRecovery(null);
+                return;
+            }
             rsdWebClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(downloadUserURLContentCompleted);
         }
 
@@ -383,9 +391,9 @@ namespace WordPress
                     return;
                 }
             }
-            else //Connection error, show the real message error.  
+            else
             {
-                this.showErrorMsgOnRecovery(e.Error);
+                this.showErrorMsgOnRecovery(null);
                 return;
             }
         }
@@ -393,7 +401,15 @@ namespace WordPress
         private void downloadRSDdocument(string rsdURL)
         {
             rsdWebClient = new WebClient();
-            rsdWebClient.DownloadStringAsync(new Uri(rsdURL));
+            try
+            {
+                rsdWebClient.DownloadStringAsync(new Uri(rsdURL));
+            }
+            catch (Exception)
+            {
+                this.showErrorMsgOnRecovery(null);
+                return;
+            }
             rsdWebClient.DownloadStringCompleted += new DownloadStringCompletedEventHandler(downloadRSDdocumentCompleted);
         }
 
@@ -450,9 +466,9 @@ namespace WordPress
                     return;
                 }
             }
-            else //Connection error, show the real message error.  
+            else
             {
-                this.showErrorMsgOnRecovery(e.Error);
+                this.showErrorMsgOnRecovery(null);
                 return;
             }
 

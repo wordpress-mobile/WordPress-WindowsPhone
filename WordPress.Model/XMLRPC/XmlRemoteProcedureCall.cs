@@ -238,7 +238,18 @@ namespace WordPress.Model
                 return;
             }
 
-            HttpWebRequest request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
+            HttpWebRequest request;
+
+            try
+            {
+                request = HttpWebRequest.CreateHttp(Url) as HttpWebRequest;
+            }
+            catch (Exception errorWhileCreatingConnection)
+            {
+                CompletionMethod(null, errorWhileCreatingConnection, false, asyncOp);
+                return;
+            }
+
             request.AllowAutoRedirect = true;
             request.ContentType = XmlRPCRequestConstants.CONTENTTYPE;
             request.Method = XmlRPCRequestConstants.POST;
