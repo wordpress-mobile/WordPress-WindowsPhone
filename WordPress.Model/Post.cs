@@ -436,35 +436,16 @@ namespace WordPress.Model
                 {
                     try
                     {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                        value = member.GetValueAsString(false);
                     }
                     catch (Exception)
                     {
-                        try
-                        {
-                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                        }
-                        catch (Exception) { }
-                    }
-
-                    if (value == null)
-                    {
-                        _userId =  "-1";
-                    } else {
-                         _userId = value.HtmlDecode();
+                        _userId = "-1";
                     }
                 }
                 else if (POSTID_VALUE.Equals(memberName))
-                {
-                    try
-                    {
-                        value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                    }
-                    catch (Exception e)
-                    {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    }
-                    _postId = value;
+                {                        
+                    _postId = member.GetValueAsString(true);
                 }
                 else if (DESCRIPTION_VALUE.Equals(memberName))
                 {
@@ -544,8 +525,7 @@ namespace WordPress.Model
                 }
                 else if (WPAUTHORID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _wpAuthorId = value;
+                    _wpAuthorId = member.GetValueAsString(false);
                 }
                 else if (WPAUTHORDISPLAYNAME_VALUE.Equals(memberName))
                 {

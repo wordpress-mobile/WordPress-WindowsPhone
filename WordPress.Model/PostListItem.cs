@@ -172,22 +172,12 @@ namespace WordPress.Model
                 {
                     try
                     {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                        _userId = member.GetValueAsInt(false);
                     }
                     catch (Exception)
                     {
-
-                        try
-                        {
-                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                        }
-                        catch (Exception) { }
-                    }
-
-                    if (value == null || !int.TryParse(value, out _userId))
-                    {
                         _userId = -1;
-                    }
+                    }                   
                 }
                 else if (DATECREATED_VALUE.Equals(memberName))
                 {
@@ -244,25 +234,12 @@ namespace WordPress.Model
                 {
                     try
                     {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                        _postId = member.GetValueAsString(false);
                     }
                     catch (Exception)
                     {
-                        try
-                        {
-                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                    }
-                    
-                    if (value == null)
                         throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
-
-                    _postId = value;
-                    
+                    }
                 }
             } //End for-each
 

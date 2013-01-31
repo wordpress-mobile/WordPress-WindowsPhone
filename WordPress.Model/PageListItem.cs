@@ -166,24 +166,12 @@ namespace WordPress.Model
                 {
                     try
                     {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                        _pageId = member.GetValueAsString(true);
                     }
                     catch (Exception)
                     {
-                        try
-                        {
-                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                    }
-
-                    if (value == null)
                         throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
-
-                    _pageId = value;
+                    }
                 }
                 else if (PAGETITLE_VALUE.Equals(memberName))
                 {
@@ -194,24 +182,12 @@ namespace WordPress.Model
                 {
                     try
                     {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                        _pageParentId = member.GetValueAsString(true);
                     }
                     catch (Exception)
                     {
-                        try
-                        {
-                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                    }
-
-                    if (value == null)
                         throw new XmlRPCParserException(XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_CODE, XmlRPCResponseConstants.XELEMENTMISSINGCHILDELEMENTS_MESSAGE);
-                    
-                    _pageParentId = value;
+                    }
                 }
                 else if (DATECREATED_VALUE.Equals(memberName))
                 {

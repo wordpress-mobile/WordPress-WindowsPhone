@@ -398,13 +398,9 @@ namespace WordPress.Model
                 {
                     try
                     {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                        _blogId = member.GetValueAsInt(false);
                     }
-                    catch (Exception e)
-                    {
-                        value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                    }                    
-                    if (!int.TryParse(value, out _blogId))
+                    catch (Exception)
                     {
                         throw new ArgumentException("Unable to successfully parse Blog ID from server response");
                     }

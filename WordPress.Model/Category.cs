@@ -171,19 +171,25 @@ namespace WordPress.Model
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
                 if (CATEGORYID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _categoryId))
+                    try
+                    {
+                        _categoryId = member.GetValueAsInt(false);
+                    }
+                    catch (Exception)
                     {
                         _categoryId = -1;
-                    }
+                    }   
                 }
                 else if (PARENTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _parentId))
+                    try
+                    {
+                        _parentId = member.GetValueAsInt(false);
+                    }
+                    catch (Exception)
                     {
                         _parentId = 0;
-                    }
+                    } 
                 }
                 else if (DESCRIPTION_VALUE.Equals(memberName))
                 {

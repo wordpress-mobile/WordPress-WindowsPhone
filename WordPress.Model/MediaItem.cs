@@ -182,15 +182,7 @@ namespace WordPress.Model
                 }
                 else if (PARENT_VALUE.Equals(memberName))
                 {
-                    try
-                    {
-                        value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
-                    }
-                    catch (Exception e)
-                    {
-                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    }
-                    _parent = value;
+                    _parent = member.GetValueAsString(true);
                 }
                 else if (LINK_VALUE.Equals(memberName))
                 {

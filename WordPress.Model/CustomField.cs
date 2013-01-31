@@ -111,18 +111,15 @@ namespace WordPress.Model
                 string memberName = member.Element(XmlRPCResponseConstants.NAME).Value;
                 if (ID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _id = value;
+                    _id = member.GetValueAsString(false);
                 }
                 else if (KEY_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _key = value.HtmlDecode();
+                    _key = member.GetValueAsString(false).HtmlDecode();
                 }
                 else if (VALUE_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _value = value.HtmlDecode();
+                    _value = member.GetValueAsString(false).HtmlDecode();
                 }
             }        
         }

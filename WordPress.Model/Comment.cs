@@ -369,21 +369,22 @@ namespace WordPress.Model
                 }
                 else if (USERID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _userId))
+                    try
+                    {
+                        _userId = member.GetValueAsInt(false);
+                    }
+                    catch (Exception)
                     {
                         _userId = -1;
-                    }
+                    } 
                 }
                 else if (COMMENTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _commentId = value;
+                    _commentId = member.GetValueAsString(false);
                 }
                 else if (PARENT_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _parent = value;
+                    _parent = member.GetValueAsString(false);
                 }
                 else if (STATUS_VALUE.Equals(memberName))
                 {
@@ -402,8 +403,7 @@ namespace WordPress.Model
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _postId = value;
+                    _postId = member.GetValueAsString(false);
                 }
                 else if (POSTTITLE_VALUE.Equals(memberName))
                 {
