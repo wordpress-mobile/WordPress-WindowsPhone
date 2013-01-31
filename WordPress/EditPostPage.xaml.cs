@@ -997,7 +997,10 @@ namespace WordPress
                 {
                     //uh oh, media upload problem
                     App.WaitIndicationService.KillSpinner();
-                    ApplicationBar.IsVisible = true;
+                    UIThread.Invoke(() =>
+                    {
+                        ApplicationBar.IsVisible = true;
+                    });
 
                     if (!_mediaDialogPresented)
                     {

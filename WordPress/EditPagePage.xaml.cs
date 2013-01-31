@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -603,7 +604,10 @@ namespace WordPress
                 {
                     //uh oh, media upload problem
                     App.WaitIndicationService.KillSpinner();
-                    ApplicationBar.IsVisible = true;
+                    UIThread.Invoke(() =>
+                    {
+                        ApplicationBar.IsVisible = true;
+                    });
 
                     if (!_mediaDialogPresented)
                     {
