@@ -434,8 +434,25 @@ namespace WordPress.Model
                 }
                 else if (USERID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    _userId = value.HtmlDecode();
+                    try
+                    {
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                        }
+                        catch (Exception) { }
+                    }
+
+                    if (value == null)
+                    {
+                        _userId =  "-1";
+                    } else {
+                         _userId = value.HtmlDecode();
+                    }
                 }
                 else if (POSTID_VALUE.Equals(memberName))
                 {

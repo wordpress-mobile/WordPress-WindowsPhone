@@ -170,8 +170,21 @@ namespace WordPress.Model
                 string memberName = member.Descendants(XmlRPCResponseConstants.NAME).First().Value;
                 if (USERID_VALUE.Equals(memberName))
                 {
-                    value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
-                    if (!int.TryParse(value, out _userId))
+                    try
+                    {
+                        value = member.Descendants(XmlRPCResponseConstants.STRING).First().Value;
+                    }
+                    catch (Exception)
+                    {
+
+                        try
+                        {
+                            value = member.Descendants(XmlRPCResponseConstants.INT).First().Value;
+                        }
+                        catch (Exception) { }
+                    }
+
+                    if (value == null || !int.TryParse(value, out _userId))
                     {
                         _userId = -1;
                     }
