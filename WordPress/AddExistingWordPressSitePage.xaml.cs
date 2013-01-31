@@ -196,7 +196,7 @@ namespace WordPress
             else
             {
 
-                if (useRecoveryFunctions && !(args.Error is WordPress.Model.NoConnectionException))//do not use the recovery function if the connection is not available
+                if (useRecoveryFunctions && !(args.Error is WordPress.Model.NoConnectionException) && !(args.Error is XmlRPCException))//do not use the recovery function if the connection is not available
                 {
                     useRecoveryFunctions = false; //set this to false, since the recovery functions will be used only once.
                     startRecoveryfunctions();
@@ -352,6 +352,7 @@ namespace WordPress
         void downloadUserURLContentCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
             rsdWebClient.DownloadStringCompleted -= downloadUserURLContentCompleted;
+            String rsdURL = null;
             if (e.Error == null)
             {
                 try
@@ -368,34 +369,17 @@ namespace WordPress
                         s = s.Replace("href=\"", "");
                         s = s.Substring(0, s.IndexOf("\""));
 
-                        if (!ValidateUrl(s))
-                        {
-                            //No valid RSD found, show the "no WP site found at this URL..."
-                            this.showErrorMsgOnRecovery(null);
-                            return;
-                        }
-                        
-                        this.downloadRSDdocument(s);
-                    }
-                    else
-                    {
-                        //No RSD found, show the "no WP site found at this URL..."
-                        this.showErrorMsgOnRecovery(null);
-                        return;
+                        if (ValidateUrl(s))
+                            rsdURL = s;
                     }
                 }
-                catch (Exception)
-                {
-                    //Error while parsing the doc, show the "no WP site found at this URL..."
-                    this.showErrorMsgOnRecovery(null);
-                    return;
-                }
+                catch (Exception) { }
             }
+
+            if (rsdURL != null)
+                this.downloadRSDdocument(rsdURL);
             else
-            {
-                this.showErrorMsgOnRecovery(null);
-                return;
-            }
+                this.showErrorMsgOnRecovery(null); //No match or error. Show "no WP site found at this URL..."
         }
 
         private void downloadRSDdocument(string rsdURL)
@@ -417,6 +401,8 @@ namespace WordPress
         {
             rsdWebClient.DownloadStringCompleted -= downloadRSDdocumentCompleted;
 
+            string apiLink = null;
+            
             if (e.Error == null)
             {
                 try
@@ -431,47 +417,54 @@ namespace WordPress
                         if (indexOfFirstLt > -1)
                             rsdDocumentString = rsdDocumentString.Substring(indexOfFirstLt);
                     }
-                    string apiLink = null;
-                    XDocument xDoc = XDocument.Parse(rsdDocumentString, LoadOptions.None);
-                    foreach (XElement apiElement in xDoc.Descendants())
+                    
+                    try
                     {
-                        if (apiElement.Name.LocalName == "api")
-                            if (apiElement.Attribute("name").Value == "WordPress")
-                            {
-                                apiLink = apiElement.Attribute("apiLink").Value;
-                            }
+                        XDocument xDoc = XDocument.Parse(rsdDocumentString, LoadOptions.None);
+                        foreach (XElement apiElement in xDoc.Descendants())
+                        {
+                            if (apiElement.Name.LocalName == "api")
+                                if (apiElement.Attribute("name").Value == "WordPress")
+                                {
+                                    apiLink = apiElement.Attribute("apiLink").Value;
+                                }
+                        }
                     }
+                    catch (Exception) { }
 
                     if (apiLink == null || !ValidateUrl(apiLink))
                     {
-                        //No XML-RPC Endpoint found, show the "no WP site found at this URL..."
-                        this.showErrorMsgOnRecovery(null);
-                        return;
-                    }
-                    else
-                    {                        
-                        //restart getUserBlogs with this URL
-                        string username = usernameTextBox.Text;
-                        string password = passwordPasswordBox.Password;
-                        rpc = new GetUsersBlogsRPC(apiLink, username, password);
-                        rpc.Completed += OnGetUsersBlogsCompleted;
-                        rpc.ExecuteAsync();
-                    }
+                        apiLink = null;
+                        //try to use RegExp
+                        String pattern = @"<api\s*?name=\""WordPress\"".*?apiLink=\""(.*?)\""";
+                        Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                        if (regex.IsMatch(rsdDocumentString))
+                        {
+                            Match firstMatch = regex.Match(rsdDocumentString);
+                            rsdDocumentString = rsdDocumentString.Substring(firstMatch.Index, firstMatch.Length);
+                            rsdDocumentString = rsdDocumentString.Substring(rsdDocumentString.IndexOf("apiLink=\""));
+                            rsdDocumentString = rsdDocumentString.Replace("apiLink=\"", "");
+                            rsdDocumentString = rsdDocumentString.Substring(0, rsdDocumentString.IndexOf("\""));
 
+                            if (ValidateUrl(rsdDocumentString))
+                                apiLink = rsdDocumentString;
+                        }
+                    }
                 }
-                catch (Exception)
-                {
-                    //Error while parsing the doc, show the "no WP site found at this URL..."
-                    this.showErrorMsgOnRecovery(null);
-                    return;
-                }
+                catch (Exception) { }
+            }
+
+            if (apiLink != null)
+            {
+                //restart getUserBlogs with this URL
+                string username = usernameTextBox.Text;
+                string password = passwordPasswordBox.Password;
+                rpc = new GetUsersBlogsRPC(apiLink, username, password);
+                rpc.Completed += OnGetUsersBlogsCompleted;
+                rpc.ExecuteAsync();
             }
             else
-            {
-                this.showErrorMsgOnRecovery(null);
-                return;
-            }
-
+                this.showErrorMsgOnRecovery(null); //No match or error. Show "no WP site found at this URL..."
         }
 
         private void showErrorMsgOnRecovery(Exception ex)
