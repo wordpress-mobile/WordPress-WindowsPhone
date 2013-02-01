@@ -7,6 +7,7 @@ using System.IO.IsolatedStorage;
 using System.Windows;
 using WordPress.Model;
 using Microsoft.Phone.Net.NetworkInformation;
+using Microsoft.Phone.Info;
 
 namespace WordPress.Utils
 {
@@ -33,12 +34,16 @@ namespace WordPress.Utils
                             output.WriteLine("Extra Info:");
                             string app_version = System.Reflection.Assembly.GetExecutingAssembly().FullName.Split('=')[1].Split(',')[0];
                             output.WriteLine("App Version: " + app_version);
-                            string device_language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-                            output.WriteLine("Device Language: " + device_language);
+                            output.WriteLine("Device Name: " + DeviceStatus.DeviceName);
+                            output.WriteLine("Device Manufacturer: " + DeviceStatus.DeviceManufacturer);
+                            output.WriteLine("Device Hardware Version: " + DeviceStatus.DeviceHardwareVersion);
+                            output.WriteLine("Device Firmware Version: " + DeviceStatus.DeviceFirmwareVersion);
                             string mobile_network_type = NetworkInterface.NetworkInterfaceType.ToString();
                             output.WriteLine("Network Type: " + mobile_network_type);
+                            string device_language = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+                            output.WriteLine("Device Language: " + device_language);
                             string device_version = System.Environment.OSVersion.ToString().Replace("Microsoft Windows CE ", "");
-                            output.WriteLine("Device Version: " + device_version);
+                            output.WriteLine("OS Version: " + device_version);
                             output.WriteLine("\n--------------\n");
                         }
                         catch (Exception)
