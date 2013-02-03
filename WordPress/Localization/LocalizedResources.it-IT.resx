@@ -568,7 +568,7 @@
     <value>articoli</value>
   </data>
   <data name="Options_StatisticType_PostViews" xml:space="preserve">
-    <value>Visite Messaggio</value>
+    <value>Visite per Articolo</value>
   </data>
   <data name="Options_StatisticType_Referrers" xml:space="preserve">
     <value>Referenti</value>
