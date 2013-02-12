@@ -77,11 +77,7 @@ namespace WordPress
         private void OnPageLoaded(object sender, EventArgs args)
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
-
-            if (!State.ContainsKey(TITLEKEY_VALUE))
-            {
-                LoadPage();
-            }
+            LoadPage();
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
@@ -237,7 +233,11 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
 
-            RestorePageState();
+            //look for transient data stored in the State dictionary
+            if (State.ContainsKey(TITLEKEY_VALUE))
+            {
+                titleTextBox.Text = State[TITLEKEY_VALUE] as string;
+            }
         }
 
         private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -423,27 +423,12 @@ namespace WordPress
 
             base.OnNavigatedFrom(e);
 
-            SavePageState();
-        }
-
-        private void SavePageState()
-        {
             //store transient data in the State dictionary
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 State.Remove(TITLEKEY_VALUE);
             }
             State.Add(TITLEKEY_VALUE, titleTextBox.Text);
-
-        }
-
-        private void RestorePageState()
-        {
-            //look for transient data stored in the State dictionary
-            if (State.ContainsKey(TITLEKEY_VALUE))
-            {
-                titleTextBox.Text = State[TITLEKEY_VALUE] as string;
-            }
         }
 
         private void OnDatePickerChanged(object sender, DateTimeValueChangedEventArgs e)

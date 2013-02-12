@@ -273,11 +273,11 @@ namespace WordPress
         {
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
-            if (!(State.ContainsKey(TITLEKEY_VALUE)))
-            {
+            /*if (!(State.ContainsKey(TITLEKEY_VALUE)))
+            {*/
                 LoadBlog();
                 SetupFeaturedImage();
-            }
+            //}
 
         }
 
@@ -366,31 +366,22 @@ namespace WordPress
             //check for transient data stored in State dictionary
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
-                RestorePageState();
+                if (State.ContainsKey(TITLEKEY_VALUE))
+                {
+                    titleTextBox.Text = State[TITLEKEY_VALUE] as string;
+                }
+
+                if (State.ContainsKey(TAGSKEY_VALUE))
+                {
+                    tagsTextBox.Text = State[TAGSKEY_VALUE] as string;
+                }
+
+                CategoryContentConverter converter = Resources["CategoryContentConverter"] as CategoryContentConverter;
+                if (null == converter) return;
+
+                if (App.MasterViewModel.CurrentPost != null)
+                    categoriesTextBlock.Text = converter.Convert(App.MasterViewModel.CurrentPost.Categories, typeof(string), null, null) as string;
             }
-        }
-
-        /// <summary>
-        /// Retrieves transient data from the page's State dictionary
-        /// </summary>
-        private void RestorePageState()
-        {
-
-            if (State.ContainsKey(TITLEKEY_VALUE))
-            {
-                titleTextBox.Text = State[TITLEKEY_VALUE] as string;
-            }
-
-            if (State.ContainsKey(TAGSKEY_VALUE))
-            {
-                tagsTextBox.Text = State[TAGSKEY_VALUE] as string;
-            }
-
-            CategoryContentConverter converter = Resources["CategoryContentConverter"] as CategoryContentConverter;
-            if (null == converter) return;
-
-            if(App.MasterViewModel.CurrentPost != null)
-                categoriesTextBlock.Text = converter.Convert(App.MasterViewModel.CurrentPost.Categories, typeof(string), null, null) as string;
         }
 
         /// <summary>
@@ -814,16 +805,6 @@ namespace WordPress
                 postFormatsPicker.SelectionChanged -= listPicker_SelectionChanged;
             }
 
-            base.OnNavigatedFrom(e);
-            //store transient data in the State dictionary
-            SavePageState();
-        }
-
-        /// <summary>
-        /// Stores transient data in the page's State dictionary
-        /// </summary>
-        private void SavePageState()
-        {
             if (State.ContainsKey(TITLEKEY_VALUE))
             {
                 State.Remove(TITLEKEY_VALUE);
@@ -835,6 +816,8 @@ namespace WordPress
                 State.Remove(TAGSKEY_VALUE);
             }
             State.Add(TAGSKEY_VALUE, tagsTextBox.Text);
+
+            base.OnNavigatedFrom(e);
         }
 
         private void OnSelectCategoriesButtonClick(object sender, RoutedEventArgs e)
