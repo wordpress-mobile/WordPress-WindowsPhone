@@ -560,6 +560,42 @@ namespace WordPress.Model
             return false;
         }
 
+        public bool hasJetpack()
+        {
+            if (this.isWPcom()) return false;
+            
+            if (this.Options != null)
+            {
+                foreach (Option currentOption in this.Options)
+                {
+                    if (currentOption.Name == "jetpack_client_id")
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public string getJetpackClientID()
+        {
+            if (this.hasJetpack() == false) return null;
+
+            if (this.Options != null)
+            {
+                foreach (Option currentOption in this.Options)
+                {
+                    if (currentOption.Name == "jetpack_client_id")
+                    {
+                        return currentOption.Value;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public bool isWPcom()
         {
             if (_xmlrpc.Contains("wordpress.com"))
@@ -587,10 +623,12 @@ namespace WordPress.Model
 
             return isPrivateBlog;
         }
+
         public string loginURL()
         {
             return _xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
         }
+
         #endregion
     }
 }

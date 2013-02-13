@@ -134,7 +134,7 @@
                 			Content="{Binding StatisticPeriod, Converter={StaticResource StatisticPeriodToStringConverter}, ElementName=phoneApplicationPage, Mode=TwoWay}"
                 			Click="OnStatisticPeriodButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Grid.Column="1" Width="200"/>
 
-                <Button x:Name="statsButton" Content="Go" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Grid.Column="2" Margin="-4,0,0,0"/>
+                <Button x:Name="statsButton" Content="{Binding ControlsText.Go, Source={StaticResource StringTable}}" Click="OnStatsButtonClick" Style="{StaticResource BasicButtonStyle}" HorizontalAlignment="Left" Grid.Column="2" Margin="-4,0,0,0"/>
             </Grid>
 
             <ScrollViewer x:Name="viewsStatsScrollViewer" Grid.Row="1" Visibility="Collapsed" Margin="0,0,0,0" d:IsHidden="True">
@@ -257,7 +257,7 @@
                 </Grid.ColumnDefinitions>
                 <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.SearchTerms, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlText.Counts, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource searchTermStatsDataSource}" ItemsSource="{Binding}" >
                     <ListBox.ItemTemplate>
@@ -291,7 +291,7 @@
                 </Grid.ColumnDefinitions>
                 <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Referrers, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Counts, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource referrerStatsDataSource}" ItemsSource="{Binding}" >
                     <ListBox.ItemTemplate>
@@ -328,7 +328,7 @@
                 </Grid.ColumnDefinitions>
                 <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.Clicks, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Views, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Counts, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource clickStatsDataSource}" ItemsSource="{Binding}" >
                     <ListBox.ItemTemplate>

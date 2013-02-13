@@ -11,6 +11,7 @@ using System.Threading;
 using System.Xml.Linq;
 using System.Xml;
 using System.Net.NetworkInformation;
+using System.Collections.ObjectModel;
 
 namespace WordPress.Model
 {
@@ -285,7 +286,8 @@ namespace WordPress.Model
         }
 
 
-        protected const string STATSURL_FORMATSTRING = "http://stats.wordpress.com/api/1.0/?api_key={0}&blog_uri={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
+        protected const string STATSURL_FORMATSTRING_FOR_URL = "http://stats.wordpress.com/api/1.0/?api_key={0}&blog_uri={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
+        protected const string STATSURL_FORMATSTRING_FOR_ID = "http://stats.wordpress.com/api/1.0/?api_key={0}&blog_id={1}&format=xml&table={2}&end={3}&days={4}&limit=-1{5}";
 
         private SendOrPostCallback onCompletedDelegate;
 
@@ -324,14 +326,40 @@ namespace WordPress.Model
         {
             get
             {
-                string url = string.Format(STATSURL_FORMATSTRING,
-                    Blog.ApiKey,
-                    Blog.Url,
-                    StatisticType.ToString().ToLower(),
-                    DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString(),
-                    Days,
-                    Period
-                    );
+                string url = "";
+                string blogToLoad = null;
+
+                if (Blog.isWPcom())
+                {
+                    blogToLoad = Blog.BlogId.ToString();
+                }
+                else
+                {
+                    blogToLoad = Blog.getJetpackClientID();
+                }
+
+                if (blogToLoad != "" && blogToLoad != null)
+                {
+                    url = string.Format(STATSURL_FORMATSTRING_FOR_ID,
+                                        Blog.ApiKey,
+                                        blogToLoad,
+                                        StatisticType.ToString().ToLower(),
+                                        DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString(),
+                                        Days,
+                                        Period
+                                        );
+                }
+                else
+                { //99% sure we can't reach this branch since the check for Jetpack blog is on the click of the stats button
+                    url = string.Format(STATSURL_FORMATSTRING_FOR_URL,
+                                        Blog.ApiKey,
+                                        Blog.Url,
+                                        StatisticType.ToString().ToLower(),
+                                        DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString() + "-" + DateTime.Now.Day.ToString(),
+                                        Days,
+                                        Period
+                                        );
+                }
 
                 return new Uri(url, UriKind.Absolute);
             }

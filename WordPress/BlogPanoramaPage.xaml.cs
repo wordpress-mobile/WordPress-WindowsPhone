@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using WordPress.Commands;
 using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
@@ -447,7 +448,21 @@ namespace WordPress
                 return;
             }
             else
-                NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
+            {
+                if (App.MasterViewModel.CurrentBlog.isWPcom() || App.MasterViewModel.CurrentBlog.hasJetpack())
+                    NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
+
+                //Not a WPCOM blog and JetPack 1.8.2 or higher is installed on the site. Show the error message.
+                if (!App.MasterViewModel.CurrentBlog.hasJetpack())
+                {
+                    MessageBoxResult result = MessageBox.Show(_localizedStrings.Messages.JetpackNotAvailable, _localizedStrings.PageTitles.Error, MessageBoxButton.OKCancel);
+                    if (MessageBoxResult.OK == result) //start the browser
+                    {
+                        LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();
+                        command.Execute(Constants.JETPACK_SITE_URL);
+                    }
+                }
+            }
         }
 
         #endregion

@@ -919,4 +919,15 @@
   <data name="Prompts_MediaErrorPictureCorruptedOrUnreadlable" xml:space="preserve">
     <value>The picture is corrupted or cannot be read.</value>
   </data>
+  <data name="ControlText_Counts" xml:space="preserve">
+    <value>Counts</value>
+    <comment>Label for a Stats column</comment>
+  </data>
+  <data name="ControlText_Go" xml:space="preserve">
+    <value>Go</value>
+    <comment>Label for the button Go in Stats</comment>
+  </data>
+  <data name="Messages_JetpackNotAvailable" xml:space="preserve">
+    <value>To access Stats you need to install Jetpack 1.9 or higher. Would you like to know more?</value>
+  </data>
 </root>

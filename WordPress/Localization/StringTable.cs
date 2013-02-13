@@ -195,6 +195,8 @@ namespace WordPress.Localization
             public string EditComment { get { return LocalizedResources.ControlText_EditComment; } }
             public string Send { get { return LocalizedResources.ControlText_Send; } }
             public string Moderate { get { return LocalizedResources.ControlText_Moderate; } }
+            public string Counts { get { return LocalizedResources.ControlText_Counts; } }
+            public string Go { get { return LocalizedResources.ControlText_Go; } }
             
             public string FilterAll { get { return LocalizedResources.ControlText_FilterAll; } }
             public string FilterApproved { get { return LocalizedResources.ControlText_FilterApproved; } }
@@ -252,6 +254,7 @@ namespace WordPress.Localization
             public string MissingFields { get { return LocalizedResources.Messages_MissingFields; } }
             public string NoBlogsFoundAtThisURL { get { return LocalizedResources.Messages_NoBlogFoundAtThisURL; } }
             public string TitleAndContentEmpty { get { return LocalizedResources.Messages_TitleAndContentEmpty; } }
+            public string JetpackNotAvailable { get { return LocalizedResources.Messages_JetpackNotAvailable; } }
         }
 
         #endregion
