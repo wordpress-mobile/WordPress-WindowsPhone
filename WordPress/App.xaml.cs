@@ -166,7 +166,16 @@ namespace WordPress
 
             if (e.ExceptionObject is ApplicationShouldEndException)
                 return;
-            
+
+            if (e.ExceptionObject is System.InvalidOperationException)
+            {
+                if (e.ExceptionObject.Message != null && 
+                    (e.ExceptionObject.Message.StartsWith("Navigation is not allowed when the task is not in the foreground")))
+                {
+                    return; //See: #227
+                }
+            }
+
             CrashReporter.ReportException(e.ExceptionObject, "Application_UnhandledException");
 
             if (System.Diagnostics.Debugger.IsAttached)
