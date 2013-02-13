@@ -450,7 +450,10 @@ namespace WordPress
             else
             {
                 if (App.MasterViewModel.CurrentBlog.isWPcom() || App.MasterViewModel.CurrentBlog.hasJetpack())
+                {
                     NavigationService.Navigate(new Uri("/ViewStatsPage.xaml", UriKind.Relative));
+                    return;
+                }
 
                 //Not a WPCOM blog and JetPack 1.8.2 or higher is installed on the site. Show the error message.
                 if (!App.MasterViewModel.CurrentBlog.hasJetpack())
