@@ -927,7 +927,10 @@
     <value>Go</value>
     <comment>Label for the button Go in Stats</comment>
   </data>
-  <data name="Messages_JetpackNotAvailable" xml:space="preserve">
+  <data name="ControlText_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Prompts_JetpackNotAvailable" xml:space="preserve">
     <value>To access Stats you need to install Jetpack 1.9 or higher. Would you like to know more?</value>
   </data>
 </root>

@@ -262,6 +262,22 @@
                     			TextAlignment="Right" Foreground="White"/>
                     	</StackPanel>
                     </Button>
+
+                    <Button x:Name="viewDashboarButton" Height="80" Margin="0" 
+                    	VerticalAlignment="Top" BorderBrush="{x:Null}" BorderThickness="0"
+                    	Grid.Row="2" HorizontalContentAlignment="Right" HorizontalAlignment="Left" 
+                    	Style="{StaticResource TileButtonTemplate}" Width="400"
+                    	Click="OnDashboardButtonClick" Grid.ColumnSpan="2" d:LayoutOverrides="VerticalAlignment">
+                        <Button.Background>
+                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                        </Button.Background>
+                        <StackPanel Height="70" Width="390" RenderTransformOrigin="0.715,0.478" >
+                            <!-- Image Source="Images/actionsStats.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/ -->
+                            <TextBlock Text="{Binding ControlsText.Dashboard, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                    			VerticalAlignment="Bottom" Margin="0,36,10,0" HorizontalAlignment="Right" 
+                    			TextAlignment="Right" Foreground="White"/>
+                        </StackPanel>
+                    </Button>
                     
                 </Grid>
 

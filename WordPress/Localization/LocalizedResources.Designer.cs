@@ -385,6 +385,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        internal static string ControlText_Dashboard {
+            get {
+                return ResourceManager.GetString("ControlText_Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string ControlText_Date {
@@ -1397,15 +1406,6 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To access Stats you need to install Jetpack 1.9 or higher. Would you like to know more?.
-        /// </summary>
-        internal static string Messages_JetpackNotAvailable {
-            get {
-                return ResourceManager.GetString("Messages_JetpackNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to loading....
         /// </summary>
         internal static string Messages_Loading {
@@ -1951,6 +1951,15 @@ namespace WordPress.Localization {
         internal static string Prompts_Confirm {
             get {
                 return ResourceManager.GetString("Prompts_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To access Stats you need to install Jetpack 1.9 or higher. Would you like to know more?.
+        /// </summary>
+        internal static string Prompts_JetpackNotAvailable {
+            get {
+                return ResourceManager.GetString("Prompts_JetpackNotAvailable", resourceCulture);
             }
         }
         

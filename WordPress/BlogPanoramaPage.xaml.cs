@@ -438,6 +438,23 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/BlogSettingsPage.xaml", UriKind.Relative));
         }
 
+
+        private void OnDashboardButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+
+            string dashboardURL = App.MasterViewModel.CurrentBlog.dashboardURL();
+            string queryStringFormat = "?{0}={1}&{2}={3}";
+            string queryString = string.Format(queryStringFormat, BrowserShellPage.TARGET_URL, dashboardURL, BrowserShellPage.REQUIRE_LOGIN, "1");
+            NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + queryString, UriKind.Relative));
+        }
+
         private void OnStatsButtonClick(object sender, RoutedEventArgs e)
         {
 
@@ -458,7 +475,7 @@ namespace WordPress
                 //Not a WPCOM blog and JetPack 1.8.2 or higher is installed on the site. Show the error message.
                 if (!App.MasterViewModel.CurrentBlog.hasJetpack())
                 {
-                    MessageBoxResult result = MessageBox.Show(_localizedStrings.Messages.JetpackNotAvailable, _localizedStrings.PageTitles.Error, MessageBoxButton.OKCancel);
+                    MessageBoxResult result = MessageBox.Show(_localizedStrings.Prompts.JetpackNotAvailable, _localizedStrings.PageTitles.Error, MessageBoxButton.OKCancel);
                     if (MessageBoxResult.OK == result) //start the browser
                     {
                         LaunchWebBrowserCommand command = new LaunchWebBrowserCommand();

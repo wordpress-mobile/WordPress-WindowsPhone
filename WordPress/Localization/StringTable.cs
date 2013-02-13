@@ -197,7 +197,8 @@ namespace WordPress.Localization
             public string Moderate { get { return LocalizedResources.ControlText_Moderate; } }
             public string Counts { get { return LocalizedResources.ControlText_Counts; } }
             public string Go { get { return LocalizedResources.ControlText_Go; } }
-            
+            public string Dashboard { get { return LocalizedResources.ControlText_Dashboard; } }
+
             public string FilterAll { get { return LocalizedResources.ControlText_FilterAll; } }
             public string FilterApproved { get { return LocalizedResources.ControlText_FilterApproved; } }
             public string FilterUnapproved { get { return LocalizedResources.ControlText_FilterUnapproved; } }
@@ -254,7 +255,6 @@ namespace WordPress.Localization
             public string MissingFields { get { return LocalizedResources.Messages_MissingFields; } }
             public string NoBlogsFoundAtThisURL { get { return LocalizedResources.Messages_NoBlogFoundAtThisURL; } }
             public string TitleAndContentEmpty { get { return LocalizedResources.Messages_TitleAndContentEmpty; } }
-            public string JetpackNotAvailable { get { return LocalizedResources.Messages_JetpackNotAvailable; } }
         }
 
         #endregion
@@ -333,6 +333,7 @@ namespace WordPress.Localization
             public string Comment { get { return LocalizedResources.Prompts_Comment; } }
             public string Comments { get { return LocalizedResources.Prompts_Comments; } }
             public string MediaPlacement { get { return LocalizedResources.Prompts_MediaPlacement; } }
+            public string JetpackNotAvailable { get { return LocalizedResources.Prompts_JetpackNotAvailable; } }
         
             /*Error String*/
             public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }
