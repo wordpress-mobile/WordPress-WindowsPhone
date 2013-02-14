@@ -271,6 +271,7 @@ namespace WordPress
 
         private void OnPageLoaded(object sender, EventArgs args)
         {
+            Loaded -= OnPageLoaded;
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
 
             /*if (!(State.ContainsKey(TITLEKEY_VALUE)))
@@ -803,6 +804,7 @@ namespace WordPress
             {
                 //remove the listers!
                 postFormatsPicker.SelectionChanged -= listPicker_SelectionChanged;
+                postFormatsPicker.ItemsSource = null;
             }
 
             if (State.ContainsKey(TITLEKEY_VALUE))
@@ -1046,6 +1048,8 @@ namespace WordPress
             if (sender == postFormatsPicker)
             {
                 int newIndex = postFormatsPicker.SelectedIndex;
+                if ( !(newIndex >= 0) || newIndex >= App.MasterViewModel.CurrentBlog.PostFormats.Count)
+                    return;
                 PostFormat newPostFormat = App.MasterViewModel.CurrentBlog.PostFormats[newIndex];
                 post.PostFormat = newPostFormat.Key;
             }
