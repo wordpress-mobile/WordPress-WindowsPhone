@@ -71,4 +71,19 @@ namespace WordPress.Model
         LastYear,
         AllTime
     }
+
+     public enum eGalleryLinkTo
+     {
+         AttachmentPage,
+         MediaFile
+     }
+ 
+     public enum eGalleryType
+     {
+         Default,
+         Tiles,
+         SquareTiles,
+         Circles,
+         Slideshow
+     }
 }

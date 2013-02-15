@@ -205,6 +205,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attachment Page.
+        /// </summary>
+        internal static string ControlText_AttachmentPage {
+            get {
+                return ResourceManager.GetString("ControlText_AttachmentPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to back.
         /// </summary>
         internal static string ControlText_Back {
@@ -322,6 +331,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Circles.
+        /// </summary>
+        internal static string ControlText_Circles {
+            get {
+                return ResourceManager.GetString("ControlText_Circles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to clear.
         /// </summary>
         internal static string ControlText_Clear {
@@ -345,6 +363,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Code {
             get {
                 return ResourceManager.GetString("ControlText_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to columns.
+        /// </summary>
+        internal static string ControlText_Columns {
+            get {
+                return ResourceManager.GetString("ControlText_Columns", resourceCulture);
             }
         }
         
@@ -408,6 +435,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Decline {
             get {
                 return ResourceManager.GetString("ControlText_Decline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        internal static string ControlText_Default {
+            get {
+                return ResourceManager.GetString("ControlText_Default", resourceCulture);
             }
         }
         
@@ -583,6 +619,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to gallery settings.
+        /// </summary>
+        internal static string ControlText_GallerySettings {
+            get {
+                return ResourceManager.GetString("ControlText_GallerySettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to geotag posts.
         /// </summary>
         internal static string ControlText_GeoTagPosts {
@@ -637,6 +682,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to link to.
+        /// </summary>
+        internal static string ControlText_LinkTo {
+            get {
+                return ResourceManager.GetString("ControlText_LinkTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to li.
         /// </summary>
         internal static string ControlText_ListItem {
@@ -678,6 +732,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Media {
             get {
                 return ResourceManager.GetString("ControlText_Media", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media File.
+        /// </summary>
+        internal static string ControlText_MediaFile {
+            get {
+                return ResourceManager.GetString("ControlText_MediaFile", resourceCulture);
             }
         }
         
@@ -916,6 +979,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to random order.
+        /// </summary>
+        internal static string ControlText_RandomOrder {
+            get {
+                return ResourceManager.GetString("ControlText_RandomOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reader.
         /// </summary>
         internal static string ControlText_Reader {
@@ -1051,11 +1123,29 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slideshow.
+        /// </summary>
+        internal static string ControlText_Slideshow {
+            get {
+                return ResourceManager.GetString("ControlText_Slideshow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to spam.
         /// </summary>
         internal static string ControlText_Spam {
             get {
                 return ResourceManager.GetString("ControlText_Spam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square Tiles.
+        /// </summary>
+        internal static string ControlText_SquareTiles {
+            get {
+                return ResourceManager.GetString("ControlText_SquareTiles", resourceCulture);
             }
         }
         
@@ -1114,11 +1204,29 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tiles.
+        /// </summary>
+        internal static string ControlText_Tiles {
+            get {
+                return ResourceManager.GetString("ControlText_Tiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to title.
         /// </summary>
         internal static string ControlText_Title {
             get {
                 return ResourceManager.GetString("ControlText_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string ControlText_Type {
+            get {
+                return ResourceManager.GetString("ControlText_Type", resourceCulture);
             }
         }
         
@@ -1191,6 +1299,15 @@ namespace WordPress.Localization {
         internal static string ControlText_UploadChanges {
             get {
                 return ResourceManager.GetString("ControlText_UploadChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to upload images as gallery.
+        /// </summary>
+        internal static string ControlText_UploadImagesAsGallery {
+            get {
+                return ResourceManager.GetString("ControlText_UploadImagesAsGallery", resourceCulture);
             }
         }
         
@@ -2275,6 +2392,15 @@ namespace WordPress.Localization {
         internal static string Title_Error {
             get {
                 return ResourceManager.GetString("Title_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gallery settings.
+        /// </summary>
+        internal static string Title_GallerySettings {
+            get {
+                return ResourceManager.GetString("Title_GallerySettings", resourceCulture);
             }
         }
         

@@ -121,6 +121,9 @@
     <Compile Include="EditContent.xaml.cs">
       <DependentUpon>EditContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GallerySettingsPage.xaml.cs">
+      <DependentUpon>GallerySettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ImageDetailsPage.xaml.cs">
       <DependentUpon>ImageDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,10 @@
     </Page>
     <Page Include="EditContent.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GallerySettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ImageDetailsPage.xaml">
       <SubType>Designer</SubType>

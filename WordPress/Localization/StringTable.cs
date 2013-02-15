@@ -66,6 +66,7 @@ namespace WordPress.Localization
             public string CheckTheUrl { get { return LocalizedResources.Title_CheckTheUrl; } }
             public string ConfirmDelete { get { return LocalizedResources.Title_ConfirmDelete; } }
             public string Error { get { return LocalizedResources.Title_Error; } }
+            public string GallerySettings { get { return LocalizedResources.Title_GallerySettings; } }
         }
 
         #endregion
@@ -208,6 +209,19 @@ namespace WordPress.Localization
             public string FeaturedImage { get { return LocalizedResources.ControlText_FeaturedImage; } }
             public string FeaturedImageError { get { return LocalizedResources.ControlText_FeaturedImageError; } }
 
+            public string GallerySettings { get { return LocalizedResources.ControlText_GallerySettings; } }
+            public string UploadImagesAsGallery { get { return LocalizedResources.ControlText_UploadImagesAsGallery; } }
+            public string AttachmentPage { get { return LocalizedResources.ControlText_AttachmentPage; } }
+            public string MediaFile { get { return LocalizedResources.ControlText_MediaFile; } }
+            public string LinkTo { get { return LocalizedResources.ControlText_LinkTo; } }
+            public string Columns { get { return LocalizedResources.ControlText_Columns; } }
+            public string RandomOrder { get { return LocalizedResources.ControlText_RandomOrder; } }
+            public string Type { get { return LocalizedResources.ControlText_Type; } }
+            public string Circles { get { return LocalizedResources.ControlText_Circles; } }
+            public string Default { get { return LocalizedResources.ControlText_Default; } }
+            public string Slideshow { get { return LocalizedResources.ControlText_Slideshow; } }
+            public string Tiles { get { return LocalizedResources.ControlText_Tiles; } }
+            public string SquareTiles { get { return LocalizedResources.ControlText_SquareTiles; } }
         }
 
         #endregion

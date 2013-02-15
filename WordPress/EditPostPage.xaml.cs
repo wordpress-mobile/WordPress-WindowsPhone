@@ -31,6 +31,7 @@ namespace WordPress
         private const string PUBLISHKEY_VALUE = "publish";
         private const string TITLEKEY_VALUE = "title";
         private const string TAGSKEY_VALUE = "tags";
+        private const int MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY = 2;
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
@@ -72,6 +73,9 @@ namespace WordPress
             photoChooserTask = new PhotoChooserTask();
             photoChooserTask.ShowCamera = true;
             photoChooserTask.Completed += new EventHandler<PhotoResult>(OnChoosePhotoTaskCompleted);
+
+            uploadImagesAsGalleryCheckbox.Visibility = Visibility.Collapsed;
+            gallerySettingsButton.Visibility = Visibility.Collapsed;
         }
 
         #endregion
@@ -347,7 +351,7 @@ namespace WordPress
             if (post == null || post.PostStatus == null || post.Media == null)
                 return;
 
-            if (post.PostStatus.Equals("localdraft"))
+            if (post.IsLocalDraft())
             {
                 // Don't clear images from local drafts.
                 return;
@@ -380,8 +384,13 @@ namespace WordPress
                 CategoryContentConverter converter = Resources["CategoryContentConverter"] as CategoryContentConverter;
                 if (null == converter) return;
 
-                if (App.MasterViewModel.CurrentPost != null)
+                Post post = App.MasterViewModel.CurrentPost;
+                if (post != null)
+                {
                     categoriesTextBlock.Text = converter.Convert(App.MasterViewModel.CurrentPost.Categories, typeof(string), null, null) as string;
+                    if (post.Gallery.Enabled)
+                        uploadImagesAsGalleryCheckbox.IsChecked = true;
+                }
             }
         }
 
@@ -539,7 +548,7 @@ namespace WordPress
             Post post = App.MasterViewModel.CurrentPost;
 
             //Do not publish posts with no title or content.
-            if (0 >= post.Media.Count)
+            if (!post.HasMedia())
             {
                 //check the content
                 if (titleTextBox.Text.Trim() == "" && post.Description.Trim() == "")
@@ -575,10 +584,9 @@ namespace WordPress
             //which doesn't force focus to change
             post.Title = titleTextBox.Text;
 
-            if (0 < post.Media.Count)
-            {
-                
-                if (!post.PostStatus.Equals("localdraft"))
+            if (post.HasMedia())
+            {     
+                if (!post.IsLocalDraft())
                 {
                     foreach (Media currentMedia in post.Media)
                     {
@@ -631,46 +639,11 @@ namespace WordPress
             Post post = App.MasterViewModel.CurrentPost;
             Blog blog = App.MasterViewModel.CurrentBlog;
 
-            if (post.Media != null && post.Media.Count > 0 && !post.PostStatus.Equals("localdraft"))
+            if (post.HasMedia() && !post.IsLocalDraft())
             {
-                StringBuilder prependBuilder = new StringBuilder();
-                StringBuilder appendBuilder = new StringBuilder();
-                foreach (Media currentMedia in post.Media)
-                {
-                    if (currentMedia.IsFeatured)
-                    {
-                        post.PostThumbnail = currentMedia.Id;
-                    }
-                    else
-                    {
-
-                        if (currentMedia.placement != eMediaPlacement.BlogPreference)
-                        {
-                            if (currentMedia.placement == WordPress.Model.eMediaPlacement.Before)
-                            {
-                                prependBuilder.Append(currentMedia.getHTML());
-                            }
-                            else
-                            {
-                                appendBuilder.Append(currentMedia.getHTML());
-                            }
-                        }
-                        else
-                        {
-                            if (blog.PlaceImageAboveText)
-                            {
-                                prependBuilder.Append(currentMedia.getHTML());
-                            }
-                            else
-                            {
-                                appendBuilder.Append(currentMedia.getHTML());
-                            }
-                        }
-                    }
-                }
-
-                String newContent = prependBuilder.ToString() + post.Description + appendBuilder.ToString();
-                post.Description = newContent;
+                bool galleryEnabled = uploadImagesAsGalleryCheckbox.Visibility == Visibility.Visible &&
+                      uploadImagesAsGalleryCheckbox.IsChecked.GetValueOrDefault();
+                post.GenerateImageMarkup(blog.PlaceImageAboveText, galleryEnabled);
             }
 
             //make sure the post has the latest UI data--the Save button is a ToolbarButton
@@ -680,12 +653,13 @@ namespace WordPress
 
             if (post.IsNew)
             {
-                if (!post.PostStatus.Equals("localdraft")) {
+                if (!post.IsLocalDraft())
+                {
                     // Anything but local draft status gets uploaded
                     UserSettings settings = new UserSettings();
                     if (settings.UseTaglineForNewPosts)
                     {
-                        post.Description = post.Description + "\r\n<p class=\"post-sig\">" + settings.Tagline + "</p>";
+                        post.AddTagline(settings.Tagline);
                     }
                     NewPostRPC rpc = new NewPostRPC(App.MasterViewModel.CurrentBlog, post);
                     rpc.PostType = ePostType.post;
@@ -831,6 +805,11 @@ namespace WordPress
         {
             photoChooserTask.Show();
         }
+        
+        private void OnEditGallerySettingsButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/GallerySettingsPage.xaml", UriKind.Relative));
+        }
 
         private void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
         {
@@ -882,6 +861,22 @@ namespace WordPress
 
             //update the UI
             imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+            ToggleGalleryControlsVisibility();
+        }
+
+        private void ToggleGalleryControlsVisibility()
+        {
+            Post post = App.MasterViewModel.CurrentPost;
+            if (post.Media.Count >= MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY)
+            {
+                uploadImagesAsGalleryCheckbox.Visibility = Visibility.Visible;
+                gallerySettingsButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                uploadImagesAsGalleryCheckbox.Visibility = Visibility.Collapsed;
+                gallerySettingsButton.Visibility = Visibility.Collapsed;
+            }
         }
 
         private Canvas BuildTappableImageElement(BitmapImage image, Media currentMedia)
@@ -941,6 +936,12 @@ namespace WordPress
             _mediaUploadRPCs.Clear();
             Post post = App.MasterViewModel.CurrentPost;
             post.Media.Clear();
+            ToggleGalleryControlsVisibility();
+            
+                        // This forces the media section to layout properly after clicking the
+                        // clear media button.
+            uploadImagesAsGalleryCheckbox.InvalidateMeasure();
+            imageWrapPanel.InvalidateMeasure();
         }
 
         public void removeImage(Media imageToRemove)
@@ -955,6 +956,7 @@ namespace WordPress
                     break;
                 }
             }
+            ToggleGalleryControlsVisibility();
         }
 
         private void OnUploadMediaRPCCompleted(object sender, XMLRPCCompletedEventArgs<Media> args)

@@ -88,6 +88,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -124,36 +125,38 @@
                 <StackPanel Grid.Row="10" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
+                    <Button x:Name="gallerySettingsButton" Content="{Binding Path=ControlsText.GallerySettings, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnEditGallerySettingsButtonClick" />
                 </StackPanel>
-                <toolkit:WrapPanel Grid.Row="11" x:Name="imageWrapPanel"/>
-                
+                <CheckBox x:Name="uploadImagesAsGalleryCheckbox"  Grid.Row="11" Content="{Binding ControlsText.UploadImagesAsGallery, Source={StaticResource StringTable}}" FontSize="{StaticResource ControlFontSize}" IsChecked="{Binding Gallery.Enabled, Mode=TwoWay}" Foreground="{StaticResource WordPressGreyBrush}" Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="10, 0, 10, 10" />
+                <toolkit:WrapPanel Grid.Row="12" x:Name="imageWrapPanel"/>
+
                 <!-- Tags -->
-                <Rectangle Grid.Row="12" Margin="10,5"/>
-                <Rectangle Grid.Row="13" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="13" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <TextBox Grid.Row="14" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
-                <TextBlock Grid.Row="15" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
+                <Rectangle Grid.Row="13" Margin="10,5"/>
+                <Rectangle Grid.Row="14" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="14" Text="{Binding ControlsText.Tags, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <TextBox Grid.Row="15" x:Name="tagsTextBox" Text="{Binding MtKeyWords, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text"/>
+                <TextBlock Grid.Row="16" Text="{Binding Path=ControlsText.TagsHelpText, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,0,10,10"  FontSize="{StaticResource ControlFontSize}"/>
 
                 <!-- Categories -->
-                <Rectangle Grid.Row="16" Margin="10,5"/>
-                <Rectangle Grid.Row="17" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="17" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
-                <Button Grid.Row="18" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
+                <Rectangle Grid.Row="17" Margin="10,5"/>
+                <Rectangle Grid.Row="18" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="18" Text="{Binding Path=ControlsText.Categories, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
+                <Button Grid.Row="19" x:Name="selectCategoriesButton" HorizontalAlignment="Left" Style="{StaticResource BasicButtonStyle}"
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
                 
                 <!-- Post Status -->
-                <Rectangle Grid.Row="19" Margin="10,5"/>
-                <Rectangle Grid.Row="20" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="20" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="21" x:Name="statusPicker" Margin="8,0,8,10"/>
+                <Rectangle Grid.Row="20" Margin="10,5"/>
+                <Rectangle Grid.Row="21" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="21" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="22" x:Name="statusPicker" Margin="8,0,8,10"/>
 
                 <!-- Post Format -->
-                <Rectangle Grid.Row="22" Margin="10,5"/>
-                <Rectangle Grid.Row="23" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="23" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="24" 
+                <Rectangle Grid.Row="23" Margin="10,5"/>
+                <Rectangle Grid.Row="24" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="24" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="25" 
                                     x:Name="postFormatsPicker" 
                                     Margin="8,0,8,10" 
                                     ItemTemplate="{StaticResource PickerItemTemplate}" 
@@ -162,10 +165,10 @@
                                     />
 
                 <!-- Publish Date -->
-                <Rectangle Grid.Row="25" Margin="10,5"/>
-                <Rectangle Grid.Row="26" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="26" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <StackPanel Grid.Row="27">
+                <Rectangle Grid.Row="26" Margin="10,5"/>
+                <Rectangle Grid.Row="27" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="27" Text="{Binding ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <StackPanel Grid.Row="28">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />

@@ -72,6 +72,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!--TitlePanel contains the name of the application and page title-->
@@ -94,17 +95,19 @@
                 <StackPanel Grid.Row="6" Orientation="Horizontal">
                     <Button x:Name="addMediaButton" Content="{Binding Path=ControlsText.Add, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnAddNewMediaButtonClick"/>
                     <Button x:Name="clearMediaButton" Content="{Binding Path=ControlsText.Clear, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnClearMediaButtonClick"/>
-                </StackPanel>
-                <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="7" />
+                    <Button x:Name="gallerySettingsButton" Content="{Binding Path=ControlsText.GallerySettings, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnEditGallerySettingsButtonClick" />
+                </StackPanel>                
+                <CheckBox x:Name="uploadImagesAsGalleryCheckbox"  Grid.Row="7" Content="{Binding ControlsText.UploadImagesAsGallery, Source={StaticResource StringTable}}" FontSize="{StaticResource ControlFontSize}" IsChecked="{Binding Gallery.Enabled, Mode=TwoWay}" Foreground="{StaticResource WordPressGreyBrush}" Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="10, 0, 10, 10" />
+                <toolkit:WrapPanel x:Name="imageWrapPanel" Grid.Row="8" />
 
 
-                <Rectangle Grid.Row="8" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="8" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="9" x:Name="statusPicker" Margin="8,0,8,10"/>
+                <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="10" x:Name="statusPicker" Margin="8,0,8,10"/>
 
-                <Rectangle Grid.Row="10" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
-                <TextBlock Grid.Row="10" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
-                <StackPanel Grid.Row="11">
+                <Rectangle Grid.Row="11" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
+                <TextBlock Grid.Row="11" Text="{Binding Path=ControlsText.PublishDate, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5" />
+                <StackPanel Grid.Row="12">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />

@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 using System.Collections.Generic;
 
@@ -37,6 +38,7 @@ namespace WordPress.Model
         private ObservableCollection<Media> _media;
         private string _postFormat;
         private string _postThumbnail = "";
+        private readonly Gallery _gallery;
         private MediaItem _featuredImage;
 
         private const string DATECREATED_VALUE = "dateCreated";
@@ -80,6 +82,7 @@ namespace WordPress.Model
             _categories.CollectionChanged += OnCategoriesChanged;
             _customFields = new ObservableCollection<CustomField>();
             _media = new ObservableCollection<Media>();
+            _gallery = new Gallery();
             _postFormat = "standard";
         }
 
@@ -87,6 +90,7 @@ namespace WordPress.Model
             :this()
         {
             _postFormat = "standard";
+            _gallery = new Gallery();
             ParseElement(structElement);
             _media = new ObservableCollection<Media>();
         }
@@ -380,6 +384,12 @@ namespace WordPress.Model
             }
         }
 
+
+        public Gallery Gallery
+        {
+            get { return _gallery; }
+        }
+
         public MediaItem FeaturedImage
         {
             get { return _featuredImage; }
@@ -393,6 +403,79 @@ namespace WordPress.Model
             }
         }
 
+        public bool HasMedia()
+        {
+            return Media != null && Media.Count > 0;
+        }
+
+        public bool IsLocalDraft()
+        {
+            return PostStatus.Equals("localdraft");
+        }
+
+        public void AddTagline(string tagline)
+        {
+            Description = Description + "\r\n<p class=\"post-sig\">" + tagline + "</p>";
+        }
+
+        public void GenerateImageMarkup(bool placeImageAboveText, bool galleryEnabled)
+        {
+            StringBuilder prependBuilder = new StringBuilder();
+            StringBuilder appendBuilder = new StringBuilder();
+            List<string> mediaIds = new List<string>();
+
+            foreach (Media currentMedia in Media)
+            {
+                if (currentMedia.IsFeatured)
+                {
+                    PostThumbnail = currentMedia.Id;
+                }
+                else if (galleryEnabled)
+                {
+                    mediaIds.Add(currentMedia.Id);
+                }
+                else
+                {
+                    if (currentMedia.placement != eMediaPlacement.BlogPreference)
+                    {
+                        if (currentMedia.placement == eMediaPlacement.Before)
+                        {
+                            prependBuilder.Append(currentMedia.getHTML());
+                        }
+                        else
+                        {
+                            appendBuilder.Append(currentMedia.getHTML());
+                        }
+                    }
+                    else
+                    {
+                        if (placeImageAboveText)
+                        {
+                            prependBuilder.Append(currentMedia.getHTML());
+                        }
+                        else
+                        {
+                            appendBuilder.Append(currentMedia.getHTML());
+                        }
+                    }
+                }
+            }
+
+            if (mediaIds.Count >= 1)
+            {
+                string galleryShortcode = Gallery.GenerateShortcode(mediaIds);
+                if (Gallery.ContentBelow)
+                {
+                    appendBuilder.AppendFormat("\n{0}", galleryShortcode);
+                }
+                else
+                {
+                    prependBuilder.AppendFormat("{0}\n", galleryShortcode);
+                }
+            }
+
+            Description = prependBuilder + Description + appendBuilder;
+        }
 
         #endregion
 

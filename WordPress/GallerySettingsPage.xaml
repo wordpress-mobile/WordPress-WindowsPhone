@@ -1,0 +1,114 @@
+﻿<phone:PhoneApplicationPage
+   x:Class="WordPress.GallerySettingsPage"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+   xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+   xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+   xmlns:Converters="clr-namespace:WordPress.Converters"
+   FontFamily="{StaticResource PhoneFontFamilyNormal}"
+   FontSize="{StaticResource PhoneFontSizeNormal}"
+   Foreground="{StaticResource PhoneForegroundBrush}"
+   SupportedOrientations="Portrait" Orientation="Portrait"
+   mc:Ignorable="d"
+   shell:SystemTray.IsVisible="True">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideUpFadeIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideUpFadeIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:SlideTransition Mode="SlideDownFadeOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:SlideTransition Mode="SlideDownFadeOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <phone:PhoneApplicationPage.Resources>
+        <Converters:CategoryContentConverter x:Key="CategoryContentConverter"/>
+        <Converters:PostTitleConverter x:Key="PostTitleConverter"/>
+        <Converters:PostContentConverter x:Key="PostContentConverter"/>
+        <DataTemplate x:Name="PickerFullModeItemTemplate">
+            <TextBlock Text="{Binding}" Margin="16 0 0 0" Foreground="White" FontSize="32" FontFamily="{StaticResource PhoneFontFamilyLight}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="PickerItemTemplate">
+            <TextBlock Text="{Binding}"/>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootStyle}" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="BlogName" Foreground="{StaticResource WordPressBlueBrush}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="{Binding Path=PageTitles.GallerySettings, Source={StaticResource StringTable}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </StackPanel>
+        <!--ContentPanel - place additional content here-->
+        <ScrollViewer x:Name="ContentPanel" Margin="12,0" Grid.Row="1" >
+            <StackPanel Orientation="Vertical">
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+					Text="{Binding ControlsText.LinkTo, Source={StaticResource StringTable}}"
+					Foreground="{StaticResource WordPressGreyBrush}"/>
+                <toolkit:ListPicker x:Name="linkToPicker" Margin="10,0,10,10" />
+
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+					Text="{Binding ControlsText.Columns, Source={StaticResource StringTable}}"
+					Foreground="{StaticResource WordPressGreyBrush}"/>
+
+                <!--
+               <toolkit:ListPicker x:Name="columnsPicker" Margin="10,0,10,10" />
+               -->
+
+                <toolkit:ListPicker x:Name="columnsPicker" 
+                                   Margin="10,0,10,10" 
+                                   ItemTemplate="{StaticResource PickerItemTemplate}"
+                                   FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}"
+                                   FullModeHeader="{Binding ControlsText.Columns, Source={StaticResource StringTable}}"/>
+
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+					Text="{Binding ControlsText.RandomOrder, Source={StaticResource StringTable}}"
+					Foreground="{StaticResource WordPressGreyBrush}"/>
+                <CheckBox x:Name="randomOrderCheckbox" 
+                         Content="{Binding ControlsText.RandomOrder, Source={StaticResource StringTable}}" 
+                         FontSize="{StaticResource ControlFontSize}"
+                         IsChecked="{Binding Gallery.GalleryRandomOrder}"
+                         Foreground="{StaticResource WordPressGreyBrush}" 
+                         Background="{StaticResource SectionHeaderBackgroundBrush}" Margin="0,10"/>
+
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+					Text="{Binding ControlsText.Type, Source={StaticResource StringTable}}"
+					Foreground="{StaticResource WordPressGreyBrush}"/>
+                <toolkit:ListPicker x:Name="typePicker" Margin="10,0,10,10"/>
+
+                <TextBlock TextWrapping="Wrap" FontSize="{StaticResource ControlFontSize}" 
+					Text="{Binding Prompts.MediaPlacement, Source={StaticResource StringTable}}"
+					Foreground="{StaticResource WordPressGreyBrush}"/>
+                <toolkit:ListPicker x:Name="placementPicker" Margin="10,0,10,10"/>
+
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+</phone:PhoneApplicationPage>

@@ -66,6 +66,7 @@
     <Compile Include="DelegateMethods.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Gallery.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="MediaItem.cs" />
