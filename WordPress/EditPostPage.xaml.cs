@@ -866,6 +866,11 @@ namespace WordPress
 
         private void ToggleGalleryControlsVisibility()
         {
+
+            //Gallery only on wpcom.
+            if (App.MasterViewModel.CurrentBlog.isWPcom() == false)
+                return; 
+
             Post post = App.MasterViewModel.CurrentPost;
             if (post.Media.Count >= MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY)
             {
