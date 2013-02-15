@@ -257,7 +257,7 @@
                 </Grid.ColumnDefinitions>
                 <Rectangle Grid.Row="0" Grid.ColumnSpan="2" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding ControlsText.SearchTerms, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" FontSize="{StaticResource SectionHeaderFontSize}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlText.Counts, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ControlsText.Counts, Source={StaticResource StringTable}}" Foreground="{StaticResource WordPressBlueBrush}" HorizontalAlignment="Right" FontSize="{StaticResource SectionHeaderFontSize}"/>
                 <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
 										 DataContext="{StaticResource searchTermStatsDataSource}" ItemsSource="{Binding}" >
                     <ListBox.ItemTemplate>
