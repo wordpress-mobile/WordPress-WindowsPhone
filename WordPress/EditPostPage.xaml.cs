@@ -441,6 +441,8 @@ namespace WordPress
                             App.MasterViewModel.CurrentPost.Media.Remove(m);
                         }
                     }
+
+                    this.ToggleGalleryControlsVisibility(); //Restore the gallery panel if necessary
                 }
                 else
                 {
