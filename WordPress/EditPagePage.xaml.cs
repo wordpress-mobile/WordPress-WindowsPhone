@@ -630,36 +630,36 @@ namespace WordPress
                     UIThread.Invoke(() =>
                     {
                         ApplicationBar.IsVisible = true;
+                        if (!_mediaDialogPresented)
+                        {
+                            string errorMessageDescription;
+                            if (null != args.Error && args.Error is PictureNotAvailableException)
+                            {
+                                errorMessageDescription = _localizedStrings.Prompts.MediaErrorNoPicture;
+                            }
+                            else
+                            {
+                                errorMessageDescription = _localizedStrings.Prompts.MediaErrorContent;
+                            }
+
+                            _mediaDialogPresented = true;
+                            MessageBoxResult result = MessageBox.Show(errorMessageDescription, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                            if (result == MessageBoxResult.OK)
+                            {
+                                SavePost();
+                                return;
+                            }
+                            else
+                            {
+                                //add a new XML-RPC call since the user wants to have another go at uploading
+                                UploadFileRPC newRPCCall = new UploadFileRPC(App.MasterViewModel.CurrentBlog, rpc.CurrentMedia, true);
+                                newRPCCall.Completed += OnUploadMediaRPCCompleted;
+                                _mediaUploadRPCs.Add(newRPCCall);
+                                return;
+                            }
+                        }
                     });
-
-                    if (!_mediaDialogPresented)
-                    {
-                        string errorMessageDescription;
-                        if (null != args.Error && args.Error is PictureNotAvailableException)
-                        {
-                            errorMessageDescription = _localizedStrings.Prompts.MediaErrorNoPicture;
-                        }
-                        else
-                        {
-                            errorMessageDescription = _localizedStrings.Prompts.MediaErrorContent;
-                        }  
-
-                        _mediaDialogPresented = true;
-                        MessageBoxResult result = MessageBox.Show(errorMessageDescription, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
-                        if (result == MessageBoxResult.OK)
-                        {
-                            SavePost();
-                            return;
-                        }
-                        else
-                        {
-                            //add a new XML-RPC call since the user wants to have another go at uploading
-                            UploadFileRPC newRPCCall = new UploadFileRPC(App.MasterViewModel.CurrentBlog, rpc.CurrentMedia, true);
-                            newRPCCall.Completed += OnUploadMediaRPCCompleted;
-                            _mediaUploadRPCs.Add(newRPCCall);
-                            return;
-                        }
-                    }
+                    return;//do not remove this return, since the code above is exceute asynched.
                 }
             }
 
