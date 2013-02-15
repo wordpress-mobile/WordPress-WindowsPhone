@@ -38,7 +38,7 @@ namespace WordPress.Model
         private ObservableCollection<Media> _media;
         private string _postFormat;
         private string _postThumbnail = "";
-        private readonly Gallery _gallery;
+        private Gallery _gallery;
         private MediaItem _featuredImage;
 
         private const string DATECREATED_VALUE = "dateCreated";
@@ -388,6 +388,14 @@ namespace WordPress.Model
         public Gallery Gallery
         {
             get { return _gallery; }
+            set
+            {
+                if (value != _gallery)
+                {
+                    _gallery = value;
+                    NotifyPropertyChanged("Gallery");
+                }
+            }
         }
 
         public MediaItem FeaturedImage

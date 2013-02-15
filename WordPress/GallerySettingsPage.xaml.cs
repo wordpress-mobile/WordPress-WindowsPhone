@@ -29,6 +29,7 @@ namespace WordPress
 
             InitializeApplicationBar();
             InitializePickers();
+
         }
 
         private void OnSaveButtonClick(object sender, EventArgs e)
