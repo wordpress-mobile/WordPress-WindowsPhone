@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace WordPress.Model
 {
-    public class Gallery
+    public class Gallery : INotifyPropertyChanged
     {
         public const int DEFAULT_NUMBER_OF_COLUMNS = 3;
 
@@ -36,6 +37,7 @@ namespace WordPress.Model
             }
         }
 
+        [XmlIgnore]
         public eGalleryLinkTo LinkTo
         {
             get { return _linkTo; }
@@ -47,6 +49,16 @@ namespace WordPress.Model
                     NotifyPropertyChanged("LinkTo");
                 }
             }
+        }
+
+        // Workaround to makean  enum serializable: what the snippet does is tell the XmlSerializer - IGNORE the LinkTo property (see above)
+        // And SERIALIZE the FooInt32 Property, which just casts the LinkTo prop to an Int32 value.
+        [XmlElement("Foo")]
+        [EditorBrowsable(EditorBrowsableState.Never), Browsable(false)]
+        public int FooInt32
+        {
+            get { return (int)LinkTo; }
+            set { LinkTo = (eGalleryLinkTo)value; }
         }
 
         public int Columns
@@ -75,6 +87,7 @@ namespace WordPress.Model
             }
         }
 
+        [XmlIgnore]
         public eGalleryType Type
         {
             get { return _type; }
@@ -86,6 +99,14 @@ namespace WordPress.Model
                     NotifyPropertyChanged("Type");
                 }
             }
+        }
+
+        [XmlElement("Foo2")]
+        [EditorBrowsable(EditorBrowsableState.Never), Browsable(false)]
+        public int Foo2Int32
+        {
+            get { return (int)Type; }
+            set { Type = (eGalleryType)value; }
         }
 
         public bool ContentBelow
