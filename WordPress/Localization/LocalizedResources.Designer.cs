@@ -412,7 +412,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dashboard.
+        ///   Looks up a localized string similar to dashboard.
         /// </summary>
         internal static string ControlText_Dashboard {
             get {
@@ -1335,6 +1335,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Views {
             get {
                 return ResourceManager.GetString("ControlText_Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to view site.
+        /// </summary>
+        internal static string ControlText_ViewSite {
+            get {
+                return ResourceManager.GetString("ControlText_ViewSite", resourceCulture);
             }
         }
         

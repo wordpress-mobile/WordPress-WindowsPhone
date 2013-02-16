@@ -199,6 +199,7 @@ namespace WordPress.Localization
             public string Counts { get { return LocalizedResources.ControlText_Counts; } }
             public string Go { get { return LocalizedResources.ControlText_Go; } }
             public string Dashboard { get { return LocalizedResources.ControlText_Dashboard; } }
+            public string ViewSite { get { return LocalizedResources.ControlText_ViewSite; } }
 
             public string FilterAll { get { return LocalizedResources.ControlText_FilterAll; } }
             public string FilterApproved { get { return LocalizedResources.ControlText_FilterApproved; } }

@@ -928,7 +928,7 @@
     <comment>Label for the button Go in Stats</comment>
   </data>
   <data name="ControlText_Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
+    <value>dashboard</value>
   </data>
   <data name="Prompts_JetpackNotAvailable" xml:space="preserve">
     <value>To access Stats you need to install Jetpack 1.9 or higher. Would you like to know more?</value>
@@ -975,46 +975,7 @@
   <data name="ControlText_Type" xml:space="preserve">
     <value>Type</value>
   </data>
- <data name="ControlText_GallerySettings" xml:space="preserve">
-   <value>gallery settings</value>
- </data>
- <data name="Title_GallerySettings" xml:space="preserve">
-   <value>gallery settings</value>
- </data>
- <data name="ControlText_UploadImagesAsGallery" xml:space="preserve">
-   <value>upload images as gallery</value>
- </data>
- <data name="ControlText_AttachmentPage" xml:space="preserve">
-  <value>Attachment Page</value>
-</data>
-<data name="ControlText_Circles" xml:space="preserve">
-  <value>Circles</value>
-</data>
-<data name="ControlText_Columns" xml:space="preserve">
-  <value>columns</value>
-</data>
-<data name="ControlText_Default" xml:space="preserve">
-  <value>Default</value>
-</data>
-<data name="ControlText_LinkTo" xml:space="preserve">
-  <value>link to</value>
-</data>
-<data name="ControlText_MediaFile" xml:space="preserve">
-  <value>Media File</value>
-</data>
-<data name="ControlText_RandomOrder" xml:space="preserve">
-  <value>random order</value>
-</data>
-<data name="ControlText_Slideshow" xml:space="preserve">
-  <value>Slideshow</value>
-</data>
-<data name="ControlText_SquareTiles" xml:space="preserve">
-  <value>Square Tiles</value>
-</data>
-<data name="ControlText_Tiles" xml:space="preserve">
-  <value>Tiles</value>
-</data>
-<data name="ControlText_Type" xml:space="preserve">
-  <value>Type</value>
-</data>
+  <data name="ControlText_ViewSite" xml:space="preserve">
+    <value>view site</value>
+  </data>
 </root>

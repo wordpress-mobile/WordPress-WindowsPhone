@@ -66,7 +66,7 @@ namespace WordPress
                 return;
             }
 
-            if (string.IsNullOrEmpty(_requireLogin) )
+            if (string.IsNullOrEmpty(_requireLogin) || _requireLogin == "0")
             {
                 browser.Navigate(testUri);
             }

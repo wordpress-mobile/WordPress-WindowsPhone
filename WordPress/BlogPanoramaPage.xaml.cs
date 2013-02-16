@@ -455,6 +455,29 @@ namespace WordPress
             NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + queryString, UriKind.Relative));
         }
 
+
+        private void OnViewSiteButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            if (!App.isNetworkAvailable())
+            {
+                Exception connErr = new NoConnectionException();
+                this.HandleException(connErr);
+                return;
+            }
+
+            string dashboardURL = App.MasterViewModel.CurrentBlog.homeURL();
+            string queryStringFormat = "?{0}={1}&{2}={3}";
+
+            //check if the login is necessary
+            string requireLogParamenter = "0";
+            if (App.MasterViewModel.CurrentBlog.isWPcom() && App.MasterViewModel.CurrentBlog.isPrivate())
+                requireLogParamenter = "1";
+
+            string queryString = string.Format(queryStringFormat, BrowserShellPage.TARGET_URL, dashboardURL, BrowserShellPage.REQUIRE_LOGIN, requireLogParamenter);
+            NavigationService.Navigate(new Uri("/BrowserShellPage.xaml" + queryString, UriKind.Relative));
+        }
+
         private void OnStatsButtonClick(object sender, RoutedEventArgs e)
         {
 

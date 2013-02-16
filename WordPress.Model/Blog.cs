@@ -646,6 +646,21 @@ namespace WordPress.Model
             return _xmlrpc.Replace("/xmlrpc.php", "/wp-login.php");
         }
 
+
+        public string homeURL()
+        {
+            foreach (Option o in Options)
+            {
+                if (o.Name.Equals("home_url"))
+                {
+                    return o.Value;
+                }
+            }
+
+            //option not found. Use the XML-RPC path.
+            return _xmlrpc.Replace("/xmlrpc.php", "");
+        }
+
         #endregion
     }
 }
