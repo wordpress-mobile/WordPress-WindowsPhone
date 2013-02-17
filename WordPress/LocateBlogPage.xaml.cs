@@ -44,11 +44,12 @@ namespace WordPress
         {
             CrashReporter.CheckForPreviousException();
             
-            UserSettings settings = new UserSettings();
+            /*UserSettings settings = new UserSettings();
             if (!settings.AcceptedEula)
             {
                 eulaControl.Visibility = Visibility.Visible;
-            }
+            }*/
+            
         }
         #endregion
 
