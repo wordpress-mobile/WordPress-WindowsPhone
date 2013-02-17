@@ -943,10 +943,10 @@
     <value>upload images as gallery</value>
   </data>
   <data name="ControlText_AttachmentPage" xml:space="preserve">
-    <value>Attachment Page</value>
+    <value>attachment Page</value>
   </data>
   <data name="ControlText_Circles" xml:space="preserve">
-    <value>Circles</value>
+    <value>circles</value>
   </data>
   <data name="ControlText_Columns" xml:space="preserve">
     <value>columns</value>
@@ -958,24 +958,27 @@
     <value>link to</value>
   </data>
   <data name="ControlText_MediaFile" xml:space="preserve">
-    <value>Media File</value>
+    <value>media file</value>
   </data>
   <data name="ControlText_RandomOrder" xml:space="preserve">
     <value>random order</value>
   </data>
   <data name="ControlText_Slideshow" xml:space="preserve">
-    <value>Slideshow</value>
+    <value>slideshow</value>
   </data>
   <data name="ControlText_SquareTiles" xml:space="preserve">
-    <value>Square Tiles</value>
+    <value>square tiles</value>
   </data>
   <data name="ControlText_Tiles" xml:space="preserve">
-    <value>Tiles</value>
+    <value>tiles</value>
   </data>
   <data name="ControlText_Type" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="ControlText_ViewSite" xml:space="preserve">
     <value>view site</value>
+  </data>
+  <data name="ControlText_ThumbnailGrid" xml:space="preserve">
+    <value>thumbnail grid (default)</value>
   </data>
 </root>

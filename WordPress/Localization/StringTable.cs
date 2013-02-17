@@ -218,6 +218,7 @@ namespace WordPress.Localization
             public string Columns { get { return LocalizedResources.ControlText_Columns; } }
             public string RandomOrder { get { return LocalizedResources.ControlText_RandomOrder; } }
             public string Type { get { return LocalizedResources.ControlText_Type; } }
+            public string ThumbnailGrid { get { return LocalizedResources.ControlText_ThumbnailGrid; } }
             public string Circles { get { return LocalizedResources.ControlText_Circles; } }
             public string Default { get { return LocalizedResources.ControlText_Default; } }
             public string Slideshow { get { return LocalizedResources.ControlText_Slideshow; } }

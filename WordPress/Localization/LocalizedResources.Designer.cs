@@ -205,7 +205,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attachment Page.
+        ///   Looks up a localized string similar to attachment Page.
         /// </summary>
         internal static string ControlText_AttachmentPage {
             get {
@@ -331,7 +331,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Circles.
+        ///   Looks up a localized string similar to circles.
         /// </summary>
         internal static string ControlText_Circles {
             get {
@@ -736,7 +736,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Media File.
+        ///   Looks up a localized string similar to media file.
         /// </summary>
         internal static string ControlText_MediaFile {
             get {
@@ -1123,7 +1123,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Slideshow.
+        ///   Looks up a localized string similar to slideshow.
         /// </summary>
         internal static string ControlText_Slideshow {
             get {
@@ -1141,7 +1141,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Square Tiles.
+        ///   Looks up a localized string similar to square tiles.
         /// </summary>
         internal static string ControlText_SquareTiles {
             get {
@@ -1204,7 +1204,16 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tiles.
+        ///   Looks up a localized string similar to thumbnail grid (default).
+        /// </summary>
+        internal static string ControlText_ThumbnailGrid {
+            get {
+                return ResourceManager.GetString("ControlText_ThumbnailGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tiles.
         /// </summary>
         internal static string ControlText_Tiles {
             get {

@@ -97,7 +97,7 @@ namespace WordPress
         private void SetType()
         {
             List<string> statusList = new List<string>() { 
-                _localizedStrings.ControlsText.Default,
+                _localizedStrings.ControlsText.ThumbnailGrid,
                 _localizedStrings.ControlsText.Tiles,
                 _localizedStrings.ControlsText.SquareTiles,
                 _localizedStrings.ControlsText.Circles,
