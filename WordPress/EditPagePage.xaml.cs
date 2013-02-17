@@ -29,7 +29,6 @@ namespace WordPress
 
         private const string TITLEKEY_VALUE = "title";
         private const string PUBLISHKEY_VALUE = "publish";
-        private const int MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY = 2;
 
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
@@ -188,8 +187,6 @@ namespace WordPress
                             App.MasterViewModel.CurrentPost.Media.Remove(m);
                         }
                     }
-
-                    this.ToggleGalleryControlsVisibility();  //Restore the gallery panel if necessary
                 }
                 else
                 {  
@@ -208,6 +205,8 @@ namespace WordPress
                 DataContext = page;
                 setStatus();
             }
+
+            ToggleGalleryControlsVisibility();
         }
 
         private void setStatus()
@@ -245,6 +244,8 @@ namespace WordPress
             {
                 titleTextBox.Text = State[TITLEKEY_VALUE] as string;
             }
+
+            ToggleGalleryControlsVisibility();
         }
 
         private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -528,17 +529,20 @@ namespace WordPress
 
             //update the UI
             imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
-            ToggleGalleryControlsVisibility();
         }
 
         private void ToggleGalleryControlsVisibility()
         {
+
+            if (App.MasterViewModel.CurrentPost == null)
+                return;
+            
             //Gallery only on wpcom.
             if (App.MasterViewModel.CurrentBlog.isWPcom() == false)
                 return; 
 
             Post post = App.MasterViewModel.CurrentPost;
-            if (post.Media.Count >= MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY)
+            if (post.isGalleryAvailable())
             {
                 uploadImagesAsGalleryCheckbox.Visibility = Visibility.Visible;
                 gallerySettingsButton.Visibility = Visibility.Visible;

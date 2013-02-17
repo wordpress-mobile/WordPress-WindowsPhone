@@ -65,6 +65,8 @@ namespace WordPress.Model
         private const string POSTFORMAT_VALUE = "wp_post_format";
         private const string POSTTHUMBNAIL_VALUE = "wp_post_thumbnail";
 
+        private const int MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY = 2;
+
         #endregion
 
         #region events
@@ -414,6 +416,23 @@ namespace WordPress.Model
         public bool HasMedia()
         {
             return Media != null && Media.Count > 0;
+        }
+
+
+        public bool isGalleryAvailable()
+        {
+            int numberOfPictures = this.Media.Count;
+
+            foreach (Media m in this.Media)
+            {
+                if (m.IsFeatured == true)
+                {
+                    numberOfPictures = this.Media.Count - 1;
+                    break;
+                }
+            }
+
+            return numberOfPictures >= MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY;
         }
 
         public bool IsLocalDraft()

@@ -31,7 +31,6 @@ namespace WordPress
         private const string PUBLISHKEY_VALUE = "publish";
         private const string TITLEKEY_VALUE = "title";
         private const string TAGSKEY_VALUE = "tags";
-        private const int MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY = 2;
 
         private StringTable _localizedStrings;
         private ApplicationBarIconButton _saveIconButton;
@@ -392,6 +391,8 @@ namespace WordPress
                         uploadImagesAsGalleryCheckbox.IsChecked = true;
                 }
             }
+
+            this.ToggleGalleryControlsVisibility();
         }
 
         /// <summary>
@@ -441,8 +442,6 @@ namespace WordPress
                             App.MasterViewModel.CurrentPost.Media.Remove(m);
                         }
                     }
-
-                    this.ToggleGalleryControlsVisibility(); //Restore the gallery panel if necessary
                 }
                 else
                 {
@@ -482,6 +481,8 @@ namespace WordPress
                     NavigationService.RemoveBackEntry();
                 }
             }
+
+            this.ToggleGalleryControlsVisibility();
         }
 
         private void setStatus()
@@ -863,18 +864,20 @@ namespace WordPress
 
             //update the UI
             imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
-            ToggleGalleryControlsVisibility();
         }
 
         private void ToggleGalleryControlsVisibility()
         {
+
+            if (App.MasterViewModel.CurrentPost == null)
+                return;
 
             //Gallery only on wpcom.
             if (App.MasterViewModel.CurrentBlog.isWPcom() == false)
                 return; 
 
             Post post = App.MasterViewModel.CurrentPost;
-            if (post.Media.Count >= MINIMUM_NUMBER_OF_PHOTOS_FOR_GALLERY)
+            if (post.isGalleryAvailable())
             {
                 uploadImagesAsGalleryCheckbox.Visibility = Visibility.Visible;
                 gallerySettingsButton.Visibility = Visibility.Visible;
