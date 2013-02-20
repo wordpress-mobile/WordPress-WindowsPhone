@@ -27,6 +27,7 @@ namespace WordPress.Delay
         private static readonly Queue<IAsyncResult> _pendingResponses = new Queue<IAsyncResult>();
         private static readonly object _syncBlock = new object();
         private static bool _exiting;
+        private static BitmapImage defaultPlaceholder = new BitmapImage(new Uri("Images/gravatar.png", UriKind.Relative));
 
         /// <summary>
         /// Gets the value of the Uri to use for providing the contents of the Image's Source property.
@@ -249,9 +250,13 @@ namespace WordPress.Delay
                     //TODO: check that the TAG is a valid local image file and not a remote img. 
                     //Note: set the 'Build Action' to Content for the placeholder image
                     object tag = (object)image.Tag;
-                    if ( tag is String)
+                    if (tag != null && tag is String)
                     {
                         image.Source = new BitmapImage(new Uri((string)tag, UriKind.Relative));
+                    }
+                    else
+                    {
+                        image.Source = defaultPlaceholder;
                     }
                 }
                 catch (Exception)
