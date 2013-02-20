@@ -681,7 +681,4 @@
   <data name="ControlText_AddBlog" xml:space="preserve">
     <value>tambah blog</value>
   </data>
-  <data name="ControlText_Reader" xml:space="preserve">
-    <value />
-  </data>
 </root>
