@@ -943,7 +943,7 @@
     <value>upload images as gallery</value>
   </data>
   <data name="ControlText_AttachmentPage" xml:space="preserve">
-    <value>attachment Page</value>
+    <value>attachment page</value>
   </data>
   <data name="ControlText_Circles" xml:space="preserve">
     <value>circles</value>
@@ -952,7 +952,7 @@
     <value>columns</value>
   </data>
   <data name="ControlText_Default" xml:space="preserve">
-    <value>Default</value>
+    <value>default</value>
   </data>
   <data name="ControlText_LinkTo" xml:space="preserve">
     <value>link to</value>
@@ -973,7 +973,7 @@
     <value>tiles</value>
   </data>
   <data name="ControlText_Type" xml:space="preserve">
-    <value>Type</value>
+    <value>type</value>
   </data>
   <data name="ControlText_ViewSite" xml:space="preserve">
     <value>view site</value>

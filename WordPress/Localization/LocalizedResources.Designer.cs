@@ -205,7 +205,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to attachment Page.
+        ///   Looks up a localized string similar to attachment page.
         /// </summary>
         internal static string ControlText_AttachmentPage {
             get {
@@ -439,7 +439,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default.
+        ///   Looks up a localized string similar to default.
         /// </summary>
         internal static string ControlText_Default {
             get {
@@ -1231,7 +1231,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to type.
         /// </summary>
         internal static string ControlText_Type {
             get {
