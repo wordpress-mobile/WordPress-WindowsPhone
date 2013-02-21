@@ -327,7 +327,10 @@ namespace WordPress.Model
             }
             IsolatedStorageFileStream filestream = isoStore.CreateFile(_localPath);
             WriteableBitmap wb = new WriteableBitmap(image);
-            wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 85);
+            if (preserveBandwidth)
+                wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 85);
+            else
+                wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 100);
             filestream.Close();
         }
 
