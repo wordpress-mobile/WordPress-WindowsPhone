@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using WordPress.Commands;
 using WordPress.Localization;
 using WordPress.Model;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -205,12 +206,19 @@ namespace WordPress
                 {
                     App.WaitIndicationService.KillSpinner();
                     ApplicationBar.IsVisible = true;
-
-                    if (args.Error is NotSupportedException || args.Error is XmlRPCParserException || args.Error is ArgumentNullException)
+                    Exception currentException = args.Error;
+                    if (currentException is NotSupportedException || currentException is XmlRPCParserException || currentException is ArgumentNullException)
                     {
-                        this.HandleException(args.Error, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
+                        this.HandleException(currentException, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
                         urlTextBox.Focus();
                         return;
+                    }
+                    else if (currentException is XmlRPCException && (currentException as XmlRPCException).FaultCode == 403) //username or password error
+                    {
+                        UIThread.Invoke(() =>
+                        {
+                            MessageBox.Show(_localizedStrings.Prompts.UsernameOrPasswordError);
+                        });
                     }
                     else
                         this.HandleException(args.Error);

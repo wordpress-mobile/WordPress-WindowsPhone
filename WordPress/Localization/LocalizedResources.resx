@@ -990,4 +990,7 @@
   <data name="Prompts_AllowToastPushNotification" xml:space="preserve">
     <value>Allow toast push notifications?</value>
   </data>
+  <data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
+    <value>Incorrect username or password.</value>
+  </data>
 </root>

@@ -367,6 +367,7 @@ namespace WordPress.Localization
             public string MediaErrorCannotWritePicture { get { return LocalizedResources.Prompts_MediaErrorCannotWritePicture; } }
             public string MediaErrorPictureCorruptedOrUnreadable{ get { return LocalizedResources.Prompts_MediaErrorPictureCorruptedOrUnreadlable; } }
             public string NoConnectionErrorContent { get { return LocalizedResources.Prompts_NoConnectionError; } }
+            public string UsernameOrPasswordError { get { return LocalizedResources.Prompts_UsernameOrPasswordError; } }
         }
 
         #endregion

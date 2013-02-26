@@ -2315,6 +2315,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect username or password..
+        /// </summary>
+        internal static string Prompts_UsernameOrPasswordError {
+            get {
+                return ResourceManager.GetString("Prompts_UsernameOrPasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sorry, the server returned invalid data. Please try again..
         /// </summary>
         internal static string Prompts_XeElementMissing {

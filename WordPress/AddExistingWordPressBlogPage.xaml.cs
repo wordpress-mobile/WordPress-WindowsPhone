@@ -12,6 +12,7 @@ using WordPress.Commands;
 using WordPress.Localization;
 using WordPress.Model;
 using System.Windows.Input;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -152,7 +153,16 @@ namespace WordPress
             }
             else
             {
-                this.HandleException(args.Error);
+                Exception currentException = args.Error;
+                if (currentException is XmlRPCException && (currentException as XmlRPCException).FaultCode == 403) //username or password error
+                {
+                    UIThread.Invoke(() =>
+                    {
+                        MessageBox.Show(_localizedStrings.Prompts.UsernameOrPasswordError);
+                    });
+                }
+                else
+                    this.HandleException(args.Error);
             }
         }
 
