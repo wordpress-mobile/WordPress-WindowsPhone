@@ -187,6 +187,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to allow toast notifications.
+        /// </summary>
+        internal static string ControlText_AllowToastNotifications {
+            get {
+                return ResourceManager.GetString("ControlText_AllowToastNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to api key.
         /// </summary>
         internal static string ControlText_Apikey {
@@ -975,6 +984,15 @@ namespace WordPress.Localization {
         internal static string ControlText_PullDownToRefresh {
             get {
                 return ResourceManager.GetString("ControlText_PullDownToRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to push notifications.
+        /// </summary>
+        internal static string ControlText_PushNotifications {
+            get {
+                return ResourceManager.GetString("ControlText_PushNotifications", resourceCulture);
             }
         }
         
@@ -2050,6 +2068,15 @@ namespace WordPress.Localization {
         internal static string Prompt_SelectThumbnailSize {
             get {
                 return ResourceManager.GetString("Prompt_SelectThumbnailSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow toast push notifications?.
+        /// </summary>
+        internal static string Prompts_AllowToastPushNotification {
+            get {
+                return ResourceManager.GetString("Prompts_AllowToastPushNotification", resourceCulture);
             }
         }
         

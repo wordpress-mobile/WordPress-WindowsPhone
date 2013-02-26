@@ -19,6 +19,8 @@ namespace WordPress.Settings
         private const string TAGLINE_VALUE = "tagline";
         private const string ACCEPTED_EULA = "acceptedEula";
         private const string LAST_STATS_UPLOAD = "lastStatsUpload";
+        private const string ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE = "enableToastPushNotifications";
+        private const string ASKED_PERMISSION_FOR_TOAST_PUSH_NOTIFICATIONS = "acceptedToastPNs";
 
         private StringTable _localizedStrings;
 
@@ -128,6 +130,29 @@ namespace WordPress.Settings
             }
         }
 
+        public bool AskedPermissionForToastPushNotifications
+        {
+            get
+            {
+                bool result = false;
+
+                if (Settings.Contains(ASKED_PERMISSION_FOR_TOAST_PUSH_NOTIFICATIONS))
+                {
+                    result = (bool)Settings[ASKED_PERMISSION_FOR_TOAST_PUSH_NOTIFICATIONS];
+                }
+                return result;
+            }
+            set
+            {
+                bool oldValue = AskedPermissionForToastPushNotifications;
+                if (value != oldValue)
+                {
+                    Settings[ASKED_PERMISSION_FOR_TOAST_PUSH_NOTIFICATIONS] = value;
+                    NotifyPropertyChanged("AskedPermissionForToastPushNotifications");
+                }
+            }
+        }
+        
         public DateTime LastStatsUpload
         {
             get
@@ -150,6 +175,30 @@ namespace WordPress.Settings
             {
                 Settings[LAST_STATS_UPLOAD] = value;
                 NotifyPropertyChanged("LastStatsUpload");
+            }
+        }
+
+        public bool EnableToastPushNotifications
+        {
+            get
+            {
+                bool result = false;
+
+                if (Settings.Contains(ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE))
+                {
+                    result = (bool)Settings[ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE];
+                }
+                return result;
+            }
+
+            set
+            {
+                bool oldValue = EnableToastPushNotifications;
+                if (oldValue != value)
+                {
+                    Settings[ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE] = value;
+                    NotifyPropertyChanged("EnableToastPushNotifications");
+                }
             }
         }
 

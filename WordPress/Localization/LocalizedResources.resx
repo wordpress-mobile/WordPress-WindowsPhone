@@ -981,4 +981,13 @@
   <data name="ControlText_ThumbnailGrid" xml:space="preserve">
     <value>thumbnail grid (default)</value>
   </data>
+  <data name="ControlText_AllowToastNotifications" xml:space="preserve">
+    <value>allow toast notifications</value>
+  </data>
+  <data name="ControlText_PushNotifications" xml:space="preserve">
+    <value>push notifications</value>
+  </data>
+  <data name="Prompts_AllowToastPushNotification" xml:space="preserve">
+    <value>Allow toast push notifications?</value>
+  </data>
 </root>

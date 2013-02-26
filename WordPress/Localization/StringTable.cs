@@ -224,6 +224,9 @@ namespace WordPress.Localization
             public string Slideshow { get { return LocalizedResources.ControlText_Slideshow; } }
             public string Tiles { get { return LocalizedResources.ControlText_Tiles; } }
             public string SquareTiles { get { return LocalizedResources.ControlText_SquareTiles; } }
+
+            public string PushNotifications { get { return LocalizedResources.ControlText_PushNotifications; } }
+            public string AllowToastNotifications { get { return LocalizedResources.ControlText_AllowToastNotifications; } }
         }
 
         #endregion
@@ -350,6 +353,9 @@ namespace WordPress.Localization
             public string Comments { get { return LocalizedResources.Prompts_Comments; } }
             public string MediaPlacement { get { return LocalizedResources.Prompts_MediaPlacement; } }
             public string JetpackNotAvailable { get { return LocalizedResources.Prompts_JetpackNotAvailable; } }
+
+            /* Push Notifications String */
+            public string AllowToastPushNotification { get { return LocalizedResources.Prompts_AllowToastPushNotification; } }
         
             /*Error String*/
             public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }

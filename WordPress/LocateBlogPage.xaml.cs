@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Microsoft.Phone.Controls;
+using System;
 using System.Windows;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Tasks;
-
 using WordPress.Commands;
 using WordPress.Model;
-using WordPress.Settings;
 using WordPress.Utils;
 
 namespace WordPress
@@ -49,7 +46,8 @@ namespace WordPress
             {
                 eulaControl.Visibility = Visibility.Visible;
             }*/
-            
+
+            PushNotificationsHelper.Instance.checkPushNotificationsUserPermissions();
         }
         #endregion
 

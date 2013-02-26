@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blog.cs" />
+    <Compile Include="BooleanResponseObject.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Constants.cs" />
@@ -118,6 +119,9 @@
     <Compile Include="XMLRPC\NewCategoryRPC.cs" />
     <Compile Include="XMLRPC\NewCommentRPC.cs" />
     <Compile Include="XMLRPC\NewPostRPC.cs" />
+    <Compile Include="XMLRPC\PushNotificationsSendBlogsList.cs" />
+    <Compile Include="XMLRPC\RegisterPushNotificationToken.cs" />
+    <Compile Include="XMLRPC\UnregisterPushNotificationToken.cs" />
     <Compile Include="XMLRPC\UploadFileRPC.cs" />
     <Compile Include="XMLRPC\XmlRemoteProcedureCall.cs">
       <SubType>Code</SubType>

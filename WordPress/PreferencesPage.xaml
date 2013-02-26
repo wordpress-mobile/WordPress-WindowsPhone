@@ -80,6 +80,19 @@
                          Template="{StaticResource FocusedTextBoxTemplate}"
                          TextWrapping="Wrap"
                          AcceptsReturn="True"/>
+                <Border Background="#FFD4d4d4"  Margin="0,10,0,0">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=ControlsText.PushNotifications, Source={StaticResource StringTable}}" FontSize="24">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{StaticResource WordPressBlue}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </Border>
+                <CheckBox x:Name="enablePushNotifications" Content="{Binding Path=ControlsText.AllowToastNotifications, Source={StaticResource StringTable}}" 
+                          IsChecked="{Binding EnableToastPushNotifications, Mode=TwoWay}">
+                    <CheckBox.Foreground>
+                        <SolidColorBrush Color="{StaticResource WordPressGrey}"/>
+                    </CheckBox.Foreground>
+                </CheckBox>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -6,6 +6,7 @@ using Microsoft.Phone.Shell;
 
 using WordPress.Localization;
 using WordPress.Settings;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -15,9 +16,11 @@ namespace WordPress
 
         private const string USETAGLINEFORNEWPOSTS_VALUE = "useTaglineForNewPosts";
         private const string TAGLINE_VALUE = "tagline";
+        private const string ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE = "enableToastPushNotifications";
 
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
+        private bool oldPNsValue = false;
 
         #endregion
 
@@ -26,8 +29,8 @@ namespace WordPress
         public PreferencesPage()
         {
             InitializeComponent();
-
-            DataContext = new UserSettings();
+            UserSettings usettings = new UserSettings();
+            DataContext = usettings;
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
 
@@ -40,6 +43,7 @@ namespace WordPress
             _saveIconButton.Click += OnSaveButtonClick;
             ApplicationBar.Buttons.Add(_saveIconButton);
 
+            oldPNsValue = usettings.EnableToastPushNotifications;
             Loaded += OnPageLoaded;
         }
 
@@ -94,6 +98,12 @@ namespace WordPress
                 settings.Tagline = tagline;
             }
 
+            if (State.ContainsKey(ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE))
+            {
+                bool enabledPNs = (bool)State[ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE];
+                settings.EnableToastPushNotifications = enabledPNs;
+            }
+
             DataContext = settings;
         }
 
@@ -113,6 +123,12 @@ namespace WordPress
                 State.Remove(TAGLINE_VALUE);
             }
             State.Add(TAGLINE_VALUE, taglineTextBox.Text);
+
+            if (State.ContainsKey(ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE))
+            {
+                State.Remove(ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE);
+            }
+            State.Add(ENABLE_TOAST_PUSH_NOTIFICATIONS_VALUE, enablePushNotifications.IsChecked);
         }
 
         /// <summary>
@@ -121,8 +137,14 @@ namespace WordPress
         private void SaveSettings()
         {
             UserSettings settings = DataContext as UserSettings;
-
             settings.Save();
+            if (settings.EnableToastPushNotifications != oldPNsValue)
+            {
+                if (settings.EnableToastPushNotifications == true)
+                    PushNotificationsHelper.Instance.enablePushNotifications();
+                else
+                    PushNotificationsHelper.Instance.disablePushNotifications();
+            }
         }
 
         #endregion

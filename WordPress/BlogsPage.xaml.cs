@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Windows;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Notification;
 using Microsoft.Phone.Shell;
 using System.Collections.Generic;
+using System.Text;
 
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Utils;
+using System.ComponentModel;
 
 namespace WordPress
 {
@@ -72,6 +76,18 @@ namespace WordPress
             }
 
             CrashReporter.CheckForPreviousException();
+
+            //send PNs info in background
+            PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
+            pHelper.resetTileCount();
+            if (pHelper.pushNotificationsEnabled())
+            {
+               pHelper.enablePushNotifications();
+            }
+            else
+            {
+                pHelper.disablePushNotifications();
+            }
         }
 
         #endregion
@@ -175,6 +191,11 @@ namespace WordPress
             {
                 // sharing a photo
                 App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
+            }
+            else if (queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
+            {
+                string blogID = queryStrings["blog_id"];
+                System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
             }
 
             while (NavigationService.CanGoBack)
