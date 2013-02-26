@@ -145,24 +145,24 @@
                         Click="OnSelectCategoriesButtonClick" MinHeight="70" MinWidth="70" >
                     <TextBlock x:Name="categoriesTextBlock" TextWrapping="Wrap" Text="{Binding Path=Categories, Mode=OneWay, Converter={StaticResource CategoryContentConverter}}" FontSize="26"/>
                 </Button>
-                
-                <!-- Post Status -->
-                <Rectangle Grid.Row="20" Margin="10,5"/>
-                <Rectangle Grid.Row="21" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="21" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="22" x:Name="statusPicker" Margin="8,0,8,10"/>
 
                 <!-- Post Format -->
-                <Rectangle Grid.Row="23" Margin="10,5"/>
-                <Rectangle Grid.Row="24" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="24" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
-                <toolkit:ListPicker Grid.Row="25" 
+                <Rectangle Grid.Row="20" Margin="10,5"/>
+                <Rectangle Grid.Row="21" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="21" Text="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="22" 
                                     x:Name="postFormatsPicker" 
                                     Margin="8,0,8,10" 
                                     ItemTemplate="{StaticResource PickerItemTemplate}" 
                                     FullModeItemTemplate="{StaticResource PickerFullModeItemTemplate}"   
                                     FullModeHeader="{Binding ControlsText.PostFormat, Source={StaticResource StringTable}}"
                                     />
+
+                <!-- Post Status -->
+                <Rectangle Grid.Row="23" Margin="10,5"/>
+                <Rectangle Grid.Row="24" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
+                <TextBlock Grid.Row="24" Text="{Binding ControlsText.PublishStatus, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <toolkit:ListPicker Grid.Row="25" x:Name="statusPicker" Margin="8,0,8,10"/>
 
                 <!-- Publish Date -->
                 <Rectangle Grid.Row="26" Margin="10,5"/>

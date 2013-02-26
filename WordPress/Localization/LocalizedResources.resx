@@ -258,8 +258,8 @@
   <data name="ControlText_StartNewBlog" xml:space="preserve">
     <value>Start a new blog at WordPress.com</value>
   </data>
-  <data name="ControlText_Status" xml:space="preserve">
-    <value>status</value>
+  <data name="ControlText_PublishStatus" xml:space="preserve">
+    <value>publish status</value>
   </data>
   <data name="ControlText_StrikeThrough" xml:space="preserve">
     <value>ABC</value>

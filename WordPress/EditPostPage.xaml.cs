@@ -287,7 +287,7 @@ namespace WordPress
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-             if (App.WaitIndicationService.Waiting)
+            if (App.WaitIndicationService.Waiting)
             {
                 App.WaitIndicationService.HideIndicator();
                 ApplicationBar.IsVisible = true;
@@ -304,7 +304,7 @@ namespace WordPress
                     _mediaItemRPC.IsCancelled = true;
                     _mediaItemRPC = null;
                 }
-                   
+
                 _mediaUploadRPCs.ForEach(rpc =>
                 {
                     rpc.Completed -= OnUploadMediaRPCCompleted;
@@ -340,7 +340,6 @@ namespace WordPress
                     e.Cancel = true;
                 }
             }
-
         }
 
         private void cleanupPostMedia()

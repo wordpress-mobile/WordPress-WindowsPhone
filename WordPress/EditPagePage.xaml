@@ -102,7 +102,7 @@
 
 
                 <Rectangle Grid.Row="9" Fill="{StaticResource SectionHeaderBackgroundBrush}" />
-                <TextBlock Grid.Row="9" Text="{Binding ControlsText.Status, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
+                <TextBlock Grid.Row="9" Text="{Binding ControlsText.PublishStatus, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}" Margin="10,5"/>
                 <toolkit:ListPicker Grid.Row="10" x:Name="statusPicker" Margin="8,0,8,10"/>
 
                 <Rectangle Grid.Row="11" Fill="{StaticResource SectionHeaderBackgroundBrush}"/>

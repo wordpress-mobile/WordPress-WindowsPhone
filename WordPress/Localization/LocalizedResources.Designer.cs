@@ -979,6 +979,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to publish status.
+        /// </summary>
+        internal static string ControlText_PublishStatus {
+            get {
+                return ResourceManager.GetString("ControlText_PublishStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pull down to refresh.
         /// </summary>
         internal static string ControlText_PullDownToRefresh {
@@ -1182,15 +1191,6 @@ namespace WordPress.Localization {
         internal static string ControlText_StartNewBlog {
             get {
                 return ResourceManager.GetString("ControlText_StartNewBlog", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to status.
-        /// </summary>
-        internal static string ControlText_Status {
-            get {
-                return ResourceManager.GetString("ControlText_Status", resourceCulture);
             }
         }
         
