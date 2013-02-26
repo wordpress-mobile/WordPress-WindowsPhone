@@ -2,7 +2,9 @@
 using Microsoft.Phone.Shell;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using WordPress.Model;
@@ -204,6 +206,9 @@ namespace WordPress
             RootFrame = new TransitionFrame();
             RootFrame.Background = new SolidColorBrush(Colors.White);
             RootFrame.Navigated += CompleteInitializePhoneApplication;
+
+            //Use correct font for UI Language setting of device: See http://blogs.msdn.com/b/shintak/archive/2011/11/20/10240996.aspx
+            RootFrame.Language = XmlLanguage.GetLanguage(CultureInfo.CurrentUICulture.Name);
 
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
