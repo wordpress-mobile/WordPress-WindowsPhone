@@ -168,16 +168,25 @@ namespace WordPress
                     List<Media> unavaiblePictures = new List<Media>();
                     foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
                     {
-                        Stream stream = currentMedia.getImageStream();
-                        if (stream == null)
+                        using (Stream stream = currentMedia.getImageStream())
                         {
-                            unavaiblePictures.Add(currentMedia);
-                            continue;
+                            if (stream == null)
+                            {
+                                unavaiblePictures.Add(currentMedia);
+                                continue;
+                            }
+                         
+                            try
+                            {
+                                BitmapImage image = new BitmapImage();
+                                image.SetSource(stream);
+                                imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+                            }
+                            catch (Exception)
+                            {
+                            }
+
                         }
-                        BitmapImage image = new BitmapImage();
-                        image.SetSource(stream);
-                        imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
-                        stream.Close();
                     }
                     if (unavaiblePictures.Count > 0)
                     {
@@ -482,8 +491,8 @@ namespace WordPress
         private void OnChoosePhotoTaskCompleted(object sender, PhotoResult e)
         {
             if (TaskResult.OK != e.TaskResult) return;
-
-            AddNewMediaStream(e.ChosenPhoto, e.OriginalFileName);
+            using(Stream pictureStream = e.ChosenPhoto)
+                AddNewMediaStream(pictureStream, e.OriginalFileName);
         }
 
         private void AddNewMediaStream(Stream bitmapStream, string originalFilePath)

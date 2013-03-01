@@ -185,6 +185,9 @@ namespace WordPress.Model
             Stream _bitmapStream = CurrentMedia.getImageStream();
             if (_bitmapStream == null)
             {
+                if(contentStream != null)
+                    contentStream.Dispose();
+
                 CompletionMethod(null, new PictureNotAvailableException(), false, state.Operation);
                 return;
             }
@@ -211,7 +214,7 @@ namespace WordPress.Model
                     payload = Encoding.UTF8.GetBytes(Convert.ToBase64String(chunk).Trim());
                     contentStream.Write(payload, 0, payload.Length);
                 }
-                _bitmapStream.Close();
+                _bitmapStream.Dispose();
                 if (IsCancelled)
                 {
                     return;

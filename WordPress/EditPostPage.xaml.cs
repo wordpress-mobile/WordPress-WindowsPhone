@@ -187,6 +187,7 @@ namespace WordPress
                                 byte[] byteArray = Encoding.UTF8.GetBytes(postData);
                                 requestStream.Write(byteArray, 0, byteArray.Length);
                                 requestStream.Close();
+                                requestStream.Dispose();
                                 webRequest.BeginGetResponse(new AsyncCallback(loadFeaturedImageFromURLRequestCallback), webRequest);
                             }
                             catch (Exception ex)
@@ -231,18 +232,24 @@ namespace WordPress
 
             UIThread.Invoke(() =>
             {
-                var bitmap = new BitmapImage();
-                try
+                using (Stream pictureStream = myResponse.GetResponseStream())
                 {
-                    bitmap.SetSource(myResponse.GetResponseStream());
-                    myResponse.Close();
+                    if (null == pictureStream)
+                        return;
+
+                    try
+                    {
+                        var bitmap = new BitmapImage();
+                        bitmap.SetSource(pictureStream);
+                        featuredImage.Source = bitmap;
+                    }
+                    catch (Exception ex)
+                    {
+                        showFeaturedImageLoadingError(ex);
+                        return;
+                    }
+                    
                 }
-                catch(Exception ex)
-                {
-                    showFeaturedImageLoadingError(ex);
-                    return;
-                }
-                featuredImage.Source = bitmap;
             });
         }
 
@@ -422,16 +429,23 @@ namespace WordPress
                     List<Media> unavaiblePictures = new List<Media>();
                     foreach (Media currentMedia in App.MasterViewModel.CurrentPost.Media)
                     {
-                        Stream stream = currentMedia.getImageStream();
-                        if (stream == null)
+                        using (Stream stream = currentMedia.getImageStream())
                         {
-                            unavaiblePictures.Add(currentMedia);
-                            continue;
+                            if (stream == null)
+                            {
+                                unavaiblePictures.Add(currentMedia);
+                                continue;
+                            }
+                            try
+                            {
+                                BitmapImage image = new BitmapImage();
+                                image.SetSource(stream);
+                                imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
+                            }
+                            catch (Exception)
+                            {
+                            }
                         }
-                        BitmapImage image = new BitmapImage();
-                        image.SetSource(stream);
-                        imageWrapPanel.Children.Add(BuildTappableImageElement(image, currentMedia));
-                        stream.Close();
                     }
                     if (unavaiblePictures.Count > 0 )
                     {
@@ -470,7 +484,8 @@ namespace WordPress
                 {
                     MediaLibrary library = new MediaLibrary();
                     Picture picture = library.GetPictureFromToken(App.MasterViewModel.SharingPhotoToken);
-                    AddNewMediaStream(picture.GetImage(), picture.Name);
+                    using (Stream pictureStream = picture.GetImage())
+                        AddNewMediaStream(pictureStream, picture.Name);;
 
                     // clear the photo token so we don't try to add it to another post
                     App.MasterViewModel.SharingPhotoToken = null;
@@ -817,7 +832,8 @@ namespace WordPress
         {
             if (TaskResult.OK != e.TaskResult) return;
 
-            AddNewMediaStream(e.ChosenPhoto, e.OriginalFileName);
+            using (Stream pictureStream = e.ChosenPhoto)
+                AddNewMediaStream(pictureStream, e.OriginalFileName);
         }
 
         private void AddNewMediaStream(Stream bitmapStream, string originalFilePath)

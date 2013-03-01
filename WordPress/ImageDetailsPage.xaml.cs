@@ -136,20 +136,28 @@ namespace WordPress
             base.OnNavigatedTo(e);
             setupApplicationBar();
             ApplicationBar.IsVisible = true;
-            BitmapImage tn = new BitmapImage();
-            Stream stream = TappedImage.getImageStream();
-            if (stream == null)
+            using (Stream stream = TappedImage.getImageStream())
             {
-                MessageBoxResult result = MessageBox.Show("Can't read the picture, please try again later.", "Error", MessageBoxButton.OK);
-            }
-            else
-            {
-                tn.SetSource(stream);
-                ImageObeject.Source = tn;
-                stream.Close();
+               
+                if (stream == null)
+                {
+                    MessageBoxResult result = MessageBox.Show("Can't read the picture, please try again later.", "Error", MessageBoxButton.OK);
+                    return;
+                }
+
+                try
+                {
+                    BitmapImage tn = new BitmapImage();
+                    tn.SetSource(stream);
+                    ImageObeject.Source = tn;
+                }
+                catch (Exception)
+                {
+                    MessageBoxResult result = MessageBox.Show("Can't read the picture, please try again later.", "Error", MessageBoxButton.OK);
+                }
+                
             }
         }
-
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
