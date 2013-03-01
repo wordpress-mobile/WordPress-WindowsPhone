@@ -343,12 +343,10 @@ namespace WordPress.Utils
                 // Register for all the events before attempting to open the channel.
                 pushChannel.ChannelUriUpdated += new EventHandler<NotificationChannelUriEventArgs>(PushChannel_ChannelUriUpdated);
                 pushChannel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(PushChannel_ErrorOccurred);
+                pushChannel.ConnectionStatusChanged += new EventHandler<NotificationChannelConnectionEventArgs>(PushChannel_ConnectionStatusChanged);
 
-                // Register for this notification only if you need to receive the notifications while your application is running.
+                // Register for this notification since we need to receive the notifications while the application is running.
                 pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
-
-                //Register for RAW notifications
-                //pushChannel.HttpNotificationReceived += new EventHandler<HttpNotificationEventArgs>(PushChannel_HttpNotificationReceived);
 
                 pushChannel.Open();
 
@@ -363,20 +361,27 @@ namespace WordPress.Utils
                 // The channel was already open, so just register for all the events.
                 pushChannel.ChannelUriUpdated += new EventHandler<NotificationChannelUriEventArgs>(PushChannel_ChannelUriUpdated);
                 pushChannel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(PushChannel_ErrorOccurred);
+                pushChannel.ConnectionStatusChanged += new EventHandler<NotificationChannelConnectionEventArgs>(PushChannel_ConnectionStatusChanged);
 
-                // Register for this notification only if you need to receive the notifications while your application is running.
+                // Register for this notification since we need to receive the notifications while the application is running.
                 pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
 
-                //Register for RAW notifications
-                //pushChannel.HttpNotificationReceived += new EventHandler<HttpNotificationEventArgs>(PushChannel_HttpNotificationReceived);
-
-                // Display the URI for testing purposes. Normally, the URI would be passed back to your web service at this point.
                 System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
-                // MessageBox.Show(String.Format("Channel Uri is {0}", pushChannel.ChannelUri.ToString()));
-
                 this.registerDevice(pushChannel.ChannelUri.ToString());
             }
         }
+
+       
+        /// <summary>
+        /// Event handler for when the connection status changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void PushChannel_ConnectionStatusChanged(object sender, NotificationChannelConnectionEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(String.Format("Notification Channel Connection Changed:  {0}", e.ConnectionStatus.ToString()));
+        }
+
 
         /// <summary>
         /// Event handler for when the push channel Uri is updated.
@@ -386,7 +391,6 @@ namespace WordPress.Utils
         void PushChannel_ChannelUriUpdated(object sender, NotificationChannelUriEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine(e.ChannelUri.ToString());
-            //MessageBox.Show(String.Format("Channel Uri is {0}", e.ChannelUri.ToString()));
             this.registerDevice(e.ChannelUri.ToString());
         }
 
@@ -397,30 +401,11 @@ namespace WordPress.Utils
         /// <param name="e"></param>
         void PushChannel_ErrorOccurred(object sender, NotificationChannelErrorEventArgs e)
         {
-            // Error handling logic for your particular application would be here.
             UIThread.Invoke(() =>
                 MessageBox.Show(String.Format("A push notification {0} error occurred.  {1} ({2}) {3}",
                     e.ErrorType, e.Message, e.ErrorCode, e.ErrorAdditionalData))
                     );
         }
-
-        /* RAW Notifications
-        void PushChannel_HttpNotificationReceived(object sender, HttpNotificationEventArgs e)
-        {
-            string message;
-
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(e.Notification.Body))
-            {
-                message = reader.ReadToEnd();
-            }
-
-
-            UIThread.Invoke(() =>
-                MessageBox.Show(String.Format("Received Notification {0}:\n{1}",
-                    DateTime.Now.ToShortTimeString(), message))
-                    );
-        }
-        */
 
         /// <summary>
         /// Event handler for when a toast notification arrives while your application is running.  

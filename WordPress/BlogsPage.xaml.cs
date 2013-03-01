@@ -192,11 +192,42 @@ namespace WordPress
                 // sharing a photo
                 App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
             }
-            else if (queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
+            else if (queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("ts") && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
             {
-                string blogID = queryStrings["blog_id"];
-                System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
+                //there is no way to clear the query string. We must use the PhoneApplicationService to store the ts and check it before opening the notifications screen 
+                bool shouldOpenTheBlogScreen = false;
+                if (State.ContainsKey("PN_ts"))
+                {
+                    if ((State["PN_ts"] as string) != queryStrings["ts"])
+                        shouldOpenTheBlogScreen = true;
+                }
+                else
+                {
+                    shouldOpenTheBlogScreen = true;
+                    State.Add("PN_ts", queryStrings["ts"]);
+                }
+
+                if (true == shouldOpenTheBlogScreen)
+                {
+                    string blogID = queryStrings["blog_id"];
+                    System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
+                    List<Blog> blogs = DataService.Current.Blogs.ToList();
+                    foreach (Blog currentBlog in blogs)
+                    {
+                        if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                        {
+                            string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                            if (currentBlogID == blogID)
+                            {
+                                App.MasterViewModel.CurrentBlog = currentBlog;
+                                NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+                                return;
+                            }
+                        }
+                    }
+                }
             }
+
 
             while (NavigationService.CanGoBack)
             {
