@@ -118,7 +118,7 @@ namespace WordPress.Utils
             Debug.WriteLine("DeviceTotalMemory " + Tools.convertMemory(DeviceStatus.DeviceTotalMemory));
         }
 
-        private static String convertMemory(long size)
+        public static String convertMemory(long size)
         {
             try
             {

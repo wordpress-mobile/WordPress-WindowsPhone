@@ -56,16 +56,48 @@ namespace WordPress.Utils
                             output.WriteLine(source);
                             output.WriteLine("\n--------------\n");
                         }
+
                         if (ex != null && ex.Message != null)
                         {
                             output.WriteLine("Message:");
                             output.WriteLine(ex.Message);
                             output.WriteLine("\n--------------\n");
                         }
+
                         if (ex != null && ex.StackTrace != null)
                         {
                             output.WriteLine("Stack Trace: \n");
                             output.WriteLine(ex.StackTrace);
+                            output.WriteLine("\n--------------\n");
+                        }
+
+                        if (ex != null  && null != ex.Data && 0 < ex.Data.Count)
+                        {
+                            string keyValueFormat = "Key: {0}\t\tValue: {1}";
+                            output.WriteLine("Data:");
+                            foreach (object key in ex.Data.Keys)
+                            {
+                                output.WriteLine(keyValueFormat, key, ex.Data[key]);
+                            }
+                            output.WriteLine("\n--------------\n");
+                        }
+
+                        if (ex != null && null != ex.GetBaseException())
+                        {
+                            output.WriteLine("Base Exception ToString:\n" + ex.GetBaseException().ToString());
+                            output.WriteLine("\n--------------\n");
+                        }
+
+                        output.WriteLine("Memory Usage:");
+                        output.WriteLine("CurrentMemoryUsage " + Tools.convertMemory(DeviceStatus.ApplicationCurrentMemoryUsage));
+                        output.WriteLine("ApplicationPeakMemoryUsage " + Tools.convertMemory(DeviceStatus.ApplicationPeakMemoryUsage));
+                        output.WriteLine("ApplicationMemoryUsageLimit " + Tools.convertMemory(DeviceStatus.ApplicationMemoryUsageLimit));
+                        output.WriteLine("DeviceTotalMemory " + Tools.convertMemory(DeviceStatus.DeviceTotalMemory));
+                        output.WriteLine("\n--------------\n");
+
+                        if (ex != null)
+                        {
+                            output.WriteLine("Exception ToString:\n" + ex.ToString());
                             output.WriteLine("\n--------------\n");
                         }
                     }
