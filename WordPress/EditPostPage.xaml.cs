@@ -64,9 +64,7 @@ namespace WordPress
             ApplicationBar.Buttons.Add(_saveIconButton);
 
             _mediaUploadRPCs = new List<UploadFileRPC>();
-
-            this.postFormatsPicker.ItemsSource = App.MasterViewModel.CurrentBlog.PostFormats;
-            
+  
             Loaded += OnPageLoaded;
 
             photoChooserTask = new PhotoChooserTask();
@@ -283,13 +281,8 @@ namespace WordPress
         {
             Loaded -= OnPageLoaded;
             App.WaitIndicationService.RootVisualElement = LayoutRoot;
-
-            /*if (!(State.ContainsKey(TITLEKEY_VALUE)))
-            {*/
-                LoadBlog();
-                SetupFeaturedImage();
-            //}
-
+            LoadBlog();
+            SetupFeaturedImage();
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
@@ -528,13 +521,22 @@ namespace WordPress
 
         private void initPostFormatUI(string currentPostFormatKey)
         {
+            this.postFormatsPicker.ItemsSource = App.MasterViewModel.CurrentBlog.PostFormats;
             int i = 0;
-            if (string.IsNullOrEmpty(currentPostFormatKey)) currentPostFormatKey = "standard";
+            if (string.IsNullOrEmpty(currentPostFormatKey))
+                currentPostFormatKey = "standard";
             foreach (PostFormat pf in App.MasterViewModel.CurrentBlog.PostFormats)
             {
                 if (currentPostFormatKey.Equals(pf.Key))
                 {
-                    postFormatsPicker.SelectedIndex = i;
+                    try
+                    {
+                        postFormatsPicker.SelectedIndex = i;
+                    }
+                    catch (Exception pfException)
+                    {
+                        Tools.LogException("PostFormats has probably changed while running the For cycle to select the item??", pfException);
+                    }
                     postFormatsPicker.SelectionChanged += new SelectionChangedEventHandler(listPicker_SelectionChanged);
                     return;
                 }
