@@ -26,6 +26,7 @@ namespace WordPress
         private ApplicationBarIconButton _saveIconButton;
         private StringTable _localizedStrings;
         private GetUsersBlogsRPC rpc;
+        private bool _messageBoxIsShown = false;
 
         #endregion
 
@@ -122,7 +123,11 @@ namespace WordPress
 
         private void PromptUserForInput(string message, Control control)
         {
+            if (_messageBoxIsShown)
+                return;
+            _messageBoxIsShown = true;
             MessageBox.Show(message);
+            _messageBoxIsShown = false;
             control.Focus();
         }
 

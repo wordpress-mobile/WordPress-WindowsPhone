@@ -39,7 +39,7 @@ namespace WordPress
         private GetMediaItemRPC _mediaItemRPC;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
-        private bool _mediaDialogPresented = false;
+        private bool _messageBoxIsShown = false;
         private bool isEditingLocalDraft = false;
 
         private PhotoChooserTask photoChooserTask;
@@ -315,8 +315,12 @@ namespace WordPress
             }
             else
             {
+                if (_messageBoxIsShown)
+                    return;
+                _messageBoxIsShown = true;
                 string prompt = string.Format(_localizedStrings.Prompts.SureCancel, _localizedStrings.Prompts.Post);
                 MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
+                _messageBoxIsShown = false;
                 if (result == MessageBoxResult.OK)
                 {
                     if (_mediaItemRPC != null)
@@ -563,7 +567,7 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
-            _mediaDialogPresented = false;
+            _messageBoxIsShown = false;
             Post post = App.MasterViewModel.CurrentPost;
 
             //Do not publish posts with no title or content.
@@ -1015,8 +1019,9 @@ namespace WordPress
                     UIThread.Invoke(() =>
                     {
                         ApplicationBar.IsVisible = true;
-                        if (!_mediaDialogPresented)
+                        if (!_messageBoxIsShown)
                         {
+                            _messageBoxIsShown = true;
                             string errorMessageDescription;
                             if (null != args.Error && args.Error is PictureNotAvailableException)
                             {
@@ -1027,8 +1032,8 @@ namespace WordPress
                                 errorMessageDescription = _localizedStrings.Prompts.MediaErrorContent;
                             }
 
-                            _mediaDialogPresented = true;
                             MessageBoxResult result = MessageBox.Show(errorMessageDescription, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                            _messageBoxIsShown = false;
                             if (result == MessageBoxResult.OK)
                             {
                                 SavePost();

@@ -30,6 +30,7 @@ namespace WordPress
         private GetUsersBlogsRPC rpc;
         private WebClient rsdWebClient;
         private bool useRecoveryFunctions = true;
+        private bool _messageBoxIsShown = false;
 
         #endregion
 
@@ -160,7 +161,11 @@ namespace WordPress
         /// <param name="textbox"></param>
         private void PromptUserForInput(string message, Control control)
         {
+            if (_messageBoxIsShown)
+                return;
+            _messageBoxIsShown = true;
             MessageBox.Show(message);
+            _messageBoxIsShown = false;
             control.Focus();
         }
 
@@ -210,7 +215,10 @@ namespace WordPress
                     if (currentException is NotSupportedException || currentException is XmlRPCParserException || currentException is ArgumentNullException)
                     {
                         this.HandleException(currentException, _localizedStrings.PageTitles.CheckTheUrl, _localizedStrings.Messages.CheckTheUrl);
-                        urlTextBox.Focus();
+                        UIThread.Invoke(() =>
+                        {
+                            urlTextBox.Focus();
+                        });
                         return;
                     }
                     else if (currentException is XmlRPCException && (currentException as XmlRPCException).FaultCode == 403) //username or password error
@@ -477,7 +485,8 @@ namespace WordPress
 
         private void showErrorMsgOnRecovery(Exception ex)
         {
-
+            if (_messageBoxIsShown)
+                return;
             App.WaitIndicationService.KillSpinner();
             ApplicationBar.IsVisible = true;
 

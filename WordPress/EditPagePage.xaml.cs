@@ -26,6 +26,7 @@ namespace WordPress
         #region member variables
 
         private static object _syncRoot = new object();
+        private bool _messageBoxIsShown = false;
 
         private const string TITLEKEY_VALUE = "title";
         private const string PUBLISHKEY_VALUE = "publish";
@@ -108,8 +109,12 @@ namespace WordPress
             }
             else
             {
+                if (_messageBoxIsShown)
+                    return;
+                _messageBoxIsShown = true;
                 string prompt = string.Format(_localizedStrings.Prompts.SureCancel, _localizedStrings.Prompts.Page);
                 MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.CancelEditing, MessageBoxButton.OKCancel);
+                _messageBoxIsShown = false;
                 if (result == MessageBoxResult.OK)
                 {
                     //remove the media
