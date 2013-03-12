@@ -38,7 +38,6 @@ namespace WordPress
         private AbstractPostRPC currentXmlRpcConnection;
         public Media _lastTappedMedia = null; //used to pass the obj to the Media details page
 
-        private bool _mediaDialogPresented = false;
         private bool isEditingLocalDraft = false;
 
         private PhotoChooserTask photoChooserTask;
@@ -288,7 +287,7 @@ namespace WordPress
 
         private void OnSaveButtonClick(object sender, EventArgs e)
         {
-            _mediaDialogPresented = false;
+            _messageBoxIsShown = false;
             Post post = DataContext as Post;
 
             //Do not publish pages with no title or content.
@@ -655,7 +654,7 @@ namespace WordPress
                     UIThread.Invoke(() =>
                     {
                         ApplicationBar.IsVisible = true;
-                        if (!_mediaDialogPresented)
+                        if (!_messageBoxIsShown)
                         {
                             string errorMessageDescription;
                             if (null != args.Error && args.Error is PictureNotAvailableException)
@@ -667,8 +666,9 @@ namespace WordPress
                                 errorMessageDescription = _localizedStrings.Prompts.MediaErrorContent;
                             }
 
-                            _mediaDialogPresented = true;
+                            _messageBoxIsShown = true;
                             MessageBoxResult result = MessageBox.Show(errorMessageDescription, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                            _messageBoxIsShown = false;
                             if (result == MessageBoxResult.OK)
                             {
                                 SavePost();

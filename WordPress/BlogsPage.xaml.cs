@@ -220,6 +220,7 @@ namespace WordPress
                             if (currentBlogID == blogID)
                             {
                                 App.MasterViewModel.CurrentBlog = currentBlog;
+                                App.MasterViewModel.ShowCommentsPageAndRefresh = true;
                                 NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
                                 return;
                             }
@@ -227,7 +228,6 @@ namespace WordPress
                     }
                 }
             }
-
 
             while (NavigationService.CanGoBack)
             {

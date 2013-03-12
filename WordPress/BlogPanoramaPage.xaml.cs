@@ -44,7 +44,6 @@ namespace WordPress
         private CommentsListFilter _currentCommentFilter;
         private StringTable _localizedStrings;
         private SelectionChangedEventHandler _popupServiceSelectionChangedHandler;
-        
 
         private ApplicationBarIconButton _pinBlogIconButton;
         private ApplicationBarIconButton _unpinBlogIconButton;
@@ -272,6 +271,21 @@ namespace WordPress
             // so put the bindings at the end of the UI thread's task queue instead
             // of putting them in the XAML (where they get evalutead at XAML instantiation)
             Application.Current.RootVisual.Dispatcher.BeginInvoke(SetPanoramaListDataBindings);
+
+            if (App.MasterViewModel.ShowCommentsPageAndRefresh)
+            {
+                this.blogPanorama.DefaultItem = commentsPanoramaItem;
+                App.MasterViewModel.ShowCommentsPageAndRefresh = false;
+                if (!App.isNetworkAvailable())
+                {
+                    Exception connErr = new NoConnectionException();
+                    this.HandleException(connErr);
+                }
+                else
+                {
+                    FetchComments(false);
+                }
+            }
         }
 
         private void SetPanoramaListDataBindings()
@@ -1395,11 +1409,18 @@ namespace WordPress
                 else
                 {
                     // hm... blog index is no longer valid. delete the tile and quit the app
-                    ShellTile OldTile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains("Blog=" + blogXmlrpc));
-                    OldTile.Delete();
-                    NavigationService.GoBack();
+                    try
+                    {
+                        ShellTile OldTile = ShellTile.ActiveTiles.First(x => x.NavigationUri.ToString().Contains("Blog=" + blogXmlrpc));
+                        OldTile.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        Utils.Tools.LogException("Secondary Tile not found - Blog=" + blogXmlrpc, ex);
+                    }
+                    throw new ApplicationShouldEndException();
                 }
-            }
+            }            
 
             base.OnNavigatedTo(e);
         }

@@ -22,7 +22,6 @@ namespace WordPress
     public class MasterViewModel: INotifyPropertyChanged
     {
         #region member variables
-
         #endregion
 
         #region events
@@ -44,6 +43,8 @@ namespace WordPress
         #region properties
 
         public ObservableCollection<Blog> Blogs { get; private set; }
+
+        public bool ShowCommentsPageAndRefresh { set; get; }
 
         public Blog CurrentBlog
         {

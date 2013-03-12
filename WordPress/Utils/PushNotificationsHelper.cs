@@ -1,4 +1,5 @@
-﻿using Microsoft.Phone.Notification;
+﻿using Coding4Fun.Toolkit.Controls;
+using Microsoft.Phone.Notification;
 using Microsoft.Phone.Shell;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using WordPress.Localization;
 using WordPress.Model;
@@ -18,13 +20,14 @@ namespace WordPress.Utils
         private static volatile PushNotificationsHelper instance;
         private static object syncRoot = new Object();
 
-        private static string pushNotificationURL = "http://ercolid.wordpress.com/xmlrpc.php";
+        private static string pushNotificationURL = "https://wordpress.com/xmlrpc.php";
 
         /// Holds the push channel that is created or found.
         private HttpNotificationChannel pushChannel;
         // The name of our push channel.
         private string channelName = "WordPressDemoChannel";
 
+        private bool processingError = false;
 
         #region costructors
         private PushNotificationsHelper() { }
@@ -176,7 +179,7 @@ namespace WordPress.Utils
             else
             {
                 Exception e = args.Error;
-                System.Diagnostics.Debug.WriteLine(String.Format("PushNotificationsSendBlogsList  error occurred. {0}", e.Message));
+                Utils.Tools.LogException(String.Format("PushNotificationsSendBlogsList  error occurred. {0}", e.Message), e);
             }
         }
 
@@ -254,7 +257,7 @@ namespace WordPress.Utils
             else
             {
                Exception e = args.Error;
-               System.Diagnostics.Debug.WriteLine(String.Format("Register Token  error occurred. {0}", e.Message));
+               Utils.Tools.LogException(String.Format("Register Token  error occurred. {0}", e.Message), e);
             }
         }
 
@@ -265,7 +268,7 @@ namespace WordPress.Utils
 
             // Application Tile is always the first Tile, even if it is not pinned to Start.
             ShellTile TileToFind = ShellTile.ActiveTiles.First();
-
+            
             // Application should always be found
             if (TileToFind != null)
             {
@@ -275,7 +278,7 @@ namespace WordPress.Utils
                 {
                     Count = newCount,
                 };
-
+                
                 // Update the Application Tile
                 TileToFind.Update(NewTileData);
             }
@@ -348,13 +351,54 @@ namespace WordPress.Utils
                 // Register for this notification since we need to receive the notifications while the application is running.
                 pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
 
-                pushChannel.Open();
+                try
+                {
+                    pushChannel.Open();
+                }
+                catch (InvalidOperationException  _pushNotificationChannelOpenFailed)
+                {
+                    Utils.Tools.LogException("Cannot open the channel, try it again...", _pushNotificationChannelOpenFailed);
+                    try
+                    {
+                        pushChannel.Open();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        Utils.Tools.LogException("2nd tentative failed", _pushNotificationChannelOpenFailed);
+                        return;
+                    }
+                }
 
-                // Bind this new channel for toast events.
-                pushChannel.BindToShellToast();
+                try
+                {
+                    // Bind this new channel for toast events.
+                    pushChannel.BindToShellToast();
+                }
+                catch (InvalidOperationException _pushNotificationChannelBindFailed)
+                {
+                    Utils.Tools.LogException("BindToShellToast Failed", _pushNotificationChannelBindFailed);
+                    try
+                    {
+                        pushChannel.BindToShellToast();
+                    }
+                    catch (InvalidOperationException) { }
+                }
 
-                // Bind this new channel for Tile events.
-                pushChannel.BindToShellTile();
+                try
+                {
+                    // Bind this new channel for Tile events.
+                    pushChannel.BindToShellTile();
+                }
+                catch (InvalidOperationException _pushNotificationChannelBindFailed)
+                {
+                    Utils.Tools.LogException("BindToShellTile Failed", _pushNotificationChannelBindFailed);
+                    try
+                    {
+                        pushChannel.BindToShellTile();
+                    }
+                    catch (InvalidOperationException) { }
+                }
+
             }
             else
             {
@@ -379,7 +423,7 @@ namespace WordPress.Utils
         /// <param name="e"></param>
         void PushChannel_ConnectionStatusChanged(object sender, NotificationChannelConnectionEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine(String.Format("Notification Channel Connection Changed:  {0}", e.ConnectionStatus.ToString()));
+            Utils.Tools.LogException(String.Format("Notification Channel Connection Changed:  {0}", e.ConnectionStatus.ToString()), null);
         }
 
 
@@ -401,10 +445,54 @@ namespace WordPress.Utils
         /// <param name="e"></param>
         void PushChannel_ErrorOccurred(object sender, NotificationChannelErrorEventArgs e)
         {
-            UIThread.Invoke(() =>
-                MessageBox.Show(String.Format("A push notification {0} error occurred.  {1} ({2}) {3}",
-                    e.ErrorType, e.Message, e.ErrorCode, e.ErrorAdditionalData))
-                    );
+            Utils.Tools.LogException((String.Format("A push notification {0} error occurred.  {1} ({2}) {3}",
+           e.ErrorType, e.Message, e.ErrorCode, e.ErrorAdditionalData)), null);
+
+            if (processingError)
+                return;
+
+            processingError = true;
+            switch (e.ErrorType)
+            {
+                case ChannelErrorType.ChannelOpenFailed:
+                case ChannelErrorType.PayloadFormatError:
+
+                    //ChannelErrorType.ChannelOpenFailed
+                    //This error is returned when the Push Client and the Push Notification Service are unable to establish a connection
+
+                    //ChannelErrorType.PayloadFormatError:
+                    //This error is returned when the XML payload format or the HTTP header of the push notification is syntactically invalid.
+
+                    pushChannel = HttpNotificationChannel.Find(channelName);
+
+                    if (pushChannel != null)
+                    {
+                        pushChannel.Close();
+                        pushChannel.Dispose();
+                        pushChannel = null;
+                    }
+                    this.enablePushNotifications();
+                    break;
+                case ChannelErrorType.NotificationRateTooHigh:
+                    //This error is returned when the Push Client is unable to receive messages because the web service is sending too many messages at too quick a rate to a certain device.
+                    //Slow down the notifications 
+                    //@TODO: send the server a signal?
+                    break;
+                case ChannelErrorType.MessageBadContent:
+                    //This error is returned when the image reference is pointing to an HTTP image, even though the notification channel is not currently bound to a list of URIs. 
+                    //This should never happen to us
+                    break;
+                case ChannelErrorType.PowerLevelChanged:
+                    //This has been deprecated because push client no longer takes any action based on any power states
+                    break;
+                case ChannelErrorType.Unknown:
+                    //An internal error has occurred and could not be recovered. A device reboot may be necessary.
+                    break;
+                default:
+                    break;
+            }
+
+            processingError = false;
         }
 
         /// <summary>
@@ -419,29 +507,6 @@ namespace WordPress.Utils
         /// <param name="e"></param>
         void PushChannel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
-            StringBuilder message = new StringBuilder();
-            string relativeUri = string.Empty;
-
-            message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
-
-            // Parse out the information that was part of the message.
-            foreach (string key in e.Collection.Keys)
-            {
-                message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
-
-                if (string.Compare(
-                    key,
-                    "wp:Param",
-                    System.Globalization.CultureInfo.InvariantCulture,
-                    System.Globalization.CompareOptions.IgnoreCase) == 0)
-                {
-                    relativeUri = e.Collection[key];
-                }
-            }
-
-            // Display a dialog of all the fields in the toast.
-            UIThread.Invoke(() => MessageBox.Show(message.ToString()));
-
             this.resetTileCount();
             var worker = new BackgroundWorker();
             worker.DoWork += (workSender, e2) =>
@@ -450,12 +515,76 @@ namespace WordPress.Utils
                 {
                     this.sendBlogsList();
                 }
-                catch (Exception err) 
+                catch (Exception err)
                 {
-                    System.Diagnostics.Debug.WriteLine(String.Format("sendBlogsList in PushChannel_ShellToastNotificationReceived failed. {0}", err.Message));
+                    Utils.Tools.LogException("SendBlogsList in PushChannel_ShellToastNotificationReceived failed.", err);
                 }
             };
             worker.RunWorkerAsync();
+
+            if (App.WaitIndicationService.Waiting)
+                return;
+
+            if (App.PopupSelectionService.IsPopupOpen)
+                return;
+            
+            string relativeUri = string.Empty;
+            string text2 = string.Empty;
+
+            // Parse out the information that was part of the message.
+            foreach (string key in e.Collection.Keys)
+            {
+                if (string.Compare(
+                    key,
+                    "wp:Param",
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.CompareOptions.IgnoreCase) == 0)
+                {
+                    relativeUri = e.Collection[key];
+                }
+
+                if (string.Compare(
+                    key,
+                    "wp:Text2",
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.CompareOptions.IgnoreCase) == 0)
+                {
+                    text2 = e.Collection[key];
+                }
+            }
+
+            if (relativeUri == string.Empty || text2 == string.Empty)
+                return;
+
+            string blog_id = string.Empty;
+            foreach (string currentItem in relativeUri.Split('&'))
+            {
+                string[] keyValue = currentItem.Split('=');
+                if (keyValue[0] == "?blog_id")
+                {
+                    blog_id = keyValue[1];
+                    break;
+                }
+            }
+
+            if (blog_id == string.Empty)
+                return;
+    
+            UIThread.Invoke(() =>
+            {
+                Coding4Fun.Toolkit.Controls.ToastPrompt toast = new Coding4Fun.Toolkit.Controls.ToastPrompt();
+                toast.Title = text2;
+                //toast.Message = "Some message";
+                //toast.ImageSource = new BitmapImage(new Uri("ApplicationIcon.png", UriKind.RelativeOrAbsolute));
+                toast.Completed += toast_Completed;
+                toast.Show();
+            }
+            );
+        }
+
+        void toast_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
+        {
+            //add some code here
         }
         #endregion
     }
