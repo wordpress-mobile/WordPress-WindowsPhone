@@ -68,6 +68,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Gallery.cs" />
+    <Compile Include="IntResponseObject.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="MediaItem.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="XMLRPC\NewCategoryRPC.cs" />
     <Compile Include="XMLRPC\NewCommentRPC.cs" />
     <Compile Include="XMLRPC\NewPostRPC.cs" />
+    <Compile Include="XMLRPC\PushNotificationGetLastNotification.cs" />
     <Compile Include="XMLRPC\PushNotificationsSendBlogsList.cs" />
     <Compile Include="XMLRPC\RegisterPushNotificationToken.cs" />
     <Compile Include="XMLRPC\UnregisterPushNotificationToken.cs" />

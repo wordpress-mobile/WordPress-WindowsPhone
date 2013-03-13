@@ -20,7 +20,7 @@ namespace WordPress.Utils
         private static volatile PushNotificationsHelper instance;
         private static object syncRoot = new Object();
 
-        private static string pushNotificationURL = "https://wordpress.com/xmlrpc.php";
+        private static string pushNotificationURL = "http://ercolid.wordpress.com/xmlrpc.php";
 
         /// Holds the push channel that is created or found.
         private HttpNotificationChannel pushChannel;
@@ -83,6 +83,11 @@ namespace WordPress.Utils
                 }
                 settings.AskedPermissionForToastPushNotifications = true;
                 settings.Save();
+
+                if (settings.EnableToastPushNotifications == true)
+                {
+                  //  MessageBox.Show(_localizedStrings.Prompts.AllowToastPushNotification, _localizedStrings.Prompts., MessageBoxButton.OK);
+                }
             }
         }
 
@@ -160,7 +165,7 @@ namespace WordPress.Utils
                 if (currentAccountBlogIDs == null)
                     continue;
                 PushNotificationsSendBlogsList rpc = new PushNotificationsSendBlogsList(pushNotificationURL, entry.Key, entry.Value, device_uuid, currentAccountBlogIDs, app_version);
-                rpc.Completed += OnSendBlogsListCompleted;
+               // rpc.Completed += OnSendBlogsListCompleted;
                 rpc.ExecuteAsync();
             }
         }
@@ -283,6 +288,40 @@ namespace WordPress.Utils
                 TileToFind.Update(NewTileData);
             }
         }
+
+        public void loadLastPushNotification( XMLRPCCompletedEventHandler<IntResponseObject> respHandler)
+        {
+            string device_uuid = this.getDeviceUUID();
+            if (device_uuid == null) return; //emulators
+
+            List<Blog> blogs = DataService.Current.Blogs.ToList();
+            string username = string.Empty;
+            string password = string.Empty;
+            foreach (Blog currentBlog in blogs)
+            {
+                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                {
+                    if (currentBlog.isWPcom())
+                    {
+                        username = currentBlog.Username;
+                        password = currentBlog.Password;
+                    }
+                    else if (currentBlog.DotcomUsername != null && currentBlog.DotcomPassword != null)
+                    {
+                        username = currentBlog.DotcomUsername;
+                        password = currentBlog.DotcomPassword;
+                    }
+                }
+            }
+
+            if (username != string.Empty && password != string.Empty)
+            {
+                PushNotificationGetLastNotification rpc = new PushNotificationGetLastNotification(pushNotificationURL, username, password, device_uuid);
+                rpc.Completed += respHandler;
+                rpc.ExecuteAsync();
+            }
+        }
+        
         #endregion
 
         #region Push Notifications Init methods
@@ -521,12 +560,6 @@ namespace WordPress.Utils
                 }
             };
             worker.RunWorkerAsync();
-
-            if (App.WaitIndicationService.Waiting)
-                return;
-
-            if (App.PopupSelectionService.IsPopupOpen)
-                return;
             
             string relativeUri = string.Empty;
             string text2 = string.Empty;
@@ -569,9 +602,16 @@ namespace WordPress.Utils
 
             if (blog_id == string.Empty)
                 return;
-    
+
             UIThread.Invoke(() =>
             {
+
+                if (App.WaitIndicationService.Waiting)
+                    return;
+
+                if (App.PopupSelectionService.IsPopupOpen)
+                    return;
+
                 Coding4Fun.Toolkit.Controls.ToastPrompt toast = new Coding4Fun.Toolkit.Controls.ToastPrompt();
                 toast.Title = text2;
                 //toast.Message = "Some message";

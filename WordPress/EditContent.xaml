@@ -23,32 +23,25 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Center" MinHeight="100" Grid.Row="0" VerticalAlignment="Top" Height="612" Grid.RowSpan="1" >
-            <TextBox x:Name="contentTextBox"
-                     TextWrapping="Wrap" 
-                     Text="{Binding Description, Mode=TwoWay}" 
-                     Style="{StaticResource TextBoxStyle}" 
-                     Template="{StaticResource FocusedTextBoxTemplate}" 
-                     AcceptsReturn="True" 
-                     InputScope="Text" 
-                     MinWidth="480">
-                <Custom:Interaction.Behaviors>
-                    <WordPress_Behaviors:UpdateSourceOnTextChangedBehavior/>
-                </Custom:Interaction.Behaviors>
-
-                <!-- uncomment the section below to enable the context menu -->
-                <!--<toolkit:ContextMenuService.ContextMenu>
-					<toolkit:ContextMenu x:Name="contextMenu">
-                        <ListBoxItem Content="Bold"/>
-                        <ListBoxItem Content="Italic"/>
-                        <ListBoxItem Content="Underline"/>
-                        <ListBoxItem Content="Strikethru"/>
-                        <ListBoxItem Content="Link"/>
-                        <ListBoxItem Content="Block Quote"/>
-                    </toolkit:ContextMenu>
-				</toolkit:ContextMenuService.ContextMenu>-->
-            </TextBox>
-        </ScrollViewer>
+        <phone:WebBrowser x:Name="browser"
+                                  Grid.Row="0"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch" 
+                                  Margin="10,0" 
+                                  IsScriptEnabled="True" 
+                                  Opacity="1"
+                                  Height="600"                          
+          />
+        <!-- ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Center" MinHeight="100" Grid.Row="0" VerticalAlignment="Top" Height="612" Grid.RowSpan="1" >
+            <phone:WebBrowser x:Name="browser"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch" 
+                              Margin="0" 
+                              IsScriptEnabled="True" 
+                              Opacity="1" Width="467"
+                               Height="600"
+          />
+        </ScrollViewer -->
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <ToggleButton x:Name="boldToggleButton" 
                                   Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" 

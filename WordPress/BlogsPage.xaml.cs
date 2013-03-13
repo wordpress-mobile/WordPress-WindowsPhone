@@ -13,6 +13,7 @@ using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Utils;
 using System.ComponentModel;
+using Coding4Fun.Toolkit.Controls;
 
 namespace WordPress
 {
@@ -185,56 +186,128 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
 
-            IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;
+            //there is no way to clear the query string. We must use the PhoneApplicationPage to store the ts and check it before opening the notifications screen 
+            bool firstLaunch = false;
+            if (! State.ContainsKey("ts"))
+            {
+                firstLaunch = true;
+                State.Add("ts", DateTime.Now);
+            }
 
+            IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;
             if (queryStrings.ContainsKey("FileId") && queryStrings.ContainsKey("Action") && queryStrings["Action"] == "ShareContent")
             {
                 // sharing a photo
                 App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
             }
-            else if (queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("ts") && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
+            else if ((true == firstLaunch) && queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("ts") 
+                && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
             {
-                //there is no way to clear the query string. We must use the PhoneApplicationService to store the ts and check it before opening the notifications screen 
-                bool shouldOpenTheBlogScreen = false;
-                if (State.ContainsKey("PN_ts"))
+                string blogID = queryStrings["blog_id"];
+                System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
+                this.openCommentsScreenForBlog(blogID);
+            }
+            else if (true == firstLaunch)
+            {
+                //App was opened by tapping on the Tile. Need to check if there are some notifications pending on the server.
+                PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
+                if (pHelper.pushNotificationsEnabled())
                 {
-                    if ((State["PN_ts"] as string) != queryStrings["ts"])
-                        shouldOpenTheBlogScreen = true;
-                }
-                else
-                {
-                    shouldOpenTheBlogScreen = true;
-                    State.Add("PN_ts", queryStrings["ts"]);
-                }
-
-                if (true == shouldOpenTheBlogScreen)
-                {
-                    string blogID = queryStrings["blog_id"];
-                    System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
-                    List<Blog> blogs = DataService.Current.Blogs.ToList();
-                    foreach (Blog currentBlog in blogs)
-                    {
-                        if (currentBlog.isWPcom() || currentBlog.hasJetpack())
-                        {
-                            string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
-                            if (currentBlogID == blogID)
-                            {
-                                App.MasterViewModel.CurrentBlog = currentBlog;
-                                App.MasterViewModel.ShowCommentsPageAndRefresh = true;
-                                NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
-                                return;
-                            }
-                        }
-                    }
+                    pHelper.loadLastPushNotification(this.OnLoadLastNotificationCompleted);
                 }
             }
-
+            
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
             }
         }
-        #endregion
 
+        private void openCommentsScreenForBlog(string blogID)
+        {
+            List<Blog> blogs = DataService.Current.Blogs.ToList();
+            foreach (Blog currentBlog in blogs)
+            {
+                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                {
+                    string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                    if (currentBlogID == blogID)
+                    {
+                        App.MasterViewModel.CurrentBlog = currentBlog;
+                        App.MasterViewModel.ShowCommentsPageAndRefresh = true;
+                        NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
+        {
+            XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
+            rpc.Completed -= OnLoadLastNotificationCompleted;
+            if (null == args.Error && args.Items.Count > 0)
+            {
+                IntResponseObject respObj = args.Items.First();
+                
+                if (respObj.Value == 0)
+                    return;
+
+                string blogID = string.Format("{0}", respObj.Value);
+                string blogName = string.Empty;
+
+                List<Blog> blogs = DataService.Current.Blogs.ToList();
+                foreach (Blog currentBlog in blogs)
+                {
+                    if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                    {
+                        string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                        if (currentBlogID == blogID)
+                        {
+                            blogName = currentBlog.BlogName;
+                        }
+                    }
+                }
+                
+                NestedClass nc = new NestedClass(this, blogID);
+
+                UIThread.Invoke(() =>
+                {
+                    ToastPrompt toast = new ToastPrompt();
+                    toast.Title = "New comment on " + blogName;
+                    //toast.Message = "Some message";
+                    //toast.ImageSource = new BitmapImage(new Uri("ApplicationIcon.png", UriKind.RelativeOrAbsolute));
+                    toast.Tap += nc.toast_Completed;
+                    toast.Show();
+                });
+                return;
+            }
+            else
+            {
+                Exception e = args.Error;
+                Utils.Tools.LogException(String.Format("Error occurred. {0}", e.Message), e);
+            }
+        }
+
+        
+        private class NestedClass
+        {
+            string _blogID = string.Empty;
+            BlogsPage outerClass = null;
+
+            public NestedClass(BlogsPage outerClass, string blogID)
+            {
+                this._blogID = blogID;
+                this.outerClass = outerClass;
+            }
+
+            public void toast_Completed(object sender, System.Windows.Input.GestureEventArgs e)
+            {
+                this.outerClass.openCommentsScreenForBlog(this._blogID);
+            }
+        }
+        
+
+        #endregion
     }
 }
