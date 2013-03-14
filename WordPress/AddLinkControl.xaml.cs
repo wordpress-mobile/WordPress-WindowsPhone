@@ -75,7 +75,7 @@ namespace WordPress
 
         private void ValidateUrl()
         {
-            if (Uri.IsWellFormedUriString(Url, UriKind.Absolute))
+            if (Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute))
             {
                 insertLinkButton.IsEnabled = true;
                 return;
