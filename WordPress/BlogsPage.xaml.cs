@@ -214,13 +214,17 @@ namespace WordPress
                 PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
                 if (pHelper.pushNotificationsEnabled() && App.isNetworkAvailable())
                 {
+                    UIThread.Invoke(() =>
+                    {
+                        loadingContentProgressBar.Opacity = 1.0;
+                    });
                     pHelper.loadLastPushNotification(this.OnLoadLastNotificationCompleted);
                 }
                 else
                 {
                     UIThread.Invoke(() =>
                     {
-                        loadingContentStackPanel.Visibility = Visibility.Collapsed;
+                        loadingContentProgressBar.Opacity = 0.0;
                     });
                 }
             }
@@ -254,7 +258,7 @@ namespace WordPress
         {
             UIThread.Invoke(() =>
              {
-                 loadingContentStackPanel.Visibility = Visibility.Collapsed;
+                 loadingContentProgressBar.Opacity = 0.0;
              });
             XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
             rpc.Completed -= OnLoadLastNotificationCompleted;

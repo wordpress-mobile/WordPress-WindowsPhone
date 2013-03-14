@@ -39,15 +39,12 @@
     <Grid x:Name="LayoutRoot"  Style="{StaticResource LayoutRootStyle}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,160,0,0">
-            <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="Visible" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
-        </StackPanel>
-
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,0">
             <Grid Margin="0,0,8,0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -65,8 +62,12 @@
             </TextBlock>
         </StackPanel>
 
+        <StackPanel x:Name="loadingContentStackPanel" Grid.Row="1" Canvas.ZIndex="1000" Margin="0,0,0,0">
+            <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="Visible" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
+        </StackPanel>
+
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <ListBox x:Name="blogsListBox" ItemsSource="{Binding Blogs}" SelectionChanged="OnBlogsListBoxSelectionChanged" toolkit:TiltEffect.IsTiltEnabled="True">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
