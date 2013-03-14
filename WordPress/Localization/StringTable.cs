@@ -356,6 +356,7 @@ namespace WordPress.Localization
 
             /* Push Notifications String */
             public string AllowToastPushNotification { get { return LocalizedResources.Prompts_AllowToastPushNotification; } }
+            public string PinToStartPushNotification { get { return LocalizedResources.Prompts_PinToStartPushNotification; } }
         
             /*Error String*/
             public string ServerReturnedInvalidXmlRpcMessage { get { return LocalizedResources.Prompts_ServerReturnedInvalidXmlRpcMessage; } }

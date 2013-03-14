@@ -2243,6 +2243,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To receive push notification pin the application to the start screen..
+        /// </summary>
+        internal static string Prompts_PinToStartPushNotification {
+            get {
+                return ResourceManager.GetString("Prompts_PinToStartPushNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to post.
         /// </summary>
         internal static string Prompts_Post {

@@ -86,8 +86,8 @@ namespace WordPress.Utils
 
                 if (settings.EnableToastPushNotifications == true)
                 {
-                  //  MessageBox.Show(_localizedStrings.Prompts.AllowToastPushNotification, _localizedStrings.Prompts., MessageBoxButton.OK);
-                }
+                    MessageBox.Show(_localizedStrings.Prompts.PinToStartPushNotification, _localizedStrings.ControlsText.PushNotifications, MessageBoxButton.OK);
+                }          
             }
         }
 

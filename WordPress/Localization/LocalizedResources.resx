@@ -993,4 +993,7 @@
   <data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
     <value>Incorrect username or password.</value>
   </data>
+  <data name="Prompts_PinToStartPushNotification" xml:space="preserve">
+    <value>To receive push notification pin the application to the start screen.</value>
+  </data>
 </root>
