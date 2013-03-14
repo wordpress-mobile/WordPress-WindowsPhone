@@ -77,18 +77,6 @@ namespace WordPress
             }
 
             CrashReporter.CheckForPreviousException();
-
-            //send PNs info in background
-            PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
-            pHelper.resetTileCount();
-            if (pHelper.pushNotificationsEnabled())
-            {
-                pHelper.enablePushNotifications();
-            }
-            else
-            {
-                pHelper.disablePushNotifications();
-            }
         }
 
         #endregion
@@ -193,6 +181,18 @@ namespace WordPress
             {
                 firstLaunch = true;
                 State.Add("ts", DateTime.Now);
+
+                //send PNs info in background
+                PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
+                pHelper.resetTileCount();
+                if (pHelper.pushNotificationsEnabled())
+                {
+                    pHelper.enablePushNotifications();
+                }
+                else
+                {
+                    pHelper.disablePushNotifications();
+                }
             }
 
             IDictionary<string, string> queryStrings = this.NavigationContext.QueryString;
@@ -207,6 +207,7 @@ namespace WordPress
                 string blogID = queryStrings["blog_id"];
                 System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
                 this.openCommentsScreenForBlog(blogID);
+                loadingContentProgressBar.Opacity = 0.0;
             }
             else if (true == firstLaunch)
             {
@@ -214,10 +215,8 @@ namespace WordPress
                 PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
                 if (pHelper.pushNotificationsEnabled() && App.isNetworkAvailable())
                 {
-                    UIThread.Invoke(() =>
-                    {
-                        loadingContentProgressBar.Opacity = 1.0;
-                    });
+                
+                    loadingContentProgressBar.Opacity = 1.0;
                     pHelper.loadLastPushNotification(this.OnLoadLastNotificationCompleted);
                 }
                 else

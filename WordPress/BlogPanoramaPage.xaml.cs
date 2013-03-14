@@ -285,6 +285,9 @@ namespace WordPress
                 {
                     FetchComments(false);
                 }
+                //reset the latest push notification on the server. Otherwise at next starttup the app will show an alert
+                PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
+                pHelper.loadLastPushNotification(null);
             }
         }
 

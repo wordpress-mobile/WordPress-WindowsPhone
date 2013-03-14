@@ -628,7 +628,7 @@ namespace WordPress.Utils
 
         void toast_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
         {
-            //add some code here
+            this.loadLastPushNotification(null);
         }
         #endregion
     }
