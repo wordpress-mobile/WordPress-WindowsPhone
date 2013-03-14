@@ -42,6 +42,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <StackPanel x:Name="loadingContentStackPanel" VerticalAlignment="Top" Canvas.ZIndex="1000" Margin="0,160,0,0">
+            <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="Visible" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
+        </StackPanel>
+
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <Grid Margin="0,0,8,0">

@@ -240,12 +240,16 @@ namespace WordPress.Utils
                     }
                 }
             }
-
+            bool sendBlogsList = true;
             foreach (KeyValuePair<String, String> entry in credentials)
             {
                 // do something with entry.Value or entry.Key
                 RegisterPushNotificationToken rpc = new RegisterPushNotificationToken(pushNotificationURL, entry.Key, entry.Value, "1", device_uuid, channelUri);
-                rpc.Completed += OnRegisterTokenCompleted;
+                if (sendBlogsList)
+                {
+                    sendBlogsList = false; //Just send one blog list when thre more than one account
+                    rpc.Completed += OnRegisterTokenCompleted;
+                }
                 rpc.ExecuteAsync();
             }
         }

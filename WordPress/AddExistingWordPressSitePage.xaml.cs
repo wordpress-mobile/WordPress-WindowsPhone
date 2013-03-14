@@ -191,6 +191,7 @@ namespace WordPress
                     if (!(DataService.Current.Blogs.Any(b => b.Xmlrpc == args.Items[0].Xmlrpc)))
                     {
                         DataService.Current.AddBlogToStore(args.Items[0]);
+                        PushNotificationsHelper.Instance.sendBlogsList();
                     }
                     NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
                 }
@@ -314,7 +315,7 @@ namespace WordPress
                     DataService.Current.AddBlogToStore(blog);
                 }
             });
-
+            PushNotificationsHelper.Instance.sendBlogsList();
             NavigationService.Navigate(new Uri("/BlogsPage.xaml", UriKind.Relative));
         }
 

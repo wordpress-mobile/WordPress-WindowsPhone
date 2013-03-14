@@ -73,7 +73,7 @@ namespace WordPress
                 _readerIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.reader.png", UriKind.Relative));
                 _readerIconButton.Text = _localizedStrings.ControlsText.Reader;
                 _readerIconButton.Click += OnReaderIconButtonClick;
-              //  ApplicationBar.Buttons.Add(_readerIconButton);
+                //  ApplicationBar.Buttons.Add(_readerIconButton);
             }
 
             CrashReporter.CheckForPreviousException();
@@ -83,7 +83,7 @@ namespace WordPress
             pHelper.resetTileCount();
             if (pHelper.pushNotificationsEnabled())
             {
-               pHelper.enablePushNotifications();
+                pHelper.enablePushNotifications();
             }
             else
             {
@@ -168,6 +168,7 @@ namespace WordPress
             }
 
             DataService.Current.Blogs.Remove(blogToRemove);
+            PushNotificationsHelper.Instance.sendBlogsList();
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
@@ -188,7 +189,7 @@ namespace WordPress
 
             //there is no way to clear the query string. We must use the PhoneApplicationPage to store the ts and check it before opening the notifications screen 
             bool firstLaunch = false;
-            if (! State.ContainsKey("ts"))
+            if (!State.ContainsKey("ts"))
             {
                 firstLaunch = true;
                 State.Add("ts", DateTime.Now);
@@ -200,7 +201,7 @@ namespace WordPress
                 // sharing a photo
                 App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
             }
-            else if ((true == firstLaunch) && queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("ts") 
+            else if ((true == firstLaunch) && queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("ts")
                 && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
             {
                 string blogID = queryStrings["blog_id"];
@@ -211,12 +212,19 @@ namespace WordPress
             {
                 //App was opened by tapping on the Tile. Need to check if there are some notifications pending on the server.
                 PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
-                if (pHelper.pushNotificationsEnabled())
+                if (pHelper.pushNotificationsEnabled() && App.isNetworkAvailable())
                 {
                     pHelper.loadLastPushNotification(this.OnLoadLastNotificationCompleted);
                 }
+                else
+                {
+                    UIThread.Invoke(() =>
+                    {
+                        loadingContentStackPanel.Visibility = Visibility.Collapsed;
+                    });
+                }
             }
-            
+
             while (NavigationService.CanGoBack)
             {
                 NavigationService.RemoveBackEntry();
@@ -244,12 +252,16 @@ namespace WordPress
 
         private void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
         {
+            UIThread.Invoke(() =>
+             {
+                 loadingContentStackPanel.Visibility = Visibility.Collapsed;
+             });
             XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
             rpc.Completed -= OnLoadLastNotificationCompleted;
             if (null == args.Error && args.Items.Count > 0)
             {
                 IntResponseObject respObj = args.Items.First();
-                
+
                 if (respObj.Value == 0)
                     return;
 
@@ -268,7 +280,7 @@ namespace WordPress
                         }
                     }
                 }
-                
+
                 NestedClass nc = new NestedClass(this, blogID);
 
                 UIThread.Invoke(() =>
@@ -277,7 +289,7 @@ namespace WordPress
                     toast.Title = "New comment on " + blogName;
                     //toast.Message = "Some message";
                     //toast.ImageSource = new BitmapImage(new Uri("ApplicationIcon.png", UriKind.RelativeOrAbsolute));
-                    toast.Tap += nc.toast_Completed;
+                    toast.Tap += nc.toast_Tapped;
                     toast.Show();
                 });
                 return;
@@ -289,7 +301,7 @@ namespace WordPress
             }
         }
 
-        
+
         private class NestedClass
         {
             string _blogID = string.Empty;
@@ -301,12 +313,12 @@ namespace WordPress
                 this.outerClass = outerClass;
             }
 
-            public void toast_Completed(object sender, System.Windows.Input.GestureEventArgs e)
+            public void toast_Tapped(object sender, System.Windows.Input.GestureEventArgs e)
             {
                 this.outerClass.openCommentsScreenForBlog(this._blogID);
             }
         }
-        
+
 
         #endregion
     }
