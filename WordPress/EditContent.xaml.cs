@@ -11,7 +11,6 @@ using System.ComponentModel;
 using System.Threading;
 using WordPress.Model;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
 
 namespace WordPress
 {
@@ -22,8 +21,6 @@ namespace WordPress
             InitializeComponent();
             Post post = App.MasterViewModel.CurrentPost;
             DataContext = post;
-            InitializeComponent();  
-            browser.Loaded += WebBrowser_OnLoaded;
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
@@ -46,7 +43,7 @@ namespace WordPress
 
         private void ShowLinkControl()
         {
-        /*    addLinkControl.Show();
+            addLinkControl.Show();
 
             // if content text is selected, pre-populate the dialog's fields
             if (contentTextBox.SelectionLength > 0)
@@ -57,7 +54,7 @@ namespace WordPress
                 {
                     addLinkControl.Url = contentTextBox.SelectedText;
                 }
-            }*/
+            }
         }
 
         private void HideAddLinkControl()
@@ -67,19 +64,18 @@ namespace WordPress
 
         private void OnLinkChosen(object sender, EventArgs e)
         {
-      /*      HideAddLinkControl();
+            HideAddLinkControl();
             string linkMarkup = addLinkControl.CreateLinkMarkup();
             contentTextBox.SelectedText = linkMarkup;
             contentTextBox.Focus();
-       * */
         }
 
         private void OnMoreButtonClick(object sender, RoutedEventArgs e)
         {
-       /*     var insertText = "<!--more-->";
+            var insertText = "<!--more-->";
             var selectionIndex = contentTextBox.SelectionStart;
             contentTextBox.Text = contentTextBox.Text.Insert(selectionIndex, insertText);
-            contentTextBox.SelectionStart = selectionIndex + insertText.Length;*/
+            contentTextBox.SelectionStart = selectionIndex + insertText.Length;
         }
         
         private void OnBoldToggleButtonClick(object sender, RoutedEventArgs e)
@@ -129,7 +125,7 @@ namespace WordPress
 
         private void InsertMarkupTagIntoContent(ToggleButton toggleButton, string openingTag, string closingTag)
         {
-     /*       Post post = DataContext as Post;
+            Post post = DataContext as Post;
             string description = contentTextBox.Text;
 
             int startIndex = contentTextBox.SelectionStart;
@@ -178,47 +174,6 @@ namespace WordPress
                     contentTextBox.SelectionLength = selectionLength;
                 });
             });
-      * */
-        }
-
-        private string FetchBackgroundColor()
-        {
-            string color;
-            Color mc = (Color)Application.Current.Resources["TextBoxBackgroundColor"];
-            color = mc.ToString();
-            return color;
-        }
-
-        private string FetchFontColor()
-        {
-            string color;
-            Color mc = (Color)Application.Current.Resources["TextBoxForegroundColor"];
-            color = mc.ToString();
-            return color;
-        }
-
-        private void SetBackground()
-        {
-            Color mc = (Color)Application.Current.Resources["TextBoxBackgroundColor"];
-            browser.Background = new SolidColorBrush(mc);
-        }
-
-        private void WebBrowser_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            string fontColor = FetchFontColor();
-            string backgroundColor = FetchBackgroundColor();
-
-            SetBackground();
-            var htmlConcat = string.Format("<html><head><meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;'/></head>"+
-                "<body style=\"margin:0px;padding:0px;background-color:{2};\">" +
-                "<textarea style=\"height:100%;width=100%;color:{1};background-color:{2}\">{0}</textarea>" +
-                "</body></html>",
-                App.MasterViewModel.CurrentPost.Description,
-                fontColor,
-                backgroundColor
-                );
-
-            browser.NavigateToString(htmlConcat);
         }
     }
 }
