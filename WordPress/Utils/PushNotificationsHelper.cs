@@ -1,4 +1,5 @@
 ﻿using Coding4Fun.Toolkit.Controls;
+using Microsoft.Phone.Info;
 using Microsoft.Phone.Notification;
 using Microsoft.Phone.Shell;
 using System;
@@ -21,7 +22,7 @@ namespace WordPress.Utils
         private static volatile PushNotificationsHelper instance;
         private static object syncRoot = new Object();
 
-        private static string pushNotificationURL = "http://ercolid.wordpress.com/xmlrpc.php";
+        private static string pushNotificationURL = "https://wordpress.com/xmlrpc.php";
 
         /// Holds the push channel that is created or found.
         private HttpNotificationChannel pushChannel;
@@ -101,11 +102,25 @@ namespace WordPress.Utils
 
         private string getDeviceUUID()
         {
-            string device_uuid = (string)Microsoft.Phone.Info.UserExtendedProperties.GetValue("ANID");
-            if (device_uuid == null)
+            string device_uuid = null;
+
+            try
+            {
+                byte[] result = null;
+                object uniqueId;
+                if (DeviceExtendedProperties.TryGetValue("DeviceUniqueId", out uniqueId))
+                {
+                    result = (byte[])uniqueId;
+                    device_uuid = Convert.ToBase64String(result);
+                }
+            }
+            catch (Exception uuid_ex)
+            {
+                Utils.Tools.LogException("Error while retrieving DeviceUniqueId", uuid_ex);
                 return null;
-            string anonymousUserId = device_uuid.Substring(2, 32);
-            return anonymousUserId;
+            }
+
+            return device_uuid;
         }
 
         public void sendBlogsList()
