@@ -988,7 +988,7 @@
     <value>push notifications</value>
   </data>
   <data name="Prompts_AllowToastPushNotification" xml:space="preserve">
-    <value>Allow toast push notifications?</value>
+    <value>Would you like to receive push notifications from WordPress?</value>
   </data>
   <data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
     <value>Incorrect username or password.</value>

@@ -182,6 +182,8 @@ namespace WordPress
                 firstLaunch = true;
                 State.Add("ts", DateTime.Now);
 
+                PushNotificationsHelper.Instance.checkPushNotificationsUserPermissions();
+
                 //send PNs info in background
                 PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
                 pHelper.resetTileCount();

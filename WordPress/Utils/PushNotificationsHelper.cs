@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using WordPress.Localization;
@@ -86,7 +87,14 @@ namespace WordPress.Utils
 
                 if (settings.EnableToastPushNotifications == true)
                 {
-                    MessageBox.Show(_localizedStrings.Prompts.PinToStartPushNotification, _localizedStrings.ControlsText.PushNotifications, MessageBoxButton.OK);
+                    Double fontSize = (Double) Application.Current.Resources["ControlFontSize"];
+                    var messagePrompt = new MessagePrompt
+                    {
+                        Title = _localizedStrings.ControlsText.PushNotifications,
+                        Body = new TextBlock { Text = _localizedStrings.Prompts.PinToStartPushNotification, FontSize= fontSize, TextWrapping = TextWrapping.Wrap },
+                        IsCancelVisible = false
+                    };
+                    messagePrompt.Show();
                 }          
             }
         }

@@ -2072,7 +2072,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow toast push notifications?.
+        ///   Looks up a localized string similar to Would you like to receive push notifications from WordPress?.
         /// </summary>
         internal static string Prompts_AllowToastPushNotification {
             get {

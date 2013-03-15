@@ -62,7 +62,7 @@
             </TextBlock>
         </StackPanel>
 
-        <StackPanel x:Name="loadingContentStackPanel" Grid.Row="1" Canvas.ZIndex="1000" Margin="0,0,0,0">
+        <StackPanel x:Name="loadingContentStackPanel" Grid.Row="1" Margin="0,0,0,0">
             <toolkit:PerformanceProgressBar x:Name="loadingContentProgressBar" Height="30" IsIndeterminate="True" Visibility="Visible" Foreground="{StaticResource WordPressBlueBrush}" Background="{StaticResource WordPressBlueBrush}"/>
         </StackPanel>
 
