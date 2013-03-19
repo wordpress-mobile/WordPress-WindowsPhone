@@ -153,6 +153,19 @@ namespace WordPress
         // Code to execute if a navigation fails
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
+
+            if (e.Exception is ApplicationShouldEndException)
+                return;
+
+            if (e.Exception is System.InvalidOperationException)
+            {
+                if (e.Exception.Message != null &&
+                    (e.Exception.Message.StartsWith("Navigation is not allowed when the task is not in the foreground")))
+                {
+                    return; //See: #227
+                }
+            }
+
             CrashReporter.ReportException(e.Exception, "RootFrame_NavigationFailed");
 
             if (System.Diagnostics.Debugger.IsAttached)
