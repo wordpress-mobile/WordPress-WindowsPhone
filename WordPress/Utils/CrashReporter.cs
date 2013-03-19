@@ -82,6 +82,12 @@ namespace WordPress.Utils
                             output.WriteLine("\n--------------\n");
                         }
 
+                        if (ex != null)
+                        {
+                            output.WriteLine("Exception ToString:\n" + ex.ToString());
+                            output.WriteLine("\n--------------\n");
+                        }
+
                         if (ex != null && null != ex.GetBaseException())
                         {
                             output.WriteLine("Base Exception ToString:\n" + ex.GetBaseException().ToString());
@@ -93,13 +99,7 @@ namespace WordPress.Utils
                         output.WriteLine("ApplicationPeakMemoryUsage " + Tools.convertMemory(DeviceStatus.ApplicationPeakMemoryUsage));
                         output.WriteLine("ApplicationMemoryUsageLimit " + Tools.convertMemory(DeviceStatus.ApplicationMemoryUsageLimit));
                         output.WriteLine("DeviceTotalMemory " + Tools.convertMemory(DeviceStatus.DeviceTotalMemory));
-                        output.WriteLine("\n--------------\n");
-
-                        if (ex != null)
-                        {
-                            output.WriteLine("Exception ToString:\n" + ex.ToString());
-                            output.WriteLine("\n--------------\n");
-                        }
+                        
                     }
                 }
             }
