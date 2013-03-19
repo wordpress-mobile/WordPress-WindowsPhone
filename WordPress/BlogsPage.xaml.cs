@@ -175,6 +175,8 @@ namespace WordPress
         {
             base.OnNavigatedTo(e);
 
+            PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
+         
             //there is no way to clear the query string. We must use the PhoneApplicationPage to store the ts and check it before opening the notifications screen 
             bool firstLaunch = false;
             if (!State.ContainsKey("ts"))
@@ -182,10 +184,9 @@ namespace WordPress
                 firstLaunch = true;
                 State.Add("ts", DateTime.Now);
 
-                PushNotificationsHelper.Instance.checkPushNotificationsUserPermissions();
+                pHelper.checkPushNotificationsUserPermissions();
 
-                //send PNs info in background
-                PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
+                //Register the deviceURI and send the blogs list to the server, or disable notification and deregister the device from the server.
                 pHelper.resetTileCount();
                 if (pHelper.pushNotificationsEnabled())
                 {
@@ -214,10 +215,8 @@ namespace WordPress
             else if (true == firstLaunch)
             {
                 //App was opened by tapping on the Tile. Need to check if there are some notifications pending on the server.
-                PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
                 if (pHelper.pushNotificationsEnabled() && App.isNetworkAvailable())
                 {
-                
                     loadingContentProgressBar.Opacity = 1.0;
                     pHelper.loadLastPushNotification(this.OnLoadLastNotificationCompleted);
                 }
@@ -302,6 +301,7 @@ namespace WordPress
             else
             {
                 Exception e = args.Error;
+                MessageBoxResult result = MessageBox.Show(String.Format("Error occurred. {0}", e.Message), "Error reading the last notification", MessageBoxButton.OK);
                 Utils.Tools.LogException(String.Format("Error occurred. {0}", e.Message), e);
             }
         }
