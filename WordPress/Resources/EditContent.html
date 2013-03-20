@@ -1,0 +1,49 @@
+﻿<html>
+  <head>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+    <meta charset="utf-8" />
+      
+    <style type="text/css">
+      .more {
+      display: block;
+      height: 1px;
+      width: 100%;
+      border-bottom: 1px dotted #ccc;
+      }
+    </style>
+
+    <script type="text/javascript">
+      function formatBtnClick(type, value) {
+
+          if (type == 'createlink') {
+              //document.selection.createRange().pasteHTML(value);
+              
+          } else if (type == 'more') {
+              document.selection.createRange().pasteHTML('<!--more--><div class="more"></div><br/>');
+      } else {
+      document.execCommand(type, false, null);
+      }
+
+      //update the UI on C#
+      //window.external.notify("Testing stuff");
+      }
+
+      function getContent() {
+      return document.getElementById("example-one").innerHTML;
+      }
+
+      function onGotFocus() {
+      var fieldNameElement = document.getElementById("example-one");
+      fieldNameElement.style.backgroundColor= "White";
+      }
+
+      function onLostFocus(){
+      var fieldNameElement = document.getElementById("example-one");
+      fieldNameElement.style.backgroundColor= "LightGray";
+      }
+    </script>
+  </head>
+  <body>
+  <div style="background-color:LightGray; height:100%;" id="example-one" contenteditable="true">{0}</div>
+  </body>
+</html>

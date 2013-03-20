@@ -301,7 +301,9 @@ namespace WordPress
             else
             {
                 Exception e = args.Error;
+                #if DEBUG
                 MessageBoxResult result = MessageBox.Show(String.Format("Error occurred. {0}", e.Message), "Error reading the last notification", MessageBoxButton.OK);
+                #endif
                 Utils.Tools.LogException(String.Format("Error occurred. {0}", e.Message), e);
             }
         }

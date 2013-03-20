@@ -348,6 +348,7 @@
     <Content Include="Images\featuredPlaceholder.png" />
     <Content Include="Images\gravatar.png" />
     <Content Include="Images\star.png" />
+    <Content Include="Resources\EditContent.html" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />

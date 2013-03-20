@@ -4,122 +4,56 @@
 	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
     xmlns:local="clr-namespace:WordPress"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:WordPress_Behaviors="clr-namespace:WordPress.Behaviors"
+	xmlns:Custom="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+    xmlns:WordPress_Behaviors="clr-namespace:WordPress.Behaviors"
 	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
 	x:Class="WordPress.EditContent"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
 	FontSize="{StaticResource PhoneFontSizeNormal}"
 	Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait"
+    SupportedOrientations="PortraitOrLandscape"
 	Orientation="Portrait"
 	shell:SystemTray.IsVisible="True">
-     
+   
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="BrowserBoxStyle" TargetType="phone:WebBrowser">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="{StaticResource TextBoxBackgroundColor}"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <SolidColorBrush Color="{StaticResource TextBoxForegroundColor}"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Name="EditBackgroundColor" Color="{StaticResource TextBoxBackgroundColor}"/>
+    </phone:PhoneApplicationPage.Resources>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent" Style="{StaticResource LayoutRootStyle}" >
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer x:Name="scrollViewer" HorizontalAlignment="Center" MinHeight="100" Grid.Row="0" VerticalAlignment="Top" Height="612" Grid.RowSpan="1" >
-            <TextBox x:Name="contentTextBox"
-                     TextWrapping="Wrap" 
-                     Text="{Binding Description, Mode=TwoWay}" 
-                     Style="{StaticResource TextBoxStyle}" 
-                     Template="{StaticResource FocusedTextBoxTemplate}" 
-                     AcceptsReturn="True" 
-                     InputScope="Text" 
-                     MinWidth="480">
-                <Custom:Interaction.Behaviors>
-                    <WordPress_Behaviors:UpdateSourceOnTextChangedBehavior/>
-                </Custom:Interaction.Behaviors>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-                <!-- uncomment the section below to enable the context menu -->
-                <!--<toolkit:ContextMenuService.ContextMenu>
-					<toolkit:ContextMenu x:Name="contextMenu">
-                        <ListBoxItem Content="Bold"/>
-                        <ListBoxItem Content="Italic"/>
-                        <ListBoxItem Content="Underline"/>
-                        <ListBoxItem Content="Strikethru"/>
-                        <ListBoxItem Content="Link"/>
-                        <ListBoxItem Content="Block Quote"/>
-                    </toolkit:ContextMenu>
-				</toolkit:ContextMenuService.ContextMenu>-->
-            </TextBox>
-        </ScrollViewer>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <ToggleButton x:Name="boldToggleButton" 
-                                  Content="{Binding Path=ControlsText.Bold, Source={StaticResource StringTable}}" 
-                                  ClickMode="Press" 
-                                  Click="OnBoldToggleButtonClick" 
-                                  Style="{StaticResource BasicToggleButtonStyle}" 
-                                  FontWeight="Bold"/>
-            <ToggleButton x:Name="italicToggleButton" 
-                                  Content="{Binding Path=ControlsText.Italic, Source={StaticResource StringTable}}" 
-                                  ClickMode="Press"
-                                  Click="OnItalicToggleButtonClick"
-                                  FontStyle="Italic" 
-                                  Style="{StaticResource BasicToggleButtonStyle}"                                   
-                                  Margin="-5,0,0,0"/>
-            <ToggleButton x:Name="underlineToggleButton" 
-                                  ClickMode="Press"
-                                  Click="OnUnderlineToggleButtonClick"
-                                  Style="{StaticResource BasicToggleButtonStyle}" Margin="-5,0,0,0" >
-                <TextBlock Text="{Binding Path=ControlsText.Underline, Source={StaticResource StringTable}}" TextDecorations="Underline"/>
-            </ToggleButton>
-            <ToggleButton x:Name="strikethroughToggleButton" 
-                                  Content="{Binding Path=ControlsText.StrikeThrough, Source={StaticResource StringTable}}" 
-                                  ClickMode="Press"
-                                  Click="OnStrikethroughToggleButtonClick"
-                                  Style="{StaticResource BasicToggleButtonStyle}" 
-                                  Margin="-5,0,0,0" 
-                                  Template="{StaticResource StrikethroughToggleButtonStyle}"/>
-            <Button x:Name="linkButton" 
-                            Click="OnLinkButtonClick"
-                            Content="{Binding Path=ControlsText.Link, Source={StaticResource StringTable}}" 
-                            Style="{StaticResource BasicButtonStyle}" 
-                            Margin="-5,0,0,0"/>
-            <Button x:Name="moreButton" 
-                            Click="OnMoreButtonClick"
-                            Content="{Binding Path=ControlsText.MoreTag, Source={StaticResource StringTable}}" 
-                            Style="{StaticResource BasicButtonStyle}" 
-                            Margin="-5,0,0,0"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" >
-            <ToggleButton x:Name="blockquoteToggleButton" 
-                                  ClickMode="Press"
-                                  Click="OnBlockquoteToggleButtonClick"
-                                  Content="{Binding Path=ControlsText.BlockQuote, Source={StaticResource StringTable}}" 
-                                  Style="{StaticResource BasicToggleButtonStyle}" 
-                                  Margin="-5,0,0,0"/>
-            <ToggleButton x:Name="ulToggleButton"
-                                Content="{Binding Path=ControlsText.UnorderedList, Source={StaticResource StringTable}}" 
-                                ClickMode="Press" 
-                                Click="OnUnorderedListToggleButtonClick" 
-                                Style="{StaticResource BasicToggleButtonStyle}" 
-                                FontWeight="Bold"/>
-            <ToggleButton x:Name="olToggleButton"
-                                Content="{Binding Path=ControlsText.OrderedList, Source={StaticResource StringTable}}" 
-                                ClickMode="Press" 
-                                Click="OrderedListToggleButtonClick" 
-                                Style="{StaticResource BasicToggleButtonStyle}" 
-                                FontWeight="Bold"/>
-            <ToggleButton x:Name="liToggleButton"
-                                Content="{Binding Path=ControlsText.ListItem, Source={StaticResource StringTable}}" 
-                                ClickMode="Press" 
-                                Click="ListItemToggleButtonClick" 
-                                Style="{StaticResource BasicToggleButtonStyle}" 
-                                FontWeight="Bold"/>
-            <ToggleButton x:Name="codeToggleButton"
-                                Content="{Binding Path=ControlsText.Code, Source={StaticResource StringTable}}" 
-                                ClickMode="Press" 
-                                Click="CodeToggleButtonClick" 
-                                Style="{StaticResource BasicToggleButtonStyle}" 
-                                FontWeight="Bold"/>
-        </StackPanel>
-
+        <phone:WebBrowser x:Name="browser"
+                          Style="{StaticResource BrowserBoxStyle}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch" 
+                          IsScriptEnabled="True" 
+                          Opacity="1"
+                          GotFocus="browser_GotFocus_1"
+                          LostFocus="browser_LostFocus_1"
+                          ScriptNotify="browser_ScriptNotify_1"
+                          Margin="15,10,15,10" Height="Auto" Width="Auto">
+        </phone:WebBrowser>
 
         <local:AddLinkControl x:Name="addLinkControl" 
                               Margin="0" 
@@ -132,4 +66,5 @@
                               Visibility="Collapsed"
                               LinkChosen="OnLinkChosen"/>
     </Grid>
+        
 </phone:PhoneApplicationPage>
