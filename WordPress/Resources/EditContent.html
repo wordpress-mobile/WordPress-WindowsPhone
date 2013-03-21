@@ -1,7 +1,7 @@
 ﻿<html>
   <head>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
       
     <style type="text/css">
       .more {
@@ -9,7 +9,7 @@
       height: 1px;
       width: 100%;
       border-bottom: 1px dotted #ccc;
-      }
+      }  
     </style>
 
     <script type="text/javascript">
@@ -29,21 +29,63 @@
       }
 
       function getContent() {
+      return ieInnerHTML(document.getElementById("example-one"), false);
+      }
+      
+      function getContentSafe() {
       return document.getElementById("example-one").innerHTML;
       }
 
-      function onGotFocus() {
-      var fieldNameElement = document.getElementById("example-one");
-      fieldNameElement.style.backgroundColor= "White";
-      }
-
-      function onLostFocus(){
+      function editorLostFocus(){
       var fieldNameElement = document.getElementById("example-one");
       fieldNameElement.style.backgroundColor= "LightGray";
+      fieldNameElement.style.border= "none";
       }
+
+      function editorGotFocus() {
+       window.external.notify("editorGotFocus");
+       var fieldNameElement = document.getElementById("example-one");
+       fieldNameElement.style.backgroundColor= "White";
+       fieldNameElement.style.border= "1px solid LightGray";
+      }
+
+function ieInnerHTML(obj, convertToLowerCase) {
+    var zz = obj.innerHTML;
+    var z = zz.match(/(<.+[^>])/g);    
+
+    if (z) {
+    	 var attrRE = /\=[a-zA-Z\.\:\[\]_\(\)\&\$\%#\@\!0-9\/]+[?\s+|?>]/g;
+	     for ( var i=0; i<z.length; (i=i+1) ) {
+	      var y, zSaved = z[i];
+	      
+	      z[i] = z[i].replace( /([<|<\/].+?\w+).+[^>]/, function(a){return a.toLowerCase();} );
+	      y = z[i].match(attrRE);
+	
+	      if (y) {
+	        var j = 0 ,len = y.length;
+	        var replaceRE = /(\=)([a-zA-Z\.\:\[\]_\(\)\&\$\%#\@\!0-9\/]+)?([\s+|?>])/g;
+	        var replacer  = function(){
+	            var args = Array.prototype.slice.call(arguments);
+	            return '="'+(convertToLowerCase 
+	                    ? args[2].toLowerCase() 
+	                    : args[2])+'"'+args[3];
+	          };
+	          
+	        while(j<len) {
+	          z[i] = z[i].replace( y[j], y[j].replace(replaceRE,replacer) );
+	          j+=1;
+	        }
+	        
+	       }
+	      
+       zz = zz.replace( zSaved, z[i] );
+     }
+   }
+   return zz;
+}
     </script>
   </head>
   <body>
-  <div style="background-color:LightGray; height:100%;" id="example-one" contenteditable="true">{0}</div>
+  <div style="background-color:LightGray; height:100%;" onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
   </body>
 </html>

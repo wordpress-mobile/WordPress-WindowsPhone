@@ -42,6 +42,8 @@ namespace WordPress
         private bool _messageBoxIsShown = false;
         private bool isEditingLocalDraft = false;
 
+        private bool _showTextModeContentEditor = false;
+
         private PhotoChooserTask photoChooserTask;
 
         #endregion
@@ -396,6 +398,12 @@ namespace WordPress
             }
 
             this.ToggleGalleryControlsVisibility();
+
+            if (this._showTextModeContentEditor)
+            {
+                this._showTextModeContentEditor = false;
+                NavigationService.Navigate(new Uri("/EditContentTextMode.xaml", UriKind.Relative));
+            }
         }
 
         /// <summary>
@@ -1093,7 +1101,10 @@ namespace WordPress
             }
         }
 
-
+        public void showTextEditor()
+        {
+            this._showTextModeContentEditor = true;
+        }
         #endregion
     }
 }

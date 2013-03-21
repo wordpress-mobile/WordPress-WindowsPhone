@@ -33,6 +33,10 @@ namespace WordPress
         private ApplicationBarMenuItem _underlineMenuItem;
         private ApplicationBarMenuItem _strikethroughMenuItem;
         private ApplicationBarMenuItem _discardChangesMenuItem;
+        private ApplicationBarMenuItem _switchToTextModeMenuItem;
+
+        private bool _showTextEditor = false; //true when the user taps the ShowTextMode menuitem
+        private bool _hasChanges = false;
 
         public EditContent()
         {
@@ -45,57 +49,73 @@ namespace WordPress
 
             _addLinkIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
             _addLinkIconButton.Text = _localizedStrings.ControlsText.Link;
-            _addLinkIconButton.Click += OnLinkButtonClick;
+            _addLinkIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_addLinkIconButton);
 
             _boldIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
             _boldIconButton.Text = "Bold";
-            _boldIconButton.Click += OnBoldClicked;
+            _boldIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_boldIconButton);
 
             _italicIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
             _italicIconButton.Text = "Italic";
-            _italicIconButton.Click += OnItalicClicked;
+            _italicIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_italicIconButton);
 
             _quoteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
             _quoteIconButton.Text = "BlockQuote";
-            _quoteIconButton.Click += OnQuoteClicked;
+            _quoteIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_quoteIconButton);
 
             //Menu items
             _moreMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.MoreTag);
-            _moreMenuItem.Click += MoreMenuItem_Click;
+            _moreMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_moreMenuItem);
 
             _ulMenuItem = new ApplicationBarMenuItem("Unordered List");
-            _ulMenuItem.Click += UnorderedListMenuItem_Click;
+            _ulMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_ulMenuItem);
 
             _olMenuItem = new ApplicationBarMenuItem("Ordered List");
-            _olMenuItem.Click += OrderedListMenuItem_Click;
+            _olMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_olMenuItem);
 
             _underlineMenuItem = new ApplicationBarMenuItem("Underline");
-            _underlineMenuItem.Click += UnderlineMenuItem_Click;
+            _underlineMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_underlineMenuItem);
             
             _strikethroughMenuItem = new ApplicationBarMenuItem("Strike Through");
-            _strikethroughMenuItem.Click += StrikeThroughMenuItem_Click;
+            _strikethroughMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_strikethroughMenuItem);
 
             _discardChangesMenuItem = new ApplicationBarMenuItem("Discard Changes");
-            _discardChangesMenuItem.Click += DiscardChangesMenuItem_Click;
+            _discardChangesMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_discardChangesMenuItem);
 
+            _switchToTextModeMenuItem = new ApplicationBarMenuItem("Swith To Text Mode");
+            _switchToTextModeMenuItem.Click += OnButtonOrMenuitemClicked;
+            ApplicationBar.MenuItems.Add(_switchToTextModeMenuItem);
+       
             browser.Loaded += WebBrowser_OnLoaded;
         }
 
-        private void DiscardChangesMenuItem_Click(object sender, EventArgs e)
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            NavigationService.GoBack();
+            if (_showTextEditor) //Switch to Text Mode was pressed
+            {
+                if (e.Content is EditPostPage)
+                {
+                    (e.Content as EditPostPage).showTextEditor();
+                }
+                else if (e.Content is EditPagePage)
+                {
+                    (e.Content as EditPagePage).showTextEditor();
+                }
+            }
+          
+            base.OnNavigatedFrom(e);
         }
-        
+
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
             if (Visibility.Visible == addLinkControl.Visibility)
@@ -103,43 +123,51 @@ namespace WordPress
                 HideAddLinkControl();
                 e.Cancel = true;
             }
+            else if (_hasChanges == false)
+            {
+                base.OnBackKeyPress(e);
+            }
             else
             {
-                //rebuild the post content here
-                try
+                string content = getPostContentFromVisualEditor();
+
+                if (content != string.Empty)
                 {
-                    object result = browser.InvokeScript("getContent");
-                    string content = result.ToString().Replace("<div class=\"more\"></div><br>", "");
                     App.MasterViewModel.CurrentPost.Description = content;
                     base.OnBackKeyPress(e);
                 }
-                catch (Exception)
+                else
                 {
                     MessageBox.Show("Sorry, can't retrieve the content from the editor.");
                 }
             }
         }
 
-        private string FetchBackgroundColor()
+        private string getPostContentFromVisualEditor()
         {
-            string color;
-            Color mc = (Color)Application.Current.Resources["TextBoxBackgroundColor"];
-            color = mc.ToString();
-            return color;
-        }
-
-        private string FetchFontColor()
-        {
-            string color;
-            Color mc = (Color)Application.Current.Resources["TextBoxForegroundColor"];
-            color = mc.ToString();
-            return color;
-        }
-
-        private void SetBackground()
-        {
-            Color mc = (Color)Application.Current.Resources["TextBoxBackgroundColor"];
-            browser.Background = new SolidColorBrush(mc);
+            //rebuild the post content here
+            string content = string.Empty;
+            try
+            {
+                object result = browser.InvokeScript("getContent");
+                content = result.ToString().Replace("<div class=\"more\"></div><br>", "");
+                content = content.Replace("<br>", "\n");
+            }
+            catch (Exception err1)
+            {
+                Utils.Tools.LogException("Error while calling the JS function getContent", err1);
+                try
+                {
+                    object result = browser.InvokeScript("getContentSafe");
+                    content = result.ToString().Replace("<div class=\"more\"></div><br>", "");
+                    content = content.Replace("<BR>", "\n");
+                }
+                catch (Exception err2)
+                {
+                    Utils.Tools.LogException("Error while calling the JS function getContentSafe! Really?", err2);
+                }
+            }
+            return content;
         }
 
         private void WebBrowser_OnLoaded(object sender, RoutedEventArgs e)
@@ -151,128 +179,101 @@ namespace WordPress
             }
             else
             {
-                string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->\n","<!--more--><div class=\"more\"></div><br/>");
-                postContent = postContent.Replace("\n", "<br/>");
+                string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->\n", "<!--more--><div class=\"more\"></div><br/>");
+                postContent = postContent.Replace("\n", "<br/>").Replace("'", "&#39;");
+             
                 string content = htmlConcat.Replace("{0}", postContent);
                 browser.NavigateToString(content);
             }
         }
 
-        private void OnBoldClicked(object sender, EventArgs e)
+        private void OnButtonOrMenuitemClicked(object sender, EventArgs e)
         {
-            try
+            if (sender == _discardChangesMenuItem)
             {
-                _boldIconButton.Text = _boldIconButton.Text.StartsWith("/") ? _boldIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _boldIconButton.Text;
-                var parameters = new object[] { "bold" };
-                browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
+                NavigationService.GoBack();
+                return;
             }
-            catch (Exception err)
+            else if (sender == _addLinkIconButton)
             {
-                showJavaScriptError(err);
+                this.Focus();
+                ApplicationBar.IsVisible = false;
+                addLinkControl.Show();
+                return;
             }
-        }
+            else if (sender == _switchToTextModeMenuItem)
+            {
+                this._showTextEditor = true;
 
-        private void OnItalicClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                _italicIconButton.Text = _italicIconButton.Text.StartsWith("/") ? _italicIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _italicIconButton.Text;
-                var parameters = new object[] { "italic" };
-                browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
-            }
-            catch (Exception err)
-            {
-                showJavaScriptError(err);
-            }
-        }
+                if (_hasChanges)
+                {
+                    string content = getPostContentFromVisualEditor();
 
-        private void OnQuoteClicked(object sender, EventArgs e)
-        {
-            try
+                    if (content != string.Empty)
+                    {
+                        App.MasterViewModel.CurrentPost.Description = content;
+                        NavigationService.GoBack();
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry, can't retrieve the content from the editor.");
+                        return;
+                    }
+                }
+                else
+                {
+                    NavigationService.GoBack();
+                    return;
+                }
+            }
+
+            _hasChanges = true;
+            object[] parameters = new object[] { };
+            if (sender == _boldIconButton)
+            {
+                parameters = new object[] { "bold" };
+            }
+            else if (sender == _italicIconButton)
+            {
+                parameters = new object[] { "italic" };
+            }
+            else if (sender == _quoteIconButton)
             {
                 string command = _quoteIconButton.Text.StartsWith("/") ? "outdent" : "indent";
                 _quoteIconButton.Text = _quoteIconButton.Text.StartsWith("/") ? _quoteIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _quoteIconButton.Text;
-                var parameters = new object[] { command };
-                browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
+                parameters = new object[] { command };
             }
-            catch (Exception err)
+            else if (sender == _moreMenuItem)
             {
-                showJavaScriptError(err);
+                parameters = new object[] { "more" };
             }
-        }
+            else if (sender == _ulMenuItem)
+            {
+                parameters = new object[] { "insertunorderedlist" };
+            }
+            else if (sender == _olMenuItem)
+            {
+                parameters = new object[] { "insertorderedlist" };
+            }
+            else if (sender == _underlineMenuItem)
+            {
+                parameters = new object[] { "underline" };
+            }
+            else if (sender == _strikethroughMenuItem)
+            {
+                parameters = new object[] { "strikethrough" };
+            }
 
-        private void MoreMenuItem_Click(object sender, EventArgs e)
-        {
-            var parameters = new object[] { "more" };
-            browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
-        }
 
-        private void UnorderedListMenuItem_Click(object sender, EventArgs e)
-        {
             try
             {
-                _ulMenuItem.Text = _ulMenuItem.Text.StartsWith("/") ? _ulMenuItem.Text.TrimStart(new char[] { '/' }) : "/" + _ulMenuItem.Text;
-                var parameters = new object[] { "insertunorderedlist" };
                 browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
             }
             catch (Exception err)
             {
                 showJavaScriptError(err);
             }
-        }
-
-        private void OrderedListMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                _olMenuItem.Text = _olMenuItem.Text.StartsWith("/") ? _olMenuItem.Text.TrimStart(new char[] { '/' }) : "/" + _olMenuItem.Text;
-                var parameters = new object[] { "insertorderedlist" };
-                browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
-            }
-            catch (Exception err)
-            {
-                showJavaScriptError(err);
-            }
-        }
-
-        private void UnderlineMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                _underlineMenuItem.Text = _underlineMenuItem.Text.StartsWith("/") ? _underlineMenuItem.Text.TrimStart(new char[] { '/' }) : "/" + _underlineMenuItem.Text;
-                var parameters = new object[] { "underline" };
-                browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
-            }
-            catch (Exception err)
-            {
-                showJavaScriptError(err);
-            }
-        }
-
-        private void CodeMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void StrikeThroughMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                _strikethroughMenuItem.Text = _strikethroughMenuItem.Text.StartsWith("/") ? _strikethroughMenuItem.Text.TrimStart(new char[] { '/' }) : "/" + _strikethroughMenuItem.Text;
-                var parameters = new object[] { "strikethrough" };
-                browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
-            }
-            catch (Exception err)
-            {
-                showJavaScriptError(err);
-            }
-        }
-
-        private void OnLinkButtonClick(object sender, EventArgs e)
-        {
-            this.Focus();
-            ApplicationBar.IsVisible = false;
-            addLinkControl.Show();
         }
 
         private void HideAddLinkControl()
@@ -295,30 +296,6 @@ namespace WordPress
                 showJavaScriptError(err);
             }
             ApplicationBar.IsVisible = true;
-        }
-
-        private void browser_GotFocus_1(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                browser.InvokeScript("onGotFocus");
-            }
-            catch (Exception err)
-            {
-                showJavaScriptError(err);
-            }
-        }
-
-        private void browser_LostFocus_1(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                browser.InvokeScript("onLostFocus");
-            }
-            catch (Exception err)
-            {
-                showJavaScriptError(err);
-            }
         }
 
         private void showJavaScriptError(Exception error)
@@ -346,7 +323,7 @@ namespace WordPress
 
         private void browser_ScriptNotify_1(object sender, NotifyEventArgs e)
         {
-
+            this._hasChanges = true;
         }
     }
 }

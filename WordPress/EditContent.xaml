@@ -49,8 +49,6 @@
                           VerticalAlignment="Stretch" 
                           IsScriptEnabled="True" 
                           Opacity="1"
-                          GotFocus="browser_GotFocus_1"
-                          LostFocus="browser_LostFocus_1"
                           ScriptNotify="browser_ScriptNotify_1"
                           Margin="15,10,15,10" Height="Auto" Width="Auto">
         </phone:WebBrowser>

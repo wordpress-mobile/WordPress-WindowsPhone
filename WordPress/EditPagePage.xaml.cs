@@ -40,6 +40,8 @@ namespace WordPress
 
         private bool isEditingLocalDraft = false;
 
+        private bool _showTextModeContentEditor = false;
+
         private PhotoChooserTask photoChooserTask;
 
         #endregion
@@ -259,6 +261,12 @@ namespace WordPress
             }
 
             ToggleGalleryControlsVisibility();
+
+            if (this._showTextModeContentEditor)
+            {
+                this._showTextModeContentEditor = false;
+                NavigationService.Navigate(new Uri("/EditContentTextMode.xaml", UriKind.Relative));
+            }
         }
 
         private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -759,7 +767,11 @@ namespace WordPress
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
-        #endregion media_methods
 
+        public void showTextEditor()
+        {
+            this._showTextModeContentEditor = true;
+        }
+        #endregion media_methods
     }
 }

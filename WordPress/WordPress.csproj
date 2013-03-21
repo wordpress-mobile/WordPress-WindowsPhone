@@ -124,6 +124,9 @@
     <Compile Include="EditContent.xaml.cs">
       <DependentUpon>EditContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditContentTextMode.xaml.cs">
+      <DependentUpon>EditContentTextMode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GallerySettingsPage.xaml.cs">
       <DependentUpon>GallerySettingsPage.xaml</DependentUpon>
     </Compile>
@@ -246,6 +249,10 @@
     <Page Include="EditContent.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="EditContentTextMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GallerySettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -348,7 +355,9 @@
     <Content Include="Images\featuredPlaceholder.png" />
     <Content Include="Images\gravatar.png" />
     <Content Include="Images\star.png" />
-    <Content Include="Resources\EditContent.html" />
+    <Content Include="Resources\EditContent.html">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
