@@ -16,7 +16,18 @@ namespace WordPress.Utils
     public class Tools
     {
 
-        private const bool _emulatorIsLowMemory = false; 
+        private const bool _emulatorIsLowMemory = false;
+        private static readonly Version _targetedVersion78 = new Version(7, 10, 8858);
+        
+        public static bool IsWindowsPhone78orHigher
+        {
+            get { return Environment.OSVersion.Version >= _targetedVersion78; }
+        }
+
+        public static bool IsWindowsPhone8orHigher
+        {
+            get { return Environment.OSVersion.Version.Major >= 8; }
+        }
 
         //detect if user has selected a dark or light theme background in Windows Phone settings
         public bool IsLightTheme

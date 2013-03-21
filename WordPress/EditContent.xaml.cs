@@ -16,6 +16,7 @@ using System.Windows.Media;
 using WordPress.Localization;
 using System.IO;
 using System.Diagnostics;
+using System.Text;
 
 namespace WordPress
 {
@@ -37,6 +38,8 @@ namespace WordPress
 
         private bool _showTextEditor = false; //true when the user taps the ShowTextMode menuitem
         private bool _hasChanges = false;
+
+        private const string CONTENTKEY_VALUE = "content_key";
 
         public EditContent()
         {
@@ -112,9 +115,31 @@ namespace WordPress
                     (e.Content as EditPagePage).showTextEditor();
                 }
             }
-          
+
+            //store transient data in the State dictionary
+            if (State.ContainsKey(CONTENTKEY_VALUE))
+            {
+                State.Remove(CONTENTKEY_VALUE);
+            }
+            State.Add(CONTENTKEY_VALUE, browser.SaveToString());
+
             base.OnNavigatedFrom(e);
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            //look for transient data stored in the State dictionary
+            if (State.ContainsKey(CONTENTKEY_VALUE))
+            {
+                if (!Utils.Tools.IsWindowsPhone8orHigher)
+                    browser.NavigateToString(ConvertExtendedAscii(State[CONTENTKEY_VALUE] as string));
+                else
+                    browser.NavigateToString(State[CONTENTKEY_VALUE] as string);
+            }
+        }
+
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
@@ -170,6 +195,23 @@ namespace WordPress
             return content;
         }
 
+
+        private static string ConvertExtendedAscii(string html)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var c in html)
+            {
+                int charInt = Convert.ToInt32(c);
+                if (charInt > 127)
+                    sb.AppendFormat("&#{0};", charInt);
+                else
+                    sb.Append(c);
+            }
+
+            return sb.ToString();
+        }
+
         private void WebBrowser_OnLoaded(object sender, RoutedEventArgs e)
         {
             string htmlConcat = this.ReadFile("Resources/EditContent.html");
@@ -179,9 +221,13 @@ namespace WordPress
             }
             else
             {
-                string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->\n", "<!--more--><div class=\"more\"></div><br/>");
-                postContent = postContent.Replace("\n", "<br/>").Replace("'", "&#39;");
              
+                string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->\n", "<!--more--><div class=\"more\"></div><br/>");
+                postContent = postContent.Replace("\n", "<br/>");
+                
+                if(!Utils.Tools.IsWindowsPhone8orHigher)
+                    postContent = ConvertExtendedAscii(postContent);
+                
                 string content = htmlConcat.Replace("{0}", postContent);
                 browser.NavigateToString(content);
             }
@@ -208,7 +254,6 @@ namespace WordPress
                 if (_hasChanges)
                 {
                     string content = getPostContentFromVisualEditor();
-
                     if (content != string.Empty)
                     {
                         App.MasterViewModel.CurrentPost.Description = content;
