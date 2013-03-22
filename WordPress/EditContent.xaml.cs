@@ -40,6 +40,8 @@ namespace WordPress
         private bool _hasChanges = false;
 
         private const string CONTENTKEY_VALUE = "content_key";
+        private const string MORE_TAG_REPLACEMENT = "<div id=09-07-1979-what-a-great-date class=\"more\"></div>";
+        private const string MORE_TAG_REPLACEMENT_NATIVE = "<DIV id=09-07-1979-what-a-great-date class=more></DIV>";
 
         public EditContent()
         {
@@ -175,7 +177,7 @@ namespace WordPress
             try
             {
                 object result = browser.InvokeScript("getContent");
-                content = result.ToString().Replace("<div class=\"more\"></div><br>", "");
+                content = result.ToString().Replace(MORE_TAG_REPLACEMENT, "<!--more-->");
                 content = content.Replace("<br>", "\n");
             }
             catch (Exception err1)
@@ -184,7 +186,7 @@ namespace WordPress
                 try
                 {
                     object result = browser.InvokeScript("getContentSafe");
-                    content = result.ToString().Replace("<div class=\"more\"></div><br>", "");
+                    content = result.ToString().Replace(MORE_TAG_REPLACEMENT_NATIVE, "<!--more-->");
                     content = content.Replace("<BR>", "\n");
                 }
                 catch (Exception err2)
@@ -221,8 +223,8 @@ namespace WordPress
             }
             else
             {
-             
-                string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->\n", "<!--more--><div class=\"more\"></div><br/>");
+
+                string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->", MORE_TAG_REPLACEMENT);
                 postContent = postContent.Replace("\n", "<br/>");
                 
                 if(!Utils.Tools.IsWindowsPhone8orHigher)

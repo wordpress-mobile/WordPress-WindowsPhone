@@ -9,17 +9,20 @@
       height: 1px;
       width: 100%;
       border-bottom: 1px dotted #ccc;
-      }  
+      }
+      blockquote {
+      background: LightGray;
+      font-style: Italic;
+      }
     </style>
 
     <script type="text/javascript">
       function formatBtnClick(type, value) {
 
           if (type == 'createlink') {
-              //document.selection.createRange().pasteHTML(value);
-              
+              document.selection.createRange().pasteHTML(value);
           } else if (type == 'more') {
-              document.selection.createRange().pasteHTML('<!--more--><div class="more"></div><br/>');
+              document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
       } else {
       document.execCommand(type, false, null);
       }
