@@ -15,9 +15,11 @@
 		<StackPanel Orientation="Vertical" d:LayoutOverrides="Height" VerticalAlignment="Center">
 			<TextBlock TextWrapping="Wrap" Foreground="White" FontSize="{StaticResource ControlFontSize}"
 				Text="{Binding ControlsText.EnterUrl, Source={StaticResource StringTable}}" Margin="12,0"/>
-			<TextBox x:Name="urlTextBox" Template="{StaticResource FocusedTextBoxTemplate}" Style="{StaticResource TextBoxStyle}" 
+			<TextBox x:Name="urlTextBox" Template="{StaticResource FocusedTextBoxTemplate}" 
+                     Style="{StaticResource TextBoxStyle}" 
                      InputScope="Url"
-				Text="{Binding Url, Mode=TwoWay}" >
+                     KeyUp="urlTextBox_KeyUp_1"
+				     Text="{Binding Url, Mode=TwoWay}">
 				<interactivity:Interaction.Behaviors>
 					<behaviors:UpdateSourceOnTextChangedBehavior/>
 				</interactivity:Interaction.Behaviors>
@@ -26,7 +28,8 @@
 				Text="{Binding ControlsText.EnterLinkText, Source={StaticResource StringTable}}" Margin="12,0"/>
 			<TextBox x:Name="linkTextTextBox" Template="{StaticResource FocusedTextBoxTemplate}" 
 				Style="{StaticResource TextBoxStyle}" Text="{Binding LinkText, Mode=TwoWay}" />
-			<Button x:Name="insertLinkButton" Content="{Binding ControlsText.InsertLink, Source={StaticResource StringTable}}"
+			<Button x:Name="insertLinkButton" Content="{Binding ControlsText.InsertLink, 
+                Source={StaticResource StringTable}}"
 				Style="{StaticResource BasicButtonStyle}" IsEnabled="False" Click="OnInsertLinkButtonClick" />
 		</StackPanel>
 	</Grid>

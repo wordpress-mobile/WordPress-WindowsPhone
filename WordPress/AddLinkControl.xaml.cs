@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
 
 namespace WordPress
@@ -129,6 +130,14 @@ namespace WordPress
         }
 
         #endregion
+
+        private void urlTextBox_KeyUp_1(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                linkTextTextBox.Focus();
+            }
+        }
 
     }
 }
