@@ -996,4 +996,10 @@
   <data name="Prompts_PinToStartPushNotification" xml:space="preserve">
     <value>To receive push notifications pin the application to the start screen.</value>
   </data>
+  <data name="ControlText_TextContentEditor" xml:space="preserve">
+    <value>text editor</value>
+  </data>
+  <data name="ControlText_VisualContentEditor" xml:space="preserve">
+    <value>visual editor</value>
+  </data>
 </root>

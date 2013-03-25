@@ -1105,6 +1105,17 @@ namespace WordPress
         {
             this._showTextModeContentEditor = true;
         }
+
+        private void OnVisualEditorButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/EditContent.xaml", UriKind.Relative));
+        }
+
+        private void OnTextEditorButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/EditContentTextMode.xaml", UriKind.Relative));
+        }
+
         #endregion
     }
 }

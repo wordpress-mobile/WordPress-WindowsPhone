@@ -768,10 +768,21 @@ namespace WordPress
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingChanges);
         }
 
+        #endregion media_methods
+
         public void showTextEditor()
         {
             this._showTextModeContentEditor = true;
         }
-        #endregion media_methods
+
+        private void OnVisualEditorButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/EditContent.xaml", UriKind.Relative));
+        }
+         
+        private void OnTextEditorButtonClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/EditContentTextMode.xaml", UriKind.Relative));
+        }
     }
 }

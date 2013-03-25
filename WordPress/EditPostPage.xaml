@@ -104,7 +104,18 @@
                 <TextBlock Grid.Row="1" Text="{Binding ControlsText.Title, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
                 <TextBox Grid.Row="2" x:Name="titleTextBox" Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" KeyUp="Input_KeyUp" GotFocus="OnPageContentGotFocus" LostFocus="OnPageContentLostFocus"/>
                 <TextBlock Grid.Row="3" Text="{Binding Path=ControlsText.Content, Source={StaticResource StringTable}}" Style="{StaticResource LabelTextBlockStyle}"/>
-                <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=OneWay, Converter={StaticResource PostContentConverter}}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Disabled" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" Tap="OnContentTextBoxTap"/>
+               
+                <StackPanel Grid.Row="4">
+                    <TextBox Grid.Row="4" x:Name="contentTextBox" Text="{Binding Description, Mode=OneWay, Converter={StaticResource PostContentConverter}}" MinHeight="200" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Disabled" Style="{StaticResource TextBoxStyle}" Template="{StaticResource FocusedTextBoxTemplate}" FontSize="{StaticResource ControlFontSize}" InputScope="Text" Tap="OnContentTextBoxTap"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="visualContentEditorButton" Content="{Binding Path=ControlsText.VisualContentEditor, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnVisualEditorButtonClick"/>
+                        <Button Grid.Column="1" x:Name="textContentEditorButton" Content="{Binding Path=ControlsText.TextContentEditor, Source={StaticResource StringTable}}" Style="{StaticResource BasicButtonStyle}" Click="OnTextEditorButtonClick"/>
+                    </Grid>
+                </StackPanel>
                 
                 <!-- Featured Image -->
                 <Rectangle Grid.Row="5" x:Name="featuredImagePadding" Margin="10,5"/>

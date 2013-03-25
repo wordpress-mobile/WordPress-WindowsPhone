@@ -1222,6 +1222,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to text editor.
+        /// </summary>
+        internal static string ControlText_TextContentEditor {
+            get {
+                return ResourceManager.GetString("ControlText_TextContentEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to thumbnail grid (default).
         /// </summary>
         internal static string ControlText_ThumbnailGrid {
@@ -1380,6 +1389,15 @@ namespace WordPress.Localization {
         internal static string ControlText_ViewStats {
             get {
                 return ResourceManager.GetString("ControlText_ViewStats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to visual editor.
+        /// </summary>
+        internal static string ControlText_VisualContentEditor {
+            get {
+                return ResourceManager.GetString("ControlText_VisualContentEditor", resourceCulture);
             }
         }
         
