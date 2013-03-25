@@ -15,26 +15,40 @@
       font-style: Italic;
       }
     </style>
-
+  
     <script type="text/javascript">
       function formatBtnClick(type, value) {
-
-          if (type == 'createlink') {
-              document.selection.createRange().pasteHTML(value);
-          } else if (type == 'more') {
-              document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
+      
+      if (type == 'createlink') {
+          var sText = document.selection.createRange();
+          var tt =  sText.text;
+          if (tt != "")
+          {
+              //create link
+              //var str1 = "http://pippo.com";
+              //var str =  "<a href='" +str1+ "' target='_blank' ><U>" + tt + "</U></a>";
+              sText.pasteHTML(value);
+          }
+          else
+          {
+              window.external.notify("Please select some text!");
+          }
+      } else if (type == 'more') {
+      document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
       } else {
       document.execCommand(type, false, null);
       }
 
-      //update the UI on C#
-      //window.external.notify("Testing stuff");
+      }
+
+      function getSelectedText(){
+      return document.selection.createRange().text;
       }
 
       function getContent() {
       return ieInnerHTML(document.getElementById("example-one"), false);
       }
-      
+
       function getContentSafe() {
       return document.getElementById("example-one").innerHTML;
       }
@@ -46,15 +60,15 @@
       }
 
       function editorGotFocus() {
-       window.external.notify("editorGotFocus");
-       var fieldNameElement = document.getElementById("example-one");
-       fieldNameElement.style.backgroundColor= "White";
-       fieldNameElement.style.border= "1px solid LightGray";
+      window.external.notify("editorGotFocus");
+      var fieldNameElement = document.getElementById("example-one");
+      fieldNameElement.style.backgroundColor= "White";
+      fieldNameElement.style.border= "1px solid LightGray";
       }
 
-function ieInnerHTML(obj, convertToLowerCase) {
-    var zz = obj.innerHTML;
-    var z = zz.match(/(<.+[^>])/g);    
+      function ieInnerHTML(obj, convertToLowerCase) {
+      var zz = obj.innerHTML;
+      var z = zz.match(/(<.+[^>])/g);    
 
     if (z) {
     	 var attrRE = /\=[a-zA-Z\.\:\[\]_\(\)\&\$\%#\@\!0-9\/]+[?\s+|?>]/g;

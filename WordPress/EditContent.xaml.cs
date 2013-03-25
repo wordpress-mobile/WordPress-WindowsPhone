@@ -158,7 +158,7 @@ namespace WordPress
             {
                 string content = getPostContentFromVisualEditor();
 
-                if (content != string.Empty)
+                if (content != null)
                 {
                     App.MasterViewModel.CurrentPost.Description = content;
                     base.OnBackKeyPress(e);
@@ -173,7 +173,7 @@ namespace WordPress
         private string getPostContentFromVisualEditor()
         {
             //rebuild the post content here
-            string content = string.Empty;
+            string content = null;
             try
             {
                 object result = browser.InvokeScript("getContent");
@@ -244,9 +244,33 @@ namespace WordPress
             }
             else if (sender == _addLinkIconButton)
             {
-                this.Focus();
-                ApplicationBar.IsVisible = false;
-                addLinkControl.Show();
+                try
+                {
+                    object selectedTextObj = browser.InvokeScript("getSelectedText");
+                    string selectedTextString = selectedTextObj as string;
+                    if ("" == selectedTextString)
+                    {
+                        MessageBox.Show("Please select some text!"); 
+                    }
+                    else
+                    {
+                        this.Focus();
+                        ApplicationBar.IsVisible = false;
+                        addLinkControl.Show();
+                        
+                        addLinkControl.LinkText = selectedTextString;
+
+                        if (Uri.IsWellFormedUriString(selectedTextString, UriKind.Absolute))
+                        {
+                            addLinkControl.Url = selectedTextString;
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    showJavaScriptError(err);
+                }
+
                 return;
             }
             else if (sender == _switchToTextModeMenuItem)
@@ -256,7 +280,7 @@ namespace WordPress
                 if (_hasChanges)
                 {
                     string content = getPostContentFromVisualEditor();
-                    if (content != string.Empty)
+                    if (content != null)
                     {
                         App.MasterViewModel.CurrentPost.Description = content;
                         NavigationService.GoBack();
@@ -335,7 +359,7 @@ namespace WordPress
             string linkMarkup = addLinkControl.CreateLinkMarkup();
             try
             {
-                var parameters = new object[] { "createlink", linkMarkup };
+                var parameters = new object[] { "createlink", linkMarkup};
                 browser.InvokeScript("formatBtnClick", parameters.Select(c => c.ToString()).ToArray());
             }
             catch (Exception err)
