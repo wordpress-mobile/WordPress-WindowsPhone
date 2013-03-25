@@ -165,7 +165,7 @@ namespace WordPress
                 }
                 else
                 {
-                    MessageBox.Show("Sorry, can't retrieve the content from the editor.");
+                    MessageBox.Show("Sorry, can't get the content from the editor.");
                 }
             }
         }
@@ -250,7 +250,7 @@ namespace WordPress
                     string selectedTextString = selectedTextObj as string;
                     if ("" == selectedTextString)
                     {
-                        MessageBox.Show("Please select some text!"); 
+                        MessageBox.Show(_localizedStrings.Prompts.PleaseSelectSomeText); 
                     }
                     else
                     {

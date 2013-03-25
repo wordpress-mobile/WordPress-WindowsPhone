@@ -355,6 +355,7 @@ namespace WordPress.Localization
             public string Comments { get { return LocalizedResources.Prompts_Comments; } }
             public string MediaPlacement { get { return LocalizedResources.Prompts_MediaPlacement; } }
             public string JetpackNotAvailable { get { return LocalizedResources.Prompts_JetpackNotAvailable; } }
+            public string PleaseSelectSomeText { get { return LocalizedResources.Prompt_SelectSomeText; } }
 
             /* Push Notifications String */
             public string AllowToastPushNotification { get { return LocalizedResources.Prompts_AllowToastPushNotification; } }

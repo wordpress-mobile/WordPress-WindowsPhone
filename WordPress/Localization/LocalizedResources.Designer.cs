@@ -2081,6 +2081,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select some text!.
+        /// </summary>
+        internal static string Prompt_SelectSomeText {
+            get {
+                return ResourceManager.GetString("Prompt_SelectSomeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a thumbnail size..
         /// </summary>
         internal static string Prompt_SelectThumbnailSize {

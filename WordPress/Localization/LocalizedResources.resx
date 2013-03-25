@@ -1002,4 +1002,7 @@
   <data name="ControlText_VisualContentEditor" xml:space="preserve">
     <value>visual editor</value>
   </data>
+  <data name="Prompt_SelectSomeText" xml:space="preserve">
+    <value>Please select some text!</value>
+  </data>
 </root>
