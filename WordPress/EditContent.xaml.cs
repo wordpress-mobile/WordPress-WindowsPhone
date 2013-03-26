@@ -17,6 +17,7 @@ using WordPress.Localization;
 using System.IO;
 using System.Diagnostics;
 using System.Text;
+using LinqToVisualTree;
 
 namespace WordPress
 {
@@ -233,6 +234,10 @@ namespace WordPress
                 string content = htmlConcat.Replace("{0}", postContent);
                 browser.NavigateToString(content);
             }
+
+            var border = browser.Descendants<Border>().Last() as Border; //See: http://www.scottlogic.co.uk/blog/colin/2011/11/suppressing-zoom-and-scroll-interactions-in-the-windows-phone-7-browser-control/
+            border.ManipulationDelta += Border_ManipulationDelta;
+            border.ManipulationCompleted += Border_ManipulationCompleted;
         }
 
         private void OnButtonOrMenuitemClicked(object sender, EventArgs e)
@@ -395,6 +400,22 @@ namespace WordPress
         private void browser_ScriptNotify_1(object sender, NotifyEventArgs e)
         {
             this._hasChanges = true;
+        }
+
+        private void Border_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+            // suppress zoom
+            if (e.FinalVelocities.ExpansionVelocity.X != 0.0 ||
+                e.FinalVelocities.ExpansionVelocity.Y != 0.0)
+                e.Handled = true;
+        }
+
+        private void Border_ManipulationDelta(object sender, ManipulationDeltaEventArgs e)
+        {
+            // suppress zoom
+            if (e.DeltaManipulation.Scale.X != 0.0 ||
+                e.DeltaManipulation.Scale.Y != 0.0)
+                e.Handled = true;
         }
     }
 }
