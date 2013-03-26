@@ -1005,4 +1005,31 @@
   <data name="Prompt_SelectSomeText" xml:space="preserve">
     <value>Please select some text!</value>
   </data>
+  <data name="ControlText_BlockQuoteAppBarItem" xml:space="preserve">
+    <value>Quote</value>
+  </data>
+  <data name="ControlText_BoldAppBarItem" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="ControlText_DiscardChangesMenuItem" xml:space="preserve">
+    <value>discard changes</value>
+  </data>
+  <data name="ControlText_ItalicAppBarItem" xml:space="preserve">
+    <value>Italic</value>
+  </data>
+  <data name="ControlText_OrderedListMenuItem" xml:space="preserve">
+    <value>ordered list</value>
+  </data>
+  <data name="ControlText_StrikeThroughMenuItem" xml:space="preserve">
+    <value>strike through</value>
+  </data>
+  <data name="ControlText_SwithToTextModeMenuItem" xml:space="preserve">
+    <value>switch to text editor</value>
+  </data>
+  <data name="ControlText_UnderlineMenuItem" xml:space="preserve">
+    <value>underline</value>
+  </data>
+  <data name="ControlText_UnorderedListMenuItem" xml:space="preserve">
+    <value>unordered list</value>
+  </data>
 </root>

@@ -107,6 +107,18 @@ namespace WordPress.Localization
             public string BlockQuote { get { return LocalizedResources.ControlText_BlockQuote; } }
             public string UnorderedList { get { return LocalizedResources.ControlText_UnorderedList; } }
             public string OrderedList { get { return LocalizedResources.ControlText_OrderedList; } }
+
+
+            public string ItalicAppBarItem { get { return LocalizedResources.ControlText_ItalicAppBarItem; } }
+            public string BoldAppBarItem { get { return LocalizedResources.ControlText_BoldAppBarItem; } }
+            public string BlockQuoteAppBarItem { get { return LocalizedResources.ControlText_BlockQuoteAppBarItem; } }
+            public string UnorderedListMenuItem { get { return LocalizedResources.ControlText_UnorderedListMenuItem; } }
+            public string OrderedListMenuItem { get { return LocalizedResources.ControlText_OrderedListMenuItem; } }
+            public string UnderlineMenuItem { get { return LocalizedResources.ControlText_UnderlineMenuItem; } }
+            public string StrikeThroughMenuItem { get { return LocalizedResources.ControlText_StrikeThroughMenuItem; } }
+            public string DiscardChangesMenuItem { get { return LocalizedResources.ControlText_DiscardChangesMenuItem; } }
+            public string SwitchToTextModeMenuItem { get { return LocalizedResources.ControlText_SwithToTextModeMenuItem; } }
+         
             public string ListItem { get { return LocalizedResources.ControlText_ListItem; } }
             public string Code { get { return LocalizedResources.ControlText_Code; } }
             public string MoreTag { get { return LocalizedResources.ControlText_MoreTag; } }

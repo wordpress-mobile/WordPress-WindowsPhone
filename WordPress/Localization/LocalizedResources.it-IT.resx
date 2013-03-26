@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,6 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Prompt_SelectSomeText" xml:space="preserve">
+    <value>Per favore selezione del testo!</value>
+  </data>
+  <data name="ControlText_VisualContentEditor" xml:space="preserve">
+    <value>editor visuale</value>
+  </data>
+  <data name="Prompts_AllowToastPushNotification" xml:space="preserve">
+    <value>Desideri ricevere le notifiche push dall'applicazione WordPress?</value>
+  </data>
+  <data name="ControlText_TextContentEditor" xml:space="preserve">
+    <value>editor testuale</value>
+  </data>
+  <data name="Prompts_PinToStartPushNotification" xml:space="preserve">
+    <value>Per riceve le notifiche push devi aggiungere l'applicazione nello schermo principale.</value>
+  </data>
+  <data name="ControlText_PublishStatus" xml:space="preserve">
+    <value>stato pubblicazione</value>
+  </data>
+  <data name="ControlText_AllowToastNotifications" xml:space="preserve">
+    <value>abilita le notifiche push</value>
+  </data>
+  <data name="ControlText_PushNotifications" xml:space="preserve">
+    <value>notifiche push</value>
+  </data>
+  <data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
+    <value>Nome utente o password errata.</value>
+  </data>
   <data name="ControlText_Default" xml:space="preserve">
     <value>predefinito</value>
   </data>
@@ -258,9 +285,6 @@
   <data name="Messages_ContentCopied" xml:space="preserve">
     <value>Contenuto Copiato</value>
   </data>
-  <data name="Messages_InvalidCredentials" xml:space="preserve">
-    <value>Username e/o Password errata</value>
-  </data>
   <data name="Messages_MissingFields" xml:space="preserve">
     <value>Compila tutti i campi</value>
   </data>
@@ -339,6 +363,9 @@
   <data name="ControlText_EULA" xml:space="preserve">
     <value>GNU General Public License</value>
   </data>
+  <data name="Messages_InvalidCredentials" xml:space="preserve">
+    <value>Nome utente o Password errati</value>
+  </data>
   <data name="ControlText_Back" xml:space="preserve">
     <value>indietro</value>
   </data>
@@ -414,23 +441,20 @@
   <data name="ControlText_EnterLinkText" xml:space="preserve">
     <value>[Opzionale] immettere il testo che deve apparire per il collegamento.</value>
   </data>
-  <data name="ControlText_Username" xml:space="preserve">
-    <value>username</value>
-  </data>
   <data name="Title_Approve" xml:space="preserve">
     <value>APPROVATO</value>
   </data>
   <data name="Title_Unapprove" xml:space="preserve">
     <value>NON APPROVATO</value>
   </data>
+  <data name="ControlText_Username" xml:space="preserve">
+    <value>nome utente</value>
+  </data>
   <data name="ControlText_Preferences" xml:space="preserve">
     <value>Preferenze</value>
   </data>
   <data name="ControlText_Spam" xml:space="preserve">
     <value>spam</value>
-  </data>
-  <data name="ControlText_Status" xml:space="preserve">
-    <value>stato</value>
   </data>
   <data name="Prompts_MissingApikey" xml:space="preserve">
     <value>Il blog attuale non dispone di una chiave API. Si prega di aggiungerne una nella pagina delle impostazioni.</value>
@@ -903,7 +927,7 @@
   <data name="Options_StatisticType_PostViews" xml:space="preserve">
     <value>Visite per Articolo</value>
   </data>
-  <data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
-    <value>Nome utente o password errata.</value>
+  <data name="ControlText_Reader" xml:space="preserve">
+    <value>Lettore</value>
   </data>
 </root>

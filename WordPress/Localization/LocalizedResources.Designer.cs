@@ -259,6 +259,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quote.
+        /// </summary>
+        internal static string ControlText_BlockQuoteAppBarItem {
+            get {
+                return ResourceManager.GetString("ControlText_BlockQuoteAppBarItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to blog settings.
         /// </summary>
         internal static string ControlText_BlogSettings {
@@ -282,6 +291,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Bold {
             get {
                 return ResourceManager.GetString("ControlText_Bold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bold.
+        /// </summary>
+        internal static string ControlText_BoldAppBarItem {
+            get {
+                return ResourceManager.GetString("ControlText_BoldAppBarItem", resourceCulture);
             }
         }
         
@@ -493,6 +511,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to discard changes.
+        /// </summary>
+        internal static string ControlText_DiscardChangesMenuItem {
+            get {
+                return ResourceManager.GetString("ControlText_DiscardChangesMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Draft.
         /// </summary>
         internal static string ControlText_Draft {
@@ -682,6 +709,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Italic.
+        /// </summary>
+        internal static string ControlText_ItalicAppBarItem {
+            get {
+                return ResourceManager.GetString("ControlText_ItalicAppBarItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to link.
         /// </summary>
         internal static string ControlText_Link {
@@ -813,6 +849,15 @@ namespace WordPress.Localization {
         internal static string ControlText_OrderedList {
             get {
                 return ResourceManager.GetString("ControlText_OrderedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ordered list.
+        /// </summary>
+        internal static string ControlText_OrderedListMenuItem {
+            get {
+                return ResourceManager.GetString("ControlText_OrderedListMenuItem", resourceCulture);
             }
         }
         
@@ -1204,6 +1249,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to strike through.
+        /// </summary>
+        internal static string ControlText_StrikeThroughMenuItem {
+            get {
+                return ResourceManager.GetString("ControlText_StrikeThroughMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to switch to text editor.
+        /// </summary>
+        internal static string ControlText_SwithToTextModeMenuItem {
+            get {
+                return ResourceManager.GetString("ControlText_SwithToTextModeMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tags.
         /// </summary>
         internal static string ControlText_Tags {
@@ -1285,6 +1348,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to underline.
+        /// </summary>
+        internal static string ControlText_UnderlineMenuItem {
+            get {
+                return ResourceManager.GetString("ControlText_UnderlineMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to unfeature.
         /// </summary>
         internal static string ControlText_UnfeatureImage {
@@ -1299,6 +1371,15 @@ namespace WordPress.Localization {
         internal static string ControlText_UnorderedList {
             get {
                 return ResourceManager.GetString("ControlText_UnorderedList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unordered list.
+        /// </summary>
+        internal static string ControlText_UnorderedListMenuItem {
+            get {
+                return ResourceManager.GetString("ControlText_UnorderedListMenuItem", resourceCulture);
             }
         }
         

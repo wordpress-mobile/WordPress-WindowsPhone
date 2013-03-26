@@ -58,17 +58,17 @@ namespace WordPress
             ApplicationBar.Buttons.Add(_addLinkIconButton);
 
             _boldIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
-            _boldIconButton.Text = "Bold";
+            _boldIconButton.Text = _localizedStrings.ControlsText.BoldAppBarItem;
             _boldIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_boldIconButton);
 
             _italicIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
-            _italicIconButton.Text = "Italic";
+            _italicIconButton.Text = _localizedStrings.ControlsText.ItalicAppBarItem;
             _italicIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_italicIconButton);
 
             _quoteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
-            _quoteIconButton.Text = "BlockQuote";
+            _quoteIconButton.Text = _localizedStrings.ControlsText.BlockQuoteAppBarItem;
             _quoteIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_quoteIconButton);
 
@@ -77,27 +77,27 @@ namespace WordPress
             _moreMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_moreMenuItem);
 
-            _ulMenuItem = new ApplicationBarMenuItem("Unordered List");
+            _ulMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.UnorderedListMenuItem);
             _ulMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_ulMenuItem);
 
-            _olMenuItem = new ApplicationBarMenuItem("Ordered List");
+            _olMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.OrderedListMenuItem);
             _olMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_olMenuItem);
 
-            _underlineMenuItem = new ApplicationBarMenuItem("Underline");
+            _underlineMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.UnderlineMenuItem);
             _underlineMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_underlineMenuItem);
-            
-            _strikethroughMenuItem = new ApplicationBarMenuItem("Strike Through");
+
+            _strikethroughMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.StrikeThroughMenuItem);
             _strikethroughMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_strikethroughMenuItem);
 
-            _discardChangesMenuItem = new ApplicationBarMenuItem("Discard Changes");
+            _discardChangesMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.DiscardChangesMenuItem);
             _discardChangesMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_discardChangesMenuItem);
 
-            _switchToTextModeMenuItem = new ApplicationBarMenuItem("Swith To Text Mode");
+            _switchToTextModeMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.SwitchToTextModeMenuItem);
             _switchToTextModeMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_switchToTextModeMenuItem);
        
