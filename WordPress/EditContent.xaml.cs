@@ -35,9 +35,7 @@ namespace WordPress
         private ApplicationBarMenuItem _underlineMenuItem;
         private ApplicationBarMenuItem _strikethroughMenuItem;
         private ApplicationBarMenuItem _discardChangesMenuItem;
-        private ApplicationBarMenuItem _switchToTextModeMenuItem;
 
-        private bool _showTextEditor = false; //true when the user taps the ShowTextMode menuitem
         private bool _hasChanges = false;
 
         private const string CONTENTKEY_VALUE = "content_key";
@@ -97,28 +95,12 @@ namespace WordPress
             _discardChangesMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.DiscardChangesMenuItem);
             _discardChangesMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_discardChangesMenuItem);
-
-            _switchToTextModeMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.SwitchToTextModeMenuItem);
-            _switchToTextModeMenuItem.Click += OnButtonOrMenuitemClicked;
-            ApplicationBar.MenuItems.Add(_switchToTextModeMenuItem);
-       
+   
             browser.Loaded += WebBrowser_OnLoaded;
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            if (_showTextEditor) //Switch to Text Mode was pressed
-            {
-                if (e.Content is EditPostPage)
-                {
-                    (e.Content as EditPostPage).showTextEditor();
-                }
-                else if (e.Content is EditPagePage)
-                {
-                    (e.Content as EditPagePage).showTextEditor();
-                }
-            }
-
             //store transient data in the State dictionary
             if (State.ContainsKey(CONTENTKEY_VALUE))
             {
@@ -292,31 +274,6 @@ namespace WordPress
                 }
 
                 return;
-            }
-            else if (sender == _switchToTextModeMenuItem)
-            {
-                this._showTextEditor = true;
-
-                if (_hasChanges)
-                {
-                    string content = getPostContentFromVisualEditor();
-                    if (content != null)
-                    {
-                        App.MasterViewModel.CurrentPost.Description = content;
-                        NavigationService.GoBack();
-                        return;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sorry, can't retrieve the content from the editor.");
-                        return;
-                    }
-                }
-                else
-                {
-                    NavigationService.GoBack();
-                    return;
-                }
             }
 
             _hasChanges = true;

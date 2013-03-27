@@ -1,7 +1,7 @@
 ﻿<html>
   <head>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
-    <META http-equiv=Content-Type content="text/html; charset=utf-8">
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
     <style type="text/css">
       .more {
@@ -83,7 +83,7 @@ var cutil = new ClassUtil();
 // ]]>
 </script>
     <script type="text/javascript">
-      
+ // <![CDATA[
      function adjustImageWidth(){
          var images = document.images;
          for (var i=0; i<images.length; i++){   
@@ -105,9 +105,9 @@ var cutil = new ClassUtil();
                   window.external.notify("Please select some text!");
               }
           } else if (type == 'more') {
-          document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
+              document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
           } else {
-          document.execCommand(type, false, null);
+              document.execCommand(type, false, null);
           }
       }
 
@@ -124,7 +124,11 @@ var cutil = new ClassUtil();
       }
 
       function getContentSafe() {
-          return document.getElementById("example-one").innerHTML;
+         var images = document.images;
+         for (var i=0; i<images.length; i++){   
+            cutil.removeClass(images[i],"visual_text_editor_max_image_width");
+         }
+         return document.getElementById("example-one").innerHTML;
       }
 
       function editorLostFocus(){
@@ -174,6 +178,7 @@ var cutil = new ClassUtil();
    }
    return zz;
 }
+// ]]>
     </script>
   </head>
   <body>

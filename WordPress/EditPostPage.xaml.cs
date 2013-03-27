@@ -42,8 +42,6 @@ namespace WordPress
         private bool _messageBoxIsShown = false;
         private bool isEditingLocalDraft = false;
 
-        private bool _showTextModeContentEditor = false;
-
         private PhotoChooserTask photoChooserTask;
 
         #endregion
@@ -399,11 +397,6 @@ namespace WordPress
 
             this.ToggleGalleryControlsVisibility();
 
-            if (this._showTextModeContentEditor)
-            {
-                this._showTextModeContentEditor = false;
-                NavigationService.Navigate(new Uri("/EditContentTextMode.xaml", UriKind.Relative));
-            }
         }
 
         /// <summary>
@@ -1099,11 +1092,6 @@ namespace WordPress
                 PostFormat newPostFormat = App.MasterViewModel.CurrentBlog.PostFormats[newIndex];
                 post.PostFormat = newPostFormat.Key;
             }
-        }
-
-        public void showTextEditor()
-        {
-            this._showTextModeContentEditor = true;
         }
 
         private void OnVisualEditorButtonClick(object sender, RoutedEventArgs e)

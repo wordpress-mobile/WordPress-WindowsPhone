@@ -1258,11 +1258,11 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to switch to text editor.
+        ///   Looks up a localized string similar to switch to visual editor.
         /// </summary>
-        internal static string ControlText_SwithToTextModeMenuItem {
+        internal static string ControlText_SwithToVisualEditorMenuItem {
             get {
-                return ResourceManager.GetString("ControlText_SwithToTextModeMenuItem", resourceCulture);
+                return ResourceManager.GetString("ControlText_SwithToVisualEditorMenuItem", resourceCulture);
             }
         }
         

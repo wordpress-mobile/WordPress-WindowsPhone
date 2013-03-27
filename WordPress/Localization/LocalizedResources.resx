@@ -1023,13 +1023,13 @@
   <data name="ControlText_StrikeThroughMenuItem" xml:space="preserve">
     <value>strike through</value>
   </data>
-  <data name="ControlText_SwithToTextModeMenuItem" xml:space="preserve">
-    <value>switch to text editor</value>
-  </data>
   <data name="ControlText_UnderlineMenuItem" xml:space="preserve">
     <value>underline</value>
   </data>
   <data name="ControlText_UnorderedListMenuItem" xml:space="preserve">
     <value>unordered list</value>
+  </data>
+  <data name="ControlText_SwithToVisualEditorMenuItem" xml:space="preserve">
+    <value>switch to visual editor</value>
   </data>
 </root>

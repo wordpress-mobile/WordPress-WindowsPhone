@@ -117,7 +117,6 @@ namespace WordPress.Localization
             public string UnderlineMenuItem { get { return LocalizedResources.ControlText_UnderlineMenuItem; } }
             public string StrikeThroughMenuItem { get { return LocalizedResources.ControlText_StrikeThroughMenuItem; } }
             public string DiscardChangesMenuItem { get { return LocalizedResources.ControlText_DiscardChangesMenuItem; } }
-            public string SwitchToTextModeMenuItem { get { return LocalizedResources.ControlText_SwithToTextModeMenuItem; } }
          
             public string ListItem { get { return LocalizedResources.ControlText_ListItem; } }
             public string Code { get { return LocalizedResources.ControlText_Code; } }
