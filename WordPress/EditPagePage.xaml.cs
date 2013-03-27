@@ -263,7 +263,7 @@ namespace WordPress
 
         private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/EditContent.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/EditContentTextMode.xaml", UriKind.Relative));
         }
 
         //Title text field KeyUp event handler: Dismiss the keyboard by focusing the main control if the Key pressed is the Enter key
