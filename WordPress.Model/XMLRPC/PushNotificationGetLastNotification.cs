@@ -42,9 +42,24 @@ namespace WordPress.Model
         protected override List<IntResponseObject> ParseResponseContent(XDocument xDoc)
         {
             XElement intElement = xDoc.Descendants(XmlRPCResponseConstants.PARAMS).First();
-            int value = intElement.GetValueAsInt(false);
             List<IntResponseObject> result = new List<IntResponseObject>();
-            result.Add(new IntResponseObject(value));
+
+            string valueNotSplitted = intElement.GetValueAsString(false);
+            string[] values = valueNotSplitted.Split('-');
+            if (values.Count() > 1)
+            {
+                int blogID = -1;
+                int.TryParse(values[0], out blogID);
+                int commentID = -1;
+                int.TryParse(values[1], out commentID);
+                result.Add(new IntResponseObject(blogID));
+                result.Add(new IntResponseObject(commentID));
+            }
+            else
+            {
+                result.Add(new IntResponseObject(0));
+                result.Add(new IntResponseObject(0));
+            }
             return result;
         }
     }

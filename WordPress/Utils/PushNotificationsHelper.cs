@@ -24,7 +24,7 @@ namespace WordPress.Utils
         private static volatile PushNotificationsHelper instance;
         private static object syncRoot = new Object();
 
-        private static string pushNotificationURL = "https://wordpress.com/xmlrpc.php";
+        private static string pushNotificationURL = "http://ercolid.wordpress.com/xmlrpc.php";
 
         /// Holds the push channel that is created or found.
         private HttpNotificationChannel pushChannel;
@@ -318,7 +318,17 @@ namespace WordPress.Utils
             }
         }
 
-        public void loadLastPushNotification( XMLRPCCompletedEventHandler<IntResponseObject> respHandler)
+        public void resetLastPushNotificationData()
+        {
+            this.loadLastPushNotificationDataWithCallBack(false);
+        }
+
+        public void loadLastPushNotificationData()
+        {
+            this.loadLastPushNotificationDataWithCallBack(true);
+        }
+
+        private void loadLastPushNotificationDataWithCallBack(bool callbackAvailable)
         {
             string device_uuid = this.getDeviceUUID();
             if (device_uuid == null) return; //emulators
@@ -346,11 +356,105 @@ namespace WordPress.Utils
             if (username != string.Empty && password != string.Empty)
             {
                 PushNotificationGetLastNotification rpc = new PushNotificationGetLastNotification(pushNotificationURL, username, password, device_uuid);
-                rpc.Completed += respHandler;
+                if(callbackAvailable)
+                    rpc.Completed += OnLoadLastNotificationCompleted;
                 rpc.ExecuteAsync();
             }
         }
-        
+
+
+        private void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
+        {
+            XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
+            rpc.Completed -= OnLoadLastNotificationCompleted;
+            if (null == args.Error && args.Items.Count > 0)
+            {
+                IntResponseObject respObj = args.Items.First();
+                IntResponseObject commentIDObj = args.Items.Last();
+ 
+                if (respObj.Value == 0 || respObj.Value == -1)
+                    return;
+
+                if (commentIDObj == null || commentIDObj.Value == 0 || commentIDObj.Value == -1)
+                    return;
+
+                string blogID = string.Format("{0}", respObj.Value);
+                string commentID = string.Format("{0}", commentIDObj.Value);
+                showToastForNewComment(blogID, commentID);
+                return;
+            }
+            else
+            {
+                Exception e = args.Error;
+#if DEBUG
+                MessageBoxResult result = MessageBox.Show(String.Format("Error occurred. {0}", e.Message), "Error reading the last notification", MessageBoxButton.OK);
+#endif
+                Utils.Tools.LogException(String.Format("Error occurred. {0}", e.Message), e);
+            }
+        }
+
+        private void showToastForNewComment(string blogID, string commentID)
+        {
+
+            if (blogID == string.Empty || commentID == string.Empty || blogID == null || commentID == null)
+                return;
+
+            System.Diagnostics.Debug.WriteLine("showToastForNewComment called with - blogID:" + blogID + " commentID:" + commentID);
+            string blogName = string.Empty;
+
+            List<Blog> blogs = DataService.Current.Blogs.ToList();
+            foreach (Blog currentBlog in blogs)
+            {
+                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                {
+                    string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                    if (currentBlogID == blogID)
+                    {
+                        blogName = currentBlog.BlogName;
+                    }
+                }
+            }
+
+            if (blogName == String.Empty)
+                return;
+
+            NestedClass nc = new NestedClass(blogID, commentID);
+            UIThread.Invoke(() =>
+            {
+                if (App.WaitIndicationService.Waiting)
+                    return;
+
+                if (App.PopupSelectionService.IsPopupOpen)
+                    return;
+            
+                ToastPrompt toast = new ToastPrompt();
+                toast.MillisecondsUntilHidden = 6000;
+                toast.Title = "New comment on " + blogName;
+                toast.Tap += nc.toast_Tapped;
+                toast.Show();
+            });
+        }
+
+        public void showCommentScreenFromNotification(string blogID, string commentID)
+        {
+            System.Diagnostics.Debug.WriteLine("showCommentScreenFromNotification called with - blogID:" + blogID + " commentID:" + commentID);
+            List<Blog> blogs = DataService.Current.Blogs.ToList();
+            foreach (Blog currentBlog in blogs)
+            {
+                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                {
+                    string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                    if (currentBlogID == blogID)
+                    {
+                        PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
+                        string paramString = "?blog_id=" + blogID + "&comment_id=" + commentID;
+                        frame.Navigate(new Uri("/PushNotificationCommentPage.xaml" + paramString, UriKind.Relative));
+                        return;
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Push Notifications Init methods
@@ -619,105 +723,46 @@ namespace WordPress.Utils
                 return;
 
             string blog_id = string.Empty;
+            string comment_id = string.Empty;
             foreach (string currentItem in relativeUri.Split('&'))
             {
                 string[] keyValue = currentItem.Split('=');
                 if (keyValue[0] == "?blog_id")
                 {
                     blog_id = keyValue[1];
-                    break;
+                }
+                else if (keyValue[0] == "comment_id")
+                {
+                    comment_id = keyValue[1];
                 }
             }
 
-            if (blog_id == string.Empty)
+            if (blog_id == string.Empty || comment_id == string.Empty)
                 return;
 
-            UIThread.Invoke(() =>
-            {
-
-                if (App.WaitIndicationService.Waiting)
-                    return;
-
-                if (App.PopupSelectionService.IsPopupOpen)
-                    return;
-            
-                PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
-                System.Diagnostics.Debug.WriteLine("frame.CurrentSource.ToString() -> " + frame.CurrentSource.ToString());
-                if (!frame.CurrentSource.ToString().StartsWith("/Start"))
-                {
-                    Blog currentBlog = App.MasterViewModel.CurrentBlog;
-                    string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
-                    if (currentBlogID != blog_id)
-                        return;
-                        
-                    if (frame.CanGoBack)
-                    {
-                        string pageUri = String.Empty;
-                        foreach (var item in frame.BackStack)
-                        {
-                            pageUri = item.Source.ToString();
-                            System.Diagnostics.Debug.WriteLine("pageUri -> " + pageUri);
-
-                            if (pageUri.StartsWith("Edit"))
-                                return;
-                        }
-                    }
-                }
-
-                Coding4Fun.Toolkit.Controls.ToastPrompt toast = new Coding4Fun.Toolkit.Controls.ToastPrompt();
-                toast.Title = text2;
-                toast.MillisecondsUntilHidden = 5000;
-                //toast.Message = "Some message";
-                //toast.ImageSource = new BitmapImage(new Uri("ApplicationIcon.png", UriKind.RelativeOrAbsolute));
-                toast.Completed += toast_Completed;
-                NestedClass nc = new NestedClass(blog_id);
-                toast.Tap += nc.toast_Tapped;
-                toast.Show();
-            }
-            );
+            showToastForNewComment(blog_id, comment_id);
+            this.resetLastPushNotificationData();
         }
-
 
         private class NestedClass
         {
-            string _blogID = string.Empty;
+            private string _blogID = string.Empty;
+            private string _commentID;
 
-            public NestedClass(string blogID)
+            public NestedClass(string blogID, string commentID)
             {
                 this._blogID = blogID;
+                this._commentID = commentID;
             }
 
             public void toast_Tapped(object sender, System.Windows.Input.GestureEventArgs e)
             {
                 System.Diagnostics.Debug.WriteLine("toast_Tap");
-
-                System.Diagnostics.Debug.WriteLine("toast_Tap -> " + this._blogID);
-                string blogID = this._blogID;
-                List<Blog> blogs = DataService.Current.Blogs.ToList();
-                foreach (Blog currentBlog in blogs)
-                {
-                    if (currentBlog.isWPcom() || currentBlog.hasJetpack())
-                    {
-                        string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
-                        if (currentBlogID == blogID)
-                        {
-                            App.MasterViewModel.CurrentBlog = currentBlog;
-                            App.MasterViewModel.ShowCommentsPageAndRefresh = true;
-                            PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
-                            frame.Navigate(new Uri("/BlogPanoramaPage.xaml?ts=" + DateTime.Now.ToString(), UriKind.Relative));
-                            return;
-                        }
-                    }
-                }
+                System.Diagnostics.Debug.WriteLine("toast_Tap -> " + this._blogID + " "+ this._commentID);
+                PushNotificationsHelper.Instance.showCommentScreenFromNotification(this._blogID, this._commentID);
             }
         }
         
-        void toast_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
-        {
-            System.Diagnostics.Debug.WriteLine("toast_Completed");
-            this.loadLastPushNotification(null);
-        }
-
         #endregion
     }
 }

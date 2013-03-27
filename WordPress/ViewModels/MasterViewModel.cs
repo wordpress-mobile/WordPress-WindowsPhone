@@ -44,8 +44,6 @@ namespace WordPress
 
         public ObservableCollection<Blog> Blogs { get; private set; }
 
-        public bool ShowCommentsPageAndRefresh { set; get; }
-
         public Blog CurrentBlog
         {
             get { return DataService.Current.CurrentBlog; }

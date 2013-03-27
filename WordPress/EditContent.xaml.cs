@@ -101,12 +101,12 @@ namespace WordPress
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-            //store transient data in the State dictionary
-            if (State.ContainsKey(CONTENTKEY_VALUE))
-            {
-                State.Remove(CONTENTKEY_VALUE);
-            }
-            State.Add(CONTENTKEY_VALUE, browser.SaveToString());
+
+             string content = getPostContentFromVisualEditor();
+             if (content != null)
+             {
+                 App.MasterViewModel.CurrentPost.Description = content;
+             }
 
             base.OnNavigatedFrom(e);
         }
@@ -116,13 +116,14 @@ namespace WordPress
             base.OnNavigatedTo(e);
 
             //look for transient data stored in the State dictionary
-            if (State.ContainsKey(CONTENTKEY_VALUE))
+            /* if (State.ContainsKey(CONTENTKEY_VALUE))
             {
                 if (!Utils.Tools.IsWindowsPhone8orHigher)
                     browser.NavigateToString(ConvertExtendedAscii(State[CONTENTKEY_VALUE] as string));
                 else
                     browser.NavigateToString(State[CONTENTKEY_VALUE] as string);
             }
+             * */
         }
 
 
@@ -220,9 +221,7 @@ namespace WordPress
 
             var border = browser.Descendants<Border>().Last() as Border; //See: http://www.scottlogic.co.uk/blog/colin/2011/11/suppressing-zoom-and-scroll-interactions-in-the-windows-phone-7-browser-control/
             border.ManipulationDelta += Border_ManipulationDelta;
-            border.ManipulationCompleted += Border_ManipulationCompleted;
-
-           
+            border.ManipulationCompleted += Border_ManipulationCompleted;           
         }
 
         void browser_LoadCompleted(object sender, NavigationEventArgs e)

@@ -205,27 +205,20 @@ namespace WordPress
                 App.MasterViewModel.SharingPhotoToken = queryStrings["FileId"];
             }
             else if ((true == firstLaunch) && queryStrings.ContainsKey("blog_id") && queryStrings.ContainsKey("ts")
-                && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
+                 && queryStrings.ContainsKey("comment_id")  && queryStrings.ContainsKey("action") && queryStrings["action"] == "OpenComment")
             {
                 string blogID = queryStrings["blog_id"];
-                System.Diagnostics.Debug.WriteLine("The blogID received from PN is: " + blogID);
-                this.openCommentsScreenForBlog(blogID);
-                loadingContentProgressBar.Opacity = 0.0;
+                string commentID = queryStrings["comment_id"];
+                System.Diagnostics.Debug.WriteLine("IDs received from PN are - blogID:" + blogID + " commentID:" + commentID);
+                pHelper.showCommentScreenFromNotification(blogID, commentID);
+                pHelper.resetLastPushNotificationData();
             }
             else if (true == firstLaunch)
             {
                 //App was opened by tapping on the Tile. Need to check if there are some notifications pending on the server.
                 if (pHelper.pushNotificationsEnabled() && App.isNetworkAvailable())
                 {
-                    loadingContentProgressBar.Opacity = 1.0;
-                    pHelper.loadLastPushNotification(this.OnLoadLastNotificationCompleted);
-                }
-                else
-                {
-                    UIThread.Invoke(() =>
-                    {
-                        loadingContentProgressBar.Opacity = 0.0;
-                    });
+                    pHelper.loadLastPushNotificationData();
                 }
             }
 
@@ -234,99 +227,6 @@ namespace WordPress
                 NavigationService.RemoveBackEntry();
             }
         }
-
-        private void openCommentsScreenForBlog(string blogID)
-        {
-            List<Blog> blogs = DataService.Current.Blogs.ToList();
-            foreach (Blog currentBlog in blogs)
-            {
-                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
-                {
-                    string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
-                    if (currentBlogID == blogID)
-                    {
-                        App.MasterViewModel.CurrentBlog = currentBlog;
-                        App.MasterViewModel.ShowCommentsPageAndRefresh = true;
-                        NavigationService.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
-                        return;
-                    }
-                }
-            }
-        }
-
-        private void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
-        {
-            UIThread.Invoke(() =>
-             {
-                 loadingContentProgressBar.Opacity = 0.0;
-             });
-            XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
-            rpc.Completed -= OnLoadLastNotificationCompleted;
-            if (null == args.Error && args.Items.Count > 0)
-            {
-                IntResponseObject respObj = args.Items.First();
-
-                if (respObj.Value == 0)
-                    return;
-
-                string blogID = string.Format("{0}", respObj.Value);
-                string blogName = string.Empty;
-
-                List<Blog> blogs = DataService.Current.Blogs.ToList();
-                foreach (Blog currentBlog in blogs)
-                {
-                    if (currentBlog.isWPcom() || currentBlog.hasJetpack())
-                    {
-                        string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
-                        if (currentBlogID == blogID)
-                        {
-                            blogName = currentBlog.BlogName;
-                        }
-                    }
-                }
-
-                NestedClass nc = new NestedClass(this, blogID);
-
-                UIThread.Invoke(() =>
-                {
-                    ToastPrompt toast = new ToastPrompt();
-                    toast.Title = "New comment on " + blogName;
-                    //toast.Message = "Some message";
-                    //toast.ImageSource = new BitmapImage(new Uri("ApplicationIcon.png", UriKind.RelativeOrAbsolute));
-                    toast.Tap += nc.toast_Tapped;
-                    toast.Show();
-                });
-                return;
-            }
-            else
-            {
-                Exception e = args.Error;
-                #if DEBUG
-                MessageBoxResult result = MessageBox.Show(String.Format("Error occurred. {0}", e.Message), "Error reading the last notification", MessageBoxButton.OK);
-                #endif
-                Utils.Tools.LogException(String.Format("Error occurred. {0}", e.Message), e);
-            }
-        }
-
-
-        private class NestedClass
-        {
-            string _blogID = string.Empty;
-            BlogsPage outerClass = null;
-
-            public NestedClass(BlogsPage outerClass, string blogID)
-            {
-                this._blogID = blogID;
-                this.outerClass = outerClass;
-            }
-
-            public void toast_Tapped(object sender, System.Windows.Input.GestureEventArgs e)
-            {
-                this.outerClass.openCommentsScreenForBlog(this._blogID);
-            }
-        }
-
-
         #endregion
     }
 }

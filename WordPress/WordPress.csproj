@@ -133,6 +133,9 @@
     <Compile Include="ImageDetailsPage.xaml.cs">
       <DependentUpon>ImageDetailsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PushNotificationCommentPage.xaml.cs">
+      <DependentUpon>PushNotificationCommentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ReaderBrowserPage.xaml.cs">
       <DependentUpon>ReaderBrowserPage.xaml</DependentUpon>
     </Compile>
@@ -259,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ImageDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PushNotificationCommentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

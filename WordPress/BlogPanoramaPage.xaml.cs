@@ -271,24 +271,6 @@ namespace WordPress
             // so put the bindings at the end of the UI thread's task queue instead
             // of putting them in the XAML (where they get evalutead at XAML instantiation)
             Application.Current.RootVisual.Dispatcher.BeginInvoke(SetPanoramaListDataBindings);
-
-            if (App.MasterViewModel.ShowCommentsPageAndRefresh)
-            {
-                this.blogPanorama.DefaultItem = commentsPanoramaItem;
-                App.MasterViewModel.ShowCommentsPageAndRefresh = false;
-                if (!App.isNetworkAvailable())
-                {
-                    Exception connErr = new NoConnectionException();
-                    this.HandleException(connErr);
-                }
-                else
-                {
-                    FetchComments(false);
-                }
-                //reset the latest push notification on the server. Otherwise at next starttup the app will show an alert
-                PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
-                pHelper.loadLastPushNotification(null);
-            }
         }
 
         private void SetPanoramaListDataBindings()
