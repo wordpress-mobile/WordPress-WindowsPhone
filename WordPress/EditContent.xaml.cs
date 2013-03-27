@@ -232,12 +232,27 @@ namespace WordPress
                     postContent = ConvertExtendedAscii(postContent);
                 
                 string content = htmlConcat.Replace("{0}", postContent);
+                browser.LoadCompleted += browser_LoadCompleted;
                 browser.NavigateToString(content);
             }
 
             var border = browser.Descendants<Border>().Last() as Border; //See: http://www.scottlogic.co.uk/blog/colin/2011/11/suppressing-zoom-and-scroll-interactions-in-the-windows-phone-7-browser-control/
             border.ManipulationDelta += Border_ManipulationDelta;
             border.ManipulationCompleted += Border_ManipulationCompleted;
+
+           
+        }
+
+        void browser_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            browser.LoadCompleted -= browser_LoadCompleted;
+            try
+            {
+                browser.InvokeScript("adjustImageWidth");
+            }
+            catch (Exception err)
+            {
+            }
         }
 
         private void OnButtonOrMenuitemClicked(object sender, EventArgs e)

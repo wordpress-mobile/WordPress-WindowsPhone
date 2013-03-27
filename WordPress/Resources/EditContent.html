@@ -5,62 +5,138 @@
       
     <style type="text/css">
       .more {
-      display: block;
-      height: 1px;
-      width: 100%;
-      border-bottom: 1px dotted #ccc;
+        display: block;
+        height: 1px;
+        width: 100%;
+        border-bottom: 1px dotted #ccc;
       }
       blockquote {
-      background: LightGray;
-      font-style: Italic;
+        background: LightGray;
+        font-style: Italic;
+      }
+      .visual_text_editor_max_image_width{
+        width: 300px !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
       }
     </style>
-  
+  <script type="text/javascript">
+// <![CDATA[
+function ClassUtil()
+	{
+	this.getClass = function(element)
+		{
+		return element.className || (element.getAttribute ? element.getAttribute("class") : false) || "";
+		}
+	this.setClass = function(element,class_name,overwrite)
+		{
+		// without overwrite set, its just like adding a class to the element
+		var new_class = overwrite ? class_name : this.getClass(element)+" "+class_name;
+		element.className = new_class;
+		if (element.setAttribute) element.setAttribute("class",new_class);
+		}
+	this.removeClass = function(element,class_name)
+		{
+		var elm_class = this.getClass(element);
+		var classes_to_check = elm_class.split(" ");
+		var new_class = "";
+    var added = false;
+		for (var i=0;i<classes_to_check.length;i++)
+			{
+			if (class_name != classes_to_check[i]){
+           if(added == false) {
+           new_class += classes_to_check[i];
+           added = true;
+           } else {
+            new_class += " "+classes_to_check[i];
+           }
+        }
+			}
+		this.setClass(element,new_class,true);
+		}
+	this.checkClass = function(element,class_name)
+		{
+		var elm_class = this.getClass(element);
+		var classes_to_check = elm_class.split(" ");
+		for (var i=0;i<classes_to_check.length;i++)
+			{
+			if (class_name == classes_to_check[i]) return true;
+			}
+		return false;
+		}
+	this.getElementsByClassName = function(class_name,opt_root)
+		{
+		var root = opt_root || document;
+		var all = root.getElementsByTagName("*");
+		var sp = new Array();
+		for (var i=0;i<all.length;i++)
+			{
+			if (this.checkClass(all[i],class_name)) sp.push(all[i]);
+			}
+		return sp;
+		}
+	}
+var cutil = new ClassUtil();
+// ]]>
+</script>
     <script type="text/javascript">
-      function formatBtnClick(type, value) {
       
-      if (type == 'createlink') {
-          var sText = document.selection.createRange();
-          var tt =  sText.text;
-          if (tt != "")
-          {
-              sText.pasteHTML(value);
-          }
-          else
-          {
-              window.external.notify("Please select some text!");
-          }
-      } else if (type == 'more') {
-      document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
-      } else {
-      document.execCommand(type, false, null);
+     function adjustImageWidth(){
+         var images = document.images;
+         for (var i=0; i<images.length; i++){   
+            cutil.setClass(images[i],"visual_text_editor_max_image_width");
+         }
       }
 
+      function formatBtnClick(type, value) {
+      
+          if (type == 'createlink') {
+              var sText = document.selection.createRange();
+              var tt =  sText.text;
+              if (tt != "")
+              {
+                  sText.pasteHTML(value);
+              }
+              else
+              {
+                  window.external.notify("Please select some text!");
+              }
+          } else if (type == 'more') {
+          document.selection.createRange().pasteHTML('<div id="09-07-1979-what-a-great-date" class="more"></div>');
+          } else {
+          document.execCommand(type, false, null);
+          }
       }
 
       function getSelectedText(){
-      return document.selection.createRange().text;
+          return document.selection.createRange().text;
       }
 
       function getContent() {
-      return ieInnerHTML(document.getElementById("example-one"), false);
+         var images = document.images;
+         for (var i=0; i<images.length; i++){   
+            cutil.removeClass(images[i],"visual_text_editor_max_image_width");
+         }
+         return ieInnerHTML(document.getElementById("example-one"), false);
       }
 
       function getContentSafe() {
-      return document.getElementById("example-one").innerHTML;
+          return document.getElementById("example-one").innerHTML;
       }
 
       function editorLostFocus(){
-      var fieldNameElement = document.getElementById("example-one");
-      fieldNameElement.style.backgroundColor= "LightGray";
-      fieldNameElement.style.border= "none";
+          var fieldNameElement = document.getElementById("example-one");
+          fieldNameElement.style.backgroundColor= "LightGray";
+          fieldNameElement.style.border= "none";
       }
 
       function editorGotFocus() {
-      window.external.notify("editorGotFocus");
-      var fieldNameElement = document.getElementById("example-one");
-      fieldNameElement.style.backgroundColor= "White";
-      fieldNameElement.style.border= "1px solid LightGray";
+          window.external.notify("editorGotFocus");
+          var fieldNameElement = document.getElementById("example-one");
+          fieldNameElement.style.backgroundColor= "White";
+          fieldNameElement.style.border= "1px solid LightGray";
       }
 
       function ieInnerHTML(obj, convertToLowerCase) {
