@@ -1,4 +1,5 @@
 ﻿using Coding4Fun.Toolkit.Controls;
+using Microsoft.Phone.Controls;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Notification;
 using Microsoft.Phone.Shell;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using WordPress.Localization;
 using WordPress.Model;
@@ -638,21 +640,79 @@ namespace WordPress.Utils
 
                 if (App.PopupSelectionService.IsPopupOpen)
                     return;
+            
+                PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
+                System.Diagnostics.Debug.WriteLine("frame.CurrentSource.ToString() -> " + frame.CurrentSource.ToString());
+                if (!frame.CurrentSource.ToString().StartsWith("/Start"))
+                    return;
+/*
+                if (frame.CanGoBack)
+                {
+                    string pageUri = String.Empty;
+                    foreach (var item in frame.BackStack)
+                    {
+                        pageUri = item.Source.ToString();
+                        System.Diagnostics.Debug.WriteLine("pageUri -> " + pageUri);
+
+                        if (pageUri.StartsWith("Edit"))
+                            return;
+                    }
+                }*/
 
                 Coding4Fun.Toolkit.Controls.ToastPrompt toast = new Coding4Fun.Toolkit.Controls.ToastPrompt();
                 toast.Title = text2;
+                toast.MillisecondsUntilHidden = 5000;
                 //toast.Message = "Some message";
                 //toast.ImageSource = new BitmapImage(new Uri("ApplicationIcon.png", UriKind.RelativeOrAbsolute));
                 toast.Completed += toast_Completed;
+                NestedClass nc = new NestedClass(blog_id);
+                toast.Tap += nc.toast_Tapped;
                 toast.Show();
             }
             );
         }
 
+
+        private class NestedClass
+        {
+            string _blogID = string.Empty;
+
+            public NestedClass(string blogID)
+            {
+                this._blogID = blogID;
+            }
+
+            public void toast_Tapped(object sender, System.Windows.Input.GestureEventArgs e)
+            {
+                System.Diagnostics.Debug.WriteLine("toast_Tap");
+
+                System.Diagnostics.Debug.WriteLine("toast_Tap -> " + this._blogID);
+                string blogID = this._blogID;
+                List<Blog> blogs = DataService.Current.Blogs.ToList();
+                foreach (Blog currentBlog in blogs)
+                {
+                    if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                    {
+                        string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                        if (currentBlogID == blogID)
+                        {
+                            App.MasterViewModel.CurrentBlog = currentBlog;
+                            App.MasterViewModel.ShowCommentsPageAndRefresh = true;
+                            PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
+                            frame.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        
         void toast_Completed(object sender, PopUpEventArgs<string, PopUpResult> e)
         {
+            System.Diagnostics.Debug.WriteLine("toast_Completed");
             this.loadLastPushNotification(null);
         }
+
         #endregion
     }
 }
