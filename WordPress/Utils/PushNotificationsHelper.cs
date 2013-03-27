@@ -644,20 +644,25 @@ namespace WordPress.Utils
                 PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
                 System.Diagnostics.Debug.WriteLine("frame.CurrentSource.ToString() -> " + frame.CurrentSource.ToString());
                 if (!frame.CurrentSource.ToString().StartsWith("/Start"))
-                    return;
-/*
-                if (frame.CanGoBack)
                 {
-                    string pageUri = String.Empty;
-                    foreach (var item in frame.BackStack)
+                    Blog currentBlog = App.MasterViewModel.CurrentBlog;
+                    string currentBlogID = currentBlog.isWPcom() ? Convert.ToString(currentBlog.BlogId) : currentBlog.getJetpackClientID();
+                    if (currentBlogID != blog_id)
+                        return;
+                        
+                    if (frame.CanGoBack)
                     {
-                        pageUri = item.Source.ToString();
-                        System.Diagnostics.Debug.WriteLine("pageUri -> " + pageUri);
+                        string pageUri = String.Empty;
+                        foreach (var item in frame.BackStack)
+                        {
+                            pageUri = item.Source.ToString();
+                            System.Diagnostics.Debug.WriteLine("pageUri -> " + pageUri);
 
-                        if (pageUri.StartsWith("Edit"))
-                            return;
+                            if (pageUri.StartsWith("Edit"))
+                                return;
+                        }
                     }
-                }*/
+                }
 
                 Coding4Fun.Toolkit.Controls.ToastPrompt toast = new Coding4Fun.Toolkit.Controls.ToastPrompt();
                 toast.Title = text2;
@@ -699,7 +704,7 @@ namespace WordPress.Utils
                             App.MasterViewModel.CurrentBlog = currentBlog;
                             App.MasterViewModel.ShowCommentsPageAndRefresh = true;
                             PhoneApplicationFrame frame = (PhoneApplicationFrame)Application.Current.RootVisual;
-                            frame.Navigate(new Uri("/BlogPanoramaPage.xaml", UriKind.Relative));
+                            frame.Navigate(new Uri("/BlogPanoramaPage.xaml?ts=" + DateTime.Now.ToString(), UriKind.Relative));
                             return;
                         }
                     }
