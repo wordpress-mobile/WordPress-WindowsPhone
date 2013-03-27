@@ -187,7 +187,7 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to allow toast notifications.
+        ///   Looks up a localized string similar to allow push notifications.
         /// </summary>
         internal static string ControlText_AllowToastNotifications {
             get {
