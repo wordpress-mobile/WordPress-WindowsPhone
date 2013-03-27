@@ -320,15 +320,10 @@ namespace WordPress.Utils
 
         public void resetLastPushNotificationData()
         {
-            this.loadLastPushNotificationDataWithCallBack(false);
+            this.loadLastPushNotificationData(null);
         }
 
-        public void loadLastPushNotificationData()
-        {
-            this.loadLastPushNotificationDataWithCallBack(true);
-        }
-
-        private void loadLastPushNotificationDataWithCallBack(bool callbackAvailable)
+        public void loadLastPushNotificationData(XMLRPCCompletedEventHandler<IntResponseObject> respHandler)
         {
             string device_uuid = this.getDeviceUUID();
             if (device_uuid == null) return; //emulators
@@ -356,14 +351,14 @@ namespace WordPress.Utils
             if (username != string.Empty && password != string.Empty)
             {
                 PushNotificationGetLastNotification rpc = new PushNotificationGetLastNotification(pushNotificationURL, username, password, device_uuid);
-                if(callbackAvailable)
-                    rpc.Completed += OnLoadLastNotificationCompleted;
+                if (respHandler!=null)
+                    rpc.Completed += respHandler;
                 rpc.ExecuteAsync();
             }
         }
 
 
-        private void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
+        public void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
         {
             XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
             rpc.Completed -= OnLoadLastNotificationCompleted;

@@ -218,7 +218,8 @@ namespace WordPress
                 //App was opened by tapping on the Tile. Need to check if there are some notifications pending on the server.
                 if (pHelper.pushNotificationsEnabled() && App.isNetworkAvailable())
                 {
-                    pHelper.loadLastPushNotificationData();
+                    pHelper.loadLastPushNotificationData(OnLoadLastNotificationCompleted);
+                    loadingContentProgressBar.Opacity = 1.0;
                 }
             }
 
@@ -226,6 +227,19 @@ namespace WordPress
             {
                 NavigationService.RemoveBackEntry();
             }
+        }
+
+        public void OnLoadLastNotificationCompleted(object sender, XMLRPCCompletedEventArgs<IntResponseObject> args)
+        {
+            UIThread.Invoke(() =>
+            {
+                loadingContentProgressBar.Opacity = 0.0;
+            });
+
+            XmlRemoteProcedureCall<IntResponseObject> rpc = sender as XmlRemoteProcedureCall<IntResponseObject>;
+            rpc.Completed -= OnLoadLastNotificationCompleted;
+
+            PushNotificationsHelper.Instance.OnLoadLastNotificationCompleted(sender, args);
         }
         #endregion
     }
