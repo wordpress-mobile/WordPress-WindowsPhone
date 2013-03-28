@@ -161,15 +161,13 @@ var cutil = new ClassUtil();
 
       function ieInnerHTML(obj, convertToLowerCase) {
       var zz = obj.innerHTML;
-      //var z = zz.match(/(<.+[^>])/g);  
       var z = zz.match(/(<\/?\w+)[^>]*(\/?)>/g); 
 
     if (z) {
     	 var attrRE = /\=[a-zA-Z\.\:\[\]_\(\)\&\$\%#\@\!0-9\/]+[?\s+|?>]/g;
 	     for ( var i=0; i<z.length; (i=i+1) ) {
 	      var y, zSaved = z[i];
-	      
-	  //  z[i] = z[i].replace( /([<|<\/].+?\w+).+[^>]/, function(a){return a.toLowerCase();} );
+
         z[i] = z[i].replace( /(<\/?\w+)(\s|\/>|>)/, function(a){return a.toLowerCase();} );
 	      y = z[i].match(attrRE);
 	
