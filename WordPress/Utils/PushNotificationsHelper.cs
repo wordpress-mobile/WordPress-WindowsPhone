@@ -24,7 +24,7 @@ namespace WordPress.Utils
         private static volatile PushNotificationsHelper instance;
         private static object syncRoot = new Object();
 
-        private static string pushNotificationURL = "http://ercolid.wordpress.com/xmlrpc.php";
+        private static string pushNotificationURL = "https://wordpress.com/xmlrpc.php";
 
         /// Holds the push channel that is created or found.
         private HttpNotificationChannel pushChannel;
