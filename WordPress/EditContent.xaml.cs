@@ -101,13 +101,14 @@ namespace WordPress
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
         {
-
-             string content = getPostContentFromVisualEditor();
-             if (content != null)
-             {
-                 App.MasterViewModel.CurrentPost.Description = content;
-             }
-
+            if (_hasChanges == true)
+            {
+                string content = getPostContentFromVisualEditor();
+                if (content != null)
+                {
+                    App.MasterViewModel.CurrentPost.Description = content;
+                }
+            }
             base.OnNavigatedFrom(e);
         }
 
@@ -162,7 +163,8 @@ namespace WordPress
             {
                 object result = browser.InvokeScript("getContent");
                 content = result.ToString().Replace(MORE_TAG_REPLACEMENT, "<!--more-->");
-                content = content.Replace("<br>", "\n");
+                content = content.Replace("<br>", "\r");
+                content = content.Replace("<br/>", "\r");
             }
             catch (Exception err1)
             {
@@ -209,8 +211,10 @@ namespace WordPress
             {
 
                 string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->", MORE_TAG_REPLACEMENT);
+                postContent = postContent.Replace("\r\n", "<br/>");
                 postContent = postContent.Replace("\n", "<br/>");
-                
+                postContent = postContent.Replace("\r", "<br/>"); //Pressing the Enter key in the 'textual editor' put a \r
+
                 if(!Utils.Tools.IsWindowsPhone8orHigher)
                     postContent = ConvertExtendedAscii(postContent);
                 
@@ -223,7 +227,8 @@ namespace WordPress
             border.ManipulationDelta += Border_ManipulationDelta;
             border.ManipulationCompleted += Border_ManipulationCompleted;           
         }
-
+        
+        //Fired when the browser control has loaded the content
         void browser_LoadCompleted(object sender, NavigationEventArgs e)
         {
             browser.LoadCompleted -= browser_LoadCompleted;

@@ -84,12 +84,18 @@ var cutil = new ClassUtil();
 </script>
     <script type="text/javascript">
  // <![CDATA[
+ 
+/*  Set 300px img width. It's called from the native code when the browser fires the document loaded event. */
+
      function adjustImageWidth(){
          var images = document.images;
          for (var i=0; i<images.length; i++){   
             cutil.setClass(images[i],"visual_text_editor_max_image_width");
          }
       }
+
+
+/* Called from the native code when the user hit a menu item/button */
 
       function formatBtnClick(type, value) {
       
@@ -111,17 +117,26 @@ var cutil = new ClassUtil();
           }
       }
 
+
+/* Called from the native code when the btn create 'link' is pressed */
+
       function getSelectedText(){
           return document.selection.createRange().text;
       }
+
+
+/* Called from the native code to get the content of the editor. It also "cleans" the response.  */
 
       function getContent() {
          var images = document.images;
          for (var i=0; i<images.length; i++){   
             cutil.removeClass(images[i],"visual_text_editor_max_image_width");
-         }
-         return ieInnerHTML(document.getElementById("example-one"), false);
+         }   
+         return ieInnerHTML( document.getElementById("example-one"), false );
       }
+
+
+/* Called from the native code to get the content of the editor when the functin above fails for some reason  */
 
       function getContentSafe() {
          var images = document.images;
@@ -146,14 +161,16 @@ var cutil = new ClassUtil();
 
       function ieInnerHTML(obj, convertToLowerCase) {
       var zz = obj.innerHTML;
-      var z = zz.match(/(<.+[^>])/g);    
+      //var z = zz.match(/(<.+[^>])/g);  
+      var z = zz.match(/(<\/?\w+)[^>]*(\/?)>/g); 
 
     if (z) {
     	 var attrRE = /\=[a-zA-Z\.\:\[\]_\(\)\&\$\%#\@\!0-9\/]+[?\s+|?>]/g;
 	     for ( var i=0; i<z.length; (i=i+1) ) {
 	      var y, zSaved = z[i];
 	      
-	      z[i] = z[i].replace( /([<|<\/].+?\w+).+[^>]/, function(a){return a.toLowerCase();} );
+	  //  z[i] = z[i].replace( /([<|<\/].+?\w+).+[^>]/, function(a){return a.toLowerCase();} );
+        z[i] = z[i].replace( /(<\/?\w+)(\s|\/>|>)/, function(a){return a.toLowerCase();} );
 	      y = z[i].match(attrRE);
 	
 	      if (y) {
@@ -178,10 +195,22 @@ var cutil = new ClassUtil();
    }
    return zz;
 }
+
+     function replace_P_tag_with_BR(e)
+      {
+       var event = e || window.event;
+       var keyCode = ('which' in event) ? event.which : event.keyCode;
+       if (keyCode == 13) 
+       {
+        document.selection.createRange().pasteHTML("<br>");
+        e.cancelBubble = true;        
+        return false;
+        }
+      }
 // ]]>
     </script>
   </head>
   <body>
-  <div style="background-color:LightGray; height:100%; padding: 5px;" onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
+  <div style="background-color:LightGray; height:100%; padding: 5px;" onkeypress="return replace_P_tag_with_BR(event);"  onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
   </body>
 </html>
