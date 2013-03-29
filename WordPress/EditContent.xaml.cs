@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using LinqToVisualTree;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System;
 using System.ComponentModel;
-using System.Threading;
-using WordPress.Model;
-using System.Windows.Controls.Primitives;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using WordPress.Localization;
-using System.IO;
-using System.Diagnostics;
-using System.Text;
-using LinqToVisualTree;
 
 namespace WordPress
 {
@@ -163,6 +157,7 @@ namespace WordPress
             {
                 object result = browser.InvokeScript("getContent");
                 content = result.ToString().Replace(MORE_TAG_REPLACEMENT, "<!--more-->");
+                content = content.Replace("\r\n", "");
                 content = content.Replace("<br>", "\r");
                 content = content.Replace("<br/>", "\r");
             }
@@ -211,9 +206,9 @@ namespace WordPress
             {
 
                 string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->", MORE_TAG_REPLACEMENT);
-                postContent = postContent.Replace("\r\n", "<br/>");
+                postContent = postContent.Replace("\r\n", "\n").Replace("\r", "\n");  // cross-platform newlines
                 postContent = postContent.Replace("\n", "<br/>");
-                postContent = postContent.Replace("\r", "<br/>"); //Pressing the Enter key in the 'textual editor' put a \r
+              
 
                 if(!Utils.Tools.IsWindowsPhone8orHigher)
                     postContent = ConvertExtendedAscii(postContent);
@@ -245,6 +240,7 @@ namespace WordPress
         {
             if (sender == _discardChangesMenuItem)
             {
+                this._hasChanges = false;
                 NavigationService.GoBack();
                 return;
             }
