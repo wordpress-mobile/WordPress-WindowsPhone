@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,835 +117,829 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ControlText_VisualContentEditor" xml:space="preserve">
-    <value>visueller editor</value>
-  </data>
   <data name="Prompts_AllowToastPushNotification" xml:space="preserve">
-    <value>Möchten Sie Push-Benachrichtigungen von WordPress erhalten?</value>
-  </data>
-  <data name="ControlText_TextContentEditor" xml:space="preserve">
-    <value>text editor</value>
+    <value>คุณต้องการที่จะรับการแจ้งเตือนผลักดันจาก WordPress?</value>
   </data>
   <data name="Prompts_PinToStartPushNotification" xml:space="preserve">
-    <value>Um Push-Benachrichtigungen zu bekommen hefte die Anwendung auf den Startbildschirm.</value>
+    <value>เพื่อรับการแจ้งเตือนแบบ push ให้ปักหมุดแอพพลิเคชั่นไปยังหน้าจอเริ่มต้น</value>
   </data>
   <data name="ControlText_PublishStatus" xml:space="preserve">
-    <value>Veröffentlichungsstatus</value>
+    <value>สถานะเผยแพร่</value>
   </data>
   <data name="ControlText_AllowToastNotifications" xml:space="preserve">
-    <value>Erlaube Toast-Benachrichtigungen</value>
+    <value>อนุญาตการแจ้งเตือนแบบ toast</value>
   </data>
   <data name="ControlText_PushNotifications" xml:space="preserve">
-    <value>Push-Benachrichtigungen</value>
+    <value>การแจ้งเตือนแบบ push</value>
   </data>
   <data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
-    <value>Ungültiger Nutzername oder falsches Passwort.</value>
+    <value>ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</value>
   </data>
   <data name="ControlText_Default" xml:space="preserve">
-    <value>Standard</value>
+    <value>ค่าเริ่มต้น</value>
   </data>
   <data name="ControlText_Type" xml:space="preserve">
-    <value>Typ</value>
+    <value>ชนิด</value>
   </data>
   <data name="ControlText_AttachmentPage" xml:space="preserve">
-    <value>Attachment-Seite</value>
+    <value>หน้าไฟล์แนบ</value>
   </data>
   <data name="ControlText_Circles" xml:space="preserve">
-    <value>Kreise</value>
+    <value>วงกลม</value>
   </data>
   <data name="ControlText_MediaFile" xml:space="preserve">
-    <value>Mediendatei</value>
+    <value>ไฟล์สื่อ</value>
   </data>
   <data name="ControlText_Slideshow" xml:space="preserve">
-    <value>Slideshow</value>
+    <value>สไลด์โชว์</value>
   </data>
   <data name="ControlText_SquareTiles" xml:space="preserve">
-    <value>Quadratische Kacheln</value>
+    <value>เรียงแบบกระเบื้องสี่เหลี่ยมจัตุรัส</value>
   </data>
   <data name="ControlText_Tiles" xml:space="preserve">
-    <value>Kacheln</value>
+    <value>เรียงแบบกระเบื้อง</value>
   </data>
   <data name="ControlText_ThumbnailGrid" xml:space="preserve">
-    <value>Vorschaubild-Raster (Standard)</value>
+    <value>แบบตารางรูปย่อ (ค่าเริ่มต้น)</value>
   </data>
   <data name="ControlText_PostFormat" xml:space="preserve">
-    <value>Artikelformat</value>
+    <value>รูปแบบเรื่อง</value>
   </data>
   <data name="ControlText_Code" xml:space="preserve">
-    <value>code</value>
+    <value>โค้ด</value>
   </data>
   <data name="ControlText_ListItem" xml:space="preserve">
-    <value>li</value>
+    <value>รายชื่อ</value>
   </data>
   <data name="ControlText_MoreTag" xml:space="preserve">
-    <value>Mehr</value>
+    <value>เพิ่มเติม</value>
   </data>
   <data name="ControlText_OrderedList" xml:space="preserve">
-    <value>ol</value>
+    <value>เรื่องรายชื่อ</value>
   </data>
   <data name="ControlText_UnorderedList" xml:space="preserve">
-    <value>ul</value>
+    <value>ไม่เรียงรายชื่อ</value>
   </data>
   <data name="Options_Actions_DeleteDraft" xml:space="preserve">
-    <value>Lösche Entwurf</value>
+    <value>ลบฉบับร่าง</value>
   </data>
   <data name="Options_Actions_EditDraft" xml:space="preserve">
-    <value>Bearbeite Entwurf</value>
+    <value>แก้ไขฉบับร่าง</value>
   </data>
   <data name="ControlText_FeaturedImage" xml:space="preserve">
-    <value>Beitragsbild</value>
+    <value>รูปพิเศษ</value>
   </data>
   <data name="ControlText_FeatureImage" xml:space="preserve">
-    <value>Hervorheben</value>
+    <value>พิเศษ</value>
   </data>
   <data name="ControlText_UnfeatureImage" xml:space="preserve">
-    <value>Nicht mehr hervorheben</value>
+    <value>ยกเลิกรูปพิเศษ</value>
   </data>
   <data name="ControlText_FeaturedImageError" xml:space="preserve">
-    <value>Konnte Bild nicht laden</value>
+    <value>ไม่สามารถโหลดรูปภาพ</value>
   </data>
   <data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
-    <value>Tut mir Leid, ein Fehler ist aufgetreten als das Bild gelesen wurde. Möchtest Du den Artikel immer noch hochladen?</value>
+    <value>ขอโทษ  มีความผิดพลาดเกิดขึ้นขณะทำการโหลดรูป  คุณยังต้องการที่จะอัปโหลดเรื่องหรือไม่?</value>
   </data>
   <data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
-    <value>Konnte das Bild nicht in den Gerätespeicher laden.</value>
+    <value>ไม่สามารถบันทึกรูปบนหน่วยความจำมือถือ</value>
   </data>
   <data name="Prompts_MediaErrorPictureCorruptedOrUnreadlable" xml:space="preserve">
-    <value>Das Bild ist korrupt oder konnte nicht gelesen werden.</value>
+    <value>รูปภาพเสียภาพหรือไม่สามารถโหลดได้</value>
   </data>
   <data name="ControlText_Counts" xml:space="preserve">
-    <value>Zähler</value>
+    <value>นับ</value>
   </data>
   <data name="ControlText_Go" xml:space="preserve">
-    <value>Los</value>
+    <value>เริ่ม</value>
   </data>
   <data name="ControlText_Dashboard" xml:space="preserve">
-    <value>Übersicht</value>
+    <value>หน้าควบคุม</value>
   </data>
   <data name="Prompts_JetpackNotAvailable" xml:space="preserve">
-    <value>Um die Statistik einsehen zu können, muss Jetpack 1.9 oder höher installiert sein. Möchtest Du mehr darüber erfahren?</value>
+    <value>เพื่อใช้งานสถิติ คุณต้องติดตั้ง Jetpack รุ่น 1.9 หรือรุ่นที่สูงกว่า  คุณต้องการข้อมูลเพิ่มเติมหรือไม่?</value>
   </data>
   <data name="ControlText_GallerySettings" xml:space="preserve">
-    <value>Galerie-Einstellungen</value>
+    <value>การตั้งค่าคลังรูป</value>
   </data>
   <data name="Title_GallerySettings" xml:space="preserve">
-    <value>Galerie-Einstellungen</value>
+    <value>การตั้งค่าคลังรูป</value>
   </data>
   <data name="ControlText_UploadImagesAsGallery" xml:space="preserve">
-    <value>Bilder als Galerie hochladen</value>
+    <value>อัปโหลดรูปเป็นคลังรูป</value>
   </data>
   <data name="ControlText_Columns" xml:space="preserve">
-    <value>Spalten</value>
+    <value>คอลัมน์</value>
   </data>
   <data name="ControlText_LinkTo" xml:space="preserve">
-    <value>Verlinke mit</value>
+    <value>เชื่อมไปยัง</value>
   </data>
   <data name="ControlText_RandomOrder" xml:space="preserve">
-    <value>Zufallsreihenfolge</value>
+    <value>เรียงแบบสุ่ม</value>
   </data>
   <data name="ControlText_ViewSite" xml:space="preserve">
-    <value>Webseite anschauen</value>
+    <value>เยี่ยมชมเว็บไซต์</value>
   </data>
   <data name="ControlText_Send" xml:space="preserve">
-    <value>Absenden</value>
+    <value>ส่ง</value>
   </data>
   <data name="ControlText_ReplyToComment" xml:space="preserve">
-    <value>Auf Kommentar antworten</value>
+    <value>ตอบกลับความเห็น</value>
   </data>
   <data name="ControlText_EditComment" xml:space="preserve">
-    <value>Kommentar bearbeiten</value>
+    <value>แก้ไขความเห็น</value>
   </data>
   <data name="Messages_NoBlogFoundAtThisURL" xml:space="preserve">
-    <value>Du scheinst keine Blogs unter {0} zu haben.</value>
+    <value>ดูเหมือนว่าคุณไม่มีบล็อกที่ {0}</value>
   </data>
   <data name="ControlText_PreserveBandwidth" xml:space="preserve">
-    <value>Bandbreitennutzung erhalten</value>
+    <value>สงวนการใช้ bandwidth</value>
   </data>
   <data name="Messages_EditingComment" xml:space="preserve">
-    <value>Bearbeite Kommentar ...</value>
+    <value>กำลังแก้ไขความเห็น...</value>
   </data>
   <data name="Messages_TitleAndContentEmpty" xml:space="preserve">
-    <value>Bedaure, konnte {0] nicht speichern. Titel und Inhalt sind beide leer.</value>
+    <value>ขอโทษ ไม่สามารถบันทึก {0} นี้   เพราะหัวข้อและเนื้อหานั้นว่างเปล่า</value>
   </data>
   <data name="ControlText_FilterAll" xml:space="preserve">
-    <value>Alle anzeigen</value>
+    <value>แสดงทั้งหมด</value>
   </data>
   <data name="ControlText_FilterApproved" xml:space="preserve">
-    <value>Zeige Genehmigte</value>
+    <value>แสดงที่อนุมัติ</value>
   </data>
   <data name="ControlText_FilterSpam" xml:space="preserve">
-    <value>Zeige Spam</value>
+    <value>แสดงที่สแปม</value>
   </data>
   <data name="ControlText_FilterUnapproved" xml:space="preserve">
-    <value>Zeige Ungenehmigte</value>
+    <value>แสดงที่ไม่อนุมัติ</value>
   </data>
   <data name="ControlText_Moderate" xml:space="preserve">
-    <value>Moderieren</value>
+    <value>จัดการ</value>
   </data>
   <data name="ControlText_DeleteSelected" xml:space="preserve">
-    <value>Ausgewählte löschen</value>
+    <value>ลบส่วนที่เลือก</value>
   </data>
   <data name="ControlText_Publish" xml:space="preserve">
-    <value>Veröffentlichen</value>
+    <value>เผยแพร่</value>
   </data>
   <data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-    <value>Erstelle wunderschöne Blogs und Webseiten, die unterwegs aktualisiert werden können.</value>
+    <value>สร้างบล็อกและเว็บไซต์อันสวยงามที่สามารถอัปเดตได้บนมือถือของคุณ</value>
   </data>
   <data name="ControlText_Tags" xml:space="preserve">
-    <value>Schlagwörter</value>
+    <value>ป้ายกำกับ</value>
   </data>
   <data name="Title_ModerateComment" xml:space="preserve">
-    <value>Kommentar</value>
+    <value>ความเห็น</value>
   </data>
   <data name="Title_ModerateComments" xml:space="preserve">
-    <value>Kommentare</value>
+    <value>ความเห็น</value>
   </data>
   <data name="ControlText_EULA" xml:space="preserve">
     <value>GNU General Public License</value>
   </data>
   <data name="ControlText_CopyErrorMessage" xml:space="preserve">
-    <value>Kopiere Fehlermeldung</value>
+    <value>คัดลอกข้อความผิดพลาด</value>
   </data>
   <data name="Messages_ContentCopied" xml:space="preserve">
-    <value>Inhalt kopiert</value>
+    <value>คัดลอกเนื้อหาแล้ว</value>
   </data>
   <data name="Messages_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>รายละเอียด</value>
   </data>
   <data name="Messages_InvalidCredentials" xml:space="preserve">
-    <value>Ungültige WordPress.com-Zugangsdaten</value>
+    <value>สิทธิของ WordPress.com ไม่ถูกต้อง</value>
   </data>
   <data name="Messages_MissingFields" xml:space="preserve">
-    <value>Bitte fülle alle Felder aus</value>
+    <value>กรุณากรอกลงในทุกช่อง</value>
   </data>
   <data name="ControlText_ViewStats" xml:space="preserve">
-    <value>Zeige Statistiken</value>
+    <value>ดูสถิติ</value>
   </data>
   <data name="ControlText_PostStatus" xml:space="preserve">
-    <value>Status</value>
+    <value>สถานะ</value>
   </data>
   <data name="ControlText_PublishDate" xml:space="preserve">
-    <value>Veröffentlichungsdatum</value>
+    <value>วันที่เผยแพร่</value>
   </data>
   <data name="ControlText_Draft" xml:space="preserve">
-    <value>Entwurf</value>
+    <value>ฉบับร่าง</value>
   </data>
   <data name="ControlText_PendingReview" xml:space="preserve">
-    <value>Ausstehender Review</value>
+    <value>รอคอยการตรวจสอบ</value>
   </data>
   <data name="ControlText_Scheduled" xml:space="preserve">
-    <value>Geplant</value>
+    <value>เข้าตารางเวลาแล้ว</value>
   </data>
   <data name="ControlText_Remove" xml:space="preserve">
-    <value>Entfernen</value>
+    <value>ลบออก</value>
   </data>
   <data name="Prompts_Comment" xml:space="preserve">
-    <value>Kommentar</value>
+    <value>ความเห็น</value>
   </data>
   <data name="Prompts_Comments" xml:space="preserve">
-    <value>Kommentare</value>
+    <value>ความเห็น</value>
   </data>
   <data name="Prompts_Confirm" xml:space="preserve">
-    <value>Bestätigen</value>
+    <value>ยืนยัน</value>
   </data>
   <data name="Prompt_ConfirmDeleteComment" xml:space="preserve">
-    <value>Bist Du sicher, dass Du diesen Kommentar löschen möchtest?</value>
+    <value>คุณแน่ใจว่าคุณต้องการลบความเห็นนี้หรือไม่?</value>
   </data>
   <data name="Prompt_ConfirmDeleteCommentsFormat" xml:space="preserve">
-    <value>Bist Du sicher, dass Du diese(n) {0} {1} löschen möchtest? </value>
+    <value>คุณแน่ใจว่าคุณต้องการลบ {0} {1} หรือไม่?</value>
   </data>
   <data name="Prompt_ConfirmMarkSpamComment" xml:space="preserve">
-    <value>Bist Du sicher, dass Du diesen Kommentar als Spam markieren möchtest? </value>
+    <value>คุณแน่ใจว่าคุณต้องการบันทึกความเห็นนี้เป็นสแปมหรือไม่? </value>
   </data>
   <data name="Prompt_ConfirmMarkSpamCommentsFormat" xml:space="preserve">
-    <value>Bist Du sicher, dass Du diese(n) {0} {1} als Spam markieren möchtest? </value>
+    <value>คุณแน่ใจว่าคุณต้องการบันทึก {0} {1} เป็นสแปมหรือไม่? </value>
   </data>
   <data name="Prompts_NoConnectionError" xml:space="preserve">
-    <value>Die Internetverbindung scheint offline zu sein</value>
+    <value>ดูเหมือนว่าไม่มีการเชื่อมต่ออินเตอร์เนต</value>
   </data>
   <data name="Title_Error" xml:space="preserve">
-    <value>Fehler</value>
+    <value>ผิดพลาด</value>
   </data>
   <data name="ControlText_Categories" xml:space="preserve">
-    <value>Kategorien</value>
+    <value>หมวดหมู่</value>
   </data>
   <data name="ControlText_TagsHelpText" xml:space="preserve">
-    <value>Schlagwörter mit Kommas getrennt</value>
+    <value>แยกป้ายกำกับด้วยคอมม่า</value>
   </data>
   <data name="ControlText_LocalDraft" xml:space="preserve">
-    <value>Lokaler Entwurf</value>
+    <value>ฉบับร่างในเครื่อง</value>
   </data>
   <data name="ControlText_Private" xml:space="preserve">
-    <value>Privat</value>
+    <value>ส่วนตัว</value>
   </data>
   <data name="Prompts_MediaPlacement" xml:space="preserve">
-    <value>Bild-Platzierung</value>
+    <value>การวางรูปภาพ</value>
   </data>
   <data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
-    <value>nach dem Inhalt</value>
+    <value>หลังจากเนื้อหา</value>
   </data>
   <data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
-    <value>vor dem Inhalt</value>
+    <value>ก่อนเนื้อหา</value>
   </data>
   <data name="ControlText_Back" xml:space="preserve">
-    <value>zurück</value>
+    <value>กลับไป</value>
   </data>
   <data name="ControlText_Pin" xml:space="preserve">
-    <value>anheften</value>
+    <value>ปักหมุด</value>
   </data>
   <data name="ControlText_Unpin" xml:space="preserve">
-    <value>lösen</value>
+    <value>ยกเลิกปักหมุด</value>
   </data>
   <data name="Messages_MarketDescription" xml:space="preserve">
-    <value>WordPress für Windows Phone ist eine Open Source App, welche es dir ermöglicht, Beiträge für deine WordPress-Seite zu schreiben, Inhalte zu bearbeiten, Statistiken anzusehen und Kommentare zu verwalten.</value>
+    <value>เวิร์ดเพรสสำหรับ Windows Phone เป็นโอเพนซอรส์โปรแกรมที่ช่วยให้คุณสามารถเขียนเรื่องใหม่ แก้ไขบทความ  ดูสถิติและจัดการความเห็นบนเว็บไซต์เวิร์ดเพรสของคุณ</value>
   </data>
   <data name="ControlText_NoTitle" xml:space="preserve">
-    <value>Kein Titel für dieses Objekt</value>
+    <value>ไม่มีหัวข้อสำหรับสิ่งนี้</value>
   </data>
   <data name="ControlText_ReleaseToRefresh" xml:space="preserve">
-    <value>Loslassen zum Aktualisieren</value>
+    <value>ปล่อยเพื่อโหลดใหม่</value>
   </data>
   <data name="ControlText_PullDownToRefresh" xml:space="preserve">
-    <value>Ziehen zum Aktualisieren</value>
+    <value>ดึงลงเพื่อโหลดใหม่</value>
   </data>
   <data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
-    <value>Entschuldige, die gewünschte Aktion schlug fehl. Bitte versuche es erneut.</value>
+    <value>ขอโทษด้วย คำร้องขอล้มเหลว โปรดลองอีกครั้ง</value>
   </data>
   <data name="Prompts_XeElementMissing" xml:space="preserve">
-    <value>Entschuldige, der Server gab ungültige Daten zurück. Bitte versuche es erneut.</value>
+    <value>ขอโทษด้วย เซิร์ฟเวอร์ตอบกลับด้วยข้อมูลที่ไม่ถูกต้อง  โปรดลองอีกครั้ง</value>
   </data>
   <data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
-    <value>Entschuldige, der Server gab ungültige Daten zurück. Bitte versuche es erneut.</value>
+    <value>ขอโทษด้วย เซิร์ฟเวอร์ตอบกลับด้วยข้อมูลที่ไม่ถูกต้อง โปรดลองอีกครั้ง</value>
   </data>
   <data name="Messages_Hello" xml:space="preserve">
-    <value>Hallo</value>
+    <value>สวัสดี</value>
   </data>
   <data name="ControlText_SaveDraft" xml:space="preserve">
-    <value>Entwurf speichern</value>
+    <value>บันทึกโครงร่าง</value>
   </data>
   <data name="ControlText_LoadingContent" xml:space="preserve">
-    <value>Inhalt laden</value>
+    <value>กำลังโหลดบทความ</value>
   </data>
   <data name="ControlText_FAQ" xml:space="preserve">
-    <value>FAQ lesen</value>
+    <value>เยี่ยมชม FAQ</value>
   </data>
   <data name="ControlText_Forums" xml:space="preserve">
-    <value>Forum besuchen</value>
+    <value>เยี่ยมชมฟอรั่ม</value>
   </data>
   <data name="Prompts_MediaError" xml:space="preserve">
-    <value>Medienupload Fehler</value>
+    <value>อัปโหลดไฟล์สื่อผิดพลาด</value>
   </data>
   <data name="Prompts_MediaErrorContent" xml:space="preserve">
-    <value>Entschuldige, ein Fehler ist während des Medienuploads aufgetreten. Möchtest du den Beitrag trotzdem hochladen?</value>
+    <value>ขอโทษมีข้อผิดพลาดเกิดขึ้นเมื่อกำลังอัปโหลดไฟล์สื่อ  คุณยังอยากอัปโหลดเรื่องอีกหรือไม่?</value>
   </data>
   <data name="ControlText_InsertLink" xml:space="preserve">
-    <value>Link einfügen</value>
+    <value>ใส่ลิงก์</value>
   </data>
   <data name="ControlText_EnterURL" xml:space="preserve">
-    <value>Bitte geben Sie die URL für den Link ein, den Sie einfügen möchten.</value>
+    <value>กรุณาใส่ url สำหรับลิงก์ที่คุณอยากจะใส่</value>
   </data>
   <data name="Prompts_SureCancel" xml:space="preserve">
-    <value>Sie sind sicher, dass Sie die Bearbeitung von {0} abbrechen wollen?</value>
+    <value>คุณแน่ใจว่าคุณต้องการยกเลิกการแก้ไขหน้านี้ {0}?</value>
   </data>
   <data name="Prompts_Post" xml:space="preserve">
-    <value>Artikel</value>
+    <value>เรื่อง</value>
   </data>
   <data name="Prompts_Page" xml:space="preserve">
-    <value>Seite</value>
+    <value>หน้า</value>
   </data>
   <data name="Prompts_CancelEditing" xml:space="preserve">
-    <value>Bearbeiten abbrechen </value>
+    <value>ยกเลิกการแก้ไข</value>
   </data>
   <data name="ControlText_DefaultTagLine" xml:space="preserve">
-    <value>Geschrieben mit WordPress für Windows Phone</value>
+    <value>เขียนจากเวิร์ดเพรสสำหรับ Windows Phone</value>
   </data>
   <data name="ControlText_EnterLinkText" xml:space="preserve">
-    <value>[optional] Geben Sie den Text ein, der für den Link erscheinen soll.</value>
+    <value>[ทางเลือก] ใส่ข้อความที่ควรปรากฎสำหรับลิงก์</value>
   </data>
   <data name="ControlText_Username" xml:space="preserve">
-    <value>Benutzername</value>
+    <value>ชื่อผู้ใช้</value>
   </data>
   <data name="Title_Approve" xml:space="preserve">
-    <value>GENEHMIGT</value>
+    <value>อนุมัติแล้ว</value>
   </data>
   <data name="Title_Unapprove" xml:space="preserve">
-    <value>ZURÜCKGEWIESEN</value>
+    <value>ยกเลิกการอนุมัติ</value>
   </data>
   <data name="ControlText_Apikey" xml:space="preserve">
-    <value>API-Schlüssel</value>
+    <value>api key</value>
   </data>
   <data name="Prompts_MissingApikey" xml:space="preserve">
-    <value>Der aktuelle Blog hat keinen API-Schlüssel. Bitte geben Sie unter Einstellungen einen ein.</value>
+    <value>บล็อกปัจจุบันไม่มี api key กรุณาใส่หนึ่ง keyในหน้าตั้งค่า</value>
   </data>
   <data name="Options_StatisticType_Views" xml:space="preserve">
-    <value>Aufrufe</value>
+    <value>ดู</value>
   </data>
   <data name="ControlText_Clicks" xml:space="preserve">
-    <value>Klicks</value>
+    <value>กด</value>
   </data>
   <data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
-    <value>Letzte Woche</value>
+    <value>สัปดาห์ที่แล้ว</value>
   </data>
   <data name="ControlText_Underline" xml:space="preserve">
-    <value>U</value>
+    <value>ขีดเส้นใต้</value>
   </data>
   <data name="ControlText_StrikeThrough" xml:space="preserve">
-    <value>ABC</value>
+    <value>ขีดกลางข้อความ</value>
   </data>
   <data name="ControlText_Unapprove" xml:space="preserve">
-    <value>Zurückweisen</value>
+    <value>ไม่อนุมัติ</value>
   </data>
   <data name="ControlText_Preferences" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>ปรับแต่งที่ชอบ</value>
   </data>
   <data name="ControlText_Spam" xml:space="preserve">
-    <value>Spam</value>
+    <value>สแปม</value>
   </data>
   <data name="ControlText_SearchTerms" xml:space="preserve">
-    <value>Suchbegriffe</value>
+    <value>เงื่อนไขค้นหา</value>
   </data>
   <data name="Message_CheckTheUrl" xml:space="preserve">
-    <value>Es scheint ein Problem mit der angegebenen URL zu geben. Beginnt diese mit http:// oder endet sie nicht mit xmlrpc.php? Der Standard für die WordPress.com-Seite ist zum Beispiel: https://wordpress.com/xmlrpc.php.</value>
+    <value>อาจจะมีปัญหากับ url ที่ให้มา  url ได้เริ่มต้นด้วย http://หรือไม่มีลงท้ายด้วย xmlrpc.php? ค่าเริ่มต้นของเว็บไซต์ WordPress.com นั้นตัวอย่างคือ  https://wordpress.com/xmlrpc.php</value>
   </data>
   <data name="ControlText_Decline" xml:space="preserve">
-    <value>Ablehnen</value>
+    <value>ถดถอย</value>
   </data>
   <data name="Prompts_SelectStatisticType" xml:space="preserve">
-    <value>Welche Statistik möchten Sie anzeigen?</value>
+    <value>สถิติใดที่คุณต้องการข้อมูล?</value>
   </data>
   <data name="Messages_NoStatsAvailable" xml:space="preserve">
-    <value>Keine Statistiken für die aktuelle Abfrage vorhanden.</value>
+    <value>ไม่มีสถิติให้ดูสำหรับข้อมูลตอนนี้</value>
   </data>
   <data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
-    <value>Letztes Jahr</value>
+    <value>ปีที่แล้ว</value>
   </data>
   <data name="ControlText_Title" xml:space="preserve">
-    <value>Titel</value>
+    <value>หัวข้อ</value>
   </data>
   <data name="ControlText_Content" xml:space="preserve">
-    <value>Inhalt</value>
+    <value>บทความ</value>
   </data>
   <data name="ControlText_Views" xml:space="preserve">
-    <value>Aufrufe</value>
+    <value>ดู</value>
   </data>
   <data name="Title_NewPage" xml:space="preserve">
-    <value>Neue Seite</value>
+    <value>หน้าใหม่</value>
   </data>
   <data name="ControlText_AddAll" xml:space="preserve">
-    <value>Alle hinzufügen</value>
+    <value>เพิ่มทั้งหมด</value>
   </data>
   <data name="ControlText_AddSelected" xml:space="preserve">
-    <value>Ausgewählte hinzufügen</value>
+    <value>เพิ่มที่เลือกไว้</value>
   </data>
   <data name="ControlText_SelectBlogs" xml:space="preserve">
-    <value>Bitte wählen Sie die Blogs, die Sie importieren möchten.</value>
+    <value>กรุณาเลือกหนึ่งหรือหลายบล็อกที่คุณอยากจะนำเข้า</value>
   </data>
   <data name="ControlText_None" xml:space="preserve">
-    <value>[Keine]</value>
+    <value>[ไม่มีเลย]</value>
   </data>
   <data name="ControlText_PostContent" xml:space="preserve">
-    <value>Inhalt veröffentlichen</value>
+    <value>เนื้อหาเรื่อง</value>
   </data>
   <data name="Messages_ApprovingComment" xml:space="preserve">
-    <value>Kommentar genehmigen ...</value>
+    <value>กำลังอนุมัติความเห็น</value>
   </data>
   <data name="ControlText_Vibrate" xml:space="preserve">
-    <value>Vibrieren</value>
+    <value>สั่น</value>
   </data>
   <data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
     <value>OG</value>
   </data>
   <data name="Title_NewPost" xml:space="preserve">
-    <value>Neuer Artikel</value>
+    <value>เรื่องใหม่</value>
   </data>
   <data name="Prompt_SelectThumbnailSize" xml:space="preserve">
-    <value>Wähle ein Größe für die Vorschau.</value>
+    <value>โปรดเลือกขนาดรูปย่อ</value>
   </data>
   <data name="ControlText_Accept" xml:space="preserve">
-    <value>Annehmen</value>
+    <value>ยอมรับ</value>
   </data>
   <data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
-    <value>Kommentare als Spam markieren</value>
+    <value>กำลังบันทึกความเห็นเป็นสแปม...</value>
   </data>
   <data name="Messages_MarkingAsSpam" xml:space="preserve">
-    <value>Diesen Kommentar als Spam markieren</value>
+    <value>กำลังบันทึกความเห็นเป็นสแปม... </value>
   </data>
   <data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
-    <value>Wie viele Daten möchten Sie sehen?</value>
+    <value>ข้อมูลเท่าไหร่ที่คุณต้องการเห็น</value>
   </data>
   <data name="Title_Pages" xml:space="preserve">
-    <value>Seiten</value>
+    <value>หน้า</value>
   </data>
   <data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
-    <value>Link zum Vollbild erstellen</value>
+    <value>สร้างลิงก์ไปยังรูปขนาดเต็ม</value>
   </data>
   <data name="ControlText_UpdateInterval" xml:space="preserve">
-    <value>Update-Intervall</value>
+    <value>อัปเดตช่วงเวลา</value>
   </data>
   <data name="Title_CheckTheUrl" xml:space="preserve">
-    <value>Ist die URL gültig?</value>
+    <value>url นี้ถูกต้องรึเปล่า</value>
   </data>
   <data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
-    <value>Möchten Sie die Seite '{0}' wirklich löschen?</value>
+    <value>คุณแน่ใจรึเปล่าที่จะลบหน้า '{0}'?</value>
   </data>
   <data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
-    <value>Möchten Sie den Artikel '{0}' wirklich löschen?</value>
+    <value>คุณแน่ใจรึเปล่าที่จะลบเรื่อง '{0}'? </value>
   </data>
   <data name="Title_ConfirmDelete" xml:space="preserve">
-    <value>Löschen bestätigen</value>
+    <value>ยืนยันการลบ</value>
   </data>
   <data name="ControlText_DeleteBlog" xml:space="preserve">
-    <value>Blog löschen</value>
+    <value>ลบบล็อก</value>
   </data>
   <data name="Prompts_SelectBlogToDelete" xml:space="preserve">
-    <value>Bitte wählen Sie das Blog, das Sie löschen möchten.</value>
+    <value>โปรดเลือกบล็อกที่คุณต้องการลบ</value>
   </data>
   <data name="ControlText_Clear" xml:space="preserve">
-    <value>zurücksetzen</value>
+    <value>ล้างค่า</value>
   </data>
   <data name="Messages_UploadingMedia" xml:space="preserve">
-    <value>Medien laden hoch ...</value>
+    <value>กำลังอัปโหลดไฟล์สื่อ...</value>
   </data>
   <data name="ControlText_OriginalSize" xml:space="preserve">
-    <value>Originalgröße</value>
+    <value>ขนาดดั้งเดิม</value>
   </data>
   <data name="ControlText_CategorySlug" xml:space="preserve">
-    <value>Kategorie-Titelform (optional)</value>
+    <value>slug ของหมวดหมู่ (url ที่ใช้) (ทางเลือก)</value>
   </data>
   <data name="Title_Preferences" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>ปรับแต่งตามชอบ</value>
   </data>
   <data name="ControlText_UploadChanges" xml:space="preserve">
-    <value>Änderungen hochladen</value>
+    <value>อัปโหลดการเปลี่ยนแปลง</value>
   </data>
   <data name="Messages_MissingReply" xml:space="preserve">
-    <value>Tragen Sie Ihre Antwort ein.</value>
+    <value>โปรดใส่การตอบกลับ</value>
   </data>
   <data name="Message_DownloadingStatistics" xml:space="preserve">
-    <value>Download der Statistik ...</value>
+    <value>กำลังดาวน์โหลดสถิติ...</value>
   </data>
   <data name="ControlText_PlayNotificationSound" xml:space="preserve">
-    <value>Hinweiston abspielen</value>
+    <value>เล่นเสียงการเตือน</value>
   </data>
   <data name="ControlText_PlaceImage" xml:space="preserve">
-    <value>Bild einfügen</value>
+    <value>วางรูปภาพ</value>
   </data>
   <data name="ControlText_PageContent" xml:space="preserve">
-    <value>Seiteninhalt</value>
+    <value>บทความของหน้า</value>
   </data>
   <data name="Options_StatisticType_Clicks" xml:space="preserve">
-    <value>Klicks</value>
+    <value>กด</value>
   </data>
   <data name="ControlText_Save" xml:space="preserve">
-    <value>speichern</value>
+    <value>บันทึก</value>
   </data>
   <data name="ControlText_StartNewBlog" xml:space="preserve">
-    <value>Starten Sie ein neues Blog auf WordPress.com</value>
+    <value>เิริ่มบล็อกใหม่ที่ WordPress.com</value>
   </data>
   <data name="ControlText_Referrers" xml:space="preserve">
-    <value>Referrer</value>
+    <value>อ้างอิง</value>
   </data>
   <data name="ControlText_PostTitle" xml:space="preserve">
-    <value>Artikeltitel</value>
+    <value>หัวข้อเรื่อง</value>
   </data>
   <data name="ControlText_Date" xml:space="preserve">
-    <value>Datum</value>
+    <value>วันที่</value>
   </data>
   <data name="ControlText_CategoryName" xml:space="preserve">
-    <value>Kategorie-Name</value>
+    <value>ชื่อหมวดหมู่</value>
   </data>
   <data name="ControlText_CategoryParent" xml:space="preserve">
-    <value>Elternkategorie (optional)</value>
+    <value>หมวดหมู่หลัก (ทางเลือก)</value>
   </data>
   <data name="ControlText_Refresh" xml:space="preserve">
-    <value>aktualisieren</value>
+    <value>โหลดใหม่</value>
   </data>
   <data name="Prompts_MissingUserName" xml:space="preserve">
-    <value>Bitte geben Sie einen Benutzernamen ein</value>
+    <value>กรุณาใส่ชื่อผู้ใช้</value>
   </data>
   <data name="Prompts_MissingUrl" xml:space="preserve">
-    <value>Bitte geben Sie eine gültige URL ein.</value>
+    <value>กรุณาใส่ url ที่ถูกต้อง</value>
   </data>
   <data name="ControlText_Password" xml:space="preserve">
-    <value>Passwort</value>
+    <value>รหัสผ่าน</value>
   </data>
   <data name="ControlText_ModerateComments" xml:space="preserve">
-    <value>Kommentare moderieren</value>
+    <value>จัดการความเห็น</value>
   </data>
   <data name="ControlText_NeedBlog" xml:space="preserve">
-    <value>Haben Sie noch keinen Blog?</value>
+    <value>ยังไม่มีบล็อกหรือ?</value>
   </data>
   <data name="Prompts_RefreshEntity" xml:space="preserve">
-    <value>Was möchten Sie aktualisieren?</value>
+    <value>อะไรที่คุณอยากจะโหลดใหม่</value>
   </data>
   <data name="ControlText_PostSignature" xml:space="preserve">
-    <value>Artikel-Signatur</value>
+    <value>ลายเซ็นเรื่อง</value>
   </data>
   <data name="ControlText_Write" xml:space="preserve">
-    <value>Artikel erstellen</value>
+    <value>เพิ่มเรื่อง</value>
   </data>
   <data name="ControlText_SelectedCategories" xml:space="preserve">
-    <value>ausgewählte Kategorien</value>
+    <value>เลือกหมวดหมู่แล้ว</value>
   </data>
   <data name="ControlText_CategoryDescription" xml:space="preserve">
-    <value>Kategorie-Beschreibung (optional)</value>
+    <value>คำอธิบายหมวดหมู่ (ทางเลือก)</value>
   </data>
   <data name="Title_Posts" xml:space="preserve">
-    <value>Artikel</value>
+    <value>เรื่อง</value>
   </data>
   <data name="Options_StatisticType_PostViews" xml:space="preserve">
-    <value>Artikelaufrufe</value>
+    <value>จำนวนคนเข้าดูเรื่อง</value>
   </data>
   <data name="Options_StatisticType_Referrers" xml:space="preserve">
-    <value>Referrer</value>
+    <value>อ้างอิง</value>
   </data>
   <data name="Options_StatisticType_SearchTerms" xml:space="preserve">
-    <value>Suchbegriffe</value>
+    <value>เงื่อนไขการค้นหา</value>
   </data>
   <data name="ControlText_Location" xml:space="preserve">
-    <value>Standort</value>
+    <value>ที่อยู่</value>
   </data>
   <data name="ControlText_CommentNotifications" xml:space="preserve">
-    <value>Kommentar-Benachrichtigungen</value>
+    <value>คำเตือนความเห็น</value>
   </data>
   <data name="ControlText_Edit" xml:space="preserve">
-    <value>bearbeiten</value>
+    <value>แก้ไข</value>
   </data>
   <data name="ControlText_GeoTagPosts" xml:space="preserve">
-    <value>Artikel mit Geotags</value>
+    <value>ป้ายบอกที่อยู่เรื่อง</value>
   </data>
   <data name="ControlText_Media" xml:space="preserve">
-    <value>Medien</value>
+    <value>ไฟล์สื่อ</value>
   </data>
   <data name="ControlText_SelectCategories" xml:space="preserve">
-    <value>Kategorien auswählen</value>
+    <value>เลือกหมวดหมู่</value>
   </data>
   <data name="Messages_LoggingIn" xml:space="preserve">
-    <value>Einloggen ...</value>
+    <value>กำลังเข้าสู่ระบบ...</value>
   </data>
   <data name="Messages_ApprovingComments" xml:space="preserve">
-    <value>Kommentare genehmigen ...</value>
+    <value>กำลังจัดการความเห็น...</value>
   </data>
   <data name="Messages_DeletingComment" xml:space="preserve">
-    <value>Kommentar löschen ...</value>
+    <value>กำลังลบความเห็น...</value>
   </data>
   <data name="Messages_DeletingComments" xml:space="preserve">
-    <value>Kommentare löschen ...</value>
+    <value>กำลังลบความเห็น...</value>
   </data>
   <data name="Prompts_MissingPassword" xml:space="preserve">
-    <value>Bitte geben Sie ein Passwort ein.</value>
+    <value>กรุณาใส่รหัสผ่าน</value>
   </data>
   <data name="Options_RefreshEntity_Posts" xml:space="preserve">
-    <value>Artikel</value>
+    <value>เรื่อง</value>
   </data>
   <data name="Options_RefreshEntity_Everything" xml:space="preserve">
-    <value>alles</value>
+    <value>ทุกสิ่ง</value>
   </data>
   <data name="Options_RefreshEntity_Pages" xml:space="preserve">
-    <value>Seiten</value>
+    <value>หน้า</value>
   </data>
   <data name="Messages_ReplyingToComment" xml:space="preserve">
-    <value>Kommentar beantworten ...</value>
+    <value>กำลังตอบกลับความเห็น...</value>
   </data>
   <data name="Messages_RetrievingComments" xml:space="preserve">
-    <value>Kommentare abrufen ...</value>
+    <value>กำลังดึงข้อมูลความเห็น</value>
   </data>
   <data name="Messages_RetrievingEverything" xml:space="preserve">
-    <value>Alles abrufen ...</value>
+    <value>กำลังดึงข้อมูลทุกอย่าง</value>
   </data>
   <data name="Messages_UploadingChanges" xml:space="preserve">
-    <value>Änderungen hochladen ...</value>
+    <value>กำลังอัปโหลดความเปลี่ยนแปลง...</value>
   </data>
   <data name="Messages_UnapprovingComments" xml:space="preserve">
-    <value>Kommentare zurückweisen ...</value>
+    <value>กำลังเลิกอนุมัติความเห็น...</value>
   </data>
   <data name="Messages_UnapprovingComment" xml:space="preserve">
-    <value>Kommentar zurückweisen ...</value>
+    <value>กำลังเลิกอนุมัติความเห็น...</value>
   </data>
   <data name="Messages_RetrievingPosts" xml:space="preserve">
-    <value>Lade Artikel ...</value>
+    <value>กำลังดึงข้อมูลเรื่อง...</value>
   </data>
   <data name="Messages_RetrievingPost" xml:space="preserve">
-    <value>Lade Artikel ...</value>
+    <value>กำลังดึงข้อมูลเรื่อง...</value>
   </data>
   <data name="Options_RefreshEntity_Comments" xml:space="preserve">
-    <value>Kommentare</value>
+    <value>ความเห็น</value>
   </data>
   <data name="Options_PostActions_ViewPost" xml:space="preserve">
-    <value>Artikel anzeigen</value>
+    <value>ดูเรื่อง</value>
   </data>
   <data name="Options_PostActions_ViewComments" xml:space="preserve">
-    <value>Kommentare ansehen</value>
+    <value>ดูความเห็น</value>
   </data>
   <data name="Options_PostActions_EditPost" xml:space="preserve">
-    <value>Artikel bearbeiten</value>
+    <value>แก้ไขเรื่อง</value>
   </data>
   <data name="Options_PostActions_DeletePost" xml:space="preserve">
-    <value> Artikel löschen</value>
+    <value>ลบเรื่อง</value>
   </data>
   <data name="Options_PageActions_ViewPage" xml:space="preserve">
-    <value>Seite anzeigen</value>
+    <value>ดูหน้า</value>
   </data>
   <data name="Options_PageActions_ViewComments" xml:space="preserve">
-    <value>Kommentare ansehen</value>
+    <value>ดูความเห็น</value>
   </data>
   <data name="Options_PageActions_EditPage" xml:space="preserve">
-    <value>Seite bearbeiten</value>
+    <value>แก้ไขหน้า</value>
   </data>
   <data name="Options_PageActions_DeletePage" xml:space="preserve">
-    <value>Seite löschen</value>
+    <value>ลบหน้า</value>
   </data>
   <data name="Title_EditPost" xml:space="preserve">
-    <value>Artikel bearbeiten</value>
+    <value>แก้ไขเรื่อง</value>
   </data>
   <data name="Title_EditPage" xml:space="preserve">
-    <value>Seite bearbeiten</value>
+    <value>แก้ไขหน้า</value>
   </data>
   <data name="Title_Comments" xml:space="preserve">
-    <value>Kommentare</value>
+    <value>ความเห็น</value>
   </data>
   <data name="Title_Blogs" xml:space="preserve">
-    <value>Blogs</value>
+    <value>บล็อก</value>
   </data>
   <data name="Title_All" xml:space="preserve">
-    <value>ALLE</value>
+    <value>ทั้งหมด</value>
   </data>
   <data name="Title_AddAccount" xml:space="preserve">
-    <value>Konto hinzufügen</value>
+    <value>เพิ่มบัญชี</value>
   </data>
   <data name="Title_Actions" xml:space="preserve">
-    <value>Aktionen</value>
+    <value>การกระทำ</value>
   </data>
   <data name="Prompt_PostActions" xml:space="preserve">
-    <value>Aktionen für Artikel</value>
+    <value>ดำเนินการเรื่อง</value>
   </data>
   <data name="Prompt_PageActions" xml:space="preserve">
-    <value>Aktionen für Seiten</value>
+    <value>ดำเนินการหน้า</value>
   </data>
   <data name="Title_SelectCategories" xml:space="preserve">
-    <value>Kategorien auswählen</value>
+    <value>เลือกหมวดหมู่</value>
   </data>
   <data name="Messages_DeletingPost" xml:space="preserve">
-    <value>Artikel löschen ...</value>
+    <value>กำลัีงลบเรื่อง...</value>
   </data>
   <data name="Title_Stats" xml:space="preserve">
-    <value>Statistiken</value>
+    <value>สถิติ</value>
   </data>
   <data name="Title_Spam" xml:space="preserve">
-    <value>SPAM</value>
+    <value>สแปม</value>
   </data>
   <data name="Messages_DeletingPage" xml:space="preserve">
-    <value>Seite löschen ...</value>
+    <value>กำลังลบหน้า...</value>
   </data>
   <data name="Title_Settings" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>การตั้งค่า</value>
   </data>
   <data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
-    <value>Letztes Quartal</value>
+    <value>สามเดือนที่ผ่านมา</value>
   </data>
   <data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
-    <value>Letzter Monat</value>
+    <value>เดือนที่ผ่านมา</value>
   </data>
   <data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
-    <value>Insgesamt</value>
+    <value>เวลาทั้งหมด</value>
   </data>
   <data name="Messages_Loading" xml:space="preserve">
-    <value>Laden ...</value>
+    <value>กำลังโหลด...</value>
   </data>
   <data name="Messages_AcquiringPermalink" xml:space="preserve">
-    <value>Erstelle Permanentlink ...</value>
+    <value>กำลังรับลิงก์ถาวร...</value>
   </data>
   <data name="Messages_RetrievingPage" xml:space="preserve">
-    <value>Lade Seite ...</value>
+    <value>กำลังดึงข้อมูลหน้า...</value>
   </data>
   <data name="Messages_CreatingNewCategory" xml:space="preserve">
-    <value>Lege neue Kategorie an ...</value>
+    <value>กำลังสร้างหมวดหมู่ใหม่...</value>
   </data>
   <data name="Prompts_MissingCategoryName" xml:space="preserve">
-    <value>Bitte geben Sie einen Namen für die Kategorie an.</value>
+    <value>โปรดใส่ชื่อหมวดหมู่</value>
   </data>
   <data name="Prompts_SelectCategory" xml:space="preserve">
-    <value>Bitte wählen Sie eine Kategorie aus.</value>
+    <value>โปรดเลือกหมวดหมู่</value>
   </data>
   <data name="Title_AddNewCategory" xml:space="preserve">
-    <value>Neue Kategorie</value>
+    <value>หมวดหมู่ใหม่</value>
   </data>
   <data name="Messages_RetrievingCategories" xml:space="preserve">
-    <value>Lade Kategorien ...</value>
+    <value>กำลังดึงข้อมูลหมวดหมู่...</value>
   </data>
   <data name="Messages_RetrievingPages" xml:space="preserve">
-    <value>Lade Seiten ...</value>
+    <value>กำลังดึงข้อมูลหน้า...</value>
   </data>
   <data name="ControlText_Reply" xml:space="preserve">
-    <value>Antwort</value>
+    <value>ตอบกลับ</value>
   </data>
   <data name="ControlText_Italic" xml:space="preserve">
-    <value>I</value>
+    <value>ตัวเอียง</value>
   </data>
   <data name="ControlText_Link" xml:space="preserve">
-    <value>Link</value>
+    <value>ลิงก์</value>
   </data>
   <data name="ControlText_GetBlog" xml:space="preserve">
-    <value>Holen Sie sich ein kostenloses Blog bei WordPress.com</value>
+    <value>ได้บล็อกฟรีที่ WordPress.com</value>
   </data>
   <data name="ControlText_BlogSettings" xml:space="preserve">
-    <value>Blog-Einstellungen</value>
+    <value>การตั้งค่าบล็อก</value>
   </data>
   <data name="ControlText_BlogUrl" xml:space="preserve">
-    <value>Blog-URL</value>
+    <value>url blog</value>
   </data>
   <data name="ControlText_Bold" xml:space="preserve">
     <value>B</value>
   </data>
   <data name="ControlText_Cancel" xml:space="preserve">
-    <value>Abbrechen</value>
+    <value>ยกเลิก</value>
   </data>
   <data name="ControlText_Delete" xml:space="preserve">
-    <value>löschen</value>
+    <value>ลบ</value>
   </data>
   <data name="ControlText_BlinkNotificationLight" xml:space="preserve">
-    <value>Hinweis-Blinklicht</value>
+    <value>แสงเตือนกระพริบ</value>
   </data>
   <data name="ControlText_BlockQuote" xml:space="preserve">
-    <value>b-quote</value>
+    <value>อ้างถึงข้อความ</value>
   </data>
   <data name="ControlText_BelowText" xml:space="preserve">
-    <value>unter dem Text</value>
+    <value>ข้อความด้านล่าง</value>
   </data>
   <data name="ControlText_Approve" xml:space="preserve">
-    <value>genehmigen</value>
+    <value>อนุมัติ</value>
   </data>
   <data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
-    <value>Vorschau zentrieren</value>
+    <value>จัดรูปย่อให้อยู่ตรงกลาง</value>
   </data>
   <data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-    <value>Slogan für neue Beiträge hinzufügen</value>
+    <value>เพิ่มบรรทัดป้ายกำกับไปยังเรื่องใหม่</value>
   </data>
   <data name="ControlText_AddMedia" xml:space="preserve">
-    <value>hinzufügen</value>
+    <value>เพิ่มสื่อ</value>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>WordPress</value>
+    <value>เวิร์ดเพรส</value>
   </data>
   <data name="ControlText_AboveText" xml:space="preserve">
-    <value>über dem Text</value>
+    <value>ข้อความด้านบน</value>
   </data>
   <data name="ControlText_AccountDetails" xml:space="preserve">
-    <value>Kontodaten</value>
+    <value>รายละเอียดบัญชี</value>
   </data>
   <data name="ControlText_Add" xml:space="preserve">
-    <value>Erstellen</value>
+    <value>เพิ่มใหม่</value>
   </data>
   <data name="ControlText_AddAPage" xml:space="preserve">
-    <value>Seite hinzufügen</value>
+    <value>เพิ่มหน้า</value>
   </data>
   <data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-    <value>Auf WordPress.com gehosteten Blog hinzufügen</value>
+    <value>เพิ่มบล็อกที่โฮสท์อยู่ที่ WordPress.com</value>
   </data>
   <data name="ControlText_AddExistingSite" xml:space="preserve">
-    <value>Selbst gehosteten WordPress-Blog hinzufügen</value>
+    <value>เพิ่มบล็อกเวิร์ดเพรสที่ใช้โฮสท์ของตัวเอง</value>
   </data>
   <data name="ControlText_AddBlog" xml:space="preserve">
-    <value>Blog hinzufügen </value>
+    <value>เพิ่มบล็อก</value>
   </data>
 </root>
