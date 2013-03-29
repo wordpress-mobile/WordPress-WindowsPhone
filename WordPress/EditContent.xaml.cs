@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using WordPress.Localization;
+using WordPress.Utils;
 
 namespace WordPress
 {
@@ -89,7 +90,9 @@ namespace WordPress
             _discardChangesMenuItem = new ApplicationBarMenuItem(_localizedStrings.ControlsText.DiscardChangesMenuItem);
             _discardChangesMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_discardChangesMenuItem);
-   
+
+            ApplicationBar.StateChanged += ApplicationBar_StateChanged;
+
             browser.Loaded += WebBrowser_OnLoaded;
         }
 
@@ -289,7 +292,7 @@ namespace WordPress
             else if (sender == _quoteIconButton)
             {
                 string command = _quoteIconButton.Text.StartsWith("/") ? "outdent" : "indent";
-                _quoteIconButton.Text = _quoteIconButton.Text.StartsWith("/") ? _quoteIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _quoteIconButton.Text;
+           //     _quoteIconButton.Text = _quoteIconButton.Text.StartsWith("/") ? _quoteIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _quoteIconButton.Text;
                 parameters = new object[] { command };
             }
             else if (sender == _moreMenuItem)
@@ -372,6 +375,35 @@ namespace WordPress
         private void browser_ScriptNotify_1(object sender, NotifyEventArgs e)
         {
             this._hasChanges = true;
+
+            //update the menus and buttons labels
+            if (e.Value != null)
+            {
+                System.Diagnostics.Debug.WriteLine("browser_ScriptNotify_1  " + e.Value);
+
+                UIThread.Invoke(() =>
+               {
+                    _boldIconButton.Text = e.Value.Contains("bold") ? "/" + _localizedStrings.ControlsText.BoldAppBarItem : _localizedStrings.ControlsText.BoldAppBarItem;
+                    _italicIconButton.Text = e.Value.Contains("italic") ? "/" + _localizedStrings.ControlsText.ItalicAppBarItem : _localizedStrings.ControlsText.ItalicAppBarItem;
+                    _quoteIconButton.Text = e.Value.Contains("indent") ? "/" + _localizedStrings.ControlsText.BlockQuoteAppBarItem : _localizedStrings.ControlsText.BlockQuoteAppBarItem;
+                    _ulMenuItem.Text = e.Value.Contains("insertunorderedlist") ? "/" + _localizedStrings.ControlsText.UnorderedListMenuItem : _localizedStrings.ControlsText.UnorderedListMenuItem;
+                    _olMenuItem.Text = e.Value.Contains("insertorderedlist") ? "/" + _localizedStrings.ControlsText.OrderedListMenuItem : _localizedStrings.ControlsText.OrderedListMenuItem;
+                    _underlineMenuItem.Text = e.Value.Contains("underline") ? "/" + _localizedStrings.ControlsText.UnderlineMenuItem : _localizedStrings.ControlsText.UnderlineMenuItem;
+                    _strikethroughMenuItem.Text = e.Value.Contains("strikethrough") ? "/" + _localizedStrings.ControlsText.StrikeThroughMenuItem : _localizedStrings.ControlsText.StrikeThroughMenuItem;
+               });
+            }
+        }
+
+        void ApplicationBar_StateChanged(object sender, ApplicationBarStateChangedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("ApplicationBar_StateChanged");
+            try
+            {
+                browser.InvokeScript("updateButtonAndMenusLabels");
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void Border_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)

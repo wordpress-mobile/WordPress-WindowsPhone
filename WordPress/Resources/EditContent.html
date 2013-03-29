@@ -98,7 +98,6 @@ var cutil = new ClassUtil();
 /* Called from the native code when the user hit a menu item/button */
 
       function formatBtnClick(type, value) {
-      
           if (type == 'createlink') {
               var sText = document.selection.createRange();
               var tt =  sText.text;
@@ -115,6 +114,8 @@ var cutil = new ClassUtil();
           } else {
               document.execCommand(type, false, null);
           }
+          
+          updateButtonAndMenusLabels();
       }
 
 
@@ -194,6 +195,42 @@ var cutil = new ClassUtil();
    return zz;
 }
 
+    function updateButtonAndMenusLabels(){
+         var activeCommand = new Array();
+          
+        if( document.queryCommandState('insertunorderedlist'))
+            activeCommand.push('insertunorderedlist');
+
+        if( document.queryCommandState('insertorderedlist'))
+            activeCommand.push('insertorderedlist');
+             
+        if( document.queryCommandState('bold'))
+            activeCommand.push('bold');
+             
+        if( document.queryCommandState('italic'))
+            activeCommand.push('italic');
+             
+        if( document.queryCommandState('underline'))
+            activeCommand.push('underline');
+             
+        if( document.queryCommandState('strikethrough'))
+            activeCommand.push('strikethrough');
+
+        if( document.queryCommandState('indent'))
+            activeCommand.push('indent');
+
+        window.external.notify(activeCommand.toString());
+      }
+
+      function checkEnterKey(e) {     
+           var event = e || window.event;
+           var keyCode = ('which' in event) ? event.which : event.keyCode;
+           if (keyCode == 13) 
+           {    
+               updateButtonAndMenusLabels();
+          }
+      }
+
 /*
 onkeypress="return replace_P_tag_with_BR(event);" 
 
@@ -226,6 +263,6 @@ onkeypress="return replace_P_tag_with_BR(event);"
     </script>
   </head>
   <body>
-  <div style="background-color:LightGray; height:100%; padding: 5px;" onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
+  <div style="background-color:LightGray; height:100%; padding: 5px;" onkeypress="checkEnterKey(event);" onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
   </body>
 </html>

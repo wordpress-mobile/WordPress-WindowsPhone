@@ -751,9 +751,8 @@ namespace WordPress.Utils
             }
 
             public void toast_Tapped(object sender, System.Windows.Input.GestureEventArgs e)
-            {
-                System.Diagnostics.Debug.WriteLine("toast_Tap");
-                System.Diagnostics.Debug.WriteLine("toast_Tap -> " + this._blogID + " "+ this._commentID);
+            {;
+                System.Diagnostics.Debug.WriteLine("toast_Tapped -> " + this._blogID + " " + this._commentID);
                 PushNotificationsHelper.Instance.showCommentScreenFromNotification(this._blogID, this._commentID);
             }
         }
