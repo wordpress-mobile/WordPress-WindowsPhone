@@ -216,6 +216,9 @@ var cutil = new ClassUtil();
         if( document.queryCommandState('strikethrough'))
             activeCommand.push('strikethrough');
 
+        if( document.queryCommandState('outdent'))
+            activeCommand.push('outdent');
+            
         if( document.queryCommandState('indent'))
             activeCommand.push('indent');
 

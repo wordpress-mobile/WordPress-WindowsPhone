@@ -32,6 +32,7 @@ namespace WordPress
         private ApplicationBarMenuItem _discardChangesMenuItem;
 
         private bool _hasChanges = false;
+        private string _lastMenuConfiguration = string.Empty;
 
         private const string CONTENTKEY_VALUE = "content_key";
         private const string MORE_TAG_REPLACEMENT = "<div id=09-07-1979-what-a-great-date class=\"more\"></div>";
@@ -292,7 +293,7 @@ namespace WordPress
             else if (sender == _quoteIconButton)
             {
                 string command = _quoteIconButton.Text.StartsWith("/") ? "outdent" : "indent";
-           //     _quoteIconButton.Text = _quoteIconButton.Text.StartsWith("/") ? _quoteIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _quoteIconButton.Text;
+                _quoteIconButton.Text = _quoteIconButton.Text.StartsWith("/") ? _quoteIconButton.Text.TrimStart(new char[] { '/' }) : "/" + _quoteIconButton.Text;
                 parameters = new object[] { command };
             }
             else if (sender == _moreMenuItem)
@@ -377,10 +378,10 @@ namespace WordPress
             this._hasChanges = true;
 
             //update the menus and buttons labels
-            if (e.Value != null)
+            if (e.Value != null && e.Value != "editorGotFocus" && e.Value != _lastMenuConfiguration)
             {
-                System.Diagnostics.Debug.WriteLine("browser_ScriptNotify_1  " + e.Value);
-
+                System.Diagnostics.Debug.WriteLine("browser_ScriptNotify_1  ->" + e.Value);
+                _lastMenuConfiguration = e.Value;
                 UIThread.Invoke(() =>
                {
                     _boldIconButton.Text = e.Value.Contains("bold") ? "/" + _localizedStrings.ControlsText.BoldAppBarItem : _localizedStrings.ControlsText.BoldAppBarItem;
