@@ -364,16 +364,16 @@ namespace WordPress.Utils
             rpc.Completed -= OnLoadLastNotificationCompleted;
             if (null == args.Error && args.Items.Count > 0)
             {
-                IntResponseObject respObj = args.Items.First();
+                IntResponseObject blogIDRespObj = args.Items.First();
                 IntResponseObject commentIDObj = args.Items.Last();
  
-                if (respObj.Value == 0 || respObj.Value == -1)
+                if (blogIDRespObj.Value == 0)
                     return;
 
-                if (commentIDObj == null || commentIDObj.Value == 0 || commentIDObj.Value == -1)
+                if (commentIDObj == null || commentIDObj.Value == 0)
                     return;
 
-                string blogID = string.Format("{0}", respObj.Value);
+                string blogID = string.Format("{0}", blogIDRespObj.Value);
                 string commentID = string.Format("{0}", commentIDObj.Value);
                 showToastForNewComment(blogID, commentID);
                 return;

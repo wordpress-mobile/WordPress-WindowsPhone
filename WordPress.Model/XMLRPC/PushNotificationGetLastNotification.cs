@@ -48,9 +48,9 @@ namespace WordPress.Model
             string[] values = valueNotSplitted.Split('-');
             if (values.Count() > 1)
             {
-                int blogID = -1;
+                int blogID = 0;
                 int.TryParse(values[0], out blogID);
-                int commentID = -1;
+                int commentID = 0;
                 int.TryParse(values[1], out commentID);
                 result.Add(new IntResponseObject(blogID));
                 result.Add(new IntResponseObject(commentID));
