@@ -194,21 +194,38 @@ var cutil = new ClassUtil();
    return zz;
 }
 
+/*
+onkeypress="return replace_P_tag_with_BR(event);" 
+
      function replace_P_tag_with_BR(e)
       {
        var event = e || window.event;
        var keyCode = ('which' in event) ? event.which : event.keyCode;
        if (keyCode == 13) 
        {
-        document.selection.createRange().pasteHTML("<br>");
-        e.cancelBubble = true;        
-        return false;
-        }
+       
+          if( document.queryCommandState('insertunorderedlist') || document.queryCommandState('insertorderedlist') ) {
+            return true;
+          }
+          
+          document.selection.createRange().pasteHTML("<br>&nbsp;");
+          //We added the char &nbsp; at the end and removed it immeditely otherwise with '<br>' only the cursor was not moved at the correct position
+          var myRange = document.selection.createRange ();
+          myRange.moveStart ("character", -1);   
+          myRange.select ();
+          myRange.pasteHTML("");
+          //myRange.execCommand ('cut');
+          e.cancelBubble = true;        
+          return false;
+        
+        }//keycode==13
+
       }
+      */
 // ]]>
     </script>
   </head>
   <body>
-  <div style="background-color:LightGray; height:100%; padding: 5px;" onkeypress="return replace_P_tag_with_BR(event);"  onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
+  <div style="background-color:LightGray; height:100%; padding: 5px;" onfocus="editorGotFocus();" onblur="editorLostFocus();" id="example-one" contenteditable="true">{0}</div>
   </body>
 </html>
