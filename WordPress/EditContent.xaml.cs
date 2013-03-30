@@ -44,6 +44,7 @@ namespace WordPress
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
             ApplicationBar = new ApplicationBar();
+            ApplicationBar.IsVisible = false;
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
@@ -92,8 +93,6 @@ namespace WordPress
             _discardChangesMenuItem.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.MenuItems.Add(_discardChangesMenuItem);
 
-            ApplicationBar.StateChanged += ApplicationBar_StateChanged;
-
             browser.Loaded += WebBrowser_OnLoaded;
         }
 
@@ -109,22 +108,6 @@ namespace WordPress
             }
             base.OnNavigatedFrom(e);
         }
-
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            //look for transient data stored in the State dictionary
-            /* if (State.ContainsKey(CONTENTKEY_VALUE))
-            {
-                if (!Utils.Tools.IsWindowsPhone8orHigher)
-                    browser.NavigateToString(ConvertExtendedAscii(State[CONTENTKEY_VALUE] as string));
-                else
-                    browser.NavigateToString(State[CONTENTKEY_VALUE] as string);
-            }
-             * */
-        }
-
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
@@ -144,6 +127,7 @@ namespace WordPress
                 if (content != null)
                 {
                     App.MasterViewModel.CurrentPost.Description = content;
+                    _hasChanges = false;
                     base.OnBackKeyPress(e);
                 }
                 else
@@ -201,6 +185,8 @@ namespace WordPress
 
         private void WebBrowser_OnLoaded(object sender, RoutedEventArgs e)
         {
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
+         
             string htmlConcat = this.ReadFile("Resources/EditContent.html");
             if (htmlConcat == null)
             {
@@ -209,11 +195,13 @@ namespace WordPress
             else
             {
 
+                ApplicationBar.IsVisible = false;
+                App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.Loading);
+
                 string postContent = App.MasterViewModel.CurrentPost.Description.Replace("<!--more-->", MORE_TAG_REPLACEMENT);
                 postContent = postContent.Replace("\r\n", "\n").Replace("\r", "\n");  // cross-platform newlines
                 postContent = postContent.Replace("\n", "<br/>");
               
-
                 if(!Utils.Tools.IsWindowsPhone8orHigher)
                     postContent = ConvertExtendedAscii(postContent);
                 
@@ -238,6 +226,10 @@ namespace WordPress
             catch (Exception err)
             {
             }
+
+            App.WaitIndicationService.HideIndicator();
+            ApplicationBar.StateChanged += ApplicationBar_StateChanged;
+            ApplicationBar.IsVisible = true;
         }
 
         private void OnButtonOrMenuitemClicked(object sender, EventArgs e)
@@ -248,7 +240,10 @@ namespace WordPress
                 NavigationService.GoBack();
                 return;
             }
-            else if (sender == _addLinkIconButton)
+
+            this._hasChanges = true;
+
+            if (sender == _addLinkIconButton)
             {
                 try
                 {
@@ -280,7 +275,7 @@ namespace WordPress
                 return;
             }
 
-            _hasChanges = true;
+          
             object[] parameters = new object[] { };
             if (sender == _boldIconButton)
             {
