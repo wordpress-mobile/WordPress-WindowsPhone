@@ -89,8 +89,13 @@ var cutil = new ClassUtil();
 
      function adjustImageWidth(){
          var images = document.images;
-         for (var i=0; i<images.length; i++){   
-            cutil.setClass(images[i],"visual_text_editor_max_image_width");
+         for (var i=0; i<images.length; i++){
+            if(images[i].width){
+              if(images[i].width > 300)
+                cutil.setClass(images[i],"visual_text_editor_max_image_width");
+            } else {
+              cutil.setClass(images[i],"visual_text_editor_max_image_width");
+            }
          }
       }
 
@@ -133,6 +138,7 @@ var cutil = new ClassUtil();
          for (var i=0; i<images.length; i++){   
             cutil.removeClass(images[i],"visual_text_editor_max_image_width");
          }   
+         
          return ieInnerHTML( document.getElementById("example-one"), false );
       }
 
@@ -195,9 +201,14 @@ var cutil = new ClassUtil();
    return zz;
 }
 
+
+/* This function notifies the native layer that a command was executed in contentEditable. It is called when the user hits enter, 
+and when the user chooses a command in the native layer */
+
     function updateButtonAndMenusLabels(){
          var activeCommand = new Array();
-          
+         activeCommand.push('updatebuttons');
+           
         if( document.queryCommandState('insertunorderedlist'))
             activeCommand.push('insertunorderedlist');
 
@@ -262,7 +273,7 @@ onkeypress="return replace_P_tag_with_BR(event);"
 
       }
       */
-// ]]>
+      // ]]>
     </script>
   </head>
   <body>
