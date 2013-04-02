@@ -25,7 +25,8 @@ RELEASE INSTRUCTIONS
 - Open each file with Notepad++ (no Word, WordPad or derivates) and add the 'resheader' tag just below '<root>' (it's a big blog of text).
 - Open each file in VS and remove empty strings.
 - Verify that there're not instances of :
-<value></value> of <value />
+<value></value> with the following RegExp: <value>\s{0,}</value> 
+<value /> with the following RegExp: <value\s{0,}/> 
 See #188
 - Update the release number in AssemblyInfo.cs
 - Update the User Agent String in Constants.cs

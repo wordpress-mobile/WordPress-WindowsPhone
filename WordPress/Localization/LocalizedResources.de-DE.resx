@@ -265,7 +265,7 @@
     <value>Bearbeite Kommentar ...</value>
   </data>
   <data name="Messages_TitleAndContentEmpty" xml:space="preserve">
-    <value>Bedaure, konnte {0] nicht speichern. Titel und Inhalt sind beide leer.</value>
+    <value>Bedaure, konnte {0} nicht speichern. Titel und Inhalt sind beide leer.</value>
   </data>
   <data name="ControlText_FilterAll" xml:space="preserve">
     <value>Alle anzeigen</value>
