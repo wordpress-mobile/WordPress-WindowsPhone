@@ -48,22 +48,22 @@ namespace WordPress
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
             ApplicationBar.ForegroundColor = (Color)App.Current.Resources["WordPressGrey"];
 
-            _addLinkIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.add.png", UriKind.Relative));
+            _addLinkIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.link.png", UriKind.Relative));
             _addLinkIconButton.Text = _localizedStrings.ControlsText.Link;
             _addLinkIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_addLinkIconButton);
 
-            _boldIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
+            _boldIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.bold.png", UriKind.Relative));
             _boldIconButton.Text = _localizedStrings.ControlsText.BoldAppBarItem;
             _boldIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_boldIconButton);
 
-            _italicIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
+            _italicIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.italic.png", UriKind.Relative));
             _italicIconButton.Text = _localizedStrings.ControlsText.ItalicAppBarItem;
             _italicIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_italicIconButton);
 
-            _quoteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.settings.png", UriKind.Relative));
+            _quoteIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.blockquote.png", UriKind.Relative));
             _quoteIconButton.Text = _localizedStrings.ControlsText.BlockQuoteAppBarItem;
             _quoteIconButton.Click += OnButtonOrMenuitemClicked;
             ApplicationBar.Buttons.Add(_quoteIconButton);

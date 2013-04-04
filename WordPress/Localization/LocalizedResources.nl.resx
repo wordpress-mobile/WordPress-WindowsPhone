@@ -1,187 +1,168 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
+	<!-- 
+		Microsoft ResX Schema
 
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-	<data name="Prompt_SelectSomeText" xml:space="preserve">
-		<value>Selecciona algo de texto</value>
+		Version 1.3
+
+		The primary goals of this format is to allow a simple XML format 
+		that is mostly human readable. The generation and parsing of the 
+		various data types are done through the TypeConverter classes 
+		associated with the data types.
+
+		Example:
+
+		... ado.net/XML headers & schema ...
+		<resheader name="resmimetype">text/microsoft-resx</resheader>
+		<resheader name="version">1.3</resheader>
+		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+		<data name="Name1">this is my long string</data>
+		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+			[base64 mime encoded serialized .NET Framework object]
+		</data>
+		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+			[base64 mime encoded string representing a byte array form of the .NET Framework object]
+		</data>
+
+		There are any number of "resheader" rows that contain simple 
+		name/value pairs.
+
+		Each data row contains a name, and value. The row also contains a 
+		type or mimetype. Type corresponds to a .NET class that support 
+		text/value conversion through the TypeConverter architecture. 
+		Classes that don't support this are serialized and stored with the 
+		mimetype set.
+
+		The mimetype is used for serialized objects, and tells the 
+		ResXResourceReader how to depersist the object. This is currently not 
+		extensible. For a given mimetype the value must be set accordingly:
+
+		Note - application/x-microsoft.net.object.binary.base64 is the format 
+		that the ResXResourceWriter will generate, however the reader can 
+		read any of the formats listed below.
+
+		mimetype: application/x-microsoft.net.object.binary.base64
+		value   : The object must be serialized with 
+			: System.Serialization.Formatters.Binary.BinaryFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.soap.base64
+		value   : The object must be serialized with 
+			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+			: and then encoded with base64 encoding.
+
+		mimetype: application/x-microsoft.net.object.bytearray.base64
+		value   : The object must be serialized into a byte array 
+			: using a System.ComponentModel.TypeConverter
+			: and then encoded with base64 encoding.
+	-->
+	
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+		<data name="Prompt_SelectSomeText" xml:space="preserve">
+		<value>Selecteer een stuk tekst!</value>
 	</data>
 	<data name="ControlText_VisualContentEditor" xml:space="preserve">
-		<value>editor visual</value>
+		<value>Visuele editor</value>
 	</data>
 	<data name="Prompts_AllowToastPushNotification" xml:space="preserve">
-		<value>¿Quieres recibir notificaciones de WordPress?</value>
+		<value>Wil je push notificaties ontvangen van WordPress?</value>
 	</data>
 	<data name="ControlText_TextContentEditor" xml:space="preserve">
-		<value>editor de texto</value>
+		<value>Tekst editor</value>
 	</data>
 	<data name="Prompts_PinToStartPushNotification" xml:space="preserve">
-		<value>Para recibir notificaciones, ancla la aplicación a la pantalla de inicio.</value>
+		<value>Voor het ontvangen van push-notificaties, dien je de applicatie op het startscherm te zetten.</value>
 	</data>
 	<data name="ControlText_PublishStatus" xml:space="preserve">
-		<value>estado de publicación</value>
+		<value>publicatie status</value>
 	</data>
 	<data name="ControlText_AllowToastNotifications" xml:space="preserve">
-		<value>permitir notificaciones en pantalla</value>
+		<value>toast notificaties toestaan</value>
 	</data>
 	<data name="ControlText_PushNotifications" xml:space="preserve">
-		<value>notificaciones push</value>
+		<value>push notificaties</value>
 	</data>
 	<data name="Prompts_UsernameOrPasswordError" xml:space="preserve">
-		<value>Usuario o contraseña incorrectos.</value>
+		<value>Onjuist gebruikersnaam of wachtwoord.</value>
 	</data>
 	<data name="ControlText_Default" xml:space="preserve">
-		<value>por defecto</value>
+		<value>standaard</value>
 	</data>
 	<data name="ControlText_Type" xml:space="preserve">
-		<value>tipo</value>
+		<value>type</value>
 	</data>
 	<data name="ControlText_AttachmentPage" xml:space="preserve">
-		<value>página del adjunto</value>
+		<value>bijlage pagina</value>
 	</data>
 	<data name="ControlText_Circles" xml:space="preserve">
-		<value>círculos</value>
+		<value>cirkels</value>
 	</data>
 	<data name="ControlText_MediaFile" xml:space="preserve">
-		<value>archivo multimedia</value>
+		<value>media bestand</value>
 	</data>
 	<data name="ControlText_Slideshow" xml:space="preserve">
-		<value>presentación</value>
+		<value>slideshow</value>
 	</data>
 	<data name="ControlText_SquareTiles" xml:space="preserve">
-		<value>baldosas cuadradas</value>
+		<value>vierkante tegels</value>
 	</data>
 	<data name="ControlText_Tiles" xml:space="preserve">
-		<value>baldosas</value>
+		<value>tegels</value>
 	</data>
 	<data name="ControlText_ThumbnailGrid" xml:space="preserve">
-		<value>miniaturas</value>
+		<value>thumbnail grid (standaard)</value>
 	</data>
 	<data name="ControlText_PostFormat" xml:space="preserve">
-		<value>formato de entrada</value>
+		<value>post format</value>
 	</data>
 	<data name="ControlText_Code" xml:space="preserve">
-		<value>código</value>
+		<value>code</value>
 	</data>
 	<data name="ControlText_ListItem" xml:space="preserve">
 		<value>li</value>
 	</data>
 	<data name="ControlText_MoreTag" xml:space="preserve">
-		<value>more</value>
+		<value>meer</value>
 	</data>
 	<data name="ControlText_OrderedList" xml:space="preserve">
 		<value>ol</value>
@@ -190,768 +171,765 @@
 		<value>ul</value>
 	</data>
 	<data name="Options_Actions_DeleteDraft" xml:space="preserve">
-		<value>eliminar borrador</value>
+		<value>concept verwijderen</value>
 	</data>
 	<data name="Options_Actions_EditDraft" xml:space="preserve">
-		<value>editar borrador</value>
+		<value>concept bewerken</value>
 	</data>
 	<data name="ControlText_FeaturedImage" xml:space="preserve">
-		<value>imagen destacada</value>
+		<value>uitgelichte afbeelding</value>
 	</data>
 	<data name="ControlText_FeatureImage" xml:space="preserve">
-		<value>destacar</value>
+		<value>feature</value>
 	</data>
 	<data name="ControlText_UnfeatureImage" xml:space="preserve">
-		<value>no destacar</value>
+		<value>unfeature</value>
 	</data>
 	<data name="ControlText_FeaturedImageError" xml:space="preserve">
-		<value>no se pudo cargar la imagen</value>
+		<value>afbeelding kan niet worden geladen</value>
 	</data>
 	<data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
-		<value>Hubo un error leyendo la imagen. ¿Todavía quieres cargar la entrada?</value>
+		<value>Sorry, een fout is opgetreden bij het lezen van de foto. Wil je toch de post uploaden?</value>
 	</data>
 	<data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
-		<value>No se puede escribir la imagen en la memoria del dispositivo.</value>
+		<value>Kan de afbeelding niet op het geheugen van het apparaat schrijven.</value>
 	</data>
 	<data name="Prompts_MediaErrorPictureCorruptedOrUnreadlable" xml:space="preserve">
-		<value>La imagen está corrupta o no se puede leer.</value>
+		<value>De foto is beschadigd of kan niet worden gelezen.</value>
 	</data>
 	<data name="ControlText_Counts" xml:space="preserve">
-		<value>Vistas</value>
+		<value>Counts</value>
 	</data>
 	<data name="ControlText_Go" xml:space="preserve">
-		<value>Ir</value>
+		<value>Ga</value>
 	</data>
 	<data name="ControlText_Dashboard" xml:space="preserve">
-		<value>tablero</value>
+		<value>dashboard</value>
 	</data>
 	<data name="Prompts_JetpackNotAvailable" xml:space="preserve">
-		<value>Para ver las estadísticas necesitas Jetpack 1.9 o superior. ¿Quieres saber más?</value>
+		<value>Om statistieken te bekijken moet je Jetpack 1.9 of hoger te installeren. Wilt u meer weten?</value>
 	</data>
 	<data name="ControlText_GallerySettings" xml:space="preserve">
-		<value>ajustes de galeria</value>
+		<value>Galerij instellingen</value>
 	</data>
 	<data name="Title_GallerySettings" xml:space="preserve">
-		<value>ajustes de galeria</value>
+		<value>Galerij instellingen</value>
 	</data>
 	<data name="ControlText_UploadImagesAsGallery" xml:space="preserve">
-		<value>subir imágenes como galeria</value>
+		<value>upload afbeeldingen als galerij</value>
 	</data>
 	<data name="ControlText_Columns" xml:space="preserve">
-		<value>columnas</value>
+		<value>kolommen</value>
 	</data>
 	<data name="ControlText_LinkTo" xml:space="preserve">
-		<value>enlace a</value>
+		<value>link naar</value>
 	</data>
 	<data name="ControlText_RandomOrder" xml:space="preserve">
-		<value>orden aleatorio</value>
+		<value>random order</value>
 	</data>
 	<data name="ControlText_ViewSite" xml:space="preserve">
-		<value>ver sitio</value>
+		<value>site bekijken</value>
 	</data>
 	<data name="ControlText_Send" xml:space="preserve">
-		<value>enviar</value>
+		<value>verstuur</value>
 	</data>
 	<data name="ControlText_ReplyToComment" xml:space="preserve">
-		<value>responder al comentario</value>
+		<value>op deze reactie reageren</value>
 	</data>
 	<data name="ControlText_EditComment" xml:space="preserve">
-		<value>editar comentario</value>
+		<value>reactie bewerken</value>
 	</data>
 	<data name="Messages_NoBlogFoundAtThisURL" xml:space="preserve">
-		<value>No parece que tengas ningún blog en {0}.</value>
+		<value>Je lijkt geen sites te hebben op {0}.</value>
 	</data>
 	<data name="ControlText_PreserveBandwidth" xml:space="preserve">
-		<value>conservar ancho de banda</value>
+		<value>behoud bandbreedtegebruik</value>
 	</data>
 	<data name="Messages_EditingComment" xml:space="preserve">
-		<value>editando comentario...</value>
+		<value>reactie bewerken...</value>
 	</data>
 	<data name="Messages_TitleAndContentEmpty" xml:space="preserve">
-		<value>No se puede guardar esta {0}. El título y contenido están vacíos.</value>
+		<value>Sorry, kan {0} niet opslaan. Titel en inhoud zijn beide leeg.</value>
 	</data>
 	<data name="ControlText_FilterAll" xml:space="preserve">
-		<value>Mostrar todo</value>
+		<value>Toon alles</value>
 	</data>
 	<data name="ControlText_FilterApproved" xml:space="preserve">
-		<value>Mostrar aprobados</value>
+		<value>Toon goedgekeurd</value>
 	</data>
 	<data name="ControlText_FilterSpam" xml:space="preserve">
-		<value>Mostrar spam</value>
+		<value>Toon spam</value>
 	</data>
 	<data name="ControlText_FilterUnapproved" xml:space="preserve">
-		<value>Mostrar pendientes</value>
+		<value>Toon geweigerd</value>
 	</data>
 	<data name="ControlText_Moderate" xml:space="preserve">
-		<value>moderar</value>
+		<value>modereren</value>
 	</data>
 	<data name="ControlText_DeleteSelected" xml:space="preserve">
-		<value>borrar seleccionados</value>
+		<value>selectie verwijderen</value>
 	</data>
 	<data name="ControlText_Publish" xml:space="preserve">
-		<value>Publicar</value>
+		<value>Publiceren</value>
 	</data>
 	<data name="ControlText_StartBloggingInSeconds" xml:space="preserve">
-		<value>Crea blogs y sitios hermosos que puedes actualizar desde cualquier sitio.</value>
+		<value>Maak prachtige blogs en websites die onderweg kunnen worden bijgewerkt.</value>
 	</data>
 	<data name="ControlText_Tags" xml:space="preserve">
-		<value>etiquetas</value>
+		<value>tags</value>
 	</data>
 	<data name="Title_ModerateComment" xml:space="preserve">
-		<value>comentario</value>
+		<value>reactie</value>
 	</data>
 	<data name="Title_ModerateComments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>reacties</value>
 	</data>
 	<data name="ControlText_EULA" xml:space="preserve">
 		<value>GNU General Public License</value>
 	</data>
 	<data name="ControlText_CopyErrorMessage" xml:space="preserve">
-		<value>Copiar mensaje de error</value>
+		<value>Kopieer foutmelding</value>
 	</data>
 	<data name="Messages_ContentCopied" xml:space="preserve">
-		<value>Contenido copiado</value>
+		<value>Inhoud gekopieerd</value>
 	</data>
 	<data name="Messages_Info" xml:space="preserve">
 		<value>Info</value>
 	</data>
 	<data name="Messages_InvalidCredentials" xml:space="preserve">
-		<value>Credenciales de WordPress.com inválidas</value>
+		<value>Verkeerde WordPress.com gegevens</value>
 	</data>
 	<data name="Messages_MissingFields" xml:space="preserve">
-		<value>Rellena todos los campos</value>
+		<value>vul alle velden in</value>
 	</data>
 	<data name="ControlText_ViewStats" xml:space="preserve">
-		<value>ver estadísticas</value>
+		<value>bekijk statistieken</value>
 	</data>
 	<data name="ControlText_PostStatus" xml:space="preserve">
-		<value>Estado</value>
+		<value>Status</value>
 	</data>
 	<data name="ControlText_PublishDate" xml:space="preserve">
-		<value>fecha de publicación</value>
+		<value>publicatie datum</value>
 	</data>
 	<data name="ControlText_Draft" xml:space="preserve">
-		<value>Borrador</value>
+		<value>Concept</value>
 	</data>
 	<data name="ControlText_PendingReview" xml:space="preserve">
-		<value>Esperando revisión</value>
+		<value>Wachtend op review</value>
 	</data>
 	<data name="ControlText_Scheduled" xml:space="preserve">
-		<value>Programado</value>
+		<value>Gepland</value>
 	</data>
 	<data name="ControlText_Remove" xml:space="preserve">
-		<value>Quitar</value>
+		<value>Verwijderen</value>
 	</data>
 	<data name="Prompts_Comment" xml:space="preserve">
-		<value>comentario</value>
+		<value>reactie</value>
 	</data>
 	<data name="Prompts_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>reacties</value>
 	</data>
 	<data name="Prompts_Confirm" xml:space="preserve">
-		<value>Confirmar</value>
+		<value>Bevestigen</value>
 	</data>
 	<data name="Prompt_ConfirmDeleteComment" xml:space="preserve">
-		<value>¿Estás seguro de borrar este comentario?</value>
+		<value>Weet je zeker dat je deze reactie wilt verwijderen?</value>
 	</data>
 	<data name="Prompt_ConfirmDeleteCommentsFormat" xml:space="preserve">
-		<value>¿Estás seguro de borrar {0} {1}?</value>
+		<value>Weet je zeker dat je {0} {1} wilt verwijderen?</value>
 	</data>
 	<data name="Prompt_ConfirmMarkSpamComment" xml:space="preserve">
-		<value>¿Estás seguro de marcar este comentario como spam?</value>
+		<value>Weet je zeker dat je deze reactie als spam wil markeren?</value>
 	</data>
 	<data name="Prompt_ConfirmMarkSpamCommentsFormat" xml:space="preserve">
-		<value>¿Estás seguro de marcar {0} {1} como spam?</value>
+		<value>Weet je zeker dat je dit als spam wil markeren {0} {1}?</value>
 	</data>
 	<data name="Prompts_NoConnectionError" xml:space="preserve">
-		<value>Parece que no hay conexión a internet</value>
+		<value>De Internet verbinding is offline.</value>
 	</data>
 	<data name="Title_Error" xml:space="preserve">
-		<value>Error</value>
+		<value>Fout</value>
 	</data>
 	<data name="ControlText_Categories" xml:space="preserve">
-		<value>categorías</value>
+		<value>categorieën</value>
 	</data>
 	<data name="ControlText_TagsHelpText" xml:space="preserve">
-		<value>Separadas con comas</value>
+		<value>Meerdere tags scheiden met komma's</value>
 	</data>
 	<data name="ControlText_LocalDraft" xml:space="preserve">
-		<value>Borrador local</value>
+		<value>Lokale concept</value>
 	</data>
 	<data name="ControlText_Private" xml:space="preserve">
-		<value>Privado</value>
+		<value>privé</value>
 	</data>
 	<data name="Prompts_MediaPlacement" xml:space="preserve">
-		<value>Ubicación de la imagen</value>
+		<value>Afbeelding plaatsings</value>
 	</data>
 	<data name="Options_MediaOptions_PlaceAfter" xml:space="preserve">
-		<value>después del contenido</value>
+		<value>na de inhoud</value>
 	</data>
 	<data name="Options_MediaOptions_PlaceBefore" xml:space="preserve">
-		<value>antes del contenido</value>
+		<value>voor de inhoud</value>
 	</data>
 	<data name="ControlText_Back" xml:space="preserve">
-		<value>atrás</value>
+		<value>terug</value>
 	</data>
 	<data name="ControlText_Pin" xml:space="preserve">
-		<value>anclar a inicio</value>
+		<value>pin</value>
 	</data>
 	<data name="ControlText_Unpin" xml:space="preserve">
-		<value>desanclar de inicio</value>
+		<value>unpin</value>
 	</data>
 	<data name="Messages_MarketDescription" xml:space="preserve">
-		<value>Wordpress para Windows Phone es una aplicación de Código abierto que te permite escribir nuevas entradas, editar contenido, ver estadísticas y gestionar los comentarios de tu Sitio Wordpress.</value>
+		<value>WordPress voor Windows Phone is een Open Source app die het mogelijk om nieuwe berichten te schrijven, inhoud bewerken, bekijk van statistieken en reacties te beheren van uw WordPress site.</value>
 	</data>
 	<data name="ControlText_NoTitle" xml:space="preserve">
-		<value>No hay título para este artículo</value>
+		<value>Geen titel voor deze bericht</value>
 	</data>
 	<data name="ControlText_ReleaseToRefresh" xml:space="preserve">
-		<value>Soltar para recargar</value>
+		<value>Laat los om te vernieuwen</value>
 	</data>
 	<data name="ControlText_PullDownToRefresh" xml:space="preserve">
-		<value>Estirar para recargar</value>
+		<value>Schuif naar beneden om te vernieuwen</value>
 	</data>
 	<data name="Prompts_XmlRpcOperationFailed" xml:space="preserve">
-		<value>Lo sentimos, la acción solicitada falló. Por favor, prueba de nuevo.</value>
+		<value>Sorry, de gevraagde actie is mislukt. Probeer het opnieuw.</value>
 	</data>
 	<data name="Prompts_XeElementMissing" xml:space="preserve">
-		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo. </value>
+		<value>Sorry, de server retourneerde ongeldige gegevens. Probeer het opnieuw.</value>
 	</data>
 	<data name="Prompts_ServerReturnedInvalidXmlRpcMessage" xml:space="preserve">
-		<value>Lo sentimos, el servidor devolvió datos no válidos. Por favor, prueba de nuevo.</value>
+		<value>Sorry, de server retourneerde ongeldige gegevens. Probeer het opnieuw.</value>
 	</data>
 	<data name="Messages_Hello" xml:space="preserve">
-		<value>Hola</value>
+		<value>Hallo</value>
 	</data>
 	<data name="ControlText_SaveDraft" xml:space="preserve">
-		<value>guardar borrador</value>
+		<value>opslaan als concept</value>
 	</data>
 	<data name="ControlText_LoadingContent" xml:space="preserve">
-		<value>cargando contenido</value>
+		<value>inhoud laden</value>
 	</data>
 	<data name="ControlText_FAQ" xml:space="preserve">
-		<value>Visitar Preguntas Frecuentes</value>
+		<value>Bezoek FAQ</value>
 	</data>
 	<data name="ControlText_Forums" xml:space="preserve">
-		<value>Visita los foros</value>
+		<value>Bezoek forums</value>
 	</data>
 	<data name="Prompts_MediaError" xml:space="preserve">
-		<value>Error de subida de archivos</value>
+		<value>Media upload fout</value>
 	</data>
 	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>Lo siento, ha ocurrido un error subiendo el archivo multimeda. ¿Quieres seguir con la subida a la entrada?</value>
+		<value>Sorry, een fout is opgetreden bij het uploaden van de media bestand. Wil je toch graag het bericht uploaden?</value>
 	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
-		<value>insertar vínculo</value>
+		<value>Link toevoegen</value>
 	</data>
 	<data name="ControlText_EnterURL" xml:space="preserve">
-		<value>Por favor inserta la url del vínculo que desees insertar.</value>
+		<value>Vul de url in van de link die u wilt invoegen</value>
 	</data>
 	<data name="Prompts_SureCancel" xml:space="preserve">
-		<value>¿Estás seguro que deseas cancelar la edición de este {0}?</value>
+		<value>Weet u zeker dat je {0} wilt annuleren?</value>
 	</data>
 	<data name="Prompts_Post" xml:space="preserve">
-		<value>publicación</value>
+		<value>bericht</value>
 	</data>
 	<data name="Prompts_Page" xml:space="preserve">
-		<value>página</value>
+		<value>pagina</value>
 	</data>
 	<data name="Prompts_CancelEditing" xml:space="preserve">
-		<value>Cancelar Edición</value>
+		<value>Annuleer bewerking</value>
 	</data>
 	<data name="ControlText_DefaultTagLine" xml:space="preserve">
-		<value>Publicado desde WordPress para Windows Phone</value>
+		<value>Geplaatst door WordPress voor Windows Phone</value>
 	</data>
 	<data name="ControlText_EnterLinkText" xml:space="preserve">
-		<value>[opcional] escribe el texto que debe aparecer para el enlace.</value>
+		<value>[optioneel] voer de tekst in die moet worden weergegeven voor de link.</value>
 	</data>
 	<data name="ControlText_Username" xml:space="preserve">
-		<value>usuario</value>
+		<value>gebruikersnaam</value>
 	</data>
 	<data name="Title_Approve" xml:space="preserve">
-		<value>APROBADO</value>
+		<value>GOEDGEKEURD</value>
 	</data>
 	<data name="Title_Unapprove" xml:space="preserve">
-		<value>RECHAZADO</value>
+		<value>GEWEIGERD</value>
 	</data>
 	<data name="ControlText_Apikey" xml:space="preserve">
-		<value>clave api</value>
+		<value>api sleutel</value>
 	</data>
 	<data name="Prompts_MissingApikey" xml:space="preserve">
-		<value>El blog actual no posee una clave api. Introduzca una en la página de configuraciones.</value>
+		<value>De huidige blog heeft nog geen API-sleutel. Geef één op in je instellingen.</value>
 	</data>
 	<data name="Options_StatisticType_Views" xml:space="preserve">
-		<value>Vistas</value>
+		<value>Bezoekers</value>
 	</data>
 	<data name="ControlText_Clicks" xml:space="preserve">
-		<value>Clics</value>
+		<value>Kliks</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastWeek" xml:space="preserve">
-		<value>Última semana</value>
+		<value>Laatste week</value>
 	</data>
 	<data name="ControlText_Underline" xml:space="preserve">
-		<value>S</value>
+		<value>U</value>
 	</data>
 	<data name="ControlText_StrikeThrough" xml:space="preserve">
 		<value>ABC</value>
 	</data>
 	<data name="ControlText_Unapprove" xml:space="preserve">
-		<value>no aprobar</value>
+		<value>weigeren</value>
 	</data>
 	<data name="ControlText_Preferences" xml:space="preserve">
-		<value>preferencias</value>
+		<value>voorkeuren</value>
 	</data>
 	<data name="ControlText_Spam" xml:space="preserve">
 		<value>spam</value>
 	</data>
 	<data name="ControlText_SearchTerms" xml:space="preserve">
-		<value>Términos de búsqueda</value>
+		<value>Zoek termen</value>
 	</data>
 	<data name="Message_CheckTheUrl" xml:space="preserve">
-		<value>Hay un problema con el url que se introdujo. ¿El url iniciaba con http://, o terminaba con xmlrpc.php? El url predeterminado del sitio de Wordpress, por ejemplo, es https://wordpress.com/xmlrpc.php.</value>
+		<value>Er kan een probleem zijn met de url die werd ingevoerd. Begint de url met http://, of ontbreekt xmlrpc.php aan het einde? De standaard voor de WordPress.com site bijvoorbeeld is https://wordpress.com/xmlrpc.php.</value>
 	</data>
 	<data name="ControlText_Decline" xml:space="preserve">
-		<value>Declinar</value>
+		<value>afwijzen</value>
 	</data>
 	<data name="Prompts_SelectStatisticType" xml:space="preserve">
-		<value>¿Sobre qué estadísticas quiere datos?</value>
+		<value>Welke statistieken wil je graag gegevens voor?</value>
 	</data>
 	<data name="Messages_NoStatsAvailable" xml:space="preserve">
-		<value>No hay estadísticas disponibles para la consulta actual.</value>
+		<value>Er zijn geen statistieken beschikbaar voor de huidige query.</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastYear" xml:space="preserve">
-		<value>Último año</value>
+		<value>vorig jaar</value>
 	</data>
 	<data name="ControlText_Title" xml:space="preserve">
-		<value>título</value>
+		<value>titel</value>
 	</data>
 	<data name="ControlText_Content" xml:space="preserve">
-		<value>contenido</value>
+		<value>inhoud</value>
 	</data>
 	<data name="ControlText_Views" xml:space="preserve">
-		<value>Vistas</value>
+		<value>Bezoekers</value>
 	</data>
 	<data name="Title_NewPage" xml:space="preserve">
-		<value>página nueva</value>
+		<value>nieuwe pagina</value>
 	</data>
 	<data name="ControlText_AddAll" xml:space="preserve">
-		<value>añadir todo</value>
+		<value>alle toevoegen</value>
 	</data>
 	<data name="ControlText_AddSelected" xml:space="preserve">
-		<value>añadir seleccionados</value>
+		<value>selectie toevoegen</value>
 	</data>
 	<data name="ControlText_SelectBlogs" xml:space="preserve">
-		<value>Seleccione el blog o blogs que quiere importar.</value>
+		<value>Selecteer de blog of blogs die je wilt importeren.</value>
 	</data>
 	<data name="ControlText_None" xml:space="preserve">
-		<value>[ninguno]</value>
+		<value>[geen]</value>
 	</data>
 	<data name="ControlText_PostContent" xml:space="preserve">
-		<value>publicar contenido</value>
+		<value>inhoud bericht</value>
 	</data>
 	<data name="Messages_ApprovingComment" xml:space="preserve">
-		<value>aprobando comentario...</value>
+		<value>goedkeuring commentaar ...</value>
 	</data>
 	<data name="ControlText_Vibrate" xml:space="preserve">
-		<value>vibrar</value>
+		<value>vibreren</value>
 	</data>
 	<data name="ControlText_OriginalSizeAbbr" xml:space="preserve">
-		<value>TO</value>
+		<value>OG</value>
 	</data>
 	<data name="Title_NewPost" xml:space="preserve">
-		<value>publicación nueva</value>
+		<value>nieuw bericht</value>
 	</data>
 	<data name="Prompt_SelectThumbnailSize" xml:space="preserve">
-		<value>Seleccione un tamaño de miniatura.</value>
+		<value>Selecteer een thumbnail formaat.</value>
 	</data>
 	<data name="ControlText_Accept" xml:space="preserve">
-		<value>Aceptar</value>
+		<value>Accepteren</value>
 	</data>
 	<data name="Messages_MarkingCommentsAsSpam" xml:space="preserve">
-		<value>marcando comentarios como spam...</value>
+		<value>reacties markeren als spam...</value>
 	</data>
 	<data name="Messages_MarkingAsSpam" xml:space="preserve">
-		<value>marcando comentario como spam...</value>
+		<value>reactie markeren als spam...</value>
 	</data>
 	<data name="Prompts_SelectStatisticPeriod" xml:space="preserve">
-		<value>¿Cuántos datos quiere ver?</value>
+		<value>Hoeveel data zou je willen zien?</value>
 	</data>
 	<data name="Title_Pages" xml:space="preserve">
-		<value>páginas</value>
+		<value>pagina's</value>
 	</data>
 	<data name="ControlText_UploadAndLinkToFullImage" xml:space="preserve">
-		<value>crear vínculo a la imagen completa</value>
+		<value>maak een link naar de volledig afbeelding</value>
 	</data>
 	<data name="ControlText_UpdateInterval" xml:space="preserve">
-		<value>intervalo de actualización</value>
+		<value>update interval</value>
 	</data>
 	<data name="Title_CheckTheUrl" xml:space="preserve">
-		<value>¿El url es válido?</value>
+		<value>Is de url geldig?</value>
 	</data>
 	<data name="Prompt_ConfirmDeletePageFormat" xml:space="preserve">
-		<value>¿Está seguro de querer eliminar la página '{0}'?</value>
+		<value>Weet u zeker dat je pagina '{0}' wilt verwijderen?</value>
 	</data>
 	<data name="Prompt_ConfirmDeletePostFormat" xml:space="preserve">
-		<value>¿Está seguro de querer eliminar la publicación '{0}'?</value>
+		<value>Weet u zeker dat je bericht '{0}' wilt verwijderen?</value>
 	</data>
 	<data name="Title_ConfirmDelete" xml:space="preserve">
-		<value>Confirmar eliminación</value>
+		<value>Bevestig verwijdering</value>
 	</data>
 	<data name="ControlText_DeleteBlog" xml:space="preserve">
-		<value>eliminar blog</value>
+		<value>verwijder blog</value>
 	</data>
 	<data name="Prompts_SelectBlogToDelete" xml:space="preserve">
-		<value>Seleccione el blog que quiere eliminar.</value>
+		<value>Selecteer de blog die je wilt verwijderen.</value>
 	</data>
 	<data name="ControlText_Clear" xml:space="preserve">
-		<value>limpiar</value>
+		<value>wissen</value>
 	</data>
 	<data name="Messages_UploadingMedia" xml:space="preserve">
-		<value>cargando medios...</value>
+		<value>uploaden van media...</value>
 	</data>
 	<data name="ControlText_OriginalSize" xml:space="preserve">
-		<value>tamaño original</value>
+		<value>Originele grootte</value>
 	</data>
 	<data name="ControlText_CategorySlug" xml:space="preserve">
-		<value>slug de la categoría (opcional)</value>
+		<value>categorie slug (optioneel)</value>
 	</data>
 	<data name="Title_Preferences" xml:space="preserve">
-		<value>preferencias</value>
+		<value>voorkeuren</value>
 	</data>
 	<data name="ControlText_UploadChanges" xml:space="preserve">
-		<value>cargar cambios</value>
+		<value>upload aanpassingen</value>
 	</data>
 	<data name="Messages_MissingReply" xml:space="preserve">
-		<value>Introduzca una respuesta.</value>
+		<value>Vul een reactie in.</value>
 	</data>
 	<data name="Message_DownloadingStatistics" xml:space="preserve">
-		<value>descargando estadísticas...</value>
+		<value>downloaden statistieken...</value>
 	</data>
 	<data name="ControlText_PlayNotificationSound" xml:space="preserve">
-		<value>reproducir sonido de notificación</value>
+		<value>meldingsgeluid afspelen</value>
 	</data>
 	<data name="ControlText_PlaceImage" xml:space="preserve">
-		<value>incluir imagen</value>
+		<value>plaats afbeelding</value>
 	</data>
 	<data name="ControlText_PageContent" xml:space="preserve">
-		<value>contenido de página</value>
+		<value>pagina inhoud</value>
 	</data>
 	<data name="Options_StatisticType_Clicks" xml:space="preserve">
-		<value>Clics</value>
+		<value>klikken</value>
 	</data>
 	<data name="ControlText_Save" xml:space="preserve">
-		<value>guardar</value>
+		<value>opslaan</value>
 	</data>
 	<data name="ControlText_StartNewBlog" xml:space="preserve">
-		<value>Iniciar un blog nuevo en WordPress.com</value>
+		<value>Start een nieuwe blog op WordPress.com</value>
 	</data>
 	<data name="ControlText_Referrers" xml:space="preserve">
-		<value>Referidos</value>
+		<value>Verwijzingen</value>
 	</data>
 	<data name="ControlText_PostTitle" xml:space="preserve">
-		<value>Título de la publicación</value>
+		<value>Bericht titel</value>
 	</data>
 	<data name="ControlText_Date" xml:space="preserve">
-		<value>Fecha</value>
+		<value>Datum</value>
 	</data>
 	<data name="ControlText_CategoryName" xml:space="preserve">
-		<value>nombre de categoría</value>
+		<value>categorie naam</value>
 	</data>
 	<data name="ControlText_CategoryParent" xml:space="preserve">
-		<value>categoría padre (opcional)</value>
+		<value>Bovenliggende categorie (optioneel)</value>
 	</data>
 	<data name="ControlText_Refresh" xml:space="preserve">
-		<value>actualizar</value>
+		<value>verversen</value>
 	</data>
 	<data name="Prompts_MissingUserName" xml:space="preserve">
-		<value>Introduzca un nombre de usuario.</value>
+		<value>Voer een gebruikersnaam in.</value>
 	</data>
 	<data name="Prompts_MissingUrl" xml:space="preserve">
-		<value>Introduzca un url válido.</value>
+		<value>Voer een geldige url in.</value>
 	</data>
 	<data name="ControlText_Password" xml:space="preserve">
-		<value>contraseña</value>
+		<value>wachtwoord</value>
 	</data>
 	<data name="ControlText_ModerateComments" xml:space="preserve">
-		<value>moderar comentarios</value>
+		<value>reacties modereren</value>
 	</data>
 	<data name="ControlText_NeedBlog" xml:space="preserve">
-		<value>¿aún no tiene un blog?</value>
+		<value>nog geen blog?</value>
 	</data>
 	<data name="Prompts_RefreshEntity" xml:space="preserve">
-		<value>¿Qué le gustaría actualizar?</value>
+		<value>Wat zou je graag willen vernieuwen?</value>
 	</data>
 	<data name="ControlText_PostSignature" xml:space="preserve">
-		<value>publicar firma</value>
+		<value>bericht handtekening</value>
 	</data>
 	<data name="ControlText_Write" xml:space="preserve">
-		<value>añadir publicación</value>
+		<value>bericht toevoegen</value>
 	</data>
 	<data name="ControlText_SelectedCategories" xml:space="preserve">
-		<value>categorías seleccionadas</value>
+		<value>geselecteerde categorieën</value>
 	</data>
 	<data name="ControlText_CategoryDescription" xml:space="preserve">
-		<value>descripción de categoría (opcional)</value>
+		<value>categorie omschrijving (optioneel)</value>
 	</data>
 	<data name="Title_Posts" xml:space="preserve">
-		<value>publicaciones</value>
+		<value>berichten</value>
 	</data>
 	<data name="Options_StatisticType_PostViews" xml:space="preserve">
-		<value>Vistas de publicación</value>
+		<value>Bericht views</value>
 	</data>
 	<data name="Options_StatisticType_Referrers" xml:space="preserve">
-		<value>Referidos</value>
+		<value>Referrers</value>
 	</data>
 	<data name="Options_StatisticType_SearchTerms" xml:space="preserve">
-		<value>Términos de búsqueda</value>
+		<value>Termen zoeken</value>
 	</data>
 	<data name="ControlText_Location" xml:space="preserve">
-		<value>ubicación</value>
+		<value>locatie</value>
 	</data>
 	<data name="ControlText_CommentNotifications" xml:space="preserve">
-		<value>notificaciones de comentarios</value>
+		<value>reactie notificaties</value>
 	</data>
 	<data name="ControlText_Edit" xml:space="preserve">
-		<value>editar</value>
+		<value>bewerken</value>
 	</data>
 	<data name="ControlText_GeoTagPosts" xml:space="preserve">
-		<value>publicaciones con etiqueta geográfica</value>
+		<value>geotag berichten</value>
 	</data>
 	<data name="ControlText_Media" xml:space="preserve">
-		<value>medios</value>
+		<value>media</value>
 	</data>
 	<data name="ControlText_SelectCategories" xml:space="preserve">
-		<value>seleccionar categorías</value>
+		<value>categorieën selecteren</value>
 	</data>
 	<data name="Messages_LoggingIn" xml:space="preserve">
-		<value>iniciando sesión...</value>
+		<value>inloggen...</value>
 	</data>
 	<data name="Messages_ApprovingComments" xml:space="preserve">
-		<value>aprobando comentarios...</value>
+		<value>goedkeuring reacties...</value>
 	</data>
 	<data name="Messages_DeletingComment" xml:space="preserve">
-		<value>eliminando comentario...</value>
+		<value>verwijderen van reactie...</value>
 	</data>
 	<data name="Messages_DeletingComments" xml:space="preserve">
-		<value>eliminando comentarios...</value>
+		<value>verwijderen van reacties...</value>
 	</data>
 	<data name="Prompts_MissingPassword" xml:space="preserve">
-		<value>Introduzca una contraseña.</value>
+		<value>Voer een wachtwoord in.</value>
 	</data>
 	<data name="Options_RefreshEntity_Posts" xml:space="preserve">
-		<value>publicaciones</value>
+		<value>berichten</value>
 	</data>
 	<data name="Options_RefreshEntity_Everything" xml:space="preserve">
-		<value>todo</value>
+		<value>alles</value>
 	</data>
 	<data name="Options_RefreshEntity_Pages" xml:space="preserve">
-		<value>páginas</value>
+		<value>pagina's</value>
 	</data>
 	<data name="Messages_ReplyingToComment" xml:space="preserve">
-		<value>respondiendo al comentario...</value>
+		<value>reageren op reactie..</value>
 	</data>
 	<data name="Messages_RetrievingComments" xml:space="preserve">
-		<value>obteniendo comentarios...</value>
+		<value>ophalen van reacties...</value>
 	</data>
 	<data name="Messages_RetrievingEverything" xml:space="preserve">
-		<value>obteniendo todo...</value>
+		<value>alles ophalen...</value>
 	</data>
 	<data name="Messages_UploadingChanges" xml:space="preserve">
-		<value>cargando cambios...</value>
+		<value>veranderingen uploaden...</value>
 	</data>
 	<data name="Messages_UnapprovingComments" xml:space="preserve">
-		<value>desaprobando comentarios...</value>
+		<value>reacties afkeuren...</value>
 	</data>
 	<data name="Messages_UnapprovingComment" xml:space="preserve">
-		<value>desaprobando comentario...</value>
+		<value>reactie afkeuren...</value>
 	</data>
 	<data name="Messages_RetrievingPosts" xml:space="preserve">
-		<value>obteniendo publicaciones...</value>
+		<value>berichten ophalen...</value>
 	</data>
 	<data name="Messages_RetrievingPost" xml:space="preserve">
-		<value>obteniendo publicación...</value>
+		<value>bericht ophalen...</value>
 	</data>
 	<data name="Options_RefreshEntity_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>reacties</value>
 	</data>
 	<data name="Options_PostActions_ViewPost" xml:space="preserve">
-		<value>ver publicación</value>
+		<value>bericht bekijken</value>
 	</data>
 	<data name="Options_PostActions_ViewComments" xml:space="preserve">
-		<value>ver comentarios</value>
+		<value>reactie tonen</value>
 	</data>
 	<data name="Options_PostActions_EditPost" xml:space="preserve">
-		<value>editar publicación</value>
+		<value>bericht bewerken</value>
 	</data>
 	<data name="Options_PostActions_DeletePost" xml:space="preserve">
-		<value>eliminar publicación</value>
+		<value>bericht verwijderen</value>
 	</data>
 	<data name="Options_PageActions_ViewPage" xml:space="preserve">
-		<value>ver página</value>
+		<value>pagina tonen</value>
 	</data>
 	<data name="Options_PageActions_ViewComments" xml:space="preserve">
-		<value>ver comentarios</value>
+		<value>reacties tonen</value>
 	</data>
 	<data name="Options_PageActions_EditPage" xml:space="preserve">
-		<value>editar página</value>
+		<value>pagina bewerken</value>
 	</data>
 	<data name="Options_PageActions_DeletePage" xml:space="preserve">
-		<value>eliminar página</value>
+		<value>pagina verwijderen</value>
 	</data>
 	<data name="Title_EditPost" xml:space="preserve">
-		<value>editar publicación</value>
+		<value>bericht bewerken</value>
 	</data>
 	<data name="Title_EditPage" xml:space="preserve">
-		<value>editar página</value>
+		<value>pagina bewerken</value>
 	</data>
 	<data name="Title_Comments" xml:space="preserve">
-		<value>comentarios</value>
+		<value>reacties</value>
 	</data>
 	<data name="Title_Blogs" xml:space="preserve">
 		<value>blogs</value>
 	</data>
 	<data name="Title_All" xml:space="preserve">
-		<value>TODO</value>
+		<value>ALLES</value>
 	</data>
 	<data name="Title_AddAccount" xml:space="preserve">
-		<value>añadir cuenta</value>
+		<value>account toevoegen</value>
 	</data>
 	<data name="Title_Actions" xml:space="preserve">
-		<value>acciones</value>
+		<value>acties</value>
 	</data>
 	<data name="Prompt_PostActions" xml:space="preserve">
-		<value>Publicar acciones</value>
+		<value>Post acties</value>
 	</data>
 	<data name="Prompt_PageActions" xml:space="preserve">
-		<value>Acciones de página</value>
+		<value>Pagina acties</value>
 	</data>
 	<data name="Title_SelectCategories" xml:space="preserve">
-		<value>seleccionar categorías</value>
+		<value>Categorieën selecteren</value>
 	</data>
 	<data name="Messages_DeletingPost" xml:space="preserve">
-		<value>eliminando publicación...</value>
+		<value>verwijderen bericht...</value>
 	</data>
 	<data name="Title_Stats" xml:space="preserve">
-		<value>estadísticas</value>
+		<value>statistieken</value>
 	</data>
 	<data name="Title_Spam" xml:space="preserve">
 		<value>SPAM</value>
 	</data>
 	<data name="Messages_DeletingPage" xml:space="preserve">
-		<value>eliminando página...</value>
+		<value>verwijderen pagina...</value>
 	</data>
 	<data name="Title_Settings" xml:space="preserve">
-		<value>opciones</value>
+		<value>instellingen</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastQuarter" xml:space="preserve">
-		<value>Último trimestre</value>
+		<value>Afgelopen kwartaal</value>
 	</data>
 	<data name="Options_StatisticPeriod_LastMonth" xml:space="preserve">
-		<value>Último mes</value>
+		<value>Afgelopen maand</value>
 	</data>
 	<data name="Options_StatisticPeriod_AllTime" xml:space="preserve">
-		<value>Todo el tiempo</value>
+		<value>Alles</value>
 	</data>
 	<data name="Messages_Loading" xml:space="preserve">
-		<value>cargando...</value>
+		<value>laden...</value>
 	</data>
 	<data name="Messages_AcquiringPermalink" xml:space="preserve">
-		<value>adquiriendo enlace permanente...</value>
+		<value>verkrijgen permalink ...</value>
 	</data>
 	<data name="Messages_RetrievingPage" xml:space="preserve">
-		<value>obteniendo página...</value>
+		<value>ophalen pagina...</value>
 	</data>
 	<data name="Messages_CreatingNewCategory" xml:space="preserve">
-		<value>creando nueva categoría...</value>
+		<value>aanmaken nieuwe categorie</value>
 	</data>
 	<data name="Prompts_MissingCategoryName" xml:space="preserve">
-		<value>Introduzca un nombre de categoría.</value>
+		<value>Voer een categorienaam in.</value>
 	</data>
 	<data name="Prompts_SelectCategory" xml:space="preserve">
-		<value>Seleccione una categoría.</value>
+		<value>Selecteer een categorie</value>
 	</data>
 	<data name="Title_AddNewCategory" xml:space="preserve">
-		<value>categoría nueva</value>
+		<value>nieuwe categorie</value>
 	</data>
 	<data name="Messages_RetrievingCategories" xml:space="preserve">
-		<value>obteniendo categorías...</value>
+		<value>ophalen categorieën...</value>
 	</data>
 	<data name="Messages_RetrievingPages" xml:space="preserve">
-		<value>obteniendo páginas...</value>
+		<value>ophalen pagina's...</value>
 	</data>
 	<data name="ControlText_Reply" xml:space="preserve">
-		<value>responder</value>
+		<value>reactie</value>
 	</data>
 	<data name="ControlText_Italic" xml:space="preserve">
-		<value>K</value>
+		<value>I</value>
 	</data>
 	<data name="ControlText_Link" xml:space="preserve">
-		<value>enlace</value>
+		<value>link</value>
 	</data>
 	<data name="ControlText_GetBlog" xml:space="preserve">
-		<value>Obtener un blog gratuito en WordPress.com</value>
+		<value>Neem een gratis blog op WordPress.com</value>
 	</data>
 	<data name="ControlText_BlogSettings" xml:space="preserve">
-		<value>opciones de blog</value>
+		<value>blog instellingen</value>
 	</data>
 	<data name="ControlText_BlogUrl" xml:space="preserve">
-		<value>url de blog</value>
+		<value>blog url</value>
 	</data>
 	<data name="ControlText_Bold" xml:space="preserve">
-		<value>N</value>
+		<value>B</value>
 	</data>
 	<data name="ControlText_Cancel" xml:space="preserve">
-		<value>cancelar</value>
+		<value>annuleren</value>
 	</data>
 	<data name="ControlText_Delete" xml:space="preserve">
-		<value>eliminar</value>
+		<value>Verwijderen</value>
 	</data>
 	<data name="ControlText_BlinkNotificationLight" xml:space="preserve">
-		<value>parpadeo luz de notificación</value>
+		<value>knipper notificatie licht</value>
 	</data>
 	<data name="ControlText_BlockQuote" xml:space="preserve">
-		<value>citar</value>
+		<value>b-quote</value>
 	</data>
 	<data name="ControlText_BelowText" xml:space="preserve">
-		<value>bajo el texto</value>
+		<value>onder de tekst</value>
 	</data>
 	<data name="ControlText_Approve" xml:space="preserve">
-		<value>aprobar</value>
+		<value>toelaten</value>
 	</data>
 	<data name="ControlText_AlignThumbnailToCenter" xml:space="preserve">
-		<value>alinear miniatura al centro</value>
+		<value>thumbnail gecentreerd uitlijnen</value>
 	</data>
 	<data name="ControlText_AddTaglineToNewPosts" xml:space="preserve">
-		<value>agrega una etiqueta a nuevas publicaciones</value>
+		<value>voeg een tag line voor nieuwe berichten</value>
 	</data>
 	<data name="ControlText_AddMedia" xml:space="preserve">
-		<value>añadir</value>
+		<value>voeg toe</value>
 	</data>
 	<data name="ApplicationTitle" xml:space="preserve">
 		<value>WordPress</value>
 	</data>
 	<data name="ControlText_AboveText" xml:space="preserve">
-		<value>sobre el texto</value>
+		<value>boven de tekst</value>
 	</data>
 	<data name="ControlText_AccountDetails" xml:space="preserve">
-		<value>detalles de cuenta</value>
+		<value>account details</value>
 	</data>
 	<data name="ControlText_Add" xml:space="preserve">
-		<value>añadir nuevo</value>
+		<value>toevoegen</value>
 	</data>
 	<data name="ControlText_AddAPage" xml:space="preserve">
-		<value>añadir una página</value>
+		<value>nieuwe pagina</value>
 	</data>
 	<data name="ControlText_AddExistingWPBlog" xml:space="preserve">
-		<value>Añadir blog alojado en WordPress.com</value>
+		<value>Voeg WordPress.com blog toe</value>
 	</data>
 	<data name="ControlText_AddExistingSite" xml:space="preserve">
-		<value>Añadir blog de WordPress.com en alojamiento propio</value>
+		<value>Voeg zelf gehoste WordPress blog toe</value>
 	</data>
 	<data name="ControlText_AddBlog" xml:space="preserve">
-		<value>añadir blog</value>
+		<value>Voeg blog toe</value>
 	</data>
-	<data name="ControlText_Reader" xml:space="preserve">
-		<value>Lector</value>
-	</data>
-  </root>
+</root>

@@ -16,7 +16,7 @@
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
-    <SupportedCultures>de-DE%3bit-IT%3bes-ES%3bsv-SE%3bja-JP%3bpt-PT%3bth</SupportedCultures>
+    <SupportedCultures>de-DE%3bit-IT%3bes-ES%3bsv-SE%3bja-JP%3bpt-PT%3bnl%3bth-TH</SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>WordPress.xap</XapFilename>
@@ -343,7 +343,11 @@
     </Content>
     <Resource Include="Images\actionsStats.png" />
     <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.blockquote.png" />
+    <Content Include="Images\appbar.bold.png" />
     <Content Include="Images\appbar.feature.png" />
+    <Content Include="Images\appbar.italic.png" />
+    <Content Include="Images\appbar.link.png" />
     <Content Include="Images\appbar.moderate.list.png" />
     <Content Include="Images\appbar.positionMedia.png" />
     <Content Include="Images\appbar.approve.png" />
@@ -408,6 +412,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizedResources.ja-JP.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedResources.nl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Localization\LocalizedResources.pt-PT.resx">
