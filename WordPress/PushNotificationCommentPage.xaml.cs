@@ -213,7 +213,7 @@ namespace WordPress
                 Comment comment = DataContext as Comment;
                 comment.CommentStatus = eCommentStatus.spam;
 
-                EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+                EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
                 rpc.Completed += OnEditCommentRPCCompleted;
                 rpc.ExecuteAsync();
 
@@ -237,7 +237,7 @@ namespace WordPress
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.hold;
 
-            EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+            EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
@@ -256,7 +256,7 @@ namespace WordPress
             Comment comment = DataContext as Comment;
             comment.CommentStatus = eCommentStatus.approve;
 
-            EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+            EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 
@@ -431,7 +431,7 @@ namespace WordPress
             {
                 Comment comment = DataContext as Comment;
 
-                DeleteCommentRPC rpc = new DeleteCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+                DeleteCommentRPC rpc = new DeleteCommentRPC(this._currentBlog, comment);
                 rpc.Completed += OnDeleteCommentRPCCompleted;
                 rpc.ExecuteAsync();
 
@@ -496,7 +496,7 @@ namespace WordPress
             Comment comment = DataContext as Comment;
             comment.Content = replyEditTextBox.Text;
 
-            EditCommentRPC rpc = new EditCommentRPC(App.MasterViewModel.CurrentBlog, comment);
+            EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
 

@@ -638,7 +638,10 @@ namespace WordPress.Utils
                         pushChannel.Dispose();
                         pushChannel = null;
                     }
-                    this.enablePushNotifications();
+                 /*   UIThread.Invoke(() =>
+                    {
+                        this.enablePushNotifications();
+                    });*/
                     break;
                 case ChannelErrorType.NotificationRateTooHigh:
                     //This error is returned when the Push Client is unable to receive messages because the web service is sending too many messages at too quick a rate to a certain device.
