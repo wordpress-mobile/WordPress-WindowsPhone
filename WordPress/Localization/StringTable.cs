@@ -50,6 +50,7 @@ namespace WordPress.Localization
             public string AddAccount { get { return LocalizedResources.Title_AddAccount; } }
             public string Settings { get { return LocalizedResources.Title_Settings; } }
             public string Preferences { get { return LocalizedResources.Title_Preferences; } }
+            public string About { get { return LocalizedResources.Title_About; } }
             public string Blogs { get { return LocalizedResources.Title_Blogs; } }
             public string EditPage { get { return LocalizedResources.Title_EditPage; } }
             public string EditPost { get { return LocalizedResources.Title_EditPost; } }
@@ -117,7 +118,13 @@ namespace WordPress.Localization
             public string UnderlineMenuItem { get { return LocalizedResources.ControlText_UnderlineMenuItem; } }
             public string StrikeThroughMenuItem { get { return LocalizedResources.ControlText_StrikeThroughMenuItem; } }
             public string DiscardChangesMenuItem { get { return LocalizedResources.ControlText_DiscardChangesMenuItem; } }
-         
+
+            public string TermsOfService { get { return LocalizedResources.ControlText_TermsOfService; } }
+            public string PrivacyPolicy { get { return LocalizedResources.ControlText_PrivacyPolicy; } }
+            public string Version { get { return LocalizedResources.ControlText_Version; } }
+            public string OpenSource { get { return LocalizedResources.ControlText_OpenSource; } }
+            public string AppName { get { return LocalizedResources.ControlText_AppName; } }
+
             public string ListItem { get { return LocalizedResources.ControlText_ListItem; } }
             public string Code { get { return LocalizedResources.ControlText_Code; } }
             public string MoreTag { get { return LocalizedResources.ControlText_MoreTag; } }
@@ -179,6 +186,7 @@ namespace WordPress.Localization
             public string Accept { get { return LocalizedResources.ControlText_Accept; } }
             public string Decline { get { return LocalizedResources.ControlText_Decline; } }
             public string DeleteBlog { get { return LocalizedResources.ControlText_DeleteBlog; } }
+            public string About { get { return LocalizedResources.ControlText_About; } }
             public string Clear { get { return LocalizedResources.ControlText_Clear; } }
             public string OriginalSize { get { return LocalizedResources.ControlText_OriginalSize; } }
             public string OriginalSizeAbbr { get { return LocalizedResources.ControlText_OriginalSizeAbbr; } }

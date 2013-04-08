@@ -79,6 +79,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddExistingWordPressBlogPage.xaml.cs">
       <DependentUpon>AddExistingWordPressBlogPage.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,9 @@
     <Compile Include="Converters\PostTitleConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Converters\ThumbnailSizeToStringConverter.cs" />
+    <Compile Include="LicensesPage.xaml.cs">
+      <DependentUpon>LicensesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Delay\LowProfileImageLoader.cs" />
     <Compile Include="EditContent.xaml.cs">
       <DependentUpon>EditContent.xaml</DependentUpon>
@@ -214,6 +220,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AddExistingWordPressBlogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -249,6 +259,10 @@
     <Page Include="BrowserShellPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LicensesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="EditContent.xaml">
       <SubType>Designer</SubType>
@@ -342,6 +356,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\actionsStats.png" />
+    <Content Include="Images\appbar.about.png" />
     <Content Include="Images\appbar.add.png" />
     <Content Include="Images\appbar.blockquote.png" />
     <Content Include="Images\appbar.bold.png" />
@@ -370,6 +385,7 @@
     <Content Include="Resources\EditContent.html">
       <SubType>Designer</SubType>
     </Content>
+    <Resource Include="Resources\licenses.html" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />

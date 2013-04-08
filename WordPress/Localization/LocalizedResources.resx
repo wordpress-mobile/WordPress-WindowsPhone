@@ -452,6 +452,10 @@
     <value>posts</value>
     <comment>title for the 'posts' panorama item</comment>
   </data>
+  <data name="Title_About" xml:space="preserve">
+    <value>about</value>
+    <comment>title for the 'about' page</comment>
+  </data>
   <data name="Title_Preferences" xml:space="preserve">
     <value>preferences</value>
     <comment>title for the 'preferences' page</comment>
@@ -638,6 +642,9 @@
   </data>
   <data name="Title_ConfirmDelete" xml:space="preserve">
     <value>Confirm delete</value>
+  </data>
+  <data name="ControlText_About" xml:space="preserve">
+    <value>about</value>
   </data>
   <data name="ControlText_DeleteBlog" xml:space="preserve">
     <value>delete blog</value>
@@ -872,6 +879,18 @@
   <data name="ControlText_Moderate" xml:space="preserve">
     <value>moderate</value>
   </data>
+  <data name="ControlText_TermsOfService" xml:space="preserve">
+    <value>Terms of Service</value>
+    <comment>label for the about page</comment>
+  </data>
+  <data name="ControlText_PrivacyPolicy" xml:space="preserve">
+    <value>Privacy Policy</value>
+    <comment>label for the about page</comment>
+  </data>
+  <data name="ControlText_Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>label for the about page</comment>
+  </data>
   <data name="ControlText_DeleteSelected" xml:space="preserve">
     <value>delete selected</value>
     <comment>title for the delete selected menu item</comment>
@@ -1031,5 +1050,13 @@
   </data>
   <data name="ControlText_SwithToVisualEditorMenuItem" xml:space="preserve">
     <value>switch to visual editor</value>
+  </data>
+  <data name="ControlText_AppName" xml:space="preserve">
+    <value>WordPress for Windows Phone</value>
+    <comment>application name in the about page</comment>
+  </data>
+  <data name="ControlText_OpenSource" xml:space="preserve">
+    <value>Open Source Licenses</value>
+    <comment>label for the open source licenses button on the about page</comment>
   </data>
 </root>

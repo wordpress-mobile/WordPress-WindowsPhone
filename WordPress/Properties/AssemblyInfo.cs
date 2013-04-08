@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Automattic, Inc.")]
 [assembly: AssemblyProduct("WordPress")]
-[assembly: AssemblyCopyright("Copyright © Automattic, Inc. 2011")]
+[assembly: AssemblyCopyright("Copyright © Automattic, Inc. 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

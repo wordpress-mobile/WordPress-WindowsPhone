@@ -9,6 +9,8 @@
         public const string WORDPRESS_SIGNUP_URL = "http://wordpress.com/signup";
         public const string WORDPRESS_FORUMS_URL = "http://windowsphone.forums.wordpress.org/";
         public const string WORDPRESS_FAQ_URL = "http://windowsphone.wordpress.org/faq/";
+        public const string WORDPRESS_PRIVACY_URL = "http://automattic.com/privacy/";
+        public const string WORDPRESS_TOS_URL = "http://www.wordpress.com/tos/";
         public const string JETPACK_SITE_URL = "http://jetpack.me";
         public const string WORDPRESS_CRASHREPORT_EMAIL = "windowsphone-crashreport@automattic.com";
         public const string WORDPRESS_DATEFORMAT = "yyyyMMddTH:mm:ss";

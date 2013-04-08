@@ -70,6 +70,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        internal static string ControlText_About {
+            get {
+                return ResourceManager.GetString("ControlText_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to above text.
         /// </summary>
         internal static string ControlText_AboveText {
@@ -201,6 +210,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Apikey {
             get {
                 return ResourceManager.GetString("ControlText_Apikey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WordPress for Windows Phone.
+        /// </summary>
+        internal static string ControlText_AppName {
+            get {
+                return ResourceManager.GetString("ControlText_AppName", resourceCulture);
             }
         }
         
@@ -844,6 +862,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Source Licenses.
+        /// </summary>
+        internal static string ControlText_OpenSource {
+            get {
+                return ResourceManager.GetString("ControlText_OpenSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ol.
         /// </summary>
         internal static string ControlText_OrderedList {
@@ -993,6 +1020,15 @@ namespace WordPress.Localization {
         internal static string ControlText_PreserveBandwidth {
             get {
                 return ResourceManager.GetString("ControlText_PreserveBandwidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy Policy.
+        /// </summary>
+        internal static string ControlText_PrivacyPolicy {
+            get {
+                return ResourceManager.GetString("ControlText_PrivacyPolicy", resourceCulture);
             }
         }
         
@@ -1285,6 +1321,15 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Terms of Service.
+        /// </summary>
+        internal static string ControlText_TermsOfService {
+            get {
+                return ResourceManager.GetString("ControlText_TermsOfService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to text editor.
         /// </summary>
         internal static string ControlText_TextContentEditor {
@@ -1434,6 +1479,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Username {
             get {
                 return ResourceManager.GetString("ControlText_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        internal static string ControlText_Version {
+            get {
+                return ResourceManager.GetString("ControlText_Version", resourceCulture);
             }
         }
         
@@ -2455,6 +2509,15 @@ namespace WordPress.Localization {
         internal static string Prompts_XmlRpcOperationFailed {
             get {
                 return ResourceManager.GetString("Prompts_XmlRpcOperationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to about.
+        /// </summary>
+        internal static string Title_About {
+            get {
+                return ResourceManager.GetString("Title_About", resourceCulture);
             }
         }
         

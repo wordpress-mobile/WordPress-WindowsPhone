@@ -57,6 +57,11 @@ namespace WordPress
             deleteBlogMenuItem.Click += OnDeleteBlogMenuItemClick;
             ApplicationBar.MenuItems.Add(deleteBlogMenuItem);
 
+            ApplicationBarIconButton aboutIconButton = new ApplicationBarIconButton(new Uri("/Images/appbar.about.png", UriKind.Relative));
+            aboutIconButton.Text = _localizedStrings.ControlsText.About;
+            aboutIconButton.Click += OnAboutMenuItemClick;
+            ApplicationBar.Buttons.Add(aboutIconButton);
+
             //check is there is a WP.COM blog
             List<Blog> blogs = DataService.Current.Blogs.ToList();
             bool presence = false;
@@ -124,6 +129,11 @@ namespace WordPress
             string queryStringFormat = "?{0}={1}";
             string queryString = string.Format(queryStringFormat, ReaderBrowserPage.READER, "GoMobileTeam!");
             NavigationService.Navigate(new Uri("/ReaderBrowserPage.xaml" + queryString, UriKind.Relative));
+        }
+
+        private void OnAboutMenuItemClick(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
         }
 
         private void OnDeleteBlogMenuItemClick(object sender, EventArgs e)
