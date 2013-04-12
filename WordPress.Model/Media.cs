@@ -329,7 +329,7 @@ namespace WordPress.Model
             {
                 WriteableBitmap wb = new WriteableBitmap(image);
                 if (preserveBandwidth)
-                    wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 85);
+                    wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 100);
                 else
                     wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 100);
             }
