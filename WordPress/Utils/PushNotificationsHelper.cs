@@ -474,7 +474,8 @@ namespace WordPress.Utils
         public void enablePushNotifications() {
 
             string device_uuid = this.getDeviceUUID();
-            if (device_uuid == null) return; //emulators
+            if (device_uuid == null) 
+                return;
 
             //check the push notifications user settings
             UserSettings settings = new UserSettings();
