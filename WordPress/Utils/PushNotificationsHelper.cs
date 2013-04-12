@@ -461,9 +461,20 @@ namespace WordPress.Utils
 
             if (pushChannel != null)
             {
-                pushChannel.Close();
-                pushChannel.Dispose();
-                pushChannel = null;
+                try
+                {
+                    pushChannel.Close();
+                    pushChannel.Dispose();
+                    pushChannel = null;
+                }
+                catch (InvalidOperationException ioException)
+                {
+                    Utils.Tools.LogException("Cannot close the channel", ioException);
+                }
+                catch (ArgumentException argEcxeption)
+                {
+                    Utils.Tools.LogException("Cannot close the channel", argEcxeption);
+                }
             }
 
             this.UnregisterDevice();
@@ -471,115 +482,125 @@ namespace WordPress.Utils
             return;
         }
 
-        public void enablePushNotifications() {
-
-            string device_uuid = this.getDeviceUUID();
-            if (device_uuid == null) 
-                return;
-
-            //check the push notifications user settings
-            UserSettings settings = new UserSettings();
-            if (! this.pushNotificationsEnabled() )
+        public void enablePushNotifications()
+        {
+            try
             {
-                this.disablePushNotifications();
-                return;
-            }
+                string device_uuid = this.getDeviceUUID();
+                if (device_uuid == null)
+                    return;
 
-            //check if there is a .COM or Jetpack blog in the app. 
-            List<Blog> blogs = DataService.Current.Blogs.ToList();
-            bool presence = false;
-            foreach (Blog currentBlog in blogs)
-            {
-                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                //check the push notifications user settings
+                UserSettings settings = new UserSettings();
+                if (!this.pushNotificationsEnabled())
                 {
-                    presence = true;
-                    break;
+                    this.disablePushNotifications();
+                    return;
                 }
-            }
-            if (! presence)
-            {
-                System.Diagnostics.Debug.WriteLine("Not found a .COM or Jetpack blog");
-                this.disablePushNotifications();
-                return;
-            }
 
-            // Try to find the push channel.
-            pushChannel = HttpNotificationChannel.Find(channelName);
-
-            // If the channel was not found, then create a new connection to the push service.
-            if (pushChannel == null)
-            {
-                pushChannel = new HttpNotificationChannel(channelName);
-
-                // Register for all the events before attempting to open the channel.
-                pushChannel.ChannelUriUpdated += new EventHandler<NotificationChannelUriEventArgs>(PushChannel_ChannelUriUpdated);
-                pushChannel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(PushChannel_ErrorOccurred);
-                pushChannel.ConnectionStatusChanged += new EventHandler<NotificationChannelConnectionEventArgs>(PushChannel_ConnectionStatusChanged);
-
-                // Register for this notification since we need to receive the notifications while the application is running.
-                pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
-
-                try
+                //check if there is a .COM or Jetpack blog in the app. 
+                List<Blog> blogs = DataService.Current.Blogs.ToList();
+                bool presence = false;
+                foreach (Blog currentBlog in blogs)
                 {
-                    pushChannel.Open();
+                    if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                    {
+                        presence = true;
+                        break;
+                    }
                 }
-                catch (InvalidOperationException  _pushNotificationChannelOpenFailed)
+                if (!presence)
                 {
-                    Utils.Tools.LogException("Cannot open the channel, try it again...", _pushNotificationChannelOpenFailed);
+                    System.Diagnostics.Debug.WriteLine("Not found a .COM or Jetpack blog");
+                    this.disablePushNotifications();
+                    return;
+                }
+
+                // Try to find the push channel.
+                pushChannel = HttpNotificationChannel.Find(channelName);
+
+                // If the channel was not found, then create a new connection to the push service.
+                if (pushChannel == null)
+                {
+                    pushChannel = new HttpNotificationChannel(channelName);
+
+                    // Register for all the events before attempting to open the channel.
+                    pushChannel.ChannelUriUpdated += new EventHandler<NotificationChannelUriEventArgs>(PushChannel_ChannelUriUpdated);
+                    pushChannel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(PushChannel_ErrorOccurred);
+                    pushChannel.ConnectionStatusChanged += new EventHandler<NotificationChannelConnectionEventArgs>(PushChannel_ConnectionStatusChanged);
+
+                    // Register for this notification since we need to receive the notifications while the application is running.
+                    pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
+
                     try
                     {
                         pushChannel.Open();
                     }
-                    catch (InvalidOperationException)
+                    catch (InvalidOperationException _pushNotificationChannelOpenFailed)
                     {
-                        Utils.Tools.LogException("2nd tentative failed", _pushNotificationChannelOpenFailed);
+                        Utils.Tools.LogException("Cannot open the channel, try it again...", _pushNotificationChannelOpenFailed);
+                        try
+                        {
+                            pushChannel.Open();
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            Utils.Tools.LogException("2nd tentative failed", _pushNotificationChannelOpenFailed);
+                            return;
+                        }
+                    }
+                    catch (ArgumentException)
+                    {
                         return;
                     }
-                }
 
-                try
-                {
-                    // Bind this new channel for toast events.
-                    pushChannel.BindToShellToast();
-                }
-                catch (InvalidOperationException _pushNotificationChannelBindFailed)
-                {
-                    Utils.Tools.LogException("BindToShellToast Failed", _pushNotificationChannelBindFailed);
                     try
                     {
+                        // Bind this new channel for toast events.
                         pushChannel.BindToShellToast();
                     }
-                    catch (InvalidOperationException) { }
-                }
+                    catch (InvalidOperationException _pushNotificationChannelBindFailed)
+                    {
+                        Utils.Tools.LogException("BindToShellToast Failed", _pushNotificationChannelBindFailed);
+                        try
+                        {
+                            pushChannel.BindToShellToast();
+                        }
+                        catch (InvalidOperationException) { }
+                    }
 
-                try
-                {
-                    // Bind this new channel for Tile events.
-                    pushChannel.BindToShellTile();
-                }
-                catch (InvalidOperationException _pushNotificationChannelBindFailed)
-                {
-                    Utils.Tools.LogException("BindToShellTile Failed", _pushNotificationChannelBindFailed);
                     try
                     {
+                        // Bind this new channel for Tile events.
                         pushChannel.BindToShellTile();
                     }
-                    catch (InvalidOperationException) { }
+                    catch (InvalidOperationException _pushNotificationChannelBindFailed)
+                    {
+                        Utils.Tools.LogException("BindToShellTile Failed", _pushNotificationChannelBindFailed);
+                        try
+                        {
+                            pushChannel.BindToShellTile();
+                        }
+                        catch (InvalidOperationException) { }
+                    }
+
                 }
+                else
+                {
+                    // The channel was already open, so just register for all the events.
+                    pushChannel.ChannelUriUpdated += new EventHandler<NotificationChannelUriEventArgs>(PushChannel_ChannelUriUpdated);
+                    pushChannel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(PushChannel_ErrorOccurred);
+                    pushChannel.ConnectionStatusChanged += new EventHandler<NotificationChannelConnectionEventArgs>(PushChannel_ConnectionStatusChanged);
 
+                    // Register for this notification since we need to receive the notifications while the application is running.
+                    pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
+
+                    System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
+                    this.registerDevice(pushChannel.ChannelUri.ToString());
+                }
             }
-            else
-            {
-                // The channel was already open, so just register for all the events.
-                pushChannel.ChannelUriUpdated += new EventHandler<NotificationChannelUriEventArgs>(PushChannel_ChannelUriUpdated);
-                pushChannel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(PushChannel_ErrorOccurred);
-                pushChannel.ConnectionStatusChanged += new EventHandler<NotificationChannelConnectionEventArgs>(PushChannel_ConnectionStatusChanged);
-
-                // Register for this notification since we need to receive the notifications while the application is running.
-                pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(PushChannel_ShellToastNotificationReceived);
-
-                System.Diagnostics.Debug.WriteLine(pushChannel.ChannelUri.ToString());
-                this.registerDevice(pushChannel.ChannelUri.ToString());
+            catch (Exception ex) {
+                Utils.Tools.LogException("Cannot open the channel", ex);
             }
         }
 
