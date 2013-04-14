@@ -75,7 +75,7 @@ namespace WordPress
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 // Display the current frame rate counters.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+                //Application.Current.Host.Settings.EnableFrameRateCounter = true;
 
                 // Show the areas of the app that are being redrawn in each frame.
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -164,6 +164,11 @@ namespace WordPress
                 {
                     return; //See: #227
                 }
+                if (e.Exception.Message != null &&
+                    (e.Exception.Message.StartsWith("You can only use State between OnNavigatedTo and OnNavigatedFrom")))
+                {
+                    return;
+                }
             }
 
             CrashReporter.ReportException(e.Exception, "RootFrame_NavigationFailed");
@@ -184,10 +189,16 @@ namespace WordPress
 
             if (e.ExceptionObject is System.InvalidOperationException)
             {
-                if (e.ExceptionObject.Message != null && 
+                if (e.ExceptionObject.Message != null &&
                     (e.ExceptionObject.Message.StartsWith("Navigation is not allowed when the task is not in the foreground")))
                 {
                     return; //See: #227
+                }
+
+                if (e.ExceptionObject.Message != null &&
+                    (e.ExceptionObject.Message.StartsWith("You can only use State between OnNavigatedTo and OnNavigatedFrom")))
+                {
+                    return;
                 }
             }
 
