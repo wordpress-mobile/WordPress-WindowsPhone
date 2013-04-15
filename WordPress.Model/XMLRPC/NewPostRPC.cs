@@ -75,7 +75,7 @@ namespace WordPress.Model
             string result;
             // PostThumbnails can not be an empty string when creating new posts. If a featured image wasn't chosen, 
             // don't use the featured image version of the content payload.
-            if (DataService.Current.CurrentBlog.SupportsFeaturedImage() && PostType == ePostType.post && Post.PostThumbnail.Length > 0)
+            if (PostType == ePostType.post && Post.PostThumbnail.Length > 0 && DataService.Current.CurrentBlog.SupportsFeaturedImage())
             {
                 _content = XMLRPCTable.metaWeblog_newPost_featuredImage;
                 result = string.Format(_content,

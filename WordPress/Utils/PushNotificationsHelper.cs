@@ -479,7 +479,6 @@ namespace WordPress.Utils
 
             this.UnregisterDevice();
 
-            return;
         }
 
         public void enablePushNotifications()
@@ -600,7 +599,7 @@ namespace WordPress.Utils
                 }
             }
             catch (Exception ex) {
-                Utils.Tools.LogException("Cannot open the channel", ex);
+                Utils.Tools.LogException("Unexpected Exception in enablePushnotification", ex);
             }
         }
 
@@ -654,11 +653,22 @@ namespace WordPress.Utils
 
                     pushChannel = HttpNotificationChannel.Find(channelName);
 
-                    if (pushChannel != null)
+                    try
                     {
-                        pushChannel.Close();
-                        pushChannel.Dispose();
-                        pushChannel = null;
+                        if (pushChannel != null)
+                        {
+                            pushChannel.Close();
+                            pushChannel.Dispose();
+                            pushChannel = null;
+                        }
+                    }
+                    catch (InvalidOperationException ioException)
+                    {
+                        Utils.Tools.LogException("Cannot close the channel", ioException);
+                    }
+                    catch (ArgumentException argEcxeption)
+                    {
+                        Utils.Tools.LogException("Cannot close the channel", argEcxeption);
                     }
                  /*   UIThread.Invoke(() =>
                     {
