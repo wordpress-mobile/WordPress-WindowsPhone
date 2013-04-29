@@ -138,11 +138,16 @@ namespace WordPress.Model
             //modify any matches in the datastore so we can save a web call
             args.Items.ForEach(comment =>
             {
-                Comment match = DataService.Current.CurrentBlog.Comments.Single(c => c.CommentId == comment.CommentId);
-                if (null != match)
+                try
                 {
-                    match.CommentStatus = comment.CommentStatus;
+                    Comment match = DataService.Current.CurrentBlog.Comments.Single(c => c.CommentId == comment.CommentId);
+                    if (null != match)
+                    {
+                        match.CommentStatus = comment.CommentStatus;
+                    }
                 }
+                catch (System.InvalidOperationException)
+                {}
             });
         }
 
