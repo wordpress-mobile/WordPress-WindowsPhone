@@ -4,11 +4,23 @@ using System.Windows;
 using Microsoft.Phone.Controls;
 using WordPress.Utils;
 using WordPress.Localization;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+
 
 namespace WordPress
 {
     public static class ExtensionMethods
     {
+        public static void Sort<TSource, TKey>(this Collection<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            List<TSource> sortedList = source.OrderBy(keySelector).ToList();
+            source.Clear();
+            foreach (var sortedItem in sortedList)
+                source.Add(sortedItem);
+        }
+
         public static void HandleException(this PhoneApplicationPage page, Exception exception, string title = "", string message = "")
         {
             Utils.Tools.LogException(message, exception);

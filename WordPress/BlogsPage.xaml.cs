@@ -35,6 +35,7 @@ namespace WordPress
         {
             InitializeComponent();
 
+            App.MasterViewModel.Blogs.Sort(x => x.BlogNameLower);
             DataContext = App.MasterViewModel;
 
             _localizedStrings = App.Current.Resources["StringTable"] as StringTable;
@@ -176,6 +177,7 @@ namespace WordPress
                 App.PopupSelectionService.SelectionChanged -= OnBlogSelectedForDelete;
                 e.Cancel = true;
                 App.PopupSelectionService.HidePopup();
+                ApplicationBar.IsVisible = true;
                 return;
             }
             base.OnBackKeyPress(e);

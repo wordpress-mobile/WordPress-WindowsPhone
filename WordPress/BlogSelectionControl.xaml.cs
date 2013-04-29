@@ -47,6 +47,8 @@ namespace WordPress
             get { return _blogs; }
             set
             {
+                if (value != null)
+                    value.Sort((x, y) => string.Compare(x.BlogNameLower, y.BlogNameLower));
                 _blogs = value;
                 DataContext = value;
             }
