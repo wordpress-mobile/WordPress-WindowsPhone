@@ -316,11 +316,13 @@ namespace WordPress.Localization
             public string PostOptions_DeletePost { get { return LocalizedResources.Options_PostActions_DeletePost; } }
             public string PostOptions_EditDraft { get { return LocalizedResources.Options_Actions_EditDraft; } }
             public string PostOptions_DeleteDraft { get { return LocalizedResources.Options_Actions_DeleteDraft; } }
+            public string PostOptions_SharePost { get { return LocalizedResources.Options_Actions_SharePost; } }
 
             public string PageOptions_ViewPage { get { return LocalizedResources.Options_PageActions_ViewPage; } }
             public string PageOptions_ViewComments { get { return LocalizedResources.Options_PageActions_ViewComments; } }
             public string PageOptions_EditPage { get { return LocalizedResources.Options_PageActions_EditPage; } }
             public string PageOptions_DeletePage { get { return LocalizedResources.Options_PageActions_DeletePage; } }
+            public string PageOptions_SharePage { get { return LocalizedResources.Options_Actions_SharePage; } }
 
             public string StatisticType_Views { get { return LocalizedResources.Options_StatisticType_Views; } }
             public string StatisticType_PostViews { get { return LocalizedResources.Options_StatisticType_PostViews; } }

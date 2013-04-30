@@ -1059,4 +1059,10 @@
     <value>Open Source Licenses</value>
     <comment>label for the open source licenses button on the about page</comment>
   </data>
+  <data name="Options_Actions_SharePage" xml:space="preserve">
+    <value>share page</value>
+  </data>
+  <data name="Options_Actions_SharePost" xml:space="preserve">
+    <value>share post</value>
+  </data>
 </root>

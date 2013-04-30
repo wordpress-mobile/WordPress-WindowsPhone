@@ -16,6 +16,7 @@ using WordPress.Converters;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Utils;
+using Microsoft.Phone.Tasks;
 
 namespace WordPress
 {
@@ -90,21 +91,23 @@ namespace WordPress
             _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Posts);
             _refreshListOptions.Add(_localizedStrings.Options.RefreshEntity_Pages);
             
-            _postListOptions = new List<string>(4);
+            _postListOptions = new List<string>(5);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_ViewPost);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_ViewComments);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_EditPost);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_DeletePost);
+            _postListOptions.Add(_localizedStrings.Options.PostOptions_SharePost);
 
             _draftListOptions = new List<string>(2);
             _draftListOptions.Add(_localizedStrings.Options.PostOptions_EditDraft);
             _draftListOptions.Add(_localizedStrings.Options.PostOptions_DeleteDraft);
 
-            _pageListOptions = new List<string>(4);
+            _pageListOptions = new List<string>(5);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_ViewPage);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_ViewComments);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_EditPage);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_DeletePage);
+            _pageListOptions.Add(_localizedStrings.Options.PageOptions_SharePage);
 
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
@@ -576,7 +579,7 @@ namespace WordPress
             switch (index)
             {
                 case 0:         //view post
-                    ViewPost();
+                    GetPostPermaLink(0);
                     break;
                 case 1:         //view post comments
                     ViewPostComments();
@@ -586,6 +589,9 @@ namespace WordPress
                     break;
                 case 3:         //delete post
                     DeletePost();
+                    break;
+                case 4:         //share post
+                    GetPostPermaLink(1);
                     break;
             }
 
@@ -633,19 +639,50 @@ namespace WordPress
             App.MasterViewModel.CurrentBlog.PostListItems.RemoveAt(postsListBox.SelectedIndex);
         }
 
-        private void ViewPost()
+        private void GetPostPermaLink( int type )
         {
             //use the GetPostRPC to get the Post.PermaLink value, then transmit that Uri to the shell
             PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
             if (null == postListItem) return;
         
             GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, postListItem.PostId);
-            rpc.Completed += OnViewPostRPCCompleted;
+            if( 0 == type )
+                rpc.Completed += OnViewPostRPCCompleted;
+            else
+                rpc.Completed += OnShareItemRPCCompleted;
             rpc.ExecuteAsync();
 
             currentXMLRPCConnection = rpc;
             ApplicationBar.IsVisible = false; //hide the application bar 
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.AcquiringPermalink);
+        }
+
+        private void OnShareItemRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
+        {
+            GetPostRPC rpc = sender as GetPostRPC;
+            rpc.Completed -= OnShareItemRPCCompleted;
+
+            currentXMLRPCConnection = null;
+            App.WaitIndicationService.KillSpinner();
+            ApplicationBar.IsVisible = true;
+
+            if (args.Cancelled)
+            {
+            }
+            else if (null == args.Error)
+            {
+                Post post = args.Items[0];
+
+                // Use the ShareLinkTask launcher to share the post to social networks
+                ShareLinkTask shareLinkTask = new ShareLinkTask();
+                shareLinkTask.Title = post.Title;
+                shareLinkTask.LinkUri = new Uri(post.PermaLink, UriKind.Absolute);
+                shareLinkTask.Show();
+            }
+            else
+            {
+                this.HandleException(args.Error);
+            }
         }
 
         private void OnViewPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -789,7 +826,6 @@ namespace WordPress
             App.MasterViewModel.CurrentPostListItem = null;
             NavigationService.Navigate(new Uri("/EditPostPage.xaml", UriKind.Relative));
         }
-
         #endregion
 
 
@@ -1147,7 +1183,7 @@ namespace WordPress
             switch (index)
             {
                 case 0:         //view page
-                    ViewPage();
+                    GetPagePermaLink(0);
                     break;
                 case 1:         //view page comments
                     ViewPageComments();
@@ -1157,6 +1193,9 @@ namespace WordPress
                     break;
                 case 3:         //delete page
                     DeletePage();
+                    break;
+                case 4:         //share page
+                    GetPagePermaLink(1);
                     break;
             }
 
@@ -1265,7 +1304,7 @@ namespace WordPress
         }
 
 
-        private void ViewPage()
+        private void GetPagePermaLink(int type)
         {
             //use the GetPostRPC to get the Post.PermaLink value, then transmit that Uri to the shell
 
@@ -1273,7 +1312,10 @@ namespace WordPress
             if (null == pageListItem) return;
 
             GetPostRPC rpc = new GetPostRPC(App.MasterViewModel.CurrentBlog, pageListItem.PageId.ToString());
-            rpc.Completed += OnViewPageRPCCompleted;
+            if( 0 == type )
+                rpc.Completed += OnViewPageRPCCompleted;
+            else
+                rpc.Completed += OnShareItemRPCCompleted;
             rpc.ExecuteAsync();
 
             currentXMLRPCConnection = rpc;

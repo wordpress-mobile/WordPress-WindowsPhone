@@ -1928,6 +1928,24 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to share page.
+        /// </summary>
+        internal static string Options_Actions_SharePage {
+            get {
+                return ResourceManager.GetString("Options_Actions_SharePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to share post.
+        /// </summary>
+        internal static string Options_Actions_SharePost {
+            get {
+                return ResourceManager.GetString("Options_Actions_SharePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to after content.
         /// </summary>
         internal static string Options_MediaOptions_PlaceAfter {
