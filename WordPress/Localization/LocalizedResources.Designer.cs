@@ -2324,24 +2324,6 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sorry, an error was encountered when uploading media.  Would you still like to upload the post?.
-        /// </summary>
-        internal static string Prompts_MediaErrorContent {
-            get {
-                return ResourceManager.GetString("Prompts_MediaErrorContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sorry, an error was encountered while reading the picture.  Would you still like to upload the post?.
-        /// </summary>
-        internal static string Prompts_MediaErrorNoPicture {
-            get {
-                return ResourceManager.GetString("Prompts_MediaErrorNoPicture", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The picture is corrupted or cannot be read..
         /// </summary>
         internal static string Prompts_MediaErrorPictureCorruptedOrUnreadlable {

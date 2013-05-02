@@ -691,10 +691,6 @@
     <value>Media Upload Error</value>
     <comment>prompt when media fails</comment>
   </data>
-  <data name="Prompts_MediaErrorContent" xml:space="preserve">
-    <value>Sorry, an error was encountered when uploading media.  Would you still like to upload the post?</value>
-    <comment>prompt when media fails</comment>
-  </data>
   <data name="ControlText_FAQ" xml:space="preserve">
     <value>Visit FAQ</value>
   </data>
@@ -928,9 +924,6 @@
   <data name="ControlText_FeaturedImageError" xml:space="preserve">
     <value>could not load image</value>
     <comment>Default error message for when a posts featured image would not load.</comment>
-  </data>
-  <data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
-    <value>Sorry, an error was encountered while reading the picture.  Would you still like to upload the post?</value>
   </data>
   <data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
     <value>Can't write the picture on the device memory.</value>

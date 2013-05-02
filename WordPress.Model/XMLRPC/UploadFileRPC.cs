@@ -179,6 +179,8 @@ namespace WordPress.Model
             catch (Exception ex)
             {
                 CompletionMethod(null, ex, false, state.Operation);
+                if (contentStream != null)
+                    contentStream.Dispose();
                 return;
             }
 
@@ -192,7 +194,7 @@ namespace WordPress.Model
                 return;
             }
 
-            using (contentStream)
+            try
             {
                 //Write the first chunk of data
                 string content = "<?xml version=\"1.0\"?><methodCall><methodName>wp.uploadFile</methodName><params>" +
@@ -205,7 +207,7 @@ namespace WordPress.Model
 
                 byte[] payload = Encoding.UTF8.GetBytes(content);
                 contentStream.Write(payload, 0, payload.Length);
-                
+
                 //Write the chunks of the image
                 byte[] chunk = new byte[3600];
                 int count = 0;
@@ -214,7 +216,7 @@ namespace WordPress.Model
                     payload = Encoding.UTF8.GetBytes(Convert.ToBase64String(chunk).Trim());
                     contentStream.Write(payload, 0, payload.Length);
                 }
-                _bitmapStream.Dispose();
+               
                 if (IsCancelled)
                 {
                     return;
@@ -225,7 +227,13 @@ namespace WordPress.Model
                     "</struct></param></params></methodCall>";
 
                 payload = Encoding.UTF8.GetBytes(content);
-                contentStream.Write(payload, 0, payload.Length);           
+                contentStream.Write(payload, 0, payload.Length);
+
+            }
+            finally
+            {
+                if ( _bitmapStream != null) _bitmapStream.Dispose();
+                contentStream.Dispose();
             }
 
             if (IsCancelled)
@@ -286,20 +294,22 @@ namespace WordPress.Model
             }
             originalState.Operation.Post(onProgressReportDelegate, new ProgressChangedEventArgs(60, originalState.Operation.UserSuppliedState));
 
-            Stream responseStream = response.GetResponseStream();
+
             string responseContent = null;
-          
-            try
+            using (Stream responseStream = response.GetResponseStream())
             {
-                using (StreamReader reader = new StreamReader(responseStream))
+                try
                 {
-                    responseContent = reader.ReadToEnd();
+                    using (StreamReader reader = new StreamReader(responseStream))
+                    {
+                        responseContent = reader.ReadToEnd();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                CompletionMethod(null, ex, false, originalState.Operation);
-                return;
+                catch (Exception ex)
+                {
+                    CompletionMethod(null, ex, false, originalState.Operation);
+                    return;
+                }
             }
 
             lock (_syncRoot)

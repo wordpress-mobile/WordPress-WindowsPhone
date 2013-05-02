@@ -96,7 +96,6 @@ namespace WordPress
             _postListOptions.Add(_localizedStrings.Options.PostOptions_ViewComments);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_EditPost);
             _postListOptions.Add(_localizedStrings.Options.PostOptions_DeletePost);
-            _postListOptions.Add(_localizedStrings.Options.PostOptions_SharePost);
 
             _draftListOptions = new List<string>(2);
             _draftListOptions.Add(_localizedStrings.Options.PostOptions_EditDraft);
@@ -107,7 +106,6 @@ namespace WordPress
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_ViewComments);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_EditPage);
             _pageListOptions.Add(_localizedStrings.Options.PageOptions_DeletePage);
-            _pageListOptions.Add(_localizedStrings.Options.PageOptions_SharePage);
 
             ApplicationBar = new ApplicationBar();
             ApplicationBar.BackgroundColor = (Color)App.Current.Resources["AppbarBackgroundColor"];
@@ -169,9 +167,21 @@ namespace WordPress
             blogPanorama.SelectionChanged += OnBlogPanoramaSelectionChanged;
 
             Loaded += OnPageLoaded;
+            Unloaded += BlogPanoramaPage_Unloaded;
             postsScrollerView.Loaded += enableInfiniteScrolling;
             pagesScrollerView.Loaded += enableInfiniteScrolling;
             commentsScrollerView.Loaded += enableInfiniteScrolling;
+        }
+
+        void BlogPanoramaPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            postsListBox.ClearValue(ListBox.ItemsSourceProperty);
+            pagesListBox.ClearValue(ListBox.ItemsSourceProperty);
+            commentsListBox.ClearValue(MultiselectList.ItemsSourceProperty);
+            blogPanorama.SelectionChanged -= OnBlogPanoramaSelectionChanged;
+            postsScrollerView.Loaded -= enableInfiniteScrolling;
+            pagesScrollerView.Loaded -= enableInfiniteScrolling;
+            commentsScrollerView.Loaded -= enableInfiniteScrolling;
         }
 
         #endregion
@@ -281,7 +291,7 @@ namespace WordPress
             commentsCollectionViewSource = new System.Windows.Data.CollectionViewSource();
             commentsCollectionViewSource.Source = App.MasterViewModel.CurrentBlog.Comments;
             commentsListBox.ItemsSource = commentsCollectionViewSource.View;
-            //commentsListBox.SetBinding(MultiselectList.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
+            commentsListBox.SetBinding(MultiselectList.ItemsSourceProperty, new System.Windows.Data.Binding("Comments"));
             postsListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Posts"));
             pagesListBox.SetBinding(ListBox.ItemsSourceProperty, new System.Windows.Data.Binding("Pages"));
         }
@@ -552,7 +562,14 @@ namespace WordPress
                     return;
                 }
 
-                App.PopupSelectionService.ItemsSource = _postListOptions;
+                PostListItem postListItem = postsListBox.SelectedItem as PostListItem;
+                if (null == postListItem) return;
+
+                List<string> optionsList = new List<string>(_postListOptions);
+                if( postListItem.Status != "draft")
+                    optionsList.Add(_localizedStrings.Options.PostOptions_SharePost);
+
+                App.PopupSelectionService.ItemsSource = optionsList;
                 _popupServiceSelectionChangedHandler = OnPostOptionSelected;
                 App.PopupSelectionService.SelectionChanged += OnPostOptionSelected;
             }
@@ -1158,7 +1175,15 @@ namespace WordPress
                     this.HandleException(connErr);
                     return;
                 }
-                App.PopupSelectionService.ItemsSource = _pageListOptions;
+
+                PageListItem pageListItem = pagesListBox.SelectedItem as PageListItem;
+                if (null == pageListItem) return;
+
+                List<string> optionsList = new List<string>(_pageListOptions);
+                if (pageListItem.Status != "draft")
+                    optionsList.Add(_localizedStrings.Options.PageOptions_SharePage);
+
+                App.PopupSelectionService.ItemsSource = optionsList;
                 _popupServiceSelectionChangedHandler = OnPageOptionSelected;
                 App.PopupSelectionService.SelectionChanged += OnPageOptionSelected;
             }

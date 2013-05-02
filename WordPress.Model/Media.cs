@@ -332,7 +332,10 @@ namespace WordPress.Model
                     wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 100);
                 else
                     wb.SaveJpeg(filestream, pixelWidth, pixelHeight, 0, 100);
+                wb = null;
             }
+
+            image = null;
         }
 
         public Stream getImageStream()

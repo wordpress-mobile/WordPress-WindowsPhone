@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using WordPress.Localization;
 using WordPress.Model;
 using WordPress.Utils;
+using System.Linq;
 
 namespace WordPress
 {
@@ -98,13 +99,7 @@ namespace WordPress
                     currentXmlRpcConnection = null;
                 }
 
-                _mediaUploadRPCs.ForEach(rpc =>
-                {
-                    rpc.Completed -= OnUploadMediaRPCCompleted;
-                    rpc.IsCancelled = true;
-                });
-                _mediaUploadRPCs.Clear();
-
+                this.emptyImagesUploadingQueue();
             }
             else
             {
@@ -116,13 +111,7 @@ namespace WordPress
                 _messageBoxIsShown = false;
                 if (result == MessageBoxResult.OK)
                 {
-                    //remove the media
-                    _mediaUploadRPCs.ForEach(rpc =>
-                    {
-                        rpc.Completed -= OnUploadMediaRPCCompleted;
-                        rpc.IsCancelled = true;
-                    });
-                    _mediaUploadRPCs.Clear();
+                    this.emptyImagesUploadingQueue();
                     cleanupPostMedia();
                     base.OnBackKeyPress(e);
                 }
@@ -356,6 +345,17 @@ namespace WordPress
             SavePost();
         }
 
+        private void emptyImagesUploadingQueue()
+        {
+            if (_mediaUploadRPCs == null || (_mediaUploadRPCs.Count == 0)) return;
+            _mediaUploadRPCs.ForEach(rpc =>
+            {
+                rpc.Completed -= OnUploadMediaRPCCompleted;
+                rpc.IsCancelled = true;
+            });
+            _mediaUploadRPCs.Clear();
+        }
+
         private void UploadImagesAndSavePost()
         {
             this.Focus(); //hide the keyboard
@@ -363,7 +363,11 @@ namespace WordPress
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UploadingMedia);
 
             //fire off the worker rpcs
-            _mediaUploadRPCs.ForEach(rpc => rpc.ExecuteAsync());
+            if (_mediaUploadRPCs.Count > 0)
+            {
+                UploadFileRPC item = _mediaUploadRPCs.First() as UploadFileRPC;
+                item.ExecuteAsync();
+            }
         }
 
         private void OnEditPostRPCCompleted(object sender, XMLRPCCompletedEventArgs<Post> args)
@@ -598,8 +602,7 @@ namespace WordPress
         private void ClearMedia()
         {
             imageWrapPanel.Children.Clear();
-            _mediaUploadRPCs.ForEach(rpc => rpc.Completed -= OnUploadMediaRPCCompleted);
-            _mediaUploadRPCs.Clear();
+            this.emptyImagesUploadingQueue();
             Post post = DataContext as Post;
             post.Media.Clear();
 
@@ -638,61 +641,40 @@ namespace WordPress
                 {
                     return;
                 }
-                if (null == args.Error)
-                {
-                    //Image uploaded correctly
-                }
-                
-                if (args.Items.Count > 0)
-                {
-                    // _infoToRpcMap.Add(args.Items[0], rpc);
-                }
-                else
+
+                if (args.Items.Count == 0 || args.Error != null)
                 {
                     //uh oh, media upload problem
                     App.WaitIndicationService.KillSpinner();
+                    //Move 
                     UIThread.Invoke(() =>
                     {
                         ApplicationBar.IsVisible = true;
                         if (!_messageBoxIsShown)
                         {
-                            string errorMessageDescription;
-                            if (null != args.Error && args.Error is PictureNotAvailableException)
-                            {
-                                errorMessageDescription = _localizedStrings.Prompts.MediaErrorNoPicture;
-                            }
-                            else
-                            {
-                                errorMessageDescription = _localizedStrings.Prompts.MediaErrorContent;
-                            }
-
                             _messageBoxIsShown = true;
-                            MessageBoxResult result = MessageBox.Show(errorMessageDescription, _localizedStrings.Prompts.MediaError, MessageBoxButton.OKCancel);
+                            String msg = args.Error != null ? args.Error.Message : _localizedStrings.Prompts.MediaError;
+                            MessageBoxResult result = MessageBox.Show(msg, _localizedStrings.Prompts.MediaError, MessageBoxButton.OK);
                             _messageBoxIsShown = false;
-                            if (result == MessageBoxResult.OK)
-                            {
-                                SavePost();
-                                return;
-                            }
-                            else
-                            {
-                                //add a new XML-RPC call since the user wants to have another go at uploading
-                                UploadFileRPC newRPCCall = new UploadFileRPC(App.MasterViewModel.CurrentBlog, rpc.CurrentMedia, true);
-                                newRPCCall.Completed += OnUploadMediaRPCCompleted;
-                                _mediaUploadRPCs.Add(newRPCCall);
-                                return;
-                            }
                         }
                     });
-                    return;//do not remove this return, since the code above is exceute asynched.
+                    this.emptyImagesUploadingQueue();
+                    return;
                 }
-            }
+                else
+                {
+                    //Image uploaded correctly. Upload the next picture in the list
+                    if (_mediaUploadRPCs.Count > 0)
+                    {
+                        UploadFileRPC item = _mediaUploadRPCs.First() as UploadFileRPC;
+                        item.ExecuteAsync();
+                        return;
+                    }
 
-            //if we're not done, bail
-            if (0 < _mediaUploadRPCs.Count) return;
-
-            App.WaitIndicationService.KillSpinner();
-            SavePost();
+                    App.WaitIndicationService.KillSpinner();
+                    SavePost();
+                }
+            }//end lock
         }
 
         private void SavePost()

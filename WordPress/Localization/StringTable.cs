@@ -387,8 +387,6 @@ namespace WordPress.Localization
             public string XmlRpcOperationFailed { get { return LocalizedResources.Prompts_XmlRpcOperationFailed; } }
             public string XeElementMissing { get { return LocalizedResources.Prompts_XeElementMissing; } }
             public string MediaError { get { return LocalizedResources.Prompts_MediaError; } }
-            public string MediaErrorContent { get { return LocalizedResources.Prompts_MediaErrorContent; } }
-            public string MediaErrorNoPicture { get { return LocalizedResources.Prompts_MediaErrorNoPicture; } }
             public string MediaErrorCannotWritePicture { get { return LocalizedResources.Prompts_MediaErrorCannotWritePicture; } }
             public string MediaErrorPictureCorruptedOrUnreadable{ get { return LocalizedResources.Prompts_MediaErrorPictureCorruptedOrUnreadlable; } }
             public string NoConnectionErrorContent { get { return LocalizedResources.Prompts_NoConnectionError; } }

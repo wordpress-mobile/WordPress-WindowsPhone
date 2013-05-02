@@ -186,7 +186,6 @@ namespace WordPress
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
             PushNotificationsHelper pHelper = PushNotificationsHelper.Instance;
          
             //there is no way to clear the query string. We must use the PhoneApplicationPage to store the ts and check it before opening the notifications screen 
