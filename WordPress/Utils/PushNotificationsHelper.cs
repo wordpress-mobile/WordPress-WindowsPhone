@@ -248,23 +248,34 @@ namespace WordPress.Utils
             if (device_uuid == null) return; //emulators
 
             Dictionary<string, string> credentials = new Dictionary<string,string>();
-            //loop over blogs and retrieves the list of .com accounts added to the app
-            List<Blog> blogs = DataService.Current.Blogs.ToList();
-            foreach (Blog currentBlog in blogs)
+           
+            try
             {
-                if (currentBlog.isWPcom() || currentBlog.hasJetpack())
+                //loop over blogs and retrieves the list of .com accounts added to the app
+                List<Blog> blogs = DataService.Current.Blogs.ToList();
+                foreach (Blog currentBlog in blogs)
                 {
-                    if(currentBlog.isWPcom()){
-                        if( ! credentials.ContainsKey(currentBlog.Username))
-                            credentials.Add(currentBlog.Username, currentBlog.Password);
-                    }
-                    else
+                    if (currentBlog.isWPcom() || currentBlog.hasJetpack())
                     {
-                        if(currentBlog.DotcomUsername != null && currentBlog.DotcomPassword != null &&  ! credentials.ContainsKey(currentBlog.DotcomUsername))
-                            credentials.Add(currentBlog.DotcomUsername, currentBlog.DotcomPassword);
+                        if (currentBlog.isWPcom())
+                        {
+                            if (!credentials.ContainsKey(currentBlog.Username))
+                                credentials.Add(currentBlog.Username, currentBlog.Password);
+                        }
+                        else
+                        {
+                            if (currentBlog.DotcomUsername != null && currentBlog.DotcomPassword != null && !credentials.ContainsKey(currentBlog.DotcomUsername))
+                                credentials.Add(currentBlog.DotcomUsername, currentBlog.DotcomPassword);
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                // DataService.Current.Blogs could be null under certain circumstances at startup. Why?
+                Utils.Tools.LogException(String.Format("Could not access the blogs list. {0}", e.Message), e);
+            }
+
             bool sendBlogsList = true;
             foreach (KeyValuePair<String, String> entry in credentials)
             {
