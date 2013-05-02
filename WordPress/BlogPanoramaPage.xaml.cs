@@ -566,7 +566,7 @@ namespace WordPress
                 if (null == postListItem) return;
 
                 List<string> optionsList = new List<string>(_postListOptions);
-                if( postListItem.Status != "draft")
+                if (postListItem.Status != "draft" && postListItem.Status != "private")
                     optionsList.Add(_localizedStrings.Options.PostOptions_SharePost);
 
                 App.PopupSelectionService.ItemsSource = optionsList;
@@ -1180,7 +1180,7 @@ namespace WordPress
                 if (null == pageListItem) return;
 
                 List<string> optionsList = new List<string>(_pageListOptions);
-                if (pageListItem.Status != "draft")
+                if (pageListItem.Status != "draft" && pageListItem.Status != "private")
                     optionsList.Add(_localizedStrings.Options.PageOptions_SharePage);
 
                 App.PopupSelectionService.ItemsSource = optionsList;
