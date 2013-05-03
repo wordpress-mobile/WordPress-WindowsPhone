@@ -75,41 +75,41 @@ namespace WordPress.Model
             string result;
             // PostThumbnails can not be an empty string when creating new posts. If a featured image wasn't chosen, 
             // don't use the featured image version of the content payload.
-            if (PostType == ePostType.post && Post.PostThumbnail.Length > 0 && DataService.Current.CurrentBlog.SupportsFeaturedImage())
+            if (PostType == ePostType.post && Post.PostThumbnail != null && Post.PostThumbnail.Length > 0 && DataService.Current.CurrentBlog.SupportsFeaturedImage())
             {
                 _content = XMLRPCTable.metaWeblog_newPost_featuredImage;
                 result = string.Format(_content,
-                    Post.PostId,
-                    Credentials.UserName.HtmlEncode(),
-                    Credentials.Password.HtmlEncode(),
-                    Post.MtKeyWords.XmlEscape(),
+                    Post.PostId != null ?  Post.PostId : "",
+                    Credentials.UserName != null ? Credentials.UserName.HtmlEncode() : "",
+                    Credentials.Password != null ? Credentials.Password.HtmlEncode() : "",
+                    Post.MtKeyWords != null ? Post.MtKeyWords.XmlEscape() : "",
                     PostType.ToString(),
                     FormatCategories(),
-                    Post.Title.XmlEscape(),
-                    Post.Description.HtmlEncode(),
+                    Post.Title != null ? Post.Title.XmlEscape() : "",
+                    Post.Description != null ? Post.Description.HtmlEncode() : "",
                     PostType.ToString(),
-                    Post.PostStatus,
+                    Post.PostStatus != null ? Post.PostStatus : "",
                     FormatCustomFields(),
-                    Post.PostFormat,
-                    Post.PostThumbnail,
+                    Post.PostFormat != null ? Post.PostFormat : "",
+                    Post.PostThumbnail != null ? Post.PostThumbnail : "",
                     String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
                     );
             }
             else
             {
                 result = string.Format(_content,
-                    Post.PostId,
-                    Credentials.UserName.HtmlEncode(),
-                    Credentials.Password.HtmlEncode(),
-                    Post.MtKeyWords.XmlEscape(),
+                    Post.PostId != null ? Post.PostId : "",
+                    Credentials.UserName != null ? Credentials.UserName.HtmlEncode() : "",
+                    Credentials.Password != null ? Credentials.Password.HtmlEncode() : "",
+                    Post.MtKeyWords != null ? Post.MtKeyWords.XmlEscape() : "",
                     PostType.ToString(),
                     FormatCategories(),
-                    Post.Title.XmlEscape(),
-                    Post.Description.HtmlEncode(),
+                    Post.Title != null ? Post.Title.XmlEscape() : "",
+                    Post.Description != null ? Post.Description.HtmlEncode() : "",
                     PostType.ToString(),
-                    Post.PostStatus,
+                    Post.PostStatus != null ? Post.PostStatus : "",
                     FormatCustomFields(),
-                    Post.PostFormat,
+                    Post.PostFormat != null ? Post.PostFormat : "",
                     String.Format(XmlRPCRequestConstants.DATETIMEFORMATSTRING, Post.DateCreatedGMT)
                     );
             }
