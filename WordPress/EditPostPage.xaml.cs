@@ -386,6 +386,7 @@ namespace WordPress
 
             this.ToggleGalleryControlsVisibility();
 
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
         }
 
         /// <summary>

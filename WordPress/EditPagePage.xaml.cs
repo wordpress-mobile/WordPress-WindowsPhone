@@ -248,6 +248,7 @@ namespace WordPress
             }
 
             ToggleGalleryControlsVisibility();
+            App.WaitIndicationService.RootVisualElement = LayoutRoot;
         }
 
         private void OnContentTextBoxTap(object sender, System.Windows.Input.GestureEventArgs e)
