@@ -167,21 +167,9 @@ namespace WordPress
             blogPanorama.SelectionChanged += OnBlogPanoramaSelectionChanged;
 
             Loaded += OnPageLoaded;
-            Unloaded += BlogPanoramaPage_Unloaded;
             postsScrollerView.Loaded += enableInfiniteScrolling;
             pagesScrollerView.Loaded += enableInfiniteScrolling;
             commentsScrollerView.Loaded += enableInfiniteScrolling;
-        }
-
-        void BlogPanoramaPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            postsListBox.ClearValue(ListBox.ItemsSourceProperty);
-            pagesListBox.ClearValue(ListBox.ItemsSourceProperty);
-            commentsListBox.ClearValue(MultiselectList.ItemsSourceProperty);
-            blogPanorama.SelectionChanged -= OnBlogPanoramaSelectionChanged;
-            postsScrollerView.Loaded -= enableInfiniteScrolling;
-            pagesScrollerView.Loaded -= enableInfiniteScrolling;
-            commentsScrollerView.Loaded -= enableInfiniteScrolling;
         }
 
         #endregion

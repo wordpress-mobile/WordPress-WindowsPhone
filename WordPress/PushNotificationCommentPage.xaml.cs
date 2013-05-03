@@ -558,7 +558,7 @@ namespace WordPress
         private void authorEmailTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Comment comment = DataContext as Comment;
-            if (comment.AuthorEmail.Equals(""))
+            if (comment.AuthorEmail == null || comment.AuthorEmail.Equals(""))
             {
                 return; // No email address so don't show the compose task.
             }
@@ -574,7 +574,7 @@ namespace WordPress
 
             Comment comment = DataContext as Comment;
 
-            if (comment.AuthorUrl.Equals(""))
+            if (comment.AuthorUrl == null || comment.AuthorUrl.Equals(""))
             {
                 return; // do nothing.
             }
