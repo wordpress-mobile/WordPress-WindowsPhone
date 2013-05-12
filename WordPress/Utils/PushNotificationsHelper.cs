@@ -467,29 +467,26 @@ namespace WordPress.Utils
 
         public void disablePushNotifications()
         {
-            // Try to find the push channel.
-            pushChannel = HttpNotificationChannel.Find(channelName);
-
-            if (pushChannel != null)
+            try
             {
-                try
+                // Try to find the push channel.
+                pushChannel = HttpNotificationChannel.Find(channelName);
+                if (pushChannel != null)
                 {
                     pushChannel.Close();
                     pushChannel.Dispose();
                     pushChannel = null;
                 }
-                catch (InvalidOperationException ioException)
-                {
-                    Utils.Tools.LogException("Cannot close the channel", ioException);
-                }
-                catch (ArgumentException argEcxeption)
-                {
-                    Utils.Tools.LogException("Cannot close the channel", argEcxeption);
-                }
             }
-
+            catch (InvalidOperationException ioException)
+            {
+                Utils.Tools.LogException("Cannot close the channel", ioException);
+            }
+            catch (ArgumentException argEcxeption)
+            {
+                Utils.Tools.LogException("Cannot close the channel", argEcxeption);
+            }
             this.UnregisterDevice();
-
         }
 
         public void enablePushNotifications()
@@ -593,7 +590,6 @@ namespace WordPress.Utils
                         }
                         catch (InvalidOperationException) { }
                     }
-
                 }
                 else
                 {
