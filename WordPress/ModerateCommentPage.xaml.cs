@@ -27,6 +27,7 @@ namespace WordPress
         private ApplicationBarIconButton _approveIconButton;
         private ApplicationBarIconButton _unapproveIconButton;
         private StringTable _localizedStrings;
+        private bool _messageBoxIsShown = false;
 
         private bool _isEditing = false;
 
@@ -198,7 +199,11 @@ namespace WordPress
                 return;
             }
             string prompt = _localizedStrings.Prompts.ConfirmMarkSpamComment;
+            if (_messageBoxIsShown)
+                return;
+            _messageBoxIsShown = true;
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            _messageBoxIsShown = false;
             if (result == MessageBoxResult.OK)
             {
                 Comment comment = DataContext as Comment;
@@ -355,7 +360,11 @@ namespace WordPress
                 return;
             }
             string prompt = _localizedStrings.Prompts.ConfirmDeleteComment;
+            if (_messageBoxIsShown)
+                return;
+            _messageBoxIsShown = true;
             MessageBoxResult result = MessageBox.Show(prompt, _localizedStrings.Prompts.Confirm, MessageBoxButton.OKCancel);
+            _messageBoxIsShown = false;
             if (result == MessageBoxResult.OK)
             {
                 Comment comment = DataContext as Comment;
@@ -413,7 +422,11 @@ namespace WordPress
         {
             if (string.IsNullOrEmpty(replyEditTextBox.Text))
             {
+                if (_messageBoxIsShown)
+                    return;
+                _messageBoxIsShown = true;
                 MessageBox.Show(_localizedStrings.Messages.MissingFields);
+                _messageBoxIsShown = false;
                 replyEditTextBox.Focus();
                 return;
             }
@@ -440,7 +453,11 @@ namespace WordPress
         {
             if (string.IsNullOrEmpty(replyEditTextBox.Text))
             {
+                if (_messageBoxIsShown)
+                    return;
+                _messageBoxIsShown = true;
                 MessageBox.Show(_localizedStrings.Messages.MissingReply);
+                _messageBoxIsShown = false;
                 replyEditTextBox.Focus();
                 return;
             }
