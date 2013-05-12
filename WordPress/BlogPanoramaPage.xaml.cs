@@ -579,7 +579,15 @@ namespace WordPress
                 return;
             }
 
-            int index = _postListOptions.IndexOf(args.AddedItems[0] as string);
+            int index = 0;
+            string selectedMenuLabel = args.AddedItems[0] as string;
+            foreach (string value in App.PopupSelectionService.ItemsSource)
+            {
+                if (value == selectedMenuLabel)
+                    break;
+                else
+                    index++;  
+            }
 
             switch (index)
             {
@@ -1191,7 +1199,15 @@ namespace WordPress
                 return;
             }
 
-            int index = _pageListOptions.IndexOf(args.AddedItems[0] as string);
+            int index = 0;
+            string selectedMenuLabel = args.AddedItems[0] as string;
+            foreach (string value in App.PopupSelectionService.ItemsSource)
+            {
+                if (value == selectedMenuLabel)
+                    break;
+                else
+                    index++;
+            }
 
             switch (index)
             {
