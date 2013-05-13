@@ -14,7 +14,7 @@
         public const string JETPACK_SITE_URL = "http://jetpack.me";
         public const string WORDPRESS_CRASHREPORT_EMAIL = "windowsphone-crashreport@automattic.com";
         public const string WORDPRESS_DATEFORMAT = "yyyyMMddTH:mm:ss";
-        public const string WORDPRESS_USERAGENT = "wp-windowsphone/2.1.3";
+        public const string WORDPRESS_USERAGENT = "wp-windowsphone/2.1.4";
     }
 
     public class XmlRPCRequestConstants
