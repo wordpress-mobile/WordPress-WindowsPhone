@@ -31,6 +31,7 @@ namespace WordPress
         private ApplicationBarIconButton _approveIconButton;
         private ApplicationBarIconButton _unapproveIconButton;
         private StringTable _localizedStrings;
+        IXmlRemoteProcedureCall _currentConnection = null;
 
         private bool _isEditing = false;
 
@@ -113,7 +114,19 @@ namespace WordPress
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (Visibility.Visible == replyEditPanel.Visibility)
+            if (App.WaitIndicationService.Waiting)
+            {
+                if (null != _currentConnection)
+                {
+                    _currentConnection.IsCancelled = true;
+                    _currentConnection = null;
+                }
+                App.WaitIndicationService.HideIndicator();
+                ApplicationBar.IsVisible = true;
+                ChangeApplicationBarAppearance();
+                e.Cancel = true;
+            }
+            else if (Visibility.Visible == replyEditPanel.Visibility)
             {
                 HideReplyEditPanel();
                 e.Cancel = true;
@@ -216,6 +229,7 @@ namespace WordPress
                 EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
                 rpc.Completed += OnEditCommentRPCCompleted;
                 rpc.ExecuteAsync();
+                _currentConnection = rpc;
 
                 ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.MarkingAsSpam);
@@ -240,6 +254,7 @@ namespace WordPress
             EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
+            _currentConnection = rpc;
 
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.UnapprovingComment);
@@ -259,6 +274,7 @@ namespace WordPress
             EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
+            _currentConnection = rpc;
 
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ApprovingComment);
@@ -269,15 +285,15 @@ namespace WordPress
         {
             EditCommentRPC rpc = sender as EditCommentRPC;
             rpc.Completed -= OnEditCommentRPCCompleted;
+          
+            if (args.Cancelled)
+            {
+                return;
+            }
 
             ApplicationBar.IsVisible = true;
             App.WaitIndicationService.HideIndicator();
-           
-            if (args.Cancelled)
-            {
-                ChangeApplicationBarAppearance();
-            }
-            else if (null == args.Error)
+            if (null == args.Error)
             {
                 NavigationService.GoBack();
             }
@@ -434,6 +450,7 @@ namespace WordPress
                 DeleteCommentRPC rpc = new DeleteCommentRPC(this._currentBlog, comment);
                 rpc.Completed += OnDeleteCommentRPCCompleted;
                 rpc.ExecuteAsync();
+                _currentConnection = rpc;
 
                 ApplicationBar.IsVisible = false;
                 App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.DeletingComment);
@@ -451,6 +468,7 @@ namespace WordPress
 
             if (args.Cancelled)
             {
+                return;
             }
             else if (null == args.Error)
             {
@@ -499,6 +517,7 @@ namespace WordPress
             EditCommentRPC rpc = new EditCommentRPC(this._currentBlog, comment);
             rpc.Completed += OnEditCommentRPCCompleted;
             rpc.ExecuteAsync();
+            _currentConnection = rpc;
 
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.EditingComment);
@@ -532,6 +551,7 @@ namespace WordPress
             NewCommentRPC rpc = new NewCommentRPC(this._currentBlog, comment, reply);
             rpc.Completed += new XMLRPCCompletedEventHandler<Comment>(OnNewCommentRPCCompleted);
             rpc.ExecuteAsync();
+            _currentConnection = rpc;
 
             ApplicationBar.IsVisible = false;
             App.WaitIndicationService.ShowIndicator(_localizedStrings.Messages.ReplyingToComment);
@@ -544,6 +564,7 @@ namespace WordPress
 
             if (args.Cancelled)
             {
+                return;
             }
             else if (null == args.Error)
             {
