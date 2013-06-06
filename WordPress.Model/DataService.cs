@@ -8,6 +8,7 @@ using System.IO.IsolatedStorage;
 using System.Xml.Serialization;
 using System.Linq;
 using System.Windows;
+using System.Diagnostics;
 
 namespace WordPress.Model
 {
@@ -102,8 +103,16 @@ namespace WordPress.Model
         {
             using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                SerializeBlogs(isoStore);
-                SerializeStoreData(isoStore);
+                try
+                {
+                    SerializeBlogs(isoStore);
+                    SerializeStoreData(isoStore);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    return;
+                }
             }
         }
 
@@ -153,8 +162,16 @@ namespace WordPress.Model
         {
             using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                DeserializeBlogs(isoStore);
-                DeserializeStoreData(isoStore);
+                try
+                {
+                    DeserializeBlogs(isoStore);
+                    DeserializeStoreData(isoStore);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.Message);
+                    return;
+                }
             }
         }
 
@@ -164,22 +181,11 @@ namespace WordPress.Model
 
             using (IsolatedStorageFileStream isoStream = isoStore.OpenFile(BLOGS_FILENAME, FileMode.Open))
             {
-               /* StreamReader reader = new StreamReader(isoStream);
-                string rawGraph = reader.ReadToEnd();
-                isoStream.Position = 0;
-                */
                 XmlSerializer serializer = new XmlSerializer(typeof(ObservableCollection<Blog>));
-                try
+                var result = serializer.Deserialize(isoStream);
+                if (null != result && result is ObservableCollection<Blog>)
                 {
-                    var result = serializer.Deserialize(isoStream);
-                    if (null != result && result is ObservableCollection<Blog>)
-                    {
-                        Blogs = result as ObservableCollection<Blog>;
-                    }
-                }
-                catch (Exception)
-                {
-                    return;
+                    Blogs = result as ObservableCollection<Blog>;
                 }
             }
         }
@@ -197,14 +203,8 @@ namespace WordPress.Model
                 {
                     if (null != Blogs && 0 < Blogs.Count)
                     {
-                        try
-                        {
-                            CurrentBlog = Blogs.Single(b => b.Xmlrpc == result.Xmlrpc);
-                        }
-                        catch (Exception)
-                        {
-                            return;
-                        }
+
+                        CurrentBlog = Blogs.Single(b => b.Xmlrpc == result.Xmlrpc);
                     }
                 }
                 CurrentComment = result.Comment;
