@@ -579,14 +579,18 @@ namespace WordPress
         private void authorEmailTextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Comment comment = DataContext as Comment;
-            if (comment.AuthorEmail == null || comment.AuthorEmail.Equals(""))
+            if (comment == null || comment.AuthorEmail == null || comment.AuthorEmail.Trim().Equals(""))
             {
                 return; // No email address so don't show the compose task.
             }
+
+            String commentAuthor = comment.Author != null ? comment.Author : comment.AuthorEmail;
+            String postTitle = comment.PostTitle != null ? comment.PostTitle : "";
+
             EmailComposeTask emailcomposer = new EmailComposeTask();
             emailcomposer.To = comment.AuthorEmail;
-            emailcomposer.Subject = String.Format("Re: {0}", comment.PostTitle);
-            emailcomposer.Body = String.Format("{0} {1},", _localizedStrings.Messages.Hello, comment.Author);
+            emailcomposer.Subject = String.Format("Re: {0}", postTitle);
+            emailcomposer.Body = String.Format("{0} {1},", _localizedStrings.Messages.Hello, commentAuthor);
             emailcomposer.Show();
         }
 
