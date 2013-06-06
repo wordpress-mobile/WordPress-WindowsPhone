@@ -824,9 +824,16 @@ namespace WordPress
             }
             else if (null == args.Error)
             {
-                string postId = args.Items[0].PostId;
-                var postListItem = App.MasterViewModel.CurrentBlog.PostListItems.Single(item => postId.Equals(item.PostId));
-                App.MasterViewModel.CurrentBlog.PostListItems.Remove(postListItem);
+                try
+                {
+                    string postId = args.Items[0].PostId;
+                    var postListItem = App.MasterViewModel.CurrentBlog.PostListItems.Single(item => postId.Equals(item.PostId));
+                    App.MasterViewModel.CurrentBlog.PostListItems.Remove(postListItem);
+                }
+                catch (Exception e)
+                {
+                    Tools.LogException("Post was removed from the server, but an error occurred when removing it from the local DB", e);
+                }
             }
             else
             {
@@ -1426,8 +1433,15 @@ namespace WordPress
             else if (null == args.Error)
             {              
                 string pageId = args.Items[0].PostId;
-                var pageListItem = App.MasterViewModel.CurrentBlog.PageListItems.Single(item => pageId.Equals(item.PageId));
-                App.MasterViewModel.CurrentBlog.PageListItems.Remove(pageListItem);
+                try
+                {
+                    var pageListItem = App.MasterViewModel.CurrentBlog.PageListItems.Single(item => pageId.Equals(item.PageId));
+                    App.MasterViewModel.CurrentBlog.PageListItems.Remove(pageListItem);
+                }
+                catch (Exception e)
+                {
+                    Tools.LogException("Page was removed from the server, but an error occurred when removing it from the local DB", e);
+                }
             }
             else
             {
