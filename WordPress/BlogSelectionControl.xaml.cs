@@ -36,6 +36,7 @@ namespace WordPress
             selectButton.Click += OnSelectButtonClick;
 
             blogListBox.SelectionChanged += new SelectionChangedEventHandler(OnBlogListBoxSelectionChanged);
+            blogListBox.IsSelectionEnabled = true; 
 		}
 
         #endregion
