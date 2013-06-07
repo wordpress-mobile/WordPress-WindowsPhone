@@ -96,17 +96,29 @@ namespace WordPress
 
         private void SetType()
         {
-            List<string> statusList = new List<string>() { 
+
+            if (App.MasterViewModel.CurrentBlog.isWPcom())
+            {
+                List<string> statusList = new List<string>() { 
                 _localizedStrings.ControlsText.ThumbnailGrid,
                 _localizedStrings.ControlsText.Tiles,
                 _localizedStrings.ControlsText.SquareTiles,
                 _localizedStrings.ControlsText.Circles,
                 _localizedStrings.ControlsText.Slideshow,
             };
-
-            typePicker.ItemsSource = statusList;
-
-            typePicker.SelectedIndex = (int)_post.Gallery.Type;
+                typePicker.ItemsSource = statusList;
+                typePicker.SelectedIndex = (int)_post.Gallery.Type;
+            }
+            else
+            {
+                List<string> statusList = new List<string>() { 
+                _localizedStrings.ControlsText.ThumbnailGrid,
+                _localizedStrings.ControlsText.Slideshow,
+            };
+                typePicker.ItemsSource = statusList;
+                int selected_index = ((int)_post.Gallery.Type) == 0 ? 0 : 1;
+                typePicker.SelectedIndex = selected_index;
+            }
         }
 
         private void SetPlacement()
@@ -129,7 +141,10 @@ namespace WordPress
             _post.Gallery.Enabled = true;
             _post.Gallery.LinkTo = (eGalleryLinkTo) linkToPicker.SelectedIndex;
             _post.Gallery.Columns = Convert.ToInt32(columnsPicker.Items[columnsPicker.SelectedIndex]);
-            _post.Gallery.Type = (eGalleryType) typePicker.SelectedIndex;
+            if(App.MasterViewModel.CurrentBlog.isWPcom())
+                _post.Gallery.Type = (eGalleryType) typePicker.SelectedIndex;
+            else
+                _post.Gallery.Type = typePicker.SelectedIndex == 0 ? eGalleryType.Default : eGalleryType.Slideshow;
             _post.Gallery.RandomOrder = (bool) randomOrderCheckbox.IsChecked;
             _post.Gallery.ContentBelow = placementPicker.SelectedIndex == 1;
         }

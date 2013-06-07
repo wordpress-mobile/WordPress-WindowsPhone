@@ -899,8 +899,8 @@ namespace WordPress
             if (App.MasterViewModel.CurrentPost == null)
                 return;
 
-            //Gallery only on wpcom.
-            if (App.MasterViewModel.CurrentBlog.isWPcom() == false)
+            //Gallery only on wpcom, or WP > 3.5
+            if (App.MasterViewModel.CurrentBlog.isWPcom() == false && App.MasterViewModel.CurrentBlog.SupportsGallery() == false)
                 return; 
 
             Post post = App.MasterViewModel.CurrentPost;

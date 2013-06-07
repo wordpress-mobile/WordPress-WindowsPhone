@@ -560,6 +560,32 @@ namespace WordPress.Model
             return false;
         }
 
+        //See http://codex.wordpress.org/Gallery_Shortcode
+        public bool SupportsGallery()
+        {
+            foreach (Option o in Options)
+            {
+                if (o.Name.Equals("software_version"))
+                {
+                    try
+                    {
+                        Version minRequired = new Version(3, 5);
+                        String verNum = o.Value;
+                        Version currentWordPressVersion = new Version(verNum);
+                        if (currentWordPressVersion >= minRequired)
+                            return true;
+                        else
+                            return false;
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+
         public bool hasJetpack()
         {
             if (this.isWPcom()) return false;

@@ -80,7 +80,7 @@ namespace WordPress.Model
  
      public enum eGalleryType
      {
-         Default,
+         Default = 0,
          Tiles,
          SquareTiles,
          Circles,
