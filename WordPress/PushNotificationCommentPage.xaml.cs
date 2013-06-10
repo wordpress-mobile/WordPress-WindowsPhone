@@ -139,6 +139,10 @@ namespace WordPress
 
         private void OnEditCommentMenuItemClick(object sender, EventArgs e)
         {
+
+            if (_currentComment == null)
+                return;
+
             if (!App.isNetworkAvailable())
             {
                 Exception connErr = new NoConnectionException();
@@ -392,6 +396,14 @@ namespace WordPress
                         DataContext = comment;
                     }
                 }
+
+                if (_currentComment == null)
+                {
+                    UIThread.Invoke(() =>
+                    {
+                        MessageBox.Show("Could not load the comment!", _localizedStrings.Messages.Info, MessageBoxButton.OK);
+                    });
+                }
             }
             else
             {
@@ -406,11 +418,11 @@ namespace WordPress
 
         private void ChangeApplicationBarAppearance()
         {
+            if (_currentComment == null)
+                return;//not yet loaded
+            
             //change the available options based on the status of the comment
             Comment comment = DataContext as Comment;
-
-            if (comment == null)
-                return;//not yet loaded
 
             ApplicationBar.Buttons.Clear();
 
