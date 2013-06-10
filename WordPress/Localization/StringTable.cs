@@ -217,7 +217,7 @@ namespace WordPress.Localization
             public string Moderate { get { return LocalizedResources.ControlText_Moderate; } }
             public string Counts { get { return LocalizedResources.ControlText_Counts; } }
             public string Go { get { return LocalizedResources.ControlText_Go; } }
-            public string Dashboard { get { return LocalizedResources.ControlText_Dashboard; } }
+            public string ViewAdmin { get { return LocalizedResources.ControlText_ViewAdmin; } }
             public string ViewSite { get { return LocalizedResources.ControlText_ViewSite; } }
             public string VisualContentEditor { get { return LocalizedResources.ControlText_VisualContentEditor; } }
             public string TextContentEditor { get { return LocalizedResources.ControlText_TextContentEditor; } }

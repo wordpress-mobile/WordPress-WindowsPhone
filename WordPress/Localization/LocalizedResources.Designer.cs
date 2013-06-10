@@ -457,15 +457,6 @@ namespace WordPress.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dashboard.
-        /// </summary>
-        internal static string ControlText_Dashboard {
-            get {
-                return ResourceManager.GetString("ControlText_Dashboard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string ControlText_Date {
@@ -1497,6 +1488,15 @@ namespace WordPress.Localization {
         internal static string ControlText_Vibrate {
             get {
                 return ResourceManager.GetString("ControlText_Vibrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to view admin.
+        /// </summary>
+        internal static string ControlText_ViewAdmin {
+            get {
+                return ResourceManager.GetString("ControlText_ViewAdmin", resourceCulture);
             }
         }
         

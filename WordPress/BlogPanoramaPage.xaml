@@ -273,7 +273,7 @@
                         </Button.Background>
                         <StackPanel Height="70" Width="188">
                             <!-- Image Source="Images/actionsStats.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,2,0,0"/ -->
-                            <TextBlock Text="{Binding ControlsText.Dashboard, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
+                            <TextBlock Text="{Binding ControlsText.ViewAdmin, Source={StaticResource StringTable}}" TextWrapping="Wrap" 
                     			VerticalAlignment="Bottom" Margin="0,36,10,0" HorizontalAlignment="Right" 
                     			TextAlignment="Right" Foreground="White"/>
                         </StackPanel>
