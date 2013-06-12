@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+	<data name="ControlText_ViewAdmin" xml:space="preserve">
+		<value>ver administración</value>
+	</data>
 	<data name="Prompt_SelectSomeText" xml:space="preserve">
 		<value>Selecciona algo de texto</value>
 	</data>
@@ -134,9 +137,6 @@
 	</data>
 	<data name="ControlText_PublishStatus" xml:space="preserve">
 		<value>estado de publicación</value>
-	</data>
-	<data name="ControlText_AllowToastNotifications" xml:space="preserve">
-		<value>permitir notificaciones en pantalla</value>
 	</data>
 	<data name="ControlText_PushNotifications" xml:space="preserve">
 		<value>notificaciones push</value>
@@ -207,9 +207,6 @@
 	<data name="ControlText_FeaturedImageError" xml:space="preserve">
 		<value>no se pudo cargar la imagen</value>
 	</data>
-	<data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
-		<value>Hubo un error leyendo la imagen. ¿Todavía quieres cargar la entrada?</value>
-	</data>
 	<data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
 		<value>No se puede escribir la imagen en la memoria del dispositivo.</value>
 	</data>
@@ -221,9 +218,6 @@
 	</data>
 	<data name="ControlText_Go" xml:space="preserve">
 		<value>Ir</value>
-	</data>
-	<data name="ControlText_Dashboard" xml:space="preserve">
-		<value>tablero</value>
 	</data>
 	<data name="Prompts_JetpackNotAvailable" xml:space="preserve">
 		<value>Para ver las estadísticas necesitas Jetpack 1.9 o superior. ¿Quieres saber más?</value>
@@ -437,9 +431,6 @@
 	</data>
 	<data name="Prompts_MediaError" xml:space="preserve">
 		<value>Error de subida de archivos</value>
-	</data>
-	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>Lo siento, ha ocurrido un error subiendo el archivo multimeda. ¿Quieres seguir con la subida a la entrada?</value>
 	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
 		<value>insertar vínculo</value>
@@ -951,7 +942,4 @@
 	<data name="ControlText_AddBlog" xml:space="preserve">
 		<value>añadir blog</value>
 	</data>
-	<data name="ControlText_Reader" xml:space="preserve">
-		<value>Lector</value>
-	</data>
-  </root>
+</root>

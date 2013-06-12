@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
- 	<data name="Prompt_SelectSomeText" xml:space="preserve">
+  <data name="Prompt_SelectSomeText" xml:space="preserve">
 		<value>Markera text först.</value>
 	</data>
 	<data name="ControlText_VisualContentEditor" xml:space="preserve">
@@ -134,9 +134,6 @@
 	</data>
 	<data name="ControlText_PublishStatus" xml:space="preserve">
 		<value>publiceringsstatus</value>
-	</data>
-	<data name="ControlText_AllowToastNotifications" xml:space="preserve">
-		<value>tillåt popup-notifikationer</value>
 	</data>
 	<data name="ControlText_PushNotifications" xml:space="preserve">
 		<value>push-notifikationer</value>
@@ -207,9 +204,6 @@
 	<data name="ControlText_FeaturedImageError" xml:space="preserve">
 		<value>bilden kunde inte användas</value>
 	</data>
-	<data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
-		<value>Ett fel inträffade när bilden skulle läsas in. Vill du fortfarande publicera inlägget?</value>
-	</data>
 	<data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
 		<value>Kunde inte spara bilden i enhetens minne.</value>
 	</data>
@@ -221,9 +215,6 @@
 	</data>
 	<data name="ControlText_Go" xml:space="preserve">
 		<value>OK</value>
-	</data>
-	<data name="ControlText_Dashboard" xml:space="preserve">
-		<value>översikt</value>
 	</data>
 	<data name="Prompts_JetpackNotAvailable" xml:space="preserve">
 		<value>För att se statistik måste du ha version 1.9 eller högre av Jetpack-tillägget. Vill du veta mer?</value>
@@ -437,9 +428,6 @@
 	</data>
 	<data name="Prompts_MediaError" xml:space="preserve">
 		<value>Uppladdningsfel</value>
-	</data>
-	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>Tyvärr uppstod ett fel vid uppladdning av media. Vill du ändå ladda upp inlägget?</value>
 	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
 		<value>infoga länk</value>

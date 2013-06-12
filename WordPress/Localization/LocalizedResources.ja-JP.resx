@@ -117,7 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-		<data name="Prompt_SelectSomeText" xml:space="preserve">
+	<data name="Title_About" xml:space="preserve">
+		<value>サイトについて</value>
+	</data>
+	<data name="ControlText_About" xml:space="preserve">
+		<value>サイトについて</value>
+	</data>
+	<data name="ControlText_TermsOfService" xml:space="preserve">
+		<value>利用規約</value>
+	</data>
+	<data name="ControlText_PrivacyPolicy" xml:space="preserve">
+		<value>個人情報保護方針</value>
+	</data>
+	<data name="ControlText_Version" xml:space="preserve">
+		<value>バージョン</value>
+	</data>
+	<data name="ControlText_ViewAdmin" xml:space="preserve">
+		<value>管理画面を表示</value>
+	</data>
+	<data name="ControlText_AllowToastNotifications" xml:space="preserve">
+		<value>プッシュ通知を許可</value>
+	</data>
+	<data name="ControlText_BlockQuoteAppBarItem" xml:space="preserve">
+		<value>引用</value>
+	</data>
+	<data name="ControlText_BoldAppBarItem" xml:space="preserve">
+		<value>太字</value>
+	</data>
+	<data name="ControlText_DiscardChangesMenuItem" xml:space="preserve">
+		<value>変更を破棄</value>
+	</data>
+	<data name="ControlText_ItalicAppBarItem" xml:space="preserve">
+		<value>斜体</value>
+	</data>
+	<data name="ControlText_OrderedListMenuItem" xml:space="preserve">
+		<value>番号つきリスト</value>
+	</data>
+	<data name="ControlText_StrikeThroughMenuItem" xml:space="preserve">
+		<value>取り消し線</value>
+	</data>
+	<data name="ControlText_UnderlineMenuItem" xml:space="preserve">
+		<value>下線</value>
+	</data>
+	<data name="ControlText_UnorderedListMenuItem" xml:space="preserve">
+		<value>番号なしリスト</value>
+	</data>
+	<data name="ControlText_SwithToVisualEditorMenuItem" xml:space="preserve">
+		<value>ビジュアルエディターに切替</value>
+	</data>
+	<data name="ControlText_AppName" xml:space="preserve">
+		<value>WordPress for Windows Phone</value>
+	</data>
+	<data name="ControlText_OpenSource" xml:space="preserve">
+		<value>オープンソースライセンス</value>
+	</data>
+	<data name="Options_Actions_SharePage" xml:space="preserve">
+		<value>ページをシェア</value>
+	</data>
+	<data name="Options_Actions_SharePost" xml:space="preserve">
+		<value>投稿をシェア</value>
+	</data>
+	<data name="Prompt_SelectSomeText" xml:space="preserve">
 		<value>テキストを選択してください。</value>
 	</data>
 	<data name="ControlText_VisualContentEditor" xml:space="preserve">
@@ -134,9 +194,6 @@
 	</data>
 	<data name="ControlText_PublishStatus" xml:space="preserve">
 		<value>公開状態</value>
-	</data>
-	<data name="ControlText_AllowToastNotifications" xml:space="preserve">
-		<value>トースト通知を許可</value>
 	</data>
 	<data name="ControlText_PushNotifications" xml:space="preserve">
 		<value>プッシュ通知</value>
@@ -207,9 +264,6 @@
 	<data name="ControlText_FeaturedImageError" xml:space="preserve">
 		<value>画像を読み込めませんでした</value>
 	</data>
-	<data name="Prompts_MediaErrorNoPicture" xml:space="preserve">
-		<value>画像の読み込みの際にエラーが発生しました。画像なしで投稿をアップロードしますか ?</value>
-	</data>
 	<data name="Prompts_MediaErrorCannotWritePicture" xml:space="preserve">
 		<value>デバイスメモリに画像を書き込めませんでした。</value>
 	</data>
@@ -221,9 +275,6 @@
 	</data>
 	<data name="ControlText_Go" xml:space="preserve">
 		<value>Go</value>
-	</data>
-	<data name="ControlText_Dashboard" xml:space="preserve">
-		<value>ダッシュボード</value>
 	</data>
 	<data name="Prompts_JetpackNotAvailable" xml:space="preserve">
 		<value>統計情報にアクセスするには Jetpack 1.9 以降が必須です。詳細を表示しますか ?</value>
@@ -437,9 +488,6 @@
 	</data>
 	<data name="Prompts_MediaError" xml:space="preserve">
 		<value>メディアのアップロードエラー</value>
-	</data>
-	<data name="Prompts_MediaErrorContent" xml:space="preserve">
-		<value>メディアのアップロードに失敗しました。アップロードを続けますか ?</value>
 	</data>
 	<data name="ControlText_InsertLink" xml:space="preserve">
 		<value>リンクを挿入</value>
@@ -951,7 +999,4 @@
 	<data name="ControlText_AddBlog" xml:space="preserve">
 		<value>ブログを追加</value>
 	</data>
-	<data name="ControlText_Reader" xml:space="preserve">
-		<value>Reader</value>
-	</data>
-  </root>
+</root>
