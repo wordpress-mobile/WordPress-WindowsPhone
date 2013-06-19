@@ -112,7 +112,7 @@ namespace WordPress
         {
             if (progressBar.Visibility == Visibility.Visible)
             {
-                progressBar.Visibility = Visibility.Visible;
+                progressBar.Visibility = Visibility.Collapsed;
             } 
 
             base.OnBackKeyPress(e);            
@@ -134,8 +134,17 @@ namespace WordPress
         }
 
         private void startLoadingPostUsingLoginForm() {
-          
-                  
+
+
+            if (string.IsNullOrEmpty(_targetURL) || string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.Password)
+                || string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.Username) || string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.loginURL()))
+            {
+                MessageBox.Show("Can't open the page!");
+                if (NavigationService.CanGoBack)
+                    NavigationService.GoBack();
+                return;
+            }
+
             string responseContent = "<head>"
              + "<script type=\"text/javascript\">"
              + "function submitform(){document.loginform.submit();} </script>"
