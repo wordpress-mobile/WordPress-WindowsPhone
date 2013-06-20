@@ -135,7 +135,6 @@ namespace WordPress
 
         private void startLoadingPostUsingLoginForm() {
 
-
             if (string.IsNullOrEmpty(_targetURL) || string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.Password)
                 || string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.Username) || string.IsNullOrEmpty(App.MasterViewModel.CurrentBlog.loginURL()))
             {
