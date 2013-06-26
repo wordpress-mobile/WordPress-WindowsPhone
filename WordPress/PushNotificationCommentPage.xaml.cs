@@ -611,7 +611,7 @@ namespace WordPress
 
             Comment comment = DataContext as Comment;
 
-            if (comment.AuthorUrl == null || comment.AuthorUrl.Equals(""))
+            if (comment == null || comment.AuthorUrl == null || comment.AuthorUrl.Equals(""))
             {
                 return; // do nothing.
             }
