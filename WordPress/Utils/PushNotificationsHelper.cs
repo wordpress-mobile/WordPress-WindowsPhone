@@ -280,7 +280,7 @@ namespace WordPress.Utils
             foreach (KeyValuePair<String, String> entry in credentials)
             {
                 // do something with entry.Value or entry.Key
-                RegisterPushNotificationToken rpc = new RegisterPushNotificationToken(pushNotificationURL, entry.Key, entry.Value, "0", device_uuid, channelUri);
+                RegisterPushNotificationToken rpc = new RegisterPushNotificationToken(pushNotificationURL, entry.Key, entry.Value, "0", device_uuid, channelUri, getDeviceName());
                 if (sendBlogsList)
                 {
                     sendBlogsList = false; //Just send one blog list when thre more than one account
@@ -288,6 +288,11 @@ namespace WordPress.Utils
                 }
                 rpc.ExecuteAsync();
             }
+        }
+
+        private string getDeviceName()
+        {
+            return DeviceStatus.DeviceManufacturer + " " + DeviceStatus.DeviceName;
         }
 
         private void OnRegisterTokenCompleted(object sender, XMLRPCCompletedEventArgs<BooleanResponseObject> args)

@@ -12,6 +12,7 @@ namespace WordPress.Model
         private string _channelURI;
         private string _sandbox = "0";
         private string _device_uuid;
+        private string deviceName;
         String reqTemplate = "<?xml version=\"1.0\" ?>"+
            "<methodCall>" +
            "<methodName>{0}</methodName>" +
@@ -23,15 +24,17 @@ namespace WordPress.Model
            "<param><value><string>{5}</string></value></param>" +
            "<param><value><string>{6}</string></value></param>" +
            "<param><value><string>{7}</string></value></param>" +
+           "<param><value><string>{8}</string></value></param>" +
            "</params>" +
            "</methodCall>";
 
-        public RegisterPushNotificationToken(String url, string username, string password, string sandbox, string device_uuid, string channelURI)
+        public RegisterPushNotificationToken(String url, string username, string password, string sandbox, string device_uuid, string channelURI, string deviceName)
             : base(url, METHODNAME_VALUE, username, password)
         {
             this._sandbox = sandbox;
             this._device_uuid = device_uuid;
             this._channelURI = channelURI;
+            this.deviceName = deviceName;
         }
 
         protected override string BuildPostContentString()
@@ -45,7 +48,9 @@ namespace WordPress.Model
                this._device_uuid.HtmlEncode(),
                "win_phone",
                this._sandbox,
-               this._channelURI.HtmlEncode());
+               this._channelURI.HtmlEncode(),
+               deviceName
+               );
             return result;
         }
 
