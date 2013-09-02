@@ -396,7 +396,7 @@ namespace WordPress
         {
             Blog currentBlog = App.MasterViewModel.CurrentBlog;
 
-            BlogName.Text = currentBlog.BlogNameUpper;
+            BlogName.Text = string.IsNullOrEmpty(currentBlog.BlogNameUpper) ? "" : currentBlog.BlogNameUpper;
 
             bool isSharingPhoto = (App.MasterViewModel.SharingPhotoToken != null);
             
@@ -450,7 +450,7 @@ namespace WordPress
                     DataContext = post;
                     setStatus();
                     initPostFormatUI(post.PostFormat);
-                    if (post.MtKeyWords != "")
+                    if (!string.IsNullOrWhiteSpace(post.MtKeyWords))
                     {
                         tagsTextBox.Text = post.MtKeyWords;
                     }
