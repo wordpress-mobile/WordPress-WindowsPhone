@@ -323,6 +323,18 @@ namespace WordPress
             //save reply data if it is active
             if (Visibility.Visible == replyEditPanel.Visibility)
             {
+                if (State.ContainsKey(REPLYEDITPANELVISIBLE_VALUE))
+                {
+                    State.Remove(REPLYEDITPANELVISIBLE_VALUE);
+                }
+                if (State.ContainsKey(REPLYEDITTEXTBOXTEXT_VALUE))
+                {
+                    State.Remove(REPLYEDITTEXTBOXTEXT_VALUE);
+                }
+                if (State.ContainsKey(REPLYEDITPANELMODE_VALUE))
+                {
+                    State.Remove(REPLYEDITPANELMODE_VALUE);
+                }
                 State.Add(REPLYEDITPANELVISIBLE_VALUE, Visibility.Visible);
                 State.Add(REPLYEDITTEXTBOXTEXT_VALUE, replyEditTextBox.Text);
                 State.Add(REPLYEDITPANELMODE_VALUE, Convert.ToString(_isEditing));
